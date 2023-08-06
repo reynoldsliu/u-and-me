@@ -1,32 +1,70 @@
-2023-08-05 13:14:32.595 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 9460 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
-2023-08-05 13:14:32.599 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
-2023-08-05 13:14:32.600 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
-2023-08-05 13:14:32.760 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2023-08-05 13:14:32.761 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2023-08-05 13:14:33.978 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-05 13:14:34.021 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 11 ms. Found 0 JPA repository interfaces.
-2023-08-05 13:14:35.423 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
-2023-08-05 13:14:35.439 [INFO] [restartedMain] [173] Starting service [Tomcat]
-2023-08-05 13:14:35.440 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
-2023-08-05 13:14:35.562 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
-2023-08-05 13:14:35.563 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 2800 ms
-2023-08-05 13:14:36.233 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
-2023-08-05 13:14:36.768 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
-2023-08-05 13:14:36.828 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-05 13:14:36.969 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
-2023-08-05 13:14:37.202 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2023-08-05 13:14:37.379 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2023-08-05 13:14:37.637 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-05 13:14:37.650 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-05 13:14:37.728 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-08-05 13:14:38.091 [INFO] [restartedMain] [58] Adding welcome page: class path resource [static/index.html]
-2023-08-05 13:14:38.775 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
-2023-08-05 13:14:38.989 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
-2023-08-05 13:14:39.024 [INFO] [restartedMain] [61] Started UAndMeApplication in 7.248 seconds (JVM running for 8.033)
-2023-08-05 13:14:42.486 [INFO] [http-nio-8080-exec-2] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-08-05 13:14:42.487 [INFO] [http-nio-8080-exec-2] [525] Initializing Servlet 'dispatcherServlet'
-2023-08-05 13:14:42.489 [INFO] [http-nio-8080-exec-2] [547] Completed initialization in 2 ms
-2023-08-05 13:33:11.225 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=14m34s263ms691µs900ns).
-2023-08-05 17:12:34.858 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-05 17:12:34.871 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
-2023-08-05 17:12:34.874 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-06 01:06:04.518 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h52m59s45ms644µs800ns).
+2023-08-06 08:54:15.564 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7h48m17s122ms759µs800ns).
+2023-08-06 09:01:34.352 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=48s680ms992µs400ns).
+2023-08-06 11:01:55.166 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-06 11:01:55.175 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-06 11:01:55.183 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-06 11:33:29.592 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 23224 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-06 11:33:29.593 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-06 11:33:29.594 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-06 11:33:29.654 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-06 11:33:29.654 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-06 11:33:30.334 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-06 11:33:30.362 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2023-08-06 11:33:32.158 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-06 11:33:32.205 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-06 11:33:32.207 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-06 11:33:32.864 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-06 11:33:32.929 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-06 11:33:32.931 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3276 ms
+2023-08-06 11:33:33.997 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-06 11:33:34.368 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-06 11:33:34.447 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-06 11:33:34.571 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-06 11:33:34.759 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-06 11:33:34.953 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-06 11:33:35.195 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-06 11:33:35.205 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-06 11:33:35.347 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-06 11:33:36.486 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-06 11:33:36.647 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-06 11:33:36.679 [INFO] [restartedMain] [61] Started UAndMeApplication in 7.435 seconds (JVM running for 7.859)
+2023-08-06 11:33:42.355 [INFO] [http-nio-8080-exec-1] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-06 11:33:42.356 [INFO] [http-nio-8080-exec-1] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-06 11:33:42.357 [INFO] [http-nio-8080-exec-1] [547] Completed initialization in 1 ms
+2023-08-06 11:33:42.432 [WARN] [http-nio-8080-exec-1] [208] Resolved [org.springframework.web.bind.MissingPathVariableException: Required URI template variable 'attrId' for method parameter type Integer is not present]
+2023-08-06 12:26:53.897 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-06 12:26:53.905 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-06 12:26:53.915 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-06 13:55:04.448 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 20700 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-06 13:55:04.453 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-06 13:55:04.455 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-06 13:55:04.615 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-06 13:55:04.616 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-06 13:55:05.793 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-06 13:55:05.829 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 17 ms. Found 0 JPA repository interfaces.
+2023-08-06 13:55:07.329 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-06 13:55:07.352 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-06 13:55:07.353 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-06 13:55:07.846 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-06 13:55:07.902 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-06 13:55:07.903 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3285 ms
+2023-08-06 13:55:08.977 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-06 13:55:09.316 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-06 13:55:09.378 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-06 13:55:09.446 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-06 13:55:09.717 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-06 13:55:09.898 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-06 13:55:10.149 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-06 13:55:10.167 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-06 13:55:10.315 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-06 13:55:11.196 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-06 13:55:11.333 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-06 13:55:11.352 [INFO] [restartedMain] [61] Started UAndMeApplication in 7.663 seconds (JVM running for 8.506)
+2023-08-06 13:55:17.391 [INFO] [http-nio-8080-exec-1] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-06 13:55:17.392 [INFO] [http-nio-8080-exec-1] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-06 13:55:17.393 [INFO] [http-nio-8080-exec-1] [547] Completed initialization in 1 ms
+2023-08-06 14:07:45.435 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7m5s944ms746µs900ns).
+2023-08-06 14:10:10.300 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-06 14:10:10.303 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-06 14:10:10.308 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.

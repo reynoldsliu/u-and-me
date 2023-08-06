@@ -5,8 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
-@ServletComponentScan({"member.controller.*",
-		"member.controller.*"})
+@ServletComponentScan("attr.*")
 public class UAndMeApplication {
 
 	public static void main(String[] args) {
