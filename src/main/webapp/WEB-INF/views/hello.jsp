@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="import tw.idv.cha102.g7.attr.Attr.controller.*"%>
+<%@ page import="import tw.idv.cha102.g7.attr.Attr.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
@@ -74,7 +74,7 @@
 		<th>消費</th>
 		<th>檢舉原因</th>
 	</tr>
-	<%@ include file="page1.file" %> 
+	<!--<%@ include file="page1.file" %> -->
 	<c:forEach var="attrVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>
 			<td>${attrVO.id}</td>
@@ -103,7 +103,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<!--<%@ include file="page2.file" %>-->
 
 </body>
 </html>
