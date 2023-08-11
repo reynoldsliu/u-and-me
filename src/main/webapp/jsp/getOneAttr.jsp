@@ -5,7 +5,7 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%--
-    AttrService attrService = (AttrService) request.getAttribute("attrService");
+    AttractionService attractionService = (AttractionService) request.getAttribute("attractionService");
 --%>
 
 
@@ -76,27 +76,27 @@
 
 	<tr>
 
-    			<td>${attrVO.id}</td>
-    			<td>${attrVO.veri_sta}</td>
-    			<td>${attrVO.sta}</td>
-    			<td>${attrVO.name}</td>
-    			<td>${attrVO.addr}</td>
-    			<td>${attrVO.lon}</td>
-    			<td>${attrVO.lat}</td>
-    			<td>${attrVO.illa}</td>
-    			<td>${attrVO.type_id}</td>
-    			<td>${attrVO.buss_time}</td>
-    			<td>${attrVO.cost_range}</td>
-    			<td>${attrVO.rep}</td>
+    			<td>${attraction.id}</td>
+    			<td>${attraction.veri_sta}</td>
+    			<td>${attraction.sta}</td>
+    			<td>${attraction.name}</td>
+    			<td>${attraction.addr}</td>
+    			<td>${attraction.lon}</td>
+    			<td>${attraction.lat}</td>
+    			<td>${attraction.illa}</td>
+    			<td>${attraction.type_id}</td>
+    			<td>${attraction.buss_time}</td>
+    			<td>${attraction.cost_range}</td>
+    			<td>${attraction.rep}</td>
     			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/attr/attr.do" style="margin-bottom: 0px;">
     			     <input type="submit" value="修改">
-    			     <input type="hidden" name="id"  value="${attrVO.id}">
+    			     <input type="hidden" name="id"  value="${attraction.id}">
     			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
     			</td>
     			<td>
     			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/attr/attr.do" style="margin-bottom: 0px;">
     			     <input type="submit" value="刪除">
-    			     <input type="hidden" name="id"  value="${attrVO.id}">
+    			     <input type="hidden" name="id"  value="${attraction.id}">
     			     <input type="hidden" name="action" value="delete"></FORM>
     			</td>
     		</tr>

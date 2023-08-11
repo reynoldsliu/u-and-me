@@ -57,9 +57,9 @@ public class AttractionController {
 
         String url = "/jsp/getOneAttr.jsp";
 
-        Attraction attr = attractionService.getById(1);
+        Attraction attraction = attractionService.getById(1);
         HttpSession session = req.getSession();
-        session.setAttribute("attrVO", attr);
+        session.setAttribute("attraction", attraction);
 
         RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
         successView.forward(req, res);
@@ -70,8 +70,8 @@ public class AttractionController {
 
         String url = "/jsp/getAllAttr.jsp";
 
-        List<Attraction> attrs = attractionService.getAll();
-        req.setAttribute("attrs", attrs);
+        List<Attraction> attraction = attractionService.getAll();
+        req.setAttribute("attractions", attraction);
 
         RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
         successView.forward(req, res);
