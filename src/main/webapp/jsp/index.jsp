@@ -8,28 +8,33 @@
 <body>
 <h1>Welcome to Spring Boot</h1>
 
-<form action="/u-and-me/show/hello.jsp">
-    <a href="">go to show/hello.jsp</a>
+<form action="/u-and-me/jsp/hello.jsp">
+    <a href="">go to jsp/hello.jsp</a>
+    <input type="submit">
+</form>
+
+<form action="/u-and-me/jsp/hello.jsp">
+    <a href="">go to jsp/hello.jsp</a>
     <input type="submit">
 </form>
 
 <form action="getOneAttr">
-    <a href="">go to show/getOneAttr.jsp</a>
+    <a href="">go to jsp/getOneAttr.jsp</a>
     <input type="submit">
 </form>
 
 <form action="getAllAttr">
-    <a href="">go to show/getAllAttr.jsp</a>
+    <a href="">go to jsp/getAllAttr.jsp</a>
     <input type="submit">
 </form>
 
-<form action="/u-and-me/show/yt_layout.jsp">
-    <a href="">go to show/yt_layout.jsp</a>
+<form action="/u-and-me/jsp/yt_layout.jsp">
+    <a href="">go to jsp/yt_layout.jsp</a>
     <input type="submit">
 </form>
 
-<form action="/u-and-me/show/bootstrap12.jsp">
-    <a href="">go to show/bootstrap12.jsp</a>
+<form action="/u-and-me/jsp/bootstrap12.jsp">
+    <a href="">go to jsp/bootstrap12.jsp</a>
     <input type="submit">
 </form>
 

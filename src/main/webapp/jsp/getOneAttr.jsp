@@ -4,9 +4,9 @@
 <%@ page import="tw.idv.cha102.g7.attr.service.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
-<%
+<%--
     AttrService attrService = (AttrService) request.getAttribute("attrService");
-%>
+--%>
 
 
 
@@ -75,6 +75,7 @@
 	</tr>
 
 	<tr>
+
     			<td>${attrVO.id}</td>
     			<td>${attrVO.veri_sta}</td>
     			<td>${attrVO.sta}</td>

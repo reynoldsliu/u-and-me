@@ -1,7 +1,9 @@
-package tw.idv.cha102.g7.attr;
+package tw.idv.cha102.g7.attr.model.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tw.idv.cha102.g7.attr.AttrRepository;
+import tw.idv.cha102.g7.attr.model.Attr;
 
 import java.util.List;
 

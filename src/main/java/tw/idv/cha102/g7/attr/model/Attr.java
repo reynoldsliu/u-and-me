@@ -1,4 +1,4 @@
-package tw.idv.cha102.g7.attr;
+package tw.idv.cha102.g7.attr.model;
 
 
 import javax.persistence.Column;

@@ -1,4 +1,6 @@
-package tw.idv.cha102.g7.attr;
+package tw.idv.cha102.g7.attr.model.dao;
+
+import tw.idv.cha102.g7.attr.model.Attr;
 
 import java.util.List;
 

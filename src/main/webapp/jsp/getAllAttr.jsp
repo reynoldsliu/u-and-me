@@ -59,7 +59,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>所有員工資料 - listAllEmp.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h4><a href="index"><img src="jsp/images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -77,10 +77,13 @@
 		<th>營業時間</th>
 		<th>消費</th>
 		<th>檢舉原因</th>
+		<th>修改</th>
+        <th>刪除</th>
 	</tr>
 
 	<tr>
-	<c:forEach items="${attrs}" var="attrVO">
+		<%@ include file="/jsp/page1.file" %>
+	    <c:forEach items="${attrs}" var="attrVO">
 
     			<td>${attrVO.id}</td>
     			<td>${attrVO.veri_sta}</td>
@@ -94,6 +97,7 @@
     			<td>${attrVO.buss_time}</td>
     			<td>${attrVO.cost_range}</td>
     			<td>${attrVO.rep}</td>
+                <td>
     			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/attr/attr.do" style="margin-bottom: 0px;">
     			     <input type="submit" value="修改">
     			     <input type="hidden" name="id"  value="${attrVO.id}">
@@ -110,7 +114,7 @@
     		</c:forEach>
     		<input type="button" id="target" value="SUCCESS"></input>
 </table>
-
+<%@ include file="/jsp/page2.file" %>
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -124,6 +128,8 @@ btn_el.addEventListener('click',function(){
 
 
 });
+
+
 
 </script>
 </html>
