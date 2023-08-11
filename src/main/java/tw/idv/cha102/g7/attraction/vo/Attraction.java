@@ -1,4 +1,4 @@
-package tw.idv.cha102.g7.attr.model;
+package tw.idv.cha102.g7.attraction.vo;
 
 
 import javax.persistence.Column;
@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="attractions")
-public class Attr {
+public class Attraction {
     @Id
     @Column(name = "attr_id")
     private Integer id;

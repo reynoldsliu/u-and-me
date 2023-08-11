@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>AttrController</servlet-name>
-        <servlet-class>tw.idv.cha102.g7.attr.controller.AttrController</servlet-class>
+        <servlet-class>tw.idv.cha102.g7.attraction.controller.AttractionController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AttrController</servlet-name>

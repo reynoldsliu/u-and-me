@@ -1,4 +1,4 @@
-package tw.idv.cha102.g7.attr.controller;
+package tw.idv.cha102.g7.attraction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import tw.idv.cha102.g7.attr.model.Attr;
-import tw.idv.cha102.g7.attr.service.AttrService;
-import tw.idv.cha102.g7.attr.AttrRepository;
+import tw.idv.cha102.g7.attraction.vo.Attraction;
+import tw.idv.cha102.g7.attraction.service.AttractionService;
+import tw.idv.cha102.g7.attraction.AttractionRepository;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,16 +19,16 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-public class AttrController {
+public class AttractionController {
 
 //    @Autowired
 //    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
-    private AttrService attrService;
+    private AttractionService attractionService;
 
     @Autowired
-    private AttrRepository attrRepository;
+    private AttractionRepository attractionRepository;
 
     @GetMapping("/thymeleaf")
     public String thymeleafExample(Model model) {
@@ -46,8 +46,8 @@ public class AttrController {
 
 
     @GetMapping("/getAttr/{attrId}")
-    public Attr getAttr(@PathVariable Integer attrId){
-        Attr attr = attrService.getById(attrId);
+    public Attraction getAttr(@PathVariable Integer attrId){
+        Attraction attr = attractionService.getById(attrId);
         return attr;
     }
 
@@ -57,7 +57,7 @@ public class AttrController {
 
         String url = "/jsp/getOneAttr.jsp";
 
-        Attr attr = attrService.getById(1);
+        Attraction attr = attractionService.getById(1);
         HttpSession session = req.getSession();
         session.setAttribute("attrVO", attr);
 
@@ -70,7 +70,7 @@ public class AttrController {
 
         String url = "/jsp/getAllAttr.jsp";
 
-        List<Attr> attrs = attrService.getAll();
+        List<Attraction> attrs = attractionService.getAll();
         req.setAttribute("attrs", attrs);
 
         RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp

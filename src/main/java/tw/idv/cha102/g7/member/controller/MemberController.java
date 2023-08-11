@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import tw.idv.cha102.g7.member.MemberRepository;
 import tw.idv.cha102.g7.member.model.Member;
+import tw.idv.cha102.g7.member.service.MemberService;
 
 @Controller
 public class MemberController {
+
+    @Autowired
+    private MemberService memberService;
 
     @Autowired
     private MemberRepository memberRepository;
