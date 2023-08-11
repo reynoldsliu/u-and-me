@@ -1,10 +1,11 @@
 package tw.idv.cha102.g7.schedule.dao.impl;
 
-import com.example.demo.schedule.dao.ScheduleDao;
-import com.example.demo.schedule.vo.Schedule;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import tw.idv.cha102.g7.schedule.dao.ScheduleDao;
+import tw.idv.cha102.g7.schedule.vo.Schedule;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,18 +17,16 @@ import java.util.Map;
 @Component
 public class ScheduleDaoImpl implements ScheduleDao {
 
+
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private String INSERT_STMT =
+    @Autowired
+    private ScheduleRepository scheduleRepository;
 
-    private String GET_ALL_STMT =
-            "SELECT * FROM schedules order by sch_id";
     private String GET_ONE_STMT =
             "SELECT sch_id,sch_name,mem_id,sch_start,sch_end,sch_pub,sch_copy,sch_cost FROM schedules where sch_id = ?";
-    private String DELETE =
-            "DELETE FROM schedules where sch_id = ?";
-    private String
+
 
     @Override
     public void insert(Schedule schedule) {
@@ -69,96 +68,38 @@ public class ScheduleDaoImpl implements ScheduleDao {
 
     @Override
     public void deleteById(Integer schId) {
+        String sql = "DELETE FROM schedules where sch_id = :schId";
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("schId", schId);
 
-
+        namedParameterJdbcTemplate.update(sql, map);
 
     }
 
     @Override
     public Schedule getById(Integer schId) {
 
-        Schedule schedule = null;
-        ResultSet rs = null;
+        String sql = "SELECT sch_id,sch_name,mem_id,sch_start,sch_end,sch_pub,sch_copy,sch_cost FROM schedules WHERE sch_id = :schId order by sch_id";
 
-        try (Connection con = DriverManager.getConnection(url, userid, passwd);
-             PreparedStatement pstmt = con.prepareStatement(GET_ONE_STMT)) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("schId", schId);
 
-            Class.forName(driver);
+        List<Schedule> list = namedParameterJdbcTemplate.query(sql, map, new ScheduleRowMapper());
 
-            pstmt.setInt(1, schId);
-
-            rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                // empVo 也稱為 Domain objects
-                schedule = new Schedule();
-                schedule.setSchId(rs.getInt("sch_id"));
-                schedule.setSchName(rs.getString("sch_name"));
-                schedule.setMemId(rs.getInt("mem_id"));
-                schedule.setSchStart(rs.getDate("sch_start"));
-                schedule.setSchEnd(rs.getDate("sch_end"));
-                schedule.setSchPub(rs.getInt("sch_pub"));
-                schedule.setSchCopy(rs.getInt("sch_copy"));
-                schedule.setSchCost(rs.getInt("sch_cost"));
-            }
-
-            // Handle any driver errors
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Couldn't load database driver. "
-                    + e.getMessage());
-            // Handle any SQL errors
-        } catch (SQLException se) {
-            throw new RuntimeException("A database error occured. "
-                    + se.getMessage());
-            // Clean up JDBC resources
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
+        // 表示這個list裡面有數據
+        if (list.size() > 0) {
+            return list.get(0);
+        } else {
+            // 解決 index out of bound 問題
+            return null;
         }
-        return schedule;
     }
 
     @Override
     public List<Schedule> getAll() {
-        List<Schedule> list = new ArrayList<Schedule>();
-        Schedule schedule = null;
-
-        try (Connection con = DriverManager.getConnection(url, userid, passwd);
-             PreparedStatement pstmt = con.prepareStatement(GET_ALL_STMT);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            Class.forName(driver);
-
-            while (rs.next()) {
-                // empVO 也稱為 Domain objects
-                schedule = new Schedule();
-                schedule.setSchId(rs.getInt("sch_id"));
-                schedule.setSchName(rs.getString("sch_name"));
-                schedule.setMemId(rs.getInt("mem_id"));
-                schedule.setSchStart(rs.getDate("sch_start"));
-                schedule.setSchEnd(rs.getDate("sch_end"));
-                schedule.setSchPub(rs.getInt("sch_pub"));
-                schedule.setSchCopy(rs.getInt("sch_copy"));
-                schedule.setSchCost(rs.getInt("sch_cost"));
-                list.add(schedule); // Store the row in the list
-            }
-
-            // Handle any driver errors
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Couldn't load database driver. "
-                    + e.getMessage());
-            // Handle any SQL errors
-        } catch (SQLException se) {
-            throw new RuntimeException("A database error occured. "
-                    + se.getMessage());
-            // Clean up JDBC resources
-        }
-        return list;
+        // orElse()意義為:如果在資料庫中找不到此studentId數據，則此student object的值就會是null
+        List<Schedule> schedules = scheduleRepository.findAll();
+        return schedules;
     }
 }

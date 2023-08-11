@@ -1,6 +1,8 @@
 package tw.idv.cha102.g7.schedule.dao;
 
-import com.example.demo.schedule.vo.Schedule;
+
+
+import tw.idv.cha102.g7.schedule.vo.Schedule;
 
 import java.util.List;
 
