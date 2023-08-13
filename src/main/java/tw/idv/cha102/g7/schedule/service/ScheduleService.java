@@ -1,6 +1,6 @@
 package tw.idv.cha102.g7.schedule.service;
 
-import tw.idv.cha102.g7.schedule.vo.Schedule;
+import tw.idv.cha102.g7.schedule.entity.Schedule;
 
 import java.sql.Date;
 import java.util.List;

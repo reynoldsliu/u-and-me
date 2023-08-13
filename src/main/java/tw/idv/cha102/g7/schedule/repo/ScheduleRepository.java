@@ -1,9 +1,9 @@
-package tw.idv.cha102.g7.schedule.dao;
+package tw.idv.cha102.g7.schedule.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import tw.idv.cha102.g7.schedule.vo.Schedule;
+import tw.idv.cha102.g7.schedule.entity.Schedule;
 
 import java.sql.Date;
 import java.util.List;

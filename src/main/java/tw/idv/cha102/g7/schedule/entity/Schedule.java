@@ -1,4 +1,4 @@
-package tw.idv.cha102.g7.schedule.vo;
+package tw.idv.cha102.g7.schedule.entity;
 
 import lombok.Data;
 

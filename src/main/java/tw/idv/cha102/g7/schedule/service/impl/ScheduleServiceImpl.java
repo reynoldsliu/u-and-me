@@ -2,18 +2,15 @@ package tw.idv.cha102.g7.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.schedule.dao.ScheduleRepository;
+import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
-import tw.idv.cha102.g7.schedule.vo.Schedule;
+import tw.idv.cha102.g7.schedule.entity.Schedule;
 
 import java.sql.Date;
 import java.util.List;
 
 @Component
 public class ScheduleServiceImpl implements ScheduleService {
-
-//    @Autowired
-//    private ScheduleDao scheduleDao;
 
     @Autowired
     private ScheduleRepository repository;
