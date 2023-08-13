@@ -27,6 +27,11 @@ public class AttractionController {
     @Autowired
     private AttractionService attractionService;
 
+    /*
+    *
+    *
+    * */
+
     @Autowired
     private AttractionRepository attractionRepository;
 
@@ -63,6 +68,13 @@ public class AttractionController {
 
         RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
         successView.forward(req, res);
+    }
+
+    @RequestMapping("/getAllAttr")
+    public String getAllAttr(Model model) {
+        List<Attraction> attraction = attractionService.getAll();
+        model.addAttribute("attractions", attraction);
+        return "/jsp/getAllAttr.jsp";
     }
 
     @RequestMapping("/getAllAttr")

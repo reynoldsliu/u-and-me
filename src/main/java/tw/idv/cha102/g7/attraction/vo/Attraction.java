@@ -9,6 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="attractions")
 public class Attraction {
+    
     @Id
     @Column(name = "attr_id")
     private Integer id;

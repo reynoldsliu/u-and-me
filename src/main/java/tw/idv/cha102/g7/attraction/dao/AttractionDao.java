@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.attraction.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import tw.idv.cha102.g7.attraction.vo.Attraction;
 
 import java.util.List;
