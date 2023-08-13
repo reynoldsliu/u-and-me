@@ -1,53 +1,471 @@
-2023-08-11 09:15:08.933 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 3416 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
-2023-08-11 09:15:08.945 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
-2023-08-11 09:15:08.946 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
-2023-08-11 09:15:09.006 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2023-08-11 09:15:09.007 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2023-08-11 09:15:09.816 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-11 09:15:09.876 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 50 ms. Found 2 JPA repository interfaces.
-2023-08-11 09:15:10.238 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$f175afc8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2023-08-11 09:15:10.292 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
-2023-08-11 09:15:11.081 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
-2023-08-11 09:15:11.336 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 2329 ms
-2023-08-11 09:15:11.572 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
-2023-08-11 09:15:12.188 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
-2023-08-11 09:15:12.269 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-11 09:15:12.366 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
-2023-08-11 09:15:12.555 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2023-08-11 09:15:12.666 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2023-08-11 09:15:13.127 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-11 09:15:13.138 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-11 09:15:13.702 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-08-11 09:15:14.035 [INFO] [restartedMain] [58] Adding welcome page template: index
-2023-08-11 09:15:14.482 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
-2023-08-11 09:15:19.484 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 18780 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
-2023-08-11 09:15:19.486 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
-2023-08-11 09:15:19.486 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
-2023-08-11 09:15:19.554 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2023-08-11 09:15:19.554 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2023-08-11 09:15:20.311 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-08-11 09:15:20.386 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 67 ms. Found 2 JPA repository interfaces.
-2023-08-11 09:15:20.922 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$ffafee38] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2023-08-11 09:15:20.970 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
-2023-08-11 09:15:21.781 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
-2023-08-11 09:15:21.802 [INFO] [restartedMain] [173] Starting service [Tomcat]
-2023-08-11 09:15:21.803 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
-2023-08-11 09:15:22.065 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
-2023-08-11 09:15:22.094 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
-2023-08-11 09:15:22.095 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 2539 ms
-2023-08-11 09:15:22.384 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
-2023-08-11 09:15:22.924 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
-2023-08-11 09:15:22.997 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-08-11 09:15:23.063 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
-2023-08-11 09:15:23.324 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
-2023-08-11 09:15:23.434 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
-2023-08-11 09:15:23.917 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-08-11 09:15:23.924 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-08-11 09:15:24.710 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-08-11 09:15:25.035 [INFO] [restartedMain] [58] Adding welcome page template: index
-2023-08-11 09:15:25.661 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
-2023-08-11 09:15:25.780 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
-2023-08-11 09:15:25.798 [INFO] [restartedMain] [61] Started UAndMeApplication in 6.659 seconds (JVM running for 7.009)
-2023-08-11 09:19:51.899 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-08-11 09:19:51.901 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
-2023-08-11 09:19:51.906 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 10:05:36.769 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 24764 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 10:05:36.777 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 10:05:36.779 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 10:05:36.915 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 10:05:36.916 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 10:05:38.053 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 10:05:38.144 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 73 ms. Found 3 JPA repository interfaces.
+2023-08-13 10:05:38.737 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$6ada45e4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 10:05:38.789 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 10:05:39.692 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 10:05:39.707 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 10:05:39.707 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 10:05:40.135 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 10:05:40.183 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 10:05:40.184 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3253 ms
+2023-08-13 10:05:40.641 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 10:05:41.322 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 10:05:41.418 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 10:05:41.603 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 10:05:41.919 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 10:05:42.215 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 10:05:42.898 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 10:05:42.907 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:05:44.123 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 10:05:44.719 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 10:05:45.264 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 10:05:45.431 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 10:05:45.452 [INFO] [restartedMain] [61] Started UAndMeApplication in 9.34 seconds (JVM running for 10.363)
+2023-08-13 10:06:49.567 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:06:49.571 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 10:06:49.579 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 10:06:56.302 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 1568 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 10:06:56.305 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 10:06:56.306 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 10:06:56.418 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 10:06:56.419 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 10:06:57.902 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 10:06:58.024 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 103 ms. Found 3 JPA repository interfaces.
+2023-08-13 10:06:58.639 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$431146f6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 10:06:58.731 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 10:06:59.794 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 10:06:59.829 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 10:06:59.830 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 10:07:00.188 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 10:07:00.234 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 10:07:00.235 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3814 ms
+2023-08-13 10:07:00.641 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 10:07:01.169 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 10:07:01.267 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 10:07:01.459 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 10:07:01.717 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 10:07:01.945 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 10:07:02.649 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 10:07:02.660 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:07:03.795 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 10:07:04.405 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 10:07:05.229 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 10:07:05.505 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 10:07:05.548 [INFO] [restartedMain] [61] Started UAndMeApplication in 10.04 seconds (JVM running for 10.788)
+2023-08-13 10:07:34.130 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:07:34.133 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 10:07:34.142 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 10:07:38.727 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 17580 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 10:07:38.731 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 10:07:38.732 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 10:07:38.858 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 10:07:38.858 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 10:07:40.452 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 10:07:40.535 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 70 ms. Found 3 JPA repository interfaces.
+2023-08-13 10:07:41.136 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$d1a4df70] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 10:07:41.293 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 10:07:42.364 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 10:07:42.378 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 10:07:42.379 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 10:07:42.747 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 10:07:42.792 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 10:07:42.793 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3934 ms
+2023-08-13 10:07:43.446 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 10:07:44.061 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 10:07:44.321 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 10:07:44.388 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 10:07:44.649 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 10:07:44.869 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 10:07:45.566 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 10:07:45.579 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:07:46.359 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 10:07:47.137 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 10:07:48.137 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 10:07:48.294 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 10:07:48.321 [INFO] [restartedMain] [61] Started UAndMeApplication in 10.261 seconds (JVM running for 10.9)
+2023-08-13 10:08:31.032 [INFO] [http-nio-8080-exec-5] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-13 10:08:31.032 [INFO] [http-nio-8080-exec-5] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-13 10:08:31.032 [INFO] [http-nio-8080-exec-5] [547] Completed initialization in 0 ms
+2023-08-13 10:10:04.833 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:10:04.836 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 10:10:04.847 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 10:10:09.989 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 9656 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 10:10:09.993 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 10:10:09.996 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 10:10:10.188 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 10:10:10.188 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 10:10:11.445 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 10:10:11.542 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 82 ms. Found 3 JPA repository interfaces.
+2023-08-13 10:10:12.103 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$711b2e12] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 10:10:12.160 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 10:10:13.013 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 10:10:13.029 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 10:10:13.030 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 10:10:13.386 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 10:10:13.430 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 10:10:13.431 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3241 ms
+2023-08-13 10:10:13.929 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 10:10:14.554 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 10:10:14.641 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 10:10:14.824 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 10:10:15.028 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 10:10:15.216 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 10:10:15.868 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 10:10:15.875 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:10:16.829 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 10:10:17.543 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 10:10:18.335 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 10:10:18.486 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 10:10:18.520 [INFO] [restartedMain] [61] Started UAndMeApplication in 9.273 seconds (JVM running for 9.974)
+2023-08-13 10:10:25.737 [INFO] [http-nio-8080-exec-1] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-13 10:10:25.737 [INFO] [http-nio-8080-exec-1] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-13 10:10:25.737 [INFO] [http-nio-8080-exec-1] [547] Completed initialization in 0 ms
+2023-08-13 10:20:08.058 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:20:08.060 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 10:20:08.069 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 10:25:03.675 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 27156 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 10:25:03.677 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 10:25:03.679 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 10:25:03.832 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 10:25:03.833 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 10:25:05.254 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 10:25:05.349 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 78 ms. Found 3 JPA repository interfaces.
+2023-08-13 10:25:05.963 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$56c8725d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 10:25:06.054 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 10:25:07.266 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 10:25:07.291 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 10:25:07.292 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 10:25:07.744 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 10:25:07.794 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 10:25:07.795 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3959 ms
+2023-08-13 10:25:08.513 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 10:25:09.154 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 10:25:09.271 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 10:25:09.491 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 10:25:09.720 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 10:25:09.885 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 10:25:10.614 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 10:25:10.623 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:25:11.495 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 10:25:12.416 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 10:25:13.284 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 10:25:13.486 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 10:25:13.530 [INFO] [restartedMain] [61] Started UAndMeApplication in 10.7 seconds (JVM running for 11.599)
+2023-08-13 10:25:18.100 [INFO] [http-nio-8080-exec-2] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-13 10:25:18.101 [INFO] [http-nio-8080-exec-2] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-13 10:25:18.103 [INFO] [http-nio-8080-exec-2] [547] Completed initialization in 2 ms
+2023-08-13 10:28:30.263 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 10:28:30.266 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 10:28:30.273 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 12:09:36.432 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 2184 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 12:09:36.434 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 12:09:36.435 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 12:09:36.490 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 12:09:36.490 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 12:09:37.183 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 12:09:37.250 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 59 ms. Found 3 JPA repository interfaces.
+2023-08-13 12:09:37.615 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$2e2c8b0e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 12:09:37.652 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 12:09:38.255 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 12:09:38.270 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 12:09:38.270 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 12:09:38.476 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 12:09:38.496 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 12:09:38.497 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 2006 ms
+2023-08-13 12:09:38.702 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 12:09:39.026 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 12:09:39.089 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 12:09:39.128 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 12:09:39.337 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 12:09:39.443 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 12:09:39.821 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 12:09:39.825 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 12:09:40.453 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 12:09:40.804 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 12:09:41.276 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 12:09:41.362 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 12:09:41.374 [INFO] [restartedMain] [61] Started UAndMeApplication in 5.278 seconds (JVM running for 5.655)
+2023-08-13 12:09:47.965 [INFO] [http-nio-8080-exec-1] [175] Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x020x000x010x000x010xfc0x030x030xcd0x8b0xbb0x140xe9~0x9f0xef0x1eZ0xc4i0xed0xd00x9c\G0x19G0x0f`?h0x0f0x0d;0xb4Re0xfca0x85 ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:263)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-08-13 13:54:04.027 [WARN] [HikariPool-1 housekeeper] [788] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m23s338ms831µs700ns).
+2023-08-13 14:04:17.587 [INFO] [http-nio-8080-exec-2] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-13 14:04:17.588 [INFO] [http-nio-8080-exec-2] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-13 14:04:17.590 [INFO] [http-nio-8080-exec-2] [547] Completed initialization in 1 ms
+2023-08-13 14:04:25.471 [ERROR] [http-nio-8080-exec-3] [175] Servlet.service() for servlet [dispatcherServlet] in context with path [/u-and-me] threw exception [Request processing failed; nested exception is org.springframework.http.converter.HttpMessageConversionException: Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]; nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: tw.idv.cha102.g7.schedule.vo.Schedule$HibernateProxy$vZiGhvY5["hibernateLazyInitializer"])] with root cause
+com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: tw.idv.cha102.g7.schedule.vo.Schedule$HibernateProxy$vZiGhvY5["hibernateLazyInitializer"])
+	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:77)
+	at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1300)
+	at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:400)
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.failForEmpty(UnknownSerializer.java:46)
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.serialize(UnknownSerializer.java:29)
+	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:728)
+	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:774)
+	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178)
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480)
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:319)
+	at com.fasterxml.jackson.databind.ObjectWriter$Prefetch.serialize(ObjectWriter.java:1518)
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1007)
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:456)
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:183)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-08-13 14:05:24.620 [WARN] [http-nio-8080-exec-6] [208] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "A"]
+2023-08-13 14:06:54.170 [WARN] [http-nio-8080-exec-2] [208] Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "schName"]
+2023-08-13 14:09:42.127 [WARN] [http-nio-8080-exec-7] [208] Resolved [org.springframework.validation.BindException: org.springframework.validation.BeanPropertyBindingResult: 2 errors<EOL>Field error in object 'schedule' on field 'schEnd': rejected value ["2023-06-27"]; codes [typeMismatch.schedule.schEnd,typeMismatch.schEnd,typeMismatch.java.sql.Date,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [schedule.schEnd,schEnd]; arguments []; default message [schEnd]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'java.sql.Date' for property 'schEnd'; nested exception is org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.lang.String] to type [@javax.persistence.Column java.sql.Date] for value ["2023-06-27"]; nested exception is java.lang.IllegalArgumentException]<EOL>Field error in object 'schedule' on field 'schStart': rejected value ["2023-06-21"]; codes [typeMismatch.schedule.schStart,typeMismatch.schStart,typeMismatch.java.sql.Date,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [schedule.schStart,schStart]; arguments []; default message [schStart]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'java.sql.Date' for property 'schStart'; nested exception is org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.lang.String] to type [@javax.persistence.Column java.sql.Date] for value ["2023-06-21"]; nested exception is java.lang.IllegalArgumentException]]
+2023-08-13 14:31:10.359 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:31:10.362 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 14:31:10.367 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 14:32:33.222 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 23388 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 14:32:33.226 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 14:32:33.228 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 14:32:33.308 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 14:32:33.309 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 14:32:34.415 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 14:32:34.497 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 72 ms. Found 3 JPA repository interfaces.
+2023-08-13 14:32:34.994 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$340ef41c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 14:32:35.051 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 14:32:36.130 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 14:32:36.149 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 14:32:36.151 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 14:32:36.539 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 14:32:36.586 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 14:32:36.587 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3277 ms
+2023-08-13 14:32:37.006 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 14:32:37.628 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 14:32:37.702 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 14:32:37.888 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 14:32:38.249 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 14:32:38.507 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 14:32:39.147 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 14:32:39.153 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:32:40.258 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 14:32:40.939 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 14:32:41.605 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 14:32:41.816 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 14:32:41.843 [INFO] [restartedMain] [61] Started UAndMeApplication in 9.222 seconds (JVM running for 10.244)
+2023-08-13 14:32:54.254 [INFO] [http-nio-8080-exec-1] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-13 14:32:54.255 [INFO] [http-nio-8080-exec-1] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-13 14:32:54.256 [INFO] [http-nio-8080-exec-1] [547] Completed initialization in 1 ms
+2023-08-13 14:35:59.689 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:35:59.692 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 14:35:59.698 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 14:36:04.205 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 13980 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 14:36:04.209 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 14:36:04.211 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 14:36:04.335 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 14:36:04.336 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 14:36:05.675 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 14:36:05.930 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 230 ms. Found 3 JPA repository interfaces.
+2023-08-13 14:36:06.563 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$26ddbac] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 14:36:06.629 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 14:36:07.731 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 14:36:07.749 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 14:36:07.751 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 14:36:08.164 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 14:36:08.219 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 14:36:08.220 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3882 ms
+2023-08-13 14:36:08.681 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 14:36:09.265 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 14:36:09.350 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 14:36:09.533 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 14:36:09.750 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 14:36:09.974 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 14:36:10.668 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 14:36:10.678 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:36:11.825 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 14:36:12.368 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 14:36:13.165 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 14:36:13.341 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 14:36:13.381 [INFO] [restartedMain] [61] Started UAndMeApplication in 9.816 seconds (JVM running for 10.429)
+2023-08-13 14:36:32.081 [INFO] [http-nio-8080-exec-1] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-13 14:36:32.081 [INFO] [http-nio-8080-exec-1] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-13 14:36:32.090 [INFO] [http-nio-8080-exec-1] [547] Completed initialization in 9 ms
+2023-08-13 14:37:07.798 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:37:07.801 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 14:37:07.808 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 14:37:12.272 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 12096 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 14:37:12.277 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 14:37:12.279 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 14:37:12.412 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 14:37:12.413 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 14:37:13.832 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 14:37:13.928 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 79 ms. Found 3 JPA repository interfaces.
+2023-08-13 14:37:14.456 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$340ef41c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 14:37:14.530 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 14:37:15.465 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 14:37:15.484 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 14:37:15.485 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 14:37:15.841 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 14:37:15.878 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 14:37:15.879 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3465 ms
+2023-08-13 14:37:16.294 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 14:37:16.958 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 14:37:17.049 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 14:37:17.199 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 14:37:17.434 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 14:37:17.585 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 14:37:18.181 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 14:37:18.188 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:37:19.215 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 14:37:20.108 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 14:37:21.227 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 14:37:21.325 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 14:37:21.357 [INFO] [restartedMain] [61] Started UAndMeApplication in 9.78 seconds (JVM running for 10.602)
+2023-08-13 14:37:26.211 [INFO] [http-nio-8080-exec-1] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-13 14:37:26.212 [INFO] [http-nio-8080-exec-1] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-13 14:37:26.213 [INFO] [http-nio-8080-exec-1] [547] Completed initialization in 1 ms
+2023-08-13 14:43:30.470 [ERROR] [http-nio-8080-exec-3] [175] Servlet.service() for servlet [dispatcherServlet] in context with path [/u-and-me] threw exception [Request processing failed; nested exception is org.springframework.http.converter.HttpMessageConversionException: Type definition error: [simple type, class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor]; nested exception is com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: tw.idv.cha102.g7.schedule.vo.Schedule$HibernateProxy$DwaFlBCt["hibernateLazyInitializer"])] with root cause
+com.fasterxml.jackson.databind.exc.InvalidDefinitionException: No serializer found for class org.hibernate.proxy.pojo.bytebuddy.ByteBuddyInterceptor and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS) (through reference chain: tw.idv.cha102.g7.schedule.vo.Schedule$HibernateProxy$DwaFlBCt["hibernateLazyInitializer"])
+	at com.fasterxml.jackson.databind.exc.InvalidDefinitionException.from(InvalidDefinitionException.java:77)
+	at com.fasterxml.jackson.databind.SerializerProvider.reportBadDefinition(SerializerProvider.java:1300)
+	at com.fasterxml.jackson.databind.DatabindContext.reportBadDefinition(DatabindContext.java:400)
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.failForEmpty(UnknownSerializer.java:46)
+	at com.fasterxml.jackson.databind.ser.impl.UnknownSerializer.serialize(UnknownSerializer.java:29)
+	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:728)
+	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:774)
+	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178)
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider._serialize(DefaultSerializerProvider.java:480)
+	at com.fasterxml.jackson.databind.ser.DefaultSerializerProvider.serializeValue(DefaultSerializerProvider.java:319)
+	at com.fasterxml.jackson.databind.ObjectWriter$Prefetch.serialize(ObjectWriter.java:1518)
+	at com.fasterxml.jackson.databind.ObjectWriter.writeValue(ObjectWriter.java:1007)
+	at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:456)
+	at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:290)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:183)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:135)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1072)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:965)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:529)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:623)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:209)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:390)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2023-08-13 14:43:35.160 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:43:35.168 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 14:43:35.169 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
+2023-08-13 14:43:41.172 [INFO] [restartedMain] [55] Starting UAndMeApplication using Java 17.0.6 on LAPTOP-EGI1T3KO with PID 21692 (C:\u-and-me\target\classes started by T14 Gen 3 in C:\u-and-me)
+2023-08-13 14:43:41.175 [DEBUG] [restartedMain] [56] Running with Spring Boot v2.7.14, Spring v5.3.29
+2023-08-13 14:43:41.177 [INFO] [restartedMain] [631] No active profile set, falling back to 1 default profile: "default"
+2023-08-13 14:43:41.314 [INFO] [restartedMain] [255] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-13 14:43:41.315 [INFO] [restartedMain] [255] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-13 14:43:42.672 [INFO] [restartedMain] [132] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-13 14:43:42.774 [INFO] [restartedMain] [201] Finished Spring Data repository scanning in 91 ms. Found 3 JPA repository interfaces.
+2023-08-13 14:43:43.428 [INFO] [restartedMain] [376] Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$EnhancerBySpringCGLIB$$36f68a8f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-08-13 14:43:43.515 [INFO] [restartedMain] [239] Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2023-08-13 14:43:44.502 [INFO] [restartedMain] [108] Tomcat initialized with port(s): 8080 (http)
+2023-08-13 14:43:44.521 [INFO] [restartedMain] [173] Starting service [Tomcat]
+2023-08-13 14:43:44.523 [INFO] [restartedMain] [173] Starting Servlet engine: [Apache Tomcat/9.0.78]
+2023-08-13 14:43:44.970 [INFO] [restartedMain] [173] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2023-08-13 14:43:45.031 [INFO] [restartedMain] [173] Initializing Spring embedded WebApplicationContext
+2023-08-13 14:43:45.035 [INFO] [restartedMain] [292] Root WebApplicationContext: initialization completed in 3717 ms
+2023-08-13 14:43:45.761 [INFO] [restartedMain] [110] HikariPool-1 - Starting...
+2023-08-13 14:43:46.383 [INFO] [restartedMain] [123] HikariPool-1 - Start completed.
+2023-08-13 14:43:46.661 [INFO] [restartedMain] [31] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-13 14:43:46.731 [INFO] [restartedMain] [44] HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-08-13 14:43:47.015 [INFO] [restartedMain] [56] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-08-13 14:43:47.214 [INFO] [restartedMain] [175] HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-08-13 14:43:47.898 [INFO] [restartedMain] [52] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-13 14:43:47.908 [INFO] [restartedMain] [437] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:43:48.920 [WARN] [restartedMain] [223] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-13 14:43:49.667 [INFO] [restartedMain] [58] Adding welcome page template: index
+2023-08-13 14:43:52.058 [INFO] [restartedMain] [59] LiveReload server is running on port 35729
+2023-08-13 14:43:52.237 [INFO] [restartedMain] [220] Tomcat started on port(s): 8080 (http) with context path '/u-and-me'
+2023-08-13 14:43:52.268 [INFO] [restartedMain] [61] Started UAndMeApplication in 11.771 seconds (JVM running for 12.48)
+2023-08-13 14:43:54.004 [INFO] [http-nio-8080-exec-3] [173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-13 14:43:54.004 [INFO] [http-nio-8080-exec-3] [525] Initializing Servlet 'dispatcherServlet'
+2023-08-13 14:43:54.007 [INFO] [http-nio-8080-exec-3] [547] Completed initialization in 3 ms
+2023-08-13 14:46:57.412 [INFO] [SpringApplicationShutdownHook] [651] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-13 14:46:57.414 [INFO] [SpringApplicationShutdownHook] [350] HikariPool-1 - Shutdown initiated...
+2023-08-13 14:46:57.419 [INFO] [SpringApplicationShutdownHook] [352] HikariPool-1 - Shutdown completed.
