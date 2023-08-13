@@ -3,8 +3,8 @@ package tw.idv.cha102.g7.attraction.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.attraction.service.AttractionService;
-import tw.idv.cha102.g7.attraction.vo.Attraction;
-import tw.idv.cha102.g7.attraction.dao.AttractionDao;
+import tw.idv.cha102.g7.attraction.entity.Attraction;
+import tw.idv.cha102.g7.attraction.repo.AttractionRepository;
 
 import java.util.List;
 
@@ -12,15 +12,15 @@ import java.util.List;
 public class AttractionServiceImpl implements AttractionService {
 
     @Autowired
-    private AttractionDao attractionDao;
+    private AttractionRepository attractionRepository;
 
     @Override
     public Attraction getById(Integer attrId) {
-        return attractionDao.getById(attrId);
+        return attractionRepository.getById(attrId);
     }
 
     @Override
     public List<Attraction> getAll() {
-        return attractionDao.getAll();
+        return attractionRepository.findAll();
     }
 }
