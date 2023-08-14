@@ -15,7 +15,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
      * 依照行程名稱，查詢所有公開行程清單
      * */
     @Query(value = "SELECT * FROM schedules where sch_name like %?1% And sch_pub = 2", nativeQuery=true)
-    public List<Schedule> findBySchNameContaining(String schName);
+    public List<Schedule> findBySchName(String schName);
 
 
     /**

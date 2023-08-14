@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -40,5 +38,10 @@ public class Schedule {
 
     @Column(name = "sch_cost")
     private Integer schCost;
+
+    // 多對多(行程→行程標籤)
+//    @ManyToMany(mappedBy = "schedules",
+//                fetch = FetchType.EAGER)
+//    private List<ScheduleTag> scheduleTags;
 
 }

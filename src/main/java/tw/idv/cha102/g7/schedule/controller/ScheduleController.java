@@ -17,12 +17,14 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@RequestMapping("schedules")
 public class ScheduleController {
 
     @Autowired
     private ScheduleService service;
 
-    @PostMapping("/schedules/add")
+    // 可以新增，但若資料庫中有相同id的行程，資料會被覆蓋過去
+    @PostMapping("/add")
     ResponseEntity<?> insert(@RequestBody Schedule schedule) {
         try {
             service.add(schedule);
@@ -36,38 +38,38 @@ public class ScheduleController {
 
 
 
-    @PutMapping("/schedules/{schId}")
+    @PutMapping("/{schId}")
     public void update(@PathVariable Integer schId,
                        @RequestBody Schedule schedule) {
         service.updateById(schId, schedule);
     }
 
-    @GetMapping("/schedules/schId={schId}")
+    @GetMapping("/schId={schId}")
     public Schedule getById(@PathVariable Integer schId) {
         return service.getById(schId);
     }
 
     // 測試使用者查詢自己的所有行程
-    @GetMapping("/schedules/memId={memId}")
+    @GetMapping("/memId={memId}")
     public List<Schedule> getAllByMemId(@PathVariable Integer memId) {
         return service.getAllByMemId(memId);
     }
 
     // 測試查詢日期期間的公開行程，並依照起始日期排序
-    @RequestMapping(value = "/testsche2", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/datebetween", method = {RequestMethod.GET, RequestMethod.POST})
     public List<Schedule> findBetweenDate(@RequestBody Schedule schedule) {
         List<Schedule> schedules = service.findBetweenDate(schedule.getSchStart(), schedule.getSchEnd());
         return schedules;
     }
 
     // 測試關鍵字模糊比對查詢行程
-    @GetMapping("/testsche/name/{schName}")
+    @GetMapping("/name={schName}")
     public List<Schedule> findBySchName(@PathVariable String schName) {
         return service.findBySchName(schName);
     }
 
     // 測試查詢所有公開行程清單，並依照日期排序
-    @GetMapping("/testpublic")
+    @GetMapping("/public")
     public List<Schedule> getAllPub() {
         return service.getAllPublic();
     }
@@ -75,7 +77,7 @@ public class ScheduleController {
     // 測試屏蔽行程功能
     // 結果:網頁上沒有顯示資料，但成功將資料庫中行程公開權限改成私人檢視
     // 但輸入不存在的行程ID沒有報錯，頁面為全白
-    @GetMapping("/schedules/hide/id={schId}")
+    @GetMapping("/hide/id={schId}")
     ResponseEntity<?> hideById(@PathVariable Integer schId) {
         try {
             service.hideById(schId);
@@ -103,11 +105,9 @@ public class ScheduleController {
     // 測試寫法1:老師建議的寫法，待了解結構及測試，只有回傳jsp路徑，沒有導向其他網頁
     @RequestMapping("/getAllSchedules")
     public String getAllSchedules(Model model) {
-        List<Schedule> schedules = service.getAll();
-        model.addAttribute("schedules", schedules);
-
-        String url = "/jsp/getAllSche.jsp";
-        return url;
+        List<Schedule> schedule = service.getAll();
+        model.addAttribute("schedules", schedule);
+        return "/jsp/getAllSche.jsp";
     }
 
     // 測試寫法2: 原始寫法，可以跳轉網頁，但路徑設定似乎有誤

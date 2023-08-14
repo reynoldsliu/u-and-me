@@ -72,7 +72,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     public List<Schedule> findBySchName(String schName) {
-        return repository.findBySchNameContaining(schName);
+        return repository.findBySchName(schName);
     }
 
     public List<Schedule> getAll(){
