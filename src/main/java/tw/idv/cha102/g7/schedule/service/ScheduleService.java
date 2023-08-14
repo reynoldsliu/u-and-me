@@ -10,30 +10,36 @@ public interface ScheduleService {
     /**
      * 依行程ID，查詢單一行程內容
      */
-    public Schedule findById(Integer schId);
+    public Schedule getById(Integer schId);
 
     /**
      * 查詢單一行程，對行程內容進行修改
      */
-    public Schedule updateById(Integer schId, Schedule schedule);
+    public String updateById(Integer schId, Schedule schedule);
 
     /**
-     * 刪除一筆行程
+     * 屏蔽一筆行程
      */
-    public Schedule deleteById(Integer schId);
+    public void hideById(Integer schId);
 
     /**
      * 新增一筆行程
      */
-    public Schedule add(Schedule schedule);
+    public void add(Schedule schedule);
 
     /**
-     * 查詢所有行程清單
+     * 查詢使用者自己的所有行程清單
      */
-    public List<Schedule> getAllSchedules();
+    public List<Schedule> getAllByMemId(Integer memId);
 
+    /**
+     * 查詢所有公開行程清單，並依照起始日期排序
+     */
+    public List<Schedule> getAllPublic();
 
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd);
 
     public List<Schedule> findBySchName(String schName);
+
+    public List<Schedule> getAll();
 }
