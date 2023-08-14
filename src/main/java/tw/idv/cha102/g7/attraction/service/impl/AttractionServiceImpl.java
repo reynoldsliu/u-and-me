@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.attraction.service.impl;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.attraction.service.AttractionService;
@@ -16,6 +17,7 @@ public class AttractionServiceImpl implements AttractionService {
 
     @Override
     public Attraction getById(Integer attrId) {
+
         return attractionRepository.getById(attrId);
     }
 
