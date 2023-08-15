@@ -12,22 +12,23 @@
 //            })
 //            .catch(error => console.error("Fetch error:", error));
 //});
-$(document).ready(function () {
-        $("#loadAttraction").click(function () {
-            var id = $("#attractionId").val();
-            $.ajax({
-                url: "/getAttraction/" + id,
-                method: "GET",
-                success: function (data) {
-                    $("#attrName").text("Name: " + data.name);
-                    $("#attrDescription").text("Description: " + data.description);
-                    // You can continue to populate other attributes here
-                },
-                error: function () {
-                    alert("Attraction not found");
-                }
-            });
-        });
-    });
+//<script src="./js/jquery-3.7.0.min.js"></script>
+//$(document).ready(function () {
+//        $("#loadAttraction").click(function () {
+//            var id = $("#attractionId").val();
+//            $.ajax({
+//                url: "/getAttraction/" + id,
+//                method: "GET",
+//                success: function (data) {
+//                    $("#attrName").text("Name: " + data.name);
+//                    $("#attrDescription").text("Description: " + data.description);
+//                    // You can continue to populate other attributes here
+//                },
+//                error: function () {
+//                    alert("Attraction not found");
+//                }
+//            });
+//        });
+//    });
 
 

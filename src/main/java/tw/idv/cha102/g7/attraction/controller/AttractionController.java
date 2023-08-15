@@ -151,18 +151,20 @@ public class AttractionController {
     }
 
     @GetMapping("/getAttraction/{id}")
-    public ResponseEntity<Attraction> getAttractionById(@PathVariable Integer id) {
+    public ResponseEntity<String> getAttractionById(@PathVariable Integer id) {
         Attraction attraction = attractionService.getById(id);
         System.out.println("in");
         if (attraction != null) {
             System.out.println("success to found");
             System.out.println(attraction.toString());
-            return ResponseEntity.ok(attraction);
+            return ResponseEntity.ok(attraction.toString());
         } else {
             System.out.println("fail to found");
             System.out.println(attraction.toString());
             return ResponseEntity.notFound().build();
         }
     }
+
+
 
 }

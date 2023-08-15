@@ -42,9 +42,28 @@
 </form>
 
 <p th:text="${message}"></p>
-<script th:src="@{/js/scripts.js}"></script>
-<script src="js/jquery-3.7.0.min.js"></script>
+<!--<script th:src="@{/js/scripts.js}"></script>-->
+<script src="./js/jquery-3.7.0.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $("#loadAttraction").click(function () {
+            var id = $("#attractionId").val();
+            $.ajax({
+                url: "http://localhost:8081/u-and-me/getAttraction/" + id,
+                method: "GET",
+                success: function (data) {
+                console.log(data);
+                    $("#attrName").text("Name: " + data.id);
+                    $("#attrDescription").text("Description: " + data.name);
+                    // You can continue to populate other attributes here
+                },
+                error: function () {
+                    alert("Attraction not found");
+                }
+            });
+        });
+    });
+
 <!--    $(document).ready(function () {-->
 <!--        $("#loadAttraction").click(function () {-->
 <!--            var id = $("#attractionId").val();-->
