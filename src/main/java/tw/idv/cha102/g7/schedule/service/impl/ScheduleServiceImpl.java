@@ -3,6 +3,8 @@ package tw.idv.cha102.g7.schedule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
+import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
+import tw.idv.cha102.g7.schedule.repo.ScheduleDetailRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
@@ -15,10 +17,36 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired
     private ScheduleRepository repository;
 
+    @Autowired
+    private ScheduleDetailRepository sdrepository;
+
+    public List<Schedule> findAllPublic() {
+        return repository.findOrderBySchStart();
+    }
+
+    public List<Schedule> findBySchName(String schName) {
+        return repository.findBySchName(schName);
+    }
+
+    public List<Schedule> findBetweenDate(Date schStart, Date schEnd) {
+        return repository.findBetweenDate(schStart, schEnd);
+    }
+
+    @Override
+    public List<Schedule> getAllByMemId(Integer memId) {
+        List<Schedule> schedules = repository.findByMemId(memId);
+        return schedules;
+    }
+
     @Override
     public Schedule getById(Integer schId) {
         Schedule schedule = repository.findById(schId).orElse(null);
         return schedule;
+    }
+
+    @Override
+    public void add(Schedule schedule) {
+        repository.save(schedule);
     }
 
     @Override
@@ -43,7 +71,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     public void hideById(Integer schId) {
         // 先查詢此id的行程是否存在，再進行行程公開設定
         var schedule = repository.findById(schId);
-        if(schedule.isPresent()) {
+        if (schedule.isPresent()) {
             schedule.get().setSchPub(0);
             // 修改行程公開權限為0:私人檢視
             repository.save(schedule.get());
@@ -51,32 +79,18 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void add(Schedule schedule) {
-        repository.save(schedule);
+    public void deleteById(Integer schId){
+        repository.deleteById(schId);
     }
 
-    @Override
-    public List<Schedule> getAllByMemId(Integer memId) {
-        List<Schedule> schedules = repository.findByMemId(memId);
-        return schedules;
-    }
-
-    public List<Schedule> getAllPublic(){
-        List<Schedule> schedules = repository.findOrderBySchStart();
-        return schedules;
-    }
-
-
-    public List<Schedule> findBetweenDate(Date schStart, Date schEnd) {
-        return repository.findBetweenDate(schStart, schEnd);
-    }
-
-    public List<Schedule> findBySchName(String schName) {
-        return repository.findBySchName(schName);
-    }
-
-    public List<Schedule> getAll(){
+    public List<Schedule> getAll() {
         return repository.findAll();
     }
+
+//    @Override
+//    public List<ScheduleDetail> getOneScheDetail(Integer schId) {
+//        return sdrepository.findBySchId(schId);
+//    }
+
 
 }
