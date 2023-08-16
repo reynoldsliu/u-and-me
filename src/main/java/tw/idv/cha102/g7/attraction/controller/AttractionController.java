@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.attraction.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,10 @@ import java.io.IOException;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Controller
+import static tw.idv.cha102.g7.common.util.JsonUtil.GSON;
+import static tw.idv.cha102.g7.common.util.JsonUtil.writePojo2Json;
+
+@RestController
 //@RequestMapping("/attr")
 public class AttractionController {
 
@@ -127,6 +131,9 @@ public class AttractionController {
         return "yt_layout";
     }
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @GetMapping("/json-data")
     public Attraction postJsonData(HttpServletRequest request) throws JsonProcessingException {
         // 在这里处理接收到的 JSON 数据
@@ -151,18 +158,29 @@ public class AttractionController {
     }
 
     @GetMapping("/getAttraction/{id}")
-    public ResponseEntity<String> getAttractionById(@PathVariable Integer id) {
+    public String getAttractionById(@PathVariable Integer id) throws JsonProcessingException {
         Attraction attraction = attractionService.getById(id);
         System.out.println("in");
+        System.out.println(attraction);
         if (attraction != null) {
-            System.out.println("success to found");
-            System.out.println(attraction.toString());
-            return ResponseEntity.ok(attraction.toString());
+            String attractionJson = JSONObject.toJSONString(attraction);
+//            JSONObject.
+            return attractionJson;
+//            writePojo2Json(ResponseEntity<attraction>,attraction);
+//
+//            return ResponseEntity.ok(attraction.toString());
         } else {
-            System.out.println("fail to found");
-            System.out.println(attraction.toString());
-            return ResponseEntity.notFound().build();
+            return null;
         }
+    }
+
+    public static void main(String[] args) {
+        Attraction attraction = new Attraction();
+        attraction.setId(1);
+        attraction.setName("aaa");
+        String json = GSON.toJson(attraction);
+        System.out.println(attraction);
+        System.out.println(json);
     }
 
 

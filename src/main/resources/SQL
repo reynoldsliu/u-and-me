@@ -418,7 +418,7 @@ prodcat_id int,
 
 prod_name varchar(20),
 prod_con varchar(1000),
-prod_pri int,
+prod_price int,
 prod_qty int,
 prod_sta tinyint default 0,
 
