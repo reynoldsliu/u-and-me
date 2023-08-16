@@ -9,17 +9,17 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="product_collection")
-@Getter @Setter
+@Table(name = "product_collection")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductCollection  implements Serializable {
+public class ProductCollection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private static final long serialVersionUID = 1L;
-    @Column(name="prod_id")
+    @Column(name = "prod_id")
     private Integer prodId;
-    @Column(name="mem_id")
+    @Column(name = "mem_id")
     private Integer memId;
 }

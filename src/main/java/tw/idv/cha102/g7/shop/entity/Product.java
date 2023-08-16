@@ -9,30 +9,29 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="product")
-@Getter @Setter
+@Table(name = "product")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product implements Serializable {
+public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private static final long serialVersionUID = 1L;
-
-    @Column(name="prod_id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "prod_id")
     private Integer prodId;
-    @Column(name="prodcat_id")
+    @Column(name = "prodcat_id")
     private Integer prodCatId;
-    @Column(name="prod_name")
+    @Column(name = "prod_name")
     private String prodName;
-    @Column(name="prod_con")
+    @Column(name = "prod_con")
     private String prodCon;
-    @Column(name="prod_pri")
+    @Column(name = "prod_pri")
     private Integer prodPri;
-    @Column(name="prod_qty")
+    @Column(name = "prod_qty")
     private Integer prodQTY;
-    @Column(name="prod_sta")
+    @Column(name = "prod_sta")
     private Short prodSta;
-    @Column(name="prod_spec")
+    @Column(name = "prod_spec")
     private String prodSpec;
 }

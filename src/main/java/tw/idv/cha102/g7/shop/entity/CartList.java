@@ -1,29 +1,23 @@
 package tw.idv.cha102.g7.shop.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.io.Serializable;
+import javax.persistence.*;
 
 @Entity
-@Table(name="cart_list")
-@Getter @Setter
+@Table(name = "cart_list")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CartList implements Serializable {
+public class CartList {
 
-    private static final long serialVersionUID = 1L;
-    @Column(name="mem_id")
-    private Integer memberId;
-    @Column(name="prod_id")
-    private Integer prodId;
-    @Column(name="cart_pri")
-    private Integer cartPri ;
-    @Column(name="cart_qty")
+    @EmbeddedId
+    private CartListId id;
+
+    @Column(name = "cart_price")
+    private Integer cartPri;
+    @Column(name = "cart_qty")
     private Integer cartQty;
 }

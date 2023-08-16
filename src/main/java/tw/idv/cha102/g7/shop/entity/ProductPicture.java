@@ -9,20 +9,20 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="product_picture")
-@Getter @Setter
+@Table(name = "product_picture")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductPicture implements Serializable {
+public class ProductPicture {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private static final long serialVersionUID = 1L;
-    @Column(name="prodpic_id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "prodpic_id")
     private Integer prodPicId;
-    @Column(name="prod_id")
+    @Column(name = "prod_id")
     private Integer prodId;
-    @Column(name="prod_pic")
+    @Column(name = "prod_pic")
     private Byte prodPic;
 
 }

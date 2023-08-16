@@ -12,16 +12,15 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 
 @Entity
-@Table(name="product_category")
+@Table(name = "product_category")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductCategory implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ProductCategory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prodcat_id")
     private Integer prodCatId;
     @Column(name = "prodcat_name")
