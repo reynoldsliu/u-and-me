@@ -23,71 +23,99 @@ public class ScheduleController {
     @Autowired
     private ScheduleService service;
 
+
+
+    // 查詢所有公開行程清單，並依照日期排序
+    @GetMapping("/public")
+    public List<Schedule> findAllPublic() {
+        return service.findAllPublic();
+    }
+
+    // 依照行程名稱，查詢所有公開行程清單，並依照起始日期排序
+    @GetMapping("/name/{schName}")
+    public List<Schedule> findBySchName(@PathVariable String schName) {
+        return service.findBySchName(schName);
+    }
+
+    // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期排序
+    @RequestMapping(value = "/datebetween", method = {RequestMethod.GET, RequestMethod.POST})
+    public List<Schedule> findBetweenDate(@RequestBody @PathVariable Schedule schedule) {
+        List<Schedule> schedules = service.findBetweenDate(schedule.getSchStart(), schedule.getSchEnd());
+        return schedules;
+    }
+
+    // 查詢使用者自己所有建立過的行程清單
+    @GetMapping("/memId/{memId}")
+    public List<Schedule> getAllByMemId(@PathVariable Integer memId) {
+        return service.getAllByMemId(memId);
+    }
+
+    // 依行程ID，查詢單一行程內容
+    @GetMapping("/schId/{schId}")
+    public Schedule getOne(@PathVariable Integer schId) {
+        return service.getById(schId);
+    }
+
+    // 新增一筆行程
     // 可以新增，但若資料庫中有相同id的行程，資料會被覆蓋過去
     @PostMapping("/add")
     ResponseEntity<?> insert(@RequestBody Schedule schedule) {
         try {
             service.add(schedule);
             return ResponseEntity.ok().build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(e.getMessage());
         }
     }
 
-
-
+    // 對單一行程內容進行修改
     @PutMapping("/{schId}")
     public void update(@PathVariable Integer schId,
                        @RequestBody Schedule schedule) {
         service.updateById(schId, schedule);
     }
 
-    @GetMapping("/schId={schId}")
-    public Schedule getById(@PathVariable Integer schId) {
-        return service.getById(schId);
-    }
-
-    // 測試使用者查詢自己的所有行程
-    @GetMapping("/memId={memId}")
-    public List<Schedule> getAllByMemId(@PathVariable Integer memId) {
-        return service.getAllByMemId(memId);
-    }
-
-    // 測試查詢日期期間的公開行程，並依照起始日期排序
-    @RequestMapping(value = "/datebetween", method = {RequestMethod.GET, RequestMethod.POST})
-    public List<Schedule> findBetweenDate(@RequestBody Schedule schedule) {
-        List<Schedule> schedules = service.findBetweenDate(schedule.getSchStart(), schedule.getSchEnd());
-        return schedules;
-    }
-
-    // 測試關鍵字模糊比對查詢行程
-    @GetMapping("/name={schName}")
-    public List<Schedule> findBySchName(@PathVariable String schName) {
-        return service.findBySchName(schName);
-    }
-
-    // 測試查詢所有公開行程清單，並依照日期排序
-    @GetMapping("/public")
-    public List<Schedule> getAllPub() {
-        return service.getAllPublic();
-    }
-
-    // 測試屏蔽行程功能
+    // 屏蔽一筆行程功能
     // 結果:網頁上沒有顯示資料，但成功將資料庫中行程公開權限改成私人檢視
     // 但輸入不存在的行程ID沒有報錯，頁面為全白
-    @GetMapping("/hide/id={schId}")
-    ResponseEntity<?> hideById(@PathVariable Integer schId) {
+    @GetMapping("/hide/{schId}")
+    ResponseEntity<?> hide(@PathVariable Integer schId) {
         try {
             service.hideById(schId);
             return ResponseEntity.ok().build();
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(new ScheduleNotFoundException(schId));
         }
     }
+
+    @DeleteMapping("/delete/{schId}")
+    public ResponseEntity<Boolean> delete(@PathVariable Integer schId) {
+        try {
+            service.deleteById(schId);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
+    }
+
+    @GetMapping("/test123/{schId}")
+    public ResponseEntity<?> getOneScheDetail(@PathVariable Integer schId) {
+        try {
+            service.getById(schId);
+//            service.getOneScheDetail(schId);
+            return ResponseEntity.ok(service.getById(schId));
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(new ScheduleNotFoundException(schId));
+        }
+    }
+
+
 
     // ======================== 以上均經過測試且結果成功 ========================
     // ==================== 以下為經過測試且結果失敗，待查原因 ====================
@@ -135,7 +163,6 @@ public class ScheduleController {
 //            throw new ScheduleNotFoundException(schId);
 //        }
 //    }
-
 
 
 }

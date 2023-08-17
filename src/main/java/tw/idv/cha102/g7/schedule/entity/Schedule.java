@@ -39,6 +39,12 @@ public class Schedule {
     @Column(name = "sch_cost")
     private Integer schCost;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "sch_id", referencedColumnName = "sch_id")
+    private List<ScheduleDetail> scheduleDetails;
+
+
+
     // 多對多(行程→行程標籤)
 //    @ManyToMany(mappedBy = "schedules",
 //                fetch = FetchType.EAGER)
