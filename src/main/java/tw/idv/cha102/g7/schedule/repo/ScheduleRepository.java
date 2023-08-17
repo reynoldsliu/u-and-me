@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
-import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
 
 import java.sql.Date;
 import java.util.List;
@@ -27,6 +26,9 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     // 查詢使用者自己所有建立過的行程清單
     public List<Schedule> findByMemId(Integer memId);
 
-
+    @Query(value = "SELECT * FROM schedules s " +
+            "JOIN schedule_de sd ON s.sch_id = sd.sch_id " +
+            "WHERE s.sch_id = ?1 ORDER BY schde_starttime", nativeQuery = true)
+    public Schedule findByIdOrderByStarttime(Integer schId);
 
 }

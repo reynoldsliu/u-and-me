@@ -92,5 +92,11 @@ public class ScheduleServiceImpl implements ScheduleService {
 //        return sdrepository.findBySchId(schId);
 //    }
 
+    @Override
+    public Schedule getOneById(Integer schId) {
+        Schedule schedule = repository.findByIdOrderByStarttime(schId);
+        return schedule;
+    }
+
 
 }
