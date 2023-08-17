@@ -5,7 +5,7 @@ use main;
 
 -- members 許彤
 create table members (
-	mem_id int primary key,
+	mem_id int primary key, 
 	mem_email varchar(30),
 	mem_password varchar(20),
 	mem_name varchar(10),
@@ -34,7 +34,7 @@ select * from members;
 
 
 create table hosts (
-	host_id int primary key,
+	host_id int primary key, 
 	host_phone varchar(15),
 	host_email varchar(30),
 	host_password varchar(20),
@@ -60,7 +60,7 @@ select * from hosts;
 
 -- create schema onlineshoppingmall;
 -- use onlineshoppingmall;
-
+ 
  create table orders (
     ord_id int primary key,
     mem_id int,
@@ -145,14 +145,14 @@ create table `group`
     group_sta tinyint not null default 0
     -- constraint fk_mem_id
 --     foreign key (mem_id) references members(mem_id),
---
+--     
 --     constraint fk_sch_id
 --     foreign key (sch_id) references schedules(sch_id)
 );
 insert into `group` values (
 1, 1, 1, default, 10, 20,
 100000, '緯育4月遊', '2023-03-22 00:00', '2023-05-15 00:00',
-'2023-05-01 00:00', 'JAVA集訓營', '進入後肝可能變黑白的', default
+'2023-05-01 00:00', 'JAVA集訓營', '進入後肝可能變黑白的', default 
 );
 insert into `group`
 values
@@ -180,7 +180,7 @@ create table reg_form
     reg_time timestamp not null default current_timestamp
     -- constraint fk_mem_id
 --     foreign key (mem_id) references members(mem_id),
---
+--     
 --     constraint fk_group_id
 --     foreign key (group_id) references `group`(group_id)
 );
@@ -241,10 +241,10 @@ create table group_rep
     group_rep_sta TINYINT not null default 0
     -- constraint fk_mem_id
 --     foreign key (mem_id) references members(mem_id),
---
+--     
 --     constraint fk_group_id
 --     foreign key (group_id) references `group`(group_id),
---
+--     
 --     constraint fk_host_id
 --     foreign key (host_id) references hosts(host_id)
 );
@@ -276,7 +276,7 @@ create table group_picture
 insert into group_picture values (
 1, 1, null
 );
-insert into group_picture values
+insert into group_picture values 
 (101, 201, null),
 (102, 202, null),
 (103, 203, null),
@@ -323,7 +323,7 @@ attr_rep varchar(500)
 );
 
 INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep)
-VALUES
+VALUES 
   (1, 1, 3, 'Attraction 1', '123 Main St', 12.345, 67.890, 'Description for Attraction 1', 1, '9:00 AM - 5:00 PM', 2, 'Representative for Attraction 1'),
   (2, 0, 2, 'Attraction 2', '456 Park Ave', -45.678, 12.345, 'Description for Attraction 2', 3, '10:00 AM - 6:00 PM', 1, 'Representative for Attraction 2'),
   (3, 1, 1, 'Attraction 3', '789 Broad St', 98.765, -34.567, 'Description for Attraction 3', 2, '8:00 AM - 4:00 PM', 3, 'Representative for Attraction 3'),
@@ -334,7 +334,7 @@ VALUES
   (8, 0, 2, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', 3, '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
   (9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', 2, '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
   (10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', 1, '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
-
+  
 select * from attractions;
 -- drop table attractions;
 
@@ -448,7 +448,7 @@ prodpic_id int primary key,
 prod_id int,
 prod_pic mediumblob,
 constraint fk_prod_id
-foreign key(prod_id) references product (prod_id)
+foreign key(prod_id) references product (prod_id) 
 );
 
 -- 購物車清單 --
@@ -541,7 +541,7 @@ create table article (
     article_state tinyint default 0 comment '0:顯示 1:不顯示' -- not null
     -- constraint fk_mem_id
     -- foreign key (mem_id) references members(mem_id),
-    -- constraint fk_ac_type_id
+    -- constraint fk_ac_type_id 
     -- foreign key (ac_type_id) references article (ac_type_id)
 );
 insert into article (article_id, mem_id, ac_type_id, article_title, article_time, article_like, comment_num, article_con, article_state)
@@ -563,7 +563,7 @@ create table article_tag (
     ac_tag_id int primary key ,-- , auto_increment
     ac_tag_name varchar(80), -- uk, not null
     tag_sta tinyint default 0 comment '0:顯示 1:不顯示' -- not null
-
+    
 );
 
 insert into article_tag (ac_tag_id, ac_tag_name, tag_sta)
@@ -580,7 +580,7 @@ values
     (10, '嗨翻雙北夜市趴', 0);
 
 -- select * from article_tag;
-
+ 
  -- 貼文標籤明細
  create table article_tag_detail (
     ac_tag_id int , -- fk
@@ -611,7 +611,7 @@ values
 create table article_type (
     ac_type_id int primary key, -- ai
     ac_type_name varchar(80) -- not null
-
+   
 );
 
 insert into article_type (ac_type_id, ac_type_name)
@@ -620,7 +620,7 @@ values
 	(2, '行程'),
     (3, '揪團'),
 	(4, '商城');
-
+    
  -- select * from article_type;
  create table article_picture
 (
@@ -633,7 +633,7 @@ values
 insert into article_picture values (
 1, 1, null
 );
-insert into article_picture values
+insert into article_picture values 
 (101, 201, null),
 (102, 202, null),
 (103, 203, null),
@@ -699,7 +699,7 @@ VALUES
   (110, 210, '2023-07-28 19:20:00');
   -- select * from article_collection;
 
-
+ 
 -- 貼文內容檢舉
 create table article_rep (
     atc_report_id int primary key, -- ai
@@ -739,7 +739,7 @@ VALUES
   (9, 209, 109, 9, 4, 304, '2023-07-28 18:00:00', '違反社群守則', 1),
   (10, 210, 110, 10, 5, 305, '2023-07-28 19:20:00', '騷擾他人用戶', 0);
   -- select * from article_rep;
-
+  
 -- create schema customerservice 宇彤;
 -- use customerservice;
 
@@ -862,7 +862,7 @@ VALUES
   (9, 3, 109, '2023-06-23 12:00:00', '01:00:00', '00:15:00', 0, NULL, NULL, NULL),
   (10, 4, 110, '2023-06-24 09:30:00', '02:00:00', '00:30:00', 1, 'Parking Fee', 100, 'Remark 10');
 -- select * from schedule_de;
-
+  
 -- 行程檢舉
 create table schedule_rep(
 schrep_id int primary key, -- auto_increment
@@ -940,3 +940,64 @@ VALUES
   (7, 109),
   (7, 110);
 -- select * from schedule_tag_list;
+
+-- activity活動
+-- create schema activity;
+-- use activity;
+
+
+-- 活動
+create table activity(
+activ_id int primary key auto_increment,
+activ_pic mediumblob not null,
+activ_name varchar(20) not null,
+activ_con varchar(500) not null,
+activ_starttime datetime not null,
+activ_endtime datetime,
+activ_sta tinyint default 0 not null  -- 0:下架 1:上架
+);
+-- describe activity;
+
+-- INSERT INTO activity (activ_pic, activ_name, activ_con, activ_starttime, activ_endtime, activ_sta)
+-- VALUES
+--     (LOAD_FILE('/image1.jpg'), '家庭野餐日', '在公園中享受愉快的野餐時光，與家人一起共度美好時光。', '2023-07-28 10:00:00', '2023-07-28 12:00:00', 1),
+--     (LOAD_FILE('/image2.jpg'), '水上運動嘉年華', '來一場充滿刺激與樂趣的水上運動盛宴，感受水上樂園的魅力。', '2023-07-29 15:00:00', '2023-07-29 18:00:00', 1),
+--     (LOAD_FILE('/path/to/image3.jpg'), '城市探險之旅', '探索城市的角落與文化，發現城市中的瑰寶與故事。', '2023-07-30 09:30:00', '2023-07-30 11:30:00', 0),
+--     (LOAD_FILE('/path/to/image4.jpg'), '瑜伽與冥想工作坊', '學習瑜伽和冥想的技巧，平衡身心，感受寧靜與放鬆。', '2023-08-01 14:00:00', '2023-08-01 16:00:00', 1),
+--     (LOAD_FILE('/path/to/image5.jpg'), '小吃美食節', '品嚐來自世界各地的美食，滿足你的味蕾。', '2023-08-02 13:00:00', '2023-08-02 15:00:00', 1);
+
+
+-- 活動推薦行程
+create table activity_schedule_recommendation(
+sch_id int, 
+activ_id int,
+constraint pk_activity_schedule_recommendation primary key(sch_id, activ_id)
+-- constraint fk_sch_id foreign key (sch_id) references schedules(sch_id),
+-- constraint fk_activ_id foreign key (activ_id) references activity(activ_id)
+);
+-- describe activity_schedule_recommendation;
+
+INSERT INTO activity_schedule_recommendation (sch_id, activ_id)
+VALUES
+    (1, 1), -- 假設這裡的sch_id和activ_id在schedules表和activity表中都存在
+    (1, 2),
+    (2, 3),
+    (2, 4),
+    (3, 5);
+
+
+-- 心理測驗結果
+create table psytest_result(
+psytresult_id int primary key, 
+psytresult_name varchar(20) not null,
+psytresult_con varchar(500) not null
+);
+-- describe  psytest_result;
+
+INSERT INTO psytest_result (psytresult_id, psytresult_name, psytresult_con)
+VALUES
+    (1, '測試結果1', '這是測試結果1的描述'),
+    (2, '測試結果2', '這是測試結果2的描述'),
+    (3, '測試結果3', '這是測試結果3的描述'),
+    (4, '測試結果4', '這是測試結果4的描述'),
+    (5, '測試結果5', '這是測試結果5的描述');
