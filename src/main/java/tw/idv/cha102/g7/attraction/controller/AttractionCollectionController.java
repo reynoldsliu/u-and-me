@@ -12,4 +12,15 @@ public class AttractionCollectionController {
 //    public String addAttrToCollection(@RequestBody JSON attraction){
 //
 //    }
+
+    /*
+     * 加入景點收藏
+     * */
+
+    /*
+     * 移除景點收藏
+     * */
+
+
+
 }
