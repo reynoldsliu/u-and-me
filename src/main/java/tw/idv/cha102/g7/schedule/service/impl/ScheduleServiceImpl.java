@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
+import tw.idv.cha102.g7.schedule.entity.ScheduleTagDTO;
 import tw.idv.cha102.g7.schedule.repo.ScheduleDetailRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
@@ -81,7 +82,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void deleteById(Integer schId){
+    public void deleteById(Integer schId) {
         repository.deleteById(schId);
     }
 
@@ -96,5 +97,11 @@ public class ScheduleServiceImpl implements ScheduleService {
         return schedule;
     }
 
-
+    public List<ScheduleTagDTO> findTagsInOneSchdule(Integer schId){
+        List<Object[]> list = repository.findTagsByOneSchedule(schId);
+        List<ScheduleTagDTO> collect = list.stream().map(ScheduleTagDTO::new).collect(Collectors.toList());
+        return collect;
+    }
 }
+
+

@@ -44,14 +44,4 @@ public class Schedule {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sch_id", referencedColumnName = "sch_id")
     private List<ScheduleDetail> scheduleDetails;
-
-
-
-    // 多對多(行程→行程標籤)
-    @ManyToMany(mappedBy = "schedules",
-                fetch = FetchType.LAZY)
-//    @JsonManagedReference
-    @JsonBackReference
-    private List<ScheduleTag> scheduleTags;
-
 }
