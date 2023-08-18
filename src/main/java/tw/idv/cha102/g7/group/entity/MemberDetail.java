@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.group.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,4 +36,8 @@ public class MemberDetail implements Serializable {
     @Column(name = "refund_sta")
     private Integer refundSta;
 
+    @ManyToOne
+    @JoinColumn(name = "form_id", insertable = false,updatable = false)
+    @JsonBackReference
+    private RegForm regForm;
 }

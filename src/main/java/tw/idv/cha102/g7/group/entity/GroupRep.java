@@ -30,4 +30,5 @@ public class GroupRep implements Serializable {
     @Column(name = "group_rep_sta")
     private Integer groupRepSta;
 
+
 }

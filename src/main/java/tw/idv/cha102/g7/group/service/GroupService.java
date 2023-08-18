@@ -14,4 +14,12 @@ public interface GroupService {
     Group getGroupByGroupId(Integer groupId);
 
     List<Group> getAll();
+
+    List<Group> findByMemIdOrderByGroupStaDesc(Integer memId);
+//    List<Group> getGroupsByMemId(Integer memId);
+    List<Group> findByThemeContaining(String keyword);
+
+    List<Group> findGroupByGroupSta(Integer groupSta);
+
+    List<Group> findGroupByPaymentSta(Integer paymentSta);
 }

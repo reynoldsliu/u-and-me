@@ -50,4 +50,7 @@ public class Group implements Serializable {
     @Column(name = "payment_sta")
     private Integer paymentSta;
 
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+//    private List<GroupPicture> groupPictureList;
 }
