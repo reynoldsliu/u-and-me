@@ -105,9 +105,8 @@ public class ScheduleController {
     @GetMapping("/test123/{schId}")
     public ResponseEntity<?> getOneScheDetail(@PathVariable Integer schId) {
         try {
-            service.getById(schId);
-//            service.getOneScheDetail(schId);
-            return ResponseEntity.ok(service.getById(schId));
+//            service.getById(schId);
+            return ResponseEntity.ok(service.getOneById(schId));
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
