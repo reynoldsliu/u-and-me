@@ -1,7 +1,6 @@
 package tw.idv.cha102.g7.schedule.service;
 
 import tw.idv.cha102.g7.schedule.entity.Schedule;
-import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
 
 import java.sql.Date;
 import java.util.List;
@@ -40,4 +39,6 @@ public interface ScheduleService {
 
     // 測試一對多查詢行程及細節
 //    public List<ScheduleDetail> getOneScheDetail(Integer schId) ;
+
+    public Schedule getOneById(Integer schId);
 }
