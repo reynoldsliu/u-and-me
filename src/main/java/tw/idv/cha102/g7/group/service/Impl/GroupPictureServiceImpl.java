@@ -2,8 +2,8 @@ package tw.idv.cha102.g7.group.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.group.dao.GroupPictureDao;
 import tw.idv.cha102.g7.group.entity.GroupPicture;
+import tw.idv.cha102.g7.group.repo.GroupPictureRepository;
 import tw.idv.cha102.g7.group.service.GroupPictureService;
 
 import java.util.List;
@@ -12,27 +12,28 @@ import java.util.List;
 public class GroupPictureServiceImpl implements GroupPictureService {
 
     @Autowired
-    GroupPictureDao groupPictureDAO;
+    GroupPictureRepository groupPictureRepository;
 
     public void insert(GroupPicture groupPicture) {
-        groupPictureDAO.insert(groupPicture);
+        groupPictureRepository.save(groupPicture);
     }
 
     public void update(Integer groupPicId, GroupPicture groupPicture) {
         if (getGroupPictureByGroupPicId(groupPicId) != null) {
-            groupPictureDAO.update(groupPicId, groupPicture);
+            groupPicture.setGroupPicId(groupPicId);
+            groupPictureRepository.save(groupPicture);
         }
     }
 
-    public void delete(Integer groupPicId){
-        groupPictureDAO.delete(groupPicId);
+    public void delete(Integer groupPicId) {
+        groupPictureRepository.deleteById(groupPicId);
     }
 
-    public GroupPicture getGroupPictureByGroupPicId(Integer groupPicId){
-        return groupPictureDAO.getGroupPictureByGroupPicId(groupPicId);
+    public GroupPicture getGroupPictureByGroupPicId(Integer groupPicId) {
+        return groupPictureRepository.findById(groupPicId).orElse(null);
     }
 
-    public List<GroupPicture> getAll(){
-        return groupPictureDAO.getAll();
+    public List<GroupPicture> getAll() {
+        return (List<GroupPicture>) groupPictureRepository.findAll();
     }
 }

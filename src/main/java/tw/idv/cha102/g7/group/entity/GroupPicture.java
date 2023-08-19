@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 
 @Entity
 @Table(name = "group_picture")
@@ -23,7 +22,8 @@ public class GroupPicture implements Serializable {
     private Integer groupPicId;
     @Column(name = "group_id")
     private Integer groupId;
-    @Column(name = "group_pic")
+    @Column(name = "group_pic", columnDefinition = "MEDIUMBLOB")
+    @Lob
     private byte[] groupPic;
 
 

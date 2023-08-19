@@ -174,14 +174,14 @@ public class AttractionController {
         }
     }
 
-    public static void main(String[] args) {
-        Attraction attraction = new Attraction();
-        attraction.setId(1);
-        attraction.setName("aaa");
-        String json = GSON.toJson(attraction);
-        System.out.println(attraction);
-        System.out.println(json);
-    }
+//    public static void main(String[] args) {
+//        Attraction attraction = new Attraction();
+//        attraction.setId(1);
+//        attraction.setName("aaa");
+//        String json = GSON.toJson(attraction);
+//        System.out.println(attraction);
+//        System.out.println(json);
+//    }
 
 
 
