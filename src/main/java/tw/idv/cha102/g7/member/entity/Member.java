@@ -3,13 +3,13 @@ package tw.idv.cha102.g7.member.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
+
 @Data
 @Entity
 @Table(name = "members")
-public class Members {
+public class Member {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+//    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "mem_id")
     private Integer memId;
 
