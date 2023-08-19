@@ -17,17 +17,11 @@ public interface ScheduleService {
     // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期排序
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd);
 
-    // 查詢使用者自己所有建立過的行程清單
-    public List<Schedule> getAllByMemId(Integer memId);
-
-    // 依行程ID，查詢單一行程內容
+    // 依行程ID，查詢單一行程
     public Schedule getById(Integer schId);
 
     // 新增一筆行程
     public void add(Schedule schedule);
-
-    // 查詢單一行程後，對行程內容進行修改
-    public String updateById(Integer schId, Schedule schedule);
 
     // 屏蔽一筆行程
     public void hideById(Integer schId);
@@ -35,7 +29,7 @@ public interface ScheduleService {
     // 刪除一筆行程
     public void deleteById(Integer schId);
 
-    // 查詢所有行程清單
+    // 查詢所有行程清單(留著，暫時沒用到)
     public List<Schedule> getAll();
 
     // 測試一對多查詢行程及細節

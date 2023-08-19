@@ -12,16 +12,12 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
-//@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table(name = "schedule_tag_list")
 public class ScheduleTagListId implements Serializable {
 
-//    @Column(name = "sch_id")
     private Integer schId;
 
-//    @Column(name = "schtag_id")
     private Integer schTagId;
 
 

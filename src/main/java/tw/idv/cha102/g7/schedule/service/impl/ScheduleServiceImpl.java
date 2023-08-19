@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTagDTO;
-import tw.idv.cha102.g7.schedule.repo.ScheduleDetailRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
@@ -20,26 +19,21 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired
     private ScheduleRepository repository;
 
-    @Autowired
-    private ScheduleDetailRepository sdrepository;
-
+    @Override
     public List<Schedule> findAllPublic() {
         return repository.findOrderBySchStart();
     }
 
+    @Override
     public List<Schedule> findBySchName(String schName) {
         return repository.findBySchName(schName);
     }
 
+    @Override
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd) {
         return repository.findBetweenDate(schStart, schEnd);
     }
 
-    @Override
-    public List<Schedule> getAllByMemId(Integer memId) {
-        List<Schedule> schedules = repository.findByMemId(memId);
-        return schedules;
-    }
 
     @Override
     public Schedule getById(Integer schId) {
@@ -52,23 +46,6 @@ public class ScheduleServiceImpl implements ScheduleService {
         repository.save(schedule);
     }
 
-    @Override
-    public String updateById(Integer schId, Schedule schedule) {
-        // sche 為資料庫中已存在的行程，sche存在才能更新，否則回傳查詢不到資料
-        Schedule sche = repository.findById(schId).orElse(null);
-        if (sche != null) {  // schedule為欲修改的行程資料
-            sche.setSchName(schedule.getSchName());
-//            sche.setSchStart(schedule.getSchStart());
-//            sche.setSchEnd(schedule.getSchEnd());
-//            sche.setSchCost(schedule.getSchCost());
-//            sche.setSchPub(schedule.getSchPub());
-//            sche.setSchCopy(schedule.getSchCopy());
-            repository.save(sche);
-            return "更新成功！";
-        } else {
-            return "更新失敗，查詢的行程不存在";
-        }
-    }
 
     @Override
     public void hideById(Integer schId) {
@@ -86,6 +63,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         repository.deleteById(schId);
     }
 
+    @Override
     public List<Schedule> getAll() {
         return repository.findAll();
     }
@@ -97,6 +75,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return schedule;
     }
 
+    @Override
     public List<ScheduleTagDTO> findTagsInOneSchdule(Integer schId){
         List<Object[]> list = repository.findTagsByOneSchedule(schId);
         List<ScheduleTagDTO> collect = list.stream().map(ScheduleTagDTO::new).collect(Collectors.toList());

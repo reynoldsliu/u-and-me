@@ -27,11 +27,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     // 查詢使用者自己所有建立過的行程清單
     public List<Schedule> findByMemId(Integer memId);
 
-//    @Query(value = "SELECT s.sch_id, sch_name, mem_id, sch_start, sch_end, sch_pub, sch_copy, sch_cost, " +
-//            "schde_id, attr_id, schde_starttime, schde_staytime, schde_transtime, schde_trans, " +
-//            "schde_costname, schde_cost, schde_remark FROM schedules s " +
-//            "JOIN schedule_de sd ON s.sch_id = sd.sch_id " +
-//            "WHERE s.sch_id = ?1 ORDER BY schde_starttime", nativeQuery = true)
+
     @Query(value = "SELECT * FROM schedules s " +
             "JOIN schedule_de sd ON s.sch_id = sd.sch_id " +
             "WHERE s.sch_id = ?1 ORDER BY schde_starttime asc", nativeQuery = true)
