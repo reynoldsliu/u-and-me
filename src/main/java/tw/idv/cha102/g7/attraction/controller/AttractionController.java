@@ -7,8 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.attraction.dto.CollectionDTO;
+import tw.idv.cha102.g7.attraction.repo.AttrCollectionRepository;
 import tw.idv.cha102.g7.attraction.repo.AttractionRepository;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
+import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
 import tw.idv.cha102.g7.attraction.service.AttractionService;
 
 import javax.servlet.RequestDispatcher;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import tw.idv.cha102.g7.member.service.MemberService;
 
 import static tw.idv.cha102.g7.common.util.JsonUtil.GSON;
 import static tw.idv.cha102.g7.common.util.JsonUtil.writePojo2Json;
@@ -30,6 +34,9 @@ public class AttractionController {
 
     @Autowired
     private AttractionService attractionService;
+
+    @Autowired
+    private MemberService memberService;
 
     /*
     *
@@ -182,6 +189,23 @@ public class AttractionController {
 //        System.out.println(attraction);
 //        System.out.println(json);
 //    }
+
+    @Autowired
+    private AttrCollectionService attrCollectionService;
+    @GetMapping("/getCollectionAttrsByMemId/{memId}")
+    public List<CollectionDTO> getCollectionAttrsByMemId(@PathVariable Integer memId){
+        return attrCollectionService.findAttrCollectionsByMemId(memId);
+    }
+
+    @RequestMapping("/getCollectionAttrsByMemName/{memName}")
+    public List<CollectionDTO> findAttrCollectionsByMemName(@PathVariable String memName){
+        List<CollectionDTO> collectionDTOS =
+                attrCollectionService.findAttrCollectionsByMemName(memName);
+        if(collectionDTOS == null)
+            return null;
+        else
+            return collectionDTOS;
+    }
 
 
 

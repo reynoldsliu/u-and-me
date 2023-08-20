@@ -15,12 +15,20 @@ public class AttractionServiceImpl implements AttractionService {
     @Autowired
     private AttractionRepository attractionRepository;
 
+    /**
+    * 透過attrId去查詢一個景點
+    * @param attrId Atraction的ID
+    * @return 查詢到的Attraction，若沒查到則返回null
+     */
     @Override
     public Attraction getById(Integer attrId) {
-
         return attractionRepository.findById(attrId).orElse(null);
     }
 
+    /**
+     * 查詢全部的Attraction
+     * @return List<Attraction>一組Attraction
+     */
     @Override
     public List<Attraction> getAll() {
         return attractionRepository.findAll();
@@ -32,6 +40,12 @@ public class AttractionServiceImpl implements AttractionService {
         attraction.setSta(attrSta);
         attractionRepository.save(attraction);
     }
+
+//    @Override
+//    public String addAttrToCollection(Attraction attraction) {
+//        attractionRepository.save(attraction).
+//        return null;
+//    }
 
     @Override
     public String createAttr(Attraction attraction) {
