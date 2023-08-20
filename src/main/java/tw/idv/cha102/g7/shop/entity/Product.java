@@ -29,7 +29,7 @@ public class Product {
     @Column(name = "prod_pri")
     private Integer prodPri;
     @Column(name = "prod_qty")
-    private Integer prodQTY;
+    private Integer prodQty;
     @Column(name = "prod_sta")
     private Short prodSta;
     @Column(name = "prod_spec")

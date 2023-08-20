@@ -5,16 +5,16 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
+@Embeddable  // JPA 的註解，表示這個類別是可嵌入的，用於表示複合主鍵中的組件部分
 public class CartListId implements Serializable {
 
-    private Integer memberId;
+    private Integer memId;
     private Integer prodId;
 
     public CartListId() {}
 
-    public CartListId(Integer memberId, Integer prodId) {
-        this.memberId = memberId;
+    public CartListId(Integer memId, Integer prodId) {
+        this.memId = memId;
         this.prodId = prodId;
     }
 
@@ -23,20 +23,20 @@ public class CartListId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartListId that = (CartListId) o;
-        return Objects.equals(memberId, that.memberId) && Objects.equals(prodId, that.prodId);
+        return Objects.equals(memId, that.memId) && Objects.equals(prodId, that.prodId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, prodId);
+        return Objects.hash(memId, prodId);
     }
 
-    public Integer getMemberId() {
-        return memberId;
+    public Integer getMemId() {
+        return memId;
     }
 
-    public void setMemberId(Integer memberId) {
-        this.memberId = memberId;
+    public void setMemId(Integer memId) {
+        this.memId = memId;
     }
 
     public Integer getProdId() {
@@ -47,3 +47,6 @@ public class CartListId implements Serializable {
         this.prodId = prodId;
     }
 }
+
+//先建一個方法透過memId作為參數查出複合主鍵類別
+//再藉由複合主鍵類別物件.getXXId()
