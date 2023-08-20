@@ -42,28 +42,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void add(Schedule schedule) {
-        repository.save(schedule);
-    }
-
-
-    @Override
-    public void hideById(Integer schId) {
-        // 先查詢此id的行程是否存在，再進行行程公開設定
-        var schedule = repository.findById(schId);
-        if (schedule.isPresent()) {
-            schedule.get().setSchPub(0);
-            // 修改行程公開權限為0:私人檢視
-            repository.save(schedule.get());
-        }
-    }
-
-    @Override
-    public void deleteById(Integer schId) {
-        repository.deleteById(schId);
-    }
-
-    @Override
     public List<Schedule> getAll() {
         return repository.findAll();
     }
@@ -80,6 +58,57 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<Object[]> list = repository.findTagsByOneSchedule(schId);
         List<ScheduleTagDTO> collect = list.stream().map(ScheduleTagDTO::new).collect(Collectors.toList());
         return collect;
+    }
+
+
+    /***
+     * 以上為搜瀏覽公開行程相關功能
+     * 以下為管理行程功能
+     */
+
+    @Override
+    public List<Schedule> getAllByMemId(Integer memId) {
+        List<Schedule> schedules = repository.findByMemId(memId);
+        return schedules;
+    }
+
+    @Override
+    public void create(Schedule schedule) {
+        repository.save(schedule);
+    }
+
+    @Override
+    public void delete(Integer schId) {
+        repository.deleteById(schId);
+    }
+
+    @Override
+    public String edit(Integer schId, Schedule schedule) {
+        // sche 為資料庫中已存在的行程，sche存在才能更新，否則回傳查詢不到資料
+        Schedule sche = repository.findById(schId).orElse(null);
+        if (sche != null) {  // schedule為欲修改的行程資料
+            sche.setSchName(schedule.getSchName());
+//            sche.setSchStart(schedule.getSchStart());
+//            sche.setSchEnd(schedule.getSchEnd());
+//            sche.setSchCost(schedule.getSchCost());
+//            sche.setSchPub(schedule.getSchPub());
+//            sche.setSchCopy(schedule.getSchCopy());
+            repository.save(sche);
+            return "更新成功！";
+        } else {
+            return "更新失敗，查詢的行程不存在";
+        }
+    }
+
+    @Override
+    public void hide(Integer schId) {
+        // 先查詢此id的行程是否存在，再進行行程公開設定
+        var schedule = repository.findById(schId);
+        if (schedule.isPresent()) {
+            schedule.get().setSchPub(0);
+            // 修改行程公開權限為0:私人檢視
+            repository.save(schedule.get());
+        }
     }
 }
 

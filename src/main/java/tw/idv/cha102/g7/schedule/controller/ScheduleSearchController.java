@@ -13,7 +13,7 @@ import java.util.List;
 // 瀏覽公開行程
 @RestController
 @RequestMapping("/schedules")
-public class ScheduleController {
+public class ScheduleSearchController {
 
     @Autowired
     private ScheduleService service;
@@ -38,35 +38,10 @@ public class ScheduleController {
         return schedules;
     }
 
-    // 依行程ID，查詢單一行程內容
+    // 依行程ID，查詢單一行程
     @GetMapping("/schId/{schId}")
     public Schedule getOne(@PathVariable Integer schId) {
         return service.getById(schId);
-    }
-
-    // 新增一筆行程
-    // 可以新增，但若資料庫中有相同id的行程，資料會被覆蓋過去
-    @PostMapping("/add")
-    ResponseEntity<?> insert(@RequestBody Schedule schedule) {
-        try {
-            service.add(schedule);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(e.getMessage());
-        }
-    }
-
-    // 刪除一筆行程
-    @DeleteMapping("/delete/{schId}")
-    public ResponseEntity<Boolean> delete(@PathVariable Integer schId) {
-        try {
-            service.deleteById(schId);
-            return ResponseEntity.ok(true);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
-        }
     }
 
     // 測試一對多查詢行程及細節
