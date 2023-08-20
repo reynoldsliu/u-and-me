@@ -7,5 +7,9 @@ import java.util.List;
 public interface AttractionService {
 
     Attraction getById(Integer attrId);
+
+    String createAttr(Attraction attraction);
     List<Attraction> getAll();
+
+    void setSta(Integer attrId, Short attrSta);
 }

@@ -18,11 +18,29 @@ public class AttractionServiceImpl implements AttractionService {
     @Override
     public Attraction getById(Integer attrId) {
 
-        return attractionRepository.getById(attrId);
+        return attractionRepository.findById(attrId).orElse(null);
     }
 
     @Override
     public List<Attraction> getAll() {
         return attractionRepository.findAll();
+    }
+
+    @Override
+    public void setSta(Integer attrId, Short attrSta) {
+        Attraction attraction = attractionRepository.getById(attrId);
+        attraction.setSta(attrSta);
+        attractionRepository.save(attraction);
+    }
+
+    @Override
+    public String createAttr(Attraction attraction) {
+        if(attractionRepository.getById(attraction.getId())!=null){
+            return "Existed Attraction";
+        }
+        else{
+            attractionRepository.save(attraction);
+        }
+        return "Create Attraction Success";
     }
 }
