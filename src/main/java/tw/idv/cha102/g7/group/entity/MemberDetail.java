@@ -36,8 +36,9 @@ public class MemberDetail implements Serializable {
     @Column(name = "refund_sta")
     private Integer refundSta;
 
-    @ManyToOne
-    @JoinColumn(name = "form_id", insertable = false,updatable = false)
-    @JsonBackReference
-    private RegForm regForm;
+//    @ManyToOne
+//    @JoinColumn(name = "form_id", insertable = false,updatable = false)
+//    @JsonBackReference
+//    private RegForm regForm;
+
 }

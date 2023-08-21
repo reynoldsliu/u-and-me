@@ -2,6 +2,8 @@ package tw.idv.cha102.g7.group.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
+import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.service.GroupService;
 
@@ -13,7 +15,7 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
-    @PostMapping("/group")
+    @PostMapping("/group") //新增揪團
     public void insert(@RequestBody Group group){
         groupService.insert(group);
     }
@@ -24,12 +26,12 @@ public class GroupController {
         groupService.update(groupId, group);
     }
 
-    @DeleteMapping("/group/{groupId}")
+    @DeleteMapping("/group/{groupId}") //刪除揪團
     public void delete(@PathVariable Integer groupId){
         groupService.delete(groupId);
     }
 
-    @GetMapping("/group/{groupId}")
+    @GetMapping("/group/{groupId}") //查詢groupId
     public Group getGroupByGroupId(@PathVariable Integer groupId){
         return groupService.getGroupByGroupId(groupId);
     }
@@ -44,11 +46,6 @@ public class GroupController {
         return groupService.findByMemIdOrderByGroupStaDesc(memId);
     }
 
-//    @GetMapping("/groups/selectByMem{memId}")
-//    public List<Group> getGroupsByMemId(@PathVariable Integer memId){
-//        return groupService.getGroupsByMemId(memId);
-//    }
-
     @GetMapping("/groups/searchTheme/{keyword}") //尋找揪團名稱
     public List<Group> findByThemeContaining(@PathVariable String keyword){
         return groupService.findByThemeContaining(keyword);
@@ -62,5 +59,16 @@ public class GroupController {
     @GetMapping("/groups/searchPaySta/{paymentSta}") //管理員尋找揪團付費
     public List<Group> findGroupByPaymentSta(@PathVariable Integer paymentSta){
         return groupService.findGroupByPaymentSta(paymentSta);
+    }
+
+    @GetMapping("/test1/{groupId}")
+    List<GroupRegFormDto> findGroupRegFormDtoByGroupId(@PathVariable Integer groupId){
+        return groupService.findGroupRegFormDtoByGroupId(groupId);
+    }
+
+    //錯誤 待確認
+    @GetMapping("/groupDetail/{groupId}")//點進去揪團並看到全部圖片
+    List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(@PathVariable Integer groupId){
+        return groupService.findGroupRegFormDtoByGroupIdOrderByGroupPicId(groupId);
     }
 }

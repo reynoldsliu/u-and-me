@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.group.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,10 @@ public class GroupPicture implements Serializable {
     private Integer groupId;
     @Column(name = "group_pic", columnDefinition = "MEDIUMBLOB")
     @Lob
-    private byte[] groupPic;
+    private Byte[] groupPic;
 
-
+//    @ManyToOne
+//    @JoinColumn(name = "group_id", insertable = false,updatable = false)
+//    @JsonBackReference
+//    private Group group;
 }

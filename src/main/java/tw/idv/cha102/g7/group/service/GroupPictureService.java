@@ -15,4 +15,6 @@ public interface GroupPictureService {
     GroupPicture getGroupPictureByGroupPicId(Integer groupPicId);
 
     List<GroupPicture> getAll();
+
+    List<GroupPicture> findByGroupIdOrderByGroupPicId(Integer groupId);
 }

@@ -1,6 +1,5 @@
 package tw.idv.cha102.g7.group.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.List;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "reg_form")
@@ -34,9 +32,9 @@ public class RegForm implements Serializable {
     @Column(name = "join_member")
     private Integer joinMember;
     @Column(name = "reg_time")
-    private Date regTime;
+    private Timestamp regTime;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "regForm")
-    @JsonManagedReference
-    private List<MemberDetail> memberDetailList;
+//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "regForm")
+//    @JsonManagedReference
+//    private List<MemberDetail> memberDetailList;
 }

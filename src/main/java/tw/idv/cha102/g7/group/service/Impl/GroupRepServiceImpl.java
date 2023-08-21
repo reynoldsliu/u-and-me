@@ -40,4 +40,14 @@ public class GroupRepServiceImpl implements GroupRepService {
         return (List<GroupRep>) groupRepRepository.findAll();
     }
 
+    @Override
+    public List<GroupRep> findByGroupRepSta(Integer GroupRepSta) {
+        return groupRepRepository.findByGroupRepSta(GroupRepSta);
+    }
+
+    @Override
+    public List<GroupRep> findByMemIdAndGroupRepSta(Integer MemId, Integer GroupRepSta) {
+        return groupRepRepository.findByMemIdAndGroupRepSta(MemId, GroupRepSta);
+    }
+
 }

@@ -14,4 +14,8 @@ public interface RegFormService {
     RegForm getRegFormByFormId(Integer formId);
 
     List<RegForm> getAll();
+
+    List<RegForm> findByMemIdOrderByRegTime(Integer memId);
+
+    List<RegForm> findByGroupIdOrderByRegTime(Integer groupId);
 }
