@@ -13,10 +13,10 @@ public interface CartService {
     public List<CartList> getAllCartList(Integer memId);
 
     // 刪除一筆購物車清單
-//    public void deleteById(Integer memId, Integer prodId);
+    public void deleteById(Integer memId, Integer prodId);
 
     // 更新一筆購物車清單數量
-//    public CartList updateCartQty(Integer memId, Integer prodId, Integer cartQty);
+    public CartList updateCartListQty(Integer memId, Integer prodId, Integer cartQty);
 
     //貨到付款
 //    public Order checkoutWithCash(Integer memId);

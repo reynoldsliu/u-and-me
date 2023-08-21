@@ -36,10 +36,16 @@ public class CartListController {
         return cartService.getAllCartList(memId);
     }
 
-//    @DeleteMapping("/deleteCartList/{memId}/{prodId}")
-//    public void deleteCartList(@PathVariable Integer memId,
-//                               @PathVariable Integer prodId){
-//
-//        cartService.deleteById(memId, prodId);
-//    }
+    @DeleteMapping("/deleteCartList/{memId}/{prodId}")
+    public void deleteCartList(@PathVariable Integer memId,
+                               @PathVariable Integer prodId){
+        cartService.deleteById(memId, prodId);
+    }
+
+    @RequestMapping("/updateCartList/{memId}/{prodId}/{prodQty}")
+    public CartList updateCartList(@PathVariable Integer memId,
+                                   @PathVariable Integer prodId,
+                                   @PathVariable Integer prodQty){
+       return cartService.updateCartListQty(memId, prodId, prodQty);
+    }
 }
