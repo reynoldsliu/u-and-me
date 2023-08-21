@@ -34,6 +34,11 @@ public class GroupPictureServiceImpl implements GroupPictureService {
     }
 
     public List<GroupPicture> getAll() {
-        return (List<GroupPicture>) groupPictureRepository.findAll();
+        return groupPictureRepository.findAll();
+    }
+
+    @Override
+    public List<GroupPicture> findByGroupIdOrderByGroupPicId(Integer groupId) {
+        return groupPictureRepository.findByGroupIdOrderByGroupPicId(groupId);
     }
 }

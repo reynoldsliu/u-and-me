@@ -1,9 +1,10 @@
 package tw.idv.cha102.g7.group.service.Impl;
 
 
-import org.hibernate.loader.plan.build.spi.ReturnGraphTreePrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
+import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.repo.GroupRepository;
 import tw.idv.cha102.g7.group.service.GroupService;
@@ -15,6 +16,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private GroupRepository groupRepository;
+
 
     public void insert(Group group) {
         groupRepository.save(group);
@@ -63,4 +65,15 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> findGroupByPaymentSta(Integer paymentSta) {
         return groupRepository.findGroupByPaymentSta(paymentSta);
     }
+
+    @Override
+    public List<GroupRegFormDto> findGroupRegFormDtoByGroupId(Integer groupId) {
+        return groupRepository.findGroupRegFormDtoByGroupId(groupId);
+    }
+
+    @Override
+    public List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId) {
+        return groupRepository.findGroupRegFormDtoByGroupIdOrderByGroupPicId(groupId);
+    }
+
 }

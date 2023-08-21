@@ -35,6 +35,16 @@ public class RegFormServiceImpl implements RegFormService {
     }
 
     public List<RegForm> getAll(){
-        return (List<RegForm>) regFormRepository.findAll();
+        return regFormRepository.findAll();
+    }
+
+    @Override
+    public List<RegForm> findByMemIdOrderByRegTime(Integer memId) {
+        return regFormRepository.findByMemIdOrderByRegTime(memId);
+    }
+
+    @Override
+    public List<RegForm> findByGroupIdOrderByRegTime(Integer groupId) {
+        return regFormRepository.findByGroupIdOrderByRegTime(groupId);
     }
 }

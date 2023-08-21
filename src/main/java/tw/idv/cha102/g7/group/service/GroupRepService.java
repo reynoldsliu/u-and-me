@@ -14,4 +14,8 @@ public interface GroupRepService {
     GroupRep getGroupRepByGroupRepId(Integer groupRepId);
 
     List<GroupRep> getAll();
+
+    List<GroupRep> findByGroupRepSta(Integer GroupRepSta);
+
+    List<GroupRep> findByMemIdAndGroupRepSta(Integer MemId ,Integer GroupRepSta);
 }

@@ -1,5 +1,7 @@
 package tw.idv.cha102.g7.group.service;
 
+import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
+import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
 
 import java.util.List;
@@ -22,4 +24,8 @@ public interface GroupService {
     List<Group> findGroupByGroupSta(Integer groupSta);
 
     List<Group> findGroupByPaymentSta(Integer paymentSta);
+
+    List<GroupRegFormDto> findGroupRegFormDtoByGroupId(Integer groupId);
+
+    List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId);
 }

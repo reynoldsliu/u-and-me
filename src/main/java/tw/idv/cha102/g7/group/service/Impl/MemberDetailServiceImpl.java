@@ -2,6 +2,7 @@ package tw.idv.cha102.g7.group.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tw.idv.cha102.g7.group.dto.GroupRegFormMemberDetailDto;
 import tw.idv.cha102.g7.group.entity.MemberDetail;
 import tw.idv.cha102.g7.group.repo.MemberDetailRepository;
 import tw.idv.cha102.g7.group.service.MemberDetailService;
@@ -35,6 +36,18 @@ public class MemberDetailServiceImpl implements MemberDetailService {
     }
 
     public List<MemberDetail> getAll(){
-        return (List<MemberDetail>) memberDetailRepository.findAll();
+        return memberDetailRepository.findAll();
     }
+
+    @Override
+    public List<MemberDetail> findByFormId(Integer formId) {
+        return memberDetailRepository.findByFormId(formId);
+    }
+
+    @Override
+    public List<GroupRegFormMemberDetailDto> findGroupRegFormMemberDetailDtoByGroupIdOrderByFormId(Integer groupId) {
+        return memberDetailRepository.findGroupRegFormMemberDetailDtoByGroupIdOrderByFormId(groupId);
+    }
+
+
 }
