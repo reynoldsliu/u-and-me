@@ -1,31 +1,51 @@
 package tw.idv.cha102.g7.customer.entity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "qa")
-public class CustomerQa {
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class CustomerQa implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "qa_id")
     private Integer qaId;
 
+    @NotBlank(message = "文章標題，請勿空白!")
     @Column(name = "qa_title")
     private String qaTitle;
 
+    @NotBlank(message = "文章內容，請勿空白!")
     @Column(name = "qa_con")
     private String qaCon;
 
-    @Column(name = "qa_state")
+    @Column(name = "qa_state", insertable = false)
     private Integer qaState;
+
+    @CreatedDate
+    @Column(name = "qa_created_time")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp qaCreatedTime;
+
+    @LastModifiedDate
+    @Column(name = "qa_last_updated_time")
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp qaLastUpdatedTime;
 
 }
