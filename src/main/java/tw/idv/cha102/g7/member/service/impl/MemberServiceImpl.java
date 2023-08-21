@@ -29,13 +29,13 @@ public class MemberServiceImpl implements MemberService {
 //        return memberRepository.findById(memId).orElseThrow().getMemPassword().equals(memPassword);
 //    }
 
-    public String login(Integer memId, String memPassword) {
-        Optional<Member> optionalMember = memberRepository.findById(memId);
+    public String login(String memEmail, String memPassword) {
+        Optional<Member> optionalMember = memberRepository.findByMemEmail(memEmail);
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
             if (member.getMemPassword().equals(memPassword)) {
                 // 登入成功，檢查團主狀態
-                if(member.getMemSta() == 1){
+                if(member.getMemGroup() == 1){
                     return "您已登入團主狀態";
                 }else{
                     return "您已登入會員狀態";
@@ -56,6 +56,9 @@ public class MemberServiceImpl implements MemberService {
         }
         return null;
     }
+
+
+
     public Member update(Member member) {
         Member existingMember = memberRepository.findById(member.getMemId()).orElse(null);
         if (existingMember != null) {
@@ -71,6 +74,17 @@ public class MemberServiceImpl implements MemberService {
         return null;
     }
 
+
+    public Member getMemberByEmail(String memEmail) {
+        return memberRepository.findByMemEmail(memEmail).orElse(null);
+    }
+//會員等級查看
+
+//    public Member getmemGradeBymemId(Integer memId) {
+//        return memberRepository.findMemberLevelById(memId);
+//    }
+
 }
+
 
 

@@ -16,7 +16,6 @@ import java.util.List;
 public class MemberController {
 
 
-
     @Autowired
     private MemberService memberService;
 
@@ -25,9 +24,25 @@ public class MemberController {
 
 
     @PostMapping("/register")
-    public String register(@RequestBody Member member){
+    public String register(@RequestBody Member member) {
         memberService.insert(member);
         return "會員登入成功";
+    }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Member member) {
+        String memEmail = member.getMemEmail();
+        String memPassword = member.getMemPassword();
+
+        String loginResult = memberService.login(memEmail, memPassword);
+        if ("您已登入團主狀態".equals(loginResult)) {
+            return ResponseEntity.ok("您已登入團主狀態");
+        } else if ("您已登入會員狀態".equals(loginResult)) {
+            return ResponseEntity.ok("您已登入會員狀態");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
+        }
     }
 
     @PostMapping("/groupRegister")
@@ -50,23 +65,6 @@ public class MemberController {
     }
 
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Member member) {
-        Integer memId = member.getMemId();
-        String memPassword = member.getMemPassword();
-
-        String loginResult = memberService.login(memId, memPassword);
-        if ("您已登入團主狀態".equals(loginResult)) {
-            return ResponseEntity.ok("您已登入團主狀態");
-        } else if ("您已登入會員狀態".equals(loginResult)) {
-            return ResponseEntity.ok("您已登入會員狀態");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
-        }
-    }
-
-
-
     @DeleteMapping("/delete/{memId}")
     public ResponseEntity<Boolean> delete(@PathVariable Integer memId) {
         try {
@@ -76,17 +74,25 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
     }
+
     @PostMapping("/update")
 
-        public ResponseEntity<Member> updateMember(@RequestBody Member member) {
-            Member updatedMember = memberService.update(member);
-            if (updatedMember != null) {
-                return ResponseEntity.ok(updatedMember);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+    public ResponseEntity<Member> updateMember(@RequestBody Member member) {
+        Member updatedMember = memberService.update(member);
+        if (updatedMember != null) {
+            return ResponseEntity.ok(updatedMember);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-
-
+//    @GetMapping("/{memId}grade")
+//    public ResponseEntity<Member> viewMemberGrade(@PathVariable Integer memId) {
+//        Member memberGrade = memberService.getmemGradeBymemId(memId);
+//        if (memberGrade != null) {
+//            return ResponseEntity.ok(memberGrade);
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 }
