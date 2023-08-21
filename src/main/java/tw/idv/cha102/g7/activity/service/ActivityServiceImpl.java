@@ -6,12 +6,14 @@ import tw.idv.cha102.g7.activity.entity.Activity;
 import tw.idv.cha102.g7.activity.repository.ActivityRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     private ActivityRepository repository;
+
 
     public Activity getById(Integer activId){
         Activity activity = repository.findById(activId).orElse(null);
@@ -27,4 +29,22 @@ public class ActivityServiceImpl implements ActivityService {
     public List<Activity> findByActivCon(String activCon) {
         return repository.findByActivCon(activCon);
     }
+
+    @Override
+    public void insert(Activity activity) {
+        repository.save(activity);
+    }
+
+    @Override
+    public void deleteById(Integer activId) {
+        repository.deleteById(activId);
+    }
+
+    @Override
+    public void updateById(Integer activId, Activity activity) {
+        repository.save(activity);
+    }
+
+
+
 }

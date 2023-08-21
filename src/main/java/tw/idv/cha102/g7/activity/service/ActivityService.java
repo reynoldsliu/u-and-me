@@ -3,6 +3,7 @@ package tw.idv.cha102.g7.activity.service;
 import tw.idv.cha102.g7.activity.entity.Activity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ActivityService {
 
@@ -14,4 +15,15 @@ public interface ActivityService {
 
     // 依活動內容關鍵字模糊比對查詢行程
     List<Activity> findByActivCon(String activCon);
+
+    // 新增活動
+    void insert(Activity activity);
+
+    // 刪除活動byId  // (需要一個Entity作為引數，而不是一個整數id)
+    void deleteById(Integer activId);
+
+    // 更新活動  // 不為空值要有值
+    void updateById(Integer activId, Activity activity);
+
+
 }
