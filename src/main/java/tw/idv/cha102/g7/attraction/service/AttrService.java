@@ -4,7 +4,7 @@ import tw.idv.cha102.g7.attraction.entity.Attraction;
 
 import java.util.List;
 
-public interface AttractionService {
+public interface AttrService {
 
     Attraction getById(Integer attrId);
 

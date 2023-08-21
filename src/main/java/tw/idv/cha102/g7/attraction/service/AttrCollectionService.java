@@ -1,16 +1,15 @@
 package tw.idv.cha102.g7.attraction.service;
 
 
-import tw.idv.cha102.g7.attraction.dto.CollectionDTO;
-import tw.idv.cha102.g7.attraction.dto.CollectionId;
-import tw.idv.cha102.g7.attraction.entity.Attraction;
+import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
+import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
 
 import java.util.List;
 
 public interface AttrCollectionService {
-    String addAttrToCollection(CollectionDTO collectionDTO);
-    String removeAttrFromCollection(CollectionId collectionId);
+    String addAttrToCollection(AttrCollectionDTO attrCollectionDTO);
+    String removeAttrFromCollection(AttrCollectionId collectionId);
 
-    List<CollectionDTO> findAttrCollectionsByMemId(Integer memId);
-    List<CollectionDTO> findAttrCollectionsByMemName(String memName);
+    List<AttrCollectionDTO> findAttrCollectionsByMemId(Integer memId);
+    List<AttrCollectionDTO> findAttrCollectionsByMemName(String memName);
 }

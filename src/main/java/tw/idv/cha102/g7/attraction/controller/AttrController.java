@@ -3,16 +3,12 @@ package tw.idv.cha102.g7.attraction.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.attraction.dto.CollectionDTO;
-import tw.idv.cha102.g7.attraction.repo.AttrCollectionRepository;
-import tw.idv.cha102.g7.attraction.repo.AttractionRepository;
+import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
-import tw.idv.cha102.g7.attraction.service.AttractionService;
+import tw.idv.cha102.g7.attraction.service.AttrService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,16 +20,13 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import tw.idv.cha102.g7.member.service.MemberService;
 
-import static tw.idv.cha102.g7.common.util.JsonUtil.GSON;
-import static tw.idv.cha102.g7.common.util.JsonUtil.writePojo2Json;
-
 @RestController
 //@RequestMapping("/attr")
-public class AttractionController {
+public class AttrController {
 
 
     @Autowired
-    private AttractionService attractionService;
+    private AttrService attrService;
 
     @Autowired
     private MemberService memberService;
@@ -68,7 +61,7 @@ public class AttractionController {
 
     @RequestMapping("/getAttr")
     public Attraction getAttr(@RequestParam Integer attrId){
-        return attractionService.getById(attrId);
+        return attrService.getById(attrId);
     }
 
 
@@ -89,7 +82,7 @@ public class AttractionController {
     //Spring MVC html轉向寫法
     @RequestMapping("/getAllAttr")
     public List<Attraction> getAllAttr(/*Model model*/) {
-        List<Attraction> attraction = attractionService.getAll();
+        List<Attraction> attraction = attrService.getAll();
 //        model.addAttribute("attractions", attraction);
         return attraction;
     }
@@ -144,7 +137,7 @@ public class AttractionController {
     @GetMapping("/json-data")
     public Attraction postJsonData(HttpServletRequest request) throws JsonProcessingException {
         // 在这里处理接收到的 JSON 数据
-        Attraction attraction = attractionService.getById(1);
+        Attraction attraction = attrService.getById(1);
 
         System.out.println("HIIIIIIII");
 
@@ -166,7 +159,7 @@ public class AttractionController {
 
     @GetMapping("/getAttraction/{id}")
     public String getAttractionById(@PathVariable Integer id) throws JsonProcessingException {
-        Attraction attraction = attractionService.getById(id);
+        Attraction attraction = attrService.getById(id);
         System.out.println("in");
         System.out.println(attraction);
         if (attraction != null) {
@@ -193,18 +186,18 @@ public class AttractionController {
     @Autowired
     private AttrCollectionService attrCollectionService;
     @GetMapping("/getCollectionAttrsByMemId/{memId}")
-    public List<CollectionDTO> getCollectionAttrsByMemId(@PathVariable Integer memId){
+    public List<AttrCollectionDTO> getCollectionAttrsByMemId(@PathVariable Integer memId){
         return attrCollectionService.findAttrCollectionsByMemId(memId);
     }
 
     @RequestMapping("/getCollectionAttrsByMemName/{memName}")
-    public List<CollectionDTO> findAttrCollectionsByMemName(@PathVariable String memName){
-        List<CollectionDTO> collectionDTOS =
+    public List<AttrCollectionDTO> findAttrCollectionsByMemName(@PathVariable String memName){
+        List<AttrCollectionDTO> attrCollectionDTOS =
                 attrCollectionService.findAttrCollectionsByMemName(memName);
-        if(collectionDTOS == null)
+        if(attrCollectionDTOS == null)
             return null;
         else
-            return collectionDTOS;
+            return attrCollectionDTOS;
     }
 
 

@@ -4,15 +4,13 @@ import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
 
 @Data
 @Embeddable
-public class CollectionId implements Serializable {
+public class AttrCollectionId implements Serializable {
 
     @Column(name = "mem_id")
     private Integer memId;
@@ -20,10 +18,10 @@ public class CollectionId implements Serializable {
     @Column(name = "attr_id")
     private Integer attrId;
 
-    public CollectionId(){
+    public AttrCollectionId(){
 
     }
-    public CollectionId(Integer memId, Integer attrId) {
+    public AttrCollectionId(Integer memId, Integer attrId) {
         this.memId = memId;
         this.attrId = attrId;
     }
@@ -32,7 +30,7 @@ public class CollectionId implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CollectionId that = (CollectionId) o;
+        AttrCollectionId that = (AttrCollectionId) o;
         return Objects.equals(memId, that.memId) && Objects.equals(attrId, that.attrId);
     }
 

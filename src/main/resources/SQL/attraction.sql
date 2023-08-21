@@ -1,76 +1,4 @@
-create schema main;
-use main;
-drop schema main;
-drop schema onlineshoppingmall;
-
--- members 許彤
-create table members (
-	mem_id int primary key, 
-	mem_email varchar(30),
-	mem_password varchar(20),
-	mem_name varchar(10),
-	mem_gender tinyint ,
-	mem_addr varchar(100),
-	mem_grade int,
-	mem_phone varchar(15),
-	mem_point int,
-	mem_sta tinyint,
-	mem_group tinyint
-);
-
-create table hosts (
-	host_id int primary key, 
-	host_phone varchar(15),
-	host_email varchar(30),
-	host_password varchar(20),
-	host_name varchar(10),
-	host_sta tinyint
-);
-
-select * from members;
-insert into members(mem_id, mem_email, mem_password, mem_name, mem_gender)
-values (1, 'annie980117@icloud.com', '980117', '多蕊咪', 2);
-select * from members;
-
--- create schema onlineshoppingmall;
--- use onlineshoppingmall;
- 
- create table orders (
-    ord_id int primary key,
-    fk_mem_id int,
-    points int,
-    ord_fee int,
-    recipient_phone varchar(15),
-    ord_pay_sta tinyint,
-    recipient_name varchar(10),
-    recipient_addr varchar(30),
-    ord_sta tinyint,
-    total int,
-    checktotal int,
-    ord_time timestamp
-    -- foreign key(fk_mem_id) references member.members(mem_id)
-);
-create table product(
-prod_id int primary key
-);
-
-create table order_details(
-	fk_ord_id int,
-    fk_prod_id int,
-    prod_qty int,
-	prod_review varchar(50),
-    prod_price int,
-    prod_com_score decimal,
-    primary key(fk_ord_id, fk_prod_id),
-    foreign key(fk_ord_id) references orders(ord_id),
-	foreign key(fk_prod_id) references product(prod_id)
-    );
-select * from orders;
-insert into orders(ord_id, fk_mem_id, points, total, checktotal)
-values (1, 7, 17, 117, 117);
-select * from orders;
-
--- attractions景點相關表格建立
+-- attractions景點相關表格建立 劉力辰
 create table attraction_type(
 attr_type_id int primary key,
 attr_type_name varchar(10)
@@ -80,8 +8,7 @@ insert into attraction_type(attr_type_id, attr_type_name)
 values
 (1,"第一類"),
 (2,"第二類"),
-(3,"第三類"),
-(4,"第四類");
+(3,"第三類");
 -- select * from attraction_type;
 -- drop table attraction_type;
 
@@ -90,27 +17,35 @@ attr_id int primary key,
 attr_veri_sta tinyint,
 attr_sta int,
 attr_name varchar(20),
--- attr_addr varchar(100),
--- attr_lon float,
--- attr_lat float,
--- attr_illa varchar(500),
+attr_addr varchar(100),
+attr_lon float,
+attr_lat float,
+attr_illa varchar(500),
 attr_type_id int,
 -- constraint attr_type_id
-foreign key(attr_type_id) references attraction_type(attr_type_id)
+-- foreign key(attr_type_id) references attraction_type(attr_type_id)
 
--- attr_buss_time varchar(100),
--- attr_cost_range tinyint,
--- attr_rep varchar(500)
+attr_buss_time varchar(100),
+attr_cost_range tinyint,
+attr_rep varchar(500)
 );
+
+INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep)
+VALUES
+  (1, 1, 3, 'Attraction 1', '123 Main St', 12.345, 67.890, 'Description for Attraction 1', 1, '9:00 AM - 5:00 PM', 2, 'Representative for Attraction 1'),
+  (2, 0, 2, 'Attraction 2', '456 Park Ave', -45.678, 12.345, 'Description for Attraction 2', 3, '10:00 AM - 6:00 PM', 1, 'Representative for Attraction 2'),
+  (3, 1, 1, 'Attraction 3', '789 Broad St', 98.765, -34.567, 'Description for Attraction 3', 2, '8:00 AM - 4:00 PM', 3, 'Representative for Attraction 3'),
+  (4, 0, 3, 'Attraction 4', '567 Elm St', -12.345, -78.901, 'Description for Attraction 4', 1, '9:30 AM - 5:30 PM', 2, 'Representative for Attraction 4'),
+  (5, 1, 2, 'Attraction 5', '234 Oak Ave', 23.456, 45.678, 'Description for Attraction 5', 3, '10:30 AM - 6:30 PM', 1, 'Representative for Attraction 5'),
+  (6, 0, 1, 'Attraction 6', '678 Pine St', -56.789, 78.901, 'Description for Attraction 6', 2, '8:30 AM - 4:30 PM', 3, 'Representative for Attraction 6'),
+  (7, 1, 3, 'Attraction 7', '890 Maple Ave', 34.567, -56.789, 'Description for Attraction 7', 1, '9:45 AM - 5:45 PM', 2, 'Representative for Attraction 7'),
+  (8, 0, 2, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', 3, '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
+  (9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', 2, '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
+  (10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', 1, '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
+
 select * from attractions;
 -- drop table attractions;
 
-insert into attractions(attr_id, attr_veri_sta, attr_sta, attr_name, attr_type_id)
-values
-(1,0,0,'attr_01',1),
-(2,0,0,'attr_02',2),
-(3,0,0,'attr_03',3),
-(4,0,0,'attr_04',4);
 
 -- create table members(
 -- mem_id int primary key,
@@ -125,16 +60,19 @@ values
 -- select * from member;
 
 create table attraction_collections (
-fk_attr_id int,
-fk_mem_id int,
-attr_col_illa varchar(500),
-primary key (fk_attr_id, fk_mem_id),
-foreign key(fk_mem_id) references members(mem_id),
-foreign key(fk_attr_id) references attractions(attr_id)
+attr_id int,
+mem_id int,
+
+attr_col_illa varchar(500)
+
+-- primary key (attr_id, mem_id),
+-- foreign key(mem_id) references members(mem_id),
+-- foreign key(attr_id) references attractions(attr_id)
 
 );
 
-insert into attraction_collections(fk_attr_id, fk_mem_id, attr_col_illa)
+insert into attraction_collections(attr_id, mem_id, attr_col_illa)
+
 values
 (1,1,"第一個會員的第一筆收藏");
 
@@ -145,8 +83,8 @@ values
 create table attraction_pictures (
 attr_pic_id int unsigned primary key,
 attr_id int,
-constraint fk_attr_id
-foreign key(attr_id) references attractions(attr_id),
+-- constraint fk_attr_id
+-- foreign key(attr_id) references attractions(attr_id),
 attr_pic_data mediumblob
 );
 
@@ -161,9 +99,9 @@ create table attraction_comments(
 attr_id int,
 mem_id int,
 attr_com_score decimal(2,1),
-attr_com varchar(500),
-foreign key(attr_id) references attractions(attr_id),
-foreign key(mem_id) references members(mem_id)
+attr_com varchar(500)
+-- foreign key(attr_id) references attractions(attr_id),
+-- foreign key(mem_id) references members(mem_id)
 );
 
 insert into attraction_comments(attr_id, mem_id, attr_com_score, attr_com)

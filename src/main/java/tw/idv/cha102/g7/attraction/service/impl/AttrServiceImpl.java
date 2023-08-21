@@ -1,19 +1,18 @@
 package tw.idv.cha102.g7.attraction.service.impl;
 
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.attraction.service.AttractionService;
+import tw.idv.cha102.g7.attraction.service.AttrService;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
-import tw.idv.cha102.g7.attraction.repo.AttractionRepository;
+import tw.idv.cha102.g7.attraction.repo.AttrRepository;
 
 import java.util.List;
 
 @Component
-public class AttractionServiceImpl implements AttractionService {
+public class AttrServiceImpl implements AttrService {
 
     @Autowired
-    private AttractionRepository attractionRepository;
+    private AttrRepository attrRepository;
 
     /**
     * 透過attrId去查詢一個景點
@@ -22,7 +21,7 @@ public class AttractionServiceImpl implements AttractionService {
      */
     @Override
     public Attraction getById(Integer attrId) {
-        return attractionRepository.findById(attrId).orElse(null);
+        return attrRepository.findById(attrId).orElse(null);
     }
 
     /**
@@ -31,14 +30,14 @@ public class AttractionServiceImpl implements AttractionService {
      */
     @Override
     public List<Attraction> getAll() {
-        return attractionRepository.findAll();
+        return attrRepository.findAll();
     }
 
     @Override
     public void setSta(Integer attrId, Short attrSta) {
-        Attraction attraction = attractionRepository.getById(attrId);
+        Attraction attraction = attrRepository.getById(attrId);
         attraction.setSta(attrSta);
-        attractionRepository.save(attraction);
+        attrRepository.save(attraction);
     }
 
 //    @Override
@@ -49,11 +48,11 @@ public class AttractionServiceImpl implements AttractionService {
 
     @Override
     public String createAttr(Attraction attraction) {
-        if(attractionRepository.getById(attraction.getId())!=null){
+        if(attrRepository.getById(attraction.getId())!=null){
             return "Existed Attraction";
         }
         else{
-            attractionRepository.save(attraction);
+            attrRepository.save(attraction);
         }
         return "Create Attraction Success";
     }

@@ -17,7 +17,7 @@ public class Attraction {
     @Column(name = "attr_id")
     private Integer id;
     @Column(name = "attr_veri_sta")
-    private Short veri_sta;
+    private Short veriSta;
     @Column(name = "attr_sta")
     private Short sta;
     @Column(name = "attr_name")
@@ -31,11 +31,11 @@ public class Attraction {
     @Column(name = "attr_illa")
     private String illa;
     @Column(name = "attr_type_id")
-    private Integer type_id;
+    private Integer typeId;
     @Column(name = "attr_buss_time")
-    private String buss_time;
+    private String bussTime;
     @Column(name = "attr_cost_range")
-    private Short cost_range;
+    private Short costRange;
     @Column(name = "attr_rep")
     private String rep;
 

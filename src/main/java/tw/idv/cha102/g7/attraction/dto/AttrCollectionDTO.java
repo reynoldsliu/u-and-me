@@ -7,18 +7,18 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "attraction_collections")
-public class CollectionDTO {
+public class AttrCollectionDTO {
 
     @EmbeddedId
-    private CollectionId collectionId;
+    private AttrCollectionId collectionId;
 
     @Column(name = "attr_col_illa")
     private String attrColIlla;
 
-    public CollectionDTO() {
+    public AttrCollectionDTO() {
     }
 
-    public CollectionDTO(CollectionId collectionId, String attrColIlla) {
+    public AttrCollectionDTO(AttrCollectionId collectionId, String attrColIlla) {
         this.collectionId = collectionId;
         this.attrColIlla = attrColIlla;
     }

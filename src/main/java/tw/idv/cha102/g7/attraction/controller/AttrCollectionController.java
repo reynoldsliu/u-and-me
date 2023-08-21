@@ -2,16 +2,13 @@ package tw.idv.cha102.g7.attraction.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.attraction.dto.CollectionDTO;
-import tw.idv.cha102.g7.attraction.dto.CollectionId;
-import tw.idv.cha102.g7.attraction.entity.Attraction;
+import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
+import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
-import tw.idv.cha102.g7.attraction.service.AttractionService;
 
 @RestController
-public class AttractionCollectionController {
+public class AttrCollectionController {
 
     @Autowired
     private AttrCollectionService attrCollectionService;
@@ -20,8 +17,8 @@ public class AttractionCollectionController {
      * 加入景點收藏
      */
     @PostMapping("/addAttrToCollection")
-    public String addAttrToCollection(@RequestBody CollectionDTO collectionDTO) {
-        if(attrCollectionService.addAttrToCollection(collectionDTO) == "success")
+    public String addAttrToCollection(@RequestBody AttrCollectionDTO attrCollectionDTO) {
+        if(attrCollectionService.addAttrToCollection(attrCollectionDTO) == "success")
             return "success";
         else
             return "failed";
@@ -41,7 +38,7 @@ public class AttractionCollectionController {
      * 移除景點收藏
      */
     @RequestMapping("/removeAttrFromCollection")
-    public String removeAttrFromCollection(@RequestBody CollectionId collectionId){
+    public String removeAttrFromCollection(@RequestBody AttrCollectionId collectionId){
         if(attrCollectionService.removeAttrFromCollection(collectionId) == "success")
             return "success";
         else
