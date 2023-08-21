@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CartService {
     //加入購物車(新增一筆購物車清單)
-//    public CartList addToCart(Integer memId, Integer prodId, Integer cartPri, Integer cartQty);
+    public CartList addToCart(Integer memId, Integer prodId, Integer cartPri, Integer cartQty);
 
     //查看購物車內容
     public List<CartList> getAllCartList(Integer memId);

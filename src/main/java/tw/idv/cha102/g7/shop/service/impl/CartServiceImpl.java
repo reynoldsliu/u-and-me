@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.shop.entity.CartList;
+import tw.idv.cha102.g7.shop.entity.CartListId;
 import tw.idv.cha102.g7.shop.entity.Order;
 import tw.idv.cha102.g7.shop.repo.CartListRepository;
 import tw.idv.cha102.g7.shop.repo.OrderRepository;
@@ -19,34 +20,25 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private OrderRepository orderRepository;
 
-//        @Autowired
-//        public CartServiceImpl(CartListRepository cartListRepository, OrderRepository orderRepository) {
-//            this.cartListRepository = cartListRepository;
-//            this.orderRepository = orderRepository;
-//        }
-//
-//        @Override
-//        //新增購物車項目
-//        public CartList addToCart(Integer memId, Integer prodId, Integer cartPri, Integer cartQty) {
-////            // 根據會員ID和商品ID查詢購物車項目
-//            CartList cartList = cartListRepository.findByMemIdAndProdId(memId, prodId);
-//
-//            if (cartList == null) {
-//                // 若購物車項目不存在，創建新的項目並設定相關資訊
-//                cartList = new CartList();
-////                cartList.setMemId(memId);
-////                cartList.setProdId(prodId);
-//                  cartList.setCartQty(cartQty);
-//                  cartList.setCartPri(cartPri);
-//            } else {
-//                // 若購物車項目存在，更新數量
-//                cartList.setCartQty(cartList.getCartQty() + cartQty);
-//            }
-//
-//            // 儲存或更新購物車項目
-//            return cartListRepository.save(cartList);
-//        }
-//
+        @Override
+        //加入購物車
+        public CartList addToCart(Integer memId, Integer prodId, Integer cartPri, Integer cartQty) {
+            CartListId cartListId = new CartListId(memId, prodId);
+            CartList cartList = cartListRepository.findByCartListId_MemIdAndCartListId_ProdId(memId, prodId);
+
+            if(cartList == null){
+            cartList = new CartList();  //創建一筆新的購物車清單
+            cartList.setCartListId(new CartListId(memId, prodId)); //因為複合主鍵，要用cartListId new新物件才有memId&prodId)同時set這兩項內容
+            cartList.setCartQty(cartQty);
+            cartList.setCartPri(cartPri);
+        }else {
+                //增加購物車清單數量
+                cartList.setCartQty(cartList.getCartQty() + cartQty);
+            }
+            //save是新增與修改，如果同一個會員選同一個商品加入購物車，要讓他變成修改(增加)數量
+            return cartListRepository.save(cartList);
+        }
+
 
         //查看購物車項目: 先把cartList全部列出，如果對應到的memId=裡面的memId就被取出來
         @Override
@@ -60,9 +52,12 @@ public class CartServiceImpl implements CartService {
             }
             return returnList;
         }
+        //刪除一筆購物車清單
+        //先通過 memId 和 prodId 創建一個新的購物車項目
 //        @Override
 //        public void deleteById(Integer memId, Integer prodId) {
-//            cartListRepository.deleteById(memId, prodId);
+//            CartListId cartListId = new CartListId(memId, prodId);
+//            cartListRepository.deleteByCartListId(cartListId);
 //        }
 ////
 //        //更新一筆購物車數量
