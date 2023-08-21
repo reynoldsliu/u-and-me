@@ -20,10 +20,10 @@ public interface ScheduleService {
     // 依行程ID，查詢單一行程
     public Schedule getById(Integer schId);
 
-    // 測試一對多查詢行程及細節
+    // 查詢行程及其細節，並依照行程細節起始時間排序(如何插入行程標籤)
     public Schedule getOneById(Integer schId);
 
-    // 從單一行程中查詢對應標籤
+    // 從單一行程中查詢對應標籤(但是有重複單一行程資料的問題)
     public List<ScheduleTagDTO> findTagsInOneSchdule(Integer schId);
 
     // 查詢所有行程清單(留著，暫時沒用到)

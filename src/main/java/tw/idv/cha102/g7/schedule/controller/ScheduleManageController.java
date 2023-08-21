@@ -11,7 +11,8 @@ import tw.idv.cha102.g7.schedule.service.ScheduleService;
 import java.util.List;
 
 // 行程管理
-@RestController("/schedules")
+@RestController
+@RequestMapping("/schedules")
 public class ScheduleManageController {
 
     @Autowired
@@ -48,7 +49,7 @@ public class ScheduleManageController {
         }
     }
 
-    // 查詢單一行程後，對行程內容進行修改
+    // 查詢單一行程(行程概要)後，對行程內容進行修改
     // 修改行程公開權限(私密、透過連結分享、公開)
     // 行程共同編輯成員及權限設定(可檢視、可編輯、新增及移除共編成員，透過連結分享邀請成員共編)
     @PutMapping("/edit/{schId}")

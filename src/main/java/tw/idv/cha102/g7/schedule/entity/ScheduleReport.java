@@ -33,5 +33,5 @@ public class ScheduleReport {
     private Integer hostId;
 
     @Column(name = "schrep_sta")
-    private Integer schRepSta;
+    private Short schRepSta;
 }

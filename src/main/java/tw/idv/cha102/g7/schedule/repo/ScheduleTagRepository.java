@@ -45,6 +45,6 @@ public interface ScheduleTagRepository extends JpaRepository<ScheduleTag, Intege
             "FROM schedules s " +
             "JOIN schedule_tag_list stl ON s.sch_id = stl.sch_id " +
             "JOIN schedule_tag st ON stl.schtag_id = st.schtag_id " +
-            "WHERE st.schtag_id = ?1 AND sch_pub = 2 ORDER BY s.sch_start DESC", nativeQuery = true)
+            "WHERE st.schtag_id = ?1 AND sch_pub = 2 ORDER BY s.sch_start", nativeQuery = true)
     public List<TestDTO> testDTO(Integer schTagId);
 }

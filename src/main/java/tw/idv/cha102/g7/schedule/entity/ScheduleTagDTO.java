@@ -21,9 +21,9 @@ public class ScheduleTagDTO {
 
     private Date schEnd;
 
-    private Integer schPub;
+    private Byte schPub;
 
-    private Integer schCopy;
+    private Boolean schCopy;
 
     private Integer schCost;
 
@@ -37,8 +37,8 @@ public class ScheduleTagDTO {
         this.memId = (Integer) objects[2];
         this.schStart = (Date) objects[3];
         this.schEnd = (Date) objects[4];
-        this.schPub = (Integer) objects[5];
-        this.schCopy = (Integer) objects[6];
+        this.schPub = (Byte) objects[5];
+        this.schCopy = (Boolean) objects[6];
         this.schCost = (Integer) objects[7];
         this.schTagId = (Integer) objects[8];
         this.schTagName = (String) objects[9];

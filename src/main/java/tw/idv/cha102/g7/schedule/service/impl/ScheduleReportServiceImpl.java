@@ -13,7 +13,7 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
     ScheduleReportRepository reportRepository;
 
     @Autowired
-    ScheduleRepository repository;
+    private ScheduleRepository repository;
 
 
     @Override
@@ -21,7 +21,7 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
         // 先查詢此id的行程是否存在，再進行行程公開設定
         var schedule = repository.findById(schId);
         if (schedule.isPresent()) {
-            schedule.get().setSchPub(0);
+            schedule.get().setSchPub((byte) 0);
             // 修改行程公開權限為0:私人檢視
             repository.save(schedule.get());
         }

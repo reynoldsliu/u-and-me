@@ -2,6 +2,7 @@ package tw.idv.cha102.g7.schedule.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,10 +34,11 @@ public class Schedule {
     private Date schEnd;
 
     @Column(name = "sch_pub")
-    private Integer schPub;
+    @JsonProperty("schPub")
+    private Byte schPub;
 
     @Column(name = "sch_copy")
-    private Integer schCopy;
+    private Boolean schCopy;
 
     @Column(name = "sch_cost")
     private Integer schCost;
@@ -44,4 +46,6 @@ public class Schedule {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sch_id", referencedColumnName = "sch_id")
     private List<ScheduleDetail> scheduleDetails;
+
+//    private List<ScheduleTag> scheduleTags;
 }

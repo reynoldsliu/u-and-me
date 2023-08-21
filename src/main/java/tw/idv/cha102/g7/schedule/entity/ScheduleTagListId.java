@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -16,6 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ScheduleTagListId implements Serializable {
 
+    @EmbeddedId
     private Integer schId;
 
     private Integer schTagId;

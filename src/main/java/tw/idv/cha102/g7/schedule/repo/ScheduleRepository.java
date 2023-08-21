@@ -28,11 +28,13 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     public List<Schedule> findByMemId(Integer memId);
 
 
+    // 查詢行程及其細節，並依照行程細節起始時間排序
     @Query(value = "SELECT * FROM schedules s " +
             "JOIN schedule_de sd ON s.sch_id = sd.sch_id " +
-            "WHERE s.sch_id = ?1 ORDER BY schde_starttime asc", nativeQuery = true)
+            "WHERE s.sch_id = ?1 ORDER BY schde_starttime", nativeQuery = true)
     public Schedule findByIdOrderByStarttime(Integer schId);
 
+    // 有重複行程資料的問題
     @Query(value = "SELECT s.sch_id schId, sch_name schName, mem_id memId, sch_start schStart, sch_end schEnd, sch_pub schPub, sch_copy schCopy, sch_cost schCost, st.schtag_id schTagId, st.schtag_name schTagName " +
             "FROM schedules s " +
             "JOIN schedule_tag_list stl ON s.sch_id = stl.sch_id " +

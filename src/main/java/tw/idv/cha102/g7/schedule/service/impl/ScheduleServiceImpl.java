@@ -46,6 +46,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return repository.findAll();
     }
 
+    // 查詢行程及其細節，並依照行程細節起始時間排序
     @Override
     public Schedule getOneById(Integer schId) {
         Schedule schedule = repository.findByIdOrderByStarttime(schId);
@@ -53,6 +54,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         return schedule;
     }
 
+    // 有重複行程資料的問題
     @Override
     public List<ScheduleTagDTO> findTagsInOneSchdule(Integer schId){
         List<Object[]> list = repository.findTagsByOneSchedule(schId);
@@ -105,7 +107,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         // 先查詢此id的行程是否存在，再進行行程公開設定
         var schedule = repository.findById(schId);
         if (schedule.isPresent()) {
-            schedule.get().setSchPub(0);
+            schedule.get().setSchPub((byte)0);
             // 修改行程公開權限為0:私人檢視
             repository.save(schedule.get());
         }
