@@ -4,10 +4,10 @@ import java.sql.Date;
 
 public interface GroupGroupPicDto {
 
-    Integer getGroupId();
-    Integer getMemId();
+    Integer getGroup_Id();
+    Integer getMem_Id();
 
-    Integer getSchId();
+    Integer getSch_Id();
 
     Integer getMembers();
 
@@ -21,21 +21,21 @@ public interface GroupGroupPicDto {
 
     Date getStarting();
 
-    Date getDepDate();
+    Date getDep_Date();
 
     Date getDeadline();
 
-    String getGroupDesc();
+    String getGroup_Desc();
 
     String getNotice();
 
-    Integer getGroupSta();
+    Integer getGroup_Sta();
 
-    Integer getPaymentSta();
+    Integer getPayment_Sta();
 
-    Integer getGroupPicId();
+    Integer getGroup_Pic_Id();
 
-    Byte[] getGroupPic();
+    Byte[] getGroup_Pic();
 
 
 }
