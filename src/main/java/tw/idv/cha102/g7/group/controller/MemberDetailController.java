@@ -47,7 +47,7 @@ public class MemberDetailController {
         return memberDetailService.findByFormId(formId);
     }
 
-    @GetMapping("/memberDetails/all")//查詢全部報名細節
+    @GetMapping("/memberDetailsAll")//查詢全部報名細節
     public List<MemberDetail> getAll(){
         return memberDetailService.getAll();
     }

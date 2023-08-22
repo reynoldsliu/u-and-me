@@ -3,7 +3,7 @@ package tw.idv.cha102.g7.group.dto;
 import java.sql.Date;
 
 public interface GroupRegFormMemberDetailDto {
-    Integer getGroupId();
+    Integer getGroup_Id();
 
     Integer getDetailId();
 
