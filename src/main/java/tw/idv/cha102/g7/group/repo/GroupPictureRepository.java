@@ -1,7 +1,6 @@
 package tw.idv.cha102.g7.group.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import tw.idv.cha102.g7.group.entity.GroupPicture;
 
 import java.util.List;

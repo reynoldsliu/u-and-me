@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.group.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "`group`")
@@ -35,12 +36,19 @@ public class Group implements Serializable {
     private Integer amount;
     @Column(name = "theme")
     private String theme;
-    @Column(name = "`starting`")
-    private Date starting;
-    @Column(name = "dep_Date")
-    private Date depDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "start_date")
+    private Timestamp startDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Column(name = "dep_date")
+    private Timestamp depDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "deadline")
-    private Date deadline;
+    private Timestamp deadline;
+
     @Column(name = "group_desc")
     private String groupDesc;
     @Column(name = "notice")

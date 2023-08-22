@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.group.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,8 @@ public class RegForm implements Serializable {
     private String phone;
     @Column(name = "join_member")
     private Integer joinMember;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "reg_time")
     private Timestamp regTime;
 

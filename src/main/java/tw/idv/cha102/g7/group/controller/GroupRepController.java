@@ -13,40 +13,84 @@ public class GroupRepController {
     @Autowired
     private GroupRepService groupRepService;
 
-    @PostMapping("/groupRep") //檢舉揪團
+    /**
+     * 一般使用者/揪團團主
+     * 檢舉揪團
+     * @param groupRep 欲檢舉的揪團內容
+     */
+    @PostMapping("/groupRep")
     public void insert(@RequestBody GroupRep groupRep){
         groupRepService.insert(groupRep);
     }
 
-    @PutMapping("/groupRep/{groupRepId}") //管理員修改檢舉狀態
+    /**
+     * 管理員
+     * 修改檢舉狀態
+     * @param groupRepId 檢舉揪團ID
+     * @param groupRep 修改完的檢舉資訊
+     */
+    @PutMapping("/groupRep/{groupRepId}")
     public void update(@PathVariable Integer groupRepId,
                        @RequestBody GroupRep groupRep){
         groupRepService.update(groupRepId, groupRep);
     }
 
-    @DeleteMapping("/groupRep/{groupRepId}") //刪除檢舉
+    /**
+     * 管理員
+     * 刪除檢舉
+     * @param groupRepId 檢舉ID
+     */
+    @DeleteMapping("/groupRep/{groupRepId}")
     public void delete(@PathVariable Integer groupRepId){
         groupRepService.delete(groupRepId);
     }
 
-
-    @GetMapping("/groupRepsSta/{GroupRepSta}")//管理員查詢檢舉狀態GroupRepSta
+    /**
+     * 管理員
+     * 查詢檢舉狀態
+     * @param GroupRepSta 檢舉狀態
+     * 0: 未處理,
+     * 1: 檢舉通過,
+     * 2: 檢舉未通過
+     * @return 查詢檢舉結果
+     */
+    @GetMapping("/groupRepsSta/{GroupRepSta}")
     public List<GroupRep> findByGroupRepSta(@PathVariable Integer GroupRepSta) {
         return groupRepService.findByGroupRepSta(GroupRepSta);
     }
 
-    @GetMapping("/groupRepsMemSta/{MemId}/{GroupRepSta}")//查詢檢舉的會員memId
+    /**
+     * 管理員
+     * 以檢舉的會員ID查詢檢舉
+     * @param MemId 送出檢舉的會員ID
+     * @param GroupRepSta 檢舉狀態
+     * 0: 未處理,
+     * 1: 檢舉通過,
+     * 2: 檢舉未通過
+     * @return 查詢檢舉的結果
+     */
+    @GetMapping("/groupRepsMemSta/{MemId}/{GroupRepSta}")
     public List<GroupRep> findByMemIdAndGroupRepSta(@PathVariable Integer MemId,
                                                     @PathVariable Integer GroupRepSta) {
         return groupRepService.findByMemIdAndGroupRepSta(MemId, GroupRepSta);
     }
 
-    @GetMapping("/groupRep/{groupRepId}") //好像沒用
+    /**
+     * 尋找用處中...
+     * @param groupRepId
+     * @return
+     */
+    @GetMapping("/groupRep/{groupRepId}")
     public GroupRep getGroupReqByGroupRepId(@PathVariable Integer groupRepId){
         return groupRepService.getGroupRepByGroupRepId(groupRepId);
     }
 
-    @GetMapping("/groupRep/all") //查詢全部檢舉
+    /**
+     * 管理員
+     * 查詢所有檢舉
+     * @return 所有檢舉
+     */
+    @GetMapping("/groupRep/all")
     public List<GroupRep> getAll(){
         return groupRepService.getAll();
     }

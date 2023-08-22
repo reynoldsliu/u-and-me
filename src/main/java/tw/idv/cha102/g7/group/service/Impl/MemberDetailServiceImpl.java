@@ -49,5 +49,15 @@ public class MemberDetailServiceImpl implements MemberDetailService {
         return memberDetailRepository.findGroupRegFormMemberDetailDtoByGroupIdOrderByFormId(groupId);
     }
 
+    @Override
+    public List<MemberDetail> findByRefundSta(Integer refundSta) {
+        return memberDetailRepository.findByRefundSta(refundSta);
+    }
+
+    @Override
+    public List<MemberDetail> findByMemId(Integer memId) {
+        return memberDetailRepository.findByMemId(memId);
+    }
+
 
 }

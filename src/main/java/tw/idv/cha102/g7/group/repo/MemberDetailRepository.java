@@ -14,4 +14,11 @@ public interface MemberDetailRepository extends JpaRepository<MemberDetail, Inte
             "LEFT JOIN `group` AS g on r.group_id = g.group_id " +
             "WHERE g.group_id = ?1 ORDER BY m.form_id", nativeQuery = true)
     List<GroupRegFormMemberDetailDto> findGroupRegFormMemberDetailDtoByGroupIdOrderByFormId(Integer groupId);
+
+    List<MemberDetail> findByRefundSta(Integer refundSta);
+
+    @Query(value = "Select m.* From member_detail AS m Left JOIN reg_form AS r ON m.form_id = r.form_id " +
+            "LEFT JOIN `group` AS g on r.group_id = g.group_id " +
+            "WHERE r.mem_id = ?1", nativeQuery = true)
+    List<MemberDetail> findByMemId(Integer memId);
 }

@@ -15,59 +15,130 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
-    @PostMapping("/group") //新增揪團
+    /**
+     * 揪團團主
+     * 新增揪團
+     * @param group 欲新增的揪團資訊
+     */
+    @PostMapping("/group")
     public void insert(@RequestBody Group group){
         groupService.insert(group);
     }
 
-    @PutMapping("/group/{groupId}") //管理員修改揪團狀態/支付狀態
+    /**
+     * 管理員
+     * 修改揪團狀態/支付尾款狀態
+     * @param groupId 揪團ID
+     * @param group 修改後的揪團資訊
+     */
+    @PutMapping("/group/{groupId}")
     public void update(@PathVariable Integer groupId,
                        @RequestBody Group group){
         groupService.update(groupId, group);
     }
 
-    @DeleteMapping("/group/{groupId}") //刪除揪團
+    /**
+     * 管理員
+     * 刪除揪團
+     * @param groupId 揪團ID
+     */
+    @DeleteMapping("/group/{groupId}")
     public void delete(@PathVariable Integer groupId){
         groupService.delete(groupId);
     }
 
-    @GetMapping("/group/{groupId}") //查詢groupId
+    /**
+     * 管理員
+     * 查詢指定的揪團編號
+     * @param groupId
+     * @return 返回查詢單一揪團結果
+     */
+    @GetMapping("/group/{groupId}")
     public Group getGroupByGroupId(@PathVariable Integer groupId){
         return groupService.getGroupByGroupId(groupId);
     }
 
-    @GetMapping("/groups/all") //查詢所有揪團
-    public List<Group> getAll(){
-        return groupService.getAll();
+    /**
+     * 遊客/揪團團主/一般使用者
+     * 查詢所有揪團並依分頁顯示
+     * @param page 當前分頁 (從0開始)
+     * @return 返回所有揪團列表
+     */
+    @GetMapping("/groups/all/{page}")
+    public List<Group> getAllPaged(@PathVariable Integer page){
+        return groupService.getAllPaged(page,5);
     }
 
-    @GetMapping("/groups/findByMemId/{memId}") //揪團主找自己揪團
+    /**
+     * 揪團團主
+     * 查詢自己的揪團列表
+     * @param memId 揪團團主ID
+     * @return 揪團團主的揪團列表 以groupSta升冪排序
+     */
+    @GetMapping("/groups/findByMemId/{memId}")
     public List<Group> findByMemIdOrderByGroupStaDesc(@PathVariable Integer memId){
         return groupService.findByMemIdOrderByGroupStaDesc(memId);
     }
 
-    @GetMapping("/groups/searchTheme/{keyword}") //尋找揪團名稱
+    /**
+     * 遊客/揪團團主/一般使用者
+     * 以揪團標題查詢揪團
+     * @param keyword 欲查詢的名稱
+     * @return 返回查詢結果
+     */
+    @GetMapping("/groups/searchTheme/{keyword}")
     public List<Group> findByThemeContaining(@PathVariable String keyword){
         return groupService.findByThemeContaining(keyword);
     }
 
-    @GetMapping("/groups/searchSta/{groupSta}") //管理員尋找揪團狀態
+    /**
+     * 管理員
+     * 查詢揪團狀態
+     * @param groupSta 欲查詢的揪團狀態
+     * 0: 未成團,
+     * 1: 揪團成功,
+     * 2: 揪團取消,
+     * 3: 揪團延期,
+     * 4: 揪團被下架
+     * @return 查詢結果
+     */
+    @GetMapping("/groups/searchSta/{groupSta}")
     public List<Group> findGroupByGroupSta(@PathVariable Integer groupSta){
         return groupService.findGroupByGroupSta(groupSta);
     }
 
-    @GetMapping("/groups/searchPaySta/{paymentSta}") //管理員尋找揪團付費
+    /**
+     * 管理員
+     * 查詢揪團尾款狀態
+     * @param paymentSta 揪團尾款支付狀態
+     * 0: 未撥款,
+     * 1: 可申請撥款,
+     * 2: 待撥款,
+     * 3: 撥款完成
+     * @return 查詢結果
+     */
+    @GetMapping("/groups/searchPaySta/{paymentSta}")
     public List<Group> findGroupByPaymentSta(@PathVariable Integer paymentSta){
         return groupService.findGroupByPaymentSta(paymentSta);
     }
 
+    /**
+     * 測試用
+     * @param groupId
+     * @return
+     */
     @GetMapping("/test1/{groupId}")
     List<GroupRegFormDto> findGroupRegFormDtoByGroupId(@PathVariable Integer groupId){
         return groupService.findGroupRegFormDtoByGroupId(groupId);
     }
 
-    //錯誤 待確認
-    @GetMapping("/groupDetail/{groupId}")//點進去揪團並看到全部圖片
+    /**
+     * 遊客/揪團團主/一般使用者
+     * 揪團詳情頁面
+     * @param groupId 揪團ID
+     * @return 單筆揪團詳情資訊
+     */
+    @GetMapping("/groupDetail/{groupId}")
     List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(@PathVariable Integer groupId){
         return groupService.findGroupRegFormDtoByGroupIdOrderByGroupPicId(groupId);
     }
