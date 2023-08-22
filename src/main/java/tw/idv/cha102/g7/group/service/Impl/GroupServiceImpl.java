@@ -2,10 +2,14 @@ package tw.idv.cha102.g7.group.service.Impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
+import tw.idv.cha102.g7.group.entity.MemberDetail;
 import tw.idv.cha102.g7.group.repo.GroupRepository;
 import tw.idv.cha102.g7.group.service.GroupService;
 
@@ -39,8 +43,19 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findById(groupId).orElse(null);
     }
 
-    public List<Group> getAll() {
-        return (List<Group>) groupRepository.findAll();
+    public List<Group> getAllPaged(int page, int size) {
+        Page<Group> pageResult = groupRepository.findAll(
+                PageRequest.of(page, //查詢的頁數 從0開始
+                                size,//查詢的每頁筆數
+                                Sort.by("groupSta").ascending())); //依造group_sta欄位升冪排序
+//        可能會運用到的方法
+//        pageResult.getNumberOfElements(); //本頁筆數
+//        pageResult.getSize(); //每頁筆數
+//        pageResult.getTotalElements(); //全部筆數
+//        pageResult.getTotalPages(); //全部頁數
+
+        List<Group> groupList = pageResult.getContent();
+        return groupList;
     }
 
     @Override

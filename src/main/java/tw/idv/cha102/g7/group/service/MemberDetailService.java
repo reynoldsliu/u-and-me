@@ -21,4 +21,8 @@ public interface MemberDetailService {
     List<MemberDetail> findByFormId(Integer formId);
 
     List<GroupRegFormMemberDetailDto> findGroupRegFormMemberDetailDtoByGroupIdOrderByFormId(Integer groupId);
+
+    List<MemberDetail> findByRefundSta(Integer refundSta);
+
+    List<MemberDetail> findByMemId(Integer memId);
 }

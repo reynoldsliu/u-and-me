@@ -1,6 +1,8 @@
 package tw.idv.cha102.g7.group.dto;
 
-import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.sql.Timestamp;
 
 public interface GroupGroupPicDto {
 
@@ -11,19 +13,22 @@ public interface GroupGroupPicDto {
 
     Integer getMembers();
 
-    Integer getMinMember();
+    Integer getMin_Member();
 
-    Integer getMaxMember();
+    Integer getMax_Member();
 
     Integer getAmount();
 
     String getTheme();
 
-    Date getStarting();
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    Timestamp getStar_Date();
 
-    Date getDep_Date();
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    Timestamp getDep_Date();
 
-    Date getDeadline();
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    Timestamp getDeadline();
 
     String getGroup_Desc();
 
@@ -35,7 +40,7 @@ public interface GroupGroupPicDto {
 
     Integer getGroup_Pic_Id();
 
-    Byte[] getGroup_Pic();
+    byte[] getGroup_Pic();
 
 
 }

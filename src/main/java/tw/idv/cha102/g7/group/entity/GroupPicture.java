@@ -25,7 +25,7 @@ public class GroupPicture implements Serializable {
     private Integer groupId;
     @Column(name = "group_pic", columnDefinition = "MEDIUMBLOB")
     @Lob
-    private Byte[] groupPic;
+    private byte[] groupPic;
 
 //    @ManyToOne
 //    @JoinColumn(name = "group_id", insertable = false,updatable = false)

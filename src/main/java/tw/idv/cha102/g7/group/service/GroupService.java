@@ -15,7 +15,7 @@ public interface GroupService {
 
     Group getGroupByGroupId(Integer groupId);
 
-    List<Group> getAll();
+    List<Group> getAllPaged(int page, int size);
 
     List<Group> findByMemIdOrderByGroupStaDesc(Integer memId);
 //    List<Group> getGroupsByMemId(Integer memId);
@@ -28,4 +28,6 @@ public interface GroupService {
     List<GroupRegFormDto> findGroupRegFormDtoByGroupId(Integer groupId);
 
     List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId);
+
+
 }
