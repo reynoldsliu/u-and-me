@@ -14,12 +14,17 @@ public class MemberDetailsServiceImpl implements MemberDetailsService {
 
     @Autowired
     private MemberRepository memberRepository;
-    public Member getMemberByEmail(String memEmail) {
-        return memberRepository.findByMemEmail(memEmail).orElse(null);
+    public Member getMemberByMemEmail(String memEmail) {
+        return memberRepository.findByMemEmail(memEmail);
     }
 
     public List<Member> getAll(){
         return (List<Member>) memberRepository.findAll();
+    }
+
+    @Override
+    public Member getMember(Integer memId) {
+        return memberRepository.findById(memId).get();
     }
 
 }

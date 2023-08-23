@@ -224,7 +224,7 @@ align-items: center;
 
 
 .target-2 {
-
+  
   bottom: 0px;
   left: 100px;
 }
@@ -247,4 +247,20 @@ align-items: center;
 
 .sidebar a:hover {
   background-color: #333;
+}
+
+.updatebottom{
+  background-color:rgb(115, 176, 172); 
+  display: flex;
+  padding: 5px 5px;
+  color: white;
+  border: none;
+  border-radius: 10px; /* 設定圓角的像素值 */
+  cursor: pointer;
+  font-size: small;
+  justify-content: center;
+  align-items: center;
+  height: 45px; /* 减小按钮的高度 */
+  max-width: 90px; /* 设置按钮的最大宽度 */
+  margin: auto; /* 水平和垂直居中 */
 }

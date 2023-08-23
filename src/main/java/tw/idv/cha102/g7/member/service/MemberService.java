@@ -10,10 +10,10 @@ public interface MemberService {
 /////會員登入相關/////
 
     //會員註冊
-    public void insert(Member member);
+    public String insert(Member member);
 
     //會員登入驗證(信箱驗證)
-    //public void verifyEmail(String token);
+//    public void verifyEmail(String token);
 
     //會員登入
     public String login(String memEmail,String memPassword);
@@ -28,18 +28,15 @@ public interface MemberService {
     public Integer getMemberStatus(Integer memId, String memPassword);
 
 
-    public Member getMemberByEmail(String memEmail);
+//    public Member getMemberByEmail(String memEmail);
 
-
-    //會員等級查看
-// public Member getmemGradeBymemId(Integer memId);
-    //會員點數查看
-    //public  Integer membersta(Integer memSta);
+//    public void usePoints(Integer memId, int pointsToUse);
+    }
 
 
 
 
 
 
-}
+
 

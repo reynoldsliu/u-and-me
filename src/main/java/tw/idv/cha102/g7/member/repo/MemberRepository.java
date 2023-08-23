@@ -11,8 +11,11 @@ import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
-    Optional<Member> findByMemEmail(String memEmail);
 
+    // 透過Email查詢會員的詳細資料
+    public Member findByMemEmail(String memEmail);
+
+    // 回傳值應該會是List<Member>，記得更改
     public Member findByMemNameContaining(String memName);
 
 //    @Query(value = "SELECT mem_grade FROM members WHERE mem_id = memId", nativeQuery = true)

@@ -1,11 +1,15 @@
 package tw.idv.cha102.g7.member.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "members")
 public class Member {
     @Id

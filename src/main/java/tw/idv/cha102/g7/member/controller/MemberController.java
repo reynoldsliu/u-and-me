@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.member.controller.exception.InsufficientPointsException;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.member.service.MemberService;
@@ -25,8 +26,7 @@ public class MemberController {
 
     @PostMapping("/register")
     public String register(@RequestBody Member member) {
-        memberService.insert(member);
-        return "會員登入成功";
+        return memberService.insert(member);
     }
 
 
@@ -63,6 +63,13 @@ public class MemberController {
 
         return ResponseEntity.ok("您已成功註冊為團主");
     }
+//    @PostMapping("/ReportStatus")
+//    public ResponseEntity<String>ReportStatus(@RequestBody Member member){
+//        Integer memId = member.getMemId();
+//        String memPassword = member.getMemPassword();
+//
+//        //
+//    }
 
 
     @DeleteMapping("/delete/{memId}")
@@ -77,7 +84,7 @@ public class MemberController {
 
     @PostMapping("/update")
 
-    public ResponseEntity<Member> updateMember(@RequestBody Member member) {
+    public ResponseEntity<Member> update(@RequestBody Member member) {
         Member updatedMember = memberService.update(member);
         if (updatedMember != null) {
             return ResponseEntity.ok(updatedMember);
@@ -85,6 +92,15 @@ public class MemberController {
             return ResponseEntity.notFound().build();
         }
     }
+//    @PostMapping("/{memberId}/usePoints")
+//    public ResponseEntity<String> usePoints(@PathVariable Integer memId, @RequestParam int pointsToUse) {
+//        try {
+//            memberService.usePoints(memId, pointsToUse);
+//            return ResponseEntity.ok("Points used successfully");
+//        } catch (InsufficientPointsException e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Insufficient points");
+//        }
+//    }
 
 //    @GetMapping("/{memId}grade")
 //    public ResponseEntity<Member> viewMemberGrade(@PathVariable Integer memId) {
@@ -95,4 +111,5 @@ public class MemberController {
 //            return ResponseEntity.notFound().build();
 //        }
 //    }
+
 }

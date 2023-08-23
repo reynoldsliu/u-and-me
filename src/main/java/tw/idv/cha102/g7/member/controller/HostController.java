@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.member.entity.Host;
+import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.HostRepository;
 
 import tw.idv.cha102.g7.member.service.HostService;
@@ -33,18 +34,17 @@ public class HostController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody Host host) {
-        Integer hostId = host.getHostId();
-        String memPassword = host.getHostPassword();
-        String str = "failed";
-//        Integer id = Integer.parseInt(memId);
-        if(hostService.login(hostId,memPassword))
-        {
-            str = "success";
-        }
-        return str;
-    }
+    public ResponseEntity<String> login(@RequestBody Host host) {
+        String hostEmail = host.getHostEmail();
+        String hostPassword = host.getHostPassword();
 
+        String loginResult = hostService.login(hostEmail, hostPassword);
+        if ("您已成功登入管理員系統".equals(loginResult)) {
+            return ResponseEntity.ok("您已成功登入管理員系統");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
+        }
+    }
     @DeleteMapping("/delete/{hostId}")
     public ResponseEntity<Boolean> delete(@PathVariable Integer hostId) {
         try {
