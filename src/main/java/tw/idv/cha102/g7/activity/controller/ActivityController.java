@@ -1,15 +1,14 @@
 package tw.idv.cha102.g7.activity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.activity.entity.Activity;
 import tw.idv.cha102.g7.activity.service.ActivityService;
-import tw.idv.cha102.g7.activity.service.ActivityServiceImpl;
 
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class ActivityController {
 
@@ -62,6 +61,21 @@ public class ActivityController {
 
     // -------------------- 待辦 ------------------
 
+//    @GetMapping("/activityall")
+//    List<Activity> all() {
+//        List<Activity> list = activityService.findAllActivity();
+//
+//        for (Activity activity : list) {
+//            System.out.println(activity);
+//        }
+//        return list;
+//    }
 
+    // 查全部活動
+    @GetMapping("/activityall")
+    public List<Activity> findAllActivity() {
+        List<Activity> activityList = activityService.findAllActivity();
+        return activityList;
+    }
 
 }

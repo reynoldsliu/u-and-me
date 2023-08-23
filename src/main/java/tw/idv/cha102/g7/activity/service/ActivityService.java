@@ -26,4 +26,5 @@ public interface ActivityService {
     void updateById(Integer activId, Activity activity);
 
 
+    public List<Activity> findAllActivity();
 }

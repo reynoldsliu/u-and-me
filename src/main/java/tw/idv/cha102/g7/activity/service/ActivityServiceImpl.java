@@ -45,6 +45,10 @@ public class ActivityServiceImpl implements ActivityService {
         repository.save(activity);
     }
 
+    @Override
+    public List<Activity> findAllActivity() {
+        return repository.findAll();
+    }
 
 
 }

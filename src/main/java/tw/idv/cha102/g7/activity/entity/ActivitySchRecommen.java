@@ -1,19 +1,36 @@
-package tw.idv.cha102.g7.activity.vo;
+package tw.idv.cha102.g7.activity.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
-@Entity
-@Table(name = "activity_schedule_recommendation")
-public class ActivitySchRecommen {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    @Id
-    @Column(name = "sch_id")
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
+import java.io.Serializable;
+
+@Data
+@Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
+public class ActivitySchRecommen implements Serializable {
+
+    @EmbeddedId
     private Integer schId;
-
-    @Column(name = "activ_id")
     private Integer activId;
 
 }
+
+
+//@Entity
+//@Table(name = "activity_schedule_recommendation")
+//public class ActivitySchRecommen implements Serializable {
+//
+//    @Id
+//    @Column(name = "sch_id")
+//    private Integer schId;
+//
+//    @Column(name = "activ_id")
+//    private Integer activId;
+//
+//}
