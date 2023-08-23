@@ -27,7 +27,7 @@ public class ScheduleManageController {
     // 新增一筆行程(包含選擇出發及結束日期、目的地標籤、行程名稱)
     // 可以新增，但若資料庫中有相同id的行程，資料會被覆蓋過去
     @PostMapping("/create")
-    ResponseEntity<?> create(@RequestBody Schedule schedule) {
+    public ResponseEntity<?> create(@RequestBody Schedule schedule) {
         try {
             service.create(schedule);
             return ResponseEntity.ok().build();

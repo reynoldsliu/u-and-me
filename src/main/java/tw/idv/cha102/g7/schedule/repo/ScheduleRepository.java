@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
-import tw.idv.cha102.g7.schedule.entity.ScheduleTagDTO;
 
 import java.sql.Date;
 import java.util.List;

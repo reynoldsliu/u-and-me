@@ -1,10 +1,8 @@
 package tw.idv.cha102.g7.schedule.service;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import tw.idv.cha102.g7.schedule.entity.ScheduleTagDTO;
+import tw.idv.cha102.g7.schedule.dto.ScheduleToTagsDTO;
+import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
-import tw.idv.cha102.g7.schedule.entity.TestDTO;
 
 import java.util.List;
 
@@ -20,10 +18,12 @@ public interface ScheduleTagService {
     public List<ScheduleTag> findByName(String schTagName);
 
     // 依照標籤id查詢對應行程
-    public List<ScheduleTagDTO> findSchedulesBySchTagId(Integer schTagId);
+    public List<TagToSchedulesDTO> findSchedulesBySchTagId(Integer schTagId);
 
     // 依照標籤名稱查詢對應行程
-    public List<ScheduleTagDTO> findSchedulesBySchTagName(String schTagName);
+    public List<TagToSchedulesDTO> findSchedulesBySchTagName(String schTagName);
 
-    public List<TestDTO> test(Integer schTagId);
+    // 依照行程id查詢對應標籤
+    public ScheduleToTagsDTO findTagsBySchId(Integer schId);
+
 }

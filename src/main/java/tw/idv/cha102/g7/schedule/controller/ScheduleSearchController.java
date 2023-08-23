@@ -6,8 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
-import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
-import tw.idv.cha102.g7.schedule.entity.ScheduleTagDTO;
+import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
 import java.util.ArrayList;
@@ -48,39 +47,40 @@ public class ScheduleSearchController {
     }
 
     // 查詢行程及其細節，並依照行程細節起始時間排序(若輸入不存在的id，會404)
-    @GetMapping("/one/{schId}")
-    public ResponseEntity<?> getOneScheDetail(@PathVariable Integer schId) {
-        try {
-            Schedule schedule = service.getOneById(schId);
-
-            List<ScheduleTagDTO> scheduleTagDTOS = service.findTagsInOneSchdule(schId);
-            List<ScheduleDetail> scheduleDetails = service.getOneById(schId).getScheduleDetails();
-            List<String> tagNames = new ArrayList<>();
-            List<Object> returnList = new ArrayList<>();
-            returnList.add(schedule);
-            for(ScheduleDetail scheduleDetail:scheduleDetails){
-                returnList.add(scheduleDetail);
-            }
-            for(ScheduleTagDTO dto:scheduleTagDTOS){
-                if(dto.getSchTagName() != null){
-                    returnList.add(dto.getSchTagName());
-                }
-            }
-            return ResponseEntity.ok(returnList);
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new ScheduleNotFoundException(schId));
-        }
-    }
+    // @OneToMany的Join寫法
+//    @GetMapping("/one/{schId}")
+//    public ResponseEntity<?> getOneScheDetail(@PathVariable Integer schId) {
+//        try {
+//            Schedule schedule = service.getOneById(schId);
+//
+//            List<ScheduleTagDTO> scheduleTagDTOS = service.findTagsInOneSchdule(schId);
+//            List<ScheduleDetail> scheduleDetails = service.getOneById(schId).getScheduleDetails();
+//            List<String> tagNames = new ArrayList<>();
+//            List<Object> returnList = new ArrayList<>();
+//            returnList.add(schedule);
+//            for(ScheduleDetail scheduleDetail:scheduleDetails){
+//                returnList.add(scheduleDetail);
+//            }
+//            for(ScheduleTagDTO dto:scheduleTagDTOS){
+//                if(dto.getSchTagName() != null){
+//                    returnList.add(dto.getSchTagName());
+//                }
+//            }
+//            return ResponseEntity.ok(returnList);
+//        } catch (Exception e) {
+//            return ResponseEntity
+//                    .status(HttpStatus.NOT_FOUND)
+//                    .body(new ScheduleNotFoundException(schId));
+//        }
+//    }
 
     // 從單一行程中查詢對應標籤(但是有重複單一行程資料的問題)、若輸入不存在id的資料為[]
     @GetMapping("/tags/{schId}")
     public ResponseEntity<?> getTagsByOneSchedule(@PathVariable Integer schId){
         try {
-            List<ScheduleTagDTO> scheduleTagDTOS = service.findTagsInOneSchdule(schId);
+            List<TagToSchedulesDTO> scheduleTagDTOS = service.findTagsInOneSchdule(schId);
             List<String> tagNames = new ArrayList<>();
-            for(ScheduleTagDTO dto:scheduleTagDTOS){
+            for(TagToSchedulesDTO dto:scheduleTagDTOS){
                 if(dto.getSchTagName() != null){
                     tagNames.add(dto.getSchTagName());
                 }

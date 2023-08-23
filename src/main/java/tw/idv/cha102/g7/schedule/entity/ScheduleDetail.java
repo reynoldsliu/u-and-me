@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.schedule.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,7 @@ public class ScheduleDetail {
 	private Integer attrId;
 
 	@Column(name = "schde_starttime")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp schdeStarttime;
 
 	@Column(name = "schde_staytime")

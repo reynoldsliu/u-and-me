@@ -1,4 +1,4 @@
-package tw.idv.cha102.g7.schedule.entity;
+package tw.idv.cha102.g7.schedule.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,10 +13,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ScheduleTagListId implements Serializable {
 
-    @EmbeddedId
+    @Column(name = "sch_id")
     private Integer schId;
 
+    @Column(name = "schtag_id")
     private Integer schTagId;
-
 
 }

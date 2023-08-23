@@ -1,7 +1,7 @@
 package tw.idv.cha102.g7.schedule.service;
 
 import tw.idv.cha102.g7.schedule.entity.Schedule;
-import tw.idv.cha102.g7.schedule.entity.ScheduleTagDTO;
+import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 
 import java.sql.Date;
 import java.util.List;
@@ -20,11 +20,14 @@ public interface ScheduleService {
     // 依行程ID，查詢單一行程
     public Schedule getById(Integer schId);
 
+
     // 查詢行程及其細節，並依照行程細節起始時間排序(如何插入行程標籤)
-    public Schedule getOneById(Integer schId);
+//    @OneToMany的Join寫法
+//    public Schedule getOneById(Integer schId);
+
 
     // 從單一行程中查詢對應標籤(但是有重複單一行程資料的問題)
-    public List<ScheduleTagDTO> findTagsInOneSchdule(Integer schId);
+    public List<TagToSchedulesDTO> findTagsInOneSchdule(Integer schId);
 
     // 查詢所有行程清單(留著，暫時沒用到)
     public List<Schedule> getAll();

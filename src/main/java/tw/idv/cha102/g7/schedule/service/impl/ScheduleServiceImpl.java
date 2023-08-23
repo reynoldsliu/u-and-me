@@ -3,13 +3,11 @@ package tw.idv.cha102.g7.schedule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
-import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
-import tw.idv.cha102.g7.schedule.entity.ScheduleTagDTO;
+import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
 import java.sql.Date;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,19 +44,22 @@ public class ScheduleServiceImpl implements ScheduleService {
         return repository.findAll();
     }
 
+
     // 查詢行程及其細節，並依照行程細節起始時間排序
-    @Override
-    public Schedule getOneById(Integer schId) {
-        Schedule schedule = repository.findByIdOrderByStarttime(schId);
-        schedule.setScheduleDetails(schedule.getScheduleDetails().stream().sorted(Comparator.comparing(ScheduleDetail::getSchdeStarttime)).collect(Collectors.toList()));
-        return schedule;
-    }
+    // @OneToMany的Join寫法
+//    @Override
+//    public Schedule getOneById(Integer schId) {
+//        Schedule schedule = repository.findByIdOrderByStarttime(schId);
+//        schedule.setScheduleDetails(schedule.getScheduleDetails().stream().sorted(Comparator.comparing(ScheduleDetail::getSchdeStarttime)).collect(Collectors.toList()));
+//        return schedule;
+//    }
+
 
     // 有重複行程資料的問題
     @Override
-    public List<ScheduleTagDTO> findTagsInOneSchdule(Integer schId){
+    public List<TagToSchedulesDTO> findTagsInOneSchdule(Integer schId){
         List<Object[]> list = repository.findTagsByOneSchedule(schId);
-        List<ScheduleTagDTO> collect = list.stream().map(ScheduleTagDTO::new).collect(Collectors.toList());
+        List<TagToSchedulesDTO> collect = list.stream().map(TagToSchedulesDTO::new).collect(Collectors.toList());
         return collect;
     }
 
