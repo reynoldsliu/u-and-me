@@ -1,11 +1,13 @@
 package tw.idv.cha102.g7.group.repo;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
+import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
-import tw.idv.cha102.g7.group.entity.GroupPicture;
 
 import java.util.List;
 
@@ -25,4 +27,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "Select g.*, gp.group_pic_id, gp.group_pic FROM `group` AS g LEFT JOIN group_picture AS gp ON g.group_id = gp.group_id " +
             "WHERE g.group_id = ?1 ORDER BY gp.group_pic_id", nativeQuery = true)
     List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId);
+
+    @Query(value = "SELECT cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1", nativeQuery = true)
+    Page<GroupListDto> findGroupListByGroupSta(Integer groupSta, Pageable pageable);
 }

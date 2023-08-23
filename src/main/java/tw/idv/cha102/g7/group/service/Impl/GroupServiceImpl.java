@@ -4,9 +4,11 @@ package tw.idv.cha102.g7.group.service.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
+import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.entity.MemberDetail;
@@ -14,13 +16,13 @@ import tw.idv.cha102.g7.group.repo.GroupRepository;
 import tw.idv.cha102.g7.group.service.GroupService;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Component
 public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private GroupRepository groupRepository;
-
 
     public void insert(Group group) {
         groupRepository.save(group);
@@ -89,6 +91,13 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId) {
         return groupRepository.findGroupRegFormDtoByGroupIdOrderByGroupPicId(groupId);
+    }
+
+    @Override
+    public Stream<GroupListDto> findGroupListByGroupSta(Integer groupSta, Integer page) {
+        Sort sort = Sort.by(Sort.Direction.ASC,"Group_Sta");  //通過揪團狀態排序，groupSta 是Group中的變量
+        Pageable pageable = PageRequest.of(page,6, sort);   //
+        return groupRepository.findGroupListByGroupSta(groupSta,pageable).get();
     }
 
 }
