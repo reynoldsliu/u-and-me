@@ -58,6 +58,9 @@ public class Group implements Serializable {
     @Column(name = "payment_sta")
     private Integer paymentSta;
 
+    @Column(name = "cover")
+    private byte[] cover;
+
 //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "group")
 //    @JsonManagedReference
 //    private List<GroupPicture> groupPictureList;

@@ -3,11 +3,13 @@ package tw.idv.cha102.g7.group.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
+import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.service.GroupService;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 public class GroupController {
@@ -82,7 +84,7 @@ public class GroupController {
 
     /**
      * 遊客/揪團團主/一般使用者
-     * 以揪團標題查詢揪團
+     * 以揪團標題查詢揪團(暫時沒用)
      * @param keyword 欲查詢的名稱
      * @return 返回查詢結果
      */
@@ -141,5 +143,21 @@ public class GroupController {
     @GetMapping("/groupDetail/{groupId}")
     List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(@PathVariable Integer groupId){
         return groupService.findGroupRegFormDtoByGroupIdOrderByGroupPicId(groupId);
+    }
+
+    /**
+     * 遊客/揪團團主/一般使用者
+     * @param groupSta 揪團狀態
+     * 0: 未成團,
+     * 1: 揪團成功,
+     * 2: 揪團取消,
+     * 3: 揪團延期,
+     * 4: 揪團被下架
+     * @param page 分頁頁數
+     * @return 揪團列表
+     */
+    @GetMapping("/groupsList/{groupSta}/{page}")
+    public Stream<GroupListDto> findGroupListByGroupSta(@PathVariable Integer groupSta, @PathVariable Integer page){
+        return groupService.findGroupListByGroupSta(groupSta, page);
     }
 }

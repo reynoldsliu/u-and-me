@@ -1,10 +1,14 @@
 package tw.idv.cha102.g7.group.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
+import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface GroupService {
     void insert(Group group);
@@ -29,5 +33,5 @@ public interface GroupService {
 
     List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId);
 
-
+    Stream<GroupListDto> findGroupListByGroupSta(Integer groupSta, Integer page);
 }
