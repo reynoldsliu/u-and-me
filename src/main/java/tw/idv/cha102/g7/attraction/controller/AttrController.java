@@ -3,6 +3,7 @@ package tw.idv.cha102.g7.attraction.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
@@ -20,21 +21,15 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import tw.idv.cha102.g7.member.service.MemberService;
 
-@RestController
+@Controller
 //@RequestMapping("/attr")
 public class AttrController {
 
-
     @Autowired
     private AttrService attrService;
-
     @Autowired
     private MemberService memberService;
 
-    /*
-    *
-    *
-    * */
 
     //Spring MVC html轉向寫法
     @GetMapping("/index")
@@ -42,6 +37,11 @@ public class AttrController {
         model.addAttribute("pageTitle", "Thymeleaf Example");
         model.addAttribute("message", "Hello, Thymeleaf!");
         return "index";
+    }
+
+    @RequestMapping("/AttractionPage")
+    public String AttractionPage(){
+        return "AttractionPage";
     }
 
     @GetMapping("/register")
@@ -70,7 +70,7 @@ public class AttrController {
 //
 //        String url = "/jsp/getOneAttr.jsp";
 //
-//        Attraction attraction = attractionService.getById(1);
+//        Attraction attraction = attrService.getById(1);
 //        HttpSession session = req.getSession();
 //        session.setAttribute("attraction", attraction);
 //
@@ -173,15 +173,6 @@ public class AttrController {
             return null;
         }
     }
-
-//    public static void main(String[] args) {
-//        Attraction attraction = new Attraction();
-//        attraction.setId(1);
-//        attraction.setName("aaa");
-//        String json = GSON.toJson(attraction);
-//        System.out.println(attraction);
-//        System.out.println(json);
-//    }
 
     @Autowired
     private AttrCollectionService attrCollectionService;

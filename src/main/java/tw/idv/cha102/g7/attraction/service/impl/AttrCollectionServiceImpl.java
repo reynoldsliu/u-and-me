@@ -47,18 +47,29 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
         return "success";
     }
 
+
+    /**
+     * 先查詢有無此會員，以及有無此景點，
+     * 若皆有則新增或更新已有的收藏
+     * @param attrCollectionId
+     * @return String "success" or "failed"
+     */
     @Override
     @Transactional
-    public String removeAttrFromCollection(AttrCollectionId collectionId) {
-        if (attrCollectionRepository.findByCollectionId(collectionId) == null) {
+    public String removeAttrFromCollection(AttrCollectionId attrCollectionId) {
+        if (attrCollectionRepository.findByCollectionId(attrCollectionId) == null) {
             return "failed";
         }
-        attrCollectionRepository.deleteByCollectionId(collectionId);
+        attrCollectionRepository.deleteByCollectionId(attrCollectionId);
         return "success";
 
     }
 
-
+    /**
+     * 透過會員標號，找出該會員的所有景點收藏
+     * @param memId
+     * @return List<AttrCollectionDTO>
+     */
     @Override
     public List<AttrCollectionDTO> findAttrCollectionsByMemId(Integer memId) {
         List<AttrCollectionDTO> dtoList = attrCollectionRepository.findAll();
@@ -72,7 +83,11 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
 //        return attrCollectionRepository.findByCollectionId((attrCollectionRepository.findByMemId(memId)));
     }
 
-
+    /**
+     * 透過會員名稱，找出該會員的所有景點收藏
+     * @param memName
+     * @return List<AttrCollectionDTO>
+     */
     @Override
     public List<AttrCollectionDTO> findAttrCollectionsByMemName(String memName) {
         Integer memId = memberRepository.findByMemNameContaining(memName).getMemId();

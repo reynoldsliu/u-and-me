@@ -2,20 +2,14 @@ package tw.idv.cha102.g7.attraction.dto;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name = "private_attraction")
 public class AttrPrivateDTO {
-    @Id
-    @Column(name = "mem_id")
-    private Integer memId;
-    @Column(name = "attr_id")
-    private Integer id;
+    @EmbeddedId
+    private AttrPrivateId attrPrivateId;
     @Column(name = "attr_veri_sta")
     private Short veriSta;
     @Column(name = "attr_sta")
@@ -38,4 +32,22 @@ public class AttrPrivateDTO {
     private Short costRange;
     @Column(name = "attr_rep")
     private String rep;
+
+    public AttrPrivateDTO() {
+    }
+
+    public AttrPrivateDTO(AttrPrivateId attrPrivateId, Short veriSta, Short sta, String name, String addr, Float lon, Float lat, String illa, Integer typeId, String bussTime, Short costRange, String rep) {
+        this.attrPrivateId = attrPrivateId;
+        this.veriSta = veriSta;
+        this.sta = sta;
+        this.name = name;
+        this.addr = addr;
+        this.lon = lon;
+        this.lat = lat;
+        this.illa = illa;
+        this.typeId = typeId;
+        this.bussTime = bussTime;
+        this.costRange = costRange;
+        this.rep = rep;
+    }
 }

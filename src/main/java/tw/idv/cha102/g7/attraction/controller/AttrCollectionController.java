@@ -15,6 +15,8 @@ public class AttrCollectionController {
 
     /**
      * 加入景點收藏
+     * @param attrCollectionDTO
+     * @return String "success" or "failed"
      */
     @PostMapping("/addAttrToCollection")
     public String addAttrToCollection(@RequestBody AttrCollectionDTO attrCollectionDTO) {
@@ -36,6 +38,8 @@ public class AttrCollectionController {
 
     /**
      * 移除景點收藏
+     * @param collectionId
+     * @return String "success" or "failed"
      */
     @RequestMapping("/removeAttrFromCollection")
     public String removeAttrFromCollection(@RequestBody AttrCollectionId collectionId){
@@ -44,6 +48,12 @@ public class AttrCollectionController {
         else
             return "failed";
     }
+    /*
+    * {
+  		    "memId":3,
+  		    "attrId": 2
+	   }
+    * */
 
 
 }
