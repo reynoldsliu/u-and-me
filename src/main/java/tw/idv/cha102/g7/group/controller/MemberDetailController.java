@@ -9,6 +9,7 @@ import tw.idv.cha102.g7.group.service.MemberDetailService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class MemberDetailController {
     @Autowired
     private MemberDetailService memberDetailService;

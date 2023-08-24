@@ -8,6 +8,7 @@ import tw.idv.cha102.g7.group.service.RegFormService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class RegFormController {
 
     @Autowired

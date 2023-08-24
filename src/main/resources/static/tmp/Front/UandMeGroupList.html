@@ -107,53 +107,54 @@
         </div>
     </div>
 
-    <!-- -----揪團輪播----- -->
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators" >
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
+    <div class="container-fluid" style="height: 300px;">
+        <!-- -----揪團輪播----- -->
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="height: 750px;">
+            <div class="carousel-indicators" style="height: 300px;">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <!-- data-bs-interval="5000" 輪播時間 5000=毫秒 -->
+                <div class="carousel-item active" data-bs-interval="5000">
+                    <img src="./dist/img/group_img1.jpg" class="d-block w-100 h-50" alt="...">
+                    <div class="carousel-caption d-none d-md-block" style="height: 300px;">
+                        <h1 style="font-size: 50px;">揪團</h1>
+                        <h4 style="font-size: 25px;">U & Me 啟程與自然共舞的旅途</h4>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000">
+                    <!-- alt作用 當圖片讀取不到時取代 -->
+                    <img src="./dist/img/group_img2.jpg" class="d-block w-100 h-50" alt="...">
+                    <div class="carousel-caption d-none d-md-block" style="height: 300px;">
+                        <h1 style="font-size: 50px;">揪團</h1>
+                        <h4 style="font-size: 25px;">U & Me 啟程與自然共舞的旅途</h4>
+                    </div>
+                </div>
+                <div class="carousel-item" data-bs-interval="5000">
+                    <img src="./dist/img/group_img3.jpg" class="d-block w-100 h-50" alt="...">
+                    <div class="carousel-caption d-none d-md-block" style="height: 300px;">
+                        <h1 style="font-size: 50px;">揪團</h1>
+                        <h4 style="font-size: 25px;">U & Me 啟程與自然共舞的旅途</h4>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev" style="height: 600px;">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next" style="height: 600px;">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <div class="carousel-inner" style="height: 750px;">
-            <!-- data-bs-interval="5000" 輪播時間 5000=毫秒 -->
-            <div class="carousel-item active" data-bs-interval="5000">
-                <img src="./dist/img/group_img1.jpg" class="d-block w-100 h-50" alt="...">
-                <div class="carousel-caption d-none d-md-block" style="height: 475px;">
-                    <h1 style="font-size: 50px;">揪團</h1>
-                    <h4 style="font-size: 25px;">U & Me 啟程與自然共舞的旅途</h4>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="5000">
-                <!-- alt作用 當圖片讀取不到時取代 -->
-                <img src="./dist/img/group_img2.jpg" class="d-block w-100 h-50" alt="..."> 
-                <div class="carousel-caption d-none d-md-block" style="height: 475px;">
-                    <h1 style="font-size: 50px;">揪團</h1>
-                    <h4 style="font-size: 25px;">U & Me 啟程與自然共舞的旅途</h4>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="5000">
-                <img src="./dist/img/group_img3.jpg" class="d-block w-100 h-50" alt="...">
-                <div class="carousel-caption d-none d-md-block" style="height: 475px;">
-                    <h1 style="font-size: 50px;">揪團</h1>
-                    <h4 style="font-size: 25px;">U & Me 啟程與自然共舞的旅途</h4>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-
     <div class="container">
         <!-- -----Bread Crumb----- -->
         <div>
@@ -193,7 +194,7 @@
             <!-- -----Content----- -->
             <!-- Section-->
             <section class="py-5">
-                <div class="container">
+                <div class="container" id="groupData">
                     <button type="button" class="btn btn-secondary">以時間排序</button>
                     <button type="button" class="btn btn-secondary">以金額排序</button>
                     <div class="row g-5 justify-content-center">
@@ -206,15 +207,22 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw-bolder">Fancy Product</h5>
+                                        <h3 class="fw-bolder" id="title1">Fancy Product</h3>
+                                        <br>
+                                        <!-- 尚缺人數成團-->
+                                        剩餘<span style="color: red;" id="member1"> 10 </span>人成團
+                                        <br>
+                                        <!-- 剩餘天數-->
+                                        揪團剩餘天數：<span id="day1">天</span>
+                                        <br>
                                         <!-- Product price-->
-                                        $40.00 - $80.00
+                                        <p style="color: blue;" id="price1">$40.00 - $80.00</p>
                                     </div>
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View
-                                            options</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -230,24 +238,22 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw-bolder">Special Item</h5>
-                                        <!-- Product reviews-->
-                                        <div class="d-flex justify-content-center small text-warning mb-2">
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                        </div>
+                                        <h3 class="fw-bolder" id="title2">Special Item</h3>
+                                        <br>
+                                        <!-- 尚缺人數成團-->
+                                        剩餘<span style="color: red;" id="member2"> 10 </span>人成團
+                                        <br>
+                                        <!-- 剩餘天數-->
+                                        揪團剩餘天數：<span id="day2">天</span>
+                                        <br>
                                         <!-- Product price-->
-                                        <span class="text-muted text-decoration-line-through">$20.00</span>
-                                        $18.00
+                                        <p style="color: blue;" id="price2">$40.00 - $80.00</p>
                                     </div>
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
-                                            cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -263,16 +269,22 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw-bolder">Sale Item</h5>
+                                        <h3 class="fw-bolder" id="title3">Special Item</h3>
+                                        <br>
+                                        <!-- 尚缺人數成團-->
+                                        剩餘<span style="color: red;" id="member3"> 10 </span>人成團
+                                        <br>
+                                        <!-- 剩餘天數-->
+                                        揪團剩餘天數：<span id="day3">天</span>
+                                        <br>
                                         <!-- Product price-->
-                                        <span class="text-muted text-decoration-line-through">$50.00</span>
-                                        $25.00
+                                        <p style="color: blue;" id="price3">$40.00 - $80.00</p>
                                     </div>
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
-                                            cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -285,23 +297,22 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw-bolder">Popular Item</h5>
-                                        <!-- Product reviews-->
-                                        <div class="d-flex justify-content-center small text-warning mb-2">
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                            <div class="bi-star-fill"></div>
-                                        </div>
+                                        <h3 class="fw-bolder" id="title4">Popular Item</h3>
+                                        <br>
+                                        <!-- 尚缺人數成團-->
+                                        剩餘<span style="color: red;" id="member4"> 10 </span>人成團
+                                        <br>
+                                        <!-- 剩餘天數-->
+                                        揪團剩餘天數：<span id="day4">天</span>
+                                        <br>
                                         <!-- Product price-->
-                                        $40.00
+                                        <p style="color: blue;" id="price4">$40.00 - $80.00</p>
                                     </div>
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
-                                            cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -317,16 +328,22 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw-bolder">Sale Item</h5>
+                                        <h3 class="fw-bolder" id="title5">Popular Item</h3>
+                                        <br>
+                                        <!-- 尚缺人數成團-->
+                                        剩餘<span style="color: red;" id="member5"> 10 </span>人成團
+                                        <br>
+                                        <!-- 剩餘天數-->
+                                        揪團剩餘天數：<span id="day5">天</span>
+                                        <br>
                                         <!-- Product price-->
-                                        <span class="text-muted text-decoration-line-through">$50.00</span>
-                                        $25.00
+                                        <p style="color: blue;" id="price5">$40.00 - $80.00</p>
                                     </div>
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to
-                                            cart</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -339,15 +356,22 @@
                                 <div class="card-body p-4">
                                     <div class="text-center">
                                         <!-- Product name-->
-                                        <h5 class="fw-bolder">Fancy Product</h5>
+                                        <h3 class="fw-bolder" id="title6">Popular Item</h3>
+                                        <br>
+                                        <!-- 尚缺人數成團-->
+                                        剩餘<span style="color: red;" id="member6"> 10 </span>人成團
+                                        <br>
+                                        <!-- 剩餘天數-->
+                                        揪團剩餘天數：<span id="day6">天</span>
+                                        <br>
                                         <!-- Product price-->
-                                        $120.00 - $280.00
+                                        <p style="color: blue;" id="price6">$40.00 - $80.00</p>
                                     </div>
                                 </div>
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View
-                                            options</a></div>
+                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -376,8 +400,7 @@
 
 
             <!-- -----Footer----- -->
-
-            <div class=" footer py-5">
+            <div class="footer py-3">
                 <div class="container-fluid footer1">
                     <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my- border-top">
                         <div class="col mb-3">
@@ -431,6 +454,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
+
+        <script src="./dist/js/groupList.js"></script>
 </body>
 
 </html>
