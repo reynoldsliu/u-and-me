@@ -12,9 +12,9 @@ public interface GroupListDto {
 
     Integer getAmount();
 
+    //Dto getXXX() XXX必須跟@QUERY裡的SELECT欄位同名才有辦法讀出資料
     Integer getM();
 
-    @JsonFormat()
     BigInteger getD();
 
 //    Integer getGroup_Sta();

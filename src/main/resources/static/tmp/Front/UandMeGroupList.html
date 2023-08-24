@@ -107,10 +107,10 @@
         </div>
     </div>
 
-    <div class="container-fluid" style="height: 300px;">
+    <div class="container-fluid" style="height: 400px; ">
         <!-- -----揪團輪播----- -->
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="height: 750px;">
-            <div class="carousel-indicators" style="height: 300px;">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="height: 450px;">
+            <div class="carousel-indicators" style="height: 0px;">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
@@ -187,21 +187,22 @@
 
             <!-- -----發起揪團----- -->
             <div class="text-end">
-                <a class="btn btn-outline-danger mt-auto me-md-2 btn-lg" href="#">成為揪團主</a>
-                <a class="btn btn-outline-danger mt-auto btn-lg" href="#">發起揪團</a>
+                <button class="btn btn-outline-danger mt-auto me-md-2 btn-lg" href="#">成為揪團主</button>
+                <button class="btn btn-outline-danger mt-auto btn-lg" href="#">發起揪團</button>
             </div>
 
             <!-- -----Content----- -->
             <!-- Section-->
             <section class="py-5">
                 <div class="container" id="groupData">
+
                     <button type="button" class="btn btn-secondary">以時間排序</button>
                     <button type="button" class="btn btn-secondary">以金額排序</button>
-                    <div class="row g-5 justify-content-center">
+                    <div class="row g-5 justify-content-center" id="groupListInner">
                         <div class="col-4">
-                            <div class="card h-100">
+                            <div class="card h-100" id="cover11">
                                 <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover1"
                                     alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
@@ -210,13 +211,13 @@
                                         <h3 class="fw-bolder" id="title1">Fancy Product</h3>
                                         <br>
                                         <!-- 尚缺人數成團-->
-                                        剩餘<span style="color: red;" id="member1"> 10 </span>人成團
+                                        <span id="member1"></span>
                                         <br>
                                         <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day1">天</span>
+                                        揪團剩餘天數：<span id="day1"></span> 天
                                         <br>
                                         <!-- Product price-->
-                                        <p style="color: blue;" id="price1">$40.00 - $80.00</p>
+                                        價格：<span style="color: blue;" id="price1">$40.00 - $80.00</span> 元
                                     </div>
                                 </div>
                                 <!-- Product actions-->
@@ -232,7 +233,7 @@
                                 <div class="badge bg-dark text-white position-absolute"
                                     style="top: 0.5rem; right: 0.5rem">Sale</div>
                                 <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover2"
                                     alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
@@ -241,13 +242,13 @@
                                         <h3 class="fw-bolder" id="title2">Special Item</h3>
                                         <br>
                                         <!-- 尚缺人數成團-->
-                                        剩餘<span style="color: red;" id="member2"> 10 </span>人成團
+                                        <span id="member2"> 10 </span>
                                         <br>
                                         <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day2">天</span>
+                                        揪團剩餘天數：<span id="day2"></span> 天
                                         <br>
                                         <!-- Product price-->
-                                        <p style="color: blue;" id="price2">$40.00 - $80.00</p>
+                                        價格：<span style="color: blue;" id="price2">$40.00 - $80.00</span> 元
                                     </div>
                                 </div>
                                 <!-- Product actions-->
@@ -263,7 +264,7 @@
                                 <div class="badge bg-dark text-white position-absolute"
                                     style="top: 0.5rem; right: 0.5rem">Sale</div>
                                 <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover3"
                                     alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
@@ -272,13 +273,13 @@
                                         <h3 class="fw-bolder" id="title3">Special Item</h3>
                                         <br>
                                         <!-- 尚缺人數成團-->
-                                        剩餘<span style="color: red;" id="member3"> 10 </span>人成團
+                                        <span id="member3"></span>
                                         <br>
                                         <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day3">天</span>
+                                        揪團剩餘天數：<span id="day3"></span> 天
                                         <br>
                                         <!-- Product price-->
-                                        <p style="color: blue;" id="price3">$40.00 - $80.00</p>
+                                        價格：<span style="color: blue;" id="price3">$40.00 - $80.00</span> 元
                                     </div>
                                 </div>
                                 <!-- Product actions-->
@@ -291,7 +292,7 @@
                         <div class="col-4">
                             <div class="card h-100">
                                 <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover4"
                                     alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
@@ -300,13 +301,13 @@
                                         <h3 class="fw-bolder" id="title4">Popular Item</h3>
                                         <br>
                                         <!-- 尚缺人數成團-->
-                                        剩餘<span style="color: red;" id="member4"> 10 </span>人成團
+                                        <span id="member4"></span>
                                         <br>
                                         <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day4">天</span>
+                                        揪團剩餘天數：<span id="day4"></span> 天
                                         <br>
                                         <!-- Product price-->
-                                        <p style="color: blue;" id="price4">$40.00 - $80.00</p>
+                                        價格：<span style="color: blue;" id="price4">$40.00 - $80.00</span> 元
                                     </div>
                                 </div>
                                 <!-- Product actions-->
@@ -322,7 +323,7 @@
                                 <div class="badge bg-dark text-white position-absolute"
                                     style="top: 0.5rem; right: 0.5rem">Sale</div>
                                 <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover5"
                                     alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
@@ -331,13 +332,13 @@
                                         <h3 class="fw-bolder" id="title5">Popular Item</h3>
                                         <br>
                                         <!-- 尚缺人數成團-->
-                                        剩餘<span style="color: red;" id="member5"> 10 </span>人成團
+                                        <span id="member5"></span>
                                         <br>
                                         <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day5">天</span>
+                                        揪團剩餘天數：<span id="day5"></span> 天
                                         <br>
                                         <!-- Product price-->
-                                        <p style="color: blue;" id="price5">$40.00 - $80.00</p>
+                                        價格：<span style="color: blue;" id="price5">$40.00 - $80.00</span> 元
                                     </div>
                                 </div>
                                 <!-- Product actions-->
@@ -350,7 +351,7 @@
                         <div class="col-4">
                             <div class="card h-100">
                                 <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg"
+                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover6"
                                     alt="..." />
                                 <!-- Product details-->
                                 <div class="card-body p-4">
@@ -359,13 +360,13 @@
                                         <h3 class="fw-bolder" id="title6">Popular Item</h3>
                                         <br>
                                         <!-- 尚缺人數成團-->
-                                        剩餘<span style="color: red;" id="member6"> 10 </span>人成團
+                                        <span id="member6"></span>
                                         <br>
                                         <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day6">天</span>
+                                        揪團剩餘天數：<span id="day6"></span> 天
                                         <br>
                                         <!-- Product price-->
-                                        <p style="color: blue;" id="price6">$40.00 - $80.00</p>
+                                        價格：<span style="color: blue;" id="price6">$40.00 - $80.00</span> 元
                                     </div>
                                 </div>
                                 <!-- Product actions-->

@@ -24,10 +24,14 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "select g.theme, r.phone FROM `group` as g left join reg_form as r on g.group_id = r.group_id where g.group_id = ?1 Order by r.mem_id desc", nativeQuery = true)
     List<GroupRegFormDto> findGroupRegFormDtoByGroupId(Integer groupId);
 
+    //以原生方法findAll製作分頁
+    //用List<Dto>包裝想要回傳的屬性
     @Query(value = "Select g.*, gp.group_pic_id, gp.group_pic FROM `group` AS g LEFT JOIN group_picture AS gp ON g.group_id = gp.group_id " +
             "WHERE g.group_id = ?1 ORDER BY gp.group_pic_id", nativeQuery = true)
     List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId);
 
+    //以自定義方法製作分頁
+    //用Page<Dto>包裝想要回傳的屬性，返回值最後一個必須是Pageable pageable
     @Query(value = "SELECT cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1", nativeQuery = true)
     Page<GroupListDto> findGroupListByGroupSta(Integer groupSta, Pageable pageable);
 }

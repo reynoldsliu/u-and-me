@@ -33,5 +33,8 @@ public interface GroupService {
 
     List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId);
 
+    //以自定義方法製作分頁時到Service必須以Stream包裝型別
+    //Java 8 API添加了一個新的抽象稱爲流Stream，可以讓你以一種聲明的方式處理數據。
+    //Stream 使用一種類似用 SQL 語句從數據庫查詢數據的直觀方式來提供一種對 Java 集合運算和表達的高階抽象。
     Stream<GroupListDto> findGroupListByGroupSta(Integer groupSta, Integer page);
 }

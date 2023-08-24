@@ -94,9 +94,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Stream<GroupListDto> findGroupListByGroupSta(Integer groupSta, Integer page) {
-        Sort sort = Sort.by(Sort.Direction.ASC,"Group_Sta");  //通過揪團狀態排序，groupSta 是Group中的變量
-        Pageable pageable = PageRequest.of(page,6, sort);   //
-        return groupRepository.findGroupListByGroupSta(groupSta,pageable).get();
+        Sort sort = Sort.by(Sort.Direction.ASC,"Group_Sta");  //定義Sort ASC為升冪排序，通過揪團狀態排序 groupSta 是Group中的變量
+        Pageable pageable = PageRequest.of(page,6, sort);   //定義Pageable(page 當前頁數, size 傳入資料筆數, sort 排序方法)
+        return groupRepository.findGroupListByGroupSta(groupSta,pageable).get(); //返回值為Stream<T>
     }
 
 }

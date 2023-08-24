@@ -21,6 +21,8 @@ public interface GroupGroupPicDto {
 
     String getTheme();
 
+    //@JsonFormat 限制回傳值的表達形式
+    //Dto getXXX() XXX必須跟@QUERY裡的SELECT欄位同名才有辦法讀出資料
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     Timestamp getStar_Date();
 
