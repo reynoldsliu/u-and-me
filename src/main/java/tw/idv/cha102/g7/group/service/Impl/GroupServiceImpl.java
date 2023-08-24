@@ -11,7 +11,6 @@ import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
 import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
 import tw.idv.cha102.g7.group.entity.Group;
-import tw.idv.cha102.g7.group.entity.MemberDetail;
 import tw.idv.cha102.g7.group.repo.GroupRepository;
 import tw.idv.cha102.g7.group.service.GroupService;
 

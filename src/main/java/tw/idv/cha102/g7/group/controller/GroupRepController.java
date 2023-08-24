@@ -8,6 +8,7 @@ import tw.idv.cha102.g7.group.service.GroupRepService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class GroupRepController {
 
     @Autowired

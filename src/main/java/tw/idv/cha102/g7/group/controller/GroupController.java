@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @RestController
+@CrossOrigin
 public class GroupController {
 
     @Autowired
