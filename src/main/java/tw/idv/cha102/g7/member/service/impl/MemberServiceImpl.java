@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService {
 //    private EmailVerificationRepository emailVerificationRepository;
 
     /**
-     * 新增ㄏ
+     * 新增
      *
      * @param member
      */
@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService {
 
     public String login(String memEmail, String memPassword) {
         Member member = memberRepository.findByMemEmail(memEmail);
-        System.out.println(member.toString());
+//        System.out.println(member.toString());
         if (member.getMemPassword().equals(memPassword)) {
             // 登入成功，檢查團主狀態
             if (member.getMemGroup() == 1) {
@@ -73,8 +73,14 @@ public class MemberServiceImpl implements MemberService {
             existingMember.setMemId(member.getMemId());
             existingMember.setMemEmail(member.getMemEmail());
             existingMember.setMemPassword(member.getMemPassword());
+            existingMember.setMemName(member.getMemName());
+            existingMember.setMemGender(member.getMemGender());
+            existingMember.setMemAddr(member.getMemAddr());
+            existingMember.setMemPhone(member.getMemPhone());
             existingMember.setMemSta(member.getMemSta());
             existingMember.setMemGroup(member.getMemGroup());
+
+
 
 
             return memberRepository.save(existingMember);
@@ -83,23 +89,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
 
-//會員等級查看
-
-
-//    public Member getmemGradeBymemId(Integer memId) {
-//        return memberRepository.findMemberLevelById(memId);
-//    }
-
-//    public void usePoints(Integer memId, int pointsToUse) {
-//        Member member = memberRepository.findById(memId).orElse(null);
-//        if (member != null && member.getMemPoint() >= pointsToUse) {
-//            int newBalance = member.getMemPoint() - pointsToUse;
-//            member.setMemPoint(newBalance);
-//            memberRepository.save(member);
-//        } else {
-//            throw new InsufficientPointsException("Insufficient points");
-//        }
-//    }
 //@Transactional
 //@Override
 //    public void verifyEmail(String token) {

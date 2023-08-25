@@ -28,9 +28,8 @@ public class HostController {
 
 
     @PostMapping("/register")
-    public String register(@RequestBody Host host){
-        hostService.insert(host);
-        return "success";
+    public String register(@RequestBody Host host) {
+        return hostService.insert(host);
     }
 
     @PostMapping("/login")
@@ -56,7 +55,7 @@ public class HostController {
     }
     @PostMapping("/update")
 
-    public ResponseEntity<Host> updateMember(@RequestBody Host host) {
+    public ResponseEntity<Host> update(@RequestBody Host host) {
         Host updatedMember = hostService.update(host);
         if (updatedMember != null) {
             return ResponseEntity.ok(updatedMember);

@@ -35,6 +35,9 @@ public class Member {
     @Column(name = "mem_grade")
     private String memGrade;
 
+    @Column(name = "mem_idcard")
+    private String memIdcard;
+
     @Column(name = "mem_phone")
     private String memPhone;
 

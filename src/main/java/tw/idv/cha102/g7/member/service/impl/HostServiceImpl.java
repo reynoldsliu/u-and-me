@@ -15,8 +15,14 @@ public class HostServiceImpl implements HostService {
 
     @Autowired
     private HostRepository hostRepository;
-    public void insert(Host host){
-        hostRepository.save(host);
+    public String insert(Host host) {
+        if (hostRepository.findByhostEmail(host.getHostEmail()) == null) {
+            host.setHostSta(0);
+            hostRepository.save(host);
+            return "您已成功註冊管理員'";
+        }else {
+            return "此Email已註冊過，請使用其他信箱!";
+        }
     }
 
     @Override

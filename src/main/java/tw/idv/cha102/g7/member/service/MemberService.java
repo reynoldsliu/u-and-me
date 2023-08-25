@@ -6,6 +6,7 @@ import tw.idv.cha102.g7.member.repo.MemberRepository;
 
 import java.util.List;
 
+
 public interface MemberService {
 /////會員登入相關/////
 

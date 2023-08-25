@@ -220,17 +220,47 @@
                 <li class="breadcrumb-item active" aria-current="page">會員</li>
             </ol>
         </nav>
-        <div class="shadow p-3 my-5 bg-body rounded" style="height: 800px;">偶是會員!</div>
+        <div id="memberbody" class="shadow p-3 my-5 bg-body rounded" style="height: 1000px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 style="text-align: center">會員管理</h5>
+                    </div>
+                    <table id="memberTable" class="display table">
+                        <thead>
+                        <tr>
+                            <th>會員編號</th>
+                            <th>姓名</th>
+                            <th>會員帳號</th>
+                            <th>地址</th>
+                            <th>電話</th>
+                            <th>點數</th>
+                            <th>會員狀態</th>
+                            <th>團主狀態</th>
+                        </tr>
+                        </thead>
+                        <tbody id="dataTableList">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+<!--    </div>-->
     </div>
 
-
+    <script src="member.js"></script>
 
 </main>
 
 
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="member.js"></script>
+<!--<script src="member.js"></script>-->
+
 </body>
 
 </html>

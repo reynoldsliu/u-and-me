@@ -1,6 +1,5 @@
--- create schema member;
- -- use member;
 
+--力辰我新增了第12行
 create table members (
 	mem_id int primary key, 
 	mem_email varchar(30),
@@ -9,24 +8,26 @@ create table members (
 	mem_gender tinyint ,
 	mem_addr varchar(100),
 	mem_grade int,
+	mem_idcard varchar(10),
 	mem_phone varchar(15),
 	mem_point int,
 	mem_sta tinyint,
 	mem_group tinyint
 );
+--假資料也有更新
 select * from members;
-INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_addr, mem_grade, mem_phone, mem_point, mem_sta, mem_group)
+INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_addr, mem_grade,mem_idcard, mem_phone, mem_point, mem_sta, mem_group)
 VALUES
-  (1,'member1@example.com', 'password1', 'tong', 2, 'Address 1', 1, '0911111111', 100, 1, 0),
-  (2,'member2@example.com', 'password2', 'lynn', 2, 'Address 2', 2, '0922222222', 400, 0, 0),
-  (3,'member3@example.com', 'password3', 'sian', 2, 'Address 3', 1, '0933333333', 550, 1, 0),
-  (4,'member4@example.com', 'password4', 'reynolds', 1, 'Address 4', 3, '0944444444', 300, 2, 1),
-  (5,'member5@example.com', 'password5', 'Katie', 2, 'Address 5', 2, '0955555555', 250, 1, 1),
-  (6,'member6@example.com', 'password6', 'jas', 2, 'Address 6', 1, '0966666666', 50, 0, 0),
-  (7,'member7@example.com', 'password7', 'henry', 1, 'Address 7', 3, '0977777777', 50, 1, 0),
-  (8,'member8@example.com', 'password8', 'David', 0, 'Address 8', 2, '0988888888', 180, 1, 0),
-  (9,'member9@example.com', 'password9', 'hazel', 2, 'Address 9', 1, '0999999999', 120, 1, 1),
-  (10,'member10@example.com', 'password10', 'tou', 1, 'Address 10', 1, '0900000000', 80, 2, 1);
+  (1,'member1@example.com', 'password1', 'tong', 2, 'Address 1', 1,'Q224000999', '0911111111', 100, 1, 0),
+  (2,'member2@example.com', 'password2', 'lynn', 2, 'Address 2', 2,'Q224034567', '0922222222', 400, 0, 0),
+  (3,'member3@example.com', 'password3', 'sian', 2, 'Address 3', 1,'A212869345','0933333333', 550, 1, 0),
+  (4,'member4@example.com', 'password4', 'reynolds', 1, 'Address 4', 3,'P225483628','0944444444', 300, 2, 1),
+  (5,'member5@example.com', 'password5', 'Katie', 2, 'Address 5', 2,'C224000999', '0955555555', 250, 1, 1),
+  (6,'member6@example.com', 'password6', 'jas', 2, 'Address 6', 1,'R224000999','0966666666', 50, 0, 0),
+  (7,'member7@example.com', 'password7', 'henry', 1, 'Address 7', 3,'K224000999', '0977777777', 50, 1, 0),
+  (8,'member8@example.com', 'password8', 'David', 0, 'Address 8', 2,'M224000999', '0988888888', 180, 1, 0),
+  (9,'member9@example.com', 'password9', 'hazel', 2, 'Address 9', 1,'J224000999', '0999999999', 120, 1, 1),
+  (10,'member10@example.com', 'password10', 'tou', 1, 'Address 10', 1,'L224000999', '0900000000', 80, 2, 1);
 select * from members;
 
 
