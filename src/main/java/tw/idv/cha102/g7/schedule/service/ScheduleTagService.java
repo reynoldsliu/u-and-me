@@ -18,7 +18,7 @@ public interface ScheduleTagService {
     public List<ScheduleTag> findByName(String schTagName);
 
     // 依照標籤id查詢對應行程
-    public List<TagToSchedulesDTO> findSchedulesBySchTagId(Integer schTagId);
+    public TagToSchedulesDTO findSchedulesBySchTagId(Integer schTagId);
 
     // 依照標籤名稱查詢對應行程
     public List<TagToSchedulesDTO> findSchedulesBySchTagName(String schTagName);

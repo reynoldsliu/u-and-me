@@ -13,38 +13,40 @@ import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/schedules")
+@RequestMapping("/schedules/schTag")
 public class ScheduleTagController {
 
     @Autowired
     private ScheduleTagService service;
 
-    @GetMapping("/schTag")
+    @GetMapping("/")
     public List<ScheduleTag> finaAllTag() {
         return service.findAll();
     }
 
-    @GetMapping("/schTag/id/{schTagId}")
+    @GetMapping("/id/{schTagId}")
     public ScheduleTag findById(@PathVariable Integer schTagId) {
         return service.findById(schTagId);
     }
 
-    @GetMapping("/schTag/name/{schTagName}")
+    @GetMapping("/name/{schTagName}")
     public List<ScheduleTag> findByName(@PathVariable String schTagName) {
         return service.findByName(schTagName);
     }
 
-    @GetMapping("/schTagDTO/id/{schTagId}")
-    public List<TagToSchedulesDTO> findSchedules(@PathVariable Integer schTagId){
+    @GetMapping("/DTOid/{schTagId}")
+    public TagToSchedulesDTO findSchedules(@PathVariable Integer schTagId){
         return service.findSchedulesBySchTagId(schTagId);
     }
 
-    @GetMapping("/schTagDTO/name/{schTagName}")
+    // 藉由行程標籤名字找出對應行程(待改寫)
+    @GetMapping("/DTOname/{schTagName}")
     public List<TagToSchedulesDTO> findSchedulesByTagName(@PathVariable String schTagName){
         return service.findSchedulesBySchTagName(schTagName);
     }
 
-    @GetMapping("/test/{schId}")
+    // 藉由行程id找出對應行程標籤
+    @GetMapping("/schId/{schId}")
     public ScheduleToTagsDTO findTagsBySchId(@PathVariable Integer schId){
         return service.findTagsBySchId(schId);
     }

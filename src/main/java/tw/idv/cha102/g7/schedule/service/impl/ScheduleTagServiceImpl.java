@@ -13,6 +13,7 @@ import tw.idv.cha102.g7.schedule.repo.ScheduleTagRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,19 +46,49 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
     }
 
 
-    @Override
-    public List<TagToSchedulesDTO> findSchedulesBySchTagId(Integer schTagId) {
-        List<Object[]> list = tagRepository.findSchedulesBySchTagId(schTagId);
-        List<TagToSchedulesDTO> collect = list.stream().map(TagToSchedulesDTO::new).collect(Collectors.toList());
-        return collect;
-    }
 
     @Override
+    public TagToSchedulesDTO findSchedulesBySchTagId(Integer schTagId) {
+        ScheduleTag tag = tagRepository.findById(schTagId).orElse(null);
+        List<ScheduleTagListDTO> dtoList = listRepository.findAll();
+        List<ScheduleTagListDTO> schIdList = new ArrayList<>();
+        List<Schedule> schList = new ArrayList<>();
+        Schedule schedule = null;
+        for (ScheduleTagListDTO dto : dtoList) {
+            if (dto.getScheduleTagListId().getSchTagId() == schTagId) {
+                schIdList.add(dto);
+                for (ScheduleTagListDTO dto2 : schIdList) {
+                    schedule = repository.findById(dto2.getScheduleTagListId().getSchId()).orElse(null);
+                    if (!schList.contains(schedule) && schedule != null) {
+                        if (schedule.getSchPub() == 2)
+                        schList.add(schedule);
+                    }
+                }
+            }
+        }
+        schList = schList.stream().sorted(Comparator.comparing(Schedule::getSchStart)).collect(Collectors.toList());
+        Object[] object = {tag, schList};
+        TagToSchedulesDTO schedulesDTO = new TagToSchedulesDTO(object);
+        return schedulesDTO;
+
+        // 原先使用TagToSchedulesDTO時，其實體變數一一列出，不用List及物件包住
+//        List<Object[]> list = tagRepository.findSchedulesBySchTagId(schTagId);
+//        List<TagToSchedulesDTO> collect = list.stream().map(TagToSchedulesDTO::new).collect(Collectors.toList());
+//        return collect;
+    }
+
+    // 待改寫
+    @Override
     public List<TagToSchedulesDTO> findSchedulesBySchTagName(String schTagName) {
+        List<ScheduleTag> tags = tagRepository.findBySchTagNameContaining(schTagName);
+
+//        List<ScheduleTagListId>
+        // 原先使用TagToSchedulesDTO時，其實體變數一一列出，不用List及物件包住
         List<Object[]> list = tagRepository.findSchedulesBySchTagName(schTagName);
         List<TagToSchedulesDTO> collect = list.stream().map(TagToSchedulesDTO::new).collect(Collectors.toList());
         return collect;
     }
+
 
     @Override
     public ScheduleToTagsDTO findTagsBySchId(Integer schId) {
@@ -74,8 +105,8 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
                     // 將tagId對應到的ScheduleTag物件加入tagList中
                     tag = tagRepository.findById(dto2.getScheduleTagListId().getSchTagId()).orElse(null);
                     // 若此ScheduleTag物件不存在於tagList才可加入
-                    if(!tagList.contains(tag))
-                    tagList.add(tag);
+                    if (!tagList.contains(tag))
+                        tagList.add(tag);
                 }
 
             }
@@ -84,8 +115,6 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
         ScheduleToTagsDTO tagsDTO = new ScheduleToTagsDTO(object);
         return tagsDTO;
     }
-
-
 
 
 }

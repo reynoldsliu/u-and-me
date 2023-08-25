@@ -1,15 +1,10 @@
 package tw.idv.cha102.g7.schedule.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
-import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // 瀏覽公開行程
@@ -75,23 +70,23 @@ public class ScheduleSearchController {
 //    }
 
     // 從單一行程中查詢對應標籤(但是有重複單一行程資料的問題)、若輸入不存在id的資料為[]
-    @GetMapping("/tags/{schId}")
-    public ResponseEntity<?> getTagsByOneSchedule(@PathVariable Integer schId){
-        try {
-            List<TagToSchedulesDTO> scheduleTagDTOS = service.findTagsInOneSchdule(schId);
-            List<String> tagNames = new ArrayList<>();
-            for(TagToSchedulesDTO dto:scheduleTagDTOS){
-                if(dto.getSchTagName() != null){
-                    tagNames.add(dto.getSchTagName());
-                }
-            }
-            return ResponseEntity.ok("OK");
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new ScheduleNotFoundException(schId));
-        }
-    }
+//    @GetMapping("/tags/{schId}")
+//    public ResponseEntity<?> getTagsByOneSchedule(@PathVariable Integer schId){
+//        try {
+//            List<TagToSchedulesDTO> scheduleTagDTOS = service.findTagsInOneSchdule(schId);
+//            List<String> tagNames = new ArrayList<>();
+//            for(TagToSchedulesDTO dto:scheduleTagDTOS){
+//                if(dto.getSchTagName() != null){
+//                    tagNames.add(dto.getSchTagName());
+//                }
+//            }
+//            return ResponseEntity.ok("OK");
+//        } catch (Exception e) {
+//            return ResponseEntity
+//                    .status(HttpStatus.NOT_FOUND)
+//                    .body(new ScheduleNotFoundException(schId));
+//        }
+//    }
 
 
     // ======================== 以上均經過測試且結果成功 ========================

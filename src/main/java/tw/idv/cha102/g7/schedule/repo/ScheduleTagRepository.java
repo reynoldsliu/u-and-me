@@ -14,12 +14,12 @@ public interface ScheduleTagRepository extends JpaRepository<ScheduleTag, Intege
 
     public List<ScheduleTag> findBySchTagNameContaining(String schTagName);
 
-    @Query(value = "SELECT st.*, s.* " +
-            "FROM schedule_tag st " +
-            "JOIN schedule_tag_list stl ON st.schtag_id = stl.schtag_id " +
-            "JOIN schedules s ON stl.sch_id = s.sch_id " +
-            "WHERE st.schtag_id =  ?1 AND sch_pub = 2 ORDER BY s.sch_start", nativeQuery = true)
-    public List<Object[]> findSchedulesBySchTagId(Integer schTagId);
+//    @Query(value = "SELECT st.*, s.* " +
+//            "FROM schedule_tag st " +
+//            "JOIN schedule_tag_list stl ON st.schtag_id = stl.schtag_id " +
+//            "JOIN schedules s ON stl.sch_id = s.sch_id " +
+//            "WHERE st.schtag_id =  ?1 AND sch_pub = 2 ORDER BY s.sch_start", nativeQuery = true)
+//    public List<Object[]> findSchedulesBySchTagId(Integer schTagId);
 
 
     @Query(value = "SELECT st.*, s.* " +
@@ -29,7 +29,5 @@ public interface ScheduleTagRepository extends JpaRepository<ScheduleTag, Intege
             "WHERE st.schtag_name like %?1% AND sch_pub = 2 ORDER BY s.sch_start", nativeQuery = true)
     public List<Object[]> findSchedulesBySchTagName(String schTagName);
 
-
-//    public List<ScheduleToTagsDTO> findTagsBySchId(Integer schId);
 
 }
