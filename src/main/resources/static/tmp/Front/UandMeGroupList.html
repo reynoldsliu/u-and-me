@@ -30,21 +30,25 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
-                            <li class="nav-item me-4">
-                                <a class="nav-link" href="#">活動資訊</a>
+                            <a class="nav-link" href="#">活動資訊</a>
                             </li>
                             </li>
-                            <li class="nav-item me-4">
+                            <li class="nav-item me-2">
+                                <a class="nav-link" href="#">景點</a>
+                            </li>
+                            </li>
+                            <li class="nav-item me-2">
                                 <a class="nav-link" href="#">行程規劃</a>
                             </li>
                             </li>
-                            <li class="nav-item me-4">
+                            <li class="nav-item me-2">
                                 <a class="nav-link" href="#">旅遊商城</a>
                             </li>
+                            <li class="nav-item me-2">
+                                <a class="nav-link" href="#">揪團</a>
                             </li>
-                            <li class="nav-item me-4">
+                            <li class="nav-item me-2">
                                 <a class="nav-link" href="#">論壇專區</a>
-                            </li>
                             </li>
 
                             <li class="nav-item dropdown">
@@ -144,12 +148,12 @@
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev" style="height: 600px;">
+                data-bs-slide="prev" style="height: 500px;">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next" style="height: 600px;">
+                data-bs-slide="next" style="height: 500px;">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -164,7 +168,7 @@
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item " style="display:inline-block"><a href="#">首頁</a></li>
-                                <li class="breadcrumb-item" style="display:inline-block"><a href="#">LIBRARY</a>
+                                <li class="breadcrumb-item" style="display:inline-block"><a href="#">揪團</a>
                                 </li>
                                 <!-- <li class="breadcrumb-item active" aria-current="page" style="display:inline-block">Data</li> -->
                             </ol>
@@ -196,212 +200,38 @@
             <section class="py-5">
                 <div class="container" id="groupData">
 
+                    <!-- -----排序按鈕----- -->
                     <button type="button" class="btn btn-secondary">以時間排序</button>
                     <button type="button" class="btn btn-secondary">以金額排序</button>
-                    <div class="row g-5 justify-content-center" id="groupListInner">
-                        <div class="col-4">
-                            <div class="card h-100" id="cover11">
-                                <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover1"
-                                    alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h3 class="fw-bolder" id="title1">Fancy Product</h3>
-                                        <br>
-                                        <!-- 尚缺人數成團-->
-                                        <span id="member1"></span>
-                                        <br>
-                                        <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day1"></span> 天
-                                        <br>
-                                        <!-- Product price-->
-                                        價格：<span style="color: blue;" id="price1">$40.00 - $80.00</span> 元
-                                    </div>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card h-100">
-                                <!-- Sale badge-->
-                                <div class="badge bg-dark text-white position-absolute"
-                                    style="top: 0.5rem; right: 0.5rem">Sale</div>
-                                <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover2"
-                                    alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h3 class="fw-bolder" id="title2">Special Item</h3>
-                                        <br>
-                                        <!-- 尚缺人數成團-->
-                                        <span id="member2"> 10 </span>
-                                        <br>
-                                        <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day2"></span> 天
-                                        <br>
-                                        <!-- Product price-->
-                                        價格：<span style="color: blue;" id="price2">$40.00 - $80.00</span> 元
-                                    </div>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card h-100">
-                                <!-- Sale badge-->
-                                <div class="badge bg-dark text-white position-absolute"
-                                    style="top: 0.5rem; right: 0.5rem">Sale</div>
-                                <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover3"
-                                    alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h3 class="fw-bolder" id="title3">Special Item</h3>
-                                        <br>
-                                        <!-- 尚缺人數成團-->
-                                        <span id="member3"></span>
-                                        <br>
-                                        <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day3"></span> 天
-                                        <br>
-                                        <!-- Product price-->
-                                        價格：<span style="color: blue;" id="price3">$40.00 - $80.00</span> 元
-                                    </div>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card h-100">
-                                <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover4"
-                                    alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h3 class="fw-bolder" id="title4">Popular Item</h3>
-                                        <br>
-                                        <!-- 尚缺人數成團-->
-                                        <span id="member4"></span>
-                                        <br>
-                                        <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day4"></span> 天
-                                        <br>
-                                        <!-- Product price-->
-                                        價格：<span style="color: blue;" id="price4">$40.00 - $80.00</span> 元
-                                    </div>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card h-100">
-                                <!-- Sale badge-->
-                                <div class="badge bg-dark text-white position-absolute"
-                                    style="top: 0.5rem; right: 0.5rem">Sale</div>
-                                <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover5"
-                                    alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h3 class="fw-bolder" id="title5">Popular Item</h3>
-                                        <br>
-                                        <!-- 尚缺人數成團-->
-                                        <span id="member5"></span>
-                                        <br>
-                                        <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day5"></span> 天
-                                        <br>
-                                        <!-- Product price-->
-                                        價格：<span style="color: blue;" id="price5">$40.00 - $80.00</span> 元
-                                    </div>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card h-100">
-                                <!-- Product image-->
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" id="cover6"
-                                    alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h3 class="fw-bolder" id="title6">Popular Item</h3>
-                                        <br>
-                                        <!-- 尚缺人數成團-->
-                                        <span id="member6"></span>
-                                        <br>
-                                        <!-- 剩餘天數-->
-                                        揪團剩餘天數：<span id="day6"></span> 天
-                                        <br>
-                                        <!-- Product price-->
-                                        價格：<span style="color: blue;" id="price6">$40.00 - $80.00</span> 元
-                                    </div>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
+                    <!-- -----揪團列表內容 js動態排序----- -->
+                    <div class="row g-5 justify-content-center" id="groupListInner">
+
                 </div>
             </section>
 
             <!-- -----分頁製作----- -->
             <nav aria-label="...">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
+                    <!-- <li class="page-item disabled">
                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item" aria-current="page">
+                    </li> -->
+                    <li class="page-item active" id="pageSelect1"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item" aria-current="page" id="pageSelect2">
                         <a class="page-link" href="#">2</a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
+                    <li class="page-item" id="pageSelect3"><a class="page-link" href="#">3</a></li>
+                    <!-- <li class="page-item">
                         <a class="page-link" href="#">Next</a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
 
 
 
             <!-- -----Footer----- -->
-            <div class="footer py-3">
+
+            <div class=" footer">
                 <div class="container-fluid footer1">
                     <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my- border-top">
                         <div class="col mb-3">

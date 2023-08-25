@@ -148,6 +148,7 @@ public class GroupController {
 
     /**
      * 遊客/揪團團主/一般使用者
+     * 揪團列表
      * @param groupSta 揪團狀態
      * 0: 未成團,
      * 1: 揪團成功,

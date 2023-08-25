@@ -25,7 +25,7 @@ class PhotoWrite {
         //SQL語句
         String update = "UPDATE `group` SET cover = ? WHERE group_id = ?";
 
-        int count = 101; //主鍵的id號
+        int count = 1; //主鍵的id號
         try {
             con = DriverManager.getConnection(url, userid, passwd);
             pstmt = con.prepareStatement(update);

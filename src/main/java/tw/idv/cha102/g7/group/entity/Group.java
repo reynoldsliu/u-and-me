@@ -20,13 +20,13 @@ public class Group implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //mysql的主鍵也需要設置自增
-    @Column(name = "group_id")
+    @Column(name = "group_id", insertable = false)
     private Integer groupId;
     @Column(name = "mem_id")
     private Integer memId;
     @Column(name = "sch_id")
     private Integer schId;
-    @Column(name = "members")
+    @Column(name = "members", insertable = false)
     private Integer members;
     @Column(name = "min_member")
     private Integer minMember;
@@ -38,14 +38,14 @@ public class Group implements Serializable {
     private String theme;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "start_date")
+    @Column(name = "start_date", insertable = false)
     private Timestamp startDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "dep_date")
     private Timestamp depDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "deadline")
     private Timestamp deadline;
 
@@ -53,9 +53,9 @@ public class Group implements Serializable {
     private String groupDesc;
     @Column(name = "notice")
     private String notice;
-    @Column(name = "group_sta")
+    @Column(name = "group_sta", insertable = false)
     private Integer groupSta;
-    @Column(name = "payment_sta")
+    @Column(name = "payment_sta", insertable = false)
     private Integer paymentSta;
 
     @Column(name = "cover")
@@ -64,4 +64,6 @@ public class Group implements Serializable {
 //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "group")
 //    @JsonManagedReference
 //    private List<GroupPicture> groupPictureList;
+
+
 }
