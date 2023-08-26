@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -34,4 +37,5 @@ public class Product {
     private Short prodSta;
     @Column(name = "prod_spec")
     private String prodSpec;
+
 }
