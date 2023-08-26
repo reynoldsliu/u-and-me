@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
 import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
+import tw.idv.cha102.g7.group.dto.MyGroupListDto;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.repo.GroupRepository;
 import tw.idv.cha102.g7.group.service.GroupService;
@@ -98,5 +99,13 @@ public class GroupServiceImpl implements GroupService {
         Pageable pageable = PageRequest.of(page,6, sort);   //定義Pageable(page 當前頁數, size 傳入資料筆數, sort 排序方法)
         return groupRepository.findGroupListByGroupSta(groupSta,pageable).get(); //返回值為Stream<T>
     }
+
+    @Override
+    public Stream<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Integer page) {
+        Sort sort = Sort.by(Sort.Direction.ASC,"Group_Sta");
+        Pageable pageable = PageRequest.of(page,5, sort);
+        return groupRepository.findMyGroupListDtoByMemId(memId,pageable).get();
+    }
+
 
 }

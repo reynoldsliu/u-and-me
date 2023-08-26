@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
 import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
+import tw.idv.cha102.g7.group.dto.MyGroupListDto;
 import tw.idv.cha102.g7.group.entity.Group;
 
 import java.util.List;
@@ -34,4 +35,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     //用Page<Dto>包裝想要回傳的屬性，返回值最後一個必須是Pageable pageable
     @Query(value = "SELECT cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1", nativeQuery = true)
     Page<GroupListDto> findGroupListByGroupSta(Integer groupSta, Pageable pageable);
+
+    @Query(value = "SELECT group_id, theme, sch_id, group_sta FROM `group` WHERE mem_id = ?1", nativeQuery = true)
+    Page<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Pageable pageable);
 }

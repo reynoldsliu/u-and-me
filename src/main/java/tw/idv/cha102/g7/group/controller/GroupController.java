@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
 import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
+import tw.idv.cha102.g7.group.dto.MyGroupListDto;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.service.GroupService;
 
@@ -161,5 +162,11 @@ public class GroupController {
     @GetMapping("/groupsList/{groupSta}/{page}")
     public Stream<GroupListDto> findGroupListByGroupSta(@PathVariable Integer groupSta, @PathVariable Integer page){
         return groupService.findGroupListByGroupSta(groupSta, page);
+    }
+
+    @GetMapping("/myGroupList/{memId}/{page}")
+    public Stream<MyGroupListDto> findMyGroupListDtoByGroupId(@PathVariable Integer memId,
+                                                              @PathVariable Integer page){
+        return groupService.findMyGroupListDtoByMemId(memId, page);
     }
 }

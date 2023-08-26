@@ -26,10 +26,10 @@ public interface GroupGroupPicDto {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     Timestamp getStar_Date();
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     Timestamp getDep_Date();
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     Timestamp getDeadline();
 
     String getGroup_Desc();

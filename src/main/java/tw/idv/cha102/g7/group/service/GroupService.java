@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
 import tw.idv.cha102.g7.group.dto.GroupListDto;
 import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
+import tw.idv.cha102.g7.group.dto.MyGroupListDto;
 import tw.idv.cha102.g7.group.entity.Group;
 
 import java.util.List;
@@ -37,4 +38,6 @@ public interface GroupService {
     //Java 8 API添加了一個新的抽象稱爲流Stream，可以讓你以一種聲明的方式處理數據。
     //Stream 使用一種類似用 SQL 語句從數據庫查詢數據的直觀方式來提供一種對 Java 集合運算和表達的高階抽象。
     Stream<GroupListDto> findGroupListByGroupSta(Integer groupSta, Integer page);
+
+    Stream<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Integer page);
 }

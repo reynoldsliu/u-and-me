@@ -15,9 +15,29 @@ window.addEventListener("load", function (e) {
     const notice_el = document.getElementById("notice");
     const btn_submit_el = document.getElementById("btn_submit");
 
+
+    
+
+
     //圖片傳送流程12345
     //1. 從<input>取得File物件
     const cover_el = document.getElementById("cover");
+
+
+    //=======預覽圖=======
+    cover_el.addEventListener('change', changeListener);
+    function changeListener () {
+        const id = this.id;
+        const files = this.files;
+        const img = document.getElementById("cover_img");
+        const file = files[0];
+        if(!file){
+            img.src = "";
+            return;
+        }
+        img.src = URL.createObjectURL(file);
+    }
+    //=======預覽圖結束=======
 
     //當按下送出後
     btn_submit_el.addEventListener("click", function (e) {
@@ -63,6 +83,7 @@ window.addEventListener("load", function (e) {
 
     
 });
+
 
 
 // =================日歷用js===================
