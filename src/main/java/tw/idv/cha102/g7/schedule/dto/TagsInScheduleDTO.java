@@ -11,13 +11,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScheduleToTagsDTO {
+public class TagsInScheduleDTO {
 
     private Schedule schedule;
     private List<ScheduleTag> scheduleTags;
 
 
-    public ScheduleToTagsDTO(Object[] objects) {
+    public TagsInScheduleDTO(Object[] objects) {
         this.schedule = (Schedule) objects[0];
         this.scheduleTags = (List<ScheduleTag>) objects[1];
     }

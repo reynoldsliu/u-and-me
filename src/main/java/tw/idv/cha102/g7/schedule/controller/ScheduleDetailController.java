@@ -2,34 +2,35 @@ package tw.idv.cha102.g7.schedule.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
+import tw.idv.cha102.g7.schedule.service.ScheduleDetailService;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
-import tw.idv.cha102.g7.schedule.service.impl.ScheduleDetailServiceImpl;
 
 import java.util.List;
 
 // 查看行程詳情
 @RestController
-@RequestMapping("/schedules")
+@RequestMapping("/schedules/details")
 public class ScheduleDetailController {
 
     @Autowired
     private ScheduleService scheduleService;
 
     @Autowired
-    private ScheduleDetailServiceImpl scheduleDetailService;
+    private ScheduleDetailService detailService;
 
     @Autowired
-    private ScheduleTagService scheduleTagService;
+    private ScheduleTagService tagService;
 
 
     // 顯示單一行程詳細資訊(包含行程、行程細節及標籤)
-    @GetMapping("/findOne/{schId}")
-    public List<ScheduleDetail> findScheduleWithDetails(Integer schId){
-        return scheduleDetailService.findBySchId(schId);
+    @GetMapping("/{schId}")
+    public List<ScheduleDetail> findScheduleDetails(@PathVariable Integer schId){
+        return detailService.findBySchId(schId);
     }
 
     // 見ScheduleManageController.java

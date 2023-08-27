@@ -1,15 +1,15 @@
 package tw.idv.cha102.g7.schedule.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.sql.Date;
-import java.util.List;
 
 @Data
 @Entity
@@ -47,5 +47,4 @@ public class Schedule {
 //    @JoinColumn(name = "sch_id", referencedColumnName = "sch_id")
 //    private List<ScheduleDetail> scheduleDetails;
 
-//    private List<ScheduleTag> scheduleTags;
 }

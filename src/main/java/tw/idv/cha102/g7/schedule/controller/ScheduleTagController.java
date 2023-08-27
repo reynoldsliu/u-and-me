@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tw.idv.cha102.g7.schedule.dto.ScheduleToTagsDTO;
+import tw.idv.cha102.g7.schedule.dto.TagsInScheduleDTO;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
@@ -47,7 +47,7 @@ public class ScheduleTagController {
 
     // 藉由行程id找出對應行程標籤
     @GetMapping("/schId/{schId}")
-    public ScheduleToTagsDTO findTagsBySchId(@PathVariable Integer schId){
+    public TagsInScheduleDTO findTagsBySchId(@PathVariable Integer schId){
         return service.findTagsBySchId(schId);
     }
 

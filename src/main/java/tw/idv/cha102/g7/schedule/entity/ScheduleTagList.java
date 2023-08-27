@@ -1,4 +1,4 @@
-package tw.idv.cha102.g7.schedule.dto;
+package tw.idv.cha102.g7.schedule.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "schedule_tag_list")
-public class ScheduleTagListDTO {
+public class ScheduleTagList {
 
     @EmbeddedId
     public ScheduleTagListId scheduleTagListId;

@@ -1,9 +1,9 @@
 package tw.idv.cha102.g7.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.schedule.entity.Schedule;
+import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
+import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
@@ -11,7 +11,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
@@ -19,7 +19,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<Schedule> findAllPublic() {
-        return repository.findOrderBySchStart();
+        return repository.findAllPublic();
     }
 
     @Override
@@ -30,6 +30,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd) {
         return repository.findBetweenDate(schStart, schEnd);
+    }
+
+    @Override
+    public List<Schedule> findByDays() {
+        return repository.findByDays();
     }
 
 

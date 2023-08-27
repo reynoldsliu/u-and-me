@@ -1,8 +1,7 @@
 package tw.idv.cha102.g7.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.schedule.entity.Schedule;
+import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.schedule.entity.ScheduleReport;
 import tw.idv.cha102.g7.schedule.repo.ScheduleReportRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
@@ -10,7 +9,7 @@ import tw.idv.cha102.g7.schedule.service.ScheduleReportService;
 
 import java.util.List;
 
-@Component
+@Service
 public class ScheduleReportServiceImpl implements ScheduleReportService {
 
     @Autowired

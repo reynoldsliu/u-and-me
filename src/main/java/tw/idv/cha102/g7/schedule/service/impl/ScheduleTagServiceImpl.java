@@ -1,9 +1,9 @@
 package tw.idv.cha102.g7.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.schedule.dto.ScheduleTagListDTO;
-import tw.idv.cha102.g7.schedule.dto.ScheduleToTagsDTO;
+import org.springframework.stereotype.Service;
+import tw.idv.cha102.g7.schedule.entity.ScheduleTagList;
+import tw.idv.cha102.g7.schedule.dto.TagsInScheduleDTO;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
@@ -17,7 +17,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class ScheduleTagServiceImpl implements ScheduleTagService {
 
     @Autowired
@@ -27,7 +27,7 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
     private ScheduleTagListRepository listRepository;
 
     @Autowired
-    ScheduleRepository repository;
+    ScheduleRepository scheduleRepository;
 
     @Override
     public List<ScheduleTag> findAll() {
@@ -50,15 +50,15 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
     @Override
     public TagToSchedulesDTO findSchedulesBySchTagId(Integer schTagId) {
         ScheduleTag tag = tagRepository.findById(schTagId).orElse(null);
-        List<ScheduleTagListDTO> dtoList = listRepository.findAll();
-        List<ScheduleTagListDTO> schIdList = new ArrayList<>();
+        List<ScheduleTagList> dtoList = listRepository.findAll();
+        List<ScheduleTagList> schIdList = new ArrayList<>();
         List<Schedule> schList = new ArrayList<>();
         Schedule schedule = null;
-        for (ScheduleTagListDTO dto : dtoList) {
+        for (ScheduleTagList dto : dtoList) {
             if (dto.getScheduleTagListId().getSchTagId() == schTagId) {
                 schIdList.add(dto);
-                for (ScheduleTagListDTO dto2 : schIdList) {
-                    schedule = repository.findById(dto2.getScheduleTagListId().getSchId()).orElse(null);
+                for (ScheduleTagList dto2 : schIdList) {
+                    schedule = scheduleRepository.findById(dto2.getScheduleTagListId().getSchId()).orElse(null);
                     if (!schList.contains(schedule) && schedule != null) {
                         if (schedule.getSchPub() == 2)
                         schList.add(schedule);
@@ -91,19 +91,18 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
 
 
     @Override
-    public ScheduleToTagsDTO findTagsBySchId(Integer schId) {
-        Schedule schedule = repository.findById(schId).orElse(null);
-        List<ScheduleTagListDTO> dtoList = listRepository.findAll();
-        List<ScheduleTagListDTO> tagIdList = new ArrayList<>();
+    public TagsInScheduleDTO findTagsBySchId(Integer schId) {
+        Schedule schedule = scheduleRepository.findById(schId).orElse(null);
+        List<ScheduleTagList> stList = listRepository.findAll();
         List<ScheduleTag> tagList = new ArrayList<>();
         ScheduleTag tag = null;
-        for (ScheduleTagListDTO dto : dtoList) {
-            if (dto.getScheduleTagListId().getSchId() == schId) {
-                // 拿取schId對應到的tagId加入tagIdList中
-                tagIdList.add(dto);
-                for (ScheduleTagListDTO dto2 : tagIdList) {
-                    // 將tagId對應到的ScheduleTag物件加入tagList中
-                    tag = tagRepository.findById(dto2.getScheduleTagListId().getSchTagId()).orElse(null);
+        for (ScheduleTagList stl : stList) {
+            if (stl.getScheduleTagListId().getSchId() != schId) {
+                // 將不符合schId的元素從stList中移除
+                stList.remove(stl);
+                for (ScheduleTagList stl2 : stList) {
+                    // 將stList的每個元素一一取出，用tagId查詢到對應的ScheduleTag物件加入tagList中
+                    tag = tagRepository.findById(stl2.getScheduleTagListId().getSchTagId()).orElse(null);
                     // 若此ScheduleTag物件不存在於tagList才可加入
                     if (!tagList.contains(tag))
                         tagList.add(tag);
@@ -112,7 +111,7 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
             }
         }
         Object[] object = {schedule, tagList};
-        ScheduleToTagsDTO tagsDTO = new ScheduleToTagsDTO(object);
+        TagsInScheduleDTO tagsDTO = new TagsInScheduleDTO(object);
         return tagsDTO;
     }
 

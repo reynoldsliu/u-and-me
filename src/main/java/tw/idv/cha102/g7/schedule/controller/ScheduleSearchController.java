@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
+import java.sql.Date;
 import java.util.List;
 
 // 瀏覽公開行程
@@ -22,24 +23,40 @@ public class ScheduleSearchController {
         return service.findAllPublic();
     }
 
-    // 依照行程名稱，查詢所有公開行程清單，並依照起始日期排序
+    // 依照行程名稱，查詢所有公開行程清單，並依照起始日期新到舊排序
     @GetMapping("/name/{schName}")
     public List<Schedule> findBySchName(@PathVariable String schName) {
         return service.findBySchName(schName);
     }
 
-    // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期排序
-    @RequestMapping(value = "/datebetween", method = {RequestMethod.GET, RequestMethod.POST})
-    public List<Schedule> findBetweenDate(@RequestBody Schedule schedule) {
-        List<Schedule> schedules = service.findBetweenDate(schedule.getSchStart(), schedule.getSchEnd());
+    // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期新到舊排序
+    @GetMapping(value = "/dateBetween/{schStart}/{schEnd}")
+    public List<Schedule> findBetweenDate(@PathVariable Date schStart,
+                                          @PathVariable Date schEnd) {
+        List<Schedule> schedules = service.findBetweenDate(schStart, schEnd);
         return schedules;
     }
 
-    // 依行程ID，查詢單一行程(若輸入不存在的id，甚麼都不會出現)
+    // 依行程天數小到大，查詢公開行程及天數，並依照起始日期新到舊排序
+    @GetMapping(value = "/days")
+    public  List<Schedule> findByDays(){
+        List<Schedule> schedules = service.findByDays();
+        return schedules;
+    }
+
+    // 依行程預估消費範圍小到大，查詢公開行程，並依照起始日期新到舊排序
+
+
+    // (給後臺管理員看)依行程ID，查詢單一行程(若輸入不存在的id，甚麼都不會出現)
     @GetMapping("/schId/{schId}")
     public Schedule getOne(@PathVariable Integer schId) {
         return service.getById(schId);
     }
+
+
+
+
+
 
     // 查詢行程及其細節，並依照行程細節起始時間排序(若輸入不存在的id，會404)
     // @OneToMany的Join寫法

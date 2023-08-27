@@ -1,6 +1,6 @@
 package tw.idv.cha102.g7.schedule.service;
 
-import tw.idv.cha102.g7.schedule.dto.ScheduleToTagsDTO;
+import tw.idv.cha102.g7.schedule.dto.TagsInScheduleDTO;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
 
@@ -24,6 +24,6 @@ public interface ScheduleTagService {
     public List<TagToSchedulesDTO> findSchedulesBySchTagName(String schTagName);
 
     // 依照行程id查詢對應標籤
-    public ScheduleToTagsDTO findTagsBySchId(Integer schId);
+    public TagsInScheduleDTO findTagsBySchId(Integer schId);
 
 }
