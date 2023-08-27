@@ -1,7 +1,11 @@
 package tw.idv.cha102.g7.schedule.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
@@ -16,20 +20,35 @@ public class ScheduleSearchController {
     @Autowired
     private ScheduleService service;
 
-
-    // 查詢所有公開行程清單，並依照日期排序
-    @GetMapping("/public")
-    public List<Schedule> findAllPublic() {
-        return service.findAllPublic();
+    /**
+     * 一般使用者
+     * 查詢所有最新公開行程並依分頁顯示
+     * @param page 當前分頁 (從0開始)(暫定顯示每頁9筆行程)
+     * @return 返回所有公開行程列表
+     */
+    @GetMapping("/all/{page}")
+    public List<Schedule> findAllPublic(@PathVariable Integer page){
+        return service.getAllPaged(page,9);
     }
 
-    // 依照行程名稱，查詢所有公開行程清單，並依照起始日期新到舊排序
-    @GetMapping("/name/{schName}")
-    public List<Schedule> findBySchName(@PathVariable String schName) {
-        return service.findBySchName(schName);
+    /**
+     * 一般使用者
+     * 以行程名稱查詢行程
+     * @param keyword 欲查詢的名稱
+     * @return 返回查詢結果
+     */
+    @GetMapping("/{keyword}")
+    public List<Schedule> findBySchName(@PathVariable String keyword) {
+        return service.findBySchName(keyword);
     }
 
-    // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期新到舊排序
+    /**
+     * 一般使用者
+     * 以行程開始日期及結束日期，查詢期限內的行程
+     * @param schStart 行程開始日期
+     * @param schEnd 行程結束日期
+     * @return 返回查詢結果
+     */
     @GetMapping(value = "/dateBetween/{schStart}/{schEnd}")
     public List<Schedule> findBetweenDate(@PathVariable Date schStart,
                                           @PathVariable Date schEnd) {
@@ -37,22 +56,34 @@ public class ScheduleSearchController {
         return schedules;
     }
 
-    // 依行程天數小到大，查詢公開行程及天數，並依照起始日期新到舊排序
+    /**
+     * 一般使用者
+     * 以行程天數由小到大排序，查詢行程(查詢結果，物件屬性沒有經過排序，待修正)
+     * @return 返回查詢結果
+     */
     @GetMapping(value = "/days")
-    public  List<Schedule> findByDays(){
-        List<Schedule> schedules = service.findByDays();
+    public  List<ScheduleDayDTO> findByDays(){
+        List<ScheduleDayDTO> schedules = service.findByDays();
         return schedules;
     }
 
-    // 依行程預估消費範圍小到大，查詢公開行程，並依照起始日期新到舊排序
+    /**
+     * 一般使用者
+     * 以行程預估消費範圍由小到大排序，查詢行程(查詢結果，物件屬性沒有經過排序，待修正)
+     * @return 返回查詢結果
+     */
 
 
-    // (給後臺管理員看)依行程ID，查詢單一行程(若輸入不存在的id，甚麼都不會出現)
+
+    /**
+     * 一般使用者(暫時不會用到)
+     * 查詢單一行程(依據行程ID)(若輸入不存在的id，甚麼都不會出現)
+     * @return 返回查詢結果
+     */
     @GetMapping("/schId/{schId}")
     public Schedule getOne(@PathVariable Integer schId) {
         return service.getById(schId);
     }
-
 
 
 

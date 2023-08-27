@@ -3,6 +3,8 @@ package tw.idv.cha102.g7.schedule.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
+import tw.idv.cha102.g7.schedule.dto.ScheduleDaysDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 
 import java.sql.Date;
@@ -11,29 +13,29 @@ import java.util.List;
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 
-    // 查詢所有公開行程清單，並依照起始日期排序
+    // 查詢所有公開行程清單，並依照起始日期降冪排序
     @Query(value = "SELECT * FROM schedules WHERE sch_pub = 2 ORDER BY sch_start DESC", nativeQuery = true)
     public List<Schedule> findAllPublic();
 
-    // 依照行程名稱，查詢所有公開行程清單，並依照起始日期排序
+    // 依照行程名稱，查詢所有公開行程清單，並依照起始日期降冪排序
     @Query(value = "SELECT * FROM schedules where sch_name like %?1% And sch_pub = 2 ORDER BY sch_start DESC", nativeQuery = true)
     public List<Schedule> findBySchName(String schName);
 
-    // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期排序
+    // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期降冪排序
     @Query(value = "SELECT * FROM schedules WHERE sch_start >= ?1 AND sch_end <= ?2 And sch_pub = 2 ORDER BY sch_start DESC", nativeQuery = true)
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd);
 
-    // 依行程天數小到大，查詢公開行程及天數，並依照起始日期新到舊排序
-    @Query(value = "SELECT * FROM schedules WHERE sch_pub = 2 " +
-            "ORDER BY DATEDIFF(sch_end, sch_start) ASC, sch_start DESC",nativeQuery = true)
-    public  List<Schedule> findByDays();
+    // 依行程天數小到大，查詢所有公開行程清單，並依照起始日期降冪排序
+    @Query(value = "SELECT sch_id as schId, sch_name as schName, mem_id as memId, sch_start as schStart, sch_end as schEnd, sch_pub as schPub, sch_copy as schCopy, sch_cost as schCost, DATEDIFF(sch_end, sch_start) as days FROM schedules WHERE sch_pub = 2 " +
+            "ORDER BY days ASC, sch_start DESC",nativeQuery = true)
+    public  List<ScheduleDayDTO> findByDays();
 
 
-    // 依行程預估消費範圍小到大，查詢公開行程，並依照起始日期新到舊排序
+    // 依行程預估消費範圍小到大，查詢所有範圍內的公開行程清單，並依照起始日期新到舊排序
 
 
 
-    // 查詢使用者自己所有建立過的行程清單
+    // 查詢使用者自己建立過的所有行程清單
     public List<Schedule> findByMemId(Integer memId);
 
 
