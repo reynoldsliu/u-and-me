@@ -13,5 +13,7 @@ public interface AttrService {
 
     void setSta(Integer attrId, Short attrSta);
 
+    List<Attraction> getAttrsByName(String attrName);
+
 //    String addAttrToCollection(Attraction attraction);
 }

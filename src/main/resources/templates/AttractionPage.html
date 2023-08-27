@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UandMe Online Shopping</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/memberLoginIn.css">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="container2">
+    <!-- -----Header----- -->
+
+    <div class="Header">
+        <nav class="navbar navbar-expand-lg  bg-dark navbar-dark fixed-top">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="../static/img/uandmelogo-removebg-preview.png">
+<!--                    <img src="./dist/img/uandmelogo-removebg-preview.png">-->
+
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item me-4">
+                            <a class="nav-link" href="#">活動資訊</a>
+                        </li>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link" href="#">行程規劃</a>
+                        </li>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link" href="#">旅遊商城</a>
+                        </li>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link" href="#">論壇專區</a>
+                        </li>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">客服專區</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Q&A專欄</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">聯絡我們</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-person" viewBox="0 0 16 16">
+                                <path
+                                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                            </svg>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-cart2" viewBox="0 0 16 16">
+                                <path
+                                        d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                            </svg>
+
+                        </a>
+
+
+                    </li>
+
+
+                </ul>
+
+
+            </div>
+
+
+        </nav>
+    </div>
+</div>
+<div class="container">
+    <!-- -----Bread Crumb----- -->
+    <div>
+        <div class="breadcontainer mb-5">
+            <div class="row">
+                <nav aria-label="breadcrumb sticky" style="margin-top: 150px;">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item " style="display:inline-block"><a href="#">首頁</a></li>
+                            <li class="breadcrumb-item" style="display:inline-block"><a href="#">Attraction</a>
+                            </li>
+                            <!-- <li class="breadcrumb-item active" aria-current="page" style="display:inline-block">Data</li> -->
+                        </ol>
+                    </nav>
+                </nav>
+            </div>
+        </div>
+
+
+        <!-- -----Content----- -->
+        <div class="content">
+            <section class="vh-100">
+                <div class="container-fluid" style="height: 100%;">
+                    <div class="row" style="height: 95%;">
+                        <!-- The Function Adjust Position -->
+                        <div class="col-12 col-lg-2">
+                            <!-- <img src="https://picsum.photos/300/200?random=10" > -->
+
+                            <!-- ================================GOOGLE API=================================== -->
+                            <div style="height: 100%;background-color: lightblue;">
+                                <div>
+                                    <input type="text" id="google_input_text" ref="site" v-model="site">
+                                </div>
+                                <div>
+                                    <strong>Start: </strong>
+                                    <select id="start" onchange="calcRoute();">
+                                        <option value="chicago, il">Chicago</option>
+                                        <option value="st louis, mo">St Louis</option>
+                                        <option value="joplin, mo">Joplin, MO</option>
+                                        <option value="oklahoma city, ok">Oklahoma City</option>
+                                        <option value="amarillo, tx">Amarillo</option>
+                                        <option value="gallup, nm">Gallup, NM</option>
+                                        <option value="flagstaff, az">Flagstaff, AZ</option>
+                                        <option value="winona, az">Winona</option>
+                                        <option value="kingman, az">Kingman</option>
+                                        <option value="barstow, ca">Barstow</option>
+                                        <option value="san bernardino, ca">San Bernardino</option>
+                                        <option value="los angeles, ca">Los Angeles</option>
+                                    </select>
+                                    <strong>End: </strong>
+                                    <select id="end" onchange="calcRoute();">
+                                        <option value="chicago, il">Chicago</option>
+                                        <option value="st louis, mo">St Louis</option>
+                                        <option value="joplin, mo">Joplin, MO</option>
+                                        <option value="oklahoma city, ok">Oklahoma City</option>
+                                        <option value="amarillo, tx">Amarillo</option>
+                                        <option value="gallup, nm">Gallup, NM</option>
+                                        <option value="flagstaff, az">Flagstaff, AZ</option>
+                                        <option value="winona, az">Winona</option>
+                                        <option value="kingman, az">Kingman</option>
+                                        <option value="barstow, ca">Barstow</option>
+                                        <option value="san bernardino, ca">San Bernardino</option>
+                                        <option value="los angeles, ca">Los Angeles</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <strong>Mode of Travel: </strong>
+                                    <select id="mode" onchange="calcRoute();">
+                                        <option value="DRIVING">Driving</option>
+                                        <option value="WALKING">Walking</option>
+                                        <option value="BICYCLING">Bicycling</option>
+                                        <option value="TRANSIT">Transit</option>
+                                    </select>
+                                </div>
+                                <div id="total"></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-10">
+                            <!-- <img src="https://picsum.photos/300/200?random=11" > -->
+
+                            <!-- ================================GOOGLE API=================================== -->
+                            <div style="height: 100%;background-color: lightblue;">
+
+                                <!-- <div id="map"></div> -->
+                                <div id="map" style="float:left;width:70%;height:100%"></div>
+                                <div id="directionsPanel"
+                                     style="float:right;width:30%;height:100%;background-color: antiquewhite;">
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- -----Footer----- -->
+
+<div class=" footer">
+    <div class="container-fluid footer1">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my- border-top">
+            <div class="col mb-3">
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+                <p class="text-body-secondary">&copy; 2023</p>
+            </div>
+
+            <div class="col mb-3">
+
+            </div>
+
+
+            <div class="col mb-3 mx-5">
+                <h5>U&Me</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">活動資訊</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">行程規劃</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">旅遊商城</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">論壇專區</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">客服專區</a></li>
+                </ul>
+            </div>
+
+            <div class="col mb-3 mx-5">
+                <h5>Follow Us</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#"
+                                                 class="nav-link p-0 text-body-secondary">E-mail:u-and-me@gamil.com</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="#"
+                                                 class="nav-link p-0 text-body-secondary">Tel:02-22222222</a>
+
+                </ul>
+                </li>
+
+            </div>
+        </footer>
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmXZPx-vRB-PUgoaST5buz16HDtD6LqPk&callback=initMap&libraries=places"
+        async defer></script>
+
+<script>
+    var map;
+    var directionsRenderer;
+    var directionsService;
+    var stepDisplay;
+    var markerArray = [];
+
+    var haight;
+    var oceanBeach;
+
+    async function initMap() {
+        directionsService = new google.maps.DirectionsService();
+        directionsRenderer = new google.maps.DirectionsRenderer();
+        directionsRenderer.setMap(map);
+        directionsRenderer.setPanel(document.getElementById('directionsPanel'));
+
+        var haight = new google.maps.LatLng(37.7699298, -122.4469157);
+        var oceanBeach = new google.maps.LatLng(37.7683909618184, -122.51089453697205);
+
+        // 預設顯示的地點：台北市政府親子劇場
+        let location = {
+            lat: 25.0374865, // 經度
+            lng: 121.5647688 // 緯度
+        };
+
+        var mapOptions = {
+            zoom: 14,
+            center: haight
+        }
+
+        const { Map } = await google.maps.importLibrary("maps");
+        const { AdvancedMarkerView } = await google.maps.importLibrary("marker");
+
+        // map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        directionsRenderer.setMap(map);
+
+        // 建立地圖
+        this.map = new google.maps.Map(document.getElementById('map'), {
+            center: haight,//location,
+            zoom: 16,
+            mapTypeId: 'terrain'
+        });
+
+        // Create a renderer for directions and bind it to the map.
+        var rendererOptions = {
+            map: map
+        }
+        // directionsRenderer = new google.maps.DirectionsRenderer(rendererOptions);
+        directionsRenderer = new google.maps.DirectionsRenderer({
+            draggable: true,
+            map,
+            panel: document.getElementById("directionsPanel"),
+        });
+        // displayRoute(
+        //     "chicago, il",// "Perth, WA",haight
+        //     "los angeles, ca",// "Sydney, NSW",oceanBeach
+
+        //     directionsService,
+        //     directionsRenderer
+        // );
+        directionsRenderer.addListener("directions_changed", () => {
+            const directions = directionsRenderer.getDirections();
+
+            if (directions) {
+                computeTotalDistance(directions);
+            }
+        });
+
+        // Instantiate an info window to hold step text.
+        stepDisplay = new google.maps.InfoWindow();
+
+        // 放置多個marker
+        fetch('./map.geojson')
+            .then(results => results.json())
+            .then(result => {
+                this.features = result.features;
+                Array.prototype.forEach.call(this.features, r => {
+                    let latLng = new google.maps.LatLng(r.geometry.coordinates[0], r.geometry.coordinates[1]);
+                    let marker = new google.maps.Marker({
+                        position: latLng,
+                        map: this.map
+                    });
+                    // info window      //AdvancedMarkerView , google.maps.InfoWindow
+                    let infowindow = new google.maps.InfoWindow({
+                        content: `<h6>${r.properties.name}</h6>` // 支援html
+                    });
+
+                    // 監聽 marker click 事件
+                    marker.addListener('click', e => {
+                        infowindow.open(this.map, marker);
+                    });
+
+                    // // 加一個open的method，就可由外部按鈕開啟
+                    // this.infowindowAll[r.properties.id] = {
+                    //     open: function () {
+                    //         infowindow.open(this.map, marker);
+                    //     }
+                    // };
+                });
+
+            });
+
+        // Create a <script> tag and set the USGS URL as the source.
+        // const script = document.createElement("script");
+
+        // This example uses a local copy of the GeoJSON stored at
+        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+        // script.src =
+        //     "https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js";
+        // document.getElementsByTagName("head")[0].appendChild(script);
+
+    }
+
+
+
+    function displayRoute(origin, destination, service, display) {
+        service
+            .route({
+                origin: origin,
+                destination: destination,
+                // waypoints: [
+                //     { location: "Adelaide, SA" },
+                //     { location: "Broken Hill, NSW" },
+                // ],
+                travelMode: google.maps.TravelMode.DRIVING,
+                avoidTolls: true,
+            })
+            .then((result) => {
+                display.setDirections(result);
+            })
+            .catch((e) => {
+                console.log("Could not display directions due to: " + e);
+            });
+    }
+
+    function computeTotalDistance(result) {
+        let total = 0;
+        const myroute = result.routes[0];
+
+        if (!myroute) {
+            return;
+        }
+
+        for (let i = 0; i < myroute.legs.length; i++) {
+            total += myroute.legs[i].distance.value;
+        }
+
+        total = total / 1000;
+        document.getElementById("total").innerHTML = total + " km";
+    }
+
+
+    // 地址自動完成 + 地圖的中心移到輸入結果的地址上
+    function siteAuto() {
+
+        let options = {
+            // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
+        };
+
+        let siteInput = document.querySelector('#google_input_text');
+
+        // 監聽 input 變化
+        // if (siteInput)
+        siteInput.addEventListener('input', function (event) {
+            let inputValue = event.target.value;
+            // 在這裡處理 inputValue
+        });
+
+        // this.autocomplete = new google.maps.places.Autocomplete(this.$refs.site, options);
+
+        var autocomplete = new google.maps.places.Autocomplete(siteInput, options);
+
+        // 地址的輸入框，值有變動時執行
+        autocomplete.addListener('place_changed', () => {
+            this.place = autocomplete.getPlace(); // 地點資料存進place
+
+            // 確認回來的資料有經緯度
+            if (this.place.geometry) {
+
+                // 改變map的中心點
+                let searchCenter = this.place.geometry.location;
+
+                // panTo是平滑移動、setCenter是直接改變地圖中心
+                this.map.panTo(searchCenter);
+
+                // 在搜尋結果的地點上放置標記
+                let marker = new google.maps.Marker({
+                    // icon: {
+                    //     path: google.maps.SymbolPath.CIRCLE,
+                    //     scale: 10
+                    // },
+                    position: searchCenter,
+                    map: this.map
+                });
+
+                // info window
+                let infowindow = new google.maps.InfoWindow({
+                    content: this.place.formatted_address
+                });
+                infowindow.open(this.map, marker);
+            }
+        });
+    }
+     //manual fixed
+    var start_el = document.getElementById('start');
+    var end_el = document.getElementById('end');
+
+    start_el.addEventListener('change',function(){
+        console.log("From: "+start_el.value+",  To: "+end_el.value);
+        displayRoute(
+                    start_el.value,// "Perth, WA",haight
+                    end_el.value,// "Sydney, NSW",oceanBeach
+                    directionsService,
+                    directionsRenderer
+                );
+    })
+    end_el.addEventListener('change',function(){
+        console.log("From: "+start_el.value+",  To: "+end_el.value);
+        displayRoute(
+            "Perth, WA",// "Perth, WA",haight
+            "Sydney, NSW",// "Sydney, NSW",oceanBeach
+            directionsService,
+            directionsRenderer
+        );
+    })
+
+    function calcRoute() {
+
+        // First, clear out any existing markerArray
+        // from previous calculations.
+        for (i = 0; i < markerArray.length; i++) {
+            markerArray[i].setMap(null);
+        }
+
+        // Retrieve the start and end locations and create
+        // a DirectionsRequest using WALKING directions.
+        var start = document.getElementById('start').value;
+        var end = document.getElementById('end').value;
+        var selectedMode = document.getElementById('mode').value;
+        var request = {
+            origin: start,//haight,start,
+            destination: end,//oceanBeach,end,
+            // Note that JavaScript allows us to access the constant
+            // using square brackets and a string value as its
+            // "property."
+            travelMode: google.maps.TravelMode[selectedMode]
+        };
+        directionsService.route(request, function (response, status) {
+            if (status == 'OK') {
+                // var warnings = document.getElementById("warnings_panel");
+                // warnings.innerHTML = "" + response.routes[0].warnings + "";
+                directionsRenderer.setDirections(response);
+                //在上述origin & destination 之間用標記填滿
+                // showSteps(response);
+
+                // //manual fixed
+                // displayRoute(
+                //     start,// "Perth, WA",haight
+                //     end,// "Sydney, NSW",oceanBeach
+
+                //     directionsService,
+                //     directionsRenderer
+                // );
+            }
+        });
+    }
+
+    //在上述origin & destination 之間用標記填滿
+    // function showSteps(directionResult) {
+    //     // For each step, place a marker, and add the text to the marker's
+    //     // info window. Also attach the marker to an array so we
+    //     // can keep track of it and remove it when calculating new
+    //     // routes.
+    //     var myRoute = directionResult.routes[0].legs[0];
+
+    //     for (var i = 0; i < myRoute.steps.length; i++) {
+    //         var marker = new google.maps.Marker({
+    //             position: myRoute.steps[i].start_point,
+    //             map: map
+    //         });
+    //         attachInstructionText(marker, myRoute.steps[i].instructions);
+    //         markerArray[i] = marker;
+    //     }
+    // }
+
+    // function attachInstructionText(marker, text) {
+    //     google.maps.event.addListener(marker, 'click', function () {
+    //         stepDisplay.setContent(text);
+    //         stepDisplay.open(map, marker);
+    //     });
+    // }
+
+
+
+    function nightModeChange(val) {
+        if (val == 'open') {
+            this.map.setOptions({
+                styles: this.nightModeStyles
+            });
+        } else {
+            this.map.setOptions({
+                styles: null
+            });
+        }
+    }
+
+    // Loop through the results array and place a marker for each
+    // set of coordinates.
+    // const eqfeed_callback = function (results) {
+    //     if (results === undefined)//manual fixed
+    //         return;
+    //     console.log(results); // 檢查 results 的值
+    //     console.log(results.features); // 檢查 results.features 的值
+    //     for (let i = 0; i < results.features.length; i++) {
+    //         const coords = results.features[i].geometry.coordinates;
+    //         const latLng = new google.maps.LatLng(coords[1], coords[0]);
+
+    //         new google.maps.Marker({
+    //             position: latLng,
+    //             map: map,
+    //         });
+    //     }
+    // };
+
+    // 監聽網頁載入事件
+    window.addEventListener('load', () => {
+        // googleMap.initMap();
+        // googleMap.siteAuto();
+        if (directionsService == undefined || directionsService == null)
+            directionsService = new google.maps.DirectionsService();
+        if (directionsRenderer == undefined || directionsRenderer == null)
+            directionsRenderer = new google.maps.DirectionsRenderer();
+        initMap();
+        siteAuto();
+        // eqfeed_callback();
+        // DirectionsRequest.route();
+
+        // const directionsRequest = {
+        //     origin: 'Chicago, IL',
+        //     destination: 'Los Angeles, CA',
+        //     waypoints: [
+        //         {
+        //             location: 'Joplin, MO',
+        //             stopover: false
+        //         },
+        //         {
+        //             location: 'Oklahoma City, OK',
+        //             stopover: true
+        //         }
+        //     ],
+        //     provideRouteAlternatives: false,
+        //     travelMode: 'DRIVING',
+        //     drivingOptions: {
+        //         departureTime: new Date(/* now, or future date */),
+        //         trafficModel: 'pessimistic'
+        //     },
+        //     unitSystem: google.maps.UnitSystem.IMPERIAL
+        // };
+
+
+
+        // const directionsService = new google.maps.DirectionsService();
+        // directionsService.route(directionsRequest, (result, status) => {
+        //     if (status === 'OK') {
+        //         // 在這裡處理 directions result
+        //         console.log(result);
+        //     } else {
+        //         // 處理錯誤
+        //         console.error('Directions request failed:', status);
+        //     }
+        // });
+
+    });
+
+// 監聽夜間模式變化
+// document.getElementById('nightModeSwitch').addEventListener('change', (event) => {
+//     googleMap.nightModeChange(event.target.checked ? 'open' : 'close');
+// });
+
+
+</script>
+
+</body>
+
+</html>

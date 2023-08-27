@@ -36,8 +36,13 @@ public class AttrServiceImpl implements AttrService {
     @Override
     public void setSta(Integer attrId, Short attrSta) {
         Attraction attraction = attrRepository.getById(attrId);
-        attraction.setSta(attrSta);
+        attraction.setAttrSta(attrSta);
         attrRepository.save(attraction);
+    }
+
+    @Override
+    public List<Attraction> getAttrsByName(String attrName){
+        return attrRepository.findAllByAttrNameContaining(attrName);
     }
 
 //    @Override
@@ -48,7 +53,7 @@ public class AttrServiceImpl implements AttrService {
 
     @Override
     public String createAttr(Attraction attraction) {
-        if(attrRepository.getById(attraction.getId())!=null){
+        if(attrRepository.getById(attraction.getAttrId())!=null){
             return "Existed Attraction";
         }
         else{

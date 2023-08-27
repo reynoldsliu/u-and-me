@@ -3,6 +3,10 @@ package tw.idv.cha102.g7.attraction.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import tw.idv.cha102.g7.member.service.MemberService;
 
-@Controller
+@RestController
 //@RequestMapping("/attr")
 public class AttrController {
 
@@ -39,12 +45,42 @@ public class AttrController {
         return "index";
     }
 
+//    @RequestMapping("/AttractionPage")
+//    public void AttractionPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//        String url = "/AttractionPage";
+//
+//
+//        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+//        successView.forward(req, res);
+//
+//    }
+
+//    @Autowired
+//    private ResourceLoader resourceLoader;
+
     @RequestMapping("/AttractionPage")
-    public String AttractionPage(){
-        return "AttractionPage";
+    public void AttractionPage(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException {
+        String redirectUrl = "AttractionPage.html"; // 設定要重定向的目標 URL
+        res.sendRedirect(redirectUrl);
     }
 
-    @GetMapping("/register")
+    @RequestMapping("/listAllAttraction")
+    public void listAllAttraction(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException {
+        String redirectUrl = "listAllAttraction.html"; // 設定要重定向的目標 URL
+        System.out.println(res);
+        res.sendRedirect(redirectUrl);
+    }
+
+//    @GetMapping("/AttractionPage")
+//    public ResponseEntity<String> AttractionPage(HttpServletResponse res) throws IOException {
+//        String url = "{\"redirect\": \"AttractionPage.html\"}";
+//        System.out.println("printprintprintprint"+ResponseEntity.ok(url));
+//        return ResponseEntity.ok(url);
+//         //res.sendRedirect("AttractionPage");
+//    }
+
+
+        @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("pageTitle", "Thymeleaf Example");
         model.addAttribute("message", "Hello, Thymeleaf!");
@@ -60,7 +96,7 @@ public class AttrController {
 
 
     @RequestMapping("/getAttr")
-    public Attraction getAttr(@RequestParam Integer attrId){
+    public Attraction getAttr(@RequestParam Integer attrId) {
         return attrService.getById(attrId);
     }
 
@@ -85,6 +121,11 @@ public class AttrController {
         List<Attraction> attraction = attrService.getAll();
 //        model.addAttribute("attractions", attraction);
         return attraction;
+    }
+
+    @RequestMapping("/getAttrsByName/{attrName}")
+    public List<Attraction> getAttrsByName(@PathVariable String attrName){
+        return attrService.getAttrsByName(attrName);
     }
 
 
@@ -141,9 +182,9 @@ public class AttrController {
 
         System.out.println("HIIIIIIII");
 
-            final HttpSession session = request.getSession();
-            session.setAttribute("loggedin", true);
-            session.setAttribute("attraction", attraction);
+        final HttpSession session = request.getSession();
+        session.setAttribute("loggedin", true);
+        session.setAttribute("attraction", attraction);
 
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = objectMapper.writeValueAsString(attraction);
@@ -176,21 +217,21 @@ public class AttrController {
 
     @Autowired
     private AttrCollectionService attrCollectionService;
+
     @GetMapping("/getCollectionAttrsByMemId/{memId}")
-    public List<AttrCollectionDTO> getCollectionAttrsByMemId(@PathVariable Integer memId){
+    public List<AttrCollectionDTO> getCollectionAttrsByMemId(@PathVariable Integer memId) {
         return attrCollectionService.findAttrCollectionsByMemId(memId);
     }
 
     @RequestMapping("/getCollectionAttrsByMemName/{memName}")
-    public List<AttrCollectionDTO> findAttrCollectionsByMemName(@PathVariable String memName){
+    public List<AttrCollectionDTO> findAttrCollectionsByMemName(@PathVariable String memName) {
         List<AttrCollectionDTO> attrCollectionDTOS =
                 attrCollectionService.findAttrCollectionsByMemName(memName);
-        if(attrCollectionDTOS == null)
+        if (attrCollectionDTOS == null)
             return null;
         else
             return attrCollectionDTOS;
     }
-
 
 
 }
