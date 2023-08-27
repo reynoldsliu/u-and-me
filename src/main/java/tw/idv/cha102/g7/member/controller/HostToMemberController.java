@@ -39,7 +39,13 @@ public class HostToMemberController {
     private HostRepository hostRepository;
 
 
-
+    /**
+     * 更新會員狀態(檢舉)
+     * (By memEmail)
+     * @param memEmail
+     * @param sta
+     * @return
+     */
     @PostMapping("/memberStatus/{memEmail}/{sta}")
         public ResponseEntity<String> setMemberStatus(@PathVariable String memEmail,
                                                       @PathVariable Integer sta) {
@@ -52,6 +58,13 @@ public class HostToMemberController {
             return ResponseEntity.ok("您已成功完成檢舉");
         }
 
+    /**
+     * 更新會員團主狀態
+     * (By memEmail)
+     * @param memEmail
+     * @param sta
+     * @return
+     */
     @PostMapping("/memberGroupStatus/{memEmail}/{sta}")
     public ResponseEntity<String> setMemberGroupSta(@PathVariable String memEmail,
                                                     @PathVariable Integer sta) {
@@ -64,8 +77,11 @@ public class HostToMemberController {
         return ResponseEntity.ok("您已成功完成檢舉");
     }
 
-    //管理員查詢全部會員
 
+    /**
+     * 管理員查詢全部會員
+     * @return
+     */
     @GetMapping("/all")
     public List<Member> getAll(){
         return memberDetailsService.getAll();

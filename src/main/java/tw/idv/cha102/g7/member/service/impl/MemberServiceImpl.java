@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
 
 
     public Member update(Member member) {
-        Member existingMember = memberRepository.findById(member.getMemId()).orElse(null);
+        Member existingMember = memberRepository.findByMemEmail(member.getMemEmail());
         if (existingMember != null) {
             existingMember.setMemId(member.getMemId());
             existingMember.setMemEmail(member.getMemEmail());

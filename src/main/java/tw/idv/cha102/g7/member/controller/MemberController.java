@@ -11,7 +11,7 @@ import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.member.service.MemberService;
 
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/member")
 public class MemberController {
@@ -24,12 +24,22 @@ public class MemberController {
     private MemberRepository memberRepository;
 
 
+    /**
+     * 會員註冊
+     * @param member
+     * @return
+     */
     @PostMapping("/register")
     public String register(@RequestBody Member member) {
         return memberService.insert(member);
     }
 
 
+    /**
+     * 會員登入(團主登入擇顯示已登入團主狀態)
+     * @param member
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Member member) {
         String memEmail = member.getMemEmail();
@@ -45,6 +55,11 @@ public class MemberController {
         }
     }
 
+    /**
+     * 團主註冊
+     * @param member
+     * @return
+     */
     @PostMapping("/groupRegister")
     public ResponseEntity<String> groupRegister(@RequestBody Member member) {
         Integer memId = member.getMemId();
@@ -63,15 +78,13 @@ public class MemberController {
 
         return ResponseEntity.ok("您已成功註冊為團主");
     }
-//    @PostMapping("/ReportStatus")
-//    public ResponseEntity<String>ReportStatus(@RequestBody Member member){
-//        Integer memId = member.getMemId();
-//        String memPassword = member.getMemPassword();
-//
-//        //
-//    }
 
 
+    /**
+     * 會員刪除
+     * @param memId
+     * @return
+     */
     @DeleteMapping("/delete/{memId}")
     public ResponseEntity<Boolean> delete(@PathVariable Integer memId) {
         try {
@@ -82,6 +95,11 @@ public class MemberController {
         }
     }
 
+    /**
+     * 會員資料更新
+     * @param member
+     * @return
+     */
     @PostMapping("/update")
 
     public ResponseEntity<Member> update(@RequestBody Member member) {
@@ -92,24 +110,6 @@ public class MemberController {
             return ResponseEntity.notFound().build();
         }
     }
-//    @PostMapping("/{memberId}/usePoints")
-//    public ResponseEntity<String> usePoints(@PathVariable Integer memId, @RequestParam int pointsToUse) {
-//        try {
-//            memberService.usePoints(memId, pointsToUse);
-//            return ResponseEntity.ok("Points used successfully");
-//        } catch (InsufficientPointsException e) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Insufficient points");
-//        }
-//    }
 
-//    @GetMapping("/{memId}grade")
-//    public ResponseEntity<Member> viewMemberGrade(@PathVariable Integer memId) {
-//        Member memberGrade = memberService.getmemGradeBymemId(memId);
-//        if (memberGrade != null) {
-//            return ResponseEntity.ok(memberGrade);
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 
 }
