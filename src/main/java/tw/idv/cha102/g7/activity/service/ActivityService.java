@@ -3,7 +3,7 @@ package tw.idv.cha102.g7.activity.service;
 import tw.idv.cha102.g7.activity.entity.Activity;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface ActivityService {
 
@@ -27,4 +27,7 @@ public interface ActivityService {
 
 
     public List<Activity> findAllActivity();
+
+    public List<Activity> getRandomActivity(int count);
+
 }

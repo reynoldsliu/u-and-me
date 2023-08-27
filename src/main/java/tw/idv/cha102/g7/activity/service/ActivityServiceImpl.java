@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.activity.entity.Activity;
 import tw.idv.cha102.g7.activity.repository.ActivityRepository;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ActivityServiceImpl implements ActivityService {
@@ -48,6 +48,13 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Activity> findAllActivity() {
         return repository.findAll();
+    }
+
+    @Override  // List<Activity>列表數據 Activity類型
+    public List<Activity> getRandomActivity(int count) {
+        List<Activity> allActivity = repository.findAll();
+        Collections.shuffle(allActivity); // 隨機排序數據
+        return allActivity.subList(0, Math.min(count, allActivity.size()));  // 獲取前count個數據
     }
 
 
