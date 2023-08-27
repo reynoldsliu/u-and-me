@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.member.service.MemberService;
 
 @RestController
@@ -126,6 +128,35 @@ public class AttrController {
     @RequestMapping("/getAttrsByName/{attrName}")
     public List<Attraction> getAttrsByName(@PathVariable String attrName){
         return attrService.getAttrsByName(attrName);
+    }
+
+    @GetMapping("/attr/all/{pageSize}/{page}")
+    public List<Attraction> getAllPaged(@PathVariable Integer pageSize,@PathVariable Integer page){
+        return attrService.getAllPaged(page,pageSize);
+    }
+
+    @GetMapping("/attr/{attrName}/{pageSize}/{page}")
+    public List<Attraction> getAllPaged(@PathVariable String attrName,
+                                        @PathVariable Integer pageSize,
+                                        @PathVariable Integer page){
+
+        Page<Attraction> pageResult = attrService.getAllPagedByName(attrName,page,pageSize);
+        System.out.println(pageResult.getContent());
+        return pageResult.getContent();
+    }
+
+    @PostMapping("/getNumOfResult")
+    public Integer getNumOfResult(@RequestBody List<Attraction> attrList){
+        int count = 0;
+//        List<Attraction> list = attrList;
+        for(Attraction attr:attrList){
+            if(attrList.size()==0){
+                return count;
+            }
+            attrList.remove(attr);
+            count++;
+        }
+        return 0;
     }
 
 
