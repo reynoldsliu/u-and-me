@@ -1,12 +1,17 @@
 package tw.idv.cha102.g7.activity.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.activity.entity.Activity;
 import tw.idv.cha102.g7.activity.service.ActivityService;
+import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
+import tw.idv.cha102.g7.schedule.entity.Schedule;
 
 
 import java.util.List;
+import java.util.Random;
 
 @CrossOrigin
 @RestController
@@ -18,7 +23,7 @@ public class ActivityController {
 
     // 依照活動Id，查詢活動
     @GetMapping("/activity/{activId}")
-    public Activity read(@PathVariable Integer activId) {
+    public Activity getbyId(@PathVariable Integer activId) {
         return activityService.getById(activId);
     }
 
@@ -51,11 +56,38 @@ public class ActivityController {
     }
 
     // 管理員修改活動(包含上、下架狀態)
-    @PostMapping("/update/{activId}")
-    public String update(@PathVariable Integer activId,
-                         @RequestBody Activity activity) {
-        activityService.updateById(activId, activity);
-        return "Update成功";
+//    @PutMapping("/update/{activId}")
+//    public String update(@PathVariable Integer activId,
+//                         @RequestBody Activity activity) {
+//        activityService.updateById(activId, activity);
+//        return "Update成功";
+//    }
+
+    @PutMapping("/update/{activId}")
+    public ResponseEntity<?> edit(@PathVariable Integer activId,
+                                  @RequestBody Activity activity) {
+        Activity existingActivity = activityService.getById(activId);
+
+        if (existingActivity != null) {
+
+            // 更新現有資料
+            existingActivity.setActivName(activity.getActivName());
+            existingActivity.setActivCon(activity.gettActivCon());
+//            existingActivity.setActivEndtime(activity.getActivEndtime());
+            existingActivity.setActivSta(activity.getActivSta());
+            // 保存
+            activityService.updateById(activId, existingActivity);
+            return ResponseEntity.ok().build();
+        } else {
+            return null;
+        }
+    }
+
+    // 查全部活動
+    @GetMapping("/activityall")
+    public List<Activity> findAllActivity() {
+        List<Activity> activityList = activityService.findAllActivity();
+        return activityList;
     }
 
 
@@ -71,11 +103,11 @@ public class ActivityController {
 //        return list;
 //    }
 
-    // 查全部活動
-    @GetMapping("/activityall")
-    public List<Activity> findAllActivity() {
-        List<Activity> activityList = activityService.findAllActivity();
-        return activityList;
+
+    // 隨機  加?count=3
+    @GetMapping("/activityrandom")
+    public List<Activity> getRandomActivity(@RequestParam int count) {
+        return activityService.getRandomActivity(count);
     }
 
 }
