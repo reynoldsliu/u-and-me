@@ -7,10 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
-import tw.idv.cha102.g7.group.dto.GroupListDto;
-import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
-import tw.idv.cha102.g7.group.dto.MyGroupListDto;
+import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.repo.GroupRepository;
 import tw.idv.cha102.g7.group.service.GroupService;
@@ -107,5 +104,8 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findMyGroupListDtoByMemId(memId,pageable).get();
     }
 
-
+    @Override
+    public UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId){
+        return groupRepository.findUpdateMyGroupByGroupId(groupId);
+    }
 }

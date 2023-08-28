@@ -1,11 +1,9 @@
 package tw.idv.cha102.g7.group.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
-import tw.idv.cha102.g7.group.dto.GroupListDto;
-import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
-import tw.idv.cha102.g7.group.dto.MyGroupListDto;
+import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.service.GroupService;
 
@@ -32,12 +30,20 @@ public class GroupController {
     /**
      * 管理員
      * 修改揪團狀態/支付尾款狀態
+     *
+     * 揪團團主
+     * 修改成團最大最小人數、標題、價格、行程出發時間、揪團截止時間、揪團描述、行前通知
+     *
      * @param groupId 揪團ID
      * @param group 修改後的揪團資訊
      */
+//    @Transactional
     @PutMapping("/group/{groupId}")
     public void update(@PathVariable Integer groupId,
                        @RequestBody Group group){
+//        response.addHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+//        response.addHeader("Access-Control-Allow-Methods", "*.");
+//        response.addHeader("Access-Control-Allow-Headers", "*");
         groupService.update(groupId, group);
     }
 
@@ -164,9 +170,27 @@ public class GroupController {
         return groupService.findGroupListByGroupSta(groupSta, page);
     }
 
+    /**
+     * 揪團團主
+     * 顯示揪團團主舉辦的揪團
+     * @param memId 揪團團主的會員ID
+     * @param page 目標顯示的頁數
+     * @return 查詢結果
+     */
     @GetMapping("/myGroupList/{memId}/{page}")
     public Stream<MyGroupListDto> findMyGroupListDtoByGroupId(@PathVariable Integer memId,
                                                               @PathVariable Integer page){
         return groupService.findMyGroupListDtoByMemId(memId, page);
+    }
+
+    /**
+     * 揪團團主
+     * 更新揪團時在更新頁面顯示揪團詳情
+     * @param groupId 揪團ID
+     * @return 查詢結果
+     */
+    @GetMapping("/myGroup/update/{groupId}")
+    public UpdateMyGroupDto findUpdateMyGroupByGroupId(@PathVariable Integer groupId){
+        return groupService.findUpdateMyGroupByGroupId(groupId);
     }
 }

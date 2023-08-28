@@ -4,10 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
-import tw.idv.cha102.g7.group.dto.GroupListDto;
-import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
-import tw.idv.cha102.g7.group.dto.MyGroupListDto;
+import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 
 import java.util.List;
@@ -38,4 +35,9 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
     @Query(value = "SELECT group_id, theme, sch_id, group_sta FROM `group` WHERE mem_id = ?1", nativeQuery = true)
     Page<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Pageable pageable);
+
+    @Query(value = "SELECT min_member, max_member, theme, amount, dep_date, deadline, group_desc, notice, cover FROM `group` WHERE group_id = ?1", nativeQuery = true)
+    UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
+
+//    @Query(value = "UPDATE `group` SET min_member=?1, max_member=?2, theme=?3, amount=?4, dep_date=?5, deadline=?6, group_desc=?7, notice=?8, cover=?9")
 }
