@@ -71,13 +71,6 @@
     border-radius: var(--bs-list-group-border-radius);
   }
   
-  .bg-image-vertical {
-    position: relative;
-    overflow: hidden;
-    background-repeat: no-repeat;
-    background-position: right center;
-    background-size: auto 100%;
-    }
     
     @media (min-width: 1025px) {
     .h-custom-2 {
@@ -85,38 +78,77 @@
     }
     }
 
-    /* 搜尋欄、篩選條件相關 */
-    .filter-search{
-      display: inline-block;
-      padding: 15px 70px;
-      border: 1px solid red;
-      align-items: center;
-      width: 100vw;
-      height: 70px;
-    }
-
-    /* 類別標籤 */
-    .filter-tags{
-      
-    }
-
-    /* 搜尋欄 */
-    #keywords{
-      width: 200px;
-      align-items: center;
-      border: 1px solid rgb(158, 158, 158);
-      position: absolute;
-      right: 30%;
-    }
-
-    #search-btn{
-      position: absolute;
-      right: 25%;
-    }
 
 
-    /* 排序 */
-    .filter-sorted{
-      position: absolute;
-      right: 10.9%;
-    }
+ /* 表單 */
+.list-style-two li {
+  position: relative;
+  padding-left: 0px;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #d8d3cd
+}
+
+.list-style-two li:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none
+}
+
+
+.list-style-two li h3 {
+  position: relative;
+  color: #34322d;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6em;
+  margin-bottom: 4px;
+  font-family: 'Titillium Web', sans-serif
+}
+
+.text {
+  position: relative;
+  color: rgb(130, 159, 185);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1em;
+  margin-bottom: 10px
+}
+
+
+.list-style-two {
+  list-style: none;
+  padding: 45px;
+  margin: 0
+}
+
+
+/* 按鈕 */
+.theme-btn {
+  display: inline-block;
+  transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease
+}
+
+.btn-style {
+  position: relative;
+  padding: 11px 114px;
+  line-height: 24px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: rgb(115, 176, 172);
+  border: 2px solid rgb(115, 176, 172);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.btn-style:hover {
+  color: rgb(115, 176, 172);
+  background: none
+}
+
+  

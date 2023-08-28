@@ -1,9 +1,15 @@
 package tw.idv.cha102.g7.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.schedule.entity.Schedule;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import tw.idv.cha102.g7.group.entity.Group;
+import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
+import tw.idv.cha102.g7.schedule.dto.ScheduleDaysDTO;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
+import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
@@ -11,15 +17,37 @@ import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
     private ScheduleRepository repository;
 
     @Override
+    public List<Schedule> getAllPaged(int page, int size) {
+        List<Schedule> publicSche = repository.findAllPublic();
+        int startIndex = page * size;
+        int endIndex = Math.min(startIndex + size, publicSche.size());
+
+        List<Schedule> pagedPublicSchedules = publicSche.subList(startIndex, endIndex);
+//
+//        Page<Schedule> pageResult = repository.findAll(
+//                PageRequest.of(page, //查詢的頁數 從0開始
+//                        size,//查詢的每頁筆數
+//                        Sort.by("schStart").descending())); //依造sch_start欄位降冪排序
+//            List<Schedule> scheduleList = pageResult.getContent();
+//            List<Schedule> filtScheList = scheduleList.stream().filter(schedule -> schedule.getSchPub() == 2).collect(Collectors.toList());
+//        (航)可能會運用到的方法
+//        pageResult.getNumberOfElements(); //本頁筆數
+//        pageResult.getSize(); //每頁筆數
+//        pageResult.getTotalElements(); //全部筆數
+//        pageResult.getTotalPages(); //全部頁數
+        return pagedPublicSchedules;
+    }
+
+    @Override
     public List<Schedule> findAllPublic() {
-        return repository.findOrderBySchStart();
+        return repository.findAllPublic();
     }
 
     @Override
@@ -30,6 +58,11 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd) {
         return repository.findBetweenDate(schStart, schEnd);
+    }
+
+    @Override
+    public List<ScheduleDayDTO> findByDays() {
+        return repository.findByDays();
     }
 
 
@@ -57,7 +90,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     // 有重複行程資料的問題
     @Override
-    public List<TagToSchedulesDTO> findTagsInOneSchdule(Integer schId){
+    public List<TagToSchedulesDTO> findTagsInOneSchdule(Integer schId) {
         List<Object[]> list = repository.findTagsByOneSchedule(schId);
         List<TagToSchedulesDTO> collect = list.stream().map(TagToSchedulesDTO::new).collect(Collectors.toList());
         return collect;
@@ -108,7 +141,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         // 先查詢此id的行程是否存在，再進行行程公開設定
         var schedule = repository.findById(schId);
         if (schedule.isPresent()) {
-            schedule.get().setSchPub((byte)0);
+            schedule.get().setSchPub((byte) 0);
             // 修改行程公開權限為0:私人檢視
             repository.save(schedule.get());
         }

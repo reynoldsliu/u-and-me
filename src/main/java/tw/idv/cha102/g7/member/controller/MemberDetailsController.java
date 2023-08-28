@@ -21,17 +21,32 @@ public class MemberDetailsController {
     @Autowired
     private MemberRepository memberRepository;
 
-    @PostMapping("/test")
+
+    /**
+     * 顯示會員資訊(用memEmail查詢)
+     * @param member
+     * @return
+     */
+    @PostMapping("/memProfile")
     public Member viewMemberProfile(@RequestBody Member member) {
         Member mem = memberDetailsService.getMemberByMemEmail(member.getMemEmail());
             return mem;
     }
 
+    /**
+     * 查詢全部會員資料
+     * @return
+     */
     @GetMapping("/all")
     public List<Member> getAll(){
         return memberDetailsService.getAll();
     }
 
+    /**
+     * 查詢會員資料(透過memId)
+     * @param memId
+     * @return
+     */
     @GetMapping("/{memId}")
     public Member getMem(@PathVariable Integer memId){
         return memberDetailsService.getMember(memId);

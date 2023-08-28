@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "activity1")
+@Table(name = "activity")
 public class Activity {
 
     @Id
@@ -20,7 +20,7 @@ public class Activity {
     private Integer activId;
 
     @Column(name = "activ_pic")
-    private Byte[] activPic;
+    private String activPic;
 
     @Column(name = "activ_name")
     private String activName;
@@ -37,4 +37,8 @@ public class Activity {
     @Column(name = "activ_sta")
     private Byte activSta;
 
+
+    public String gettActivCon() {
+        return activCon;
+    }
 }

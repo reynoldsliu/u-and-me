@@ -11,60 +11,119 @@ import tw.idv.cha102.g7.schedule.service.ScheduleReportService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/schedules/report")
+@RequestMapping("/schRep")
 public class ScheduleReportController {
 
     @Autowired
     private ScheduleReportService reportService;
 
-    // 查詢所有被檢舉行程清單
-    @GetMapping("/getAll")
-    public List<ScheduleReport> getAll(){
+    /**
+     * 一般使用者/管理員
+     * 檢舉行程
+     * @param scheduleRep 欲檢舉行程的檢舉內容
+     */
+    @PostMapping("/add")
+    public void insert(@RequestBody ScheduleReport scheduleRep) {
+        reportService.insert(scheduleRep);
+    }
+
+    /**
+     * 一般使用者/管理員
+     * 修改檢舉內容
+     * @param schRepId    行程檢舉編號ID
+     * @param scheduleRep 修改完的檢舉資訊
+     */
+    @PutMapping("/{schRepId}")
+    public void update(@PathVariable Integer schRepId,
+                       @RequestBody ScheduleReport scheduleRep) {
+        reportService.update(schRepId, scheduleRep);
+    }
+
+    /**
+     * 管理員
+     * 查詢所有被檢舉的行程
+     * @return 返回查詢結果
+     */
+    @GetMapping
+    public List<ScheduleReport> getAll() {
         List<ScheduleReport> list = reportService.findAll();
         return list;
     }
 
-    // 查看行程詳情
+    /**
+     * 管理員
+     * 依照檢舉處理情形查詢檢舉清單
+     * @param schRepSta 檢舉狀態
+     * schRepSta 檢舉狀態
+     * 0: 審核中,
+     * 1: 已處理,
+     * 2: 已撤銷
+     * @return 返回查詢結果
+     */
+    @GetMapping("/status/{schRepSta}")
+    public List<ScheduleReport> findByStatus(Short schRepSta){
+        List<ScheduleReport> list = reportService.findAll();
+        return list;
+    }
 
 
-    // 屏蔽一筆行程功能
-    // 結果:網頁上沒有顯示資料，但成功將資料庫中行程公開權限改成私人檢視
-    // 但輸入不存在的行程ID沒有報錯，頁面為全白
+
+    /**
+     * 管理員
+     * 屏蔽行程
+     * @param schId 被檢舉的行程ID
+     */
     @GetMapping("/hide/{schId}")
     public ResponseEntity<?> hide(@PathVariable Integer schId) {
         try {
             reportService.hideById(schId);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok("屏蔽成功！");
         } catch (Exception e) {
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new ScheduleNotFoundException(schId));
+                    .status(HttpStatus.NOT_FOUND).body("操作失敗，找不到該行程！");
         }
     }
 
-    @GetMapping("/delete/{schId}")
-    public ResponseEntity<?> delete(@PathVariable Integer schId){
+    /**
+     * 管理員
+     * 修改檢舉處理狀態
+     * @param schReport 變更的檢舉處理(內含修改的檢舉處理狀態、檢舉處理的管理員ID等等)
+     * schRepSta 檢舉狀態
+     * 0: 審核中,
+     * 1: 已處理,
+     * 2: 已撤銷
+     */
+    @PutMapping("/modifySta")
+    public ResponseEntity<?> modifyStatus(@RequestBody ScheduleReport schReport) {
         try {
-            String str = reportService.deleteReportedSchedule(schId);
-            return ResponseEntity.ok(str);
-        }catch (Exception e){
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(new ScheduleNotFoundException(schId));
-        }
-    }
-
-    @PostMapping("/status")
-    public ResponseEntity<?> modify(@RequestBody ScheduleReport report){
-        try {
-            String str = reportService.modifyReportStatus(report);
-            return ResponseEntity.ok(str);
-        }catch (Exception e){
+            reportService.modifyStatus(
+                    schReport.getSchRepId(),
+                    schReport.getSchRepSta(),
+                    schReport.getHostId());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND).build();
         }
     }
 
 
+    /**
+     * 管理員
+     * 刪除被檢舉的行程內容(如移除行程中的行程標籤)或
+     * 整個行程(待討論，因為關聯到此行程的FK要先刪除)
+     * @param schId 被檢舉的行程ID
+     */
+    @DeleteMapping("/delete/{schId}")
+    public ResponseEntity<?> delete(@PathVariable Integer schId) {
+        try {
+            reportService.deleteReportedSchedule(schId);
+            return ResponseEntity.ok("刪除成功！");
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND).body("刪除失敗！");
+        }
+    }
 }

@@ -15,29 +15,29 @@ public class Attraction {
     
     @Id
     @Column(name = "attr_id")
-    private Integer id;
+    private Integer attrId;
     @Column(name = "attr_veri_sta")
-    private Short veriSta;
+    private Short attrVeriSta;
     @Column(name = "attr_sta")
-    private Short sta;
+    private Short attrSta;
     @Column(name = "attr_name")
-    private String name;
+    private String attrName;
     @Column(name = "attr_addr")
-    private String addr;
+    private String attrAddr;
     @Column(name = "attr_lon")
-    private Float lon;//google api可透過地址定位經緯度
+    private Float attrLon;//google api可透過地址定位經緯度
     @Column(name = "attr_lat")
-    private Float lat;
+    private Float attrLat;
     @Column(name = "attr_illa")
-    private String illa;
+    private String attrIlla;
     @Column(name = "attr_type_id")
-    private Integer typeId;
+    private Integer attrTypeId;
     @Column(name = "attr_buss_time")
-    private String bussTime;
+    private String attrBussTime;
     @Column(name = "attr_cost_range")
-    private Short costRange;
+    private Short attrCostRange;
     @Column(name = "attr_rep")
-    private String rep;
+    private String attrRep;
 
 //    public Integer getId() {
 //        return id;

@@ -147,7 +147,7 @@
 
 </nav>
 <main>
-    <div class="d-flex flex-column flex-shrink-0 p-3  " style="width: 200px;background-color: #1D3124;height: 90vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3  " style="width: 200px;background-color: #1D3124;min-height:100vh;">
         <!-- 左側功能列表 -->
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
@@ -206,13 +206,21 @@
                     揪團
                 </a>
             </li>
+            <li>
+                <a href="../shop/shop.html">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#people-circle"/>
+                    </svg>
+                    商城
+                </a>
+            </li>
         </ul>
         <hr>
 
     </div>
 
     <div class="d-flex flex-column flex-shrink-0 p-3  "
-         style=" width: calc(100% - 200px);background-color: #F6F4E8;height: 90vh;">
+         style=" width: calc(100% - 200px);background-color: #F6F4E8;">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="../index/index.html" style="color:black;display: inline;">Home</a>
@@ -220,31 +228,31 @@
                 <li class="breadcrumb-item active" aria-current="page">活動</li>
             </ol>
         </nav>
-        <!-- <div class="shadow p-3 my-5 bg-body rounded" style="height: auto;">-->
+        <div class="shadow p-3 my-3 bg-body rounded">
 
-        <!-- 內容從這開始-->
-        <h5 style="text-align: center">活動列表</h5>
-        <div class="table-responsive">
-            <table class="table table-bordered border-secondary" id="dataTable1">
-                <thead>
-                <tr>
-                    <th style="text-align: center;">編號</th>
-                    <!--照片不顯示-->
-                    <th style="text-align: center;">名稱</th>
-                    <th style="text-align: center;">內容</th>
-                    <th style="text-align: center;">開始時間</th>
-                    <th style="text-align: center;">結束時間</th>
-                    <th style="text-align: center;">狀態</th>
-                    <th style="text-align: center;">修改</th>
-                </tr>
-                </thead>
-                <tbody id="dataTableList">
-                <!--活動列表在這裡動態插入 -->
-                </tbody>
-            </table>
+            <!-- 內容從這開始-->
+            <h5 style="text-align: center">活動列表</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered border-secondary" id="dataTable1">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center;">編號</th>
+                        <!--照片不顯示-->
+                        <th style="text-align: center;">名稱</th>
+                        <th style="text-align: center;">內容</th>
+                        <th style="text-align: center;">開始時間</th>
+                        <th style="text-align: center;">結束時間</th>
+                        <th style="text-align: center;">狀態</th>
+                        <th style="text-align: center;">修改</th>
+                    </tr>
+                    </thead>
+                    <tbody id="dataTableList">
+                    <!--活動列表在這裡動態插入 -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
 
     <script>
 
@@ -270,7 +278,7 @@
                         <td style="width: 130px;text-align: center;vertical-align: middle;">${formatDate(activity.activStarttime)}</td>
                         <td style="width: 130px;text-align: center;vertical-align: middle;">${formatDate(activity.activEndtime)}</td>
                         <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(activity.activSta)}</td>
-                        <td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">
                          <button class="btn btn-outline-success" onclick="redirectToDetailPage(${activity.activId})">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                           <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
@@ -282,7 +290,7 @@
                 });
 
             } catch (error) {
-                console.error("Error fetching activity1 list:", error);
+                console.error("Error fetching activity list:", error);
             }
         }
 
@@ -297,22 +305,13 @@
             [1, '上架'],
         ]);
 
-        <!--按修改鈕會根據activityId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
-        function redirectToDetailPage(activityId) {
+        // <!--按修改鈕會根據activityId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
+        function redirectToDetailPage(activId) {
               var newPageUrl = `activityEdit.html?activId=${activId}`;
               window.location.href = newPageUrl;
         }
 
 
-
-<!--------------------待辦------------------>
-        async function deleteNews(groupId) {
-        <!--這裡可以寫一個Fetch API調用，向後端發送刪除揪團的請求-->
-        }
-
-        async function deleteNews(activity) {
-        <!--這裡可以寫一個Fetch API調用，向後端發送新增活動的請求-->
-        }
 
 
     </script>

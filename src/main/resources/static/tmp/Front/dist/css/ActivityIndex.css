@@ -7,8 +7,8 @@
   position: relative;
   text-align: center;
   cursor: default;
-  background: -webkit-linear-gradient(45deg, #E59560 0%, #BACEC1 100%);
-  background: linear-gradient(45deg, #E59560 0%,#abd0b8 100%);
+  background: -webkit-linear-gradient(45deg, #e9c2a9 0%, #b9cdc0 100%);
+  background: linear-gradient(45deg, #e9c2a9 0%, #b9cdc0 100%);
 }
 
 .hovereffect .overlay {
@@ -19,7 +19,8 @@
   top: 0;
   left: 0;
   padding: 3em;
-  text-align: left;
+  text-align: center;
+  font-size: 22px
 }
 
 .hovereffect img {
@@ -37,10 +38,11 @@
   text-transform: uppercase;
   color: #fff;
   position: relative;
-  font-size: 17px;
+  font-size: 28px;
   background-color: transparent;
   padding: 15% 0 10px 0;
-  text-align: left;
+  text-align: center;
+
 }
 
 .hovereffect .overlay:before {
@@ -104,6 +106,7 @@
   top: 0;
   left: 0;
   padding: 70px 20px;
+  font-size: 20px
 }
 
 .hovereffect1 img {
@@ -173,6 +176,15 @@
   transform: translate3d(0,0,0);
 }
 
+
+.card-text {
+  font-size: 17px;
+}
+.card-content {
+  height: 100px;
+  overflow: hidden; /* 溢出時處理 */
+}
+
 /* 推薦行程 */
 
 
@@ -182,3 +194,4 @@
   border-color: #5a8a6b; /* 边框颜色，可以与背景颜色相同 */
   color: #fff; /* 文字颜色 */
 }
+

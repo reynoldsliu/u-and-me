@@ -1,4 +1,4 @@
-package tw.idv.cha102.g7.schedule.dto;
+package tw.idv.cha102.g7.schedule.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

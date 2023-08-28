@@ -9,9 +9,8 @@ import java.util.List;
 
 @Repository
 public interface ScheduleDetailRepository extends JpaRepository<ScheduleDetail, Integer> {
-    // 一對多查詢:查詢單一行程的細節
-    @Query(value = "SELECT * FROM schedules s " +
-            "JOIN schedule_de sd ON s.sch_id = sd.sch_id " +
-            "WHERE s.sch_id = ?1 ORDER BY sd.schde_starttime", nativeQuery = true)
+
+    // 查詢單一行程的所有行程細節
+    @Query(value = "SELECT * FROM schedule_de WHERE sch_id = ?1 ORDER BY schde_starttime", nativeQuery = true)
     public List<ScheduleDetail> findBySchId(Integer schId);
 }

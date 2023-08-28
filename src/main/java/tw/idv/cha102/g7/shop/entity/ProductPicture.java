@@ -18,11 +18,14 @@ public class ProductPicture {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "prodpic_id")
+    @Column(name="prodpic_id")
     private Integer prodPicId;
+
     @Column(name = "prod_id")
     private Integer prodId;
-    @Column(name = "prod_pic")
-    private Byte prodPic;
+
+    @Column(name ="prod_pic")
+    private byte[] prodPic;
+
 
 }

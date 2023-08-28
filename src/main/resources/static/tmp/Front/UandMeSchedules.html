@@ -7,7 +7,7 @@
     <title>U & ME | 行程規劃 | 旅遊行程</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="./dist/css/tourSchedule.css">
+    <link rel="stylesheet" href="./dist/css/UandMeSchedules.css">
 
     </style>
 
@@ -44,10 +44,10 @@
                         <a class="nav-link" href="#">旅遊景點</a>
                     </li>
                     <li class="nav-item dropdown me-2">
-                        <a class="nav-link dropdown-toggle" href="tourSchedule.html" role="button"
+                        <a class="nav-link dropdown-toggle" href="UandMeSchedules.html" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">行程規劃</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="tourSchedule.html">旅遊行程</a></li>
+                            <li><a class="dropdown-item" href="UandMeSchedules.html">旅遊行程</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
@@ -154,8 +154,7 @@
 
             <!-- 搜尋欄、篩選條件 -->
             <div class="filter-search">
-                <form class="d-flex" role="search" method="get"
-                    action="../../../../java/tw/idv/cha102/g7/schedule/controller/ScheduleSearchController.java">
+                <form class="d-flex" role="search" method="get" action="#">
                     <!-- 依類別標籤查詢 -->
                     <div class="filter-tags">
                         <input type="checkbox" class="btn-check" name="tag1" id="tag1" autocomplete="off">
@@ -168,8 +167,10 @@
                         <label class="btn btn-outline-success" for="tag4">標籤4</label>
                     </div>
                     <!-- 搜尋欄 -->
-                    <input class="form-control me-2" type="search" id="keywords" placeholder="想去哪裡呢？"
-                        aria-label="Search">
+                    <input
+                        class="form-control me-2 d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2"
+                        type="search" id="keywords" placeholder="想去哪裡呢？" aria-label="Search"
+                        style="--bs-focus-ring-color: rgba(var(--bs-success-rgb), .25)">
                     <button class="btn btn-outline-success" id="search-btn" type="submit">搜索</button>
                     <!-- 依條件排序 -->
                     <div class="filter-sorted">
@@ -191,118 +192,27 @@
             <!--Card-->
             <div class="album py-4"></div>
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row" id="dataTableList">
+                    <!-- 查詢行程內容由此插入 -->
                 </div>
             </div>
-            <div class="album py-4"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="album py-4"></div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card">
-                            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                alt="" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">行程名稱</h5>
-                                <p class="sch-date">行程天數</p>
-                                <a href="#" class="btn btn-outline-success btn-sm">查看詳情</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <!-- -----分頁製作----- -->
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                    <!-- <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li> -->
+                    <li class="page-item active" id="pageSelect1"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item" aria-current="page" id="pageSelect2">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item" id="pageSelect3"><a class="page-link" href="#">3</a></li>
+                    <!-- <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li> -->
+                </ul>
+            </nav>
 
     </main>
 
@@ -331,7 +241,7 @@
                     <li class="nav-item mb-2"><a href="ActivityIndex.html"
                             class="nav-link p-0 text-body-secondary">活動資訊</a></li>
                     <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">旅遊景點</a></li>
-                    <li class="nav-item mb-2"><a href="tourSchedule.html"
+                    <li class="nav-item mb-2"><a href="UandMeSchedules.html"
                             class="nav-link p-0 text-body-secondary">行程規劃</a></li>
                     <li class="nav-item mb-2"><a href="UandMeGroupList.html"
                             class="nav-link p-0 text-body-secondary">揪團專區</a></li>
@@ -358,6 +268,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
+
+    <script src="./dist/js/UandMeSchedules.js"></script>
 </body>
 
 </html>

@@ -27,11 +27,21 @@ public class HostController {
     private HostRepository hostRepository;
 
 
+    /**
+     * 管理員註冊
+     * @param host
+     * @return
+     */
     @PostMapping("/register")
     public String register(@RequestBody Host host) {
         return hostService.insert(host);
     }
 
+    /**
+     * 管理員登入
+     * @param host
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Host host) {
         String hostEmail = host.getHostEmail();
@@ -44,6 +54,13 @@ public class HostController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
         }
     }
+
+    /**
+     * 刪除管理員
+     * (By hostId)
+     * @param hostId
+     * @return
+     */
     @DeleteMapping("/delete/{hostId}")
     public ResponseEntity<Boolean> delete(@PathVariable Integer hostId) {
         try {
@@ -53,6 +70,12 @@ public class HostController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
     }
+
+    /**
+     * 更新管理員資料
+     * @param host
+     * @return
+     */
     @PostMapping("/update")
 
     public ResponseEntity<Host> update(@RequestBody Host host) {

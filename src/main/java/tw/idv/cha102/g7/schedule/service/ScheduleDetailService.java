@@ -1,18 +1,26 @@
 package tw.idv.cha102.g7.schedule.service;
 
+import tw.idv.cha102.g7.schedule.dto.ScheduleDetailsDTO;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
 
 import java.util.List;
 
 public interface ScheduleDetailService {
+
+    /**
+     * 查詢單一行程的行程細節
+     */
     public List<ScheduleDetail> findBySchId(Integer schId);
 
-    // 見ScheduleManageController.java
-    // 查詢單一行程詳細資訊(包含行程、 行程標籤、行程細節)後，對行程內容進行修改(增、刪、改、查)
+
+    /**
+     * 見ScheduleManageController.java
+     * 查詢單一行程詳細資訊(包含行程、 行程標籤、行程細節)後，對行程內容進行修改(增、刪、改、查)
+     */
+    public ScheduleDetailsDTO findAllDetailsBySchId(Integer schId);
 
     // 修改行程公開權限(私密、透過連結分享、公開)
 
-    // 行程共同編輯成員及權限設定(可檢視、可編輯、新增及移除共編成員，透過連結分享邀請成員共編)
 
     // 行程細節排序要能夠依照起始時間排序
 
@@ -27,4 +35,5 @@ public interface ScheduleDetailService {
     // 複製行程細節時，向下插入複製的行程細節後，調整行程細節排序
 
     // 列印行程詳細資訊(轉換成pdf檔)
+// 行程共同編輯成員及權限設定(可檢視、可編輯、新增及移除共編成員，透過連結分享邀請成員共編)
 }

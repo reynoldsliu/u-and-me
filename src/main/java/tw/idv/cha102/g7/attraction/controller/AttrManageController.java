@@ -36,7 +36,7 @@ public class AttrManageController {
     public String setAttrVeriSta(@PathVariable Integer attrId, @PathVariable Short attrVeriSta){
         Attraction attraction = attrService.getById(attrId);
         if(attraction != null){
-            attrService.getById(attrId).setSta(attrVeriSta);
+            attrService.getById(attrId).setAttrSta(attrVeriSta);
         }
         else{
             return "Attraction Not Found.";
