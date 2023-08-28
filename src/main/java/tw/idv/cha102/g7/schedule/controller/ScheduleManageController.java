@@ -12,7 +12,7 @@ import java.util.List;
 
 // 行程管理
 @RestController
-@RequestMapping("/schedules")
+@RequestMapping("/mySch")
 public class ScheduleManageController {
 
     @Autowired

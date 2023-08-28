@@ -120,16 +120,17 @@
     </symbol>
   </svg>
 
-  <nav class="navbar navbar-light  shadow-sm  " style="background-color: #ebd0be">
-    
-    <div class="container-fluid"style="padding-left:0px;">
+  <nav class="navbar navbar-light  shadow-sm" style="background-color: #ebd0be">
+
+    <div class="container-fluid" style="padding-left:0px;">
       <div style="width: 200px;height: 20px;">
       </div>
       <a class="navbar-brand  " href="#" style="margin:auto;font-size: 30px;display: inline-block">後台管理系統</a>
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://www.holoface.photos/static/images/products/idphoto01.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
+          <img src="https://www.holoface.photos/static/images/products/idphoto01.jpg" alt="" width="32" height="32"
+            class="rounded-circle me-2">
           <strong>Penny</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -146,7 +147,7 @@
 
   </nav>
   <main>
-    <div class="d-flex flex-column flex-shrink-0 p-3  " style="width: 200px;background-color: #1D3124;min-height: 100vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3" style="width: 200px;background-color: #1D3124;min-height: 100vh;">
       <!-- 左側功能列表 -->
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
@@ -217,21 +218,113 @@
       <hr>
 
     </div>
-    
+
     <div class="d-flex flex-column flex-shrink-0 p-3  " style=" width: calc(100% - 200px);background-color: #F6F4E8;">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="../index/index.html"style="color:black;display: inline;">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">行程</li>
-            </ol>
-          </nav>
-        <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;" >
-          偶是行程!
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="../index/index.html" style="color:black;display: inline;">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">行程</li>
+        </ol>
+      </nav>
+      <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;">
+        <!-- 內容從這開始-->
+        <h5 style="text-align: center">行程檢舉清單</h5>
+        <div class="table-responsive">
+          <table class="table table-bordered border-secondary" id="dataTable1">
+            <thead>
+              <tr>
+                <th style="text-align: center;">檢舉編號</th>
+                <!--照片不顯示-->
+                <th style="text-align: center;">會員編號</th>
+                <th style="text-align: center;">行程編號</th>
+                <th style="text-align: center;">檢舉內容描述</th>
+                <th style="text-align: center;">管理員編號</th>
+                <th style="text-align: center;">處理狀態</th>
+                <th style="text-align: center;">修改</th>
+              </tr>
+            </thead>
+            <tbody id="dataTableList">
+              <!--行程檢舉列表在這裡動態插入 -->
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
     </div>
 
+    <script>
 
+      <!--網頁載入後執行-->
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchScheRepList();
+      });
+
+      async function fetchScheRepList() {
+        try {
+          const response = await fetch('http://localhost:8080/u-and-me/schRep');
+          const scheRepList = await response.json();
+
+          const dataTableList = document.getElementById("dataTableList");
+          dataTableList.innerHTML = "";
+
+          scheRepList.forEach(schedule => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td style="width: 90px;text-align: center;vertical-align: middle;">${schedule.schRepId}</td>
+                <td style="width: 100px;text-align: center;vertical-align: middle;">${schedule.memId}</td>
+                <td style="width: 100px;text-align: center;vertical-align: middle;">${schedule.schId}</td>
+                <td style="vertical-align: middle;">${schedule.schRepCon}</td>
+                <td style="width: 100px;text-align: center;vertical-align: middle;">${schedule.hostId}</td>
+                <td style="width: 90px;text-align: center;vertical-align: middle;">${statusMapping.get(schedule.schRepSta)}</td>
+                <td style="text-align: center;vertical-align: middle;">
+                  <button class="btn btn-outline-success" onclick="redirectToDetailPage(${schedule.schRepId})">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
+                      viewBox="0 0 16 16">
+                      <path
+                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                    </svg>
+                  </button>
+                </td>
+            `;
+            dataTableList.appendChild(row);
+          });
+
+        } catch (error) {
+          console.error("Error fetching scheRep list:", error);
+        }
+      }
+
+
+      // function formatDate(dateString) {
+      // const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      // return new Date(dateString).toLocaleDateString('zh-TW', options);
+      // }
+
+      const statusMapping = new Map([
+        [0, '審核中'],
+        [1, '已處理'],
+        [2, '已撤銷'],
+      ]);
+
+      // <!--按修改鈕會根據schRepId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
+      function redirectToDetailPage(schRepId) {
+        var newPageUrl = `scheduleEdit.html?schRepId=${schRepId}`;
+        window.location.href = newPageUrl;
+      }
+
+
+
+    // --------------------待辦------------------
+    // async function deleteNews(groupId) {
+    // <!--這裡可以寫一個Fetch API調用，向後端發送刪除揪團的請求-->
+    // }
+
+    // async function deleteNews(activity) {
+    // <!--這裡可以寫一個Fetch API調用，向後端發送新增活動的請求-->
+    // }
+
+
+    </script>
 
 
   </main>

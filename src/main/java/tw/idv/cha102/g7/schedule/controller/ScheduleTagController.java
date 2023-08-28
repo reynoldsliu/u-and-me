@@ -13,7 +13,7 @@ import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/schedules/schTag")
+@RequestMapping("/schTag")
 public class ScheduleTagController {
 
     @Autowired
