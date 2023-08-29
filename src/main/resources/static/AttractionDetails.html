@@ -166,10 +166,10 @@
                                 <div class="my-1 mx-1 ms-2">
                                     <label for="attractionName">查詢景點: </label>
                                     <input type="text" id="attractionName" placeholder="請輸入景點名稱">
-<!--                                    <button id="loadAttraction">查詢</button>-->
+                                    <!--                                    <button id="loadAttraction">查詢</button>-->
                                     <button id="loadAttractions">查詢</button>
                                 </div>
-<!--                                選擇每頁的資料顯示筆數-->
+                                <!--                                選擇每頁的資料顯示筆數-->
                                 <label for="pageSize">每頁筆數: </label>
                                 <select id="pageSize">
                                     <option value="1">1</option>
@@ -183,17 +183,44 @@
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">景點名稱</th>
-                                        <th scope="col">景點地址</th>
-                                        <th scope="col">景點說明</th>
-                                        <th scope="col">景點類型</th>
-                                        <th scope="col">景點花費</th>
-                                        <th scope="col">營業時間</th>
-                                        <th scope="col">檢視</th>
+                                        <th scope="col" style="width:100px;">景點名稱</th>
+                                        <th>
+                                            <div id="attrName"></div>
+                                        </th>
                                     </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">景點地址</th>
+                                        <th>
+                                            <div id="attrAddr"></div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">景點類型</th>
+                                        <th>
+                                            <div id="attrTypeId"></div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">景點花費</th>
+                                        <th>
+                                            <div id="attrCostRange"></div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">營業時間</th>
+                                        <th>
+                                            <div id="attrBussTime"></div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">景點說明</th>
+                                        <th>
+                                            <div id="attrIlla"></div>
+                                        </th>
+                                    </tr>
+
                                     </thead>
-                                    <tbody>
+                                    <tbody id="attrPics">
 
 
                                     </tbody>
@@ -264,36 +291,59 @@
 <!--<script src="js/selectOneAttrById.js"></script>-->
 
 <script>
-    const listStart_el = document.querySelector("#attrTarget");
+    const attrName = document.querySelector("#attrName");
+    const attrAddr = document.querySelector("#attrAddr");
+    const attrTypeId = document.querySelector("#attrTypeId");
+    const attrCostRange = document.querySelector("#attrCostRange");
+    const attrBussTime = document.querySelector("#attrBussTime");
+    const attrIlla = document.querySelector("#attrIlla");
     $(document).ready(async function () {
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const attrId = urlParams.get("attrId");
-    const response = await fetch('getAttr'+'?attrId='+attrId);
-    const attr = await response.json();
+        const urlParams = new URLSearchParams(window.location.search);
+        const attrId = urlParams.get("attrId");
+        const response1 = await fetch('getAttr' + '?attrId=' + attrId);
+        const attr = await response1.json();
+        const response2 = await fetch('getAttrPics' + '/' + attrId);
+        const attrPics = await response2.json();
+        console.log(attrPics.attrPic);
+        const picsArray = attrPics.attrPic;
 
-    const row = document.createElement("tr");
-                // attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr,
-                // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
-                // 1	1	1	Attraction 1	123 Main St	12.345	67.89
-                // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
-                row.innerHTML = `
-                        <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
-                        <td>
-                         <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-                          </svg>
-                          </button>
-                        </td>
-                    `;
-                listStart_el.insertAdjacentElement('beforeend',row);
-})
+        const attrPics_el = document.querySelector(".attrPics");
+        for (let pic of picsArray) {
+            const row = document.createElement("img");
+            row.src = "data: image/jpeg;base64," + pic.attrPicData;
+            document.getElementById("attrPics").insertAdjacentElement('beforeend', row);
+        }
+
+
+        // const row = document.createElement("tr");
+        // attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr,
+        // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
+        // 1	1	1	Attraction 1	123 Main St	12.345	67.89
+        // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
+        attrName.innerHTML = `${attr.attrName}`;
+        attrAddr.innerHTML = `${attr.attrAddr}`;
+        attrTypeId.innerHTML = `${attr.attrTypeId}`;
+        attrCostRange.innerHTML = `${attr.attrCostRange}`;
+        attrBussTime.innerHTML = `${attr.attrBussTime}`;
+        attrIlla.innerHTML = `${attr.attrIlla}`;
+        // row.innerHTML = `
+        //             <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
+        //             <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
+        //             <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
+        //             <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
+        //             <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
+        //             <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
+        //             <td>
+        //              <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
+        //               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+        //               <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+        //               </svg>
+        //               </button>
+        //             </td>
+        //         `;
+        // listStart_el.insertAdjacentElement('beforeend', row);
+    })
 </script>
 
 </body>

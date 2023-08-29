@@ -1,7 +1,7 @@
 package tw.idv.cha102.g7.member.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import tw.idv.cha102.g7.attraction.dto.LoginDTO;
+import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 

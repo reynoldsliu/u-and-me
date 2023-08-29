@@ -2,11 +2,8 @@ package tw.idv.cha102.g7.attraction.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import tw.idv.cha102.g7.attraction.dto.LoginDTO;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface AttrService {
@@ -29,7 +26,4 @@ public interface AttrService {
 
     public Attraction getAttrByName(String attrName);
 
-    public void login(LoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response);
-
-//    String addAttrToCollection(Attraction attraction);
 }

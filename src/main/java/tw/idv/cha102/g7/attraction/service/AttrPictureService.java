@@ -2,11 +2,13 @@ package tw.idv.cha102.g7.attraction.service;
 
 import org.springframework.http.ResponseEntity;
 import tw.idv.cha102.g7.attraction.dto.AttrPictureDTO;
+import tw.idv.cha102.g7.attraction.entity.AttrPicture;
 
 import java.util.List;
 
 public interface AttrPictureService {
 
-    public ResponseEntity<AttrPictureDTO> insertPictures(AttrPictureDTO attrPictureDTO);
+    public ResponseEntity<AttrPicture> insertPictures(AttrPicture attrPicture);
 
+    public String getPicsByAttrId(Integer attrId);
 }
