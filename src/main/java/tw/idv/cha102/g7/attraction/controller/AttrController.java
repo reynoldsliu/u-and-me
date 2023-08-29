@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
+import tw.idv.cha102.g7.attraction.dto.AttrPictureDTO;
+import tw.idv.cha102.g7.attraction.dto.LoginDTO;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
+import tw.idv.cha102.g7.attraction.service.AttrPictureService;
 import tw.idv.cha102.g7.attraction.service.AttrService;
 
 import javax.servlet.RequestDispatcher;
@@ -21,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -37,6 +41,8 @@ public class AttrController {
     private AttrService attrService;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private AttrPictureService attrPictureService;
 
 
     //Spring MVC html轉向寫法
@@ -45,6 +51,15 @@ public class AttrController {
         model.addAttribute("pageTitle", "Thymeleaf Example");
         model.addAttribute("message", "Hello, Thymeleaf!");
         return "index";
+    }
+
+    @PostMapping("/Attrlogin")
+    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO loginDTO,
+                                        HttpServletRequest request,
+                                        HttpServletResponse response
+    ) {
+        attrService.login(loginDTO,request, response);
+        return new ResponseEntity("登入成功",HttpStatus.OK);
     }
 
     @RequestMapping("/AttractionPage")
@@ -81,6 +96,11 @@ public class AttrController {
         return attrService.getAttrsByName(attrName);
     }
 
+    @RequestMapping("/getAttrByName/{attrName}")
+    public Attraction getAttrByName(@PathVariable String attrName){
+        return attrService.getAttrByName(attrName);
+    }
+
     @GetMapping("/attr/all/{pageSize}/{page}")
     public List<Attraction> getAllPaged(@PathVariable Integer pageSize,@PathVariable Integer page){
         return attrService.getAllPaged(page,pageSize);
@@ -94,6 +114,28 @@ public class AttrController {
         Page<Attraction> pageResult = attrService.getAllPagedByName(attrName,page,pageSize);
         System.out.println(pageResult.getContent());
         return pageResult.getContent();
+    }
+
+    @RequestMapping("/insertNewAttraction")
+    public ResponseEntity<Attraction> insertNewAttraction(@RequestBody Attraction attraction){
+        return attrService.insertNewAttraction(attraction);
+    }
+
+    @RequestMapping("/insertAttrPictures/{attrId}")
+    public ResponseEntity<AttrPictureDTO> insertAttrPictures(@PathVariable Integer attrId,
+                                                             @RequestBody AttrPictureDTO pictures){
+        System.out.println("IN controller");
+        AttrPictureDTO attrPictureDTO = new AttrPictureDTO();
+//        for(String pic:pictures){
+//            attrPictureDTO.setAttrId(attrId);
+//            attrPictureDTO.setAttrPicData(pic);
+//            attrPictureService.insertPictures(attrPictureDTO);
+//        }
+        System.out.println(pictures);
+        attrPictureDTO.setAttrId(attrId);
+        attrPictureDTO.setAttrPicData(pictures.getAttrPicData());
+        attrPictureService.insertPictures(attrPictureDTO);
+        return new ResponseEntity(attrPictureService.insertPictures(attrPictureDTO), HttpStatus.OK);
     }
 
 
