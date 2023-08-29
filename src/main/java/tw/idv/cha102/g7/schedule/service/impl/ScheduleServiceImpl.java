@@ -66,8 +66,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<ScheduleDayDTO> findByDays() {
-        return repository.findByDays();
+    public Stream<ScheduleDayDTO> findOrderByDays(int page) {
+        Pageable pageable = PageRequest.of(page,6);
+        return repository.findOrderByDays(pageable).get();
     }
 
 

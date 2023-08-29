@@ -24,7 +24,7 @@ public interface ScheduleService {
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd);
 
     // 依行程天數小到大，查詢公開行程及天數，並依照起始日期新到舊排序
-    public  List<ScheduleDayDTO> findByDays();
+    public  Stream<ScheduleDayDTO> findOrderByDays(int page);
 
     // 依行程預估消費範圍小到大，查詢公開行程，並依照起始日期新到舊排序
 

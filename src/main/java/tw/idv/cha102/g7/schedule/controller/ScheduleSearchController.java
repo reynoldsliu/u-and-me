@@ -67,9 +67,9 @@ public class ScheduleSearchController {
      *
      * @return 返回查詢結果
      */
-    @GetMapping(value = "/days")
-    public List<ScheduleDayDTO> findByDays() {
-        List<ScheduleDayDTO> schedules = service.findByDays();
+    @GetMapping(value = "/days/{page}")
+    public List<ScheduleDayDTO> findOrderByDays(@PathVariable int page) {
+        List<ScheduleDayDTO> schedules = service.findOrderByDays(page).collect(Collectors.toList());
         return schedules;
     }
 
