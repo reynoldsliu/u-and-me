@@ -29,6 +29,7 @@ public interface MemberService {
     public Integer getMemberStatus(Integer memId, String memPassword);
 
 
+
     public Member getMemByMemId(Integer memId);
 
 //    public Member getMemberByEmail(String memEmail);
