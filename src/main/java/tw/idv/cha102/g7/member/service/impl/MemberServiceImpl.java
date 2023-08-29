@@ -20,6 +20,7 @@ public class MemberServiceImpl implements MemberService {
      *
      * @param member
      */
+    @Override
     public String insert(Member member) {
         if (memberRepository.findByMemEmail(member.getMemEmail()) == null) {
             member.setMemSta(0);
@@ -41,6 +42,7 @@ public class MemberServiceImpl implements MemberService {
 //        return memberRepository.findById(memId).orElseThrow().getMemPassword().equals(memPassword);
 //    }
 
+    @Override
     public String login(String memEmail, String memPassword) {
         Member member = memberRepository.findByMemEmail(memEmail);
 //        System.out.println(member.toString());
@@ -55,6 +57,7 @@ public class MemberServiceImpl implements MemberService {
         return "登入失敗";
     }
 
+    @Override
     public Integer getMemberStatus(Integer memId, String memPassword) {
         Optional<Member> optionalMember = memberRepository.findById(memId);
         if (optionalMember.isPresent()) {
@@ -66,9 +69,9 @@ public class MemberServiceImpl implements MemberService {
         return null;
     }
 
-
+@Override
     public Member update(Member member) {
-        Member existingMember = memberRepository.findByMemEmail(member.getMemEmail());
+        Member existingMember = memberRepository.findById(member.getMemId()).orElse(null);
         if (existingMember != null) {
             existingMember.setMemId(member.getMemId());
             existingMember.setMemEmail(member.getMemEmail());
@@ -87,7 +90,10 @@ public class MemberServiceImpl implements MemberService {
         }
         return null;
     }
-
+@Override
+    public Member getMemByMemId(Integer memId){
+        return memberRepository.findById(memId).orElse(null);
+    }
 
 //@Transactional
 //@Override

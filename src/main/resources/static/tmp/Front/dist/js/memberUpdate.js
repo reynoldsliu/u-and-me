@@ -2,65 +2,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     fetchMemberUpdateList();
 });
-//async function fetchMemberUpdateList() {
-//    try {
-//        // await : await必須放在任何基於promise的函數之前，等到獲得resolve的資料後，再執行後續動作
-//        const response = await fetch('http://localhost:8080/u-and-me/member/update');
-//
-//        //response.json()：把資料轉成JSON格式
-//        const membersList = await response.json();
-
-//async function fetchMemberUpdateList() {
-//    try {
-//        // await : await必須放在任何基於promise的函數之前，等到獲得resolve的資料後，再執行後續動作
-//        const response = await fetch('http://localhost:8080/u-and-me/member/update');
-//
-//        //response.json()：把資料轉成JSON格式
-//        const memberUpdateList = await response.json();
-//
-//        let title_el = document.getElementById("title1");
-//        let member_el = document.getElementById("member1");
-//        let day_el = document.getElementById("day1");
-//        let price_el = document.getElementById("price1");
-//        let cover_el = document.getElementById("cover1")
-//
-//        let n = 1; //定義n讓下面各id可以按順序增加
-//        groupsList.forEach(group => {
-//            title_el = document.getElementById("title" + n);
-//            member_el = document.getElementById("member" + n);
-//            day_el = document.getElementById("day" + n);
-//            price_el = document.getElementById("price" + n);
-//            cover_el = document.getElementById("cover" + n)
-//
-//            let dataurl = `data:image/png;base64,${group.cover}`
-//            cover_el.src = dataurl;
-//
-//            title_el.innerHTML = `${group.theme}`;
-//
-//            let member = parseInt(`${group.m}`, 10);
-//            if (member > 0) {
-//                member_el.innerHTML = `剩餘 <span style="color: red;"> ${group.m} </span> 人成團`;
-//            } else {
-//                member_el.innerHTML = `<span style="color: red;">已達出團人數但仍可報名</span>`
-//            }
-//
-//            day_el.innerHTML = `${group.d}`;
-//            price_el.innerHTML = `${group.amount}`;
-//            n += 1;
-//        });
-//
-//
-//
-//
-//
-//    } catch (error) {
-//        console.error("Error fetching groupList:", error);
-//    }
-//}
-(() => {
-    let member;
-    let districtData;
-
     const inputName = document.getElementById('inputName');
     const GenderSelectElement = document.getElementById('inputGender');
     const inputEmail = document.getElementById('inputEmail');
@@ -68,32 +9,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const inputPhone = document.getElementById('inputPhone');
     const inputAddress = document.getElementById('inputAddress');
 
-
-    document.addEventListener('DOMContentLoaded', function () {
-        guardIsSignedIn();
-        preventSpaceInput();
-        Promise.all([fetchMember(), fetchDistrictData()]).then(() => {
-            initSelectedAddress(member, districtData);
-        });
-        document.getElementById('form').addEventListener('submit', handleSubmit);
-        citySelectElement.addEventListener('change', handleCityChange);
-    });
-
-    function preventSpaceInput() {
-        const inputElements = document.querySelectorAll('input');
-        inputElements.forEach(input => {
-            input.addEventListener('keypress', function (e) {
-                if (e.key === ' ') {
-                    e.preventDefault();
-                }
-            });
-        });
-    }
-
     async function fetchMember() {
         const memberId = getMemberId();
-        const url = `/members/{memId}`;
+        const url ="http://localhost:8080/u-and-me/member/update";
+
         try {
+        inputName = this.inputName;
+        inputEmail = this.inputEmail;
+        inputPassword = this.inputPassword;
+        inputPhone = this.inputPhone;
+        inputAddress =this.inputPhone;
+
             const response = await fetch(url);
             member = await response.json();
             displayMember(member);
@@ -257,53 +183,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-//
-//    function redirectToProfilePage() {
-//        window.location.href = "/member/profile.html";
-//    }
-//
-//    async function fetchDistrictData() {
-//        try {
-//            const response = await fetch('/members/districts');
-//            const data = await response.json();
-//            districtData = data;
-//            populateCitySelect(data);
-//        } catch(e) {
-//            console.log("Error:" + e);
-//        }
-//    }
-//
-//    function populateCitySelect(data) {
-//        const cityOptions = data.map((cityInfo, index) => `<option value=${index}>${cityInfo.name}</option>`);
-//        citySelectElement.innerHTML = cityOptions.join('');
-//        handleCityChange();
-//    }
-//
-//    function handleCityChange() {
-//        const cityIndex = citySelectElement.value;
-//        const districtInfo = districtData[cityIndex];
-//        populateDistrictSelect(districtInfo);
-//    }
-//
-//    function populateDistrictSelect(districtInfo) {
-//        const districtOptions = districtInfo.districts.map(district => `<option value=${district.name}>${district.name}</option>`);
-//        districtSelectElement.innerHTML = districtOptions.join('');
-//    }
-//
-//    function initSelectedAddress(member, districtData) {
-//        const cityIndex = districtData.findIndex(cityInfo => member.address.includes(cityInfo.name));
-//        if (cityIndex !== -1) {
-//            citySelectElement.value = cityIndex;
-//            handleCityChange();
-//            const districtIndex = districtData[cityIndex].districts.findIndex(district => member.address.includes(district.name));
-//            if (districtIndex !== -1) {
-//                districtSelectElement.value = districtData[cityIndex].districts[districtIndex].name;
-//                const cityName = districtData[cityIndex].name;
-//                const districtName = districtData[cityIndex].districts[districtIndex].name;
-//                const cityDistrictName = cityName + districtName;
-//                addressInput.value = member.address.replace(`${cityDistrictName}`, '');
-//            }
-//        }
-//    }
-//})
 ();

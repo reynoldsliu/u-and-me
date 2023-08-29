@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.member.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -101,15 +102,24 @@ public class MemberController {
      * @return
      */
     @PostMapping("/update")
-
     public ResponseEntity<Member> update(@RequestBody Member member) {
-        Member updatedMember = memberService.update(member);
+//        System.out.println(memEmail);
+        String memEmail = member.getMemEmail();
+        Member temp = memberRepository.findByMemEmail(memEmail);
+        System.out.println(temp);
+        Member updatedMember = memberService.update(temp);
+//        Member updatedMember2 = memberRepository.save(temp);
         if (updatedMember != null) {
             return ResponseEntity.ok(updatedMember);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+
+
+
 
 
 }
