@@ -18,7 +18,7 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class Orders {
 
     //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -37,7 +37,7 @@ public class Order {
     @Column(name = "recipient_phone")
     private String recipientPhone;
 
-    @Column(name = "ord_pay_sta")
+    @Column(name = "ord_pay_sta", insertable = false)
     private Byte ordPaySta;
 
     @Column(name = "recipient_name")
@@ -46,18 +46,16 @@ public class Order {
     @Column(name = "recipient_addr")
     private String recipientAddr;
 
-    @Column(name = "ord_sta")
+    @Column(name = "ord_sta", insertable = false)
     private Byte ordSta;
 
-    @Column(name = "total")
+    @Column(name = "total", insertable = false)//把所有訂單價格總合後傳到後端新增
     private Integer total;
 
     @Column(name = "checktotal")
     private Integer checktotal;
 
-    @Column(name = "ord_time")
+    @Column(name = "ord_time", insertable = false)
     private Timestamp ordTime;
 
-    public void setPaymentMethod(String cashOnDelivery) {
-    }
 }

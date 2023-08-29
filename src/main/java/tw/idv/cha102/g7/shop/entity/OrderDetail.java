@@ -1,16 +1,21 @@
 package tw.idv.cha102.g7.shop.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "order_detail")
 public class OrderDetail {
-    @Id
-    @Column(name = "ord_id")
-    private Integer ordId;
 
-    @Column(name = "prod_id")
-    private Integer prodId;
+    @EmbeddedId
+    private OrderDetailId id;
 
     @Column(name = "prod_qty")
     private Integer prodQty;
@@ -23,6 +28,5 @@ public class OrderDetail {
 
     @Column(name = "ord_com_score")
     private Double ordComScore;
-
 
 }

@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //之後去分割字串把分割後的字串放進陣列中
         let ary1 = url.split('?');
         //此時ary1裡的內容為：
-        //ary1[0] = 'http://127.0.0.1:5501/tmp/Front/myGroupListUpdate.htm'，ary2[1] = 'groupId=1'
+        //ary1[0] = 'http://127.0.0.1:5501/tmp/Front/myGroupListUpdate.html'，ary2[1] = 'groupId=1'
 
         //以下為若傳遞參數為兩個做法 如果為一個可省略
         //let ary2 = ary1[1].split('&');
@@ -128,8 +128,8 @@ async function fetchMyGroup(groupId) {
     //取得所有資料
     await fetch('http://localhost:8080/u-and-me/group/' + groupId, {
         method: 'GET',
-    }).then(respose => {
-        return respose.json();
+    }).then(response => {
+        return response.json();
     }).then(group => {
 
         cover = group.cover;
