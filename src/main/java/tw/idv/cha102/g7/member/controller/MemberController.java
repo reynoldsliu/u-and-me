@@ -40,11 +40,7 @@ public class MemberController {
     }
 
 
-    /**
-     * 會員登入(團主登入擇顯示已登入團主狀態)
-     * @param member
-     * @return
-     */
+
 //    @PostMapping("/login")
 //    public ResponseEntity<String> login(@RequestBody Member member) {
 //        String memEmail = member.getMemEmail();
@@ -59,12 +55,20 @@ public class MemberController {
 //            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
 //        }
 //    }
-    @PostMapping("/Attrlogin")
+
+    /**
+     * 會員登入
+     * @param loginDTO
+     * @param request
+     * @param response
+     * @return
+     */
+    @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid LoginDTO loginDTO,
                                         HttpServletRequest request,
                                         HttpServletResponse response
     ) {
-        attrService.login(loginDTO,request, response);
+        memberService.login(loginDTO,request, response);
         return new ResponseEntity("登入成功",HttpStatus.OK);
     }
 
