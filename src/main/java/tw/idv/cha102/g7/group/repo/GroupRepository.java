@@ -36,8 +36,8 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "SELECT group_id, theme, sch_id, group_sta FROM `group` WHERE mem_id = ?1", nativeQuery = true)
     Page<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Pageable pageable);
 
-    @Query(value = "SELECT min_member, max_member, theme, amount, dep_date, deadline, group_desc, notice, cover FROM `group` WHERE group_id = ?1", nativeQuery = true)
-    UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
+//    @Query(value = "SELECT min_member, max_member, theme, amount, dep_date, deadline, group_desc, notice, cover FROM `group` WHERE group_id = ?1", nativeQuery = true)
+//    UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
 
 //    @Query(value = "UPDATE `group` SET min_member=?1, max_member=?2, theme=?3, amount=?4, dep_date=?5, deadline=?6, group_desc=?7, notice=?8, cover=?9")
 }
