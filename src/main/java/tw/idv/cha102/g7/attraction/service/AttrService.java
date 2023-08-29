@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.attraction.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 
 import java.util.List;
@@ -21,5 +22,8 @@ public interface AttrService {
     //TRY PAGEABLE
     public Page<Attraction> getAllPagedByName(String attrName, int page, int size);
 
-//    String addAttrToCollection(Attraction attraction);
+    public ResponseEntity<Attraction> insertNewAttraction(Attraction attraction);
+
+    public Attraction getAttrByName(String attrName);
+
 }

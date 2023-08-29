@@ -38,5 +38,5 @@ public interface GroupService {
 
     Stream<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Integer page);
 
-    UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
+//    UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
 }

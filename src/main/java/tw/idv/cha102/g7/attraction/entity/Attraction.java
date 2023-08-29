@@ -3,10 +3,7 @@ package tw.idv.cha102.g7.attraction.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -14,6 +11,7 @@ import javax.persistence.Table;
 public class Attraction {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "attr_id")
     private Integer attrId;
     @Column(name = "attr_veri_sta")

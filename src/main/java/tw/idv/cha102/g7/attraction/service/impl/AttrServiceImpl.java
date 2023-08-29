@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.attraction.service.AttrService;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.repo.AttrRepository;
-import tw.idv.cha102.g7.group.entity.Group;
+import tw.idv.cha102.g7.member.repo.MemberRepository;
 
 import java.util.List;
 
@@ -18,10 +20,14 @@ public class AttrServiceImpl implements AttrService {
     @Autowired
     private AttrRepository attrRepository;
 
+    @Autowired
+    private MemberRepository memberRepository;
+
     /**
-    * 透過attrId去查詢一個景點
-    * @param attrId Atraction的ID
-    * @return 查詢到的Attraction，若沒查到則返回null
+     * 透過attrId去查詢一個景點
+     *
+     * @param attrId Atraction的ID
+     * @return 查詢到的Attraction，若沒查到則返回null
      */
     @Override
     public Attraction getById(Integer attrId) {
@@ -30,6 +36,7 @@ public class AttrServiceImpl implements AttrService {
 
     /**
      * 查詢全部的Attraction
+     *
      * @return List<Attraction>一組Attraction
      */
     @Override
@@ -45,7 +52,7 @@ public class AttrServiceImpl implements AttrService {
     }
 
     @Override
-    public List<Attraction> getAttrsByName(String attrName){
+    public List<Attraction> getAttrsByName(String attrName) {
         return attrRepository.findAllByAttrNameContaining(attrName);
     }
 
@@ -60,7 +67,6 @@ public class AttrServiceImpl implements AttrService {
 //        pageResult.getSize(); //每頁筆數
 //        pageResult.getTotalElements(); //全部筆數
 //        pageResult.getTotalPages(); //全部頁數
-
         List<Attraction> attrList = pageResult.getContent();
         return attrList;
     }
@@ -70,18 +76,22 @@ public class AttrServiceImpl implements AttrService {
         return attrRepository.findAllByAttrNameContaining(attrName, PageRequest.of(page, size));
     }
 
-//    @Override
-//    public String addAttrToCollection(Attraction attraction) {
-//        attractionRepository.save(attraction).
-//        return null;
-//    }
+    @Override
+    public ResponseEntity<Attraction> insertNewAttraction(Attraction attraction) {
+
+        return new ResponseEntity(attrRepository.save(attraction), HttpStatus.OK);
+    }
+
+    @Override
+    public Attraction getAttrByName(String attrName) {
+        return attrRepository.findByAttrName(attrName);
+    }
 
     @Override
     public String createAttr(Attraction attraction) {
-        if(attrRepository.getById(attraction.getAttrId())!=null){
+        if (attrRepository.getById(attraction.getAttrId()) != null) {
             return "Existed Attraction";
-        }
-        else{
+        } else {
             attrRepository.save(attraction);
         }
         return "Create Attraction Success";

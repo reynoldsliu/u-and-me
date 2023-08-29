@@ -14,40 +14,65 @@ public class CustomerQaController {
     private CustomerQaService service;
 
 
-    //顯示全部的Q&A
+    /**
+     * 搜尋全部的QA欄位資料
+     * @return 返回全部的QA資料
+     */
     @GetMapping("/qas")
     public List<CustomerQa> findAll() {
         return service.findAllQA();
     }
 
 
-    //新增QA，新增完跳回至qalist，尚未新增驗證。
+    /**
+     * 新增單筆QA資料
+     * @param customerQa 單筆QA
+     * @return 返回新增完畢的QA資料
+     */
     @PostMapping("/addqa")
     public void addQa(CustomerQa customerQa) {
         service.addQa(customerQa);
     }
 
-    //跳轉至QA修改頁面，尚未成功
+
+    /**
+     * 修改單筆QA資料
+     * @param qaId QA的單筆ID
+     * @param customerQa 修改單筆QA資料
+     * @return 返回修改完畢的單筆QA資料
+     */
     @PutMapping("/updateQa/{qaId}")
     public void updateById (@PathVariable Integer qaId, @RequestBody CustomerQa customerQa){
         service.updateById(qaId,customerQa);
     }
 
 
-    //以下尚未跟頁面連結，測試api皆成功
-    //依據QA狀態查詢
+    /**
+     * 依據QA上下架狀態查詢多筆資料
+     * @param qaState 0:下架 1:上架 預設為下架
+     * @return 返回依據上下狀態的單筆資料
+     */
     @GetMapping("/qastate/{qaState}")
     public List<CustomerQa> findByQaState(@PathVariable Integer qaState) {
         return service.findByQaState(qaState);
     }
 
-    //依據QAID查詢
+
+    /**
+     * 依據QaId查詢單筆資料
+     * @param qaId QaId編號
+     * @return 返回單筆QA資料
+     */
     @GetMapping("/qas/{qaId}")
     public CustomerQa findByQaId(@PathVariable Integer qaId) {
         return service.findByQaId(qaId);
     }
 
-    //刪除QAID
+
+    /**
+     * 刪除單筆QA資料
+     * @param qaId QaId編號
+     */
     @DeleteMapping("/delqa/{qaId}")
     public void deleteById(Integer qaId) {
         service.deleteById(qaId);

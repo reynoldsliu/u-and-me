@@ -189,8 +189,8 @@ public class GroupController {
      * @param groupId 揪團ID
      * @return 查詢結果
      */
-    @GetMapping("/myGroup/update/{groupId}")
-    public UpdateMyGroupDto findUpdateMyGroupByGroupId(@PathVariable Integer groupId){
-        return groupService.findUpdateMyGroupByGroupId(groupId);
-    }
+//    @GetMapping("/myGroup/update/{groupId}")
+//    public UpdateMyGroupDto findUpdateMyGroupByGroupId(@PathVariable Integer groupId){
+//        return groupService.findUpdateMyGroupByGroupId(groupId);
+//    }
 }

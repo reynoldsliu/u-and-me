@@ -2,7 +2,6 @@ let search_btn_el = document.getElementById("search-btn");
 let keywords_el = document.getElementById("keywords");
 let sortByStart_el = document.getElementById("sortByStart");
 let sortByDays_el = document.getElementById("sortByDays");
-// let sortByCost_el = document.getElementById("sortByCost");
 
 let pageSelect1_el = document.getElementById("pageSelect1");
 let pageSelect2_el = document.getElementById("pageSelect2");

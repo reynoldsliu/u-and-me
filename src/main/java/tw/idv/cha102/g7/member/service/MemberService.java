@@ -1,9 +1,12 @@
 package tw.idv.cha102.g7.member.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -17,7 +20,7 @@ public interface MemberService {
 //    public void verifyEmail(String token);
 
     //會員登入
-    public String login(String memEmail,String memPassword);
+    public void login(LoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response);
 
     //會員刪除
     public void deleteById(Integer memId);
@@ -28,6 +31,8 @@ public interface MemberService {
     //會員狀態更新(團主狀態更新/會員檢舉狀態更新)
     public Integer getMemberStatus(Integer memId, String memPassword);
 
+
+    public Member getMemByMemId(Integer memId);
 
 //    public Member getMemberByEmail(String memEmail);
 

@@ -104,8 +104,8 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findMyGroupListDtoByMemId(memId,pageable).get();
     }
 
-    @Override
-    public UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId){
-        return groupRepository.findUpdateMyGroupByGroupId(groupId);
-    }
+//    @Override
+//    public UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId){
+//        return groupRepository.findUpdateMyGroupByGroupId(groupId);
+//    }
 }
