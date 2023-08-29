@@ -138,9 +138,24 @@ public class AttrController {
         return new ResponseEntity(attrPictureService.insertPictures(attrPicture), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/delAttrPics/{attrPicId}", method = {RequestMethod.POST, RequestMethod.GET})
+    public String delAttrPics(@PathVariable Integer attrPicId){
+        try{
+            attrPictureService.delPicByAttrPicId(attrPicId);
+        }catch(Exception e){
+            return "Failed to delete the picture. ";
+        }
+        return "Picture deleted";
+    }
+
     @RequestMapping(value = "/getAttrPics/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
     public String getAttrPics(@PathVariable Integer attrId){
         return attrPictureService.getPicsByAttrId(attrId);
+    }
+
+    @RequestMapping(value = "/getAttrPics/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
+    public String updateAttr(){
+
     }
 
 

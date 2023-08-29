@@ -220,13 +220,15 @@
                                     </tr>
 
                                     </thead>
-                                    <tbody id="attrPics">
+                                    <tbody>
 
 
                                     </tbody>
                                 </table>
                                 <div id="attrTarget"></div>
+                                <div id="attrPics" style="width: 100%;">
 
+                                </div>
                             </div>
                         </div>
 
@@ -309,10 +311,16 @@
         const picsArray = attrPics.attrPic;
 
         const attrPics_el = document.querySelector(".attrPics");
+        let count = 0;
         for (let pic of picsArray) {
+            const div = document.createElement("div");
+            div.id = "img" + ++count;
+            div.style = "display:inline-block;";
             const row = document.createElement("img");
             row.src = "data: image/jpeg;base64," + pic.attrPicData;
-            document.getElementById("attrPics").insertAdjacentElement('beforeend', row);
+
+            document.getElementById("attrPics").insertAdjacentElement('beforeend', div);
+            document.getElementById("img"+count).insertAdjacentElement('afterbegin', row);
         }
 
 

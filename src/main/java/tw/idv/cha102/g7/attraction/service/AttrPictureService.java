@@ -11,4 +11,6 @@ public interface AttrPictureService {
     public ResponseEntity<AttrPicture> insertPictures(AttrPicture attrPicture);
 
     public String getPicsByAttrId(Integer attrId);
+
+    public void delPicByAttrPicId(Integer attrPicId);
 }

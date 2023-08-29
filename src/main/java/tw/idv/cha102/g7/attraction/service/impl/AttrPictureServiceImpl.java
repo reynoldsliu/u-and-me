@@ -30,4 +30,9 @@ public class AttrPictureServiceImpl implements AttrPictureService {
 
         return jsonObject.toJSONString();
     }
+
+    @Override
+    public void delPicByAttrPicId(Integer attrPicId){
+        attrPictureRepository.deleteById(attrPicId);
+    }
 }
