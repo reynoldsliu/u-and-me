@@ -8,16 +8,17 @@ import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface ScheduleService {
 
-    List<Schedule> getAllPaged(int page, int size);
+    List<Schedule> findAllPublicPaged(int page, int size);
 
     // 查詢所有公開行程清單，並依照起始日期排序
     public List<Schedule> findAllPublic();
 
     // 依照行程名稱，查詢所有公開行程清單，並依照起始日期排序
-    public List<Schedule> findBySchName(String schName);
+    public Stream<Schedule> findBySchNamePaged(String schName, int page);
 
     // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期排序
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd);
