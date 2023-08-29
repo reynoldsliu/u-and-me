@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import tw.idv.cha102.g7.shop.entity.Product;
 import tw.idv.cha102.g7.shop.entity.ProductPicture;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
 
 @Data
@@ -13,6 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductDTO {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer prodId;
     private Integer prodCatId;
     private String prodName;

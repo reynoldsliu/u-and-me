@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "product_picture")
@@ -24,8 +25,9 @@ public class ProductPicture {
     @Column(name = "prod_id")
     private Integer prodId;
 
+    @Lob
     @Column(name ="prod_pic")
-    private byte[] prodPic;
+    private Byte[] prodPic;
 
 
 }

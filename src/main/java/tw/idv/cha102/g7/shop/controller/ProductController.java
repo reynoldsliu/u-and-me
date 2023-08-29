@@ -11,10 +11,15 @@ import tw.idv.cha102.g7.shop.entity.ProductPicture;
 import tw.idv.cha102.g7.shop.service.ProductPictureService;
 import tw.idv.cha102.g7.shop.service.ProductService;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 //介面層:負責接收前端請求，請業務邏輯層(Service)處理，再回傳資料給前端;也可以是View層，渲染使用者畫面
 //表示這個類別是一個 REST 風格的控制器，會處理 HTTP 請求並返回 JSON 格式的數據
+@CrossOrigin
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -28,7 +33,7 @@ public class ProductController {
 //    新增這個無參建構函式後，Spring 就能夠順利實例化 ProductController 類別。同時仍可保留你的自定義有參建構函式，以便在進行依賴注入時使用
 
     @PostMapping("/createProduct")
-    public void createProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO) throws IOException {
         //從前端拿到productPictureDTO內的參數內容
 
         //從productPictureDTO把拿到的值取出，再放進 new 出來的Product裡面
@@ -48,10 +53,13 @@ public class ProductController {
         //ProductPicture取出的元素型態 pp每個從裡面拿出的元素(他是一個完整的productpicture物件) : productPictures
         //用productPictureService的insert方法，把新的物件pp insert進去
         List<ProductPicture> productPictures = productDTO.getProductPictures();
-        for (ProductPicture pp : productPictures) {
-            productPictureService.insert(pp);
-        }
+        if(productPictures != null) {
+            for (ProductPicture pp : productPictures) {
+                productPictureService.insert(pp);
 
+            }
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(productDTO);
     }
 
     @DeleteMapping("/deleteProduct/{prodId}")
@@ -79,6 +87,7 @@ public class ProductController {
     @GetMapping("/listAllProduct")
     public List<ProductDTO> listAllProduct() {
         List<ProductDTO> productDTOList = productService.listAll();
+        System.out.println("Test Success");
         return productDTOList;
     }
 
