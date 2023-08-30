@@ -19,6 +19,30 @@
             height: 115px;
             margin-top: -23px;
         }
+
+        .card h5{
+            color:#4c6182;
+            font-weight:600;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* 將卡片的高度設定為100%，以便內容充滿整個卡片 */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 將內容元素在垂直方向上均勻分佈 */
+            height: 100%; /* 將卡片內容的高度設定為100%，以便內容充滿整個卡片內容區域 */
+        }
+
+        .card-title,
+        .card-text,
+        .btn {
+            margin: 0; /* 清除元素的預設邊距 */
+        }
     </style>
 
 </head>
@@ -112,12 +136,6 @@
             </li>
             </li>
         </ul>
-        <!-- <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form> -->
-    </div>
-    </div>
     </div>
 </nav>
 
@@ -148,11 +166,13 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
                         <h5 class="card-title">活動名稱</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
-                        <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -160,11 +180,13 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
                         <h5 class="card-title">活動名稱</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
-                        <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -172,11 +194,13 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
                         <h5 class="card-title">活動名稱</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
-                        <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,11 +213,13 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
                         <h5 class="card-title">活動名稱</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
-                        <a href="" class="btn btn-outline-success btn-sm">Read More</a>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -201,11 +227,13 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
                         <h5 class="card-title">活動名稱</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
-                        <a href="" class="btn btn-outline-success btn-sm">Read More</a>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -213,11 +241,13 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
                         <h5 class="card-title">活動名稱</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
-                        <a href="" class="btn btn-outline-success btn-sm">Read More</a>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -230,11 +260,13 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
                         <h5 class="card-title">活動名稱</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
-                        <a href="" class="btn btn-outline-success btn-sm">Read More</a>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -242,11 +274,13 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
                         <h5 class="card-title">活動名稱</h5>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
-                        <a href="" class="btn btn-outline-success btn-sm">Read More</a>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,12 +288,12 @@
                 <div class="card">
                     <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
-                    <div class="card-body">
-                        <div class="card-body">
-                            <h5 class="card-title">活動名稱</h5>
-                            <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
-                                similique repellat a laborum</p>
-                            <a href="" class="btn btn-outline-success btn-sm">Read More</a>
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -309,6 +343,40 @@
     </footer>
 </div>
 
+
+
+<!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS-->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetchRandomNews();
+  });
+
+  async function fetchRandomNews() {
+      try {
+          const response = await fetch('http://localhost:8080/u-and-me/activityrandom?count=9');
+          const randomNews = await response.json();
+
+          const cardContainers = document.querySelectorAll('.card');
+
+          randomNews.forEach((item, index) => {
+              const cardContainer = cardContainers[index];
+              const cardImg = cardContainer.querySelector('.card-img-top');
+              const cardTitle = cardContainer.querySelector('.card-title');
+              const cardText = cardContainer.querySelector('.card-text');
+
+              const dataurl = `data:image/png;base64,${item.activPic}`;
+
+              cardImg.src = dataurl;
+              cardTitle.textContent = item.activName;
+              cardText.textContent = item.activCon;
+          });
+      } catch (error) {
+          console.error('Error fetching random news:', error);
+      }
+  }
+
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
