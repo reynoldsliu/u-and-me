@@ -2,28 +2,43 @@ let search_btn_el = document.getElementById("search-btn");
 let keywords_el = document.getElementById("keywords");
 let sortByStart_el = document.getElementById("sortByStart");
 let sortByDays_el = document.getElementById("sortByDays");
+let btn_schDone = document.getElementById("schDone");
 
 let pageSelect1_el = document.getElementById("pageSelect1");
 let pageSelect2_el = document.getElementById("pageSelect2");
 let pageSelect3_el = document.getElementById("pageSelect3");
 
 
+
+// const inputMemId_el = document.getElementById("inputMemId");
+const inputStartDate_el = document.getElementById("inputStartDate");
+const schNameInput_el = document.getElementById("schNameInput");
+const startDate_el = document.getElementById("startDate");
+const endDate_el = document.getElementById("endDate");
+const destination_el = document.getElementById("destination");
+const schName_el = document.getElementById("schName");
+
+
 let e = 0; //用來控制分頁
+let memId = 101; // 會員Id從哪裡抓取？
 
 // fetch對應到的路徑
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/schedules/";
-let allURL = baseURL + "all/";
-let daysURL = baseURL + "days/";
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/mySch/";
+let myURL = baseURL + "my/";
+let addURL = baseURL + "create";
+let deleteURL = baseURL + "delete/";
+let editURL = baseURL + "edit/";
+let hideURL = baseURL + "hide/";
 
 
-// 載入網頁就將所有公開行程列表查出
+// 載入網頁就將所有該會員的行程列表查出
 document.addEventListener("DOMContentLoaded", function () {
-  fetchScheduleList(allURL, e);
+  fetchMyScheduleList(myURL, memId, e);
 });
 
-async function fetchScheduleList(URL, e) {
+async function fetchMyScheduleList(URL, memId, e) {
   try {
-    const response = await fetch(URL + e);
+    const response = await fetch(URL + memId + "/" + e);
     const schList = await response.json();
 
     const schListInner = document.getElementById("schListInner");
@@ -55,7 +70,7 @@ async function fetchScheduleList(URL, e) {
     });
 
   } catch (error) {
-    console.error("Error fetching scheRep list:", error);
+    console.error("Error fetching MyScheduleList:", error);
   }
 }
 
@@ -76,20 +91,19 @@ function calDays(schStart, schEnd) {
   return (daysDifference + 1);
 }
 
-// =============== 依關鍵字(行程名稱)搜尋行程清單 ===============
+// =============== 待改，依關鍵字(行程名稱)搜尋行程清單 ===============
 search_btn_el.addEventListener("click", function (event) {
   event.preventDefault();
   let keywords = keywords_el.value;
   let keywordsURL = baseURL + keywords + "/";
-  fetchScheduleList(keywordsURL, e);
+  fetchMyScheduleList(keywordsURL, e);
 });
 
-// =============== 依行程天數排序行程清單 ===============
+// =============== 待改，依行程天數排序行程清單 ===============
 sortByDays_el.addEventListener("click", function (event) {
   event.preventDefault();
-  fetchScheduleList(daysURL, e);
+  fetchMyScheduleList(daysURL, e);
 });
-
 
 // 按修改鈕會根據schRepId跳轉到詳細內容頁面，並將資料映射到相關欄位上
 function redirectToDetailPage(schId) {
@@ -97,7 +111,7 @@ function redirectToDetailPage(schId) {
   window.location.href = newPageUrl;
 }
 
-//=============== 以下為控制分頁 =================
+//=============== 以下為控制分頁(目前寫死) =================
 
 pageSelect1_el.addEventListener('click', async function (e) {
 
@@ -110,7 +124,7 @@ pageSelect1_el.addEventListener('click', async function (e) {
   //控制fetch傳入網址
   e = 0
   //調用方法
-  fetchScheduleList(daysURL, e);
+  fetchMyScheduleList(myURL, memId, e);
 });
 
 pageSelect2_el.addEventListener('click', async function (e) {
@@ -119,7 +133,7 @@ pageSelect2_el.addEventListener('click', async function (e) {
   pageSelect3_el.classList.remove("active");
 
   e = 1;
-  fetchScheduleList(daysURL, e);
+  fetchMyScheduleList(myURL, memId, e);
 });
 
 document.getElementById('pageSelect3').addEventListener('click', async function (e) {
@@ -128,7 +142,44 @@ document.getElementById('pageSelect3').addEventListener('click', async function 
   pageSelect3_el.classList.toggle("active");
 
   e = 2;
-  fetchScheduleList(daysURL, e);
+  fetchMyScheduleList(myURL, memId, e);
 });
 
 //=============== 控制分頁結束 ===============
+
+
+// =============== 新增一個行程大綱 ===============
+
+// 當新增行程燈箱內容填寫完畢，按下完成按鈕後，
+// 將行程大綱資料傳輸進資料庫，並回到會員自己的行程頁面
+btn_schDone.onclick = async event => {
+
+  event.preventDefault();
+
+  // TODO...待加資料驗證，驗證通過後才執行以下內容
+  const send_data = {
+    schName: schName_el.value,
+    memId: memId,
+    schStart: startDate_el.value,
+    schEnd: endDate_el.value,
+    schCopy: true,
+    schPub: 0,
+    schTags: destination_el.value
+  }
+  console.log(send_data);
+  await fetch(addURL, {
+    headers: {
+      "content-type": "application/json",
+    },
+    method: 'POST',
+    body: JSON.stringify(send_data)
+  })
+    .catch(function (error) {
+      alert('新增失敗');
+      return;
+    });
+  alert('新增成功');
+  location.reload();
+}
+
+// =============== 新增一個行程大綱結束 ===============
