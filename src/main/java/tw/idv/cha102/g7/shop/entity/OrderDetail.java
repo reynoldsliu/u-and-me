@@ -5,13 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "order_detail")
+@Table(name = "order_details")
 public class OrderDetail {
 
     @EmbeddedId
@@ -26,7 +25,7 @@ public class OrderDetail {
     @Column(name = "prod_price")
     private Integer prodPrice;
 
-    @Column(name = "ord_com_score")
-    private Double ordComScore;
+    @Column(name = "prod_com_score")
+    private Double prodComScore;
 
 }
