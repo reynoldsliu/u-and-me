@@ -24,10 +24,9 @@ public interface ScheduleService {
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd);
 
     // 依行程天數小到大，查詢公開行程及天數，並依照起始日期新到舊排序
-    public  Stream<ScheduleDayDTO> findOrderByDays(int page);
+    public Stream<ScheduleDayDTO> findOrderByDays(int page);
 
     // 依行程預估消費範圍小到大，查詢公開行程，並依照起始日期新到舊排序
-
 
 
     // 依行程ID，查詢單一行程
@@ -51,7 +50,7 @@ public interface ScheduleService {
      */
 
     // 查詢使用者自己所有建立過的行程清單
-    public List<Schedule> getAllByMemId(Integer memId);
+    public Stream<Schedule> getAllByMemId(Integer memId, int page);
 
     // 新增一筆行程(包含選擇出發及結束日期、目的地標籤、行程名稱)
     public void create(Schedule schedule);

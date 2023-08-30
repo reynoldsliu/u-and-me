@@ -29,20 +29,16 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
 
     // 依行程天數小到大，查詢所有公開行程清單，並依照起始日期降冪排序
     @Query(value = "SELECT sch_id as schId, sch_name as schName, mem_id as memId, sch_start as schStart, sch_end as schEnd, sch_pub as schPub, sch_copy as schCopy, sch_cost as schCost, DATEDIFF(sch_end, sch_start) as days FROM schedules WHERE sch_pub = 2 " +
-            "ORDER BY days ASC, sch_start DESC",nativeQuery = true)
-    public  Page<ScheduleDayDTO> findOrderByDays(Pageable pageable);
+            "ORDER BY days ASC, sch_start DESC", nativeQuery = true)
+    public Page<ScheduleDayDTO> findOrderByDays(Pageable pageable);
 
 
     // 依行程預估消費範圍小到大，查詢所有範圍內的公開行程清單，並依照起始日期新到舊排序
 
 
-
     // 查詢使用者自己建立過的所有行程清單
-    public List<Schedule> findByMemId(Integer memId);
-
-
-
-
+    @Query(value = "SELECT * FROM schedules WHERE mem_id = ?1", nativeQuery = true)
+    public Page<Schedule> findByMemId(Integer memId, Pageable pageable);
 
 
     // 查詢行程及其細節，並依照行程細節起始時間排序
@@ -56,11 +52,9 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     @Query(value = "SELECT s.sch_id schId, sch_name schName, mem_id memId, sch_start schStart, sch_end schEnd, sch_pub schPub, sch_copy schCopy, sch_cost schCost, st.schtag_id schTagId, st.schtag_name schTagName " +
             "FROM schedules s " +
             "JOIN schedule_tag_list stl ON s.sch_id = stl.sch_id " +
-            "JOIN schedule_tag st ON stl.schtag_id = st.schtag_id "+
+            "JOIN schedule_tag st ON stl.schtag_id = st.schtag_id " +
             "WHERE s.sch_id = ?1", nativeQuery = true)
     public List<Object[]> findTagsByOneSchedule(Integer schId);
-
-
 
 
 }

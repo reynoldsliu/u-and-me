@@ -27,6 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import tw.idv.cha102.g7.member.service.MemberService;
 
 @RestController
+@CrossOrigin
 //@RequestMapping("/attr")
 public class AttrController {
     @Autowired
@@ -97,8 +98,8 @@ public class AttrController {
     }
 
     @RequestMapping("/getAttrsByName/{attrName}")
-    public List<Attraction> getAttrsByName(@PathVariable String attrName){
-        return attrService.getAttrsByName(attrName);
+    public ResponseEntity<List<Attraction>> getAttrsByName(@PathVariable String attrName){
+        return new ResponseEntity(attrService.getAttrsByName(attrName),HttpStatus.OK);
     }
 
     @GetMapping("/attr/all/{pageSize}/{page}")
@@ -148,14 +149,19 @@ public class AttrController {
         return "Picture deleted";
     }
 
-    @RequestMapping(value = "/getAttrPics/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/getAttrPics/{attrId}",
+                    method = {RequestMethod.POST, RequestMethod.GET})
     public String getAttrPics(@PathVariable Integer attrId){
         return attrPictureService.getPicsByAttrId(attrId);
     }
 
-    @RequestMapping(value = "/getAttrPics/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
-    public String updateAttr(){
+    @RequestMapping(value = "/updateAttr/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
+    public ResponseEntity<Attraction> updateAttr(@PathVariable Integer attrId,
+                                                 @RequestBody Attraction attraction){
 
+        return new ResponseEntity(attrService.updateAttrByAttrId(
+                                    attrId,attraction),
+                                    HttpStatus.OK);
     }
 
 

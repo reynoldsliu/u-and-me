@@ -71,6 +71,7 @@ public class ActivityController {
         if (existingActivity != null) {
 
             // 更新現有資料
+            existingActivity.setActivPic(activity.getActivPic());
             existingActivity.setActivName(activity.getActivName());
             existingActivity.setActivCon(activity.gettActivCon());
 //            existingActivity.setActivEndtime(activity.getActivEndtime());

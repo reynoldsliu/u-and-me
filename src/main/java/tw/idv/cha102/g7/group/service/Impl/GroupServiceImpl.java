@@ -26,11 +26,27 @@ public class GroupServiceImpl implements GroupService {
     }
 
     public void update(Integer groupId, Group group) {
-        if (getGroupByGroupId(groupId) != null) {
-            group.setGroupId(groupId);
-            groupRepository.save(group);
-        } else {
-            throw new RuntimeException();
+        var existGroup = groupRepository.findById(groupId);
+        if(existGroup.isPresent()){
+            existGroup.get().setGroupId(groupId);
+            groupRepository.save(existGroup.get());
+        }
+    }
+
+    @Override
+    public void updateMyGroupByGroupId(Integer groupId, Group group) {
+        var existGroup = groupRepository.findById(groupId);
+        if(existGroup.isPresent()){
+            //以實際前端傳送情況更新
+            existGroup.get().setMinMember(group.getMinMember());
+            existGroup.get().setMaxMember(group.getMaxMember());
+            existGroup.get().setTheme(group.getTheme());
+            existGroup.get().setDepDate(group.getDepDate());
+            existGroup.get().setDeadline(group.getDeadline());
+            existGroup.get().setGroupDesc(group.getGroupDesc());
+            existGroup.get().setNotice(group.getNotice());
+            existGroup.get().setCover(group.getCover());
+            groupRepository.save(existGroup.get());
         }
     }
 
@@ -104,8 +120,8 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findMyGroupListDtoByMemId(memId,pageable).get();
     }
 
-//    @Override
-//    public UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId){
-//        return groupRepository.findUpdateMyGroupByGroupId(groupId);
-//    }
+    @Override
+    public UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId){
+        return groupRepository.findUpdateMyGroupByGroupId(groupId);
+    }
 }

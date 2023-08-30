@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.attraction.dto.AttrPictureDTO;
 import tw.idv.cha102.g7.attraction.entity.AttrPicture;
+import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.repo.AttrPictureRepository;
 import tw.idv.cha102.g7.attraction.service.AttrPictureService;
 
@@ -35,4 +36,5 @@ public class AttrPictureServiceImpl implements AttrPictureService {
     public void delPicByAttrPicId(Integer attrPicId){
         attrPictureRepository.deleteById(attrPicId);
     }
+
 }

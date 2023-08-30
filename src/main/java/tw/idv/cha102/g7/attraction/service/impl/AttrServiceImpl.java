@@ -34,11 +34,7 @@ public class AttrServiceImpl implements AttrService {
         return attrRepository.findById(attrId).orElse(null);
     }
 
-    /**
-     * 查詢全部的Attraction
-     *
-     * @return List<Attraction>一組Attraction
-     */
+
     @Override
     public List<Attraction> getAll() {
         return attrRepository.findAll();
@@ -95,5 +91,18 @@ public class AttrServiceImpl implements AttrService {
             attrRepository.save(attraction);
         }
         return "Create Attraction Success";
+    }
+
+    @Override
+    public ResponseEntity<Attraction> updateAttrByAttrId(Integer attrId, Attraction attraction){
+        Attraction originAttr = attrRepository.findById(attrId).orElse(null);
+//        originAttr.setAttrId(attrId);
+        originAttr.setAttrName(attraction.getAttrName());
+        originAttr.setAttrAddr(attraction.getAttrAddr());
+        originAttr.setAttrTypeId(attraction.getAttrTypeId());
+        originAttr.setAttrCostRange(attraction.getAttrCostRange());
+        originAttr.setAttrBussTime(attraction.getAttrBussTime());
+        originAttr.setAttrIlla(attraction.getAttrIlla());
+        return new ResponseEntity(attrRepository.save(originAttr),HttpStatus.OK);
     }
 }

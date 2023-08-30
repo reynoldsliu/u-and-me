@@ -111,11 +111,11 @@
     <!-- -----content----- -->
 
     <div class="container-fluid">
-        <div class="sidebar" style="height: 1920px;">
+        <div class="sidebar" style="height: 2120px;">
         </div>
 
         <div class="container-fluid">
-            <div class="content-wrapper" style="margin-left: 270px; padding-bottom: 1800px;">
+            <div class="content-wrapper" style="margin-left: 270px; padding-bottom: 2000px;">
                 <div class="breadcontainer mb-5">
                     <div class="row g-5 justify-content-center">
                         <nav aria-label="breadcrumb sticky">
@@ -146,11 +146,11 @@
                                 </h2>
                             </div>
                             <div class="col-md-6">
-                                <label for="inputMemId" class="form-label">會員ID</label>
+                                <label for="inputMemId" class="form-label" id="inputMemId">會員ID</label>
                                 <input type="text" class="form-control" id="memId">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputSchId" class="form-label">行程ID</label>
+                                <label for="inputSchId" class="form-label" id="inputSchId">行程ID</label>
                                 <input type="text" class="form-control" id="schId">
                             </div>
                             <!-- <div class="col-md-6">
@@ -168,11 +168,11 @@
                             <br>
 
                             <div class="col-md-6">
-                                <label for="inputMinMember" class="form-label">成團最小人數</label>
+                                <label for="inputMinMember" class="form-label" id="inputMinMember">成團最小人數</label>
                                 <input type="text" class="form-control" id="minMember">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputMaxMember" class="form-label">成團最大人數</label>
+                                <label for="inputMaxMember" class="form-label" id="inputMaxMember">成團最大人數</label>
                                 <input type="text" class="form-control" id="maxMember">
                             </div>
                             <br>
@@ -181,35 +181,29 @@
                             <br>
 
                             <div class="col-md-6">
-                                <label for="inputTheme" class="form-label">標題</label>
+                                <label for="inputTheme" class="form-label" id="inputTheme">標題</label>
                                 <input type="email" class="form-control" id="theme">
                             </div>
                             <div class="col-md-6">
-                                <label for="inputAmount" class="form-label">價格</label>
+                                <label for="inputAmount" class="form-label" id="inputAmount">價格</label>
                                 <input type="text" class="form-control" id="amount">
                             </div>
-
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-
-
+            
                             <div>
                                 <!-- 行程出發日期 -->
-                                <span>
+                                <p>
                                     <label for="inputDepDate">
-                                        <pre style="font-size: 16px;">行程出發日期</pre>
+                                        <p style="font-size: 16px;" id="inputDepDate">行程出發日期</p>
                                     </label>
                                     <input type="date" id="depDate" style="width: 150px; height: 35px;">
-                                </span>
+                                </p>
                                 <!-- 揪團截止日期 -->
-                                <span>
-                                    <label for="deadline">
-                                        <pre style="font-size: 16px;">        揪團截止日期</pre>
+                                <p>
+                                    <label for="inputDeadline">
+                                        <pre style="font-size: 16px;" id="inputDeadline">揪團截止日期</pre>
                                     </label>
                                     <input type="date" id="deadline" style="width: 150px; height: 35px;">
-                                </span>
+                                </p>
 
                             </div>
 
@@ -219,18 +213,18 @@
                             <br>
 
                             <div class="mb-3">
-                                <label for="inputGroupDesc" class="form-label">揪團描述</label>
+                                <label for="inputGroupDesc" class="form-label" id="inputGroupDesc">揪團描述</label>
                                 <textarea class="form-control" id="groupDesc" rows="3" ,
                                     placeholder="最多200字" style="resize:none;height:150px;"></textarea>
                             </div>
 
                             <div class="mb-3">
-                                <label for="inputNotice" class="form-label">行前通知</label>
+                                <label for="inputNotice" class="form-label" id="inputNotice">行前通知</label>
                                 <textarea class="form-control" id="notice" rows="3" , placeholder="最多500字" style="resize:none;height:500px;"></textarea>
                             </div>
 
                             <div class="mb-3">
-                                <label for="formFile" class="form-label">揪團照片上傳</label>
+                                <label for="inputFormFile" class="form-label" id="inputFormFile">揪團照片上傳</label>
                                 <!-- accept 可以限制檔案類型上傳 -->
                                 <input class="form-control" type="file" id="cover"
                                     accept="image/gif, image/jpeg, image/png">

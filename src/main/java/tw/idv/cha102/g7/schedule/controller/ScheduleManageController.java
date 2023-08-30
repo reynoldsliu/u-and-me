@@ -9,6 +9,8 @@ import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 // 行程管理
 @RestController
@@ -19,9 +21,12 @@ public class ScheduleManageController {
     private ScheduleService service;
 
     // 查詢使用者自己所有建立過的行程清單
-    @GetMapping("/my/{memId}")
-    public List<Schedule> findByMemId(@PathVariable Integer memId) {
-        return service.getAllByMemId(memId);
+    @GetMapping("/my/{memId}/{page}")
+    public ResponseEntity<List<Schedule>> findByMemId(@PathVariable Integer memId,
+                                                @PathVariable int page) {
+        List<Schedule> mySchedules = service.getAllByMemId(memId, page)
+                                            .collect(Collectors.toList());
+        return new ResponseEntity(mySchedules, HttpStatus.OK);
     }
 
     // 新增一筆行程(包含選擇出發及結束日期、目的地標籤、行程名稱)
