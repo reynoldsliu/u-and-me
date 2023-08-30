@@ -12,7 +12,7 @@ document.getElementById('pageSelect1').addEventListener('click', async function 
     document.getElementById('pageSelect3').classList.remove("active");
 
     //控制fetch傳入網址
-    let e = 0
+    e = 0
 
     //調用方法
     fetchGroupList(e);
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function fetchGroupList(e) {
     try {
         // await : await必須放在任何基於promise的函數之前，等到獲得resolve的資料後，再執行後續動作
-        let response = await fetch('http://localhost:8080/u-and-me/groupsList/0/' + e);
+        let response = await fetch('http://localhost:8081/u-and-me/groupsList/0/' + e);
 
         //response.json()：把資料轉成JSON格式
         const groupsList = await response.json();
