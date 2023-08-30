@@ -177,7 +177,7 @@
                                     <option value="10">10</option>
                                 </select>
                                 頁碼:<input type="number" id="page" min="1" max="1" value="1">
-                                <input type="submit" id="pageChangeSubmit">
+                                <input type="button" id="editAttr" value="編輯景點">
 
                                 <!-- ///新增bootstrap表格 -->
                                 <table class="table">
@@ -185,37 +185,37 @@
                                     <tr>
                                         <th scope="col" style="width:100px;">景點名稱</th>
                                         <th>
-                                            <div id="attrName"></div>
+                                            <input type="text" id="attrName" disabled>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th scope="col" style="width:100px;">景點地址</th>
                                         <th>
-                                            <div id="attrAddr"></div>
+                                            <input type="text" id="attrAddr" disabled>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th scope="col" style="width:100px;">景點類型</th>
                                         <th>
-                                            <div id="attrTypeId"></div>
+                                            <input type="text" id="attrTypeId" disabled>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th scope="col" style="width:100px;">景點花費</th>
                                         <th>
-                                            <div id="attrCostRange"></div>
+                                            <input type="text" id="attrCostRange" disabled>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th scope="col" style="width:100px;">營業時間</th>
                                         <th>
-                                            <div id="attrBussTime"></div>
+                                            <input type="text" id="attrBussTime" disabled>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th scope="col" style="width:100px;">景點說明</th>
                                         <th>
-                                            <div id="attrIlla"></div>
+                                            <input type="text" id="attrIlla" disabled>
                                         </th>
                                     </tr>
 
@@ -229,6 +229,13 @@
                                 <div id="attrPics" style="width: 100%;">
 
                                 </div>
+
+                                <button id="submitButton">Submit Data</button>
+                                <br>
+                                <button class="edit-button" id="editButton">Edit</button>
+                                <button class="edit-button" id="saveButton" style="display: none;">Save</button>
+
+
                             </div>
                         </div>
 
@@ -289,7 +296,8 @@
 </div>
 </div>
 
-<script src="js/jquery-3.7.0.min.js"></script>
+<script src="./js/jquery-3.7.0.min.js"></script>
+<script src="../js/jquery-3.7.0.min.js"></script>
 <!--<script src="js/selectOneAttrById.js"></script>-->
 
 <script>
@@ -299,10 +307,13 @@
     const attrCostRange = document.querySelector("#attrCostRange");
     const attrBussTime = document.querySelector("#attrBussTime");
     const attrIlla = document.querySelector("#attrIlla");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const attrId = urlParams.get("attrId");
+
     $(document).ready(async function () {
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const attrId = urlParams.get("attrId");
+
         const response1 = await fetch('getAttr' + '?attrId=' + attrId);
         const attr = await response1.json();
         const response2 = await fetch('getAttrPics' + '/' + attrId);
@@ -320,7 +331,7 @@
             row.src = "data: image/jpeg;base64," + pic.attrPicData;
 
             document.getElementById("attrPics").insertAdjacentElement('beforeend', div);
-            document.getElementById("img"+count).insertAdjacentElement('afterbegin', row);
+            document.getElementById("img" + count).insertAdjacentElement('afterbegin', row);
         }
 
 
@@ -329,12 +340,12 @@
         // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
         // 1	1	1	Attraction 1	123 Main St	12.345	67.89
         // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
-        attrName.innerHTML = `${attr.attrName}`;
-        attrAddr.innerHTML = `${attr.attrAddr}`;
-        attrTypeId.innerHTML = `${attr.attrTypeId}`;
-        attrCostRange.innerHTML = `${attr.attrCostRange}`;
-        attrBussTime.innerHTML = `${attr.attrBussTime}`;
-        attrIlla.innerHTML = `${attr.attrIlla}`;
+        attrName.value = `${attr.attrName}`;
+        attrAddr.value = `${attr.attrAddr}`;
+        attrTypeId.value = `${attr.attrTypeId}`;
+        attrCostRange.value = `${attr.attrCostRange}`;
+        attrBussTime.value = `${attr.attrBussTime}`;
+        attrIlla.value = `${attr.attrIlla}`;
         // row.innerHTML = `
         //             <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
         //             <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
@@ -352,6 +363,115 @@
         //         `;
         // listStart_el.insertAdjacentElement('beforeend', row);
     })
+
+
+    // const editAttr_el = document.querySelector("#editAttr");
+    // editAttr_el.addEventListener("click",function(){
+
+
+    // })
+
+
+    const attrName_input = document.getElementById("attrName");
+    const attrAddr_input = document.getElementById("attrAddr");
+    const attrTypeId_input = document.getElementById("attrTypeId");
+    const attrCostRange_input = document.getElementById("attrCostRange");
+    const attrBussTime_input = document.getElementById("attrBussTime");
+    const attrIlla_input = document.getElementById("attrIlla");
+
+    const editButton = document.getElementById("editButton");
+    const saveButton = document.getElementById("saveButton");
+    const submitButton = document.getElementById("submitButton");
+
+    // Edit button click event listener
+    editButton.addEventListener("click", function () {
+        enableEditing();
+    });
+
+    // Save button click event listener
+    saveButton.addEventListener("click", function () {
+        disableEditing();
+    });
+
+    // Add button click event listener
+    submitButton.addEventListener("click", async function () {
+        const newData = {
+            attrName: attrName_input.value,
+            attrAddr: attrAddr_input.value,
+            attrTypeId: attrTypeId_input.value,
+            attrCostRange: attrCostRange_input.value,
+            attrBussTime: attrBussTime_input.value,
+            attrIlla: attrIlla_input.value
+        };
+
+        // Send data to backend using fetch
+        const response = await fetch('updateAttr/' + attrId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newData)
+        });
+
+        if (response.ok) {
+            // Handle successful response
+            console.log('Data added successfully');
+        } else {
+            // Handle error response
+            console.error('Error adding data');
+        }
+    });
+
+    // Function to enable editing
+    function enableEditing() {
+        attrName_input.disabled = false;
+        attrAddr_input.disabled = false;
+        attrTypeId_input.disabled = false;
+        attrCostRange_input.disabled = false;
+        attrBussTime_input.disabled = false;
+        attrIlla_input.disabled = false;
+
+        editButton.style.display = "none";
+        saveButton.style.display = "block";
+    }
+
+    // Function to disable editing
+    function disableEditing() {
+        attrName_input.disabled = true;
+        attrAddr_input.disabled = true;
+        attrTypeId_input.disabled = true;
+        attrCostRange_input.disabled = true;
+        attrBussTime_input.disabled = true;
+        attrIlla_input.disabled = true;
+
+        editButton.style.display = "block";
+        saveButton.style.display = "none";
+    }
+
+    // const editable_el = document.querySelector(".editable");
+    // const editAttr_el = document.querySelector("#editAttr");
+    // let attrName_input_el;
+    // editAttr_el.addEventListener("click", function () {
+    //     if (editAttr_el.value === "編輯景點") {
+    //         attrName_el = document.createElement("p");
+    //         attrName_el.textContent = attrName_input_el.value;
+    //         delete(attrName_input_el);
+    //         attrName.insertAdjacentElement("beforeend", attrName_el);
+    //     }
+    //     editAttr_el.value = "完成編輯";
+
+    //     attrName_input_el = document.createElement("input");
+    //     attrName_input_el.type = "text";
+    //     attrName_input_el.value = attrName.textContent;
+    //     attrName_input_el.class = "editable";
+    //     attrName.insertAdjacentElement("beforeend", attrName_input_el);
+    // })
+
+
+    // editable_el.addEventListener("blur", function () {
+
+
+    // })
 </script>
 
 </body>
