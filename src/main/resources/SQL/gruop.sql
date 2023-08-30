@@ -3,21 +3,22 @@ use uandme;
 
 create table `group`
 (
-	group_id int primary key, -- auto_increment
+	group_id int primary key auto_increment,
     mem_id int, -- not null
     sch_id int, -- not null
-    members int default 0,-- not null
+    members int default 0,
     min_member int not null,
     max_member int not null,
     amount int not null,
     theme varchar(32) not null,
-    `starting` datetime not null,
-    dep_date datetime not null,
-    deadline datetime not null,
+    start_date timestamp not null default current_timestamp,
+    dep_date timestamp not null,
+    deadline timestamp not null,
     group_desc varchar(200) not null,
     notice varchar(500) not null,
     group_sta tinyint not null default 0,
-    payment_sta tinyint not null default 0
+    payment_sta tinyint not null default 0,
+    cover mediumblob
     -- constraint fk_mem_id
 --     foreign key (mem_id) references members(mem_id),
 --     
@@ -27,20 +28,20 @@ create table `group`
 insert into `group` values (
 1, 1, 1, default, 10, 20,
 100000, '緯育4月遊', '2023-03-22 00:00', '2023-05-15 00:00',
-'2023-05-01 00:00', 'JAVA集訓營', '進入後肝可能變黑白的', default ,0
+'2023-05-01 00:00', 'JAVA集訓營', '進入後肝可能變黑白的',default , 0, null
 );
 insert into `group`
 values
-    (101, 101, 201, 5, 3, 8, 1000, 'Hiking Trip', '2023-08-10 09:00:00', '2023-08-15 12:00:00', '2023-08-01 18:00:00', 'A fun hiking trip to the mountains', 'Bring your own water and snacks', 0, 0),
-    (102, 102, 202, 4, 2, 6, 800, 'Beach Vacation', '2023-09-05 14:00:00', '2023-09-12 10:00:00', '2023-08-25 23:59:59', 'Relax and unwind at the sunny beach', 'Sunscreen is a must', 0, 0),
-    (103, 103, 203, 6, 4, 10, 1200, 'City Tour', '2023-07-20 11:00:00', '2023-07-25 16:00:00', '2023-07-15 22:00:00', 'Explore the city and visit popular landmarks', 'Comfortable shoes are recommended', 0, 0),
-    (104, 104, 204, 3, 2, 4, 600, 'Camping Adventure', '2023-08-28 15:00:00', '2023-09-02 09:00:00', '2023-08-20 20:00:00', 'Experience the great outdoors with camping', 'Bring your own tent and sleeping bag', 0, 0),
-    (105, 105, 205, 7, 5, 12, 1500, 'Cruise Journey', '2023-10-15 13:00:00', '2023-10-25 18:00:00', '2023-10-01 19:00:00', 'Enjoy a luxurious cruise experience', 'Formal attire required for dinner', 0, 0),
-    (106, 106, 206, 2, 2, 4, 400, 'Skiing Adventure', '2023-12-05 08:00:00', '2023-12-10 16:00:00', '2023-11-25 23:59:59', 'Hit the slopes and have fun skiing', 'Skiing equipment available for rent', 0, 0),
-    (107, 107, 207, 8, 6, 15, 1800, 'Road Trip', '2023-09-30 10:00:00', '2023-10-10 14:00:00', '2023-09-15 18:00:00', 'Embark on an exciting road trip across the country', 'Prepare some road trip playlists', 0, 0),
-    (108, 108, 208, 4, 3, 8, 1000, 'Photography Tour', '2023-11-12 09:00:00', '2023-11-18 17:00:00', '2023-11-01 23:59:59', 'Capture stunning landscapes and wildlife with photography', 'Bring your own camera gear', 0, 0),
-    (109, 109, 209, 6, 4, 10, 1200, 'Foodie Adventure', '2023-10-05 12:00:00', '2023-10-15 20:00:00', '2023-09-25 23:59:59', 'Explore various cuisines and food spots', 'Come hungry and ready to eat', 0, 0),
-    (110, 110, 210, 3, 2, 5, 700, 'Fishing Trip', '2023-11-25 07:00:00', '2023-11-28 15:00:00', '2023-11-15 19:00:00', 'Enjoy fishing in serene lakes and rivers', 'Fishing equipment will be provided', 0, 0);
+    (101, 101, 201, 5, 3, 8, 1000, 'Hiking Trip', '2023-08-10 09:00:00', '2023-08-15 12:00:00', '2023-08-01 18:00:00', 'A fun hiking trip to the mountains', 'Bring your own water and snacks', 0, 0, null),
+    (102, 102, 202, 4, 2, 6, 800, 'Beach Vacation', '2023-09-05 14:00:00', '2023-09-12 10:00:00', '2023-08-25 23:59:59', 'Relax and unwind at the sunny beach', 'Sunscreen is a must', 0, 0, null),
+    (103, 103, 203, 6, 4, 10, 1200, 'City Tour', '2023-07-20 11:00:00', '2023-07-25 16:00:00', '2023-07-15 22:00:00', 'Explore the city and visit popular landmarks', 'Comfortable shoes are recommended', 0, 0, null),
+    (104, 104, 204, 3, 2, 4, 600, 'Camping Adventure', '2023-08-28 15:00:00', '2023-09-02 09:00:00', '2023-08-20 20:00:00', 'Experience the great outdoors with camping', 'Bring your own tent and sleeping bag', 0, 0, null),
+    (105, 105, 205, 7, 5, 12, 1500, 'Cruise Journey', '2023-10-15 13:00:00', '2023-10-25 18:00:00', '2023-10-01 19:00:00', 'Enjoy a luxurious cruise experience', 'Formal attire required for dinner', 0, 0, null),
+    (106, 106, 206, 2, 2, 4, 400, 'Skiing Adventure', '2023-12-05 08:00:00', '2023-12-10 16:00:00', '2023-11-25 23:59:59', 'Hit the slopes and have fun skiing', 'Skiing equipment available for rent', 0, 0, null),
+    (107, 107, 207, 8, 6, 15, 1800, 'Road Trip', '2023-09-30 10:00:00', '2023-10-10 14:00:00', '2023-09-15 18:00:00', 'Embark on an exciting road trip across the country', 'Prepare some road trip playlists', 0, 0, null),
+    (108, 108, 208, 4, 3, 8, 1000, 'Photography Tour', '2023-11-12 09:00:00', '2023-11-18 17:00:00', '2023-11-01 23:59:59', 'Capture stunning landscapes and wildlife with photography', 'Bring your own camera gear', 0, 0, null),
+    (109, 109, 209, 6, 4, 10, 1200, 'Foodie Adventure', '2023-10-05 12:00:00', '2023-10-15 20:00:00', '2023-09-25 23:59:59', 'Explore various cuisines and food spots', 'Come hungry and ready to eat', 0, 0, null),
+    (110, 110, 210, 3, 2, 5, 700, 'Fishing Trip', '2023-11-25 07:00:00', '2023-11-28 15:00:00', '2023-11-15 19:00:00', 'Enjoy fishing in serene lakes and rivers', 'Fishing equipment will be provided', 0, 0, null);
 select * from `group`;
 
 
@@ -127,25 +128,24 @@ create table group_rep
 insert into group_rep values (
 1, 1, 1, 1, 'QQ', default
 );
-insert into group_rep (group_rep_id, mem_id, group_id, hosts_id, reason)
-values
-(2, 101, 201, 301, 'One of the group members is not cooperative.'),
-(3, 102, 202, 302, 'The host is not fulfilling their responsibilities.'),
-(4, 103, 203, 303, 'There is a conflict between two group members.'),
-(5, 104, 204, 304, 'The group schedule conflicts with my other commitments.'),
-(6, 105, 205, 305, 'The group activities do not match my interests.'),
-(7, 106, 206, 306, 'I am experiencing health issues and cannot participate.'),
-(8, 107, 207, 307, 'The group size is too large for me.'),
-(9, 108, 208, 308, 'I am unable to afford the group expenses.'),
-(10, 109, 209, 309, 'There is a lack of communication within the group.'),
-(11, 110, 210, 310, 'I have unexpected personal matters to attend to.');
+insert into group_rep values
+(2, 101, 201, 301, 'One of the group members is not cooperative.', default),
+(3, 102, 202, 302, 'The host is not fulfilling their responsibilities.', default),
+(4, 103, 203, 303, 'There is a conflict between two group members.', default),
+(5, 104, 204, 304, 'The group schedule conflicts with my other commitments.', default),
+(6, 105, 205, 305, 'The group activities do not match my interests.', default),
+(7, 106, 206, 306, 'I am experiencing health issues and cannot participate.', default),
+(8, 107, 207, 307, 'The group size is too large for me.', default),
+(9, 108, 208, 308, 'I am unable to afford the group expenses.', default),
+(10, 109, 209, 309, 'There is a lack of communication within the group.', default),
+(11, 110, 210, 310, 'I have unexpected personal matters to attend to.', default);
 select * from group_rep;
 
 create table group_picture
 (
 	group_pic_id int primary key, -- auto_increment
     group_id int, -- not null
-    froup_pic mediumblob
+    group_pic mediumblob
 --     constraint fk_group_id
 --     foreign key (group_id) references `group`(group_id)
 );

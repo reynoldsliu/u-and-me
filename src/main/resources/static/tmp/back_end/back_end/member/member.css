@@ -1,6 +1,6 @@
 body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+ min-height: 100vh;
+ min-height: -webkit-fill-available;
 }
 
 html {
@@ -12,7 +12,7 @@ main {
   flex-wrap: nowrap;
   height: 100vh;
   height: -webkit-fill-available;
-  /* max-height: 100vh; */
+  max-height: 100vh;
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -100,7 +100,7 @@ main {
 
 div a {
   display: block;
-  padding: 0.5rem 1rem; 
+  padding: 0.5rem 1rem;
   text-decoration: none;
   transition: color .15s;
   color: beige;
@@ -109,16 +109,15 @@ div a {
 ul li a {
   color: beige;
 }
-a:hover,
-a:focus,
-a:active {
-  color: #ebd0be;
+a:hover{
+  color: black;
 }
 
 nav div{
   text-align: center;
- 
+
 }
+
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
 

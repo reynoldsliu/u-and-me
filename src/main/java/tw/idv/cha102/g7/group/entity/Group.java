@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
 public class Group implements Serializable {
     private static final long serialVersionUID = 2072014924350494700L;
 

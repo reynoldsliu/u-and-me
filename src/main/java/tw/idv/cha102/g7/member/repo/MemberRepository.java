@@ -18,6 +18,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
     // 回傳值應該會是List<Member>，記得更改
     public Member findByMemNameContaining(String memName);
 
-//    @Query(value = "SELECT mem_grade FROM members WHERE mem_id = memId", nativeQuery = true)
+//    @Query(value = "SELECT mem_grade FROM members WHERE mem_id = memId for update", nativeQuery = true)
 //    public Member findMemberLevelById(@Param("memId") Integer memId);
 }

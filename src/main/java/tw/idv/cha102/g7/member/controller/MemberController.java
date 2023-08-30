@@ -1,15 +1,20 @@
 package tw.idv.cha102.g7.member.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.member.controller.exception.InsufficientPointsException;
+import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.member.service.MemberService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 @CrossOrigin
 @RestController
@@ -35,24 +40,36 @@ public class MemberController {
     }
 
 
+
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody Member member) {
+//        String memEmail = member.getMemEmail();
+//        String memPassword = member.getMemPassword();
+//
+//        String loginResult = memberService.login(memEmail, memPassword);
+//        if ("您已登入團主狀態".equals(loginResult)) {
+//            return ResponseEntity.ok("您已登入團主狀態");
+//        } else if ("您已登入會員狀態".equals(loginResult)) {
+//            return ResponseEntity.ok("您已登入會員狀態");
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
+//        }
+//    }
+
     /**
-     * 會員登入(團主登入擇顯示已登入團主狀態)
-     * @param member
+     * 會員登入
+     * @param loginDTO
+     * @param request
+     * @param response
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Member member) {
-        String memEmail = member.getMemEmail();
-        String memPassword = member.getMemPassword();
-
-        String loginResult = memberService.login(memEmail, memPassword);
-        if ("您已登入團主狀態".equals(loginResult)) {
-            return ResponseEntity.ok("您已登入團主狀態");
-        } else if ("您已登入會員狀態".equals(loginResult)) {
-            return ResponseEntity.ok("您已登入會員狀態");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
-        }
+    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO loginDTO,
+                                        HttpServletRequest request,
+                                        HttpServletResponse response
+    ) {
+        memberService.login(loginDTO,request, response);
+        return new ResponseEntity("登入成功",HttpStatus.OK);
     }
 
     /**
@@ -101,15 +118,29 @@ public class MemberController {
      * @return
      */
     @PostMapping("/update")
-
     public ResponseEntity<Member> update(@RequestBody Member member) {
+//        System.out.println(memEmail);
+//        String memEmail = member.getMemEmail();
+//        Member temp = memberRepository.findByMemEmail(memEmail);
+//        member.setMemId(temp.getMemId());
+//        if(member.getMemGender()==null){
+//            member.setMemGender(temp.getMemGender());
+//        }
+//        System.out.println(temp);
         Member updatedMember = memberService.update(member);
+//        Member updatedMember2 = memberRepository.save(temp);
         if (updatedMember != null) {
             return ResponseEntity.ok(updatedMember);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+
+
+
+
+
 
 
 }

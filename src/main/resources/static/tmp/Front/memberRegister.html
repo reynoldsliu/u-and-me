@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:margin-top="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -30,19 +30,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
-                    <li class="nav-item me-4">
+                    <li class="nav-item me-2">
                         <a class="nav-link" href="#">活動資訊</a>
                     </li>
                     </li>
-                    <li class="nav-item me-4">
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="#">景點</a>
+                    </li>
+                    </li>
+                    <li class="nav-item me-2">
                         <a class="nav-link" href="#">行程規劃</a>
                     </li>
                     </li>
-                    <li class="nav-item me-4">
+                    <li class="nav-item me-2">
                         <a class="nav-link" href="#">旅遊商城</a>
                     </li>
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="#">揪團</a>
                     </li>
-                    <li class="nav-item me-4">
+                    <li class="nav-item me-2">
                         <a class="nav-link" href="#">論壇專區</a>
                     </li>
                     </li>
@@ -58,9 +64,8 @@
                             <li><a class="dropdown-item" href="#">聯絡我們</a></li>
                         </ul>
                     </li>
-
+                </ul>
             </div>
-            </ul>
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                 <li class="nav-item">
                     <a class="nav-link" href="#">
@@ -120,7 +125,7 @@
 
 
         <!-- -----content----- -->
-        <div class="containerHead style="margin-top: 150px; style="letter-spacing:.06em;">
+        <div class="containerHead" style="margin-top:150px; letter-spacing:.06em;">
             <div class="row">
                 <div class="col-3"></div>
                 <div class="container-fluid">
@@ -134,34 +139,35 @@
                             </h2>
                         </div>
                         <div class="col-md-3">
-                            <label for="userName" class="form-label">姓名</label>
-                            <input type="email" class="form-control" id="userName">
+                            <label for="memName" class="form-label">姓名</label>
+                            <input type="memName" class="form-control" id="memName">
                         </div>
                         <div class="col-md-3">
-                            <label for="inputPassword4" class="form-label">性別</label>
-                            <select id="inputState" class="form-select">
+                            <label for="memGender" class="form-label">性別</label>
+                            <select id="memGender" class="form-select">
                                 <option selected>請選擇您的性別</option>
                                 <option value="1">男</option>
                                 <option value="2">女</option>
                                 <option value="0">不方便透露</option>
                             </select>
                         </div>
+                    </form>
                 </div>
                 <div class="col-md-">
-                    <label for="inputEmail4" class="form-label">會員帳號<信箱></label>
-                    <input type="email" class="form-control" id="inputEmail4">
+                    <label for="memEmail" class="form-label">會員信箱</label>
+                    <input type="email" class="form-control" id="memEmail">
                 </div>
                 <div class="col-md-6">
-                    <label for="inputPassword" class="form-label">密碼</label>
-                    <input type="password" class="form-control" id="inputPassword">
+                    <label for="memPassword" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="memPassword">
                 </div>
                 <div class="col-md-6">
-                    <label for="inputPhone" class="form-label">電話</label>
-                    <input type="text" class="form-control" id="inputPhone", placeholder="請填寫您的手機號碼">
+                    <label for="memPhone" class="form-label">電話</label>
+                    <input type="text" class="form-control" id="memPhone", placeholder="請填寫您的手機號碼">
                 </div>
                 <div class="col-12">
-                    <label for="inputAddress" class="form-label">地址</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="請填寫您的居住地址">
+                    <label for="memAddr" class="form-label">地址</label>
+                    <input type="text" class="form-control" id="memAddr" placeholder="請填寫您的居住地址">
                 </div>
 
 
@@ -177,8 +183,8 @@
                         </label> -->
                     </div>
                 </div>
-                <div id=regBottom class="registerbottom btn-sm">
-                    <button class="btn" type="button">註冊</button>
+                <div id="reg" class="registerbottom btn-sm">
+                    <button id="regButton" class="btn" type="submit">註冊</button>
                 </div>
 
                 </form>
@@ -221,15 +227,58 @@
             <h5>Follow Us</h5>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2"><a href="#"
-                                             class="nav-link p-0 text-body-secondary">E-mail:u-and-me@gamil.com</a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Tel:02-22222222</a>
+                                             class="nav-link p-0 text-body-secondary">E-mail:u-and-me@gamil.com</a>
                 </li>
-
+                <li class="nav-item mb-2"><a href="#"
+                                             class="nav-link p-0 text-body-secondary">Tel:02-22222222</a>
+                </li>
+            </ul>
         </div>
     </footer>
 </div>
 
-<script src="../js/regesiter.js></script>
+<!--<script src="./dist/js/memberRegister.js"></script>-->
+
 </body>
+<script>
+
+    async function Update(member) {
+      const response = await fetch("http://localhost:8081/u-and-me/member/update", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(member)
+      });
+
+      if (response.ok) {
+          alert("註冊成功");
+      } else {
+          alert("註冊失敗，請再次嘗試");
+      }
+  }
+
+  const regBtn_el = document.getElementById("regButton");
+  regBtn_el.addEventListener("click", function() {
+      const memEmail = document.getElementById("memEmail").value;
+      const memPassword = document.getElementById("memPassword").value;
+      const memName = document.getElementById("memName").value;
+      const memPhone = document.getElementById("memPhone").value;
+      const memAddr = document.getElementById("memAddr").value;
+      const memGender = document.getElementById("memGender").value;
+
+      const member = {
+          "memEmail": memEmail,
+          "memPassword": memPassword,
+          "memName": memName,
+          "memPhone": memPhone,
+          "memAddr": memAddr,
+          "memGender": memGender
+      };
+
+      Register(member);
+  });
+
+</script>
 
 </html>

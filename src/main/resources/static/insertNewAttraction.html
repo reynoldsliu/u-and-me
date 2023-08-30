@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UandMe Online Shopping</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="tmp/Front/dist/css/memberLoginIn.css">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="container2">
+    <!-- -----Header----- -->
+
+    <div class="Header">
+        <nav class="navbar navbar-expand-lg  bg-dark navbar-dark fixed-top">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="img/uandmelogo-removebg-preview.png">
+
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
+                        <li class="nav-item me-4">
+                            <a class="nav-link" href="#">活動資訊</a>
+                        </li>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link" href="#">行程規劃</a>
+                        </li>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link" href="#">旅遊商城</a>
+                        </li>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link" href="#">論壇專區</a>
+                        </li>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">客服專區</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Q&A專欄</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">聯絡我們</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </a>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-person" viewBox="0 0 16 16">
+                                <path
+                                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
+                            </svg>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-cart2" viewBox="0 0 16 16">
+                                <path
+                                        d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                            </svg>
+
+                        </a>
+
+
+                    </li>
+
+
+                </ul>
+
+
+            </div>
+
+
+        </nav>
+    </div>
+</div>
+<div class="container">
+    <!-- -----Bread Crumb----- -->
+    <div>
+        <div class="breadcontainer mb-5">
+            <div class="row">
+                <nav aria-label="breadcrumb sticky" style="margin-top: 150px;">
+                    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item " style="display:inline-block"><a href="#">首頁</a></li>
+                            <li class="breadcrumb-item" style="display:inline-block"><a href="#">Attraction</a>
+                            </li>
+                            <!-- <li class="breadcrumb-item active" aria-current="page" style="display:inline-block">Data</li> -->
+                        </ol>
+                    </nav>
+                </nav>
+            </div>
+        </div>
+
+
+        <!-- -----Content----- -->
+        <div class="content">
+            <section class="vh-100">
+                <div class="container-fluid" style="height: 100%;">
+                    <div class="row" style="height: 95%;">
+                        <!-- The Function Adjust Position -->
+                        <div class="col-12 col-lg-4">
+                            <!-- <img src="https://picsum.photos/300/200?random=10" > -->
+
+                            <!-- ================================GOOGLE API=================================== -->
+                            <div style="height: 100%;background-color: lightblue;">
+
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <!-- <img src="https://picsum.photos/300/200?random=11" > -->
+
+                            <!-- ================================列印出所有景點=================================== -->
+                            <div class="showlist" style="height: 100%;background-color: lightblue;">
+                                <div>
+                                    <button class="findAllAttraction  my-1 mx-1 ms-2">顯示所有景點</button>
+                                </div>
+                                <div class="my-1 mx-1 ms-2">
+                                    <label for="attractionName">查詢景點: </label>
+                                    <input type="text" id="attractionName" placeholder="請輸入景點名稱">
+                                    <!--                                    <button id="loadAttraction">查詢</button>-->
+                                    <button id="loadAttractions">查詢</button>
+                                </div>
+                                <!--                                選擇每頁的資料顯示筆數-->
+                                <label for="pageSize">每頁筆數: </label>
+                                <select id="pageSize">
+                                    <option value="1">1</option>
+                                    <option value="5" selected>5</option>
+                                    <option value="10">10</option>
+                                </select>
+                                頁碼:<input type="number" id="page" min="1" max="1" value="1">
+                                <input type="submit" id="pageChangeSubmit">
+
+                                <!-- ///新增bootstrap表格 -->
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">景點名稱
+                                            <input type="text" id="attrName" value="1">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">景點地址
+                                            <input type="text" id="attrAddr" value="1">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">景點說明
+                                            <input type="text" id="attrIlla" value="1">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">景點類型
+                                            <input type="text" id="attrTypeId" value="1">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">景點花費
+                                            <input type="text" id="attrCostRange" value="1">
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">營業時間
+                                            <input type="text" id="attrBussTime" value="1">
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                                <label for="imageInput"></label>
+                                <input type="file" id="imageInput" accept="image/*" multiple>
+                                <br>
+                                <div id="preview"></div>
+                                <br>
+                                <button id="insertBtn">新增景點</button>
+
+                                <div id="attrTarget"></div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- -----Footer----- -->
+
+<div class=" footer">
+    <div class="container-fluid footer1">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my- border-top">
+            <div class="col mb-3">
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+                <p class="text-body-secondary">&copy; 2023</p>
+            </div>
+
+            <div class="col mb-3">
+
+            </div>
+
+
+            <div class="col mb-3 mx-5">
+                <h5>U&Me</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">活動資訊</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">行程規劃</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">旅遊商城</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">論壇專區</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">客服專區</a></li>
+                </ul>
+            </div>
+
+            <div class="col mb-3 mx-5">
+                <h5>Follow Us</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#"
+                                                 class="nav-link p-0 text-body-secondary">E-mail:u-and-me@gamil.com</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="#"
+                                                 class="nav-link p-0 text-body-secondary">Tel:02-22222222</a>
+
+                </ul>
+                </li>
+
+            </div>
+        </footer>
+    </div>
+</div>
+</div>
+
+<script src="js/jquery-3.7.0.min.js"></script>
+<script src="../js/jquery-3.7.0.min.js"></script>
+<!--<script src="js/selectOneAttrById.js"></script>-->
+
+<script>
+    const imageInput = document.getElementById('imageInput');
+    const preview = document.getElementById('preview');
+
+    imageInput.addEventListener('change', (event) => {
+        preview.innerHTML = '';
+        const files = event.target.files;
+
+        for (const file of files) {
+            const imageURL = URL.createObjectURL(file);
+            const image = new Image();
+            image.src = imageURL;
+            image.style.maxWidth = '100%';
+            preview.appendChild(image);
+        }
+    });
+
+    // const imageInputBtn_el = document.getElementById("imageInputBtn");
+    // imageInputBtn_el.addEventListener('click', async () => {
+    //     // const files = imageInput.files;
+
+    //     // for (const file of files) {
+    //     //     const formData = new FormData();
+    //     //     formData.append('image', file);
+
+    //     //     try {
+    //     //         const response = await fetch('/upload', {
+    //     //             method: 'POST',
+    //     //             body: formData
+    //     //         });
+
+    //     //         if (response.ok) {
+    //     //             // 处理成功上传后的操作
+    //     //             console.log('Image uploaded successfully');
+    //     //         } else {
+    //     //             // 处理上传失败的情况
+    //     //             console.error('Image upload failed');
+    //     //         }
+    //     //     } catch (error) {
+    //     //         console.error('Error uploading image:', error);
+    //     //     }
+    //     // }
+    // });
+
+
+    const insertBtn_el = document.getElementById("insertBtn");
+    insertBtn_el.addEventListener("click", async function () {
+
+        const attr = {
+            attrName: document.getElementById("attrName").value,
+            attrAddr: document.getElementById("attrAddr").value,
+            attrIlla: document.getElementById("attrIlla").value,
+            attrTypeId: document.getElementById("attrTypeId").value,
+            attrCostRange: document.getElementById("attrCostRange").value,
+            attrBussTime: document.getElementById("attrBussTime").value
+        }
+
+        //傳送單一景點參數
+        var response = await fetch('insertNewAttraction/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(attr)
+        });
+        if (!response.ok) {
+            alert("Insertion of attraction failed.");
+            return;
+        }
+
+        var response = await fetch('getAttrByName/' + attr.attrName);
+        res = await response.json();
+        console.log(res.attrId);
+        attr.attrId = res.attrId;
+        //傳送單一景點多筆圖片
+        const files = imageInput.files;
+        console.log("a");
+        for (const file of files) {
+            const formData = new FormData();
+            formData.append('image', file);
+            console.log("b");
+            try {
+                console.log("c");
+                const fileReader = await new FileReader();
+                alert(fileReader);
+                alert(attr.attrId);
+                fileReader.onload = async event => {
+console.log("d");
+                    const base64Str = btoa(event.target.result);
+
+                    const response = await fetch('insertAttrPictures/' + attr.attrId, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({attrPicId:1,
+                                attrId:attr.attrId,
+                               attrPicData:base64Str})
+                    });
+
+                    console.log("e");
+                };
+                fileReader.readAsBinaryString(file);
+
+                if (response.ok) {
+                    // 处理成功上传后的操作
+                    console.log('Image uploaded successfully');
+                } else {
+                    // 处理上传失败的情况
+                    console.error('Image upload failed');
+                }
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+
+    })
+
+
+    $(document).ready(function () {
+        $("#loadAttraction").click(function () {
+
+            var id = $("#attractionId").val();
+            console.log(id);
+            var baseUrl = window.location.protocol + "//" + window.location.host;
+
+            fetch(baseUrl + "/u-and-me/getAttraction/" + id)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Attraction not found!!!");
+                    }
+                    return response.json();
+                })
+                .then(attr => {
+                    const attr_el = document.getElementById("attrTarget");
+                    //document.getElementById("id").textContent = data.attrId;
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
+                <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
+                <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
+                <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
+                <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
+                <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
+                <td>
+                 <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                  </svg>
+                  </button>
+                </td>
+            `;
+                    attr_el.insertAdjacentElement('beforeend', row);
+                    // You can continue to populate other attributes here
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+
+
+            //   $.ajax寫法
+            // < !--$.ajax({-- >
+            // < !--url: baseUrl + "getAttraction/" + id, -->
+            // < !--method: "GET", -->
+            // < !--dataType: "json", -->
+            // < !--success: function (data) {
+            //             -->
+            // < !--$("#id").text(JSON.stringify(data)); -->
+            // < !--                    // You can continue to populate other attributes here-->
+            // < !--                }, -->
+            // < !--error: function () {
+            //             -->
+            // < !--alert("Attraction not found"); -->
+            // < !--                }-- >
+
+        });
+    });
+
+    $(".findAllAttraction").click(async function () {
+        var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        try {
+            const response = await fetch('getAllAttr');
+            console.log(response);
+            const attrList = await response.json();
+            console.log(attrList);
+            const listStart_el = document.querySelector("#attrTarget");
+            let countNum = 0;
+            attrList.forEach(attr => {
+                const row = document.createElement("tr");
+                // attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr,
+                // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
+                // 1	1	1	Attraction 1	123 Main St	12.345	67.89
+                // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
+                row.innerHTML = `
+                <td style="text-align: center;vertical-align: middle;">${++countNum}</td>
+                <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
+                <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
+                <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
+                <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
+                <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
+                <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
+                <td>
+                 <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                  </svg>
+                  </button>
+                </td>
+            `;
+                listStart_el.insertAdjacentElement('beforeend', row);
+
+            });
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+
+    //透過名稱找出所有包含關鍵字的景點
+    var page;
+    $("#loadAttractions").click(function () {
+        searchAttraction();
+    });
+
+    $("#page").change(function () {
+        $("#pageChangeSubmit").click(function () {
+            searchAttraction();
+        });
+    });
+
+    async function searchAttraction() {
+        const container = document.getElementById("attrTarget"); // 替换 "container" 为您的容器元素的 ID
+        const elementToDelete = document.getElementById("elementToDelete"); // 替换 "elementToDelete" 为要保留的特定元素的 ID
+
+        // 遍历容器中的所有子元素并删除除特定元素外的所有元素
+        const childElements = container.children;
+        for (let i = childElements.length - 1; i >= 0; i--) {
+            const child = childElements[i];
+            if (child !== elementToDelete) {
+                container.removeChild(child);
+            }
+        }
+
+        var baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        var attrName = $("#attractionName").val();
+        var pageSize = $("#pageSize").val();
+        const page_el = $("#page");
+        page = $("#page").val() - 1;//校正頁數與Pageable的差
+
+        try {
+            ///attr/{attrName}/{pageSize}/{page}
+            //可簡化
+            var response = await fetch('getAttrsByName/' + attrName);
+            var attrList = await response.json();
+            page_el.max = attrList.length / pageSize + 1;
+            console.log(page_el.max);
+            response = await fetch('attr/' + attrName + '/' + pageSize + '/' + page);
+            attrList = await response.json();
+            console.log(attrList);
+            const listStart_el = document.querySelector("#attrTarget");
+            let countNum = page * pageSize;
+            attrList.forEach(attr => {
+                const row = document.createElement("tr");
+                // attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr,
+                // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
+                // 1	1	1	Attraction 1	123 Main St	12.345	67.89
+                // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
+                row.innerHTML = `
+                <td >${++countNum}</td>
+                <td >${attr.attrName}</td>
+                <td >${attr.attrAddr}</td>
+                <td >${attr.attrIlla}</td>
+                <td >${attr.attrTypeId}</td>
+                <td >${attr.attrCostRange}</td>
+                <td >${attr.attrBussTime}</td>
+                <td>
+                 <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                  <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                  </svg>
+                  </button>
+                </td>
+            `;
+                listStart_el.insertAdjacentElement('beforeend', row);
+
+            });
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
+    }
+
+    function redirectToDetailPage(attrId) {
+        var newPageUrl = `AttractionDetails.html?attrId=${attrId}`;
+        window.location.href = newPageUrl;
+    }
+
+
+</script>
+
+</body>
+
+</html>

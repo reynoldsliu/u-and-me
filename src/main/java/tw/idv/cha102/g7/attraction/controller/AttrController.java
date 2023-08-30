@@ -1,19 +1,18 @@
 package tw.idv.cha102.g7.attraction.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
+import tw.idv.cha102.g7.attraction.dto.AttrPictureDTO;
+import tw.idv.cha102.g7.attraction.entity.AttrPicture;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
+import tw.idv.cha102.g7.attraction.service.AttrPictureService;
 import tw.idv.cha102.g7.attraction.service.AttrService;
 
 import javax.servlet.RequestDispatcher;
@@ -22,23 +21,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.member.service.MemberService;
 
 @RestController
 //@RequestMapping("/attr")
 public class AttrController {
-
     @Autowired
     private AttrService attrService;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private AttrPictureService attrPictureService;
+    @Autowired
+    private AttrCollectionService attrCollectionService;
 
-
+    /**
+     * 導向首頁
+     * @param model
+     * @return String 首頁HTML名稱 不含附檔名
+     */
     //Spring MVC html轉向寫法
     @GetMapping("/index")
     public String thymeleafExample(Model model) {
@@ -47,25 +51,26 @@ public class AttrController {
         return "index";
     }
 
-//    @RequestMapping("/AttractionPage")
-//    public void AttractionPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//        String url = "/AttractionPage";
-//
-//
-//        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-//        successView.forward(req, res);
-//
-//    }
-
-//    @Autowired
-//    private ResourceLoader resourceLoader;
-
+    /**
+     * 導向地圖頁面
+     * @param req
+     * @param res
+     * @throws ServletException
+     * @throws IOException
+     */
     @RequestMapping("/AttractionPage")
     public void AttractionPage(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException {
         String redirectUrl = "AttractionPage.html"; // 設定要重定向的目標 URL
         res.sendRedirect(redirectUrl);
     }
 
+    /**
+     * 導向景點查詢頁面
+     * @param req
+     * @param res
+     * @throws ServletException
+     * @throws IOException
+     */
     @RequestMapping("/listAllAttraction")
     public void listAllAttraction(HttpServletRequest req,HttpServletResponse res) throws ServletException, IOException {
         String redirectUrl = "listAllAttraction.html"; // 設定要重定向的目標 URL
@@ -73,49 +78,10 @@ public class AttrController {
         res.sendRedirect(redirectUrl);
     }
 
-//    @GetMapping("/AttractionPage")
-//    public ResponseEntity<String> AttractionPage(HttpServletResponse res) throws IOException {
-//        String url = "{\"redirect\": \"AttractionPage.html\"}";
-//        System.out.println("printprintprintprint"+ResponseEntity.ok(url));
-//        return ResponseEntity.ok(url);
-//         //res.sendRedirect("AttractionPage");
-//    }
-
-
-        @GetMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("pageTitle", "Thymeleaf Example");
-        model.addAttribute("message", "Hello, Thymeleaf!");
-        return "register";
-    }
-
-//    @GetMapping("/login2")
-//    public String loginExample(Model model) {
-//        model.addAttribute("pageTitle", "Login2 Example");
-//        model.addAttribute("message", "Hello, Login2!");
-//        return "login2";
-//    }
-
-
     @RequestMapping("/getAttr")
     public Attraction getAttr(@RequestParam Integer attrId) {
         return attrService.getById(attrId);
     }
-
-
-//    @RequestMapping("/getOneAttr")
-//    public void getOneAttr(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//
-//        String url = "/jsp/getOneAttr.jsp";
-//
-//        Attraction attraction = attrService.getById(1);
-//        HttpSession session = req.getSession();
-//        session.setAttribute("attraction", attraction);
-//
-//        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-//        successView.forward(req, res);
-//    }
-
 
     //Spring MVC html轉向寫法
     @RequestMapping("/getAllAttr")
@@ -123,6 +89,11 @@ public class AttrController {
         List<Attraction> attraction = attrService.getAll();
 //        model.addAttribute("attractions", attraction);
         return attraction;
+    }
+
+    @RequestMapping("/getAttrByName/{attrName}")
+    public Attraction getAttrByName(@PathVariable String attrName){
+        return attrService.getAttrByName(attrName);
     }
 
     @RequestMapping("/getAttrsByName/{attrName}")
@@ -145,19 +116,48 @@ public class AttrController {
         return pageResult.getContent();
     }
 
-    @PostMapping("/getNumOfResult")
-    public Integer getNumOfResult(@RequestBody List<Attraction> attrList){
-        int count = 0;
-//        List<Attraction> list = attrList;
-        for(Attraction attr:attrList){
-            if(attrList.size()==0){
-                return count;
-            }
-            attrList.remove(attr);
-            count++;
-        }
-        return 0;
+    @RequestMapping("/insertNewAttraction")
+    public ResponseEntity<Attraction> insertNewAttraction(@RequestBody Attraction attraction){
+        return attrService.insertNewAttraction(attraction);
     }
+
+    @RequestMapping("/insertAttrPictures/{attrId}")
+    public ResponseEntity<AttrPictureDTO> insertAttrPictures(@PathVariable Integer attrId,
+                                                             @RequestBody AttrPicture pictures){
+        System.out.println("IN controller");
+        AttrPicture attrPicture = new AttrPicture();
+//        for(String pic:pictures){
+//            attrPictureDTO.setAttrId(attrId);
+//            attrPictureDTO.setAttrPicData(pic);
+//            attrPictureService.insertPictures(attrPictureDTO);
+//        }
+        System.out.println(pictures);
+        attrPicture.setAttrId(attrId);
+        attrPicture.setAttrPicData(pictures.getAttrPicData());
+        attrPictureService.insertPictures(attrPicture);
+        return new ResponseEntity(attrPictureService.insertPictures(attrPicture), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/delAttrPics/{attrPicId}", method = {RequestMethod.POST, RequestMethod.GET})
+    public String delAttrPics(@PathVariable Integer attrPicId){
+        try{
+            attrPictureService.delPicByAttrPicId(attrPicId);
+        }catch(Exception e){
+            return "Failed to delete the picture. ";
+        }
+        return "Picture deleted";
+    }
+
+    @RequestMapping(value = "/getAttrPics/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
+    public String getAttrPics(@PathVariable Integer attrId){
+        return attrPictureService.getPicsByAttrId(attrId);
+    }
+
+    @RequestMapping(value = "/getAttrPics/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
+    public String updateAttr(){
+
+    }
+
 
 
     //SERVLET 轉向寫法
@@ -172,36 +172,6 @@ public class AttrController {
 //        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 //        successView.forward(req, res);
 //    }
-
-    @RequestMapping("/hello")
-    public void hello(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        String url = "/jsp/hello.jsp";
-
-        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-        successView.forward(req, res);
-
-    }
-
-//    @RequestMapping("/index")
-//    public void ajax(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//        String url = "/jsp/index.jsp";
-//
-//        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-//        successView.forward(req, res);
-//    }
-
-//    @RequestMapping("/yt")
-//    public void showYtPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//        String url = "/jsp/yt_layout.jsp";
-//        RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-//        successView.forward(req, res);
-//    }
-
-    @RequestMapping("/yt")
-    public String goto_yt(Model model) {
-
-        return "yt_layout";
-    }
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -222,32 +192,6 @@ public class AttrController {
 
         return attraction;
     }
-
-    @RequestMapping("/bootstrap12")
-    public String goto_bootstrap12(Model model) {
-
-        return "bootstrap12";
-    }
-
-    @GetMapping("/getAttraction/{id}")
-    public String getAttractionById(@PathVariable Integer id) throws JsonProcessingException {
-        Attraction attraction = attrService.getById(id);
-        System.out.println("in");
-        System.out.println(attraction);
-        if (attraction != null) {
-            String attractionJson = JSONObject.toJSONString(attraction);
-//            JSONObject.
-            return attractionJson;
-//            writePojo2Json(ResponseEntity<attraction>,attraction);
-//
-//            return ResponseEntity.ok(attraction.toString());
-        } else {
-            return null;
-        }
-    }
-
-    @Autowired
-    private AttrCollectionService attrCollectionService;
 
     @GetMapping("/getCollectionAttrsByMemId/{memId}")
     public List<AttrCollectionDTO> getCollectionAttrsByMemId(@PathVariable Integer memId) {

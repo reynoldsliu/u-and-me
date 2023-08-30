@@ -3,6 +3,7 @@ package tw.idv.cha102.g7.schedule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.group.entity.Group;
@@ -16,6 +17,7 @@ import tw.idv.cha102.g7.schedule.service.ScheduleService;
 import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -24,12 +26,13 @@ public class ScheduleServiceImpl implements ScheduleService {
     private ScheduleRepository repository;
 
     @Override
-    public List<Schedule> getAllPaged(int page, int size) {
+    public List<Schedule> findAllPublicPaged(int page, int size) {
         List<Schedule> publicSche = repository.findAllPublic();
         int startIndex = page * size;
         int endIndex = Math.min(startIndex + size, publicSche.size());
 
         List<Schedule> pagedPublicSchedules = publicSche.subList(startIndex, endIndex);
+        return pagedPublicSchedules;
 //
 //        Page<Schedule> pageResult = repository.findAll(
 //                PageRequest.of(page, //查詢的頁數 從0開始
@@ -42,7 +45,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 //        pageResult.getSize(); //每頁筆數
 //        pageResult.getTotalElements(); //全部筆數
 //        pageResult.getTotalPages(); //全部頁數
-        return pagedPublicSchedules;
+
     }
 
     @Override
@@ -51,8 +54,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<Schedule> findBySchName(String schName) {
-        return repository.findBySchName(schName);
+    public Stream<Schedule> findBySchNamePaged(String schName, int page) {
+//        Sort sort = Sort.by(Sort.Direction.DESC,"sch_start");　　// 已經在SQL時經過排序
+        Pageable pageable = PageRequest.of(page,6);
+        return repository.findBySchName(schName,pageable).get();
     }
 
     @Override
@@ -61,8 +66,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<ScheduleDayDTO> findByDays() {
-        return repository.findByDays();
+    public Stream<ScheduleDayDTO> findOrderByDays(int page) {
+        Pageable pageable = PageRequest.of(page,6);
+        return repository.findOrderByDays(pageable).get();
     }
 
 

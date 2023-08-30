@@ -2,10 +2,7 @@ package tw.idv.cha102.g7.group.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
-import tw.idv.cha102.g7.group.dto.GroupListDto;
-import tw.idv.cha102.g7.group.dto.GroupRegFormDto;
-import tw.idv.cha102.g7.group.dto.MyGroupListDto;
+import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 
 import java.util.List;
@@ -40,4 +37,6 @@ public interface GroupService {
     Stream<GroupListDto> findGroupListByGroupSta(Integer groupSta, Integer page);
 
     Stream<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Integer page);
+
+//    UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
 }

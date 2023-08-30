@@ -1,7 +1,6 @@
 package tw.idv.cha102.g7.shop.service;
 
 import tw.idv.cha102.g7.shop.entity.CartList;
-import tw.idv.cha102.g7.shop.entity.Order;
 
 import java.util.List;
 

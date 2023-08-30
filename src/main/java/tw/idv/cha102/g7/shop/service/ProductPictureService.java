@@ -7,7 +7,7 @@ public interface ProductPictureService {
 
     void deleteProductPictureByProdId(Integer prodId);
 
-    public void insert(ProductPicture productPicture);
+    public ProductPicture insert(ProductPicture productPicture);
 
 
 }

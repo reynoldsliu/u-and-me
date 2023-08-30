@@ -2,7 +2,6 @@
 //當頁面讀取後開始偵測function
 window.addEventListener("load", function (e) {
 
-
     const memId_el = document.getElementById("memId");
     const schId_el = document.getElementById("schId");
     const minMember_el = document.getElementById("minMember");
@@ -15,12 +14,8 @@ window.addEventListener("load", function (e) {
     const notice_el = document.getElementById("notice");
     const btn_submit_el = document.getElementById("btn_submit");
 
-
-    
-
-
-    //圖片傳送流程12345
-    //1. 從<input>取得File物件
+    //圖片傳送後端流程12345
+    //1. 取得File物件
     const cover_el = document.getElementById("cover");
 
 
@@ -48,7 +43,6 @@ window.addEventListener("load", function (e) {
         //2. 實例化FileReader物件
         const fileReader = new FileReader();
 
-        
         //3. 替FileReader物件 註冊 載入監聽器
         fileReader.onload = async event => {
             //4. 轉成Base64字串
@@ -83,9 +77,3 @@ window.addEventListener("load", function (e) {
 
     
 });
-
-
-
-// =================日歷用js===================
-
-// =================日歷用js===================

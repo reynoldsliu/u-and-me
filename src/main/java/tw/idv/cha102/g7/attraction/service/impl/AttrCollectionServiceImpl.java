@@ -16,17 +16,12 @@ import java.util.List;
 
 @Component
 public class AttrCollectionServiceImpl implements AttrCollectionService {
-
-
     @Autowired
     private AttrCollectionRepository attrCollectionRepository;
-
     @Autowired
     private AttrRepository attrRepository;
-
     @Autowired
     private MemberRepository memberRepository;
-
     @Autowired
     private AttrService attrService;
 
@@ -50,7 +45,7 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
 
     /**
      * 先查詢有無此會員，以及有無此景點，
-     * 若皆有則新增或更新已有的收藏
+     * 若皆有則刪除已有的收藏
      * @param attrCollectionId
      * @return String "success" or "failed"
      */
@@ -66,7 +61,7 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
     }
 
     /**
-     * 透過會員標號，找出該會員的所有景點收藏
+     * 透過會員編號，找出該會員的所有景點收藏
      * @param memId
      * @return List<AttrCollectionDTO>
      */

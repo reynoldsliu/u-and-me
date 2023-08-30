@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>發起揪團</title>
+    <title>揪團更新</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>UandMe Online Shopping</title>
@@ -123,9 +123,9 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item " style="display:inline-block"><a href="#">首頁</a></li>
                                     <li class="breadcrumb-item" style="display:inline-block"><a
-                                            href="http://127.0.0.1:5501/tmp/Front/UandMeGroupList.html">揪團</a>
+                                            href="http://127.0.0.1:5501/tmp/Front/myeGroupList.html">我的揪團</a>
                                     <li class="breadcrumb-item" style="display:inline-block"><a
-                                            href="http://127.0.0.1:5501/tmp/Front/UandMeGroupListInsert.html">發起揪團</a>
+                                            href="http://127.0.0.1:5501/tmp/Front/myGroupListUpdate.html">揪團更新</a>
                                     </li>
                                     <!-- <li class="breadcrumb-item active" aria-current="page" style="display:inline-block">Data</li> -->
                                 </ol>
@@ -140,18 +140,10 @@
                         <form class="row g-3">
                             <div class="container_heading">
                                 <h2>
-                                    <span class="container_heading_main text-center">發起揪團</span>
+                                    <span class="container_heading_main text-center">揪團更新</span>
 
 
                                 </h2>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputMemId" class="form-label">會員ID</label>
-                                <input type="text" class="form-control" id="memId">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="inputSchId" class="form-label">行程ID</label>
-                                <input type="text" class="form-control" id="schId">
                             </div>
                             <!-- <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">性別</label>
@@ -221,12 +213,12 @@
                             <div class="mb-3">
                                 <label for="inputGroupDesc" class="form-label">揪團描述</label>
                                 <textarea class="form-control" id="groupDesc" rows="3" ,
-                                    placeholder="最多200字"></textarea>
+                                    placeholder="最多200字" style="resize:none;height:150px;"></textarea>
                             </div>
 
                             <div class="mb-3">
-                                <label for="inputNotice" class="form-label">行通知</label>
-                                <textarea class="form-control" id="notice" rows="3" , placeholder="最多500字"></textarea>
+                                <label for="inputNotice" class="form-label">行前通知</label>
+                                <textarea class="form-control" id="notice" rows="3" , placeholder="最多500字" style="resize:none;height:500px;"></textarea>
                             </div>
 
                             <div class="mb-3">
@@ -235,9 +227,8 @@
                                 <input class="form-control" type="file" id="cover"
                                     accept="image/gif, image/jpeg, image/png">
                             </div>
-
                             <img id="cover_img" src="./dist/img/groupInsertPreview.jpg"
-                                style="height: 270.4px; width: 180.19; border: 1px solid beige;" />
+                                style="height: 300px; width: 450px; border: 1px solid beige; display:block; margin:auto;" />
 
                             <div class="col-12">
                                 <div class="form-check">

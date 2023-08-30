@@ -16,4 +16,6 @@ public interface AttrRepository extends JpaRepository<Attraction, Integer> {
     //TRY PAGEABLE
     public Page<Attraction> findAllByAttrNameContaining(String attrName, Pageable pageable);
 
+    public Attraction findByAttrName(String attrName);
+
 }

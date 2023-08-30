@@ -1,10 +1,7 @@
 package tw.idv.cha102.g7.schedule.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
 import tw.idv.cha102.g7.schedule.service.ScheduleDetailService;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
@@ -13,8 +10,9 @@ import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 import java.util.List;
 
 // 查看行程詳情
+@CrossOrigin
 @RestController
-@RequestMapping("/schedules/details")
+@RequestMapping("/schDetails")
 public class ScheduleDetailController {
 
     @Autowired

@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function fetchGroupList(e) {
     try {
         // await : await必須放在任何基於promise的函數之前，等到獲得resolve的資料後，再執行後續動作
-        const response = await fetch('http://localhost:8080/u-and-me/groupsList/0/' + e);
+        let response = await fetch('http://localhost:8080/u-and-me/groupsList/0/' + e);
 
         //response.json()：把資料轉成JSON格式
         const groupsList = await response.json();
@@ -68,7 +68,6 @@ async function fetchGroupList(e) {
         //把資料清空
         const groupListInner_el = document.getElementById("groupListInner");
         groupListInner_el.innerHTML = "";
-
 
         groupsList.forEach(group => {
 
@@ -147,6 +146,13 @@ async function fetchGroupList(e) {
 
 
 //=============== 原本寫死的 =================
+
+// 網頁載入後執行
+// document.addEventListener("DOMContentLoaded", function () {
+    
+//     fetchGroupList(e);
+// });
+
 //async : async function 宣告一個非同步函式，可以告訴function在最後回傳一個promise。
 // async function fetchGroupList(e) {
 //     try {

@@ -50,10 +50,11 @@ public class ProductServiceImpl implements ProductService {
 
 
         List<ProductPicture> pplist = productDTO.getProductPictures();
-
-        for (ProductPicture pp : pplist) {
-            productPictureRepository.save(pp);
-        }
+            if(pplist != null) {
+                for (ProductPicture pp : pplist) {
+                    productPictureRepository.save(pp);
+                }
+            }
         //
         //
         //

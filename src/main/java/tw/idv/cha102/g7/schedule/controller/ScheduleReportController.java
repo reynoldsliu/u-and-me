@@ -11,8 +11,9 @@ import tw.idv.cha102.g7.schedule.service.ScheduleReportService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/scheduleRep")
+@RequestMapping("/schRep")
 public class ScheduleReportController {
 
     @Autowired
@@ -42,25 +43,32 @@ public class ScheduleReportController {
 
     /**
      * 管理員
-     * 查詢檢舉處理情形
-     * @param SchRepSta 檢舉狀態
-     * SchRepSta 檢舉狀態
-     * 0: 審核中,
-     * 1: 已處理,
-     * 2: 已撤銷
-     */
-
-
-    /**
-     * 管理員
      * 查詢所有被檢舉的行程
      * @return 返回查詢結果
      */
-    @GetMapping("/")
+    @GetMapping
     public List<ScheduleReport> getAll() {
         List<ScheduleReport> list = reportService.findAll();
         return list;
     }
+
+    /**
+     * 管理員
+     * 依照檢舉處理情形查詢檢舉清單
+     * @param schRepSta 檢舉狀態
+     * schRepSta 檢舉狀態
+     * 0: 審核中,
+     * 1: 已處理,
+     * 2: 已撤銷
+     * @return 返回查詢結果
+     */
+    @GetMapping("/status/{schRepSta}")
+    public List<ScheduleReport> findByStatus(Short schRepSta){
+        List<ScheduleReport> list = reportService.findAll();
+        return list;
+    }
+
+
 
     /**
      * 管理員
@@ -82,7 +90,7 @@ public class ScheduleReportController {
      * 管理員
      * 修改檢舉處理狀態
      * @param schReport 變更的檢舉處理(內含修改的檢舉處理狀態、檢舉處理的管理員ID等等)
-     * SchRepSta 檢舉狀態
+     * schRepSta 檢舉狀態
      * 0: 審核中,
      * 1: 已處理,
      * 2: 已撤銷

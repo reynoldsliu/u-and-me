@@ -18,13 +18,8 @@ public class HostToMemberServiceImpl implements HostToMemberService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public static String TWID_REGEX = "^[A-Z][12]\\d{8}$";
 
-    public static boolean isValidTWID(String memIdcard) {
-        Pattern pattern = Pattern.compile(TWID_REGEX);
-        Matcher matcher = pattern.matcher(memIdcard);
-        return matcher.matches();
-    }
+
     @Override
     public String setMemberStatus(String memEmail, Integer sta) {
         Member choiceMember = memberRepository.findByMemEmail(memEmail);
