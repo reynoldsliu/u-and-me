@@ -153,10 +153,10 @@ public class AttrController {
         return attrPictureService.getPicsByAttrId(attrId);
     }
 
-    @RequestMapping(value = "/getAttrPics/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
-    public String updateAttr(){
-
-    }
+//    @RequestMapping(value = "/getAttrPics/{attrId}", method = {RequestMethod.POST, RequestMethod.GET})
+//    public String updateAttr(){
+//
+//    }
 
 
 

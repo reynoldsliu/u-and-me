@@ -3,7 +3,6 @@ package tw.idv.cha102.g7.schedule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleReport;
 import tw.idv.cha102.g7.schedule.repo.ScheduleReportRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;

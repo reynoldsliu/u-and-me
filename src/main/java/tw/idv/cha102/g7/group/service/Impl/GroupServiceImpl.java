@@ -26,11 +26,25 @@ public class GroupServiceImpl implements GroupService {
     }
 
     public void update(Integer groupId, Group group) {
-        if (getGroupByGroupId(groupId) != null) {
-            group.setGroupId(groupId);
-            groupRepository.save(group);
-        } else {
-            throw new RuntimeException();
+        var existGroup = groupRepository.findById(groupId);
+        if(existGroup.isPresent()){
+            existGroup.get().setGroupId(groupId);
+            groupRepository.save(existGroup.get());
+        }
+    }
+
+    @Override
+    public void updateMyGroupByGroupId(Integer groupId, UpdateMyGroupDto updateMyGroupDto) {
+        var existGroup = groupRepository.findById(groupId);
+        if(existGroup.isPresent()){
+            existGroup.get().setMinMember(updateMyGroupDto.getMin_Member());
+            existGroup.get().setMaxMember(updateMyGroupDto.getMax_Member());
+            existGroup.get().setTheme(updateMyGroupDto.getTheme());
+            existGroup.get().setDepDate(updateMyGroupDto.getDep_Date());
+            existGroup.get().setDeadline(updateMyGroupDto.getDeadline());
+            existGroup.get().setGroupDesc(updateMyGroupDto.getGroup_Desc());
+            existGroup.get().setNotice(updateMyGroupDto.getNotice());
+            existGroup.get().setGroupDesc(updateMyGroupDto.getGroup_Desc());
         }
     }
 

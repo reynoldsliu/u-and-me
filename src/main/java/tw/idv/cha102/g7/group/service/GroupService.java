@@ -13,6 +13,8 @@ public interface GroupService {
 
     void update(Integer groupId, Group group);
 
+    void updateMyGroupByGroupId(Integer groupId, UpdateMyGroupDto updateMyGroupDto);
+
     void delete(Integer groupId);
 
     Group getGroupByGroupId(Integer groupId);
