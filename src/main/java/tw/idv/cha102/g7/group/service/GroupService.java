@@ -13,7 +13,7 @@ public interface GroupService {
 
     void update(Integer groupId, Group group);
 
-    void updateMyGroupByGroupId(Integer groupId, UpdateMyGroupDto updateMyGroupDto);
+    void updateMyGroupByGroupId(Integer groupId, Group group);
 
     void delete(Integer groupId);
 
@@ -40,5 +40,5 @@ public interface GroupService {
 
     Stream<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Integer page);
 
-//    UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
+    UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
 }
