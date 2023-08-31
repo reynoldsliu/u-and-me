@@ -34,4 +34,6 @@ public interface AttrService {
 
     public ResponseEntity<Attraction> updateAttrByAttrId(Integer attrId, Attraction attraction);
 
+    public ResponseEntity<String> deleteAttrByAttrId(Integer attrId);
+
 }

@@ -20,7 +20,7 @@ import java.util.List;
 public class Product {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prod_id")
     private Integer prodId;
     @Column(name = "prodcat_id")
@@ -37,5 +37,8 @@ public class Product {
     private Short prodSta;
     @Column(name = "prod_spec")
     private String prodSpec;
+
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+//    private List<ProductPicture> productPictures;
 
 }

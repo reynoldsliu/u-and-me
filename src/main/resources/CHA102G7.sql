@@ -362,6 +362,7 @@ VALUES
   (3, 9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', 2, '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
   (3, 10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', 1, '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
  
+ select * from private_attraction;
 
 -- create table members(
 -- mem_id int primary key,
@@ -392,7 +393,7 @@ insert into attraction_collections(attr_id, mem_id, attr_col_illa)
 values
 (1,1,"第一個會員的第一筆收藏");
 
--- select * from attraction_collections;
+select * from attraction_collections;
 -- drop table attraction_collections;
 
 -- drop table attraction_pictures;

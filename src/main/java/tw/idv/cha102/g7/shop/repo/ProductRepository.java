@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
 import tw.idv.cha102.g7.shop.entity.Product;
 
@@ -17,5 +18,7 @@ import java.util.Map;
 //資料訪問層:對資料庫做增刪改查等操作<自定義的類別,PK的型別>
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+    public Product findByProdName(String prodName);
 
 }

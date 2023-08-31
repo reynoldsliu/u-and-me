@@ -22,12 +22,12 @@ public interface ActivityService {
     // 刪除活動byId  // (需要一個Entity作為引數，而不是一個整數id)
     void deleteById(Integer activId);
 
-    // 更新活動  // 不為空值要有值
-    void updateById(Integer activId, Activity activity);
 
+    void updateById(Integer activId, Activity activity);
 
     public List<Activity> findAllActivity();
 
     public List<Activity> getRandomActivity(int count);
+
 
 }

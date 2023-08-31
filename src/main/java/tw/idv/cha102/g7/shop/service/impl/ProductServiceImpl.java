@@ -2,6 +2,7 @@ package tw.idv.cha102.g7.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
 import tw.idv.cha102.g7.shop.entity.Product;
 import tw.idv.cha102.g7.shop.entity.ProductPicture;
@@ -26,8 +27,11 @@ public class ProductServiceImpl implements ProductService {
 
     //    把insert進來的物件用productRepository的save方法存在product中
     @Override
-    public void insert(Product product) {
-        productRepository.save(product);
+    public Integer insert(Product product) {
+        Product product1 = productRepository.save(product);
+        Integer prodId = product1.getProdId();
+//        System.out.println(id);
+        return prodId;
     }
 
     // 刪除單筆商品
@@ -82,32 +86,80 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> listAll() {
         //找出全部商品
-        List<Product> prodList = productRepository.findAll();
+//        List<Product> prodList = productRepository.findAll();
+//        List<ProductDTO> productDTOS = new ArrayList<>();
+
+//        for (Product product : prodList) {
+//            Integer prodId = product.getProdId();
+//            List<ProductPicture> pp = product.getProductPictures();
+//
+//            ProductDTO productDTO = new ProductDTO(
+//                    prodId,
+//                    product.getProdCatId(),
+//                    product.getProdName(),
+//                    product.getProdCon(),
+//                    product.getProdPri(),
+//                    product.getProdSta(),
+//                    pp
+//            );
+//
+//            productDTOS.add(productDTO);
+//            }
+//
+//            return productDTOS;
+
+
+        List<Product> productList = productRepository.findAll();
+
         List<ProductDTO> productDTOS = new ArrayList<>();
 
-        //找出全部照片並對應prodId
-        List<ProductPicture> pp = new ArrayList<>();
-        //從prodList裡面一個一個拿出放到product，再取得prodId，再從PPR裡找照片對應的prodId
-        for (Product product : prodList) {
-            Integer prodId = product.getProdId();
-            pp = productPictureRepository.findByProdId(prodId);
-            Integer prodCatId = product.getProdCatId();
-            String prodName = product.getProdName();
-            String prodCon = product.getProdCon();
-            Integer prodPri = product.getProdPri();
-            Short prodSta = product.getProdSta();
-
-            //Object[]是ProductDTO的型態
-            Object[] objects = {prodId, prodCatId, prodName, prodCon, prodPri, prodSta, pp};
-            //productDTO代表每一列商品清單
-            ProductDTO productDTO = new ProductDTO(objects);
-            //把每一列商品清單放進productDTOS
-            productDTOS.add(productDTO);
+        for(Product p : productList){
+            Integer prodId = p.getProdId();
+            List<ProductPicture> productPictures = productPictureRepository.findByProdId(prodId);
+            Object[] objects = {p.getProdId(),
+                                p.getProdCatId(),
+                                p.getProdName(),
+                                p.getProdCon(),
+                                p.getProdPri(),
+                                p.getProdSta(),
+                                productPictures};
+            ProductDTO dto = new ProductDTO(objects);
+            productDTOS.add(dto);
         }
         return productDTOS;
+
+
+
+
+        //找出全部照片並對應prodId
+//        List<ProductPicture> pp = new ArrayList<>();
+//        //從prodList裡面一個一個拿出放到product，再取得prodId，再從PPR裡找照片對應的prodId
+//        for (Product product : prodList) {
+//            Integer prodId = product.getProdId();
+//            pp = productPictureRepository.findByProdId(prodId);
+//            Integer prodCatId = product.getProdCatId();
+//            String prodName = product.getProdName();
+//            String prodCon = product.getProdCon();
+//            Integer prodPri = product.getProdPri();
+//            Short prodSta = product.getProdSta();
+//
+//            //Object[]是ProductDTO的型態
+//            Object[] objects = {prodId, prodCatId, prodName, prodCon, prodPri, prodSta, pp};
+//            //productDTO代表每一列商品清單
+//            ProductDTO productDTO = new ProductDTO(objects);
+//            //把每一列商品清單放進productDTOS
+//            productDTOS.add(productDTO);
+//        }
+//        return productDTOS;
     }
 
+    @Override
+    public Product getProductByName(String prodName) {
+        return productRepository.findByProdName(prodName);
+    }
 }
+
+
 
 
 //是否return是看自己定義，
