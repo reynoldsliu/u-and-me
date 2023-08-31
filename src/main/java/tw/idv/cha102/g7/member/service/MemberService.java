@@ -34,9 +34,9 @@ public interface MemberService {
 
     public Member getMemByMemId(Integer memId);
 
-//    public Member getMemberByEmail(String memEmail);
+//    public Member sendEmailVerify(Member member);
 
-//    public void usePoints(Integer memId, int pointsToUse);
+
     }
 
 

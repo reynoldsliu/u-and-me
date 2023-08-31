@@ -15,6 +15,7 @@ import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
 import java.sql.Date;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -56,8 +57,8 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public Stream<Schedule> findBySchNamePaged(String schName, int page) {
 //        Sort sort = Sort.by(Sort.Direction.DESC,"sch_start");　　// 已經在SQL時經過排序
-        Pageable pageable = PageRequest.of(page,6);
-        return repository.findBySchName(schName,pageable).get();
+        Pageable pageable = PageRequest.of(page, 6);
+        return repository.findBySchName(schName, pageable).get();
     }
 
     @Override
@@ -67,7 +68,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Stream<ScheduleDayDTO> findOrderByDays(int page) {
-        Pageable pageable = PageRequest.of(page,6);
+        Pageable pageable = PageRequest.of(page, 6);
         return repository.findOrderByDays(pageable).get();
     }
 
@@ -109,9 +110,10 @@ public class ScheduleServiceImpl implements ScheduleService {
      */
 
     @Override
-    public List<Schedule> getAllByMemId(Integer memId) {
-        List<Schedule> schedules = repository.findByMemId(memId);
-        return schedules;
+    public Stream<Schedule> getAllByMemId(Integer memId, int page) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "sch_start");
+        Pageable pageable = PageRequest.of(page, 6, sort);
+        return repository.findByMemId(memId, pageable).get();
     }
 
     @Override

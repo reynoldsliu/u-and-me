@@ -22,9 +22,9 @@
                      fetchMemberList();
                  });
 
-                 async function fetchMemberList() {
+                 async function fetchMemberList(e) {
                      try {
-                         const response = await fetch('http://localhost:8080/u-and-me/hostToMember/all');
+                         const response = await fetch('http://localhost:8081/u-and-me/host/member/all/'+e);
                          const memberList = await response.json();
 
                          const dataTableList = document.getElementById("dataTableList");
@@ -33,7 +33,7 @@
                          memberList.forEach(members => {
                              const row = document.createElement("tr");
                              row.innerHTML = `
-                                 <td style="width: 100px;text-align: center; vertical-align: middle;">${members.memId}</td>
+                                 <td style="width: 100px;text-align: center;vertical-align: middle;">${members.memId}</td>
                                  <td style="width: 100px;text-align: center;vertical-align: middle;">${members.memName}</td>
                                  <td style="width: 100px;text-align: center;vertical-align: middle;">${members.memEmail}</td>
                                  <td style="width: 100px;text-align: center;vertical-align: middle;">${members.memAddr}</td>
@@ -60,6 +60,7 @@
 
 
 
+
                  const memStaMapping = new Map([
                      [0, '未驗證'],
                      [1, '正常'],
@@ -77,138 +78,49 @@
               window.location.href = newPageUrl;
         }
 
-<!--       example member      -->
-//       let members = [];
-//
-//       $(document).ready(function () {
-//           guardIsSignedIn();
-//           fetchMembers();
-//       });
-//
-//       function fetchMembers() {
-//           fetch('/member/Details/all)
-//               .then(response => response.json())
-//               .then(json => {
-//                   members = json;
-//                   renderTable(json);
-//               });
-//
-//       }
-//
-//       function renderTable(members) {
-//           $('#members').DataTable({
-//               data: members,
-//               columns: [
-//                   {data: 'memId'},
-//                   {data: 'memName'},
-//                   {data: 'memEmail'},
-//                   {data: 'memAddr'},
-//                   {data: 'memPhone'},
-//                   {data: 'memPoint'},
-//                   {data: 'memSta'},
-//                   {data: 'memGroup'},
-//                   {
-//                       data: 'access',
-//                       render: function (data, type, row) {
-//                           return getAccessElement(data, row);
-//                       }
-//                   },
-//                   {
-//                       data: 'isEmailVerified',
-//                       render: function (data, type, row) {
-//                           return getEmailVerifiedText(data);
-//                       }
-//                   }
-//               ]
-//           });
-//       }
-//
-//       function getAccessElement(access, row) {
-//           return `
-//                   <select class="form-control access-select" onchange="changeAccess(this, ${row.id})">
-//                       <option value="0" ${access === '0' ? 'selected' : ''}>${getAccessText('0')}</option>
-//                       <option value="1" ${access === '1' ? 'selected' : ''}>${getAccessText('1')}</option>
-//                   </select>
-//               `;
-//       }
-//
-//
-//       function getEmailVerifiedText(isVerified) {
-//           switch (isVerified) {
-//               case true:
-//                   return '✅已驗證';
-//               case false:
-//                   return '❌未驗證';
-//           }
-//       }
-//
-//
-//       function changeAccess(input, memId) {
-//           let access = input.value;
-//
-//           Swal.fire({
-//               title: `確定要將會員ID: "${memId}" 之會員狀態變更為"${getAccessText(access)}"嗎？`,
-//               icon: 'warning',
-//               showCancelButton: true,
-//               confirmButtonText: '確定',
-//               cancelButtonText: '取消'
-//           }).then((result) => {
-//               if (result.isConfirmed) {
-//                   updateAccess(memId, access);
-//               } else {
-//                   input.value = getRevertAccess(access);
-//               }
-//           })
-//       }
-//
-//       function updateAccess(memId, access) {
-//           const data = {
-//               id: memberId,
-//               access: access
-//           }
-//           fetch(`/members/change-access`, {
-//               method: 'PUT',
-//               headers: {
-//                   'Content-Type': 'application/json'
-//               },
-//               body: JSON.stringify(data),
-//           }).then(response => {
-//               if (response.ok) {
-//                   Swal.fire({
-//                       title: '權限變更成功',
-//                       icon: 'success',
-//                       confirmButtonText: '確定'
-//                   }).then(() => {
-//                       location.reload();
-//                   });
-//               } else {
-//                   Swal.fire({
-//                       title: '權限變更失敗',
-//                       icon: 'error',
-//                       confirmButtonText: '確定'
-//                   }).then(() => {
-//                       location.reload();
-//                   });
-//               }
-//           });
-//       }
-//
-//       function getRevertAccess(access) {
-//           switch (access) {
-//               case '0':
-//                   return '1';
-//               case '1':
-//                   return '0';
-//           }
-//       }
-//
-//       function getAccessText(access) {
-//           switch (access) {
-//               case '0':
-//                   return '註冊未驗證';
-//               case '1':
-//                   return '正常';
-//                case '2':
-//                   return '停權';
-//           }
-//       }
+//=============== 以下為控制分頁 =================
+
+document.getElementById('pageSelect1').addEventListener('click', async function () {
+
+    //增加actice 使分頁亮起來
+    document.getElementById('pageSelect1').classList.toggle("active");
+
+    //刪除actice 使分頁暗下去
+    document.getElementById('pageSelect2').classList.remove("active");
+
+    //刪除actice 使分頁暗下去
+    document.getElementById('pageSelect3').classList.remove("active");
+
+    //控制fetch傳入網址
+    let e = 0
+
+    //調用方法
+    fetchMemberList(e);
+    console.log(e);
+});
+
+document.getElementById('pageSelect2').addEventListener('click', async function (e) {
+    document.getElementById('pageSelect1').classList.remove("active");
+
+    document.getElementById('pageSelect2').classList.toggle("active");
+
+    document.getElementById('pageSelect3').classList.remove("active");
+
+    e = 1;
+    fetchMemberList(e);
+    console.log(e);
+});
+
+document.getElementById('pageSelect3').addEventListener('click', async function (e) {
+    document.getElementById('pageSelect1').classList.remove("active");
+
+    document.getElementById('pageSelect2').classList.remove("active");
+
+    document.getElementById('pageSelect3').classList.toggle("active");
+
+    e = 2;
+    fetchMemberList(e);
+    console.log(e);
+});
+
+//=============== 控制分頁結束 =================

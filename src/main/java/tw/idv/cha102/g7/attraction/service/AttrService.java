@@ -11,6 +11,12 @@ public interface AttrService {
     Attraction getById(Integer attrId);
 
     String createAttr(Attraction attraction);
+
+    /**
+     * 查詢全部的Attraction
+     *
+     * @return List<Attraction>一組Attraction
+     */
     List<Attraction> getAll();
 
     void setSta(Integer attrId, Short attrSta);
@@ -25,5 +31,9 @@ public interface AttrService {
     public ResponseEntity<Attraction> insertNewAttraction(Attraction attraction);
 
     public Attraction getAttrByName(String attrName);
+
+    public ResponseEntity<Attraction> updateAttrByAttrId(Integer attrId, Attraction attraction);
+
+    public ResponseEntity<String> deleteAttrByAttrId(Integer attrId);
 
 }

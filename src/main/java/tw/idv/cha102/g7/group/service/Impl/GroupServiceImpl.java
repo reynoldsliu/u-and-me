@@ -34,17 +34,19 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void updateMyGroupByGroupId(Integer groupId, UpdateMyGroupDto updateMyGroupDto) {
+    public void updateMyGroupByGroupId(Integer groupId, Group group) {
         var existGroup = groupRepository.findById(groupId);
         if(existGroup.isPresent()){
-            existGroup.get().setMinMember(updateMyGroupDto.getMin_Member());
-            existGroup.get().setMaxMember(updateMyGroupDto.getMax_Member());
-            existGroup.get().setTheme(updateMyGroupDto.getTheme());
-            existGroup.get().setDepDate(updateMyGroupDto.getDep_Date());
-            existGroup.get().setDeadline(updateMyGroupDto.getDeadline());
-            existGroup.get().setGroupDesc(updateMyGroupDto.getGroup_Desc());
-            existGroup.get().setNotice(updateMyGroupDto.getNotice());
-            existGroup.get().setGroupDesc(updateMyGroupDto.getGroup_Desc());
+            //以實際前端傳送情況更新
+            existGroup.get().setMinMember(group.getMinMember());
+            existGroup.get().setMaxMember(group.getMaxMember());
+            existGroup.get().setTheme(group.getTheme());
+            existGroup.get().setDepDate(group.getDepDate());
+            existGroup.get().setDeadline(group.getDeadline());
+            existGroup.get().setGroupDesc(group.getGroupDesc());
+            existGroup.get().setNotice(group.getNotice());
+            existGroup.get().setCover(group.getCover());
+            groupRepository.save(existGroup.get());
         }
     }
 
@@ -118,8 +120,8 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.findMyGroupListDtoByMemId(memId,pageable).get();
     }
 
-//    @Override
-//    public UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId){
-//        return groupRepository.findUpdateMyGroupByGroupId(groupId);
-//    }
+    @Override
+    public UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId){
+        return groupRepository.findUpdateMyGroupByGroupId(groupId);
+    }
 }

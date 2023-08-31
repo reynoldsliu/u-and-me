@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.member.entity.Host;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.HostRepository;
@@ -87,5 +88,17 @@ public class HostController {
         }
     }
 
+
+    /**
+     * 查詢會員管理
+     * @param page 當前分頁 (從0開始)
+     * @return 返回所有會員列表
+     * 謝謝宇航大神
+     */
+    @GetMapping("/member/all/{page}")
+    public List<Member> getAllPaged(@PathVariable Integer page){
+
+        return hostService.getAllPaged(page,7);
+    }
 
 }

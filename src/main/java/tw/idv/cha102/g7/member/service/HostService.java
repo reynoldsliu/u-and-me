@@ -1,7 +1,10 @@
 package tw.idv.cha102.g7.member.service;
 
+import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.member.entity.Host;
 import tw.idv.cha102.g7.member.entity.Member;
+
+import java.util.List;
 
 public interface HostService {
 
@@ -15,6 +18,7 @@ public interface HostService {
     public void deleteById(Integer hostId);
     public String login(String hostEmail,String hostPassword);
     public Host update(Host host);
+    public List<Member> getAllPaged(int page, int size);
 
     }
 

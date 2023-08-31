@@ -116,9 +116,8 @@
                 <a href="#">行程規劃</a>
                 <a href="#">揪團記錄</a>
                 <a href="#">論壇記錄</a>
-                <a href="#">點數記錄</a>
-                <a href="#">會員資料修改</a>
-                
+                <a href="http://localhost:8081/u-and-me/tmp/Front/membePoint.html">點數記錄</a>
+                <a href="http://localhost:8081/u-and-me/tmp/Front/memberUpdate.html">會員資料修改</a>
 
             </div>
 
@@ -153,10 +152,6 @@
                 </select>
             </div>
             <br>
-            <br>
-            <br>
-            <br>
-            <br>
             <div class="col-md-6">
                 <label for="memIdcard" class="form-label">身分證</label>
                 <input type="text" class="form-control" id="memIdcard">
@@ -188,7 +183,6 @@
                 </div>
             </div>
             <div class="updatebottom btn-sm">
-<!--                <button type="submit" value="Submit" class="btn btn-primary w-100 mt-3" id="submit">修改資料</button>-->
 
                 <button class="btn" type="submit"value="Submit"id="submit">送出</button>
             </div>
@@ -244,6 +238,44 @@
     <script src="./dist/js/memberUpdate.js"></script>
 </body>
 <script>
+
+    async function Loaded(member) {
+const response = await fetch("http://localhost:8081/u-and-me/member/update", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+},
+body: JSON.stringify(member)
+});
+
+if (response.ok) {
+} else {
+alert("更新失敗，請再次嘗試");
+}
+}
+
+const subBtn_el = document.getElementById("submit");
+subBtn_el.addEventListener("load", function() {
+const memEmail = document.setElementById("memEmail").value;
+const memPassword = document.setElementById("memPassword").value;
+const memName = document.setElementById("memName").value;
+const memPhone = document.setElementById("memPhone").value;
+const memAddr = document.setElementById("memAddr").value;
+const memGender = document.setElementById("memGender").value;
+
+const member = {
+"memEmail": memEmail,
+"memPassword": memPassword,
+"memName": memName,
+"memPhone": memPhone,
+"memAddr": memAddr,
+"memGender": memGender
+};
+
+Loaded(member);
+});
+
+
 async function Update(member) {
 const response = await fetch("http://localhost:8081/u-and-me/member/update", {
 method: "POST",
@@ -255,6 +287,7 @@ body: JSON.stringify(member)
 
 if (response.ok) {
 alert("更新成功");
+window.location.href ="";
 } else {
 alert("更新失敗，請再次嘗試");
 }
