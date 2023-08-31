@@ -122,6 +122,12 @@ public class AttrController {
         return attrService.insertNewAttraction(attraction);
     }
 
+    @RequestMapping("/deleteAttraction/{attrId}")
+    public ResponseEntity<String> insertNewAttraction(@PathVariable Integer attrId){
+        attrService.deleteAttrByAttrId(attrId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @RequestMapping("/insertAttrPictures/{attrId}")
     public ResponseEntity<AttrPictureDTO> insertAttrPictures(@PathVariable Integer attrId,
                                                              @RequestBody AttrPicture pictures){

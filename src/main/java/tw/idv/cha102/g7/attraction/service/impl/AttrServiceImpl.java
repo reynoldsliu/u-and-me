@@ -105,4 +105,10 @@ public class AttrServiceImpl implements AttrService {
         originAttr.setAttrIlla(attraction.getAttrIlla());
         return new ResponseEntity(attrRepository.save(originAttr),HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<String> deleteAttrByAttrId(Integer attrId){
+        attrRepository.deleteById(attrId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
