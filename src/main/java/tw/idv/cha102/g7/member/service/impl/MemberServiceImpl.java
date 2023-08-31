@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 import tw.idv.cha102.g7.attraction.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Member;
+import tw.idv.cha102.g7.member.repo.MailService;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.member.service.MemberService;
 
@@ -110,21 +111,10 @@ public class MemberServiceImpl implements MemberService {
         }if(member.getMemPhone()!=null){
             existingMember.setMemPhone(member.getMemPhone());
         }if(member.getMemName()!=null){
-            existingMember.setMemPhone(member.getMemName());
+            existingMember.setMemName(member.getMemName());
         }if(member.getMemPassword()!=null){
-            existingMember.setMemPhone(member.getMemPassword());
+            existingMember.setMemPassword(member.getMemPassword());
         }
-//        if (existingMember != null) {
-//            existingMember.setMemId(member.getMemId());
-//            existingMember.setMemEmail(member.getMemEmail());
-//            existingMember.setMemPassword(member.getMemPassword());
-//            existingMember.setMemName(member.getMemName());
-//            existingMember.setMemGender(member.getMemGender());
-//            existingMember.setMemAddr(member.getMemAddr());
-//            existingMember.setMemPhone(member.getMemPhone());
-//            existingMember.setMemSta(member.getMemSta());
-//            existingMember.setMemGroup(member.getMemGroup());
-
 
             System.out.println("existingMember" + existingMember);
             return memberRepository.save(existingMember);
@@ -136,7 +126,39 @@ public class MemberServiceImpl implements MemberService {
     public Member getMemByMemId(Integer memId) {
         return memberRepository.findById(memId).orElse(null);
     }
-
+//    @Override
+//    public Member sendEmailVerify(Member member) {
+//        String memEmail = member.getMemEmail();
+//
+//        if (memEmail != null) {
+//       MemberService sendMember = new MailService(member);
+//
+//        }
+//        return null;
+//    }
+//第一步，確認用戶EMAIL是否註冊過，
+//@Override
+//public Member checkEmail(Member member) {
+//        String memEmail = member.getMemEmail();
+//        if (memEmail != null) {
+//            return ("此Email已註冊過");
+//        }
+////       MemberService sendMember = new MailService(member);
+////
+////        }
+////        return null;
+////    }
+//    if(dao.selectByMemEmail(mem.getMemEmail()) != null){
+//
+//        mem.setMessage("此Email信箱已註冊！");
+//        mem.setSuccessful(false);
+//        return mem;
+//    }
+//
+//    mem.setMessage("Email可使用！");
+//    mem.setSuccessful(true);
+//    return mem;
+//}
 
 }
 

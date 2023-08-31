@@ -31,7 +31,7 @@ function checkPid(string) {
     return checkSum % 10 === 0;
 }
 
-const pid = document.getElementById("pid");
+const pid = document.getElementById("memIdcard");
 pid.addEventListener("blur", function () {
     if (!checkPid(pid.value.trim())){
         alert("身分證字號未填寫或內容有誤，請重新輸入！");

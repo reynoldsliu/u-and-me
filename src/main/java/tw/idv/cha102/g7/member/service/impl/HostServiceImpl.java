@@ -1,12 +1,18 @@
 package tw.idv.cha102.g7.member.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.member.entity.Host;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.HostRepository;
+import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.member.service.HostService;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,6 +21,9 @@ public class HostServiceImpl implements HostService {
 
     @Autowired
     private HostRepository hostRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
     public String insert(Host host) {
         if (hostRepository.findByhostEmail(host.getHostEmail()) == null) {
             host.setHostSta(0);
@@ -58,7 +67,14 @@ public class HostServiceImpl implements HostService {
         }
         return null;
     }
-
+    @Override
+    public List<Member> getAllPaged(int page, int size) {
+        Page<Member> pageResult = memberRepository.findAll(
+                PageRequest.of(page, //查詢的頁數 從0開始
+                        size,//查詢的每頁筆數
+                        Sort.by("memId").ascending())); //依造group_sta欄位升冪排序
+        return pageResult.getContent();
+    }
 }
 
 

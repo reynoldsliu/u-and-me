@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:margin-top="http://www.w3.org/1999/xhtml">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -30,25 +30,19 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
-                    <li class="nav-item me-2">
+                    <li class="nav-item me-4">
                         <a class="nav-link" href="#">活動資訊</a>
                     </li>
                     </li>
-                    <li class="nav-item me-2">
-                        <a class="nav-link" href="#">景點</a>
-                    </li>
-                    </li>
-                    <li class="nav-item me-2">
+                    <li class="nav-item me-4">
                         <a class="nav-link" href="#">行程規劃</a>
                     </li>
                     </li>
-                    <li class="nav-item me-2">
+                    <li class="nav-item me-4">
                         <a class="nav-link" href="#">旅遊商城</a>
                     </li>
-                    <li class="nav-item me-2">
-                        <a class="nav-link" href="#">揪團</a>
                     </li>
-                    <li class="nav-item me-2">
+                    <li class="nav-item me-4">
                         <a class="nav-link" href="#">論壇專區</a>
                     </li>
                     </li>
@@ -64,8 +58,9 @@
                             <li><a class="dropdown-item" href="#">聯絡我們</a></li>
                         </ul>
                     </li>
-                </ul>
+
             </div>
+            </ul>
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                 <li class="nav-item">
                     <a class="nav-link" href="#">
@@ -125,7 +120,7 @@
 
 
         <!-- -----content----- -->
-        <div class="containerHead" style="margin-top:150px; letter-spacing:.06em;">
+        <div class="containerHead style="margin-top: 150px; style="letter-spacing:.06em;">
             <div class="row">
                 <div class="col-3"></div>
                 <div class="container-fluid">
@@ -139,36 +134,75 @@
                             </h2>
                         </div>
                         <div class="col-md-3">
-                            <label for="memName" class="form-label">姓名</label>
-                            <input type="memName" class="form-control" id="memName">
+                            <label for="inputEmail4" class="form-label">姓名</label>
+                            <input type="email" class="form-control" id="inputEmail4">
                         </div>
                         <div class="col-md-3">
-                            <label for="memGender" class="form-label">性別</label>
-                            <select id="memGender" class="form-select">
+                            <label for="inputPassword4" class="form-label">性別</label>
+                            <select id="inputState" class="form-select">
                                 <option selected>請選擇您的性別</option>
-                                <option value="1">男</option>
-                                <option value="2">女</option>
-                                <option value="0">不方便透露</option>
+                                <option>男</option>
+                                <option>女</option>
+                                <option>不方便透露</option>
                             </select>
                         </div>
-                    </form>
+
                 </div>
                 <div class="col-md-">
-                    <label for="memEmail" class="form-label">會員信箱</label>
-                    <input type="email" class="form-control" id="memEmail">
+                    <label for="inputEmail4" class="form-label">會員帳號<信箱></label>
+                    <input type="email" class="form-control" id="inputEmail4">
                 </div>
                 <div class="col-md-6">
-                    <label for="memPassword" class="form-label">密碼</label>
-                    <input type="password" class="form-control" id="memPassword">
+                    <label for="inputPassword4" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="inputPassword4">
                 </div>
                 <div class="col-md-6">
-                    <label for="memPhone" class="form-label">電話</label>
-                    <input type="text" class="form-control" id="memPhone", placeholder="請填寫您的手機號碼">
+                    <label for="inputPhone" class="form-label">電話</label>
+                    <input type="text" class="form-control" id="inputPhone", placeholder="請填寫您的手機號碼">
                 </div>
-                <div class="col-12">
-                    <label for="memAddr" class="form-label">地址</label>
-                    <input type="text" class="form-control" id="memAddr" placeholder="請填寫您的居住地址">
+                <div class="col-md-3">
+                    <label class="form-label">居住縣市</label>
+                    <select class="form-select text-secondary" id="my-mem-city">
+                        <option value="0">選擇居住縣市</option>
+                        <option value="臺北市">臺北市</option>
+                        <option value="新北市">新北市</option>
+                        <option value="基隆市">基隆市</option>
+                        <option value="桃園市">桃園市</option>
+                        <option value="新竹縣">新竹縣</option>
+                        <option value="新竹市">新竹市</option>
+                        <option value="苗栗縣">苗栗縣</option>
+                        <option value="臺中市">臺中市</option>
+                        <option value="南投縣">南投縣</option>
+                        <option value="彰化縣">彰化縣</option>
+                        <option value="雲林縣">雲林縣</option>
+                        <option value="嘉義縣">嘉義縣</option>
+                        <option value="嘉義市">嘉義市</option>
+                        <option value="臺南市">臺南市</option>
+                        <option value="高雄市">高雄市</option>
+                        <option value="屏東縣">屏東縣</option>
+                        <option value="宜蘭縣">宜蘭縣</option>
+                        <option value="花蓮縣">花蓮縣</option>
+                        <option value="臺東縣">臺東縣</option>
+                        <option value="澎湖縣">澎湖縣</option>
+                        <option value="金門縣">金門縣</option>
+                        <option value="連江縣">連江縣</option>
+                    </select>
                 </div>
+
+                <!-- 地區 -->
+                <div class="col-md-3">
+                    <label class="form-label">居住地區</label>
+                    <select class="form-select text-secondary" id="my-mem-dist">
+                        <option value="0">選擇居住地區</option>
+                    </select>
+                </div>
+
+                <!-- Address -->
+                <div class="col-md-6">
+                    <label class="form-label">居住地址</label>
+                    <textarea class="form-control" id="my-addr-input" rows="1" spellcheck="false" placeholder="例：忠孝路18巷2號7樓" ></textarea>
+                </div>
+
 
 
                 <!-- <div class="col-md-6">
@@ -183,8 +217,8 @@
                         </label> -->
                     </div>
                 </div>
-                <div id="reg" class="registerbottom btn-sm">
-                    <button id="regButton" class="btn" type="submit">註冊</button>
+                <div class="registerbottom btn-sm">
+                    <button class="btn" type="button">註冊</button>
                 </div>
 
                 </form>
@@ -227,23 +261,77 @@
             <h5>Follow Us</h5>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2"><a href="#"
-                                             class="nav-link p-0 text-body-secondary">E-mail:u-and-me@gamil.com</a>
+                                             class="nav-link p-0 text-body-secondary">E-mail:u-and-me@gamil.com</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Tel:02-22222222</a>
                 </li>
-                <li class="nav-item mb-2"><a href="#"
-                                             class="nav-link p-0 text-body-secondary">Tel:02-22222222</a>
-                </li>
-            </ul>
+
         </div>
     </footer>
 </div>
-
-<!--<script src="./dist/js/memberRegister.js"></script>-->
-
-</body>
 <script>
+    const dists = {
+'臺北市': ['中正區', '大同區', '中山區', '萬華區', '信義區', '松山區', '大安區', '南港區', '北投區', '內湖區', '士林區', '文山區'],
+'新北市': ['板橋區', '新莊區', '泰山區', '林口區', '淡水區', '金山區', '八里區', '萬里區', '石門區', '三芝區', '瑞芳區', '汐止區', '平溪區', '貢寮區', '雙溪區', '深坑區', '石碇區', '新店區', '坪林區', '烏來區', '中和區', '永和區', '土城區', '三峽區', '樹林區', '鶯歌區', '三重區', '蘆洲區', '五股區'],
+'基隆市': ['仁愛區', '中正區', '信義區', '中山區', '安樂區', '暖暖區', '七堵區'],
+'桃園市': ['桃園區', '中壢區', '平鎮區', '八德區', '楊梅區', '蘆竹區', '龜山區', '龍潭區', '大溪區', '大園區', '觀音區', '新屋區', '復興區'],
+'新竹縣': ['竹北市', '竹東鎮', '新埔鎮', '關西鎮', '峨眉鄉', '寶山鄉', '北埔鄉', '橫山鄉', '芎林鄉', '湖口鄉', '新豐鄉', '尖石鄉', '五峰鄉'],
+'新竹市': ['東區', '北區', '香山區'],
+'苗栗縣': ['苗栗市', '通霄鎮', '苑裡鎮', '竹南鎮', '頭份鎮', '後龍鎮', '卓蘭鎮', '西湖鄉', '頭屋鄉', '公館鄉', '銅鑼鄉', '三義鄉', '造橋鄉', '三灣鄉', '南庄鄉', '大湖鄉', '獅潭鄉', '泰安鄉'],
+'臺中市': ['中區', '東區', '南區', '西區', '北區', '北屯區', '西屯區', '南屯區', '太平區', '大里區', '霧峰區', '烏日區', '豐原區', '后里區', '東勢區', '石岡區', '新社區', '和平區', '神岡區', '潭子區', '大雅區', '大肚區', '龍井區', '沙鹿區', '梧棲區', '清水區', '大甲區', '外埔區', '大安區'],
+'南投縣': ['南投市', '埔里鎮', '草屯鎮', '竹山鎮', '集集鎮', '名間鄉', '鹿谷鄉', '中寮鄉', '魚池鄉', '國姓鄉', '水里鄉', '信義鄉', '仁愛鄉'],
+'彰化縣': ['彰化市', '員林鎮', '和美鎮', '鹿港鎮', '溪湖鎮', '二林鎮', '田中鎮', '北斗鎮', '花壇鄉', '芬園鄉', '大村鄉', '永靖鄉', '伸港鄉', '線西鄉', '福興鄉', '秀水鄉', '埔心鄉', '埔鹽鄉', '大城鄉', '芳苑鄉', '竹塘鄉', '社頭鄉', '二水鄉', '田尾鄉', '埤頭鄉', '溪州鄉'],
+'雲林縣': ['斗六市', '斗南鎮', '虎尾鎮', '西螺鎮', '土庫鎮', '北港鎮', '莿桐鄉', '林內鄉', '古坑鄉', '大埤鄉', '崙背鄉', '二崙鄉', '麥寮鄉', '臺西鄉', '東勢鄉', '褒忠鄉', '四湖鄉', '口湖鄉', '水林鄉', '元長鄉'],
+'嘉義縣': ['太保市', '朴子市', '布袋鎮', '大林鎮', '民雄鄉', '溪口鄉', '新港鄉', '六腳鄉', '東石鄉', '義竹鄉', '鹿草鄉', '水上鄉', '中埔鄉', '竹崎鄉', '梅山鄉', '番路鄉', '大埔鄉', '阿里山鄉'],
+'嘉義市': ['東區', '西區'],
+'臺南市': ['中西區', '東區', '南區', '北區', '安平區', '安南區', '永康區', '歸仁區', '新化區', '左鎮區', '玉井區', '楠西區', '南化區', '仁德區', '關廟區', '龍崎區', '官田區', '麻豆區', '佳里區', '西港區', '七股區', '將軍區', '學甲區', '北門區', '新營區', '後壁區', '白河區', '東山區', '六甲區', '下營區', '柳營區', '鹽水區', '善化區', '大內區', '山上區', '新市區', '安定區'],
+'高雄市': ['楠梓區', '左營區', '鼓山區', '三民區', '鹽埕區', '前金區', '新興區', '苓雅區', '前鎮區', '小港區', '旗津區', '鳳山區', '大寮區', '鳥松區', '林園區', '仁武區', '大樹區', '大社區', '岡山區', '路竹區', '橋頭區', '梓官區', '彌陀區', '永安區', '燕巢區', '田寮區', '阿蓮區', '茄萣區', '湖內區', '旗山區', '美濃區', '內門區', '杉林區', '甲仙區', '六龜區', '茂林區', '桃源區', '那瑪夏區'],
+'屏東縣': ['屏東市', '潮州鎮', '東港鎮', '恆春鎮', '萬丹鄉', '長治鄉', '麟洛鄉', '九如鄉', '里港鄉', '鹽埔鄉', '高樹鄉', '萬巒鄉', '內埔鄉', '竹田鄉', '新埤鄉', '枋寮鄉', '新園鄉', '崁頂鄉', '林邊鄉', '南州鄉', '佳冬鄉', '琉球鄉', '車城鄉', '滿州鄉', '枋山鄉', '霧台鄉', '瑪家鄉', '泰武鄉', '來義鄉', '春日鄉', '獅子鄉', '牡丹鄉', '三地門鄉'],
+'宜蘭縣': ['宜蘭市', '羅東鎮', '蘇澳鎮', '頭城鎮', '礁溪鄉', '壯圍鄉', '員山鄉', '冬山鄉', '五結鄉', '三星鄉', '大同鄉', '南澳鄉'],
+'花蓮縣': ['花蓮市', '鳳林鎮', '玉里鎮', '新城鄉', '吉安鄉', '壽豐鄉', '秀林鄉', '光復鄉', '豐濱鄉', '瑞穗鄉', '萬榮鄉', '富里鄉', '卓溪鄉'],
+'臺東縣': ['臺東市', '成功鎮', '關山鎮', '長濱鄉', '海端鄉', '池上鄉', '東河鄉', '鹿野鄉', '延平鄉', '卑南鄉', '金峰鄉', '大武鄉', '達仁鄉', '綠島鄉', '蘭嶼鄉', '太麻里鄉'],
+'澎湖縣': ['馬公市', '湖西鄉', '白沙鄉', '西嶼鄉', '望安鄉', '七美鄉'],
+'金門縣': ['金城鎮', '金湖鎮', '金沙鎮', '金寧鄉', '烈嶼鄉', '烏坵鄉'],
+'連江縣': ['南竿鄉', '北竿鄉', '莒光鄉', '東引鄉'],
+'0': []
+}
 
-    async function Update(member) {
-      const response = await fetch("http://localhost:8081/u-and-me/member/update", {
+const myMemCity = document.getElementById("my-mem-city");
+const myMemDist = document.getElementById("my-mem-dist");
+
+myMemCity.addEventListener("change", function(){
+
+if(parseInt(myMemCity.value) === 0){
+myMemCity.classList.add("text-secondary");
+}else{
+myMemCity.classList.remove("text-secondary");
+}
+
+myMemDist.classList.add("text-secondary");
+
+const distList1 = dists[myMemCity.value];
+
+myMemDist.innerHTML= `<option value="0" class="text-secondary">選擇您的居住地區</option>`;
+
+for(let dist of distList1){
+myMemDist.insertAdjacentHTML("beforeend", `<option value=${dist} class="text-secondary">${dist}</option>`);
+}
+
+if(parseInt(myMemDist.value) === 0){
+myMemDist.classList.add("text-secondary");
+}
+
+});
+
+myMemDist.addEventListener("change", function(){
+
+if(parseInt(myMemDist.value) === 0){
+myMemDist.classList.add("text-secondary");
+}else{
+myMemDist.classList.remove("text-secondary");
+}
+
+  async function Register(member) {
+      const response = await fetch("http://localhost:8081/u-and-me/member/register", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
@@ -264,7 +352,9 @@
       const memPassword = document.getElementById("memPassword").value;
       const memName = document.getElementById("memName").value;
       const memPhone = document.getElementById("memPhone").value;
-      const memAddr = document.getElementById("memAddr").value;
+      const myCityOptions = document.querySelectorAll("#my-mem-city > option");
+      const myMemLevels = document.getElementsByClassName("my-mem-level");
+      const myMemPics = document.getElementsByClassName("my-mem-pic");
       const memGender = document.getElementById("memGender").value;
 
       const member = {
@@ -278,7 +368,51 @@
 
       Register(member);
   });
+});
 
 </script>
+
+</body>
+
+<!--<script>-->
+
+<!--    async function Register(member) {-->
+<!--      const response = await fetch("http://localhost:8081/u-and-me/member/register", {-->
+<!--          method: "POST",-->
+<!--          headers: {-->
+<!--              "Content-Type": "application/json",-->
+<!--          },-->
+<!--          body: JSON.stringify(member)-->
+<!--      });-->
+
+<!--      if (response.ok) {-->
+<!--          alert("註冊成功");-->
+<!--      } else {-->
+<!--          alert("註冊失敗，請再次嘗試");-->
+<!--      }-->
+<!--  }-->
+
+<!--  const regBtn_el = document.getElementById("regButton");-->
+<!--  regBtn_el.addEventListener("click", function() {-->
+<!--      const memEmail = document.getElementById("memEmail").value;-->
+<!--      const memPassword = document.getElementById("memPassword").value;-->
+<!--      const memName = document.getElementById("memName").value;-->
+<!--      const memPhone = document.getElementById("memPhone").value;-->
+<!--      const memAddr = document.getElementById("memAddr").value;-->
+<!--      const memGender = document.getElementById("memGender").value;-->
+
+<!--      const member = {-->
+<!--          "memEmail": memEmail,-->
+<!--          "memPassword": memPassword,-->
+<!--          "memName": memName,-->
+<!--          "memPhone": memPhone,-->
+<!--          "memAddr": memAddr,-->
+<!--          "memGender": memGender-->
+<!--      };-->
+
+<!--      Register(member);-->
+<!--  });-->
+
+<!--</script>-->
 
 </html>
