@@ -3,8 +3,8 @@
 //====使用的元素====
 const time_btn_el = document.getElementById("time_btn");
 const amount_btn_el = document.getElementById("amount_btn");
-const name_btn_el = document.getElementById("name_btn");
-const name_input_el = document.getAnimations("name_input");
+let name_btn_el = document.getElementById("name_btn");
+let inputName_el = document.getAnimations("inputName");
 
 // fetch對應到的路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
@@ -83,13 +83,15 @@ amount_btn_el.addEventListener('click',async function(){
 });
 //=============== 控制排序結束 =================
 
-//=============== 以下為名稱搜尋 =================
+//=============== 以下為名稱搜尋(keywords undefined問題待解決) =================
 name_btn_el.addEventListener('click',async function(event){
     event.preventDefault();
     time_btn_count = 0; //重製按鈕
     amount_btn_count = 0; //重製按鈕
     // name_btn_count++;
-    let keywords = name_input_el.value;
+    let keywords = "";
+    keywords = inputName_el.value;
+    alert(keywords);
     console.log(keywords);
     fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_count, keywords);
 })

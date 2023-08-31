@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.idv.cha102.g7.shop.entity.CartList;
 import tw.idv.cha102.g7.shop.entity.CartListId;
 import tw.idv.cha102.g7.shop.repo.CartListRepository;
-import tw.idv.cha102.g7.shop.repo.OrderRepository;
+import tw.idv.cha102.g7.shop.repo.OrdersRepository;
 import tw.idv.cha102.g7.shop.service.CartService;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CartListRepository cartListRepository;
     @Autowired
-    private OrderRepository orderRepository;
+    private OrdersRepository ordersRepository;
 
         @Override
         //加入購物車

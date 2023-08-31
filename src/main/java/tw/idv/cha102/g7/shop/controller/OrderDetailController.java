@@ -28,7 +28,7 @@ public class OrderDetailController {
 
     /**
      * ??
-     * 依訂單編號找到該編號的訂單
+     * 依訂單編號找到該編號的訂單明細
      * @param ordId 訂單編號
      * @return 查詢結果
      */
