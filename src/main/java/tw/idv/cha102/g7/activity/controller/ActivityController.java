@@ -10,7 +10,9 @@ import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @CrossOrigin
@@ -78,9 +80,13 @@ public class ActivityController {
             existingActivity.setActivSta(activity.getActivSta());
             // 保存
             activityService.updateById(activId, existingActivity);
-            return ResponseEntity.ok().build();
+
+            // 建構返回的JSON資料
+            Map<String, String> responseJson = new HashMap<>();
+            responseJson.put("message", "更新成功");
+            return ResponseEntity.ok(responseJson);
         } else {
-            return null;
+            return ResponseEntity.notFound().build();
         }
     }
 
