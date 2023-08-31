@@ -19,8 +19,9 @@ public class Activity {
     @Column(name = "activ_id")
     private Integer activId;
 
-    @Column(name = "activ_pic")
-    private String activPic;
+    @Column(name = "activ_pic", columnDefinition = "MEDIUMBLOB")
+    @Lob
+    private byte[] activPic;
 
     @Column(name = "activ_name")
     private String activName;

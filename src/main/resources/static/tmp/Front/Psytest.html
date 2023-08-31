@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>探索屬於你的旅程</title>
+    <link rel="stylesheet" href="./dist/css/Psytest.css">
+
+</head>
+
+<body>
+<header>
+    <h1>* 探索屬於你的旅程 *</h1>
+</header>
+
+<div class="container">
+    <!-- 頭部 -->
+    <div class="headPart">
+
+        <!-- 題目區域 -->
+        <div class="quesPart">
+
+            <!-- 標題 -->
+            <h1>標題</h1>
+
+            <!-- 選項列表 -->
+            <ul class="answerList">
+
+                <!-- 循環生成 問題選項 -->
+                <li>
+                    <div class="opt">題號</div>
+                    <label class="optContent" for="A">
+                        題目
+                    </label>
+                    <div class="optRadio">
+                        <input id="A" type="radio" name="16" value="A">
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 尾部按鈕 -->
+        <div class="footerPart">
+            <button>上一題</button>
+        </div>
+
+        <!-- 1列:題目順序數量 -->
+        <div class="h1part quesNum"><span>1</span>/12</div>
+
+        <!-- 2列:進度條 -->
+        <div class="h2part progress-container">
+            <div class="progress"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    // 初始化
+
+    // 準備相關變數
+    let quesList = [] // 題目list
+    let userAnsList = [] // 存客戶選擇的答案 ['A','B'.....]
+    let curIndex = 0 // 存當前展示的序號
+
+    // 動態新增下一個題目
+    quesList.addQuestion = function (id, title, answer, optA, optB) {
+
+        // a.創建題目對象
+        let ques = {
+            id: id,
+            title: title,
+            answer: answer,
+            optList: [optA, optB]
+        }
+
+        // b.把題目對象加到list(this 就是 quesList)
+        this.push(ques)
+    }
+
+    // 資料初始化
+
+    quesList.addQuestion(1, '在旅遊時，你更喜歡？', '', '獨自旅行，自由安排行程，或少數幾個親密好友一同旅行', '與一群感情不錯的朋友一起旅行，喜歡廣闊交友')
+    quesList.addQuestion(2, '你更喜歡的活動類型是？', '', '具有啟發性的活動，思考事物未來的可能性和潛在意義', '實感體驗類型的活動，聚焦事物當下的實作細節和具體事實')
+    quesList.addQuestion(3, '當遇到旅遊中的挑戰時，你傾向於？', '', '尋求他人的幫助和建議', '迅速解決問題，找到解決方案')
+    quesList.addQuestion(4, '在計劃旅行時，你通常？', '', '讓旅程自然發展，不過分計劃', '提前規劃好每天的行程')
+    quesList.addQuestion(5, '在旅遊時，你比較傾向？', '', '享受寧靜和獨處的時刻，偏好一對一深度交流', '喜歡熱絡的氣氛，偏好多與新的人事物進行交流')
+    quesList.addQuestion(6, '在旅程中，遇到問題時，你更偏向？', '', '運用直覺、感覺等等抽象思維來找到解決方案', '以過往的經驗和事實為基礎作為解決方案')
+    quesList.addQuestion(7, '旅行時，你在做決定時更傾向於？', '', '考慮他人的感受和需要', '以邏輯和客觀事實為依據')
+    quesList.addQuestion(8, '旅途中遇到了困難，面對壓力時，你傾向於？', '', '讓自己保持彈性並隨遇而安', '採取行動解決問題')
+    quesList.addQuestion(9, '旅行時，在社交場合中，你通常是？', '', '更喜歡聆聽他人的意見並保持冷靜', '喜歡主動參與對話和活動')
+    quesList.addQuestion(10, '當在旅遊中學習新事物時，你傾向於？', '', '了解新事物的概念和歷史脈絡', '注重新事物的實際用途')
+    quesList.addQuestion(11, '與你比較相符的形容詞是？', '', '體貼入微、較具感性', '邏輯清晰、較具理性')
+    quesList.addQuestion(12, '對於旅遊行程，你比較喜歡？', '', '較寬鬆，給予自己更多休息和放鬆的時間', '有條理的安排，想盡可能多體驗一些')
+
+    console.log(quesList)
+
+
+
+    // 2.題目渲染
+    // 準備頁面上的常用元素dom對象
+    // a.題目標題
+    let quesTitle = document.querySelector('.quesPart h1')
+    // b.答案選項列表
+    let answerList = document.querySelector('.answerList')
+    // c.進度條
+    let pgIn = document.querySelector('.progress')
+    // d.上一題按鈕
+    let prevBtn = document.querySelector('.footerPart button')
+
+    // 3.題目渲染的方法
+    function renderQues(ques) {
+        // 1.題目標題
+        quesTitle.innerHTML = ques.id + '.' + ques.title
+        // 2.選項列表
+        // 2.1 清空列表
+        answerList.innerHTML = ''
+        // 2.2 循環生成選項列表
+        ques.optList.forEach((opt, index) => {
+            // a.創建選項元素
+            let optLi = document.createElement('li')
+            // b.根據下標獲取當前選項 字母：ABCDE...
+            let optChar = String.fromCharCode(65 + index)
+            // c.設置選項元素的內容
+            optLi.innerHTML = `
+
+<div class="opt">${optChar}</div>
+
+<label class="optContent" for="${optChar}">${opt}</label>
+
+<div class="optRadio">
+
+<input id="${optChar}" type="radio" name="${ques.id}" value="${optChar}">
+
+</div>
+
+`
+
+            // c.阻止事件冒泡，就不會觸發默認調用click的冒泡了！
+            optLi.querySelector('label').addEventListener('click', function (e) {
+                e.stopPropagation()
+            })
+
+            // d.為li添加自訂義屬，保存選項字母
+            optLi.setAttribute('data-char', optChar)
+            // e.li標籤绑定click事件
+            optLi.addEventListener('click', nextQues) // 2級 dom事件
+            // optLi.onclick = nextQues // 0级dom事件
+            // f.將選項元素添加到list中
+            answerList.appendChild(optLi)
+        })
+
+    }
+
+    // 4.頁面初始化，渲染第一題和統計
+    renderQues(quesList[curIndex])
+    renderQuesNum()
+
+
+    // 6.切換下一題
+
+    function nextQues() {
+
+        // 4.1 獲取當前選項，保存到答案數組中
+        // 通過被點擊的lable的上一個兄弟元素div的文字內容獲取選項字母
+        let optChar = this.getAttribute('data-char')
+
+        // 4.2 選擇答案後，要根據是否回答過這個題，來決定做答案替換還是追加
+        // a.判斷 當前答案數組中 是否已經 有這一題的答案
+
+        if (curIndex === userAnsList.length) {
+
+            // b.如果沒有選擇過這題的答案，則答案追加
+            userAnsList.push(optChar)
+
+        } else {
+
+            // c.如果選擇過這個題的答案，則替換之前的答案
+            userAnsList[curIndex] = optChar
+
+        }
+
+        // 4.3 如果小於題目數組最後一題的下標，則切換到下一題
+
+        if (curIndex < quesList.length - 1) {
+            curIndex++
+
+            // 渲染下一題
+            renderQues(quesList[curIndex])
+
+            // 渲染題目統計和進度條
+            renderQuesNum()
+
+            // 判断當前題目
+            if (curIndex < userAnsList.length) {
+                setAnswerChecked()
+
+            }
+
+        } else {
+            // 4.3 如果是最後一题，則計算分數和結果
+            calcScore()
+
+        }
+
+    }
+
+    // 7.渲染題目序號跟進度條
+
+    function renderQuesNum() {
+
+        // 5.1 更新題目序號
+        let quesNum = document.querySelector('.quesNum')
+        quesNum.innerHTML = `<span>${curIndex + 1}</span>/${quesList.length}`
+
+        // 5.2 更新進度條
+        let pgWidth = (curIndex + 1) / quesList.length * 100 + '%'
+        pgIn.style.width = pgWidth
+
+    }
+
+
+    // 初始化陣列
+    let dimensionsScore = [0, 0, 0, 0]; // [I-E, N-S, F-T, P-J]
+    function calcScore() {
+
+        // 6.0 說明文字
+        quesTitle.innerHTML = '心理測驗結果：'
+
+        // 6.1 計算結果( E、S、T、J 中的一個選項，相應的向度分數就會增加 1，累積各項度分數)
+        userAnsList.forEach((ans, index) => {
+
+            switch (index) {
+                case 0: // 第1題 IE
+                case 4: // 第5題 IE
+                case 8: // 第9題 IE
+                    if (ans === 'B') {
+                        dimensionsScore[0] += 1;
+                    }
+                    break;
+
+
+                case 1: // 第2題 NS
+                case 5: // 第6題 NS
+                case 9: // 第10題 NS
+                    if (ans === 'B') {
+                        dimensionsScore[1] += 1;
+                    }
+                    break;
+
+
+                case 2: // 第3題 FT
+                case 6: // 第7題 FT
+                case 10: // 第11題 FT
+                    if (ans === 'B') {
+                        dimensionsScore[2] += 1;
+                    }
+                    break;
+
+
+                case 3: // 第4題 PJ
+                case 7: // 第8題 PJ
+                case 11: // 第12題 PJ
+                    if (ans === 'B') {
+                        dimensionsScore[3] += 1;
+                    }
+                    break;
+            }
+
+        });
+
+        // 6.2 根據分數判斷傾向 ( 超過1，就是傾向E、S、T、J)
+        let personalityType = '';
+
+        // 判斷 I 或 E
+        if (dimensionsScore[0] > 1) {
+            personalityType += 'E';
+        } else {
+            personalityType += 'I';
+        }
+
+        // 判斷 N 或 S
+        if (dimensionsScore[1] > 1) {
+            personalityType += 'S';
+        } else {
+            personalityType += 'N';
+        }
+
+        // 判斷 F 或 T
+        if (dimensionsScore[2] > 1) {
+            personalityType += 'T';
+        } else {
+            personalityType += 'F';
+        }
+
+        // 判斷 P 或 J
+        if (dimensionsScore[3] > 1) {
+            personalityType += 'J';
+        } else {
+            personalityType += 'P';
+        }
+
+        // 6.3 渲染結果頁面、清空選項
+        answerList.innerHTML = ''
+
+        // 6.4 顯示人格類型結果
+        let resultLi = document.createElement('li');
+        resultLi.classList.add('result-text');
+        resultLi.innerHTML = `人格類型：${personalityType}`;
+        answerList.appendChild(resultLi);
+
+
+        // 添加人格類型和對應的說明 ()
+        const personalityDescriptions = {
+            'INFP': 'XXXXX',
+            'INFJ': 'XXXXX',
+
+        };
+
+        personalityDescriptions.hasOwnProperty(personalityType);
+        let descriptionDiv = document.createElement('div');
+        descriptionDiv.classList.add('personality-description');
+        descriptionDiv.innerHTML = personalityDescriptions[personalityType];
+        answerList.appendChild(descriptionDiv);
+    }
+
+
+
+    // 7.上一題按鈕點擊事件
+
+    prevBtn.addEventListener('click', function () {
+        // 7.1 切換到上一題
+        if (curIndex > 0) {
+            curIndex--
+
+            // 7.2 渲染上一題
+            renderQues(quesList[curIndex])
+
+            // 7.3 渲染題目統計跟進度條
+            renderQuesNum()
+
+            // 7.4 根據選項字母設置選中的答案
+            setAnswerChecked()
+
+        } else {
+            alert('已經是第一題囉！')
+        }
+
+    })
+
+    // 8.根據選項字母設置選中的答案
+
+    function setAnswerChecked() {
+
+        // a.將現在這題選項設置為剛剛客戶選的
+        let optChar = userAnsList[curIndex] // B -> 1
+
+        // b.將字母轉成asscc碼 'C'.charCodeAt() -> 67
+        let optIndex = optChar.charCodeAt() - 65
+
+        // c.將選項列表中的對應的li標籤裡的單選按鈕checked屬性設置為true
+        answerList.children[optIndex].querySelector('.optRadio input').checked = true
+
+    }
+    document.querySelectorAll('.answerList li').forEach(function (optionLi) {
+        optionLi.addEventListener('click', function () {
+            // 刪除之前點擊的選項的樣式
+            document.querySelector('.answerList li.clicked')?.classList.remove('clicked');
+            // 為當前點擊的選項添加樣式
+            this.classList.add('clicked');
+        });
+    })
+
+
+</script>
+
+</body>
+
+</html>

@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
@@ -15,9 +13,12 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="article")
-public class Article {
+public class Article implements Serializable {
+    // 為了照片而實作序列化
+    private static final long serialVersionUID = 2072014924350494700L;
     @Id
     @Column(name="article_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer articleId;
 
     @Column(name="mem_id")
@@ -44,4 +45,18 @@ public class Article {
     @Column(name="article_state")
     private Short articleSta;
 
+
+
+    // Adminupd
+    public Article(Integer articleId, Short articleSta) {
+        this.articleId = articleId;
+        this.articleSta = articleSta;
+    }
+
+    //UserUpd
+
+    public Article(String articleTitle, String articleContent) {
+        this.articleTitle = articleTitle;
+        this.articleContent = articleContent;
+    }
 }

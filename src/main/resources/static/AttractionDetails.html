@@ -166,10 +166,10 @@
                                 <div class="my-1 mx-1 ms-2">
                                     <label for="attractionName">查詢景點: </label>
                                     <input type="text" id="attractionName" placeholder="請輸入景點名稱">
-<!--                                    <button id="loadAttraction">查詢</button>-->
+                                    <!--                                    <button id="loadAttraction">查詢</button>-->
                                     <button id="loadAttractions">查詢</button>
                                 </div>
-<!--                                選擇每頁的資料顯示筆數-->
+                                <!--                                選擇每頁的資料顯示筆數-->
                                 <label for="pageSize">每頁筆數: </label>
                                 <select id="pageSize">
                                     <option value="1">1</option>
@@ -177,21 +177,48 @@
                                     <option value="10">10</option>
                                 </select>
                                 頁碼:<input type="number" id="page" min="1" max="1" value="1">
-                                <input type="submit" id="pageChangeSubmit">
+                                <input type="button" id="editAttr" value="編輯景點">
 
                                 <!-- ///新增bootstrap表格 -->
                                 <table class="table">
                                     <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">景點名稱</th>
-                                        <th scope="col">景點地址</th>
-                                        <th scope="col">景點說明</th>
-                                        <th scope="col">景點類型</th>
-                                        <th scope="col">景點花費</th>
-                                        <th scope="col">營業時間</th>
-                                        <th scope="col">檢視</th>
+                                        <th scope="col" style="width:100px;">景點名稱</th>
+                                        <th>
+                                            <input type="text" id="attrName" disabled>
+                                        </th>
                                     </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">景點地址</th>
+                                        <th>
+                                            <input type="text" id="attrAddr" disabled>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">景點類型</th>
+                                        <th>
+                                            <input type="text" id="attrTypeId" disabled>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">景點花費</th>
+                                        <th>
+                                            <input type="text" id="attrCostRange" disabled>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">營業時間</th>
+                                        <th>
+                                            <input type="text" id="attrBussTime" disabled>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" style="width:100px;">景點說明</th>
+                                        <th>
+                                            <input type="text" id="attrIlla" disabled>
+                                        </th>
+                                    </tr>
+
                                     </thead>
                                     <tbody>
 
@@ -199,6 +226,15 @@
                                     </tbody>
                                 </table>
                                 <div id="attrTarget"></div>
+                                <div id="attrPics" style="width: 100%;">
+
+                                </div>
+
+                                <button id="submitButton">Submit Data</button>
+                                <br>
+                                <button class="edit-button" id="editButton">Edit</button>
+                                <button class="edit-button" id="saveButton" style="display: none;">Save</button>
+
 
                             </div>
                         </div>
@@ -260,40 +296,182 @@
 </div>
 </div>
 
-<script src="js/jquery-3.7.0.min.js"></script>
+<script src="./js/jquery-3.7.0.min.js"></script>
+<script src="../js/jquery-3.7.0.min.js"></script>
 <!--<script src="js/selectOneAttrById.js"></script>-->
 
 <script>
-    const listStart_el = document.querySelector("#attrTarget");
-    $(document).ready(async function () {
+    const attrName = document.querySelector("#attrName");
+    const attrAddr = document.querySelector("#attrAddr");
+    const attrTypeId = document.querySelector("#attrTypeId");
+    const attrCostRange = document.querySelector("#attrCostRange");
+    const attrBussTime = document.querySelector("#attrBussTime");
+    const attrIlla = document.querySelector("#attrIlla");
 
     const urlParams = new URLSearchParams(window.location.search);
     const attrId = urlParams.get("attrId");
-    const response = await fetch('getAttr'+'?attrId='+attrId);
-    const attr = await response.json();
 
-    const row = document.createElement("tr");
-                // attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr,
-                // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
-                // 1	1	1	Attraction 1	123 Main St	12.345	67.89
-                // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
-                row.innerHTML = `
-                        <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
-                        <td>
-                         <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-                          </svg>
-                          </button>
-                        </td>
-                    `;
-                listStart_el.insertAdjacentElement('beforeend',row);
-})
+    $(document).ready(async function () {
+
+
+        const response1 = await fetch('getAttr' + '?attrId=' + attrId);
+        const attr = await response1.json();
+        const response2 = await fetch('getAttrPics' + '/' + attrId);
+        const attrPics = await response2.json();
+        console.log(attrPics.attrPic);
+        const picsArray = attrPics.attrPic;
+
+        const attrPics_el = document.querySelector(".attrPics");
+        let count = 0;
+        for (let pic of picsArray) {
+            const div = document.createElement("div");
+            div.id = "img" + ++count;
+            div.style = "display:inline-block;";
+            const row = document.createElement("img");
+            row.src = "data: image/jpeg;base64," + pic.attrPicData;
+
+            document.getElementById("attrPics").insertAdjacentElement('beforeend', div);
+            document.getElementById("img" + count).insertAdjacentElement('afterbegin', row);
+        }
+
+
+        // const row = document.createElement("tr");
+        // attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr,
+        // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
+        // 1	1	1	Attraction 1	123 Main St	12.345	67.89
+        // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
+        attrName.value = `${attr.attrName}`;
+        attrAddr.value = `${attr.attrAddr}`;
+        attrTypeId.value = `${attr.attrTypeId}`;
+        attrCostRange.value = `${attr.attrCostRange}`;
+        attrBussTime.value = `${attr.attrBussTime}`;
+        attrIlla.value = `${attr.attrIlla}`;
+        // row.innerHTML = `
+        //             <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
+        //             <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
+        //             <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
+        //             <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
+        //             <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
+        //             <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
+        //             <td>
+        //              <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
+        //               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+        //               <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+        //               </svg>
+        //               </button>
+        //             </td>
+        //         `;
+        // listStart_el.insertAdjacentElement('beforeend', row);
+    })
+
+
+    // const editAttr_el = document.querySelector("#editAttr");
+    // editAttr_el.addEventListener("click",function(){
+
+
+    // })
+
+
+    const attrName_input = document.getElementById("attrName");
+    const attrAddr_input = document.getElementById("attrAddr");
+    const attrTypeId_input = document.getElementById("attrTypeId");
+    const attrCostRange_input = document.getElementById("attrCostRange");
+    const attrBussTime_input = document.getElementById("attrBussTime");
+    const attrIlla_input = document.getElementById("attrIlla");
+
+    const editButton = document.getElementById("editButton");
+    const saveButton = document.getElementById("saveButton");
+    const submitButton = document.getElementById("submitButton");
+
+    // Edit button click event listener
+    editButton.addEventListener("click", function () {
+        enableEditing();
+    });
+
+    // Save button click event listener
+    saveButton.addEventListener("click", function () {
+        disableEditing();
+    });
+
+    // Add button click event listener
+    submitButton.addEventListener("click", async function () {
+        const newData = {
+            attrName: attrName_input.value,
+            attrAddr: attrAddr_input.value,
+            attrTypeId: attrTypeId_input.value,
+            attrCostRange: attrCostRange_input.value,
+            attrBussTime: attrBussTime_input.value,
+            attrIlla: attrIlla_input.value
+        };
+
+        // Send data to backend using fetch
+        const response = await fetch('updateAttr/' + attrId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newData)
+        });
+
+        if (response.ok) {
+            // Handle successful response
+            console.log('Data added successfully');
+        } else {
+            // Handle error response
+            console.error('Error adding data');
+        }
+    });
+
+    // Function to enable editing
+    function enableEditing() {
+        attrName_input.disabled = false;
+        attrAddr_input.disabled = false;
+        attrTypeId_input.disabled = false;
+        attrCostRange_input.disabled = false;
+        attrBussTime_input.disabled = false;
+        attrIlla_input.disabled = false;
+
+        editButton.style.display = "none";
+        saveButton.style.display = "block";
+    }
+
+    // Function to disable editing
+    function disableEditing() {
+        attrName_input.disabled = true;
+        attrAddr_input.disabled = true;
+        attrTypeId_input.disabled = true;
+        attrCostRange_input.disabled = true;
+        attrBussTime_input.disabled = true;
+        attrIlla_input.disabled = true;
+
+        editButton.style.display = "block";
+        saveButton.style.display = "none";
+    }
+
+    // const editable_el = document.querySelector(".editable");
+    // const editAttr_el = document.querySelector("#editAttr");
+    // let attrName_input_el;
+    // editAttr_el.addEventListener("click", function () {
+    //     if (editAttr_el.value === "編輯景點") {
+    //         attrName_el = document.createElement("p");
+    //         attrName_el.textContent = attrName_input_el.value;
+    //         delete(attrName_input_el);
+    //         attrName.insertAdjacentElement("beforeend", attrName_el);
+    //     }
+    //     editAttr_el.value = "完成編輯";
+
+    //     attrName_input_el = document.createElement("input");
+    //     attrName_input_el.type = "text";
+    //     attrName_input_el.value = attrName.textContent;
+    //     attrName_input_el.class = "editable";
+    //     attrName.insertAdjacentElement("beforeend", attrName_input_el);
+    // })
+
+
+    // editable_el.addEventListener("blur", function () {
+
+
+    // })
 </script>
 
 </body>

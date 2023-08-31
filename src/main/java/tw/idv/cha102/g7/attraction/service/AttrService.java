@@ -2,11 +2,8 @@ package tw.idv.cha102.g7.attraction.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import tw.idv.cha102.g7.attraction.dto.LoginDTO;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface AttrService {
@@ -14,6 +11,12 @@ public interface AttrService {
     Attraction getById(Integer attrId);
 
     String createAttr(Attraction attraction);
+
+    /**
+     * 查詢全部的Attraction
+     *
+     * @return List<Attraction>一組Attraction
+     */
     List<Attraction> getAll();
 
     void setSta(Integer attrId, Short attrSta);
@@ -29,7 +32,6 @@ public interface AttrService {
 
     public Attraction getAttrByName(String attrName);
 
-    public void login(LoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response);
+    public ResponseEntity<Attraction> updateAttrByAttrId(Integer attrId, Attraction attraction);
 
-//    String addAttrToCollection(Attraction attraction);
 }

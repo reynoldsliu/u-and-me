@@ -1,7 +1,8 @@
 package tw.idv.cha102.g7.group.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
@@ -37,13 +38,10 @@ public class GroupController {
      * @param groupId 揪團ID
      * @param group 修改後的揪團資訊
      */
-//    @Transactional
     @PutMapping("/group/{groupId}")
     public void update(@PathVariable Integer groupId,
                        @RequestBody Group group){
-//        response.addHeader("Access-Control-Allow-Origin", "http://localhost:8080");
-//        response.addHeader("Access-Control-Allow-Methods", "*.");
-//        response.addHeader("Access-Control-Allow-Headers", "*");
+
         groupService.update(groupId, group);
     }
 
@@ -189,8 +187,26 @@ public class GroupController {
      * @param groupId 揪團ID
      * @return 查詢結果
      */
-//    @GetMapping("/myGroup/update/{groupId}")
-//    public UpdateMyGroupDto findUpdateMyGroupByGroupId(@PathVariable Integer groupId){
-//        return groupService.findUpdateMyGroupByGroupId(groupId);
-//    }
+    @GetMapping("/myGroup/update/{groupId}")
+    public UpdateMyGroupDto findUpdateMyGroupByGroupId(@PathVariable Integer groupId){
+        return groupService.findUpdateMyGroupByGroupId(groupId);
+    }
+
+    /**
+     * 揪團團主
+     * 更新揪團
+     * @param groupId 揪團ID
+     * @param group 前端傳送來須修改的值
+     */
+    @PutMapping("/myGroup/update/{groupId}")
+    public ResponseEntity<?> updateMyGroupByGroupId(@PathVariable Integer groupId,
+                                                    @RequestBody Group group){
+        try {
+            groupService.updateMyGroupByGroupId(groupId, group);
+            return ResponseEntity.ok("更新成功！");
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND).body("更新失敗！");
+        }
+    }
 }

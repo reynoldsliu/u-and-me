@@ -7,7 +7,7 @@
     <title>UandMe Online Shopping</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="./dist/css/CutomerQa.css">
+    <link rel="stylesheet" href="dist/css/CutomerQa.css">
 
 
 
@@ -22,7 +22,7 @@
 
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="./dist/img/uandmelogo-removebg-preview.png">
+                        <img src="dist/img/uandmelogo-removebg-preview.png">
 
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -57,11 +57,11 @@
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">客服專區</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="./CutomerQa.html">Q&A專欄</a></li>
+                                    <li><a class="dropdown-item" href="CutomerQa.html">Q&A專欄</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="./CutomerContact.html">聯絡我們</a></li>
+                                    <li><a class="dropdown-item" href="CutomerContact.html">聯絡我們</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -116,7 +116,7 @@
     <div class="py-5 container-fluid" style="position: relative;">
         <div class="row">
             <div class="col" style="padding: 0;">
-                <img id="qa" src="./dist/img/qa.jpg" style="width: 100%; height:auto;">
+                <img id="qa" src="dist/img/qa.jpg" style="width: 100%; height:auto;">
             </div>
         </div>
     </div>
@@ -141,98 +141,8 @@
 
             <!-- -----Content----- -->
             <div class="container-fluid">
-                <ul class="list">
-                    <li>
-                        <a class="link_title" href="#">
-                            <button type="button" class="switch_btn">
-                                <span class="-plus">+</span><span class="-minus">-</span>
-                            </button>
-                            <span>Q1.</span>
-                            <span>如何註冊遊&ME帳戶？</span>
-                        </a>
+                <ul class="list" id="qalist">
 
-                        <div class="inner_block">
-                            <span>創建遊&ME帳號完全免費，您可透過email註冊：1.進入遊&ME首頁，點選右上方『登入/註冊』，選擇下方『註冊』。2.填寫您的電子信箱以及預設密碼，點選『註冊』。3.至您的電子信箱內查收驗證信件，點選信件中的網址顯示『聯絡信箱驗證成功』。4.至遊&ME點選右上方『登入/註冊』，輸入您的帳號密碼登入後即可建立行程及訂購商品。</span>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="link_title" href="#">
-                            <button type="button" class="switch_btn">
-                                <span class="-plus">+</span><span class="-minus">-</span>
-                            </button>
-                            <span>Q2.</span>
-                            <span>問題？</span>
-                        </a>
-
-                        <div class="inner_block">
-                            <span>Answer</span>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="link_title" href="#">
-                            <button type="button" class="switch_btn">
-                                <span class="-plus">+</span><span class="-minus">-</span>
-                            </button>
-                            <span>Q3.</span>
-                            <span>問題？</span>
-                        </a>
-
-                        <div class="inner_block">
-                            <span>Answer</span>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="link_title" href="#">
-                            <button type="button" class="switch_btn">
-                                <span class="-plus">+</span><span class="-minus">-</span>
-                            </button>
-                            <span>Q4.</span>
-                            <span>問題？</span>
-                        </a>
-
-                        <div class="inner_block">
-                            <span>Answer</span>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="link_title" href="#">
-                            <button type="button" class="switch_btn">
-                                <span class="-plus">+</span><span class="-minus">-</span>
-                            </button>
-                            <span>Q5.</span>
-                            <span>問題？</span>
-                        </a>
-
-                        <div class="inner_block">
-                            <span>Answer</span>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="link_title" href="#">
-                            <button type="button" class="switch_btn">
-                                <span class="-plus">+</span><span class="-minus">-</span>
-                            </button>
-                            <span>Q6.</span>
-                            <span>問題？</span>
-                        </a>
-
-                        <div class="inner_block">
-                            <span>Answer</span>
-                        </div>
-                    </li>
-                    <li>
-                        <a class="link_title" href="#">
-                            <button type="button" class="switch_btn">
-                                <span class="-plus">+</span><span class="-minus">-</span>
-                            </button>
-                            <span>Q7.</span>
-                            <span>問題？</span>
-                        </a>
-
-                        <div class="inner_block">
-                            <span>Answer</span>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -291,13 +201,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
-    <script>
-        $("a.link_title").on("click", function (e) {
-            e.preventDefault();
-            $(this).closest("li").toggleClass("-on");
-            $(this).closest("li").find("div.inner_block").slideToggle();
-        });
-    </script>
+    <script src="dist/js/customerQa.js"></script>
 
 
 </body>

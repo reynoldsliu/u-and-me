@@ -13,8 +13,8 @@ public class ProductPictureServiceImpl implements ProductPictureService {
     private ProductPictureRepository productPictureRepository;
 
     @Override
-    public void insert(ProductPicture productPicture) {
-        productPictureRepository.save(productPicture);
+    public ProductPicture insert(ProductPicture productPicture) {
+        return productPictureRepository.save(productPicture);
     }
 
     @Override
