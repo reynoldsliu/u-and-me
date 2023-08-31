@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
 import tw.idv.cha102.g7.shop.entity.Product;
 import tw.idv.cha102.g7.shop.entity.ProductPicture;
@@ -46,7 +47,7 @@ public class ProductController {
         newProduct.setProdSta(productDTO.getProdSta());
 
         //用productService的insert方法，把新的物件newProduct insert進去
-        productService.insert(newProduct);
+        Integer newProdId = productService.insert(newProduct);
 
         //從前端拿到的是一個ProductPicture的集合(因為DTO裡面是用集合表示)
         //因為service裡一次只能取一個，所以從List一個一個取出來
@@ -55,19 +56,20 @@ public class ProductController {
         List<ProductPicture> productPictures = productDTO.getProductPictures();
         if(productPictures != null) {
             for (ProductPicture pp : productPictures) {
+                pp.setProdId(newProdId);
                 productPictureService.insert(pp);
 
             }
         }
-        return ResponseEntity.status(HttpStatus.OK).body(productDTO);
+        return ResponseEntity.status(HttpStatus.OK).body("新增成功！");
     }
 
-    @DeleteMapping("/deleteProduct/{prodId}")
-    @Transactional  //確保在事務範圍內(方法內)運行
-    public void deleteProduct(@PathVariable Integer prodId) {
-        productPictureService.deleteProductPictureByProdId(prodId);
-        productService.deleteProductById(prodId);
-    }
+//    @DeleteMapping("/deleteProduct/{prodId}")
+//    @Transactional  //確保在事務範圍內(方法內)運行
+//    public void deleteProduct(@PathVariable Integer prodId) {
+//        productPictureService.deleteProductPictureByProdId(prodId);
+//        productService.deleteProductById(prodId);
+//    }
 
     //ResponseEntity<> Spring Framework 提供的一个類別，控制控制器方法的回應內容，包括了回應的狀態碼、回應標頭以及回應主體內容
     //    (productDTO)接住商品修改後的資訊(前端傳回的JSON參數)
@@ -91,6 +93,11 @@ public class ProductController {
         return productDTOList;
     }
 
+    @RequestMapping("/getProductByName/{prodName}")
+    public Product getProductByName(@PathVariable String prodName){
+        return productService.getProductByName(prodName);
+
+    }
 }
 
 

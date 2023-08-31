@@ -1,8 +1,6 @@
 package tw.idv.cha102.g7.shop.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import tw.idv.cha102.g7.shop.entity.Product;
 import tw.idv.cha102.g7.shop.entity.ProductPicture;
 
@@ -12,12 +10,9 @@ import javax.persistence.Id;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class ProductDTO {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer prodId;
     private Integer prodCatId;
     private String prodName;
@@ -28,6 +23,16 @@ public class ProductDTO {
 //    private Product product;
 
     private List<ProductPicture> productPictures;
+
+//    public ProductDTO(Integer prodId, Integer prodCatId, String prodName, String prodCon, Integer prodPri, Short prodSta, List<ProductPicture> productPictures) {
+//        this.prodId = prodId;
+//        this.prodCatId = prodCatId;
+//        this.prodName = prodName;
+//        this.prodCon = prodCon;
+//        this.prodPri = prodPri;
+//        this.prodSta = prodSta;
+//        this.productPictures = productPictures;
+//    }
 
     public ProductDTO(Object[] objects) {
         this.prodId = (Integer) objects[0];

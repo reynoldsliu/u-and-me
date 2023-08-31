@@ -15,10 +15,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductPicture {
+public class ProductPicture implements Serializable{
+    private static final long serialVersionUID = 6618518644686967842L;
+
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="prodpic_id")
     private Integer prodPicId;
 
@@ -26,8 +28,12 @@ public class ProductPicture {
     private Integer prodId;
 
     @Lob
-    @Column(name ="prod_pic")
-    private Byte[] prodPic;
+    @Column(name ="prod_pic", columnDefinition = "MEDIUMBLOB")
+    private byte[] prodPic;
+
+//    @ManyToOne
+//    @JoinColumn(name = "prod_id") // Assuming this is the foreign key column
+//    private Product product;
 
 
 }

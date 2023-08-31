@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.shop.service;
 
+import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
 import tw.idv.cha102.g7.shop.entity.Product;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface ProductService {
 
     //新增商品
-    public void insert(Product product);
+    public Integer insert(Product product);
 
     //刪除單筆商品
     public void deleteProductById(Integer prodId);
@@ -24,6 +25,10 @@ public interface ProductService {
 
 //    顯示商品列表，返回值是一個包含多個Product物件的列表
     public List<ProductDTO> listAll();
+
+    public Product getProductByName(String prodName);
+
+
 
 
     //使用者業務
