@@ -36,16 +36,20 @@
 }
 
 .breadcrumb .breadcrumb-item a {
-  text-decoration: none; /* 移除底线 */
-  color:rgb(81, 113, 111); /* 设置链接颜色 */
-  font-size:large;
+  text-decoration: none;
+  /* 移除底线 */
+  color: rgb(81, 113, 111);
+  /* 设置链接颜色 */
+  font-size: large;
   font-family: 'Times New Roman', Times, serif;
 }
 
 .footer {
-  font-family: serif; /* 更改字体为 serif */
+  font-family: serif;
+  /* 更改字体为 serif */
   color: #bdbdbd;
 }
+
 .list-group-shop {
   --bs-list-group-color: var(--bs-body-color);
   --bs-list-group-bg: var(--bs-body-bg);
@@ -77,23 +81,25 @@
   background-repeat: no-repeat;
   background-position: right center;
   background-size: auto 100%;
-  }
-  
-  @media (min-width: 1025px) {
-  .h-custom-2 {
-  height: 100%;
-  }
-  }
+}
 
-  .loginbottom{
-    background-color:rgb(115, 176, 172); 
-    display: flex;
-    padding: 5px 5px;
-    color: white;
-    border: none;
-    border-radius: 10px; /* 設定圓角的像素值 */
-    cursor: pointer;
-    font-size: small;
-    justify-content: center;
-    align-items: center;
+@media (min-width: 1025px) {
+  .h-custom-2 {
+    height: 100%;
   }
+}
+
+.loginbottom {
+  background-color: rgb(115, 176, 172);
+  display: flex;
+  padding: 5px 5px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  /* 設定圓角的像素值 */
+  cursor: pointer;
+  font-size: small;
+  justify-content: center;
+  align-items: center;
+}
+

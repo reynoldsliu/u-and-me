@@ -2,6 +2,7 @@ package tw.idv.cha102.g7.group.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 
@@ -41,4 +42,14 @@ public interface GroupService {
     Stream<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Integer page);
 
     UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
+
+    Stream<GroupListDto> findGroupByGroupStaOrderByDeadline(Integer groupSta, Integer page);
+
+    Stream<GroupListDto> findGroupByGroupStaOrderByDeadlineDesc(Integer groupSta, Integer page);
+
+    Stream<GroupListDto> findGroupByGroupStaOrderByAmount(Integer groupSta, Integer page);
+
+    Stream<GroupListDto> findGroupByGroupStaOrderByAmountDesc(Integer groupSta, Integer page);
+
+    Page<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str, Integer page);
 }

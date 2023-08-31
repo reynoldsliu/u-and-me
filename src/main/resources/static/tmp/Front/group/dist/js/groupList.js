@@ -1,9 +1,26 @@
 //=============== 以下為控制分頁 =================
 
+//====使用的元素====
+const time_btn_el = document.getElementById("time_btn");
+const amount_btn_el = document.getElementById("amount_btn");
+const name_btn_el = document.getElementById("name_btn");
+const name_input_el = document.getAnimations("name_input");
+
+// fetch對應到的路徑
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
+let url;
+
+let e = 0; //用來控制分頁
+let time_btn_count = 0; //控制時間排序
+let amount_btn_count = 0; //控制時間排序
+let name_btn_count = 0; //控制搜尋名稱 
+let response;
+
+
 document.getElementById('pageSelect1').addEventListener('click', async function () {
 
     //增加actice 使分頁亮起來
-    document.getElementById('pageSelect1').classList.toggle("active");
+    document.getElementById('pageSelect1').classList.add("active");
 
     //刪除actice 使分頁暗下去
     document.getElementById('pageSelect2').classList.remove("active");
@@ -16,19 +33,19 @@ document.getElementById('pageSelect1').addEventListener('click', async function 
 
     //調用方法
     fetchGroupList(e);
-    console.log(e);
+    // console.log(e);
 });
 
 document.getElementById('pageSelect2').addEventListener('click', async function (e) {
     document.getElementById('pageSelect1').classList.remove("active");
 
-    document.getElementById('pageSelect2').classList.toggle("active");
+    document.getElementById('pageSelect2').classList.add("active");
 
     document.getElementById('pageSelect3').classList.remove("active");
 
     e = 1;
     fetchGroupList(e);
-    console.log(e);
+    // console.log(e);
 });
 
 document.getElementById('pageSelect3').addEventListener('click', async function (e) {
@@ -36,31 +53,84 @@ document.getElementById('pageSelect3').addEventListener('click', async function 
 
     document.getElementById('pageSelect2').classList.remove("active");
 
-    document.getElementById('pageSelect3').classList.toggle("active");
+    document.getElementById('pageSelect3').classList.add("active");
 
     e = 2;
     fetchGroupList(e);
-    console.log(e);
+    // console.log(e);
 });
 
 //=============== 控制分頁結束 =================
 
 
+//=============== 以下為控制排序 =================
+//控制時間排序
+time_btn_el.addEventListener('click',async function(){
+    amount_btn_count = 0; //重製按鈕
+    time_btn_count++;
+    // console.log(e);
+    // console.log(time_btn_count);
+    fetchGroupList(e, time_btn_count, amount_btn_count);
+});
+
+//控制金錢排序
+amount_btn_el.addEventListener('click',async function(){
+    time_btn_count = 0; //重製按鈕
+    amount_btn_count++;
+    // console.log(e);
+    // console.log(time_btn_count);
+    fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_count);
+});
+//=============== 控制排序結束 =================
+
+//=============== 以下為名稱搜尋 =================
+name_btn_el.addEventListener('click',async function(event){
+    event.preventDefault();
+    time_btn_count = 0; //重製按鈕
+    amount_btn_count = 0; //重製按鈕
+    // name_btn_count++;
+    let keywords = name_input_el.value;
+    console.log(keywords);
+    fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_count, keywords);
+})
+//=============== 為名稱搜尋結束 =================
 
 //=============== fetch揪團列表 =================
 
-let e = 0; //用來控制分頁
 // 網頁載入後執行
 document.addEventListener("DOMContentLoaded", function () {
-    
     fetchGroupList(e);
 });
 
 //async : async function 宣告一個非同步函式，可以告訴function在最後回傳一個promise。
-async function fetchGroupList(e) {
+async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_count, keywords) {
+    
+    //時間排序按鈕
     try {
         // await : await必須放在任何基於promise的函數之前，等到獲得resolve的資料後，再執行後續動作
-        let response = await fetch('http://localhost:8081/u-and-me/groupsList/0/' + e);
+        response = await fetch('http://localhost:8080/u-and-me/groupList/0/' + e);
+        //控制揪團時間排序
+        if(time_btn_count >= 1){
+            if(time_btn_count % 2 === 0){
+                response = await fetch('http://localhost:8080/u-and-me/groupList/byDeadlineDesc/0/' + e);
+            } else if (time_btn_count % 2 !== 0) {
+                response = await fetch('http://localhost:8080/u-and-me/groupList/byDeadline/0/' + e)
+            }
+        }
+        
+        //控制金額排序
+        if(amount_btn_count >= 1){
+            if(amount_btn_count % 2 !== 0){
+                response = await fetch('http://localhost:8080/u-and-me/groupList/byAmountDesc/0/' + e);
+            } else if (amount_btn_count % 2 === 0) {
+                response = await fetch('http://localhost:8080/u-and-me/groupList/byAmount/0/' + e)
+            }
+        }
+
+        //控制搜尋名稱
+        // if(name_btn_count >= 1){
+        //     response = await fetch('http://localhost:8080/u-and-me/groupList/name'+ keywords + '/0/' + e);
+        // }
 
         //response.json()：把資料轉成JSON格式
         const groupsList = await response.json();
@@ -118,7 +188,7 @@ async function fetchGroupList(e) {
                         </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">揪團詳情</a>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="window.location.href='http://localhost:8081/u-and-me/tmp/Front/group/groupMemo.html?gorupId=${group.group_Id}'">揪團詳情</a>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +201,6 @@ async function fetchGroupList(e) {
             //f為控制每個列表id 若有需要可以用
             f += 1;
         });
-
 
     } catch (error) {
         console.error("Error fetching groupList:", error);

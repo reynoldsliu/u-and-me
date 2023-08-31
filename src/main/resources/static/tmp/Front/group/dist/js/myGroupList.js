@@ -56,21 +56,24 @@ function formatDate(dateString) {
 async function deleteGroup() {
     const response = await fetch('http://localhost:8081/u-and-me/myGroupList/1/0');
     const myGroupList = await response.json();
-    const myGroupList_el = document.getElementById("myGroupList");
-    myGroupList.forEach(group => {
-        let r = confirm('確定刪除？');
-        try{
-        if (r) {
-            fetch(`http://localhost:8081/u-and-me/group/${group.group_Id}`, {
-                method: 'DELETE'
-            });
-            window.location.reload();
-            throw new Error();
-        }
+
+    //利用try catch 跳脫foreach循環
+    try {
+        myGroupList.forEach(group => {
+            let r = confirm('確定刪除？');
+
+            if (r) {
+                fetch(`http://localhost:8081/u-and-me/group/${group.group_Id}`, {
+                    method: 'DELETE'
+                });
+                window.location.reload();
+                throw new Error();
+            }
+        });
     }catch(e){
-        return;
+        window.location.reload();
     }
-    });
+    
 }
 
 // // <!--按修改鈕會根據activityId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->

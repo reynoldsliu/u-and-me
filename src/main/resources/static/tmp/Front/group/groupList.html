@@ -179,12 +179,12 @@
             </div>
 
             <!-- -----搜尋框----- -->
-            <form class="form-inline my-2 my-lg-0" role="search" method="get" action="/Search/SearchList"
+            <form class="form-inline my-2 my-lg-0" role="search" method="get" action="#"
                 target="_blank">
                 <div class="input-group" style="width: 250px;">
-                    <input type="text" class="form-control" name="keyword" placeholder="揪團名稱">
+                    <input type="search" class="form-control me-2 d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2" name="keyword" placeholder="揪團名稱" id="name_input">
                     <span class="input-group-btn">
-                        <button type="submit" class="btn btn-info">搜索</button>
+                        <button type="submit" class="btn btn-info" id="name_btn">搜索</button>
                     </span>
                 </div>
             </form>
@@ -205,8 +205,8 @@
                 <div class="container" id="groupData">
 
                     <!-- -----排序按鈕----- -->
-                    <button type="button" class="btn btn-secondary">以時間排序</button>
-                    <button type="button" class="btn btn-secondary">以金額排序</button>
+                    <button type="button" class="btn btn-secondary" id="time_btn">以揪團剩餘時間排序</button>
+                    <button type="button" class="btn btn-secondary" id="amount_btn">以金額排序</button>
 
                     <!-- -----揪團列表內容 js動態排序----- -->
                     <div class="row g-5 justify-content-center" id="groupListInner">

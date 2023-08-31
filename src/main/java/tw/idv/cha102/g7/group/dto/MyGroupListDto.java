@@ -1,9 +1,5 @@
 package tw.idv.cha102.g7.group.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.sql.Timestamp;
-
 public interface MyGroupListDto {
     Integer getGroup_Id();
 

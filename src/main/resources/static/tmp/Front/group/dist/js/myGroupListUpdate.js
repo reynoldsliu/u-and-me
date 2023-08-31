@@ -1,23 +1,36 @@
 //===================使用到的元素===================
-let minMember_el = document.getElementById("minMember");
-let maxMember_el = document.getElementById("maxMember");
-let theme_el = document.getElementById("theme");
-let amount_el = document.getElementById("amount");
-let depDate_el = document.getElementById("depDate");
-let deadline_el = document.getElementById("deadline");
-let groupDesc_el = document.getElementById("groupDesc");
-let notice_el = document.getElementById("notice");
-let cover_el = document.getElementById("cover");
-let cover_img_el = document.getElementById("cover_img");
-let btn_submit_el = document.getElementById("btn_submit");
+const minMember_el = document.getElementById("minMember");
+const maxMember_el = document.getElementById("maxMember");
+const theme_el = document.getElementById("theme");
+const amount_el = document.getElementById("amount");
+const depDate_el = document.getElementById("depDate");
+const deadline_el = document.getElementById("deadline");
+const groupDesc_el = document.getElementById("groupDesc");
+const notice_el = document.getElementById("notice");
+const cover_el = document.getElementById("cover");
+const cover_img_el = document.getElementById("cover_img");
+const btn_submit_el = document.getElementById("btn_submit");
 
-let minMemberStr = document.createElement("span"); 
+const inputMinMember_el = document.getElementById("inputMinMember");
+const inputMaxMember_el = document.getElementById("inputMaxMember");
+const inputTheme_el = document.getElementById("inputTheme");
+const inputAmount_el = document.getElementById("inputAmount");
+const inputDepDate_el = document.getElementById("inputDepDate");
+const inputDeadline_el = document.getElementById("inputDeadline");
+const inputGroupDesc_el = document.getElementById("inputGroupDesc");
+const inputNotice_el = document.getElementById("inputNotice");
+
+//==========判斷錯誤需要用的=========
+
+let isInteger = n => (parseInt(n, 10) === n); //判斷是否為整數
+
+let minMemberStr = document.createElement("span");
 minMemberStr.style.color = 'red';
 
-let maxMemberStr = document.createElement("span"); 
+let maxMemberStr = document.createElement("span");
 maxMemberStr.style.color = 'red';
 
-let themeStr = document.createElement("span"); 
+let themeStr = document.createElement("span");
 themeStr.style.color = 'red';
 
 let depDateStr = document.createElement("span");
@@ -42,19 +55,7 @@ let cover;
 //網頁載入後執行
 document.addEventListener("DOMContentLoaded", function () {
     let groupId;
-
-
-    let today = new Date();//用於驗證、取得目前時間
-
-    const inputMinMember_el = document.getElementById("inputMinMember");
-    const inputMaxMember_el = document.getElementById("inputMaxMember");
-    const inputTheme_el = document.getElementById("inputTheme");
-    const inputAmount_el = document.getElementById("inputAmount");
-    const inputDepDate_el = document.getElementById("inputDepDate");
-    const inputDeadline_el = document.getElementById("inputDeadline");
-    const inputGroupDesc_el = document.getElementById("inputGroupDesc");
-    const inputNotice_el = document.getElementById("inputNotice");
-
+    let today = new Date().getTime();//用於驗證、取得目前時間
 
     //===================取得網址頁上傳遞的參數===================
 
@@ -126,30 +127,30 @@ document.addEventListener("DOMContentLoaded", function () {
         //最小人數
         if (minMember_el.value === null || minMember_el.value === "") {
             control = false;
-            minMemberStr.innerHTML = ' *成團最小人數必須填入數值';
+            minMemberStr.innerHTML = ' *最小人數必須填入數值';
             inputMinMember_el.appendChild(minMemberStr);
         } else if (minMember_el.value > maxMember_el.value) {
             control = false;
-            minMemberStr.innerHTML = ' *成團最小人數不能大於最大人數';
+            minMemberStr.innerHTML = ' *最小人數不能大於最大人數';
             inputMinMember_el.appendChild(minMemberStr);
-        } else if (Number.isInteger(minMember_el.value) || minMember_el.value < 0) {
+        } else if (!isInteger(minMember_el.value) || minMember_el.value < 0) {
             control = false;
-            minMemberStr.innerHTML = ' *成團最小人數必須為正整數';
+            minMemberStr.innerHTML = ' *最小人數必須為正整數';
             inputMinMember_el.appendChild(minMemberStr);
         }
 
         //最大人數
         if (maxMember_el.value === null || maxMember_el.value === "") {
             control = false;
-            maxMemberStr.innerHTML = ' *成團最大人數必須填入數值';
+            maxMemberStr.innerHTML = ' *最大人數必須填入數值';
             inputMaxMember_el.appendChild(maxMemberStr);
         } else if (maxMember_el.value < minMember_el.value) {
             control = false;
-            maxMemberStr.innerHTML = ' *成團最大人數不能小於最小人數';
+            maxMemberStr.innerHTML = ' *最大人數不能小於最小人數';
             inputMaxMember_el.appendChild(maxMemberStr);
-        } else if (Number.isInteger(maxMember_el.value) || minMember_el.value < 0) {
+        } else if (!isInteger(maxMember_el.value) || minMember_el.value < 0) {
             control = false;
-            maxMemberStr.innerHTML = ' *成團最大人數必須為正整數';
+            maxMemberStr.innerHTML = ' *最大人數必須為正整數';
             inputMaxMember_el.appendChild(maxMemberStr);
         }
 
@@ -166,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
             control = false;
             amountStr.innerHTML = ' *價格必須填入數值';
             inputAmount_el.appendChild(amountStr);
-        } else if (amount_el.value < 0 || Number.isInteger(amount_el.value)) {
+        } else if (amount_el.value < 0 || !isInteger(amount_el.value)) {
             control = false;
             amountStr.innerHTML = ' *價格必須為正整數';
             inputAmount_el.appendChild(amountStr);
@@ -177,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期必須填入數值';
             inputDepDate_el.appendChild(depDateStr);
-        } else if (today > depDate_el.value) {
+        } else if (today > depDate_el.valueAsNumber) {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期不得小於當前日期';
             inputDepDate_el.appendChild(depDateStr);
@@ -192,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期必須填入數值';
             inputDeadline_el.appendChild(deadlineStr);
-        } else if (today > deadline_el.value) {
+        } else if (today > deadline_el.valueAsNumber) {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期不得小於當前日期';
             inputDeadline_el.appendChild(deadlineStr);
@@ -243,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             alert('更新成功');
             location.reload();
-        }else{
+        } else {
             alert('更新失敗');
         }
     });

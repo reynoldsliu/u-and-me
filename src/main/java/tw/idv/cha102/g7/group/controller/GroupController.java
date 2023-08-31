@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.group.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ public class GroupController {
 
     @Autowired
     private GroupService groupService;
+
 
     /**
      * 揪團團主
@@ -163,7 +165,7 @@ public class GroupController {
      * @param page 分頁頁數
      * @return 揪團列表
      */
-    @GetMapping("/groupsList/{groupSta}/{page}")
+    @GetMapping("/groupList/{groupSta}/{page}")
     public Stream<GroupListDto> findGroupListByGroupSta(@PathVariable Integer groupSta, @PathVariable Integer page){
         return groupService.findGroupListByGroupSta(groupSta, page);
     }
@@ -208,5 +210,40 @@ public class GroupController {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND).body("更新失敗！");
         }
+    }
+
+    //揪團列表金額排序
+    @GetMapping("/groupList/byDeadline/{groupSta}/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaOrderByDeadline(@PathVariable Integer groupSta,
+                                                               @PathVariable Integer page){
+           return groupService.findGroupByGroupStaOrderByDeadline(groupSta, page);
+    }
+
+    //揪團列表金額排序
+    @GetMapping("/groupList/byDeadlineDesc/{groupSta}/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaOrderByDeadlineDesc(@PathVariable Integer groupSta,
+                                                               @PathVariable Integer page){
+            return groupService.findGroupByGroupStaOrderByDeadlineDesc(groupSta, page);
+    }
+
+    //揪團列表金額排序
+    @GetMapping("/groupList/byAmount/{groupSta}/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaOrderByAmount(@PathVariable Integer groupSta,
+                                                                       @PathVariable Integer page){
+        return groupService.findGroupByGroupStaOrderByAmount(groupSta, page);
+    }
+
+    //揪團列表金額排序
+    @GetMapping("/groupList/byAmountDesc/{groupSta}/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaOrderByAmountDesc(@PathVariable Integer groupSta,
+                                                                       @PathVariable Integer page){
+        return groupService.findGroupByGroupStaOrderByAmountDesc(groupSta, page);
+    }
+
+    @GetMapping("/groupList/name{str}/{groupSta}/{page}")
+    public Page<GroupListDto> findGroupByGroupStaThemeLike(@PathVariable Integer groupSta,
+                                                           @PathVariable String str,
+                                                           @PathVariable Integer page){
+        return groupService.findGroupByGroupStaThemeLike(groupSta, str, page);
     }
 }

@@ -3,6 +3,8 @@ package tw.idv.cha102.g7.group.dto;
 import java.math.BigInteger;
 
 public interface GroupListDto {
+    Integer getGroup_Id();
+
     byte[] getCover();
 
     String getTheme();

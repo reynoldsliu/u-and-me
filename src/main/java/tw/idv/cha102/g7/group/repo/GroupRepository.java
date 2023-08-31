@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface GroupRepository extends JpaRepository<Group, Integer> {
@@ -30,7 +31,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
     //以自定義方法製作分頁
     //用Page<Dto>包裝想要回傳的屬性，返回值最後一個必須是Pageable pageable
-    @Query(value = "SELECT cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1", nativeQuery = true)
+    @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1", nativeQuery = true)
     Page<GroupListDto> findGroupListByGroupSta(Integer groupSta, Pageable pageable);
 
     @Query(value = "SELECT group_id, theme, sch_id, group_sta FROM `group` WHERE mem_id = ?1", nativeQuery = true)
@@ -39,4 +40,18 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "SELECT min_member, max_member, theme, amount, dep_date, deadline, group_desc, notice, cover FROM `group` WHERE group_id = ?1", nativeQuery = true)
     UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
 
+    @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1 ORDER BY deadline", nativeQuery = true)
+    Page<GroupListDto> findGroupByGroupStaOrderByDeadline(Integer groupSta, Pageable pageable);
+
+    @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1 ORDER BY deadline DESC", nativeQuery = true)
+    Page<GroupListDto> findGroupByGroupStaOrderByDeadlineDesc(Integer groupSta, Pageable pageable);
+
+    @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1 ORDER BY amount", nativeQuery = true)
+    Page<GroupListDto> findGroupByGroupStaOrderByAmount(Integer groupSta, Pageable pageable);
+
+    @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1 ORDER BY amount DESC", nativeQuery = true)
+    Page<GroupListDto> findGroupByGroupStaOrderByAmountDesc(Integer groupSta, Pageable pageable);
+
+    @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1 AND theme LIKE %?2%", nativeQuery = true)
+    Page<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str ,Pageable pageable);
 }

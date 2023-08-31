@@ -31,7 +31,9 @@ window.addEventListener("load", function (e) {
 
 
     //==========判斷錯誤需要用的=========
-    let today = new Date();//實體化時間變數
+    let today = new Date().getTime();//實體化當前時間變數 getTime()轉成毫秒
+
+    let isInteger = n => (parseInt(n, 10) === n); //判斷是否為整數
 
     //錯誤判斷新增的字串
     let memIdStr = document.createElement("span");
@@ -40,13 +42,13 @@ window.addEventListener("load", function (e) {
     let schIdStr = document.createElement("span");
     schIdStr.style.color = 'red';
 
-    let minMemberStr = document.createElement("span"); 
+    let minMemberStr = document.createElement("span");
     minMemberStr.style.color = 'red';
 
-    let maxMemberStr = document.createElement("span"); 
+    let maxMemberStr = document.createElement("span");
     maxMemberStr.style.color = 'red';
 
-    let themeStr = document.createElement("span"); 
+    let themeStr = document.createElement("span");
     themeStr.style.color = 'red';
 
     let depDateStr = document.createElement("span");
@@ -96,7 +98,6 @@ window.addEventListener("load", function (e) {
         let control = true; //控制是否進入fetch
 
         //==================錯誤驗證==================
-
         //初始化Str
         memIdStr.innerHTML = "";
         schIdStr.innerHTML = '';
@@ -127,30 +128,30 @@ window.addEventListener("load", function (e) {
         //最小人數
         if (minMember_el.value === null || minMember_el.value === "") {
             control = false;
-            minMemberStr.innerHTML = ' *成團最小人數必須填入數值';
+            minMemberStr.innerHTML = ' *最小人數必須填入數值';
             inputMinMember_el.appendChild(minMemberStr);
-        }else if (minMember_el.value > maxMember_el.value) {
+        } else if (minMember_el.value > maxMember_el.value) {
             control = false;
-            minMemberStr.innerHTML = ' *成團最小人數不能大於最大人數';
+            minMemberStr.innerHTML = ' *最小人數不能大於最大人數';
             inputMinMember_el.appendChild(minMemberStr);
-        }else if (Number.isInteger(minMember_el.value) || minMember_el.value < 0) {
+        } else if (!isInteger(minMember_el.value) || minMember_el.value < 0) {
             control = false;
-            minMemberStr.innerHTML = ' *成團最小人數必須為正整數';
+            minMemberStr.innerHTML = ' *最小人數必須為正整數';
             inputMinMember_el.appendChild(minMemberStr);
         }
 
         //最大人數
         if (maxMember_el.value === null || maxMember_el.value === "") {
             control = false;
-            maxMemberStr.innerHTML = ' *成團最大人數必須填入數值';
+            maxMemberStr.innerHTML = ' *成團人數必須填入數值';
             inputMaxMember_el.appendChild(maxMemberStr);
-        }else if (maxMember_el.value < minMember_el.value) {
+        } else if (maxMember_el.value < minMember_el.value) {
             control = false;
-            maxMemberStr.innerHTML = ' *成團最大人數不能小於最小人數';
+            maxMemberStr.innerHTML = ' *成團人數不能小於最小人數';
             inputMaxMember_el.appendChild(maxMemberStr);
-        }else if (Number.isInteger(maxMember_el.value) || minMember_el.value < 0) {
+        } else if (!isInteger(maxMember_el.value) || minMember_el.value < 0) {
             control = false;
-            maxMemberStr.innerHTML = ' *成團最大人數必須為正整數';
+            maxMemberStr.innerHTML = ' *成團人數必須為正整數';
             inputMaxMember_el.appendChild(maxMemberStr);
         }
 
@@ -167,7 +168,7 @@ window.addEventListener("load", function (e) {
             control = false;
             amountStr.innerHTML = ' *價格必須填入數值';
             inputAmount_el.appendChild(amountStr);
-        }else if (amount_el.value < 0 || Number.isInteger(amount_el.value)) {
+        } else if (amount_el.value < 0 || !isInteger(amount_el.value)) {
             control = false;
             amountStr.innerHTML = ' *價格必須為正整數';
             inputAmount_el.appendChild(amountStr);
@@ -178,11 +179,11 @@ window.addEventListener("load", function (e) {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期必須填入數值';
             inputDepDate_el.appendChild(depDateStr);
-        }else if (today > depDate_el.value) {
+        } else if (today > depDate_el.valueAsNumber) {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期不得小於當前日期';
             inputDepDate_el.appendChild(depDateStr);
-        }else if (depDate_el.value < deadline_el.value) {
+        } else if (depDate_el.value < deadline_el.value) {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期不得小於截止日期';
             inputDepDate_el.appendChild(depDateStr);
@@ -193,11 +194,11 @@ window.addEventListener("load", function (e) {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期必須填入數值';
             inputDeadline_el.appendChild(deadlineStr);
-        }else if (today > deadline_el.value) {
+        } else if (today > deadline_el.valueAsNumber) {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期不得小於當前日期';
             inputDeadline_el.appendChild(deadlineStr);
-        }else if (deadline_el.value > depDate_el.value) {
+        } else if (deadline_el.value > depDate_el.value) {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期不得大於出發日期';
             inputDeadline_el.appendChild(deadlineStr);
@@ -251,18 +252,17 @@ window.addEventListener("load", function (e) {
                     notice: notice_el.value,
                     cover: base64Str
                 }
-                console.log(send_data);
+                // console.log(send_data);
                 await fetch('http://localhost:8081/u-and-me/group', {
                     headers: {
                         "content-type": "application/json",
                     },
                     method: 'POST',
                     body: JSON.stringify(send_data)
-                })
-                    .catch(function (error) {
-                        alert('新增失敗 請檢察填寫資料');
-                        return;
-                    });
+                }).catch(function (error) {
+                    alert('新增失敗 請檢察填寫資料');
+                    return;
+                });
                 alert('新增成功');
                 location.reload();
             };
@@ -272,7 +272,7 @@ window.addEventListener("load", function (e) {
             } catch (e) {
                 alert('新增失敗 請檢察填寫資料');
             }
-        }else{
+        } else {
             alert('新增失敗 請檢察填寫資料');
         }
 
