@@ -23,8 +23,11 @@ public interface ActivityService {
     void deleteById(Integer activId);
 
 
+    void updateById(Integer activId, Activity activity);
+
     public List<Activity> findAllActivity();
 
     public List<Activity> getRandomActivity(int count);
+
 
 }
