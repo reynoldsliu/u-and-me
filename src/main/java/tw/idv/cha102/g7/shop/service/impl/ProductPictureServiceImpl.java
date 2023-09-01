@@ -29,14 +29,14 @@ public class ProductPictureServiceImpl implements ProductPictureService {
     public ResponseEntity<ProductPicture> insertPictures(ProductPicture productPicture) {
         return new ResponseEntity(productPictureRepository.save(productPicture), HttpStatus.OK);
     }
-//    @Override
-//    public void deleteProductPictureByProdId(Integer prodId) {
-//        Product product = productRepository.findById(prodId).orElse(null); // Find the product by prodId
-//        if (product != null) {
-//            List<ProductPicture> productPictures = product.getProductPictures(); // Get associated product pictures
-//            productPictureRepository.deleteAll(productPictures); // Delete the associated pictures
-//        }
-//    }
+    @Override
+    public void deleteProductPictureByProdId(Integer prodId) {
+        Product product = productRepository.findById(prodId).orElse(null);
+        if (product != null) {
+            List<ProductPicture> productPictures = productPictureRepository.findByProdId(prodId);
+            productPictureRepository.deleteAll(productPictures);
+        }
+    }
 
 
 }

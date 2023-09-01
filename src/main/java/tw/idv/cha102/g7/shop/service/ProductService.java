@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductService {
 
     //新增商品
-    public Integer insert(Product product);
+    public Integer insert(ProductDTO productDTO);
 
     //刪除單筆商品
     public void deleteProductById(Integer prodId);
@@ -33,22 +33,26 @@ public interface ProductService {
 
 
     //使用者業務
-
+    /*
+     * 顯示商品列表
+     * */
+    List<ProductDTO> listShop();
     /*
      * 顯示單一商品詳情
      * */
-//    public List<Product> getAllProductDetail();
+    public ProductDTO listDetail(Integer prodId);
+
 
     /*
      * 搜尋商品byNAME 模糊比對%name% (1-多筆)
      * */
-//    public List<Product> findProductByNameContaining(Integer prodName);
+    public List<ProductDTO> findProductByNameContaining(String prodName);
 
 
     /*
      * 搜尋商品by類別 (1-多筆)
      * */
-//    public List<Product> findProductByCat(Integer prodCat);
+//    public List<ProductDTO> findProductByCat(Integer prodCat);
 
 
 

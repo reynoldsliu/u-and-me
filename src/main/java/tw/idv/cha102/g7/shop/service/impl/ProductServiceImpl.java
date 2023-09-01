@@ -4,16 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
 import tw.idv.cha102.g7.shop.entity.Product;
 import tw.idv.cha102.g7.shop.entity.ProductPicture;
 import tw.idv.cha102.g7.shop.repo.ProductPictureRepository;
 import tw.idv.cha102.g7.shop.repo.ProductRepository;
+import tw.idv.cha102.g7.shop.service.ProductPictureService;
 import tw.idv.cha102.g7.shop.service.ProductService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //業務邏輯層，被呼叫，根據請求做資料處理&處理從DAO/Repo回來的資料
 @Service
@@ -27,13 +30,26 @@ public class ProductServiceImpl implements ProductService {
     //從Spring容器找出物件注入給該屬性:當容器初始化時會自動將ProductRepository注入於該建構子中
     //類別的建構子，用於初始化 ProductServiceImpl物件，並設定其依賴的ProductRepository物件
 
-    //    把insert進來的物件用productRepository的save方法存在product中
+    //把insert進來的物件用productRepository的save方法存在product中
+    @Transactional
     @Override
-    public Integer insert(Product product) {
-        Product product1 = productRepository.save(product);
-        Integer prodId = product1.getProdId();
-//        System.out.println(id);
+    public Integer insert(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setProdCatId(productDTO.getProdCatId());
+        product.setProdName(productDTO.getProdName());
+        product.setProdCon(productDTO.getProdCon());
+        product.setProdPri(productDTO.getProdPri());
+        product.setProdSta(productDTO.getProdSta());
+        product = productRepository.save(product);
+        Integer prodId = product.getProdId();
+
+        ProductPicture productPicture = new ProductPicture();
+        productPicture.setProdId(prodId);
+        productPicture.setProdPic(productDTO.getProdPic());
+        productPictureRepository.save(productPicture);
+
         return prodId;
+
     }
 
     // 刪除單筆商品
@@ -61,10 +77,6 @@ public class ProductServiceImpl implements ProductService {
                     productPictureRepository.save(pp);
                 }
             }
-        //
-        //
-        //
-
 
     }
 
@@ -88,7 +100,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> listAll() {
         //找出全部商品
-//        List<Product> prodList = productRepository.findAll();
+        List<Product> productList = productRepository.findAll();
+
+        List<ProductDTO> productDTOS = new ArrayList<>();
+
+        for(Product p : productList){
+            Integer prodId = p.getProdId();
+            List<ProductPicture> productPictures = productPictureRepository.findByProdId(prodId);
+            Object[] objects = {p.getProdId(),
+                                p.getProdCatId(),
+                                p.getProdName(),
+                                p.getProdCon(),
+                                p.getProdPri(),
+                                p.getProdSta(),
+                                productPictures};
+            ProductDTO dto = new ProductDTO(objects);
+            productDTOS.add(dto);
+        }
+        return productDTOS;
+
+        //        List<Product> prodList = productRepository.findAll();
 //        List<ProductDTO> productDTOS = new ArrayList<>();
 
 //        for (Product product : prodList) {
@@ -109,28 +140,6 @@ public class ProductServiceImpl implements ProductService {
 //            }
 //
 //            return productDTOS;
-
-
-        List<Product> productList = productRepository.findAll();
-
-        List<ProductDTO> productDTOS = new ArrayList<>();
-
-        for(Product p : productList){
-            Integer prodId = p.getProdId();
-            List<ProductPicture> productPictures = productPictureRepository.findByProdId(prodId);
-            Object[] objects = {p.getProdId(),
-                                p.getProdCatId(),
-                                p.getProdName(),
-                                p.getProdCon(),
-                                p.getProdPri(),
-                                p.getProdSta(),
-                                productPictures};
-            ProductDTO dto = new ProductDTO(objects);
-            productDTOS.add(dto);
-        }
-        return productDTOS;
-
-
 
 
         //找出全部照片並對應prodId
@@ -165,6 +174,53 @@ public class ProductServiceImpl implements ProductService {
         return new ResponseEntity(productRepository.save(product), HttpStatus.OK);
     }
 
+    @Override
+    public List<ProductDTO> listShop() {
+        List<Product> productList = productRepository.findAll();
+        List<ProductDTO> productDTOList = new ArrayList<>();
+
+        for( Product p : productList){
+            Integer prodId = p.getProdId();
+            List<ProductPicture> productPictures = productPictureRepository.findByProdId(prodId);
+            Object[] objects = {
+                                p.getProdId(),
+                                p.getProdCatId(),
+                                p.getProdName(),
+                                "",
+                                p.getProdPri(),
+                                p.getProdSta(),
+                                productPictures};
+            ProductDTO productDTO = new ProductDTO(objects);
+            productDTOList.add(productDTO);
+        }
+        return productDTOList;
+    }
+
+    @Override
+    public ProductDTO listDetail(Integer prodId) {
+        Product product = productRepository.findById(prodId).orElse(null);
+        ProductDTO productDetail = new ProductDTO();
+        List<ProductPicture> productPictures = productPictureRepository.findByProdId(prodId);
+        Object[] objects = {
+                product.getProdId(),
+                product.getProdCatId(),
+                product.getProdName(),
+                product.getProdCon(),
+                product.getProdPri(),
+                product.getProdSta(),
+                productPictures};
+        ProductDTO productDTO = new ProductDTO(objects);
+
+        return productDTO;
+    }
+
+    @Override
+    public List<ProductDTO> findProductByNameContaining(String prodName) {
+        List<Product> productList = productRepository.findAllByProdName(prodName);
+        ProductDTO productListWithName = new ProductDTO();
+//        List<ProductPicture> productPictures = productPictureRepository.findByProdId();
+        return null;
+    }
 }
 
 
