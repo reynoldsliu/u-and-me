@@ -44,8 +44,8 @@ public class AttrController {
     @Autowired
     private GroupOwnerIdCardService groupOwnerIdCardService;
 
-    @RequestMapping("/membeGroupRegister/{memId}")
-    public ResponseEntity<GroupRegisterCard> membeGroupRegister(@PathVariable Integer memId,
+    @RequestMapping("/memberGroupRegister/{memId}")
+    public ResponseEntity<GroupRegisterCard> memberGroupRegister(@PathVariable Integer memId,
                                                              @RequestBody GroupRegisterCard groupRegisterCard){
         GroupRegisterCard groupRegisterCard1 = new GroupRegisterCard();
 

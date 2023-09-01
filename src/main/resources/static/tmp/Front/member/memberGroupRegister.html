@@ -259,22 +259,22 @@
 </body>
 <script>
     //團主申請的身分證照片預覽
-    const imageInput = document.getElementById('imageInput');
+    // const imageInput = document.getElementById('imageInput');
     const preview = document.getElementById('preview');
 
-    imageInput.addEventListener('change', (event) => {
-        preview.innerHTML = '';
-        const files = event.target.files;
+    // imageInput.addEventListener('change', (event) => {
+    //     preview.innerHTML = '';
+    //     const files = event.target.files;
 
-        for (const file of files) {
-            const imageURL = URL.createObjectURL(file);
-            const image = new Image();
-            image.src = imageURL;
-            image.style.maxWidth = '320px'; // 設定預覽圖最大寬度
-            image.style.maxHeight = '500px'; // 設定預覽圖最大高度
-            preview.appendChild(image);
-        }
-    });
+    //     for (const file of files) {
+    //         const imageURL = URL.createObjectURL(file);
+    //         const image = new Image();
+    //         image.src = imageURL;
+    //         image.style.maxWidth = '320px'; // 設定預覽圖最大寬度
+    //         image.style.maxHeight = '500px'; // 設定預覽圖最大高度
+    //         preview.appendChild(image);
+    //     }
+    // });
 
     //團主申請的身分證上傳
     async function groupRegister(member) {
