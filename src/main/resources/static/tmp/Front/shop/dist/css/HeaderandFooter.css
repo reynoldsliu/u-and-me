@@ -1,3 +1,16 @@
+/* navbar調整顏色教學
+https://www.youtube.com/watch?v=JL35LOMKf2o  
+內含下載bootstrap.css方式&找變數名再去做設定
+*/
+
+
+/* 
+輸入需要的定義變數語法
+設定需要的色彩
+修改色彩可google RGB顏色對照表
+
+/* 文字是由navbar-dark樣式做設定
+bs-dark-rgb 背景色彩變數  */
 .navbar-brand {
   height: 70px;
 }
@@ -36,20 +49,16 @@
 }
 
 .breadcrumb .breadcrumb-item a {
-  text-decoration: none;
-  /* 移除底线 */
-  color: rgb(81, 113, 111);
-  /* 设置链接颜色 */
-  font-size: large;
+  text-decoration: none; /* 移除底线 */
+  color:rgb(81, 113, 111); /* 设置链接颜色 */
+  font-size:large;
   font-family: 'Times New Roman', Times, serif;
 }
 
 .footer {
-  font-family: serif;
-  /* 更改字体为 serif */
+  font-family: serif; /* 更改字体为 serif */
   color: #bdbdbd;
 }
-
 .list-group-shop {
   --bs-list-group-color: var(--bs-body-color);
   --bs-list-group-bg: var(--bs-body-bg);
@@ -81,115 +90,10 @@
   background-repeat: no-repeat;
   background-position: right center;
   background-size: auto 100%;
-}
-
-@media (min-width: 1025px) {
-  .h-custom-2 {
-    height: 100%;
   }
-}
-
-/* 搜尋欄、篩選條件相關 */
-.filter-search {
-  display: inline-block;
-  padding: 15px 70px;
-  border: 1px solid red;
-  align-items: center;
-  width: 100vw;
-  height: 70px;
-}
-
-/* 新增行程 */
-#addSch {
-  vertical-align: middle;
-  position: relative;
-  bottom: 5px;
-}
-
-/* 建立行程燈箱 */
-div.modal-content {
-  width: 450px;
-  height: 550px;
-}
-
-
-div#dateSelector{
-  /* border: 1px solid red; */
-  /* text-align: center; */
-}
-
-input.dateSelector{
-  display: inline-block;
-  position: relative;
-  left: 20px;
-  width: 170px;
-  height: 35px;
-}
-
-p#inputStartDate{
-  position: relative;
-  bottom: 20px;
-  left: 20px;
-}
-
-p#inputEndDate{
-  display: inline-block;
-  position: relative;
-  left: 20px;
-}
-
-.destInput{
-  display: block;
-  margin-left: 20px;
-}
-
-#inputDest{
-  margin-left: 20px;
-}
-
-#destination{
-  width: 90%;
-  height: 35px;
-}
-
-.nameInput{
-  display: block;
-  margin-left: 20px;
-}
-
-#schNameInput{
-  margin-left: 20px;
-}
-
-#schName{
-  width: 90%;
-  height: 35px;
-}
-
-
-
-
-
-
-
-/* 搜尋欄 */
-#keywords {
-  width: 200px;
-  align-items: center;
-  border: 1px solid rgb(158, 158, 158);
-  position: absolute;
-  right: 30%;
-
-}
-
-#search-btn {
-  position: absolute;
-  right: 25%;
-}
-
-
-/* 排序 */
-.filter-sorted {
-  position: absolute;
-  right: 10.9%;
-}
+  
+  @media (min-width: 1025px) {
+  .h-custom-2 {
+  height: 100%;
+  }
+  }

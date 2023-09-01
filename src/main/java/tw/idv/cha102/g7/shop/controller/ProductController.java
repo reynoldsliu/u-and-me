@@ -38,32 +38,7 @@ public class ProductController {
 
     @PostMapping("/createProduct")
     public ResponseEntity<?> createProduct(@RequestBody ProductDTO productDTO) throws IOException {
-        //從前端拿到productPictureDTO內的參數內容
-
-        //從productPictureDTO把拿到的值取出，再放進 new 出來的Product裡面
-        Product newProduct = new Product();
-        newProduct.setProdId(productDTO.getProdId());
-        newProduct.setProdCatId(productDTO.getProdCatId());
-        newProduct.setProdName(productDTO.getProdName());
-        newProduct.setProdCon(productDTO.getProdCon());
-        newProduct.setProdPri(productDTO.getProdPri());
-        newProduct.setProdSta(productDTO.getProdSta());
-
-        //用productService的insert方法，把新的物件newProduct insert進去
-        Integer newProdId = productService.insert(newProduct);
-
-        //從前端拿到的是一個ProductPicture的集合(因為DTO裡面是用集合表示)
-        //因為service裡一次只能取一個，所以從List一個一個取出來
-        //ProductPicture取出的元素型態 pp每個從裡面拿出的元素(他是一個完整的productpicture物件) : productPictures
-        //用productPictureService的insert方法，把新的物件pp insert進去
-        List<ProductPicture> productPictures = productDTO.getProductPictures();
-        if(productPictures != null) {
-            for (ProductPicture pp : productPictures) {
-                pp.setProdId(newProdId);
-                productPictureService.insert(pp);
-
-            }
-        }
+        productService.insert(productDTO);
         return ResponseEntity.status(HttpStatus.OK).body("新增成功！");
     }
 
@@ -83,12 +58,12 @@ public class ProductController {
         productPictureService.insertPictures(productPicture);
         return new ResponseEntity(productPictureService.insertPictures(productPicture), HttpStatus.OK);
     }
-//    @DeleteMapping("/deleteProduct/{prodId}")
-//    @Transactional  //確保在事務範圍內(方法內)運行
-//    public void deleteProduct(@PathVariable Integer prodId) {
-//        productPictureService.deleteProductPictureByProdId(prodId);
-//        productService.deleteProductById(prodId);
-//    }
+    @DeleteMapping("/deleteProduct/{prodId}")
+    @Transactional  //確保在事務範圍內(方法內)運行
+    public void deleteProduct(@PathVariable Integer prodId) {
+        productPictureService.deleteProductPictureByProdId(prodId);
+        productService.deleteProductById(prodId);
+    }
 
     //ResponseEntity<> Spring Framework 提供的一个類別，控制控制器方法的回應內容，包括了回應的狀態碼、回應標頭以及回應主體內容
     //    (productDTO)接住商品修改後的資訊(前端傳回的JSON參數)
@@ -116,6 +91,26 @@ public class ProductController {
     public Product getProductByName(@PathVariable String prodName){
         return productService.getProductByName(prodName);
 
+    }
+
+    @GetMapping("/listAllShop")
+    public ResponseEntity<List<ProductDTO>> listAllShop(){
+        List<ProductDTO> productDTOList = productService.listShop();
+        System.out.println("Test Success");
+        return ResponseEntity.ok(productDTOList);
+    }
+
+    @GetMapping("/listProductDetail/{prodId}")
+    public ResponseEntity<ProductDTO> listProductDetail(@PathVariable Integer prodId){
+        ProductDTO productDTODetail = productService.listDetail(prodId);
+        System.out.println("Test Success");
+        return ResponseEntity.ok(productDTODetail);
+    }
+
+    @RequestMapping("/findProdByName")
+    public  ResponseEntity<List<ProductDTO>> findProdByName(@RequestBody ProductDTO productDTO){
+        List<ProductDTO> productDTOS = productService.findProductByNameContaining(productDTO.getProdName());
+        return ResponseEntity.ok(productDTOS);
     }
 }
 

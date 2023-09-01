@@ -1,10 +1,12 @@
 .navbar-brand {
-    height: 70px;
+    height: 40px;
   }
   
   .navbar-brand>img {
-    height: 115px;
+    /* border: 1px solid blue; */
+    height: 85px;
     margin-top: -23px;
+    margin-left: 25px;
   }
   
   .navbar-dark,
@@ -26,27 +28,21 @@
     border-top-right-radius: 0;
   }
   
-  .footer1 {
-    background-color: rgb(81, 113, 111);
-    color: #bdbdbd;
-  }
   
   .col-6 col-md-2 mb-3>.nav-item mb-2 {
     color: #fff;
   }
   
+  /*
   .breadcrumb .breadcrumb-item a {
-    text-decoration: none; /* 移除底线 */
-    color:rgb(81, 113, 111); /* 设置链接颜色 */
-    font-size:large;
+    text-decoration: none;
+    color: rgb(81, 113, 111);
+    font-size: large;
     font-family: 'Times New Roman', Times, serif;
   }
+  */
   
-  .footer {
-    font-family: serif; /* 更改字体为 serif */
-    color: #bdbdbd;
-  }
-  .list-group-shop {
+  /* .list-group-shop {
     --bs-list-group-color: var(--bs-body-color);
     --bs-list-group-bg: var(--bs-body-bg);
     --bs-list-group-border-color: var(--bs-border-color);
@@ -69,7 +65,7 @@
     padding-left: 0;
     margin-bottom: 0;
     border-radius: var(--bs-list-group-border-radius);
-  }
+  } */
   
   .bg-image-vertical {
     position: relative;
@@ -77,47 +73,75 @@
     background-repeat: no-repeat;
     background-position: right center;
     background-size: auto 100%;
-    }
-    
-    @media (min-width: 1025px) {
+  }
+  
+  @media (min-width: 1025px) {
     .h-custom-2 {
+      height: 100%;
+    }
+  }
+
+/* 全屏顯示，去除預設margin及padding */
+html,
+body{
+    /* border: 1px solid blue; */
+    width: 100%;
     height: 100%;
-    }
-    }
+    margin: 0;
+    padding: 0;
+}
 
-    /* 搜尋欄、篩選條件相關 */
-    .filter-search{
-      display: inline-block;
-      padding: 15px 70px;
-      border: 1px solid red;
-      align-items: center;
-      width: 100vw;
-      height: 70px;
-    }
+/* 景點搜尋 */
+div.search{
+    height: 100%;
+    border:1px solid red;
+    background-color: lightblue;
+    overflow: hidden
+}
 
-    /* 類別標籤 */
-    .filter-tags{
-      
-    }
+/* 搜尋欄 */
+input{
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
 
-    /* 搜尋欄 */
-    #keywords{
-      width: 200px;
-      align-items: center;
-      border: 1px solid rgb(158, 158, 158);
-      position: absolute;
-      right: 30%;
-      
-    }
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+ /* 地圖 */
+#map {
+    /* display: none;  */
+    /* 無內陰影效果 */
+    /* box-shadow: inset 3px 5px 10px gray; */
+    width:100%;
+    height: 100%;
+    float:right;
+    overflow: hidden;
+    /* border: 1px solid green; */
+}
 
-    #search-btn{
-      position: absolute;
-      right: 25%;
-    }
+/* 詳細路線 */
+#directionsPanel{
+    display: none; 
+    float:right;
+    width:30%;
+    height:100%;
+    background-color: antiquewhite; 
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+/* 地圖與詳細路線的容器 */
+#mapAndDirect{
+    height: 100%;
+    overflow: hidden;
+    /* border: 1px solid purple; */
+    /* box-shadow: inset 3px 5px 10px gray; */
+}
 
 
-    /* 排序 */
-    .filter-sorted{
-      position: absolute;
-      right: 10.9%;
-    }
+/* 行程細節 */
+div.schDetails{
+    /* border: 1px solid blue; */
+    /* width: 30%;
+    height: 100%; */
+}

@@ -19,6 +19,9 @@ import java.util.Map;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    public Product findByProdName(String prodName);
+    public List<Product> findAllByProdName(String prodName);
+
+    Product findByProdName(String prodName);
+//    public Product findByProdId(Integer prodId);
 
 }

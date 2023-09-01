@@ -1,15 +1,19 @@
 package tw.idv.cha102.g7.group.controller;
 
+import org.hibernate.annotations.SortType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.group.dto.*;
+import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
+import tw.idv.cha102.g7.group.dto.GroupListDto;
+import tw.idv.cha102.g7.group.dto.MyGroupListDto;
+import tw.idv.cha102.g7.group.dto.UpdateMyGroupDto;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.service.GroupService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
@@ -19,6 +23,7 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
+//    @Autowired SortType sortType;
 
     /**
      * 揪團團主
@@ -132,15 +137,15 @@ public class GroupController {
         return groupService.findGroupByPaymentSta(paymentSta);
     }
 
-    /**
-     * 測試用
-     * @param groupId
-     * @return
-     */
-    @GetMapping("/test1/{groupId}")
-    List<GroupRegFormDto> findGroupRegFormDtoByGroupId(@PathVariable Integer groupId){
-        return groupService.findGroupRegFormDtoByGroupId(groupId);
-    }
+//    /**
+//     * 測試用
+//     * @param groupId
+//     * @return
+//     */
+//    @GetMapping("/test1/{groupId}")
+//    List<GroupRegFormDto> findGroupRegFormDtoByGroupId(@PathVariable Integer groupId){
+//        return groupService.findGroupRegFormDtoByGroupId(groupId);
+//    }
 
     /**
      * 遊客/揪團團主/一般使用者
@@ -166,8 +171,11 @@ public class GroupController {
      * @return 揪團列表
      */
     @GetMapping("/groupList/{groupSta}/{page}")
-    public Stream<GroupListDto> findGroupListByGroupSta(@PathVariable Integer groupSta, @PathVariable Integer page){
-        return groupService.findGroupListByGroupSta(groupSta, page);
+    public List<GroupListDto> findGroupListByGroupSta(@PathVariable Integer groupSta, @PathVariable Integer page, SortType sortType){
+//        sortType = this.sortType;
+        List<GroupListDto> xx = groupService.findGroupListByGroupSta(groupSta, page).collect(Collectors.toList());
+        System.out.println(xx.size());
+        return xx;
     }
 
     /**
@@ -240,10 +248,18 @@ public class GroupController {
         return groupService.findGroupByGroupStaOrderByAmountDesc(groupSta, page);
     }
 
+    //揪團名查詢
     @GetMapping("/groupList/name{str}/{groupSta}/{page}")
     public Stream<GroupListDto> findGroupByGroupStaThemeLike(@PathVariable Integer groupSta,
                                                            @PathVariable String str,
                                                            @PathVariable Integer page){
         return groupService.findGroupByGroupStaThemeLike(groupSta, str, page);
     }
+
+//    @PostMapping("/test")
+//    public SortType setSortType(@RequestBody SortType sortType){
+//        this.sortType = sortType;
+//        return sortType;
+//    }
+
 }

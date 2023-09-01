@@ -19,21 +19,10 @@ public class ProductDTO {
     private String prodCon;
     private Integer prodPri;
     private Short prodSta;
-
-//    private Product product;
-
+    private byte[] prodPic;
     private List<ProductPicture> productPictures;
 
-//    public ProductDTO(Integer prodId, Integer prodCatId, String prodName, String prodCon, Integer prodPri, Short prodSta, List<ProductPicture> productPictures) {
-//        this.prodId = prodId;
-//        this.prodCatId = prodCatId;
-//        this.prodName = prodName;
-//        this.prodCon = prodCon;
-//        this.prodPri = prodPri;
-//        this.prodSta = prodSta;
-//        this.productPictures = productPictures;
-//    }
-
+    //    生成一個DTO時傳進來的資料讓他排序
     public ProductDTO(Object[] objects) {
         this.prodId = (Integer) objects[0];
         this.prodCatId = (Integer) objects[1];
