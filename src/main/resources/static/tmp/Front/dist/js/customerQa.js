@@ -7,7 +7,7 @@ function findall() {
 
   var baseUrl = window.location.protocol + "//" + window.location.host;
 
-  fetch(baseUrl+"/u-and-me/qas")  //抓後端Controller的路徑
+  fetch(baseUrl+"/u-and-me/state/1")  //抓後端Controller的路徑
     .then(function (resp) {
       return resp.json() //要求json檔的資料
     }).then(function (data) {
