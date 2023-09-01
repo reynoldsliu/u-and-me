@@ -99,78 +99,8 @@
   height: 70px;
 }
 
-/* 新增行程 */
-#addSch {
-  vertical-align: middle;
-  position: relative;
-  bottom: 5px;
-}
-
-/* 建立行程燈箱 */
-div.modal-content {
-  width: 450px;
-  height: 550px;
-}
-
-
-div#dateSelector{
-  /* border: 1px solid red; */
-  /* text-align: center; */
-}
-
-input.dateSelector{
-  display: inline-block;
-  position: relative;
-  left: 20px;
-  width: 170px;
-  height: 35px;
-}
-
-p#inputStartDate{
-  position: relative;
-  bottom: 20px;
-  left: 20px;
-}
-
-p#inputEndDate{
-  display: inline-block;
-  position: relative;
-  left: 20px;
-}
-
-.destInput{
-  display: block;
-  margin-left: 20px;
-}
-
-#inputDest{
-  margin-left: 20px;
-}
-
-#destination{
-  width: 90%;
-  height: 35px;
-}
-
-.nameInput{
-  display: block;
-  margin-left: 20px;
-}
-
-#schNameInput{
-  margin-left: 20px;
-}
-
-#schName{
-  width: 90%;
-  height: 35px;
-}
-
-
-
-
-
-
+/* 類別標籤 */
+.filter-tags {}
 
 /* 搜尋欄 */
 #keywords {
@@ -192,4 +122,11 @@ p#inputEndDate{
 .filter-sorted {
   position: absolute;
   right: 10.9%;
+}
+
+/* 查看詳情 */
+a#viewDetails {
+  width: 100%;
+  height: 40px;
+  font-size: 1.3rem;
 }
