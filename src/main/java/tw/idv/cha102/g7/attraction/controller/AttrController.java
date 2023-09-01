@@ -11,6 +11,7 @@ import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
 import tw.idv.cha102.g7.attraction.dto.AttrPictureDTO;
 import tw.idv.cha102.g7.attraction.entity.AttrPicture;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
+import tw.idv.cha102.g7.attraction.entity.GroupRegisterCard;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
 import tw.idv.cha102.g7.attraction.service.AttrPictureService;
 import tw.idv.cha102.g7.attraction.service.AttrService;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import tw.idv.cha102.g7.attraction.service.GroupOwnerIdCardService;
 import tw.idv.cha102.g7.member.service.MemberService;
 
 @RestController
@@ -38,6 +40,23 @@ public class AttrController {
     private AttrPictureService attrPictureService;
     @Autowired
     private AttrCollectionService attrCollectionService;
+
+    @Autowired
+    private GroupOwnerIdCardService groupOwnerIdCardService;
+
+    @RequestMapping("/membeGroupRegister/{memId}")
+    public ResponseEntity<GroupRegisterCard> membeGroupRegister(@PathVariable Integer memId,
+                                                             @RequestBody GroupRegisterCard groupRegisterCard){
+        GroupRegisterCard groupRegisterCard1 = new GroupRegisterCard();
+
+        groupRegisterCard1.setMemId(memId);
+        groupRegisterCard1.setGroupIdCard(groupRegisterCard.getGroupIdCard());
+        groupRegisterCard1.setGroupIdCardPic(groupRegisterCard.getGroupIdCardPic());
+        System.out.println(groupRegisterCard1);
+
+        return new ResponseEntity(groupOwnerIdCardService.insertPic(groupRegisterCard1), HttpStatus.OK);
+    }
+
 
     /**
      * 導向首頁
@@ -123,7 +142,7 @@ public class AttrController {
     }
 
     @RequestMapping("/deleteAttraction/{attrId}")
-    public ResponseEntity<String> insertNewAttraction(@PathVariable Integer attrId){
+    public ResponseEntity<String> deleteNewAttraction(@PathVariable Integer attrId){
         attrService.deleteAttrByAttrId(attrId);
         return new ResponseEntity<>(HttpStatus.OK);
     }

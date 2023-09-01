@@ -57,6 +57,14 @@ VALUES
   (10,'222333444', 'host10@example.com', 'password10', 'Sara', 1);
 select * from hosts;
 
+create table group_register(
+	mem_id int primary key,
+	gr_idcard varchar(10),
+	gr_idcard_pic mediumblob
+	-- constraint fk_mem_id
+    -- foreign key (mem_id) references members(mem_id)
+);
+
 
 -- create schema onlineshoppingmall;
 -- use onlineshoppingmall;
@@ -338,31 +346,6 @@ VALUES
 select * from attractions;
 -- drop table attractions;
 
-create table private_attraction (
-	mem_id int,
-    attr_id int,
-    attr_veri_sta tinyint,
-	attr_sta int,
-	attr_name varchar(20),
-	attr_addr varchar(100),
-	attr_lon float,
-	attr_lat float,
-	attr_illa varchar(500),
-	attr_type_id int,
-	-- constraint attr_type_id
-	-- foreign key(attr_type_id) references attraction_type(attr_type_id)
-	attr_buss_time varchar(100),
-	attr_cost_range tinyint,
-	attr_rep varchar(500)
-);
-INSERT INTO private_attraction (mem_id, attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep)
-VALUES 
-  (3, 7, 1, 3, 'Attraction 7', '890 Maple Ave', 34.567, -56.789, 'Description for Attraction 7', 1, '9:45 AM - 5:45 PM', 2, 'Representative for Attraction 7'),
-  (3, 8, 0, 2, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', 3, '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
-  (3, 9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', 2, '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
-  (3, 10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', 1, '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
- 
- select * from private_attraction;
 
 -- create table members(
 -- mem_id int primary key,
@@ -393,7 +376,7 @@ insert into attraction_collections(attr_id, mem_id, attr_col_illa)
 values
 (1,1,"第一個會員的第一筆收藏");
 
-select * from attraction_collections;
+-- select * from attraction_collections;
 -- drop table attraction_collections;
 
 -- drop table attraction_pictures;

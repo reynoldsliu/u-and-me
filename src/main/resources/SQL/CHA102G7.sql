@@ -57,6 +57,14 @@ VALUES
   (10,'222333444', 'host10@example.com', 'password10', 'Sara', 1);
 select * from hosts;
 
+create table group_register(
+	mem_id int primary key,
+	gr_idcard varchar(10),
+	gr_idcard_pic mediumblob
+	-- constraint fk_mem_id
+    -- foreign key (mem_id) references members(mem_id)
+);
+
 
 -- create schema onlineshoppingmall;
 -- use onlineshoppingmall;
@@ -129,31 +137,48 @@ select * from order_details;
 -- use uandme;
 create table `group`
 (
-	group_id int primary key, -- auto_increment
-    mem_id int, -- not null
-    sch_id int, -- not null
-    members int default 0,-- not null
+	group_id int primary key auto_increment, --
+    mem_id int not null, --
+    sch_id int not null, --
+    members int default 0 not null,--
     min_member int not null,
     max_member int not null,
     amount int not null,
     theme varchar(32) not null,
-    `starting` datetime not null,
-    dep_date datetime not null,
-    deadline datetime not null,
+    start_date timestamp not null,
+    dep_date timestamp not null,
+    deadline timestamp not null,
     group_desc varchar(200) not null,
     notice varchar(500) not null,
-    group_sta tinyint not null default 0
+    group_sta tinyint not null default 0,
+    payment_sta tinyint not null default 0,
+    cover mediumblob
     -- constraint fk_mem_id
 --     foreign key (mem_id) references members(mem_id),
---     
+--
 --     constraint fk_sch_id
 --     foreign key (sch_id) references schedules(sch_id)
 );
 insert into `group` values (
 1, 1, 1, default, 10, 20,
 100000, '緯育4月遊', '2023-03-22 00:00', '2023-05-15 00:00',
-'2023-05-01 00:00', 'JAVA集訓營', '進入後肝可能變黑白的', default 
+'2023-05-01 00:00', 'JAVA集訓營', '進入後肝可能變黑白的',default , 0, null
 );
+insert into `group`
+values
+    (101, 101, 201, 5, 3, 8, 1000, 'Hiking Trip', '2023-08-10 09:00:00', '2023-08-15 12:00:00', '2023-08-01 18:00:00', 'A fun hiking trip to the mountains', 'Bring your own water and snacks', 0, 0, null),
+    (102, 102, 202, 4, 2, 6, 800, 'Beach Vacation', '2023-09-05 14:00:00', '2023-09-12 10:00:00', '2023-08-25 23:59:59', 'Relax and unwind at the sunny beach', 'Sunscreen is a must', 0, 0, null),
+    (103, 103, 203, 6, 4, 10, 1200, 'City Tour', '2023-07-20 11:00:00', '2023-07-25 16:00:00', '2023-07-15 22:00:00', 'Explore the city and visit popular landmarks', 'Comfortable shoes are recommended', 0, 0, null),
+    (104, 104, 204, 3, 2, 4, 600, 'Camping Adventure', '2023-08-28 15:00:00', '2023-09-02 09:00:00', '2023-08-20 20:00:00', 'Experience the great outdoors with camping', 'Bring your own tent and sleeping bag', 0, 0, null),
+    (105, 105, 205, 7, 5, 12, 1500, 'Cruise Journey', '2023-10-15 13:00:00', '2023-10-25 18:00:00', '2023-10-01 19:00:00', 'Enjoy a luxurious cruise experience', 'Formal attire required for dinner', 0, 0, null),
+    (106, 106, 206, 2, 2, 4, 400, 'Skiing Adventure', '2023-12-05 08:00:00', '2023-12-10 16:00:00', '2023-11-25 23:59:59', 'Hit the slopes and have fun skiing', 'Skiing equipment available for rent', 0, 0, null),
+    (107, 107, 207, 8, 6, 15, 1800, 'Road Trip', '2023-09-30 10:00:00', '2023-10-10 14:00:00', '2023-09-15 18:00:00', 'Embark on an exciting road trip across the country', 'Prepare some road trip playlists', 0, 0, null),
+    (108, 108, 208, 4, 3, 8, 1000, 'Photography Tour', '2023-11-12 09:00:00', '2023-11-18 17:00:00', '2023-11-01 23:59:59', 'Capture stunning landscapes and wildlife with photography', 'Bring your own camera gear', 0, 0, null),
+    (109, 109, 209, 6, 4, 10, 1200, 'Foodie Adventure', '2023-10-05 12:00:00', '2023-10-15 20:00:00', '2023-09-25 23:59:59', 'Explore various cuisines and food spots', 'Come hungry and ready to eat', 0, 0, null),
+    (110, 110, 210, 3, 2, 5, 700, 'Fishing Trip', '2023-11-25 07:00:00', '2023-11-28 15:00:00', '2023-11-15 19:00:00', 'Enjoy fishing in serene lakes and rivers', 'Fishing equipment will be provided', 0, 0, null);
+select * from `group`;
+
+
 insert into `group`
 values
     (101, 101, 201, 5, 3, 8, 1000, 'Hiking Trip', '2023-08-10 09:00:00', '2023-08-15 12:00:00', '2023-08-01 18:00:00', 'A fun hiking trip to the mountains', 'Bring your own water and snacks', 0),
@@ -204,18 +229,19 @@ select * from reg_form;
 
 create table member_detail
 (
-	detail_id int primary key, -- auto_increment
-    form_id int , -- not null
+	detail_id int primary key auto_increment,
+    form_id int not null,
     `name` varchar(32) not null,
     citizenship varchar(32) not null,
     idnumber char(10) not null,
     birthday date not null,
-    gender enum('男','女') not null default '男'
+    gender enum('男','女') not null default '男',
+	refund_sta tinyint not null default 0
 --     constraint fk_form_id
 --     foreign key (form_id) references reg_form(form_id)
 );
 insert into member_detail values(
-1, 1, '李小明', '臺灣', 'A123456789', '2000-01-01',default
+1, 1, '李小明', '臺灣', 'A123456789', '2000-01-01',default, 0
 );
 insert into member_detail (detail_id ,form_id, `name`, citizenship, idnumber, birthday)
 values
@@ -267,16 +293,16 @@ select * from group_rep;
 
 create table group_picture
 (
-	group_pic_id int primary key, -- auto_increment
-    group_id int, -- not null
-    froup_pic mediumblob
+	group_pic_id int primary key auto_increment,
+    group_id int not null,
+    group_pic mediumblob
 --     constraint fk_group_id
 --     foreign key (group_id) references `group`(group_id)
 );
 insert into group_picture values (
 1, 1, null
 );
-insert into group_picture values 
+insert into group_picture values
 (101, 201, null),
 (102, 202, null),
 (103, 203, null),
@@ -286,8 +312,7 @@ insert into group_picture values
 (107, 207, null),
 (108, 208, null),
 (109, 209, null),
-(110, 210, null)
-;
+(110, 210, null);
 select * from group_picture;
 
 -- attractions景點相關表格建立 劉力辰
@@ -377,7 +402,7 @@ attr_pic_id int unsigned primary key,
 attr_id int,
 -- constraint fk_attr_id
 -- foreign key(attr_id) references attractions(attr_id),
-attr_pic_data mediumblob
+attr_pic_data longtext
 );
 
 insert into attraction_pictures(attr_pic_id, attr_id, attr_pic_data)

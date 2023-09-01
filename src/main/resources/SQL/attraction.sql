@@ -85,7 +85,7 @@ attr_pic_id int unsigned primary key,
 attr_id int,
 -- constraint fk_attr_id
 -- foreign key(attr_id) references attractions(attr_id),
-attr_pic_data mediumblob
+attr_pic_data longtext
 );
 
 insert into attraction_pictures(attr_pic_id, attr_id, attr_pic_data)
