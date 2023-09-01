@@ -1,10 +1,11 @@
 .navbar-brand {
-    height: 40px;
+    height: 55px;
+    overflow: hidden;
 }
 
 .navbar-brand>img {
-    /* border: 1px solid blue; */
-    height: 85px;
+    width: 85px;
+    height: 95px;
     margin-top: -23px;
     margin-left: 25px;
 }
@@ -89,22 +90,30 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
-/* 景點搜尋 */
+/* ============ 景點搜尋開始 ============ */
+
+/* 景點搜尋側邊欄 */
 div.search {
+    /* display: none; */
     height: 100%;
-    /* box-shadow: inset 3px 0px 10px lightgray; */
     border-right: 1px solid lightgray;
     /* border: 1px solid red; */
-    /* background-color: lightblue; */
     overflow: hidden
 }
 
+div.search-off {
+    display: none;
+}
+
+/* 整個頁籤 */
 div.switchbox {
+    /* border: 1px solid blue; */
     display: inline-block;
     border-bottom: 1px solid lightgray;
-    box-shadow:  0px 2px 5px lightgray;
+    box-shadow: 0px 2px 5px lightgray;
     width: 100%;
     height: 48px;
 }
@@ -120,21 +129,18 @@ div.switchbox ul {
     display: inline-block;
 }
 
-/* 返回上一頁(我的行程) */
+/* 返回上一頁籤箭頭(行程細節) */
 a#tab-back {
     border-right: 1px solid lightgray;
     /* 調整用 */
-    width: 60px;
+    width: 63px;
     height: 100%;
     display: inline-block;
-    font-size: 29px;
-    color: gray;
+    font-size: 33px;
+    color: rgb(25, 135, 84);
     font-weight: bold;
     text-align: center;
     text-decoration: none;
-    position: relative;
-    bottom: -10%;
-
 }
 
 /* 搜尋、景點收藏、自訂景點頁籤 */
@@ -175,21 +181,38 @@ div.switchbox ul>li>a {
     z-index: 2;
 }
 
-div.switchbox ul>li>a>i{
+/* icon */
+div.switchbox ul>li>a>i {
     font-size: 25px;
     position: relative;
     bottom: -40%;
     z-index: 1;
 }
 
-/* 景點搜尋結果 */
-div.attrSearch-result{
+div.switchbox ul>li>a>i.-on{
+    color: rgb(25, 135, 84);
+}
+
+/* 頁籤切換時需更動的頁面 */
+div.attrSearch-result {
     /* border: 1px solid red; */
     width: 100%;
     height: 100%;
     display: inline-block;
     overflow: hidden;
-    overflow-y: scroll;
+    /* overflow-y: auto; */
+    /* display: none; */
+}
+
+div.attrSearch-result-off {
+    display: none;
+}
+
+/* 景點搜尋欄區塊 */
+div.searchColumn {
+    width: 100%;
+    height: 110px;
+    box-shadow: 0px 2px 5px lightgray;
 }
 
 /* 景點搜尋欄 */
@@ -201,56 +224,168 @@ input {
     margin: 10px 0 10px 20px;
 }
 
-input.google_input_text2{
+/* 下面的搜尋欄 */
+input.google_input_text2 {
     margin-top: 0;
     width: 70%;
 }
 
-div.attrSearch-btn{
-    border: 1px solid red;
-    width: 50px;
+/* 搜尋按鈕位置 */
+div.attrSearch-btn {
+    width: 70px;
+    position: relative;
+    left: 78%;
+    bottom: 43%;
+}
+
+button#attrSearch-btn {
+    width: 68px;
 }
 
 /* 景點交通搜尋結果框 */
-div.trans-search-result{
+div.trans-search-result {
     border: 1px solid blue;
-    display: inline-block;
+    /* display: inline-block; */
+    display: none;
     width: 100%;
-    height: 90px;
+    height: 50px;
+    position: relative;
 }
 
-/* 景點搜尋結果清單 */
-div.attrSearchList{
-    border: 1px solid red;
-    width: 100%;
-    height: 100%;
-}
-
-/* 單一個景點框 */
-div.attrs-cell{
-    border: 1px solid;
-    height: ;
-}
-
-/* 選擇交通方式 */
-div.trans-mode{
+/* 選擇交通方式區塊 */
+div.trans-mode {
     /* border: 1px solid red; */
-    height: 40px;
+    display: inline-block;
+    height: 50px;
+    width: 100%;
     text-align: center;
 }
 
-/* 總距離 */
-div#totalDistance{
+/* 選擇交通方式選單 */
+/* Mode of Travel字體 */
+div.textofmode {
+    /* 視情況隱藏字體 */
+    /* display: none; */
     /* border: 1px solid red; */
+    width: 70px;
+    height: 100%;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+select#mode {
+    /* border: 1px solid red; */
+    width: 50px;
+    height: 100%;
+    position: absolute;
+    left: 70px;
+    top: 0;
+    /* 字體隱藏時使用下面css (absolute)*/
+    /* left: 0;
+    top: 0; */
+    /* 字體顯現時使用下面css (relative)*/
+    /* position: relative;
+    left: -5px;
+    top: -49px; */
+    /* 字體隱藏時使用下面css (relative)*/
+    /* left: -75px; */
+}
+
+/* 總距離(隱藏不顯示) */
+div#totalDistance {
+    display: none;
+    border: 1px solid red;
     text-align: center;
 }
 
 /* 總時間 */
-div#totalTime{
+div#totalTime {
     /* border: 1px solid red; */
+    width: 20%;
+    height: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
     text-align: center;
+    vertical-align: middle;
+    position: absolute;
+    left: 30%;
+    top: 20%;
 }
 
+/* 景點搜尋結果清單 */
+div.attrSearchList {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 428px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+/* 單一個景點框 */
+div.attrs-cell {
+    border: 1px solid green;
+    height: 70px;
+    margin-bottom: 10px;
+}
+
+div.attrs-cell:first-child {
+    margin-top: 10px;
+}
+
+/* ============ 景點搜尋結束 ============ */
+
+/* ============ 我的景點收藏 ============ */
+div.myAttrs{
+    display: none;
+    /* border: 1px solid red; */
+    width: 33.3%;
+    height: 539px;
+    position: absolute;
+    left: 0;
+    top: 48px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+div.myAttrs-off{
+    display: none;
+}
+
+/* 未有任何收藏景點 */
+div.attrCollectNotFound{
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: rgb(245,245,245);
+    box-shadow: inset 0px 2px 5px lightgray;
+    display: none;
+}
+
+div.attrCollectNotFound-on{
+    display: none;
+}
+
+div.attrCollectNotFound>p{
+    /* border: 1px solid green; */
+    text-align: center;
+    width: 100%;
+    height: 25px;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%, -50%);
+}
+
+/* ============ 我的景點收藏結束 ============ */
+
+/* ================ 自訂景點 ================ */
+
+
+
+/* =============== 自訂景點結束 ============== */
+
+/* ============ GOOGLE MAP 開始 ============ */
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 /* 地圖 */
@@ -283,6 +418,8 @@ div#totalTime{
     /* border: 1px solid purple; */
     /* box-shadow: inset 3px 5px 10px gray; */
 }
+
+/* ============ GOOGLE MAP 結束 ============ */
 
 
 /* 行程細節 */
