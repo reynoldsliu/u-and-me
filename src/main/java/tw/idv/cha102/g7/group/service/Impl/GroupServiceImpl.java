@@ -113,15 +113,26 @@ public class GroupServiceImpl implements GroupService {
 
         Sort sort = Sort.by(Sort.Direction.ASC, "start_Date");  //定義Sort ASC為升冪排序，通過揪團狀態排序 start_Date 是MySQL的欄位名
 
-
+        //測試想法
+//        if(sortType != null){
+//            switch (sortType.getType()){
+//                case 1:
+//                    sort = Sort.by(Sort.Direction.ASC, "deadline");
+//                    break;
+//                case 2:
+//                    sort = Sort.by(Sort.Direction.DESC, "deadline");
+//                    break;
+//                case 3:
+//                    break;
+//            }
+//        }
 
         Pageable pageable = PageRequest.of(page, 6, sort);   //定義Pageable(page 當前頁數, size 傳入資料筆數, sort 排序方法)
         BigInteger zero = new BigInteger("0");  //比較BigInteger所以要用BigInteger互相比較
 
         //以下判斷取出的揪團狀態
         List<Group> groups = groupRepository.findGroupByGroupSta(0); //找出揪團狀態為0的列表
-        for (
-                Group group : groups) {
+        for (Group group : groups) {
 
             //參團人數到最大人數
             if (group.getMembers() == group.getMaxMember()) {
@@ -141,10 +152,8 @@ public class GroupServiceImpl implements GroupService {
                 }
             }
         }
-        return groupRepository.findGroupListByGroupSta(groupSta, pageable).
-
-                get(); //返回值為Stream<T>
-
+        //問題 Stream.filter()後的列表是亂的(結果:因為pageable size一次傳入固定比數， 呼叫分頁時才會再給下一頁的值，所以才會挖空)
+        return groupRepository.findGroupListByGroupSta(groupSta, pageable).get(); //返回值為Stream<T>
     }
 
     @Override

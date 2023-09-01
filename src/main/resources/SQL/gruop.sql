@@ -3,15 +3,15 @@ use uandme;
 
 create table `group`
 (
-	group_id int primary key auto_increment,
-    mem_id int, -- not null
-    sch_id int, -- not null
-    members int default 0,
+	group_id int primary key auto_increment, -- 
+    mem_id int not null, -- 
+    sch_id int not null, -- 
+    members int default 0 not null,-- 
     min_member int not null,
     max_member int not null,
     amount int not null,
     theme varchar(32) not null,
-    start_date timestamp not null default current_timestamp,
+    start_date timestamp not null,
     dep_date timestamp not null,
     deadline timestamp not null,
     group_desc varchar(200) not null,
@@ -47,9 +47,9 @@ select * from `group`;
 
 create table reg_form
 (
-	form_id int primary key, -- auto_increment
-    group_id int , -- not null
-    mem_id int , -- not null
+	form_id int primary key auto_increment,
+    group_id int not null,
+    mem_id int not null,
     email varchar(32) not null,
     phone varchar(13) not null,
     join_member int not null default 1,
@@ -80,8 +80,8 @@ select * from reg_form;
 
 create table member_detail
 (
-	detail_id int primary key, -- auto_increment
-    form_id int , -- not null
+	detail_id int primary key auto_increment,
+    form_id int not null,
     `name` varchar(32) not null,
     citizenship varchar(32) not null,
     idnumber char(10) not null,
@@ -110,9 +110,9 @@ select * from member_detail;
 
 create table group_rep
 (
-	group_rep_id int primary key, -- auto_increment
-    mem_id int, --  not null
-    group_id int,-- not null
+	group_rep_id int primary key auto_increment,
+    mem_id int not null,
+    group_id int not null,
     hosts_id int,
     reason varchar(500) not null,
     group_rep_sta TINYINT not null default 0
@@ -143,8 +143,8 @@ select * from group_rep;
 
 create table group_picture
 (
-	group_pic_id int primary key, -- auto_increment
-    group_id int, -- not null
+	group_pic_id int primary key auto_increment,
+    group_id int not null,
     group_pic mediumblob
 --     constraint fk_group_id
 --     foreign key (group_id) references `group`(group_id)
@@ -162,6 +162,5 @@ insert into group_picture values
 (107, 207, null),
 (108, 208, null),
 (109, 209, null),
-(110, 210, null)
-;
+(110, 210, null);
 select * from group_picture;

@@ -33,7 +33,7 @@ window.addEventListener("load", function (e) {
     //==========判斷錯誤需要用的=========
     let today = new Date().getTime();//實體化當前時間變數 getTime()轉成毫秒
 
-    let isInteger = n => (parseInt(n, 10) === n); //判斷是否為整數
+    // let isInteger = n => (Number(n) === n); //判斷是否為整數
 
     //錯誤判斷新增的字串
     let memIdStr = document.createElement("span");
@@ -130,31 +130,36 @@ window.addEventListener("load", function (e) {
             control = false;
             minMemberStr.innerHTML = ' *最小人數必須填入數值';
             inputMinMember_el.appendChild(minMemberStr);
-        } else if (minMember_el.value > maxMember_el.value) {
-            control = false;
-            minMemberStr.innerHTML = ' *最小人數不能大於最大人數';
-            inputMinMember_el.appendChild(minMemberStr);
-        } else if (!isInteger(minMember_el.value) || minMember_el.value < 0) {
+        } else if (!(Number.isInteger(Number(minMember_el.value))) || Number(minMember_el.value) < 0) {
             control = false;
             minMemberStr.innerHTML = ' *最小人數必須為正整數';
             inputMinMember_el.appendChild(minMemberStr);
+        } else if ((Number.isInteger(Number(maxMember_el.value))) && Number(maxMember_el.value) > 0) {
+            if (Number(minMember_el.value) > Number(maxMember_el.value)) {
+                control = false;
+                console.log(minMember_el.value);
+                minMemberStr.innerHTML = ' *最小人數不能大於最大人數';
+                inputMinMember_el.appendChild(minMemberStr);
+            }
         }
 
         //最大人數
         if (maxMember_el.value === null || maxMember_el.value === "") {
             control = false;
-            maxMemberStr.innerHTML = ' *成團人數必須填入數值';
+            maxMemberStr.innerHTML = ' *最大人數必須填入數值';
             inputMaxMember_el.appendChild(maxMemberStr);
-        } else if (maxMember_el.value < minMember_el.value) {
+        } else if (!(Number.isInteger(Number(maxMember_el.value))) || Number(maxMember_el.value) < 0) {
             control = false;
-            maxMemberStr.innerHTML = ' *成團人數不能小於最小人數';
+            maxMemberStr.innerHTML = ' *最大人數必須為正整數';
             inputMaxMember_el.appendChild(maxMemberStr);
-        } else if (!isInteger(maxMember_el.value) || minMember_el.value < 0) {
-            control = false;
-            maxMemberStr.innerHTML = ' *成團人數必須為正整數';
-            inputMaxMember_el.appendChild(maxMemberStr);
+        } else if ((Number.isInteger(Number(minMember_el.value))) && Number(minMember_el.value) > 0) {
+            if (Number(maxMember_el.value) < Number(minMember_el.value)) {
+                control = false;
+                console.log(maxMember_el.value);
+                maxMemberStr.innerHTML = ' *最大人數不能小於最小人數';
+                inputMaxMember_el.appendChild(maxMemberStr);
+            }
         }
-
         //標題
         if (theme_el.value === null || theme_el.value === "") {
             // alert('標題不可為空值');
@@ -168,7 +173,8 @@ window.addEventListener("load", function (e) {
             control = false;
             amountStr.innerHTML = ' *價格必須填入數值';
             inputAmount_el.appendChild(amountStr);
-        } else if (amount_el.value < 0 || !isInteger(amount_el.value)) {
+        } else if (amount_el.value < 0 || !(Number.isInteger(Number(amount_el.value)))) {
+            console.log(amount_el.value);
             control = false;
             amountStr.innerHTML = ' *價格必須為正整數';
             inputAmount_el.appendChild(amountStr);
@@ -253,7 +259,7 @@ window.addEventListener("load", function (e) {
                     cover: base64Str
                 }
                 // console.log(send_data);
-                await fetch('http://localhost:8081/u-and-me/group', {
+                await fetch('http://localhost:8080/u-and-me/group', {
                     headers: {
                         "content-type": "application/json",
                     },
