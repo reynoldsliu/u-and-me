@@ -5,15 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.group.dto.GroupGroupPicDto;
-import tw.idv.cha102.g7.group.dto.GroupListDto;
-import tw.idv.cha102.g7.group.dto.MyGroupListDto;
-import tw.idv.cha102.g7.group.dto.UpdateMyGroupDto;
+import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.service.GroupService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RestController
@@ -159,7 +155,7 @@ public class GroupController {
     }
 
     /**
-     * 遊客/揪團團主/一般使用者
+     * 所有人
      * 揪團列表
      * @param groupSta 揪團狀態
      * 0: 未成團,
@@ -171,11 +167,9 @@ public class GroupController {
      * @return 揪團列表
      */
     @GetMapping("/groupList/{groupSta}/{page}")
-    public List<GroupListDto> findGroupListByGroupSta(@PathVariable Integer groupSta, @PathVariable Integer page, SortType sortType){
+    public Stream<GroupListDto> findGroupListByGroupSta(@PathVariable Integer groupSta, @PathVariable Integer page, SortType sortType){
 //        sortType = this.sortType;
-        List<GroupListDto> xx = groupService.findGroupListByGroupSta(groupSta, page).collect(Collectors.toList());
-        System.out.println(xx.size());
-        return xx;
+          return groupService.findGroupListByGroupSta(groupSta, page);
     }
 
     /**
@@ -256,6 +250,19 @@ public class GroupController {
         return groupService.findGroupByGroupStaThemeLike(groupSta, str, page);
     }
 
+    /**
+     * 所有人
+     * 查看揪團詳情
+     * @param groupId 揪團編號
+     * @return 查詢結果
+     */
+    @GetMapping("/groupMemo/{groupId}")
+    public GroupMemo findGroupMemo(@PathVariable Integer groupId){
+        return groupService.findGroupMemo(groupId);
+    }
+
+
+    //測試包裝排序(有空優化)
 //    @PostMapping("/test")
 //    public SortType setSortType(@RequestBody SortType sortType){
 //        this.sortType = sortType;

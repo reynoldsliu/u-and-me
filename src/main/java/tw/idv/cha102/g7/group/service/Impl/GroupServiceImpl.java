@@ -113,7 +113,7 @@ public class GroupServiceImpl implements GroupService {
 
         Sort sort = Sort.by(Sort.Direction.ASC, "start_Date");  //定義Sort ASC為升冪排序，通過揪團狀態排序 start_Date 是MySQL的欄位名
 
-        //測試想法
+        //測試想法(service層寫一個set方法，然後在取得body的controller層調用set方法，再將需要運用到的service層調用set方法)
 //        if(sortType != null){
 //            switch (sortType.getType()){
 //                case 1:
@@ -197,6 +197,11 @@ public class GroupServiceImpl implements GroupService {
         Sort sort = Sort.by(Sort.Direction.ASC, "start_Date");
         Pageable pageable = PageRequest.of(page, 6, sort);
         return groupRepository.findGroupByGroupStaThemeLike(groupSta, str, pageable).get();
+    }
+
+    @Override
+    public GroupMemo findGroupMemo(Integer groupId) {
+        return groupRepository.findGroupMemo(groupId);
     }
 
 

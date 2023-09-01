@@ -248,7 +248,7 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
                         </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="window.location.href='http://localhost:8081/u-and-me/tmp/Front/group/groupMemo.html?gorupId=${group.group_Id}'">揪團詳情</a>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="window.location.href='http://localhost:8080/u-and-me/tmp/Front/group/groupMemo.html?gorupId=${group.group_Id}'">揪團詳情</a>
                                 </div>
                             </div>
                         </div>

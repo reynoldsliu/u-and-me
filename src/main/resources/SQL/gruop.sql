@@ -3,15 +3,15 @@ use uandme;
 
 create table `group`
 (
-	group_id int primary key auto_increment, -- 
-    mem_id int not null, -- 
-    sch_id int not null, -- 
-    members int default 0 not null,-- 
+	group_id int primary key auto_increment,
+    mem_id int not null,
+    sch_id int not null,
+    members int default 0,
     min_member int not null,
     max_member int not null,
     amount int not null,
     theme varchar(32) not null,
-    start_date timestamp not null,
+    start_date timestamp not null default current_timestamp,
     dep_date timestamp not null,
     deadline timestamp not null,
     group_desc varchar(200) not null,

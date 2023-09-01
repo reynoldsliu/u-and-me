@@ -282,14 +282,14 @@ async function fetchMyGroup(groupId) {
         cover_img_el.src = dataurl;
 
 
-        minMember_el.value = `${group.min_Member}`;
-        maxMember_el.value = `${group.max_Member}`;
-        theme_el.value = `${group.theme}`;
-        amount_el.value = `${group.amount}`;
-        depDate_el.value = `${group.dep_Date}`;
-        deadline_el.value = `${group.deadline}`;
-        groupDesc_el.value = `${group.group_Desc}`;
-        notice_el.value = `${group.notice}`;
+        minMember_el.value = group.min_Member;
+        maxMember_el.value = group.max_Member;
+        theme_el.value = group.theme;
+        amount_el.value = group.amount;
+        depDate_el.value = group.dep_Date;
+        deadline_el.value = group.deadline;
+        groupDesc_el.value = group.group_Desc;
+        notice_el.value = group.notice;
         cover_img_el.src = dataurl;
     });
 

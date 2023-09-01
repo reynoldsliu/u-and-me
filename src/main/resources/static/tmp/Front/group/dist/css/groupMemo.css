@@ -173,6 +173,23 @@ span ~ #tab > div:first-of-type,
     background: #fff;
 }
 
-span {
-    display: none;
+#tab1.active {
+  font-size: 18px;
+  /* list-style-type: none; */
+  color: rgb(129, 33, 1);
+  text-decoration: underline;
+}
+
+#tab2.active {
+  font-size: 18px;
+  /* list-style-type: none; */
+  color: rgb(129, 33, 1);
+  text-decoration: underline;
+}
+
+#tab3.active {
+  font-size: 18px;
+  /* list-style-type: none; */
+  color: rgb(129, 33, 1);
+  text-decoration: underline;
 }

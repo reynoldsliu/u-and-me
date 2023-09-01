@@ -67,5 +67,4 @@ public class Group implements Serializable {
 //    @JsonManagedReference
 //    private List<GroupPicture> groupPictureList;
 
-
 }

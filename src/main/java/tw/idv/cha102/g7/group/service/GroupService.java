@@ -49,4 +49,6 @@ public interface GroupService {
     Stream<GroupListDto> findGroupByGroupStaOrderByAmountDesc(Integer groupSta, Integer page);
 
     Stream<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str, Integer page);
+
+    GroupMemo findGroupMemo(Integer groupId);
 }
