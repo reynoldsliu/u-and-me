@@ -1,16 +1,16 @@
 .navbar-brand {
     height: 40px;
-  }
-  
-  .navbar-brand>img {
+}
+
+.navbar-brand>img {
     /* border: 1px solid blue; */
     height: 85px;
     margin-top: -23px;
     margin-left: 25px;
-  }
-  
-  .navbar-dark,
-  .navbar[data-bs-theme=dark] {
+}
+
+.navbar-dark,
+.navbar[data-bs-theme=dark] {
     --bs-navbar-color: rgb(59, 58, 58);
     --bs-navbar-hover-color: rgb(158, 158, 158);
     --bs-navbar-disabled-color: rgba(80, 193, 190, 0.829);
@@ -20,20 +20,20 @@
     --bs-navbar-toggler-border-color: rgba(255, 255, 255, 0.1);
     --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     --bs-dark-rgb: 245, 245, 245;
-  }
-  
-  .nav-tabs .dropdown-menu {
+}
+
+.nav-tabs .dropdown-menu {
     margin-top: calc(-1 * var(--bs-nav-tabs-border-width));
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-  }
-  
-  
-  .col-6 col-md-2 mb-3>.nav-item mb-2 {
+}
+
+
+.col-6 col-md-2 mb-3>.nav-item mb-2 {
     color: #fff;
-  }
-  
-  /*
+}
+
+/*
   .breadcrumb .breadcrumb-item a {
     text-decoration: none;
     color: rgb(81, 113, 111);
@@ -41,8 +41,8 @@
     font-family: 'Times New Roman', Times, serif;
   }
   */
-  
-  /* .list-group-shop {
+
+/* .list-group-shop {
     --bs-list-group-color: var(--bs-body-color);
     --bs-list-group-bg: var(--bs-body-bg);
     --bs-list-group-border-color: var(--bs-border-color);
@@ -66,24 +66,24 @@
     margin-bottom: 0;
     border-radius: var(--bs-list-group-border-radius);
   } */
-  
-  .bg-image-vertical {
+
+.bg-image-vertical {
     position: relative;
     overflow: hidden;
     background-repeat: no-repeat;
     background-position: right center;
     background-size: auto 100%;
-  }
-  
-  @media (min-width: 1025px) {
+}
+
+@media (min-width: 1025px) {
     .h-custom-2 {
-      height: 100%;
+        height: 100%;
     }
-  }
+}
 
 /* 全屏顯示，去除預設margin及padding */
 html,
-body{
+body {
     /* border: 1px solid blue; */
     width: 100%;
     height: 100%;
@@ -92,46 +92,192 @@ body{
 }
 
 /* 景點搜尋 */
-div.search{
+div.search {
     height: 100%;
-    border:1px solid red;
-    background-color: lightblue;
+    /* box-shadow: inset 3px 0px 10px lightgray; */
+    border-right: 1px solid lightgray;
+    /* border: 1px solid red; */
+    /* background-color: lightblue; */
     overflow: hidden
 }
 
-/* 搜尋欄 */
-input{
+div.switchbox {
+    display: inline-block;
+    border-bottom: 1px solid lightgray;
+    box-shadow:  0px 2px 5px lightgray;
     width: 100%;
-    margin: 10px 0 10px 0;
+    height: 48px;
+}
+
+/* 整個頁籤 */
+div.switchbox ul {
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+}
+
+/* 返回上一頁(我的行程) */
+a#tab-back {
+    border-right: 1px solid lightgray;
+    /* 調整用 */
+    width: 60px;
+    height: 100%;
+    display: inline-block;
+    font-size: 29px;
+    color: gray;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    bottom: -10%;
+
+}
+
+/* 搜尋、景點收藏、自訂景點頁籤 */
+div.switchbox ul>li {
+    border-right: 1px solid lightgray;
+    width: 120px;
+    height: 100%;
+    display: inline-block;
+    font-size: 8px;
+    color: gray;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: bottom;
+}
+
+/* 使用偽元素消除間距 */
+/* div.switchbox ul>li::after {
+    content: "";
+    width: 100%;
+    display: inline-block;
+    visibility: hidden;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+} */
+
+/* 切換tab的連結 */
+div.switchbox ul>li>a {
+    /* border: 1px solid green; */
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+    float: left;
+    position: relative;
+    left: 0;
+    bottom: 40%;
+    color: gray;
+    z-index: 2;
+}
+
+div.switchbox ul>li>a>i{
+    font-size: 25px;
+    position: relative;
+    bottom: -40%;
+    z-index: 1;
+}
+
+/* 景點搜尋結果 */
+div.attrSearch-result{
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+/* 景點搜尋欄 */
+input {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    width: 90%;
+    height: 40px;
+    margin: 10px 0 10px 20px;
+}
+
+input.google_input_text2{
+    margin-top: 0;
+    width: 70%;
+}
+
+div.attrSearch-btn{
+    border: 1px solid red;
+    width: 50px;
+}
+
+/* 景點交通搜尋結果框 */
+div.trans-search-result{
+    border: 1px solid blue;
+    display: inline-block;
+    width: 100%;
+    height: 90px;
+}
+
+/* 景點搜尋結果清單 */
+div.attrSearchList{
+    border: 1px solid red;
+    width: 100%;
+    height: 100%;
+}
+
+/* 單一個景點框 */
+div.attrs-cell{
+    border: 1px solid;
+    height: ;
+}
+
+/* 選擇交通方式 */
+div.trans-mode{
+    /* border: 1px solid red; */
+    height: 40px;
+    text-align: center;
+}
+
+/* 總距離 */
+div#totalDistance{
+    /* border: 1px solid red; */
+    text-align: center;
+}
+
+/* 總時間 */
+div#totalTime{
+    /* border: 1px solid red; */
+    text-align: center;
 }
 
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
- /* 地圖 */
+/* 地圖 */
 #map {
     /* display: none;  */
     /* 無內陰影效果 */
     /* box-shadow: inset 3px 5px 10px gray; */
-    width:100%;
+    width: 100%;
     height: 100%;
-    float:right;
+    float: right;
     overflow: hidden;
     /* border: 1px solid green; */
 }
 
 /* 詳細路線 */
-#directionsPanel{
-    display: none; 
-    float:right;
-    width:30%;
-    height:100%;
-    background-color: antiquewhite; 
+#directionsPanel {
+    display: none;
+    float: right;
+    width: 30%;
+    height: 100%;
+    background-color: antiquewhite;
     overflow: hidden;
     overflow-y: scroll;
 }
 
 /* 地圖與詳細路線的容器 */
-#mapAndDirect{
+#mapAndDirect {
     height: 100%;
     overflow: hidden;
     /* border: 1px solid purple; */
@@ -140,7 +286,7 @@ input{
 
 
 /* 行程細節 */
-div.schDetails{
+div.schDetails {
     /* border: 1px solid blue; */
     /* width: 30%;
     height: 100%; */

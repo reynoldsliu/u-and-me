@@ -16,13 +16,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./dist/css/myScheduleEdit.css">
+    <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
     <div class="container2">
         <!-- -----Header----- -->
-        <nav class="navbar navbar-expand-lg  bg-dark navbar-dark fixed-top">
+        <nav class="navbar navbar-expand-lg  bg-dark navbar-dark fixed-top" style="box-shadow:  0px 2px 5px lightgray;">
 
             <div class="container-fluid">
                 <a class="navbar-brand" href="../ActivityIndex.html">
@@ -120,16 +121,34 @@
                                 <!-- <img src="https://picsum.photos/300/200?random=10" > -->
 
                                 <!-- ================================GOOGLE API=================================== -->
+                                <!-- 景點搜尋側邊欄 -->
                                 <div class="search">
-                                    <div>
-                                        <input type="text" id="start" class="google_input_text1" ref="site"
-                                            v-model="site" placeholder="請輸入起點">
+                                    <div class="switchbox">
+                                        <ul>
+                                            <a href="#" id="tab-back"><i class="fa-solid fa-arrow-left"></i></a>
+                                            <li>搜尋<a href="#" id="tab-search"><i
+                                                        class="fa-solid fa-magnifying-glass"></i></a></li>
+                                            <!-- <i class="fa-regular fa-magnifying-glass"></i> -->
+                                            <li>我的景點收藏<a href="#" id="tab-attrCollect"><i
+                                                        class="fa-solid fa-location-dot"></i></a></li>
+                                            <li>自訂景點<a href="#" id="tab-customize"><i class="fa-solid fa-pen"></i></a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div>
-                                        <input type="text" id="end" class="google_input_text2" ref="site" v-model="site"
-                                            placeholder="請輸入終點">
-                                    </div>
-                                    <!-- <div>
+                                    <div class="attrSearch-result">
+                                        <div>
+                                            <input type="text" id="start" class="google_input_text1" ref="site"
+                                                v-model="site" placeholder="請輸入起點">
+                                        </div>
+                                        <div>
+                                            <input type="text" id="end" class="google_input_text2" ref="site"
+                                                v-model="site" placeholder="請輸入終點">
+                                        </div>
+                                        <div class="attrSearch-btn">
+                                            <button type="button" class="btn btn-success"
+                                                id="attrSearch-btn">搜尋</button>
+                                        </div>
+                                        <!-- <div>
                                         <strong>Start: </strong>
                                         <select id="start" onchange="calcRoute();">
                                             <option value="chicago, il">Chicago</option>
@@ -160,18 +179,49 @@
                                             <option value="san bernardino, ca">San Bernardino</option>
                                             <option value="los angeles, ca">Los Angeles</option>
                                         </select>
-                                    </div> -->
-                                    <div>
-                                        <strong>Mode of Travel: </strong>
-                                        <select id="mode">
-                                            <option value="DRIVING" selected>Driving</option>
-                                            <option value="WALKING">Walking</option>
-                                            <option value="BICYCLING">Bicycling</option>
-                                            <option value="TRANSIT">Transit</option>
-                                        </select>
+                                        </div> -->
+
+                                        <!-- 景點交通搜尋結果 -->
+                                        <div class="trans-search-result">
+                                            <div class="trans-mode">
+                                                <strong>Mode of Travel: </strong>
+                                                <select id="mode">
+                                                    <option value="DRIVING" selected>Driving</option>
+                                                    <option value="WALKING">Walking</option>
+                                                    <option value="BICYCLING">Bicycling</option>
+                                                    <option value="TRANSIT">Transit</option>
+                                                </select>
+                                            </div>
+                                            <div id="totalDistance"></div>
+                                            <div id="totalTime"></div>
+                                        </div>
+                                        <div class="attrSearchList">
+                                            <!-- 搜尋到的景點由此插入 -->
+                                            <div class="attrs-cell" id="attrId1">
+                                                <div class="attr-cover">
+                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
+                                                </div>
+                                                <div class="attr-name" id="attrName1">
+                                                    <span>景點名稱在此</span>
+                                                </div>
+                                            </div>
+                                            <!-- 以上為一個cell -->
+                                            <div class="attrs-cell" id="attrId2">
+                                                <div class="attr-cover">
+                                                    <img src="#" class="attr-img" id="attrPicId5678" alt="圖片載入中...">
+                                                </div>
+                                                <div class="attr-name" id="attrName2">
+                                                    <span>景點名稱在此</span>
+                                                </div>
+                                                <i class="fa-solid fa-arrow-left"></i>
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                                <i class="fa-solid fa-location-dot"></i>
+                                                <i class="fa-solid fa-pen"></i>
+
+                                            </div>
+                                            <!-- 結束 -->
+                                        </div>
                                     </div>
-                                    <div id="totalDistance"></div>
-                                    <div id="totalTime"></div>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-8" style="padding: 0;">
