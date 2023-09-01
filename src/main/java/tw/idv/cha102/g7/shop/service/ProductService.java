@@ -46,7 +46,7 @@ public interface ProductService {
     /*
      * 搜尋商品byNAME 模糊比對%name% (1-多筆)
      * */
-    public List<ProductDTO> findProductByNameContaining(String prodName);
+    public List<ProductDTO> findAllByProdName(String prodName);
 
 
     /*

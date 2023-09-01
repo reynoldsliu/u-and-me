@@ -1,22 +1,19 @@
 -- products 慶琳
 -- 商品分類 --
 create table product_category(
-prodcat_id int primary key,
-prodcat_name varchar(10)
+prodcat_id int primary key auto_increment,
+prodcat_name varchar(10) not null
 );
 
 -- 商品 --
 create table product(
-prod_id int primary key,
-
-prodcat_id int,
-
-prod_name varchar(20),
+prod_id int primary key auto_increment,
+prodcat_id int not null,
+prod_name varchar(20) not null,
 prod_con varchar(1000),
-prod_pri int,
+prod_pri int not null,
 prod_qty int,
-prod_sta tinyint default 0,
-
+prod_sta tinyint default 0 not null  not null comment '0:下架 1:上架',
 prod_spec varchar(20)
 
 -- constraint fk_prodcat_id
@@ -36,8 +33,8 @@ primary key (prod_id, mem_id)
 
 -- 商品圖片庫 --
 create table product_picture(
-prodpic_id int primary key,
-prod_id int,
+prodpic_id int primary key auto_increment,
+prod_id int not null,
 prod_pic mediumblob,
 constraint fk_prod_id
 foreign key(prod_id) references product (prod_id) 
@@ -45,8 +42,8 @@ foreign key(prod_id) references product (prod_id)
 
 -- 購物車清單 --
 create table cart_list(
-cart_pri int,
-cart_qty int,
+cart_pri int not null,
+cart_qty int not null,
 mem_id int,
 prod_id int,
 primary key (mem_id, prod_id)
@@ -74,18 +71,18 @@ values
 select * from product_category;
 
 select * from product;
-insert into product(prod_id,prod_name,prod_con,prod_pri,prod_qty,prod_spec)
+insert into product(prod_id,prodcat_id,prod_name,prod_con,prod_pri,prod_qty,prod_spec)
 values
-(1,'太陽餅','台中名產',299,10,'10入'),
-(2,'鐵觀音','貓空茶葉',999,10,'2入'),
-(3,'日月潭紅茶','日月潭必買',799,10,'1入'),
-(4,'南投國姓咖啡','台灣咖啡',1080,10,'10入'),
-(5,'原住民編織包','原住民手作編織品',880,10,'10入'),
-(6,'行動電源','旅行配件',980,10,'10入'),
-(7,'轉接頭','旅行必備',199,10,'1入'),
-(8,'衣物收納袋','旅行小物',220,10,'3入'),
-(9,'行李吊牌','行李箱小物',300,10,'1入'),
-(10,'剝皮辣椒','新鮮',200,10,'1入');
+(1,1,'太陽餅','台中名產',299,10,'10入'),
+(2,1,'鐵觀音','貓空茶葉',999,10,'2入'),
+(3,1,'日月潭紅茶','日月潭必買',799,10,'1入'),
+(4,1,'南投國姓咖啡','台灣咖啡',1080,10,'10入'),
+(5,2,'原住民編織包','原住民手作編織品',880,10,'10入'),
+(6,3,'行動電源','旅行配件',980,10,'10入'),
+(7,3,'轉接頭','旅行必備',199,10,'1入'),
+(8,3,'衣物收納袋','旅行小物',220,10,'3入'),
+(9,3,'行李吊牌','行李箱小物',300,10,'1入'),
+(10,1,'剝皮辣椒','新鮮',200,10,'1入');
 
 
 select * from product_collection;
@@ -115,3 +112,8 @@ value
 (90, 2, 8, 8),
 (270, 4, 9, 9),
 (160, 3, 10, 10);
+
+select * from product_picture;
+insert into product_picture values (
+1, 1, null
+);

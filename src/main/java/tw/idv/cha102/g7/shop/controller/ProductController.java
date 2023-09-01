@@ -109,7 +109,7 @@ public class ProductController {
 
     @RequestMapping("/findProdByName")
     public  ResponseEntity<List<ProductDTO>> findProdByName(@RequestBody ProductDTO productDTO){
-        List<ProductDTO> productDTOS = productService.findProductByNameContaining(productDTO.getProdName());
+        List<ProductDTO> productDTOS = productService.findAllByProdName(productDTO.getProdName());
         return ResponseEntity.ok(productDTOS);
     }
 }
