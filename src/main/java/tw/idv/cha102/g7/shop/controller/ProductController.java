@@ -5,8 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.attraction.dto.AttrPictureDTO;
+import tw.idv.cha102.g7.attraction.entity.AttrPicture;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
+import tw.idv.cha102.g7.shop.dto.ProductPictureDTO;
 import tw.idv.cha102.g7.shop.entity.Product;
 import tw.idv.cha102.g7.shop.entity.ProductPicture;
 import tw.idv.cha102.g7.shop.service.ProductPictureService;
@@ -64,6 +67,22 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body("新增成功！");
     }
 
+    @RequestMapping("/insertNewProduct")
+    public ResponseEntity<Product> insertNewProduct(@RequestBody Product product){
+        return productService.insertNewProduct(product);
+    }
+    @RequestMapping("/insertProdPictures/{prodId}")
+    public ResponseEntity<ProductPictureDTO> insertProdPictures(@PathVariable Integer prodId,
+                                                                    @RequestBody ProductPicture pictures){
+        System.out.println("IN controller");
+        ProductPicture productPicture = new ProductPicture();
+//
+        System.out.println(pictures);
+        productPicture.setProdId(prodId);
+        productPicture.setProdPic(pictures.getProdPic());
+        productPictureService.insertPictures(productPicture);
+        return new ResponseEntity(productPictureService.insertPictures(productPicture), HttpStatus.OK);
+    }
 //    @DeleteMapping("/deleteProduct/{prodId}")
 //    @Transactional  //確保在事務範圍內(方法內)運行
 //    public void deleteProduct(@PathVariable Integer prodId) {

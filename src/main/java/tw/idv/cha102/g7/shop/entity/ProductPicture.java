@@ -28,12 +28,9 @@ public class ProductPicture implements Serializable{
     private Integer prodId;
 
     @Lob
-    @Column(name ="prod_pic", columnDefinition = "MEDIUMBLOB")
+    @Column(name ="prod_pic")
     private byte[] prodPic;
 
-//    @ManyToOne
-//    @JoinColumn(name = "prod_id") // Assuming this is the foreign key column
-//    private Product product;
 
 
 }
