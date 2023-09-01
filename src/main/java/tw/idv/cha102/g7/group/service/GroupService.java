@@ -51,5 +51,5 @@ public interface GroupService {
 
     Stream<GroupListDto> findGroupByGroupStaOrderByAmountDesc(Integer groupSta, Integer page);
 
-    Page<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str, Integer page);
+    Stream<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str, Integer page);
 }

@@ -184,10 +184,10 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Page<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str, Integer page) {
+    public Stream<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str, Integer page) {
         Sort sort = Sort.by(Sort.Direction.ASC, "start_Date");
         Pageable pageable = PageRequest.of(page, 6, sort);
-        return groupRepository.findGroupByGroupStaThemeLike(groupSta, str, pageable);
+        return groupRepository.findGroupByGroupStaThemeLike(groupSta, str, pageable).get();
     }
 
 

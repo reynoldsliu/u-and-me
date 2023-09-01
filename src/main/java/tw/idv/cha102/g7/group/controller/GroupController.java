@@ -241,7 +241,7 @@ public class GroupController {
     }
 
     @GetMapping("/groupList/name{str}/{groupSta}/{page}")
-    public Page<GroupListDto> findGroupByGroupStaThemeLike(@PathVariable Integer groupSta,
+    public Stream<GroupListDto> findGroupByGroupStaThemeLike(@PathVariable Integer groupSta,
                                                            @PathVariable String str,
                                                            @PathVariable Integer page){
         return groupService.findGroupByGroupStaThemeLike(groupSta, str, page);
