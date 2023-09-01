@@ -19,13 +19,15 @@
   --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   --bs-dark-rgb: 245, 245, 245;
 }
-.table1{
-  border-color: #f4f4f4;
-  border-style:dotted;
+
+.highlight{
+background-color: #fff;
+
 }
+
 .table {
   --bs-table-color-type: initial;
-  --bs-table-bg-type: rgb(185, 180, 180);
+  /* --bs-table-bg-type: rgb(185, 180, 180); */
   --bs-table-color-state: initial;
   --bs-table-bg-state: initial;
   --bs-table-color: var(--bs-body-color);
@@ -320,4 +322,3 @@ button, select {
   width: auto; /* 设置所需的宽度 */
   height: 25px; /* 让高度根据宽度自动调整，以保持图像比例 */
 }
-
