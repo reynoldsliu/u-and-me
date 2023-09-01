@@ -3,28 +3,27 @@
 
         <!--網頁載入後執行-->
         document.addEventListener("DOMContentLoaded", function () {
-            fetchActivityList();
+            myOrderList();
         });
 
-        async function fetchActivityList() {
+        async function myOrderList() {
             try {
-                const response = await fetch('http://localhost:8080/u-and-me/activityall');
-                const activityList = await response.json();
+                const response = await fetch('http://localhost:8081/u-and-me/memId{memId}/{page}');
+                const orderList = await response.json();
 
                 const dataTableList = document.getElementById("dataTableList");
                 dataTableList.innerHTML = "";
 
-                activityList.forEach(activity => {
+                orderList.forEach(myOrder => {
                     const row = document.createElement("tr");
                     row.innerHTML = `
-                        <td style="width: 50px;text-align: center; vertical-align: middle;">${activity.activId}</td>
-                        <td style="width: 100px;text-align: center;vertical-align: middle;">${activity.activName}</td>
-                        <td style="vertical-align: middle;">${activity.activCon}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${formatDate(activity.activStarttime)}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${formatDate(activity.activEndtime)}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(activity.activSta)}</td>
+                        <td style="width: 50px;text-align: center; vertical-align: middle;">${orders.ordId}</td>
+                        <td style="width: 100px;text-align: center;vertical-align: middle;">${orders.activName}</td>
+                        <td style="vertical-align: middle;">${orders.activCon}</td>
+                        <td style="width: 130px;text-align: center;vertical-align: middle;">${formatDate(orders.activEndtime)}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(orders.activSta)}</td>
                         <td style="width: 65px;text-align: center;vertical-align: middle;">
-                         <button class="btn btn-outline-success" onclick="redirectToDetailPage(${activity.activId})">
+                         <button class="btn btn-outline-success" onclick="redirectToDetailPage(${orders.activId})">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                           <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
                           </svg>

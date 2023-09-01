@@ -1,41 +1,42 @@
 
 create table members (
-	mem_id int primary key, 
-	mem_email varchar(30),
-	mem_password varchar(20),
+	mem_id int primary key auto_increment,
+	mem_email varchar(30) UNIQUE not null,
+	mem_password varchar(20) not null,
 	mem_name varchar(10),
-	mem_gender tinyint ,
-	mem_addr varchar(100),
+	mem_gender tinyint default 0 not null,  -- 0:不方便透露,1:男,2:女
+	mem_addr varchar(100) not null,
 	mem_grade int,
+    mem_idcard varchar(10),
+    mem_idpic mediumblob,
 	mem_phone varchar(15),
 	mem_point int,
-	mem_sta tinyint,
-	mem_group tinyint
+	mem_sta tinyint default 0 not null, -- 0:註冊未驗證,1:正常使用,2:停止使用(停權)
+	mem_group tinyint default 0 not null  -- 0:非團主,1:團主
 );
---假資料也有更新
 select * from members;
-INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_addr, mem_grade, mem_phone, mem_point, mem_sta, mem_group)
+INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_addr, mem_grade, mem_idcard,mem_phone, mem_point, mem_sta, mem_group)
 VALUES
-  (1,'member1@example.com', 'password1', 'tong', 2, 'Address 1', 1, '0911111111', 100, 1, 0),
-  (2,'member2@example.com', 'password2', 'lynn', 2, 'Address 2', 2, '0922222222', 400, 0, 0),
-  (3,'member3@example.com', 'password3', 'sian', 2, 'Address 3', 1,'0933333333', 550, 1, 0),
-  (4,'member4@example.com', 'password4', 'reynolds', 1, 'Address 4', 3,'0944444444', 300, 2, 1),
-  (5,'member5@example.com', 'password5', 'Katie', 2, 'Address 5', 2, '0955555555', 250, 1, 1),
-  (6,'member6@example.com', 'password6', 'jas', 2, 'Address 6', 1,'0966666666', 50, 0, 0),
-  (7,'member7@example.com', 'password7', 'henry', 1, 'Address 7', 3, '0977777777', 50, 1, 0),
-  (8,'member8@example.com', 'password8', 'David', 0, 'Address 8', 2, '0988888888', 180, 1, 0),
-  (9,'member9@example.com', 'password9', 'hazel', 2, 'Address 9', 1, '0999999999', 120, 1, 1),
-  (10,'member10@example.com', 'password10', 'tou', 1, 'Address 10', 1, '0900000000', 80, 2, 1);
+  (1,'member1@example.com', 'password1', 'tong', 2, 'Address 1', 1,'A123456789','0911111111', 100, 1, 0),
+  (2,'member2@example.com', 'password2', 'lynn', 2, 'Address 2', 2,'B123456789', '0922222222', 400, 0, 0),
+  (3,'member3@example.com', 'password3', 'sian', 2, 'Address 3', 1,'C123456789','0933333333', 550, 1, 0),
+  (4,'member4@example.com', 'password4', 'reynolds', 1, 'Address 4','D123456789', 3,'0944444444', 300, 2, 1),
+  (5,'member5@example.com', 'password5', 'Katie', 2, 'Address 5', 2,'E123456789', '0955555555', 250, 1, 1),
+  (6,'member6@example.com', 'password6', 'jas', 2, 'Address 6', 1,'F123456789','0966666666', 50, 0, 0),
+  (7,'member7@example.com', 'password7', 'henry', 1, 'Address 7', 3,'G123456789', '0977777777', 50, 1, 0),
+  (8,'member8@example.com', 'password8', 'David', 0, 'Address 8', 2,'H123456789', '0988888888', 180, 1, 0),
+  (9,'member9@example.com', 'password9', 'hazel', 2, 'Address 9', 1,'I123456789', '0999999999', 120, 1, 1),
+  (10,'member10@example.com', 'password10', 'tou', 1, 'Address 10', 1,'J123456789', '0900000000', 80, 2, 1);
 select * from members;
 
 
 create table hosts (
-	host_id int primary key,
-	host_phone varchar(15),
-	host_email varchar(30),
-	host_password varchar(20),
-	host_name varchar(10),
-	host_sta tinyint
+	host_id int primary key auto_increment,
+	host_phone varchar(15) UNIQUE,
+	host_email varchar(30) UNIQUE not null,
+	host_password varchar(20) not null,
+	host_name varchar(10) not null,
+	host_sta tinyint default 0 not null  -- 0:正常使用(在職)1:停止使用(停職)
 );
 
 select * from hosts;
@@ -56,48 +57,20 @@ select * from hosts;
 
 
 
-
-
-select * from hosts;
-INSERT INTO hosts (host_id,host_phone, host_email, host_password, host_name, host_sta)
-VALUES
-  (1,'123456789', 'host1@example.com', 'password1', 'DavidWu', 0),
-  (2,'987654321', 'host2@example.com', 'password2', 'tongtong', 0),
-  (3,'111222333', 'host3@example.com', 'password3', 'lynnchiang', 0),
-  (4,'444555666', 'host4@example.com', 'password4', 'touchen', 0),
-  (5,'777888999', 'host5@example.com', 'password5', 'jasmine', 0),
-  (6,'555666777', 'host6@example.com', 'password6', 'KatieWu', 1),
-  (7,'999888777', 'host7@example.com', 'password7', 'sianchen', 1),
-  (8,'111333555', 'host8@example.com', 'password8', 'hazelchen', 0),
-  (9,'666777888', 'host9@example.com', 'password9', 'henry', 1),
-  (10,'222333444', 'host10@example.com', 'password10', 'Sara', 1);
-select * from hosts;
-
-create table group_register(
-	mem_id int primary key,
-	gr_idcard varchar(10),
-	gr_idcard_pic mediumblob
-	-- constraint fk_mem_id
-    -- foreign key (mem_id) references members(mem_id)
-);
-select * from group_register;
-
--- create schema onlineshoppingmall;
--- use onlineshoppingmall;
 
  create table orders (
-    ord_id int primary key,
-    mem_id int,
+    ord_id int primary key ,
+    mem_id int not null,
     points int,
     ord_fee int,
-    recipient_phone varchar(15),
-    ord_pay_sta tinyint,
+    recipient_phone varchar(15) not null,
+    ord_pay_sta tinyint default 0 not null, -- 0:未付款,1:已付款
     recipient_name varchar(10),
     recipient_addr varchar(30),
-    ord_sta tinyint,
+    ord_sta tinyint default 0 not null, -- 0:未出貨,1:已出貨,2:已到貨,3:訂單完成,4:訂單取消
     total int,
     checktotal int,
-    ord_time timestamp
+    ord_time timestamp not null default current_timestamp
 --  constraint fk_mem_id
 --  foreign key(mem_id) references table_name(mem_id)
 );
@@ -128,10 +101,10 @@ prod_id int primary key
 create table order_details(
 	ord_id int,
     prod_id int,
-    prod_qty int,
+    prod_qty int not null,
 	prod_review varchar(50),
-    prod_price int,
-    prod_com_score decimal,
+    prod_price int not null,
+    prod_com_score decimal(2,1),
     primary key(ord_id, prod_id)
 --  constraint fk_ord_id
 --  foreign key(ord_id) references orders(ord_id),
