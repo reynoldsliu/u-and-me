@@ -13,7 +13,7 @@ function findall() {
     }).then(function (data) {
 
       let qalist = document.querySelector("#qalist");
-      let html = ''; //防止undifended， 需要放在外面因為區域變數。
+      let html = ''; //防止undifended
 
       let j = 1;
       for (let i = 0; i < data.length; i++) {

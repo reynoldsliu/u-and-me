@@ -1,6 +1,8 @@
 package tw.idv.cha102.g7.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
@@ -157,6 +159,12 @@ public class ProductServiceImpl implements ProductService {
     public Product getProductByName(String prodName) {
         return productRepository.findByProdName(prodName);
     }
+
+    @Override
+    public ResponseEntity<Product> insertNewProduct(Product product) {
+        return new ResponseEntity(productRepository.save(product), HttpStatus.OK);
+    }
+
 }
 
 

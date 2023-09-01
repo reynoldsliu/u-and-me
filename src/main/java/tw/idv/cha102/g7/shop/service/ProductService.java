@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.shop.service;
 
+import org.springframework.http.ResponseEntity;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
 import tw.idv.cha102.g7.shop.entity.Product;
@@ -28,7 +29,7 @@ public interface ProductService {
 
     public Product getProductByName(String prodName);
 
-
+    public ResponseEntity<Product> insertNewProduct(Product product);
 
 
     //使用者業務
