@@ -11,4 +11,7 @@ import java.util.List;
 public interface AttrPictureRepository extends JpaRepository<AttrPicture, Integer> {
 
     public List<AttrPicture> findAllByAttrId(Integer attrId);
+
+    public void removeByAttrPicId(Integer attrPicId);
+    public void deleteAllByAttrId(Integer attrId);
 }

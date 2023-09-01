@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tw.idv.cha102.g7.attraction.dto.AttrPictureDTO;
 import tw.idv.cha102.g7.attraction.entity.AttrPicture;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
@@ -20,6 +21,12 @@ public class AttrPictureServiceImpl implements AttrPictureService {
 
     @Override
     public ResponseEntity<AttrPicture> insertPictures(AttrPicture attrPicture){
+        List<AttrPicture> attrPictures = attrPictureRepository.findAll();
+        for(AttrPicture a:attrPictures){
+            if(a.getAttrPicData()==null){
+                attrPicture.setAttrPicId(a.getAttrPicId());
+            }
+        }
         return new ResponseEntity(attrPictureRepository.save(attrPicture), HttpStatus.OK);
     }
 
@@ -33,8 +40,15 @@ public class AttrPictureServiceImpl implements AttrPictureService {
     }
 
     @Override
+    @Transactional
     public void delPicByAttrPicId(Integer attrPicId){
-        attrPictureRepository.deleteById(attrPicId);
+        attrPictureRepository.removeByAttrPicId(attrPicId);
+    }
+
+    @Override
+    @Transactional
+    public void delPicByAttrId(Integer attrId){
+        attrPictureRepository.deleteAllByAttrId(attrId);
     }
 
 }

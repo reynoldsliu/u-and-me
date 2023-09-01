@@ -367,18 +367,12 @@
         attr.attrId = res.attrId;
         //傳送單一景點多筆圖片
         const files = imageInput.files;
-        console.log("a");
         for (const file of files) {
-            const formData = new FormData();
-            formData.append('image', file);
-            console.log("b");
+            // const formData = new FormData();
+            // formData.append('image', file);
             try {
-                console.log("c");
                 const fileReader = await new FileReader();
-                alert(fileReader);
-                alert(attr.attrId);
                 fileReader.onload = async event => {
-console.log("d");
                     const base64Str = btoa(event.target.result);
 
                     const response = await fetch('insertAttrPictures/' + attr.attrId, {
@@ -390,8 +384,6 @@ console.log("d");
                                 attrId:attr.attrId,
                                attrPicData:base64Str})
                     });
-
-                    console.log("e");
                 };
                 fileReader.readAsBinaryString(file);
 

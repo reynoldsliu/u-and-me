@@ -15,5 +15,6 @@ public interface AttrPictureService {
 
     public void delPicByAttrPicId(Integer attrPicId);
 
+    public void delPicByAttrId(Integer attrId);
 
 }
