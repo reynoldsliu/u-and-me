@@ -141,7 +141,31 @@ td {
   padding:20px;
 } 
 
+div.oneqa{
+  text-align:left;
+  padding: 10px;
 
+}
+
+button.insert{
+  margin: 15px 0px;
+}
+
+.dataTables_length{
+  margin: 5px 0px 15px 0px;
+}
+
+.qatable_filter{
+  margin: 5px 0px 15px 0px;
+}
+
+#qatable_paginate{
+  margin: 15px 0px;
+}
+
+.dataTables_info{
+  margin: 15px 0px;
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
 
