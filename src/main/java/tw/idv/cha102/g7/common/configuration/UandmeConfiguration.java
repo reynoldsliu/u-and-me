@@ -14,7 +14,7 @@ public class UandmeConfiguration {
         FilterRegistrationBean<MyFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(new MyFilter());
         //要通過此filter的入口
-        bean.addUrlPatterns("/*");
+        bean.addUrlPatterns("/member/*");
         bean.setName("myFilter");
 
         //設定此filter再filterChain的執行順序 數字越小 越早擷取請求 越晚擷取回應

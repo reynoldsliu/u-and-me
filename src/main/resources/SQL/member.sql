@@ -93,11 +93,6 @@ select * from orders;
 
 
 
-
-create table product(
-prod_id int primary key
-);
-
 create table order_details(
 	ord_id int,
     prod_id int,
