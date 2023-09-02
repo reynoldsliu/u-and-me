@@ -168,7 +168,8 @@
                         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item " style="display:inline-block"><a href="#">首頁</a></li>
-                                <li class="breadcrumb-item" style="display:inline-block"><a href="http://localhost:8081/u-and-me/tmp/Front/group/groupList.html">揪團</a>
+                                <li class="breadcrumb-item" style="display:inline-block"><a
+                                        href="http://localhost:8081/u-and-me/tmp/Front/group/groupList.html">揪團</a>
                                 </li>
                                 <!-- <li class="breadcrumb-item active" aria-current="page" style="display:inline-block">Data</li> -->
                             </ol>
@@ -179,10 +180,11 @@
             </div>
 
             <!-- -----搜尋框----- -->
-            <form class="form-inline my-2 my-lg-0" role="search" method="get" action="#"
-                target="_blank">
+            <form class="form-inline my-2 my-lg-0" role="search" method="get" action="#" target="_blank">
                 <div class="input-group" style="width: 250px;">
-                    <input type="text" class="form-control me-2 d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2" name="keyword" placeholder="揪團名稱" id="inputName" />
+                    <input type="text"
+                        class="form-control me-2 d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2"
+                        name="keyword" placeholder="揪團名稱" id="inputName" />
                     <span class="input-group-btn">
                         <button type="submit" class="btn btn-info" id="name_btn">搜索</button>
                     </span>
@@ -205,8 +207,12 @@
                 <div class="container" id="groupData">
 
                     <!-- -----排序按鈕----- -->
-                    <button type="button" class="btn btn-secondary" id="time_btn">以揪團剩餘時間排序</button>
-                    <button type="button" class="btn btn-secondary" id="amount_btn">以金額排序</button>
+                    <span id="time_btn_direction" class="dropdwon">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" id="time_btn">以揪團剩餘時間排序</button>
+                    </span>
+                    <span id="amount_btn_direction" class="dropdown">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" id="amount_btn">以金額排序</button>
+                    </span>
 
                     <!-- -----揪團列表內容 js動態排序----- -->
                     <div class="row g-5 justify-content-center" id="groupListInner">

@@ -20,7 +20,7 @@ public class RegForm implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "form_id")
+    @Column(name = "form_id", insertable = false)
     private Integer formId;
     @Column(name = "group_id")
     private Integer groupId;
@@ -34,7 +34,7 @@ public class RegForm implements Serializable {
     private Integer joinMember;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "reg_time")
+    @Column(name = "reg_time", insertable = false)
     private Timestamp regTime;
 
 //    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "regForm")

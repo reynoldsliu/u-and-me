@@ -279,8 +279,6 @@ async function fetchMyGroup(groupId) {
 
         //由於後端傳進來的圖片是base64資料，基於base64，須將base64定義成image/png檔，然後變成一個網址data:
         let dataurl = `data:image/png;base64,${group.cover}`
-        cover_img_el.src = dataurl;
-
 
         minMember_el.value = group.min_Member;
         maxMember_el.value = group.max_Member;

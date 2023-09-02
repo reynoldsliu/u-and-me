@@ -19,7 +19,7 @@ public class MemberDetail implements Serializable {
     private static final long serialVersionUID = -7166790294423852111L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "detail_id")
+    @Column(name = "detail_id", insertable = false)
     private Integer detailId;
     @Column(name = "form_id")
     private Integer formId;
@@ -33,7 +33,7 @@ public class MemberDetail implements Serializable {
     private Date birthday;
     @Column(name = "gender")
     private String gender;
-    @Column(name = "refund_sta")
+    @Column(name = "refund_sta", insertable = false)
     private Integer refundSta;
 
 //    @ManyToOne

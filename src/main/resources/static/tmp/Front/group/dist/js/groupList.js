@@ -5,9 +5,11 @@ const time_btn_el = document.getElementById("time_btn");
 const amount_btn_el = document.getElementById("amount_btn");
 const name_btn_el = document.getElementById("name_btn");
 const inputName_el = document.getElementById("inputName");
-const pageSelect1_el = document.getElementById('pageSelect1');
-const pageSelect2_el = document.getElementById('pageSelect2');
-const pageSelect3_el = document.getElementById('pageSelect3');
+const pageSelect1_el = document.getElementById("pageSelect1");
+const pageSelect2_el = document.getElementById("pageSelect2");
+const pageSelect3_el = document.getElementById("pageSelect3");
+const time_btn_direction_el = document.getElementById("time_btn_direction");
+const amount_btn_direction_el = document.getElementById("amount_btn_direction");
 
 // fetch對應到的路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
@@ -170,18 +172,27 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
         if(time_btn_count >= 1){
             if(time_btn_count % 2 === 0){
                 response = await fetch('http://localhost:8080/u-and-me/groupList/byDeadlineDesc/0/' + e);
+                time_btn_direction_el.classList.remove("dropup");
+                time_btn_direction_el.classList.add("dropdown");
             } else if (time_btn_count % 2 !== 0) {
-                response = await fetch('http://localhost:8080/u-and-me/groupList/byDeadline/0/' + e)
+                response = await fetch('http://localhost:8080/u-and-me/groupList/byDeadline/0/' + e);
+                time_btn_direction_el.classList.remove("dropdown");
+                time_btn_direction_el.classList.add("dropup");
             }
         }
         
         //控制金額排序
         if(amount_btn_count >= 1){
             if(amount_btn_count % 2 !== 0){
-                response = await fetch('http://localhost:8080/u-and-me/groupList/byAmountDesc/0/' + e);
+                response = await fetch('http://localhost:8080/u-and-me/groupList/byAmount/0/' + e);
+                amount_btn_direction_el.classList.remove("dropdown");
+                amount_btn_direction_el.classList.add("dropup");
             } else if (amount_btn_count % 2 === 0) {
-                response = await fetch('http://localhost:8080/u-and-me/groupList/byAmount/0/' + e)
+                response = await fetch('http://localhost:8080/u-and-me/groupList/byAmountDesc/0/' + e);
+                amount_btn_direction_el.classList.remove("dropup");
+                amount_btn_direction_el.classList.add("dropdown");
             }
+
         }
 
         //控制搜尋名稱
