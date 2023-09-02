@@ -129,10 +129,11 @@
                                         <ul>
                                             <a href="#" id="tab-back"><i class="fa-solid fa-arrow-left"></i></a>
                                             <li>搜尋<a href="#" id="tab-search"><i
-                                                        class="fa-solid fa-magnifying-glass -on"></i></a></li>
+                                                        class="fa-solid fa-magnifying-glass"></i></a></li>
                                             <li>我的景點收藏<a href="#" id="tab-attrCollect"><i
                                                         class="fa-solid fa-location-dot"></i></a></li>
-                                            <li>自訂景點<a href="#" id="tab-customize"><i class="fa-solid fa-pen"></i></a>
+                                            <li>自訂景點<a href="#" id="tab-customize"><i
+                                                        class="fa-solid fa-pen -on"></i></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -389,6 +390,46 @@
                                         </div>
                                     </div>
                                     <!-- 我的景點收藏結束 -->
+                                    <!-- 自訂景點 -->
+                                    <div class="myCustomizeAttr">
+                                        <div class="customizeColumn">
+                                            <div style="margin: 5% 0 0 5%;">
+                                                <div style="font-size: 1.3rem; font-weight: bold;">自建新景點</div>
+                                                <div style="color: red; font-weight:600;">*為必填欄位</div>
+                                            </div>
+                                            <div>
+                                                <input type="text" id="myAttrName" ref="site" v-model="site"
+                                                    placeholder="*請輸入景點名稱">
+                                            </div>
+                                            <div>
+                                                <div>
+                                                    <input type="text" id="myAttrAddr" class="google_input_text3"
+                                                        ref="site" v-model="site" placeholder="*請輸入地址">
+                                                </div>
+                                                <a href="#"
+                                                    style="position:absolute;left:88%;top:28.5%;font-size: 20px;color: green;"><i
+                                                        class="fa-solid fa-magnifying-glass"></i></a>
+                                            </div>
+                                            <div>
+                                                <input type="text" id="myAttrTel" ref="site" v-model="site"
+                                                    placeholder="電話">
+                                            </div>
+                                            <div>
+                                                <input type="text" id="myAttrURL" ref="site" v-model="site"
+                                                    placeholder="網站">
+                                            </div>
+                                            <div>
+                                                <input type="checkbox" id="saveMyAttrInCollection" checked
+                                                    style="width: 20px; vertical-align: middle;">
+                                                <span
+                                                    style="padding-left: 5px; vertical-align: middle; font-size: large;">儲存景點</span>
+                                            </div>
+                                            <div class="myAttrDone-btn" style="text-align: center;">
+                                                <button type="button" class="btn btn-success" id="myAttrDone"
+                                                    style="width: 90%;">完成</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-8" style="padding: 0;">

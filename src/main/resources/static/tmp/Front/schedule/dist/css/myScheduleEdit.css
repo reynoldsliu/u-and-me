@@ -100,7 +100,7 @@ div.search {
     /* display: none; */
     height: 100%;
     border-right: 1px solid lightgray;
-    /* border: 1px solid red; */
+    border: 1px solid red;
     overflow: hidden
 }
 
@@ -189,7 +189,7 @@ div.switchbox ul>li>a>i {
     z-index: 1;
 }
 
-div.switchbox ul>li>a>i.-on{
+div.switchbox ul>li>a>i.-on {
     color: rgb(25, 135, 84);
 }
 
@@ -201,7 +201,7 @@ div.attrSearch-result {
     display: inline-block;
     overflow: hidden;
     /* overflow-y: auto; */
-    /* display: none; */
+    display: none;
 }
 
 div.attrSearch-result-off {
@@ -222,6 +222,7 @@ input {
     width: 90%;
     height: 40px;
     margin: 10px 0 10px 20px;
+    padding-left: 10px;
 }
 
 /* 下面的搜尋欄 */
@@ -332,10 +333,21 @@ div.attrs-cell:first-child {
     margin-top: 10px;
 }
 
+
+/* 查看單一景點詳情 */
+
+
+
+
+
+
+
+
+
 /* ============ 景點搜尋結束 ============ */
 
 /* ============ 我的景點收藏 ============ */
-div.myAttrs{
+div.myAttrs {
     display: none;
     /* border: 1px solid red; */
     width: 33.3%;
@@ -347,27 +359,27 @@ div.myAttrs{
     overflow-y: auto;
 }
 
-div.myAttrs-off{
+div.myAttrs-off {
     display: none;
 }
 
 /* 未有任何收藏景點 */
-div.attrCollectNotFound{
+div.attrCollectNotFound {
     /* border: 1px solid red; */
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
-    background-color: rgb(245,245,245);
+    background-color: rgb(245, 245, 245);
     box-shadow: inset 0px 2px 5px lightgray;
     display: none;
 }
 
-div.attrCollectNotFound-on{
+div.attrCollectNotFound-on {
     display: none;
 }
 
-div.attrCollectNotFound>p{
+div.attrCollectNotFound>p {
     /* border: 1px solid green; */
     text-align: center;
     width: 100%;
@@ -380,14 +392,28 @@ div.attrCollectNotFound>p{
 /* ============ 我的景點收藏結束 ============ */
 
 /* ================ 自訂景點 ================ */
+div.myCustomizeAttr {
+    display: none;
+    /* border: 1px solid red; */
+    width: 33.3%;
+    height: 539px;
+    position: absolute;
+    left: 0;
+    top: 48px;
+    overflow: hidden;
+    overflow-y: auto;
+}
 
-
+div.myCustomizeAttr-off {
+    display: none;
+}
 
 /* =============== 自訂景點結束 ============== */
 
 /* ============ GOOGLE MAP 開始 ============ */
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
+/* 查看景點詳情時，map會再自動被分配到4:3:5中的5 */
 /* 地圖 */
 #map {
     /* display: none;  */
