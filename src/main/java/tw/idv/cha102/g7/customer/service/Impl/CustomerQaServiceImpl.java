@@ -31,7 +31,7 @@ public class CustomerQaServiceImpl implements CustomerQaService {
 
     @Override
     public void addQa(CustomerQa customerQa) {
-            repository.save(customerQa);
+        repository.save(customerQa);
     }
 
     @Override

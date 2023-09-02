@@ -33,7 +33,7 @@ function findall() {
       return qalist.innerHTML = html;
     }
     ).catch(function (error) {
-      console.log(error);
+      console.error(error);
     })
 }
 

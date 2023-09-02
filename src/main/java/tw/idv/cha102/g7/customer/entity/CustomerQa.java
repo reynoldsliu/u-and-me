@@ -7,8 +7,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -27,11 +25,9 @@ public class CustomerQa implements Serializable{
     @Column(name = "qa_id")
     private Integer qaId;
 
-    @NotBlank(message = "文章標題，請勿空白!")
     @Column(name = "qa_title")
     private String qaTitle;
 
-    @NotBlank(message = "文章內容，請勿空白!")
     @Column(name = "qa_con")
     private String qaCon;
 

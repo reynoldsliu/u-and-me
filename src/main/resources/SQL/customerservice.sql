@@ -31,7 +31,7 @@ insert into chat(chat_id, mem_id, host_id, chat_time, chat_type, chat_point, cha
 
 
 create table qa (
-	qa_id int primary key, -- auto_increment
+	qa_id int primary key  auto_increment,
     qa_title varchar(50)  not null,
     qa_con varchar(500)  not null,
     qa_state tinyint default 0 not null comment '0:下架 1:上架',

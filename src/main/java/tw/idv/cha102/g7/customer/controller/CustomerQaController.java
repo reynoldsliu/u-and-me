@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.customer.entity.CustomerQa;
 import tw.idv.cha102.g7.customer.service.CustomerQaService;
+import tw.idv.cha102.g7.customer.service.Impl.CustomerQaServiceImpl;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class CustomerQaController {
      * @return 返回新增完畢的QA資料
      */
     @PostMapping("/addqa")
-    public void addQa(CustomerQa customerQa) {
+    public void addQa(@RequestBody CustomerQa customerQa) {
         service.addQa(customerQa);
     }
 
@@ -82,7 +83,7 @@ public class CustomerQaController {
      * @param qaId QaId編號
      */
     @DeleteMapping("/delqa/{qaId}")
-    public void deleteById(Integer qaId) {
+    public void deleteById(@PathVariable Integer qaId) {
         service.deleteById(qaId);
     }
 
