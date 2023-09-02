@@ -2,11 +2,10 @@ package tw.idv.cha102.g7.common.configuration;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import tw.idv.cha102.g7.common.filter.HostFilter;
 import tw.idv.cha102.g7.common.filter.MemberFilter;
-import tw.idv.cha102.g7.common.filter.MyFilter;
+
 
 @Configuration
 public class UandmeConfiguration {
