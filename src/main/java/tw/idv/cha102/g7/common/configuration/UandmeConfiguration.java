@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.common.configuration;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import tw.idv.cha102.g7.common.filter.MyFilter;
@@ -8,6 +9,7 @@ import tw.idv.cha102.g7.common.filter.MyFilter;
 @Configuration
 public class UandmeConfiguration {
 
+    @Bean
     public FilterRegistrationBean myFilter(){
         FilterRegistrationBean<MyFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(new MyFilter());
