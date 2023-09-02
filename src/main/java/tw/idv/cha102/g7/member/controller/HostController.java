@@ -1,11 +1,15 @@
 package tw.idv.cha102.g7.member.controller;
 
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.attraction.dto.CommonResponse;
 import tw.idv.cha102.g7.group.entity.Group;
+import tw.idv.cha102.g7.member.dto.HostLoginDTO;
+import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Host;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.HostRepository;
@@ -13,6 +17,10 @@ import tw.idv.cha102.g7.member.repo.HostRepository;
 import tw.idv.cha102.g7.member.service.HostService;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,23 +47,57 @@ public class HostController {
     }
 
     /**
-     * 管理員登入
-     * @param host
+     *
+     * @param hostLoginDTO
+     * @param request
+     * @param response
      * @return
      */
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Host host) {
-        String hostEmail = host.getHostEmail();
-        String hostPassword = host.getHostPassword();
-
-        String loginResult = hostService.login(hostEmail, hostPassword);
-        if ("您已成功登入管理員系統".equals(loginResult)) {
-            return ResponseEntity.ok("您已成功登入管理員系統");
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("登入失敗");
+    @PostMapping("/hostLogin")
+    public ResponseEntity<CommonResponse<String>> hostLogin(@RequestBody @Valid HostLoginDTO hostLoginDTO,
+                                                        HttpServletRequest request,
+                                                        HttpServletResponse response
+    ) {
+        HttpSession session = request.getSession();
+//        session.removeAttribute("hostId");
+        System.out.println(session.getAttribute("hostId"));
+        CommonResponse commonResponse =new CommonResponse();
+        if (session.getAttribute("hostId") == null) {
+            System.out.println("QAQ!");
+            hostService.hostLogin(hostLoginDTO, request, response);
+            commonResponse.setMessage("登入成功");
+            return new ResponseEntity(commonResponse, HttpStatus.OK);
         }
+        System.out.println("QAQqq!");
+        commonResponse.setMessage("登入失敗");
+        return new ResponseEntity(commonResponse, HttpStatus.OK);
+
+
+    }
+    @PostMapping("/hostLogout")
+    public ResponseEntity<String> hostLogout(HttpServletRequest request,
+                                         HttpServletResponse response
+    ) {
+        HttpSession session = request.getSession();
+        String jsessionId = session.getAttribute("hostId").toString();
+        if (jsessionId == null || jsessionId.isEmpty())
+            return new ResponseEntity("登出失敗", HttpStatus.BAD_REQUEST);
+        session.removeAttribute("hostId");
+//        if(session.getAttribute("memberId").toString()==null)
+//            System.out.println("NULL");
+        return new ResponseEntity("登出成功", HttpStatus.OK);
     }
 
+    @RequestMapping("/testHostLogin")
+    public ResponseEntity<String> testHostLogin(HttpServletRequest request,
+                                            HttpServletResponse response) {
+        HttpSession httpSession = request.getSession();
+        if (httpSession.getAttribute("hostId") == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        String sessionId = httpSession.getAttribute("hostId").toString(); // 保存目前登入的會員id，供後續使用
+        System.out.println(sessionId);
+        return new ResponseEntity<>(sessionId, HttpStatus.OK);
+    }
     /**
      * 刪除管理員
      * (By hostId)

@@ -38,6 +38,10 @@ public class Member {
     @Column(name = "mem_idcard")
     private String memIdcard;
 
+    @Lob
+    @Column(name ="mem_idpic")
+    private byte[] memIdPic;
+
     @Column(name = "mem_phone")
     private String memPhone;
 

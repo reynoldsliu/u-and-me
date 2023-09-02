@@ -4,14 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 import tw.idv.cha102.g7.group.entity.Group;
+import tw.idv.cha102.g7.member.dto.HostLoginDTO;
+import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Host;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.HostRepository;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.member.service.HostService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +33,7 @@ public class HostServiceImpl implements HostService {
     @Autowired
     private MemberRepository memberRepository;
     public String insert(Host host) {
-        if (hostRepository.findByhostEmail(host.getHostEmail()) == null) {
+        if (hostRepository.findByHostEmail(host.getHostEmail()) == null) {
             host.setHostSta(0);
             hostRepository.save(host);
             return "您已成功註冊管理員'";
@@ -40,19 +48,26 @@ public class HostServiceImpl implements HostService {
         hostRepository.deleteById(hostId);
     }
 
-    public String login(String hostEmail, String hostPassword) {
-        Optional <Host> optionalHost = hostRepository.findByhostEmail(hostEmail);
-        if (optionalHost.isPresent()) {
-            Host host = optionalHost.get();
-            if (host.getHostPassword().equals(hostPassword)) {
-                // 登入成功，檢查團主狀態
+    @Override
+    public void hostLogin(HostLoginDTO hostloginDTO, HttpServletRequest request, HttpServletResponse response) {
 
-                    return "您已成功登入管理員系統";
-                }
+        Host host = hostRepository.findByHostEmail(hostloginDTO.getHostEmail());
+        System.out.println(host);
+        if (host == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "無此管理員");
+//        String hashReqPwd = sha256Hash(loginDTO.getMemPassword());//傳入密碼加密
+        //比較帳號密碼
+        if (!host.getHostEmail().equals(hostloginDTO.getHostEmail()) || !host.getHostPassword().equals(hostloginDTO.getHostPassword()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "帳號密碼錯誤");
+        HttpSession httpSession = request.getSession();
+//        httpSession.setAttribute("loggedInMember", member.getMemberId());
+        // 添加 Cookie 到回應中
+        Cookie sessionCookie = new Cookie("JSESSIONID", httpSession.getId());
+        sessionCookie.setMaxAge(30 * 60); // 30 分鐘的過期時間
+        sessionCookie.setPath("/"); // 設置 Cookie 的路徑
+        response.addCookie(sessionCookie);
+        httpSession.setAttribute("hostId", host.getHostId()); // 保存目前登入的管理員id，供後續使用
 
-            }
-
-        return "登入失敗";
     }
 
     public Host update(Host host) {
