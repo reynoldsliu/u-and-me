@@ -122,8 +122,8 @@
                                 <!-- <img src="https://picsum.photos/300/200?random=10" > -->
 
                                 <!-- ================================GOOGLE API=================================== -->
-                                <!-- 行程細節編輯側邊欄 -->
-                                <div class="search">
+                                <!-- 行程細節編輯側邊欄內容(行程細節、景點搜尋、單一景點詳細內容) -->
+                                <div class="viewAttrSearchColumn">
                                     <!-- 搜尋頁籤 -->
                                     <div class="switchbox">
                                         <ul>
@@ -202,106 +202,129 @@
                                         </div>
                                         <div class="attrSearchList">
                                             <!-- 搜尋到的景點由此插入，第一個cell -->
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- 以上為一個cell -->
-                                            <div class="attrs-cell" id="attrId2">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId5678" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName2">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- 以上是第二個cell -->
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- 以上是第三個cell -->
                                             <!-- 以下為測試 -->
-                                            <!-- <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div> -->
                                             <!-- 測試結束 -->
                                         </div>
                                     </div>
@@ -310,82 +333,129 @@
                                     <div class="myAttrs">
                                         <div class="attrCollectionList">
                                             <!-- 收藏景點由此插入，第一個cell -->
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- 一個景點收藏cell結束，以下為測試 -->
-                                            <!-- <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
-                                                </div>
-                                            </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
-                                                </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="attrs-cell" id="attrId1">
-                                                <div class="attr-cover">
-                                                    <img src="#" class="attr-img" id="attrPicId1234" alt="圖片載入中...">
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
-                                                <div class="attr-name" id="attrName1">
-                                                    <span>景點名稱在此</span>
+                                            </div>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
                                                 </div>
-                                            </div> -->
+                                            </div>
+                                            <div class="attrCell card mb-3" onclick="functionName">
+                                                <div class="row g-0">
+                                                    <div class="col-md-8">
+                                                        <div class="attrCardBody">
+                                                            <h5 class="attrName">
+                                                                <div id="attrName">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <!-- 測試結束 -->
                                         </div>
-                                        <div class="attrCollectNotFound">
+                                        <div class="attrCollectNotFound-off">
                                             <p style="color: gray; font-weight: bold;">您沒有收藏任何的景點</p>
                                         </div>
                                     </div>
@@ -422,7 +492,7 @@
                                                 <input type="checkbox" id="saveMyAttrInCollection" checked
                                                     style="width: 20px; vertical-align: middle;">
                                                 <span
-                                                    style="padding-left: 5px; vertical-align: middle; font-size: large;">儲存景點</span>
+                                                    style="margin-top: 50px;padding-left: 5px; vertical-align: middle; font-size: large;">加入收藏</span>
                                             </div>
                                             <div class="myAttrDone-btn" style="text-align: center;">
                                                 <button type="button" class="btn btn-success" id="myAttrDone"
@@ -431,13 +501,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 查看單一景點的詳細資訊 -->
+                                <div class="viewAttrDetailsColumn">
+                                    <!-- TODO....... -->
+                                </div>
+                                <!-- 安排新增景點後，行程細節容器 -->
+                                <div class="viewSchDetailsColumn">
+
+                                </div>
                             </div>
                             <div class="col-12 col-lg-8" style="padding: 0;">
                                 <!-- <img src="https://picsum.photos/300/200?random=11" > -->
 
                                 <!-- ================================GOOGLE API=================================== -->
                                 <div id="mapAndDirect">
-                                    <div id="map"></div>
+                                    <div class="map-one" id="map"></div>
                                     <!-- 詳細路線，不顯示 display: none-->
                                     <div id="directionsPanel"></div>
                                 </div>

@@ -96,15 +96,17 @@ body {
 /* ============ 景點搜尋開始 ============ */
 
 /* 景點搜尋側邊欄 */
-div.search {
+div.viewAttrSearchColumn {
     /* display: none; */
     height: 100%;
-    border-right: 1px solid lightgray;
-    border: 1px solid red;
-    overflow: hidden
+    border-right: 1px solid gray;
+    box-shadow: 0px 2px 5px gray;
+    /* border: 1px solid red; */
+    overflow: hidden;
+    /* z-index: 0; */
 }
 
-div.search-off {
+div.viewAttrSearchColumn-off {
     display: none;
 }
 
@@ -156,6 +158,10 @@ div.switchbox ul>li {
     vertical-align: bottom;
 }
 
+div.switchbox ul>li:last-child {
+    border-right: 1px solid gray;
+}
+
 /* 使用偽元素消除間距 */
 /* div.switchbox ul>li::after {
     content: "";
@@ -193,15 +199,15 @@ div.switchbox ul>li>a>i.-on {
     color: rgb(25, 135, 84);
 }
 
-/* 頁籤切換時需更動的頁面 */
+/* 景點搜尋結果(頁籤切換時需更動的頁面) */
 div.attrSearch-result {
     /* border: 1px solid red; */
     width: 100%;
     height: 100%;
     display: inline-block;
     overflow: hidden;
-    /* overflow-y: auto; */
-    display: none;
+    overflow-y: auto;
+    /* display: none; */
 }
 
 div.attrSearch-result-off {
@@ -213,6 +219,7 @@ div.searchColumn {
     width: 100%;
     height: 110px;
     box-shadow: 0px 2px 5px lightgray;
+    /* border: 1px solid red; */
 }
 
 /* 景點搜尋欄 */
@@ -246,7 +253,7 @@ button#attrSearch-btn {
 /* 景點交通搜尋結果框 */
 div.trans-search-result {
     border: 1px solid blue;
-    /* display: inline-block; */
+    display: inline-block;
     display: none;
     width: 100%;
     height: 50px;
@@ -302,7 +309,7 @@ div#totalDistance {
 /* 總時間 */
 div#totalTime {
     /* border: 1px solid red; */
-    width: 20%;
+    width: 50%;
     height: 30px;
     font-size: 1.2rem;
     font-weight: bold;
@@ -320,30 +327,45 @@ div.attrSearchList {
     height: 428px;
     overflow: hidden;
     overflow-y: auto;
+    /* display: none; */
 }
 
-/* 單一個景點框 */
-div.attrs-cell {
-    border: 1px solid green;
-    height: 70px;
-    margin-bottom: 10px;
+/* ------ 景點搜尋/收藏 cell ------ */
+
+/* 單一個景點搜尋/收藏框 */
+div.attrCell {
+    max-width: 420px;
+    box-shadow: 0 0 10px lightgrey;
+}
+div.attrCell:first-child{
+    margin-top: 15px;
 }
 
-div.attrs-cell:first-child {
-    margin-top: 10px;
+/* 滑過景點box時加深陰影 */
+div.attrCell:hover {
+    box-shadow: 0 5px 10px gray;
 }
 
+/* 景點內容(景點名稱) */
+div.attrCardBody {
+    /* border: 1px solid red; */
+    position: absolute;
+    padding: 5px 10px;
+    width: 66.6%;
+    height: 100%;
+    font-weight: bold;
+    overflow: hidden;
+}
 
-/* 查看單一景點詳情 */
+/* 景點名稱位置調整 */
+#attrName {
+    /* border: 1px solid red; */
+    width: 90%;
+    position: absolute;
+    top: 35%;
+}
 
-
-
-
-
-
-
-
-
+/* ------ 景點搜尋/收藏 cell 結束 ------ */
 /* ============ 景點搜尋結束 ============ */
 
 /* ============ 我的景點收藏 ============ */
@@ -363,19 +385,33 @@ div.myAttrs-off {
     display: none;
 }
 
+/* 收藏景點清單 */
+div.attrCollectionList{
+    /* border: 1px solid blue; */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+div.attrCollectionList-off{
+    display: none;
+}
+
+
 /* 未有任何收藏景點 */
 div.attrCollectNotFound {
-    /* border: 1px solid red; */
+    border: 1px solid red;
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     background-color: rgb(245, 245, 245);
     box-shadow: inset 0px 2px 5px lightgray;
-    display: none;
+    /* display: none; */
 }
 
-div.attrCollectNotFound-on {
+div.attrCollectNotFound-off {
     display: none;
 }
 
@@ -402,28 +438,69 @@ div.myCustomizeAttr {
     top: 48px;
     overflow: hidden;
     overflow-y: auto;
+    box-shadow: 0px 2px 5px gray;
+    z-index: 1;
 }
 
 div.myCustomizeAttr-off {
     display: none;
 }
 
+
+/* 待加入景點上傳照片的部分 */
+
+
+
 /* =============== 自訂景點結束 ============== */
+
+/* ============= 查看單一景點詳情 ============= */
+div.viewAttrDetailsColumn {
+    box-shadow: 0px 2px 5px gray;
+    border: 1px solid blue;
+    width: 25%;
+    height: 100%;
+    position: absolute;
+    left: 33.3%;
+    top: 0;
+    z-index: 1;
+    background-color: #fff;
+    /* display: none; */
+}
+
+
+
+
+
+
+
+
+/* ============ 查看單一景點詳情結束 ============ */
 
 /* ============ GOOGLE MAP 開始 ============ */
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
-/* 查看景點詳情時，map會再自動被分配到4:3:5中的5 */
+
 /* 地圖 */
-#map {
+.map {
     /* display: none;  */
-    /* 無內陰影效果 */
-    /* box-shadow: inset 3px 5px 10px gray; */
     width: 100%;
     height: 100%;
     float: right;
     overflow: hidden;
     /* border: 1px solid green; */
+    z-index: 0;
+}
+
+/* 查看景點詳情時的地圖CSS */
+/* 查看景點詳情時，map會大概再被分配到4:3:5中的5 */
+.map-one {
+    /* display: none;  */
+    width: 62.6%;
+    height: 100%;
+    float: right;
+    overflow: hidden;
+    /* border: 1px solid green; */
+    z-index: 0;
 }
 
 /* 詳細路線 */
@@ -447,10 +524,76 @@ div.myCustomizeAttr-off {
 
 /* ============ GOOGLE MAP 結束 ============ */
 
-
+/* ============ 查看行程細節 ============ */
+/* --------- 行程細節 cell --------- */
 /* 行程細節 */
-div.schDetails {
-    /* border: 1px solid blue; */
-    /* width: 30%;
-    height: 100%; */
+div.schDetailCell {
+    max-width: 420px;
+    box-shadow: 0 0 10px lightgrey;
 }
+
+div.schDetailCell:hover {
+    box-shadow: 0 5px 10px gray;
+}
+
+/* 行程細節中每個景點的第一張圖片 */
+div.attrPic {}
+
+/* 行程細節排序(依照行程細節起始時間) */
+div.schDetailOrder {
+    /* border: 1px solid red; */
+    width: 8.5%;
+    height: 35%;
+    border-radius: 5px;
+    background-color: rgb(25, 135, 84);
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    padding: 2px;
+}
+
+/* 行程細節排序數字 */
+span#schDetailOrder {
+    vertical-align: middle;
+    color: white;
+    font-weight: bold;
+}
+
+/* 一個行程細節的內容 */
+div.schDetailsCardBody {
+    /* border: 1px solid red; */
+    position: absolute;
+    padding: 5px 10px;
+    width: 66.6%;
+    height: 100%;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+/* 行程時間相關(停留時間 | 起始時間、結束時間) */
+p.schTimes {
+    margin-bottom: 8px;
+    color: rgb(25, 135, 84);
+}
+
+/* 行程細節內的景點名稱 */
+h5.attrName>div {
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-weight: bold;
+}
+
+/* 景點地址 */
+p.attrAddr {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+}
+
+/* --------- 行程細節 cell 結束 --------- */
+/* ============ 查看行程細節結束 ============ */
