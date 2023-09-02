@@ -1,8 +1,13 @@
 package tw.idv.cha102.g7.common.filter;
 
+import org.hibernate.annotations.Filter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
+import tw.idv.cha102.g7.member.entity.Member;
+import tw.idv.cha102.g7.member.service.MemberService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -13,68 +18,36 @@ import java.io.IOException;
 
 public class MyFilter extends OncePerRequestFilter {
 
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
-        // TO DO the FILTER
 
         ContentCachingRequestWrapper requestWrapper = new ContentCachingRequestWrapper(request);
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
 
-
-//        logAPI(request, response);
-//        logBody(requestWrapper, responseWrapper);
-//
-//        responseWrapper.copyBodyToResponse();
-
-        String contextPath = request.getContextPath();
-        String requestUrl = request.getRequestURI().replace(contextPath,"");
-        String loginFuncStr = "/u-and-me/tmp/Front/member/memberLoginIn.html";
-        String login = "/member/login";
+        String requestUrl = request.getRequestURI();
+        String login = "/u-and-me/member/login";
 
 
-
-        if(loginFuncStr.equals(requestUrl)||login.equals(requestUrl)){
-            chain.doFilter(request,response);
+        //許可所有請求進入登入畫面
+        if (login.equals(requestUrl)) {
+            chain.doFilter(request, response);
             return;
         }
 
+
         HttpSession session = request.getSession();
-        Integer memId = (Integer)(session.getAttribute("memId"));
-        if(memId==null){
-            response.sendRedirect(contextPath + loginFuncStr);
-            return ;
+        System.out.println(session.getAttribute("memberId"));
+        //檢查是否已經登入 若是則跳過此條件進行內部功能 若否則進入此條件重導回登入頁面
+        if (session.getAttribute("memberId") == null) {
+//            response.getWriter().write("");
+            response.sendRedirect("http://localhost:8081/u-and-me/tmp/Front/member/memberLoginIn.html");
+            return;
         }
 
         chain.doFilter(requestWrapper, responseWrapper);
         responseWrapper.copyBodyToResponse();
-    }
-
-    private void logAPI(HttpServletRequest request, HttpServletResponse response) {
-        // 先前打印 API 的程式
-        int httpStatus = response.getStatus();
-        String httpMethod = request.getMethod();
-        String uri = request.getRequestURI();
-        String params = request.getQueryString();
-
-        if (params != null) {
-            uri += "?" + params;
-        }
-
-        System.out.println(String.join(" ", String.valueOf(httpStatus), httpMethod, uri));
-    }
-
-    private void logBody(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response) {
-        String requestBody = getContent(request.getContentAsByteArray());
-        System.out.println("Request: " + requestBody);
-
-        String responseBody = getContent(response.getContentAsByteArray());
-        System.out.println("Response: " + responseBody);
-    }
-
-    private String getContent(byte[] content) {
-        String body = new String(content);
-        return body.replaceAll("[\n\t]", "");
     }
 }

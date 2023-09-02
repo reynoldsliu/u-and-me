@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.attraction.dto.CommonResponse;
 import tw.idv.cha102.g7.member.controller.exception.InsufficientPointsException;
 import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Member;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/member")
@@ -33,6 +35,7 @@ public class MemberController {
 
     /**
      * 會員註冊
+     *
      * @param member
      * @return
      */
@@ -42,50 +45,60 @@ public class MemberController {
     }
 
 
-
     /**
      * 會員登入
+     *
      * @param loginDTO
      * @param request
      * @param response
      * @return
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginDTO loginDTO,
-                                        HttpServletRequest request,
-                                        HttpServletResponse response
+    public ResponseEntity<CommonResponse<String>> login(@RequestBody @Valid LoginDTO loginDTO,
+                                                       HttpServletRequest request,
+                                                       HttpServletResponse response
     ) {
-        memberService.login(loginDTO,request, response);
-        return new ResponseEntity("登入成功",HttpStatus.OK);
+        HttpSession session = request.getSession();
+        CommonResponse commonResponse =new CommonResponse();
+        if (session.getAttribute("memberId") == null) {
+            memberService.login(loginDTO, request, response);
+            commonResponse.setMessage("登入成功");
+            return new ResponseEntity(commonResponse, HttpStatus.OK);
+        }
+        commonResponse.setMessage("登入失敗");
+        return new ResponseEntity(commonResponse, HttpStatus.OK);
+
+
     }
 
     @PostMapping("/logout")
     public ResponseEntity<String> logout(HttpServletRequest request,
-                                        HttpServletResponse response
+                                         HttpServletResponse response
     ) {
         HttpSession session = request.getSession();
         String jsessionId = session.getAttribute("memberId").toString();
-        if(jsessionId.isEmpty())
-            return new ResponseEntity("登出失敗",HttpStatus.BAD_REQUEST);
-        session.setAttribute("memberId",null);
+        if (jsessionId == null || jsessionId.isEmpty())
+            return new ResponseEntity("登出失敗", HttpStatus.BAD_REQUEST);
+        session.removeAttribute("memberId");
 //        if(session.getAttribute("memberId").toString()==null)
 //            System.out.println("NULL");
-        return new ResponseEntity("登出成功",HttpStatus.OK);
+        return new ResponseEntity("登出成功", HttpStatus.OK);
     }
 
     @RequestMapping("/testlogin")
     public ResponseEntity<String> testlogin(HttpServletRequest request,
-                                            HttpServletResponse response){
+                                            HttpServletResponse response) {
         HttpSession httpSession = request.getSession();
-        if(httpSession.getAttribute("memberId")==null)
+        if (httpSession.getAttribute("memberId") == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         String sessionId = httpSession.getAttribute("memberId").toString(); // 保存目前登入的會員id，供後續使用
         System.out.println(sessionId);
-        return new ResponseEntity<>(sessionId,HttpStatus.OK);
+        return new ResponseEntity<>(sessionId, HttpStatus.OK);
     }
 
     /**
      * 團主註冊
+     *
      * @param member
      * @return
      */
@@ -113,6 +126,7 @@ public class MemberController {
 
     /**
      * 會員刪除
+     *
      * @param memId
      * @return
      */
@@ -121,7 +135,7 @@ public class MemberController {
                                           HttpServletRequest request) {
         HttpSession session = request.getSession();
         String jsessionId = session.getAttribute("memberId").toString();
-        if(jsessionId.isEmpty())
+        if (jsessionId.isEmpty())
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         try {
             memberService.deleteById(memId);
@@ -133,6 +147,7 @@ public class MemberController {
 
     /**
      * 會員資料更新
+     *
      * @param member
      * @return
      */
@@ -164,8 +179,6 @@ public class MemberController {
 //    public Member sendEmailVerify(Member member) {
 //
 //    }
-
-
 
 
 }
