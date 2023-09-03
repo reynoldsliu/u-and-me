@@ -66,7 +66,7 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
      * @return List<AttrCollectionDTO>
      */
     @Override
-    public List<AttrCollectionDTO> findAttrCollectionsByMemId(Integer memId) {
+    public List<AttrCollectionDTO> findAttrsByMemId(Integer memId) {
         List<AttrCollectionDTO> dtoList = attrCollectionRepository.findAll();
         System.out.println(memId);
         for(AttrCollectionDTO dto:dtoList){
@@ -97,5 +97,18 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
         }
         return returnList;
 //        return attrCollectionRepository.findByCollectionId((attrCollectionRepository.findByMemId(memId)));
+    }
+
+
+    public List<AttrCollectionDTO> findAttrCollectionsByAttrName(String attrName){
+//        Integer id = attrRepository.findByAttrName(attrName).getAttrId();
+//        List<AttrCollectionDTO> attrCollectionDTOs = attrCollectionRepository.findAll();
+//        for(AttrCollectionDTO attrCollectionDTO:attrCollectionDTOs){
+//
+//        }
+        List<AttrCollectionDTO> attrCollectionDTOS = new ArrayList<>();
+//        return attrCollectionRepository.findAllByAttrNameContaining();
+        return attrCollectionDTOS;
+
     }
 }

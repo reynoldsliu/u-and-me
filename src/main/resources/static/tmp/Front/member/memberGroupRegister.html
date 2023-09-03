@@ -178,8 +178,8 @@
                     <input type="text" class="form-control" id="memIdcard" , placeholder="此為申請團主必要條件">
                 </div>
                 <div class="form-group-idcard">
-                    <label for="file">身分證照片上傳</label>
-                    <input type="file" accept="image/*">
+                    <label for="memIdcardPic">身分證照片上傳</label>
+                    <input type="file" accept="image/*" id="memIdcardPic">
                     <!-- <br> -->
                     <img>
                 </div>
@@ -307,9 +307,9 @@
     }
 
     const groupRegBtn_el = document.getElementById("groupBtn");
-    const memIdcard_el = document.getElementById("memIdcard");
+    const memIdcardPic_el = document.getElementById("memIdcardPic");
     groupRegBtn_el.addEventListener("click", function () {
-        const picFile = memIdcard_el.files[0];
+        const picFile = memIdcardPic_el.files[0];
         const formData = new FormData();
         formData.append('image', picFile);
         const idcard_base64String = btoa(picFile);

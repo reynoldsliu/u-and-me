@@ -10,6 +10,8 @@ public interface AttrCollectionService {
     String addAttrToCollection(AttrCollectionDTO attrCollectionDTO);
     String removeAttrFromCollection(AttrCollectionId collectionId);
 
-    List<AttrCollectionDTO> findAttrCollectionsByMemId(Integer memId);
+    List<AttrCollectionDTO> findAttrsByMemId(Integer memId);
     List<AttrCollectionDTO> findAttrCollectionsByMemName(String memName);
+
+    public List<AttrCollectionDTO> findAttrCollectionsByAttrName(String attrName);
 }
