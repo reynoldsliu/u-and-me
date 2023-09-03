@@ -352,11 +352,13 @@
                         }
                         const text = `
                     <div class="card">
+                        <a href = "${product.prodId}" id="prodId_redirect">
                         <img src="data:image/jpeg;base64,${base64Image}" id="prod_Img" alt="商品照片" class="card-img-top" style=" width: 255px;height: 250px;object-fit: cover;">
                             <div class="card-body">
                                 <h5 id="prodName_${product.prodId}" class="card-title">${product.prodName}</h5>
                                 <p class="card-text">NT$ ${product.prodPri}</p>
                             </div>
+                            </a>
                     </div>
                     `;
                         div.innerHTML = text;
@@ -426,11 +428,13 @@
                     }
                     const text = `
                     <div class="card">
+                        <a href = "${product.prodId}" id="prodId_redirect">
                         <img src="data:image/jpeg;base64,${base64Image}" id="prod_Img" alt="商品照片" class="card-img-top" style=" width: 255px;height: 250px;object-fit: cover;">
                             <div class="card-body">
                                 <h5 id="prodName_${product.prodId}" class="card-title">${product.prodName}</h5>
                                 <p class="card-text">NT$ ${product.prodPri}</p>
                             </div>
+                            </a>
                     </div>
                     `;
                     div.innerHTML = text;
@@ -521,11 +525,13 @@
                 }
                 const text = `
                                             <div class="card">
+                                                <a href = "${product.prodId}" id="prodId_redirect">
                                                 <img src="data:image/jpeg;base64,${base64Image}" id="prod_Img" alt="商品照片" class="card-img-top" style=" width: 255px;height: 250px;object-fit: cover;">
                                                     <div class="card-body">
                                                         <h5 id="prodName_${product.prodId}" class="card-title">${product.prodName}</h5>
                                                         <p class="card-text">NT$ ${product.prodPri}</p>
                                                     </div>
+                                                    </a>
                                             </div>
                                             `;
                 div.innerHTML = text;
@@ -534,6 +540,18 @@
             });
         }
 
+        // redirectToDetailPage 函數接受一個活動 ID，根據該 ID 創建新的頁面 URL，並將瀏覽器的位置改為該 URL，從而導航到詳細內容頁面
+        // productDetail.html?prodId=${prodId} 是一個動態生成的 URL 字串，用於將參數 prodId 插入到 URL 中，以便導航到指定的詳細內容頁面
+        // <!--按修改鈕會根據prodId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
+        const prodId_redirect_el = document.getElementById('prodId_redirect');
+        prodId_redirect_el.addEventListener('click', function(){
+            redirectToDetailPage(prodId);
+        })
+
+        function redirectToDetailPage(prodId) {
+            var newPageUrl = `productDetail.html?prodId=${prodId}`;
+            window.location.href = newPageUrl;
+        }
 
     </script>
 
