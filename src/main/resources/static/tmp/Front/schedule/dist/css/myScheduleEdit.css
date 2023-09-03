@@ -207,7 +207,7 @@ div.attrSearch-result {
     display: inline-block;
     overflow: hidden;
     overflow-y: auto;
-    display: none;
+    /* display: none; */
 }
 
 div.attrSearch-result-off {
@@ -274,7 +274,7 @@ button#attrSearch-btn {
 div.transTotalTime {
     /* border: 1px solid blue; */
     display: inline-block;
-    display: none;
+    /* display: none; */
     width: 100%;
     height: 50px;
     position: absolute;
@@ -349,7 +349,7 @@ div.attrCardBody {
 
 /* ============ 我的景點收藏 ============ */
 div.myAttrs {
-    /* display: none; */
+    display: none;
     /* border: 1px solid red; */
     width: 33.3%;
     height: 530px;
