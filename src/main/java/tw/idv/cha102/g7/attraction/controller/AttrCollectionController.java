@@ -2,12 +2,17 @@ package tw.idv.cha102.g7.attraction.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("/attrCol")
 public class AttrCollectionController {
 
     @Autowired
@@ -54,6 +59,17 @@ public class AttrCollectionController {
   		    "attrId": 2
 	   }
     * */
+
+    @RequestMapping("/getAttrsFromCollectionByMemId/{memId}")
+    public ResponseEntity<List<AttrCollectionDTO>> getAttrsFromCollectionByMemId(@PathVariable Integer memId){
+        return new ResponseEntity<>(attrCollectionService.findAttrsByMemId(memId), HttpStatus.OK);
+    }
+
+    @RequestMapping("/getAttrsFromCollectionByMemName/{attrName}")
+    public ResponseEntity<List<AttrCollectionDTO>> getAttrsFromCollectionByMemName(@PathVariable String attrName){
+        System.out.println("IN");
+        return new ResponseEntity<>(attrCollectionService.findAttrCollectionsByAttrName(attrName),HttpStatus.OK);
+    }
 
 
 }

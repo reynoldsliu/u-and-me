@@ -232,7 +232,7 @@ public class AttrController {
 
     @GetMapping("/getCollectionAttrsByMemId/{memId}")
     public List<AttrCollectionDTO> getCollectionAttrsByMemId(@PathVariable Integer memId) {
-        return attrCollectionService.findAttrCollectionsByMemId(memId);
+        return attrCollectionService.findAttrsByMemId(memId);
     }
 
     @RequestMapping("/getCollectionAttrsByMemName/{memName}")

@@ -11,6 +11,9 @@ public interface AttrCollectionRepository extends JpaRepository<AttrCollectionDT
 
     public void deleteByCollectionId(AttrCollectionId collectionId);
 
+//    public List<AttrCollectionDTO> findByMemNameContaining(String memName);
+
+
 //    public List<CollectionDTO> findByMemId(Integer memId);
 
 
