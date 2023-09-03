@@ -8,8 +8,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./dist/css/shoppingMall.css">
-
-
+    <!-- 
+<style>
+.prod_Img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+</style> -->
 
 </head>
 
@@ -111,7 +117,7 @@
     </div>
 
     <div class="container-fluid" style="height: 400px;">
-        <!-- -----揪團輪播----- -->
+        <!-- -----輪播圖----- -->
         <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="height: 450px;">
             <div class="carousel-indicators" style="height: 0px;">
                 <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
@@ -147,12 +153,12 @@
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="prev" style="height: 575px;">
+                data-bs-slide="prev" style="height: 57px;">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                data-bs-slide="next" style="height: 575px;">
+                data-bs-slide="next" style="height: 57px;">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
@@ -196,9 +202,9 @@
                         <!-- 搜尋欄 -->
                         <input
                             class="form-control form-control-sm me-2 mb-3 d-inline-flex focus-ring pb-2 px-2 text-decoration-none border rounded-2"
-                            type="search" id="keywords" placeholder="搜尋商品" aria-label="Search"
+                            type="search" id="searchInput" placeholder="搜尋商品" aria-label="Search"
                             style="--bs-focus-ring-color: rgba(var(--bs-success-rgb), .25) width:100px;height:40px;">
-                        <button class="btn btn-outline-success btn-sm mb-3" id="search-btn" type="submit"
+                        <button class="btn btn-outline-success btn-sm mb-3" id="searchButton" type="submit"
                             style="width:80px;height:40px;">搜尋</button>
                     </form>
                 </div>
@@ -208,14 +214,15 @@
                 <div class="row">
                     <div class="col-12 col-md-3">
                         <div class="list-group-shop">
-                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                                The current link item
+                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true"
+                                style="background-color: rgb(81, 113, 111); border-color: rgb(81, 113, 111);;">
+                                商品類別
                             </a>
-                            <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-                            <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                            <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                            <a class="list-group-item list-group-item-action disabled" aria-disabled="true">A disabled
-                                linkitem</a>
+                            <a href="#" class="list-group-item list-group-item-action" id="prodCatId_1">戶外選品</a>
+                            <a href="#" class="list-group-item list-group-item-action" id="prodCatId_2">在地美食</a>
+                            <a href="#" class="list-group-item list-group-item-action" id="prodCatId_3">旅遊必備小物</a>
+                            <a href="#" class="list-group-item list-group-item-action" id="prodCatId_4">流浪的意義</a>
+
                         </div>
                     </div>
 
@@ -300,10 +307,11 @@
 
 
     <script>
+        //頁面載入後
         document.addEventListener("DOMContentLoaded", function () {
             listAllProd();
         });
-        // 使用 fetch 獲取商城頁面數據
+        // ---使用 fetch 獲取商城頁面數據---
         const listAllProd = async function () {
             fetch('http://localhost:8080/u-and-me/product/listAllShop')
                 .then(response => response.json())
@@ -330,21 +338,21 @@
                         div.classList.add('mb-5');
                         const pp = product.productPictures[0];
                         let base64Image;
-                        if(pp !=null && pp!= undefined){
+                        if (pp != null && pp != undefined) {
                             base64Image = pp.prodPic;
-                        } 
-                        function arrayBufferToBase64(arrayBuffer) {
-                        var binary = '';
-                        var bytes = new Uint8Array(arrayBuffer);
-                        var len = bytes.byteLength;
-                        for (var i = 0; i < len; i++) {
-                            binary += String.fromCharCode(bytes[i]);
                         }
-                        return window.btoa(binary);
-                    }
+                        function arrayBufferToBase64(arrayBuffer) {
+                            var binary = '';
+                            var bytes = new Uint8Array(arrayBuffer);
+                            var len = bytes.byteLength;
+                            for (var i = 0; i < len; i++) {
+                                binary += String.fromCharCode(bytes[i]);
+                            }
+                            return window.btoa(binary);
+                        }
                         const text = `
                     <div class="card">
-                        <img src="data:image/jpeg;base64,${base64Image}" alt="商品照片" class="card-img-top">
+                        <img src="data:image/jpeg;base64,${base64Image}" id="prod_Img" alt="商品照片" class="card-img-top" style=" width: 255px;height: 250px;object-fit: cover;">
                             <div class="card-body">
                                 <h5 id="prodName_${product.prodId}" class="card-title">${product.prodName}</h5>
                                 <p class="card-text">NT$ ${product.prodPri}</p>
@@ -360,6 +368,173 @@
                 })
                 .catch(error => console.error('獲取商品數據時錯誤：', error));
         }
+
+
+        //---搜尋欄用商品名稱搜尋商品---
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const productResults = document.getElementById('product-list');
+
+        //trim()用於刪除字符兩端的空白字符
+        searchButton.addEventListener('click', async function () {
+            const searchText = searchInput.value.trim();
+            alert();
+            if (searchText === '') {
+                productResults.innerHTML = "請輸入欲搜尋的商品名稱";
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:8080/u-and-me/product/findProdByName/${searchText}`);
+                const data = await response.json();
+                displaySearchResults(data);
+            } catch (error) {
+                console.error("搜尋有誤", error);
+                productResults.innerHTML = "搜尋有誤，請重新搜尋";
+            };
+        });
+
+        function displaySearchResults(data) {
+            //先清空搜尋結果
+            console.log(data);
+            productResults.innerHTML = '';
+
+            if (data.length === 0) {
+                productResults.innerHTML = "請輸入欲搜尋的關鍵字";
+                return;
+            } else {
+
+                // 遍歷搜尋結果並在頁面上動態創建列表
+                data.forEach(product => {
+                    let count = 0;
+                    const div = document.createElement('div');
+                    div.classList.add('col');
+                    div.classList.add('mb-5');
+                    const pp = product.productPictures[0];
+                    let base64Image;
+                    if (pp != null && pp != undefined) {
+                        base64Image = pp.prodPic;
+                    }
+                    function arrayBufferToBase64(arrayBuffer) {
+                        var binary = '';
+                        var bytes = new Uint8Array(arrayBuffer);
+                        var len = bytes.byteLength;
+                        for (var i = 0; i < len; i++) {
+                            binary += String.fromCharCode(bytes[i]);
+                        }
+                        return window.btoa(binary);
+                    }
+                    const text = `
+                    <div class="card">
+                        <img src="data:image/jpeg;base64,${base64Image}" id="prod_Img" alt="商品照片" class="card-img-top" style=" width: 255px;height: 250px;object-fit: cover;">
+                            <div class="card-body">
+                                <h5 id="prodName_${product.prodId}" class="card-title">${product.prodName}</h5>
+                                <p class="card-text">NT$ ${product.prodPri}</p>
+                            </div>
+                    </div>
+                    `;
+                    div.innerHTML = text;
+                    //指定img.src把圖片資料給他
+
+                    productResults.appendChild(div);
+                });
+            }
+        }
+
+
+        // ---點商品類別搜尋商品---
+        const prodCatIdLink = document.querySelectorAll('.list-group-shop a')
+        const productCatResults = document.getElementById('product-list');
+
+
+        prodCatIdLink.forEach(link => {
+            link.addEventListener('click', async function (event) {
+                event.preventDefault();
+
+                //清空顯示商品區域
+                productCatResults.innerHTML = "";
+                //得到連接id的屬性，決定要執行哪個請求
+                const categoryId = link.id;
+                //根據categoryId 決定要執行的不同fetch請求
+                let fetchUrl = '';
+
+                switch (categoryId) {
+                    case 'prodCatId_1':
+                        fetchUrl = 'http://localhost:8080/u-and-me/product/findProdByCatId/1'
+                        break;
+                    case 'prodCatId_2':
+                        fetchUrl = 'http://localhost:8080/u-and-me/product/findProdByCatId/2'
+                        break;
+                    case 'prodCatId_3':
+                        fetchUrl = 'http://localhost:8080/u-and-me/product/findProdByCatId/3'
+                        break;
+                    case 'prodCatId_4':
+                        fetchUrl = 'http://localhost:8080/u-and-me/product/findProdByCatId/4'
+                        break;
+                    default:
+                        return;
+                }
+                try {
+                    const response = await fetch(fetchUrl);
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log(data);
+
+                        //將resp的資料放入商品區域
+                        displayClickResults(data);
+
+                    } else {
+                        console.error('請求失敗', response.status, response.statusText);
+
+                    }
+
+                } catch (error) {
+                    console.error('請求錯誤:', error);
+                }
+
+            });
+        });
+        
+        function displayClickResults(data) {
+            //先清空搜尋結果
+            // productCatResults.innerHTML = '';
+
+            // 遍歷搜尋結果並在頁面上動態創建列表
+            data.forEach(product => {
+                let count = 0;
+                const div = document.createElement('div');
+                div.classList.add('col');
+                div.classList.add('mb-5');
+                const pp = product.productPictures[0];
+                let base64Image;
+                if (pp != null && pp != undefined) {
+                    base64Image = pp.prodPic;
+                }
+                function arrayBufferToBase64(arrayBuffer) {
+                    var binary = '';
+                    var bytes = new Uint8Array(arrayBuffer);
+                    var len = bytes.byteLength;
+                    for (var i = 0; i < len; i++) {
+                        binary += String.fromCharCode(bytes[i]);
+                    }
+                    return window.btoa(binary);
+                }
+                const text = `
+                                            <div class="card">
+                                                <img src="data:image/jpeg;base64,${base64Image}" id="prod_Img" alt="商品照片" class="card-img-top" style=" width: 255px;height: 250px;object-fit: cover;">
+                                                    <div class="card-body">
+                                                        <h5 id="prodName_${product.prodId}" class="card-title">${product.prodName}</h5>
+                                                        <p class="card-text">NT$ ${product.prodPri}</p>
+                                                    </div>
+                                            </div>
+                                            `;
+                div.innerHTML = text;
+                //指定img.src把圖片資料給他
+                productCatResults.appendChild(div);
+            });
+        }
+
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

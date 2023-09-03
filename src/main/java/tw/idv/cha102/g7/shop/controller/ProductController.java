@@ -107,9 +107,15 @@ public class ProductController {
         return ResponseEntity.ok(productDTODetail);
     }
 
-    @RequestMapping("/findProdByName")
-    public  ResponseEntity<List<ProductDTO>> findProdByName(@RequestBody ProductDTO productDTO){
-        List<ProductDTO> productDTOS = productService.findAllByProdName(productDTO.getProdName());
+    @RequestMapping("/findProdByName/{prodName}")
+    public ResponseEntity<List<ProductDTO>> findProdByName(@PathVariable String prodName){
+        List<ProductDTO> productDTOS = productService.findAllByProdName(prodName);
+        return ResponseEntity.ok(productDTOS);
+    }
+
+    @RequestMapping("/findProdByCatId/{prodCatId}")
+    public  ResponseEntity<List<ProductDTO>> findProdByCatId(@PathVariable Integer prodCatId){
+        List<ProductDTO> productDTOS = productService.findAllByProdCatId(prodCatId);
         return ResponseEntity.ok(productDTOS);
     }
 }

@@ -52,11 +52,7 @@ public interface ProductService {
     /*
      * 搜尋商品by類別 (1-多筆)
      * */
-//    public List<ProductDTO> findProductByCat(Integer prodCat);
-
-
-
-
+    public List<ProductDTO> findAllByProdCatId(Integer prodCatId);
 
 }
 

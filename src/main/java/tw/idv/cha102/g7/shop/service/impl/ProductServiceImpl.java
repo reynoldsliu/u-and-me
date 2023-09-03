@@ -233,6 +233,26 @@ public class ProductServiceImpl implements ProductService {
         }
         return productListWithName;
     }
+
+    @Override
+    public List<ProductDTO> findAllByProdCatId(Integer prodCatId) {
+        List<Product> productList = productRepository.findByProdCatId(prodCatId);
+        List<ProductDTO> productListWithCatId = new ArrayList<>();
+        for(Product product : productList){
+            Object[] objects = {
+                    product.getProdId(),
+                    product.getProdCatId(),
+                    product.getProdName(),
+                    product.getProdCon(),
+                    product.getProdPri(),
+                    product.getProdSta(),
+                    productPictureRepository.findByProdId(product.getProdId())
+            };
+            ProductDTO productDTO = new ProductDTO((objects));
+            productListWithCatId.add(productDTO);
+        }
+        return productListWithCatId;
+    }
 }
 
 
