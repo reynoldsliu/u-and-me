@@ -13,5 +13,5 @@ public interface AttrCollectionService {
     List<AttrCollectionDTO> findAttrsByMemId(Integer memId);
     List<AttrCollectionDTO> findAttrCollectionsByMemName(String memName);
 
-    public List<AttrCollectionDTO> findAttrCollectionsByAttrName(String attrName);
+    public List<AttrCollectionDTO> findAttrCollectionsByAttrName(Integer memId, String attrName);
 }

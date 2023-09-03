@@ -278,7 +278,7 @@
 
     //團主申請的身分證上傳
     async function groupRegister(member) {
-        const resp_ = await fetch("http://localhost:8081/u-and-me/member/membeGroupRegister", {
+        const resp_ = await fetch("http://localhost:8081/u-and-me/member/groupRegister", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -307,6 +307,7 @@
     }
 
     const groupRegBtn_el = document.getElementById("groupBtn");
+    const memIdCard = document.getElementById("memIdCard").value;
     const memIdcardPic_el = document.getElementById("memIdcardPic");
     groupRegBtn_el.addEventListener("click", function () {
         const picFile = memIdcardPic_el.files[0];
@@ -323,9 +324,9 @@
         // const memAddr = document.getElementById("memAddr").value;
 
         //包裝一個申請團主專用 增加身分證圖片的DTO 後端記得寫
-        //@Column(name = "gr_idcard_pic")
         const groupOwnerIdCard = {
-            "groupIdCardPic": idcard_base64String,
+            memId:,
+            groupIdCardPic: idcard_base64String,
 
         };
 

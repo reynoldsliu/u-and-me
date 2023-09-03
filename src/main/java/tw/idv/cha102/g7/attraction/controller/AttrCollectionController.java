@@ -24,11 +24,11 @@ public class AttrCollectionController {
      * @return String "success" or "failed"
      */
     @PostMapping("/addAttrToCollection")
-    public String addAttrToCollection(@RequestBody AttrCollectionDTO attrCollectionDTO) {
+    public ResponseEntity<String> addAttrToCollection(@RequestBody AttrCollectionDTO attrCollectionDTO) {
         if(attrCollectionService.addAttrToCollection(attrCollectionDTO) == "success")
-            return "success";
+            return new ResponseEntity<>("success",HttpStatus.OK);
         else
-            return "failed";
+            return new ResponseEntity<>("failed",HttpStatus.OK);
 
     }
     /*{
@@ -47,11 +47,11 @@ public class AttrCollectionController {
      * @return String "success" or "failed"
      */
     @RequestMapping("/removeAttrFromCollection")
-    public String removeAttrFromCollection(@RequestBody AttrCollectionId collectionId){
+    public ResponseEntity<String> removeAttrFromCollection(@RequestBody AttrCollectionId collectionId){
         if(attrCollectionService.removeAttrFromCollection(collectionId) == "success")
-            return "success";
+            return new ResponseEntity<>("success",HttpStatus.OK);
         else
-            return "failed";
+            return new ResponseEntity<>("failed",HttpStatus.OK);
     }
     /*
     * {
@@ -60,15 +60,29 @@ public class AttrCollectionController {
 	   }
     * */
 
+    /**
+     * 顯示一個會員所有的景點收藏
+     * @param memId
+     * @return
+     */
     @RequestMapping("/getAttrsFromCollectionByMemId/{memId}")
     public ResponseEntity<List<AttrCollectionDTO>> getAttrsFromCollectionByMemId(@PathVariable Integer memId){
         return new ResponseEntity<>(attrCollectionService.findAttrsByMemId(memId), HttpStatus.OK);
     }
 
-    @RequestMapping("/getAttrsFromCollectionByMemName/{attrName}")
-    public ResponseEntity<List<AttrCollectionDTO>> getAttrsFromCollectionByMemName(@PathVariable String attrName){
+
+    /**
+     * 一個會員透過名稱的模糊筆對 查詢他自己所有景點收藏中符合條件的景點收藏
+     * @param memId
+     * @param attrName
+     * @return
+     */
+    @RequestMapping("/getAttrsFromCollectionByMemName/{memId}/{attrName}")
+    public ResponseEntity<List<AttrCollectionDTO>> getAttrsFromCollectionByMemName(
+            @PathVariable Integer memId,
+            @PathVariable String attrName){
         System.out.println("IN");
-        return new ResponseEntity<>(attrCollectionService.findAttrCollectionsByAttrName(attrName),HttpStatus.OK);
+        return new ResponseEntity<>(attrCollectionService.findAttrCollectionsByAttrName(memId,attrName),HttpStatus.OK);
     }
 
 

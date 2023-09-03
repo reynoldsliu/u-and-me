@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
+import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.repo.AttrCollectionRepository;
 import tw.idv.cha102.g7.attraction.repo.AttrRepository;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
@@ -100,15 +101,28 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
     }
 
 
-    public List<AttrCollectionDTO> findAttrCollectionsByAttrName(String attrName){
-//        Integer id = attrRepository.findByAttrName(attrName).getAttrId();
-//        List<AttrCollectionDTO> attrCollectionDTOs = attrCollectionRepository.findAll();
-//        for(AttrCollectionDTO attrCollectionDTO:attrCollectionDTOs){
-//
-//        }
-        List<AttrCollectionDTO> attrCollectionDTOS = new ArrayList<>();
-//        return attrCollectionRepository.findAllByAttrNameContaining();
-        return attrCollectionDTOS;
+    @Override
+    public List<AttrCollectionDTO> findAttrCollectionsByAttrName(
+            Integer memId,
+            String attrName
+    ){
+        List<Attraction> attractions = attrRepository.findAllByAttrNameContaining(attrName);
+        List<Integer> attrIds = new ArrayList<>();
+        for(Attraction attraction:attractions){
+            attrIds.add(attraction.getAttrId());
+        }
+
+        List<AttrCollectionDTO> attrCollectionDTOS = attrCollectionRepository.findAll();
+        List<AttrCollectionDTO> returnList = new ArrayList<>();
+        for(AttrCollectionDTO attrCollectionDTO:attrCollectionDTOS){
+            for(Integer attrId:attrIds){
+                if(attrCollectionDTO.getCollectionId().getAttrId()==attrId
+                        &&!returnList.contains(attrCollectionDTO)){
+                    returnList.add(attrCollectionDTO);
+                }
+            }
+        }
+        return returnList;
 
     }
 }
