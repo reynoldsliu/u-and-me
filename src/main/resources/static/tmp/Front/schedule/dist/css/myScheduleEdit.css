@@ -135,7 +135,7 @@ div.switchbox ul {
 a#tab-back {
     border-right: 1px solid lightgray;
     /* 調整用 */
-    width: 63px;
+    width: 66px;
     height: 100%;
     display: inline-block;
     font-size: 33px;
@@ -435,49 +435,71 @@ div.myCustomizeAttr-off {
 /* ============= 查看單一景點詳情 ============= */
 div.viewAttrDetailsColumn {
     box-shadow: 0px 2px 5px gray;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     width: 25%;
-    height: 100%;
+    height: 588px;
     position: absolute;
     left: 33.3%;
     top: 0;
     z-index: 1;
     background-color: #fff;
     /* display: none; */
+    /* overflow: hidden; */
+    overflow-y: auto;
+}
+
+div.viewAttrDetailsColumn-off{
+    display: none;
 }
 
 /* 詳細景點內容上方Bar */
-div.attrDetailsBar{
+div.attrDetailsBar {
     /* border: 1px solid red; */
     width: 100%;
     height: 48px;
-    /* box-shadow: 0px 2px 5px lightgray; */
-    z-index: 1;
+    box-shadow: 0px 2px 5px lightgray;
     position: sticky;
+    top: 0;
+    background-color: rgb(248, 248, 248);
+    z-index: 1;
 }
+
 /* 關閉查看詳情按鈕 */
-button.btn-close{
+button.btn-close {
     /* border: 1px solid green; */
     color: rgb(25, 135, 84);
     width: 40px;
     height: 80%;
     position: absolute;
-    right: 0;
+    right: 3%;
 }
 
+/* 景點主要圖片框 */
+div.attrCardMainImg{
+    /* border: 1px solid red; */
+    width: 98%;
+    display: none;
+}
 /* 景點主要圖片 */
-div.attrCardMainImg>img{
-    border: 1px solid blue;
+div.attrCardMainImg>img {
+    /* border: 1px solid blue; */
     border-radius: 0;
+    width: 318.3px;
+    height: 208.3px;
+    object-fit: cover;
 }
 
 /* 多張景點的圖片輪播 */
 /* TODO.... */
-
+div.attrTotalImgs{
+    /* border: 1px solid blue; */
+    width: 98%;
+    /* display: none; */
+}
 
 
 /* 景點名稱作為景點詳情標題 */
-h5#attrNameTitle{
+h5#attrNameTitle {
     /* border: 1px solid green; */
     width: 100%;
     height: 100%;
@@ -486,28 +508,85 @@ h5#attrNameTitle{
 }
 
 /* 景點詳情內容(景點評分及評價、營業時間、景點類型、) */
-div.attrDetails>ul{
-    border: 1px solid blue;
+div.attrDetails {
+    /* border: 1px solid red; */
+    /* overflow: hidden;
+    overflow-y: auto; */
+    padding: 16px 25px;
 }
 
-div.attrDetails>ul>li{
-    border: 1px solid green;
+/* 滑動捲軸設定 */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* 滾動條背景颜色 */
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 0, 0, 0); /* 滾動條滑塊颜色 */
+    background: rgba(255, 0, 0, 0); /* 滾動條滑塊颜色 */
+}
+/* 修改滾動條的寬度和高度 */
+::-webkit-scrollbar {
+    width: 5px; /* 滾動條寬度 */
+    height: 100%; /* 滾動條高度 */
+}
+
+div.attrDetails>ul {
+    /* border: 1px solid blue; */
+}
+
+/* 單一個詳情內容 */
+div.attrDetails>ul>li {
+    /* border: 1px solid green; */
     text-align: left;
     padding: 5px 0px;
     font-size: 0.8rem;
-    color: gray
+    /* color: black */
 }
 
+/* 所有營業時間列 */
+div.attrBussTime {
+    margin-left: 41px;
+    /* text-align: center; */
+}
 
 /* 景點概略描述 */
-p#attrIlla{
-    border: 1px solid red;
-    font-size: 0.9rem;
+p#attrIlla {
+    /* border: 1px solid red; */
+    border-top: 1px solid lightgray;
+    font-size: 0.8rem;
+    padding-top: 10px;
 }
 
+/* 景點詳情頁尾 */
+div.attrDetailsCardFooter {
+    box-shadow: 0px -2px 5px lightgray;
+    background-color: rgb(248, 248, 248);
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+}
 
+/* 儲存景點(收藏景點)按鈕 */
+.addAttrCollect-btn {
+    width: 45%;
+    font-weight: bold;
+    color: rgb(25, 135, 84);
+    background-color: rgb(248, 248, 248);
+    margin-right: 8%;
+}
 
+.addAttrCollect-btn:hover {
+    width: 45%;
+    font-weight: bold;
+    color: rgb(25, 135, 84);
+    background-color: rgb(248, 248, 248);
+    margin-right: 8%;
+}
 
+/* 加入行程按鈕 */
+.addToSchedule-btn {
+    width: 45%;
+    font-weight: bold;
+}
 
 /* ============ 查看單一景點詳情結束 ============ */
 
