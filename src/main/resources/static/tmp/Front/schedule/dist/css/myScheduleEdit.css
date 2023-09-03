@@ -477,7 +477,7 @@ button.btn-close {
 /* 景點主要圖片框 */
 div.attrCardMainImg{
     /* border: 1px solid red; */
-    width: 98%;
+    width: 100%;
     display: none;
 }
 /* 景點主要圖片 */
@@ -493,7 +493,7 @@ div.attrCardMainImg>img {
 /* TODO.... */
 div.attrTotalImgs{
     /* border: 1px solid blue; */
-    width: 98%;
+    width: 100%;
     /* display: none; */
 }
 
