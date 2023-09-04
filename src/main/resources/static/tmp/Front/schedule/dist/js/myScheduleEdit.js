@@ -9,10 +9,10 @@ const searchIcons = document.querySelectorAll("i.search");
 const searchGlassIcon = document.querySelectorAll("i.search")[0];
 const myCollectIcon = document.querySelectorAll("i.search")[1];
 const myCustomIcon = document.querySelectorAll("i.search")[2];
-// class -on -off 屬性
+// class -on -off -one 屬性
 const classSwitchOn = "-on";
 const classSwitchOff = "-off";
-
+const classMapOne = "-one";
 
 // 每個頁籤對應到的頁面
 const attrSearchPage = document.querySelector(".attrSearch-result");
@@ -21,10 +21,21 @@ const myAttrCollectionList = document.querySelector(".attrCollectionList");
 const attrCollectNotFound = document.querySelector(".attrCollectNotFound");
 const myCustomizeAttrPage = document.querySelector(".myCustomizeAttr");
 
+// 景點詳情及 GOOGLE MAP
+const viewAttrDetailsCard = document.querySelector(".viewAttrDetailsColumn");
+const viewGoogleMap = document.querySelector(".map");
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
+    switchIconsRemoveOn();
+    searchGlassIcon.classList.add(classSwitchOn);
+    // 關閉其他頁籤內容
+    switchSearchPagesAddOff();
+    switchAttrDetailsAndMapOff();
+    // 顯示搜尋欄及搜尋結果
+    attrSearchPage.classList.remove(classSwitchOff);
 
 });
 
@@ -51,6 +62,32 @@ function switchSearchPagesAddOff() {
     }
 }
 
+// 將查看單一景點詳情頁面及 GOOGLE MAP(查看單一景點模式) 關閉
+function switchAttrDetailsAndMapOff() {
+    if (!viewAttrDetailsCard.classList.contains(classSwitchOff)) {
+        viewAttrDetailsCard.classList.add(classSwitchOff);
+    }
+    if (viewGoogleMap.classList.contains(classMapOne)) {
+        viewGoogleMap.classList.remove(classMapOne);
+    }
+}
+
+// 按下景點搜尋結果的單一個景點cell，觸發此function
+function viewSearchResultOfOneAttr() {
+    // 顯示單一景點詳情頁面
+    viewAttrDetailsCard.classList.remove(classSwitchOff);
+    // 開啟 GOOGLE MAP(查看單一景點模式)
+    viewGoogleMap.classList.add(classMapOne);
+}
+
+
+// 關閉單一景點詳情頁面(按下叉叉時觸發)
+function closeViewAttrDetailsCard() {
+    // 關閉單一景點詳情頁面
+    viewAttrDetailsCard.classList.add(classSwitchOff);
+    // 開啟 GOOGLE MAP(查看單一景點模式)
+    viewGoogleMap.classList.remove(classMapOne);
+}
 
 
 
@@ -62,6 +99,7 @@ tab_search_el.addEventListener("click", function (e) {
     searchGlassIcon.classList.add(classSwitchOn);
     // 關閉其他頁籤內容
     switchSearchPagesAddOff();
+    switchAttrDetailsAndMapOff();
     // 顯示搜尋欄及搜尋結果
     attrSearchPage.classList.remove(classSwitchOff);
 });
@@ -74,6 +112,7 @@ tab_attrCollect_el.addEventListener("click", function (e) {
     myCollectIcon.classList.add(classSwitchOn);
     // 關閉其他籤內容
     switchSearchPagesAddOff();
+    switchAttrDetailsAndMapOff();
     // 顯示景點收藏清單
     myAttrsPage.classList.remove(classSwitchOff);
     if (myAttrCollectionList.classList.contains(classSwitchOff)) {
@@ -95,6 +134,7 @@ tab_customize_el.addEventListener("click", function (e) {
     myCustomIcon.classList.add(classSwitchOn);
     // 關閉其他籤內容
     switchSearchPagesAddOff();
+    switchAttrDetailsAndMapOff();
     // 顯示自訂景點頁面
     myCustomizeAttrPage.classList.remove(classSwitchOff);
 

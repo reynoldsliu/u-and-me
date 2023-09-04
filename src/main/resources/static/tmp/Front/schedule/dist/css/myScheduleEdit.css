@@ -221,6 +221,7 @@ div.searchColumn {
     width: 100%;
     height: 125px;
     box-shadow: 0px 2px 5px lightgray;
+    border-bottom: 1px solid lightgray;
     /* border: 1px solid red; */
 }
 
@@ -315,6 +316,7 @@ div.attrSearchList {
 
 /* 單一個景點搜尋/收藏框 */
 div.attrCell {
+    /* border: 1px solid red; */
     max-width: 420px;
     box-shadow: 0 0 10px lightgrey;
 }
@@ -425,6 +427,16 @@ div.myCustomizeAttr {
 
 div.myCustomizeAttr.-off {
     display: none;
+}
+
+input.customizeInput{
+    /* border: 1px solid red; */
+    width: 90%;
+}
+
+input.customizeInput.-off{
+    /* border: 1px solid blue; */
+    width: 70%;
 }
 
 
@@ -609,7 +621,7 @@ div.attrDetailsCardFooter {
 
 /* 查看景點詳情時的地圖CSS */
 /* 查看景點詳情時，map會大概再被分配到4:3:5中的5 */
-.map-one {
+.map.-one {
     /* display: none;  */
     width: 62.6%;
     height: 100%;
