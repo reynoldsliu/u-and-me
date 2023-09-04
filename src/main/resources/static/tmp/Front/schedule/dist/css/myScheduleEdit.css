@@ -106,7 +106,7 @@ div.viewAttrSearchColumn {
     /* z-index: 0; */
 }
 
-div.viewAttrSearchColumn-off {
+div.viewAttrSearchColumn.-off {
     display: none;
 }
 
@@ -189,6 +189,9 @@ div.switchbox ul>li>a {
 
 /* icon */
 div.switchbox ul>li>a>i {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 65%;
     font-size: 25px;
     position: relative;
     bottom: -40%;
@@ -205,12 +208,11 @@ div.attrSearch-result {
     width: 100%;
     height: 100%;
     display: inline-block;
-    overflow: hidden;
     overflow-y: auto;
     /* display: none; */
 }
 
-div.attrSearch-result-off {
+.attrSearch-result.-off {
     display: none;
 }
 
@@ -303,7 +305,7 @@ div#totalDistance {
 div.attrSearchList {
     /* border: 1px solid red; */
     width: 100%;
-    height: 405px;
+    height: 415px;
     overflow: hidden;
     overflow-y: auto;
     /* display: none; */
@@ -349,10 +351,10 @@ div.attrCardBody {
 
 /* ============ 我的景點收藏 ============ */
 div.myAttrs {
-    display: none;
+    /* display: none; */
     /* border: 1px solid red; */
     width: 33.3%;
-    height: 530px;
+    height: 539px;
     position: absolute;
     left: 0;
     top: 48px;
@@ -360,7 +362,7 @@ div.myAttrs {
     overflow-y: auto;
 }
 
-div.myAttrs-off {
+div.myAttrs.-off {
     display: none;
 }
 
@@ -373,7 +375,7 @@ div.attrCollectionList{
     overflow-y: auto;
 }
 
-div.attrCollectionList-off{
+div.attrCollectionList.-off{
     display: none;
 }
 
@@ -390,7 +392,7 @@ div.attrCollectNotFound {
     /* display: none; */
 }
 
-div.attrCollectNotFound-off {
+div.attrCollectNotFound.-off {
     display: none;
 }
 
@@ -408,10 +410,10 @@ div.attrCollectNotFound>p {
 
 /* ================ 自訂景點 ================ */
 div.myCustomizeAttr {
-    display: none;
+    /* display: none; */
     /* border: 1px solid red; */
     width: 33.3%;
-    height: 530px;
+    height: 539px;
     position: absolute;
     left: 0;
     top: 48px;
@@ -421,7 +423,7 @@ div.myCustomizeAttr {
     z-index: 1;
 }
 
-div.myCustomizeAttr-off {
+div.myCustomizeAttr.-off {
     display: none;
 }
 
@@ -448,7 +450,7 @@ div.viewAttrDetailsColumn {
     overflow-y: auto;
 }
 
-div.viewAttrDetailsColumn-off{
+div.viewAttrDetailsColumn.-off{
     display: none;
 }
 

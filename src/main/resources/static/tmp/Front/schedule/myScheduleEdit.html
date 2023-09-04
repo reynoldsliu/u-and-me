@@ -129,16 +129,16 @@
                                         <ul>
                                             <a href="#" id="tab-back"><i class="fa-solid fa-arrow-left"></i></a>
                                             <li>搜尋<a href="#" id="tab-search"><i
-                                                        class="fa-solid fa-magnifying-glass"></i></a></li>
+                                                        class="fa-solid fa-magnifying-glass search"></i></a></li>
                                             <li>我的景點收藏<a href="#" id="tab-attrCollect"><i
-                                                        class="fa-solid fa-location-dot"></i></a></li>
+                                                        class="fa-solid fa-location-dot search"></i></a></li>
                                             <li>自訂景點<a href="#" id="tab-customize"><i
-                                                        class="fa-solid fa-pen -on"></i></a>
+                                                        class="fa-solid fa-pen search"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                     <!-- 景點搜尋開始 -->
-                                    <div class="attrSearch-result">
+                                    <div class="attrSearch-result -off">
                                         <!-- 搜尋欄框框 -->
                                         <div class="searchColumn">
                                             <div>
@@ -513,7 +513,7 @@
                                             </div>
                                             <!-- 測試結束 -->
                                         </div>
-                                        <div class="attrCollectNotFound-off">
+                                        <div class="attrCollectNotFound -off">
                                             <p style="color: gray; font-weight: bold;">您沒有收藏任何的景點</p>
                                         </div>
                                     </div>
@@ -719,6 +719,9 @@
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmXZPx-vRB-PUgoaST5buz16HDtD6LqPk&callback=initMap&libraries=places"
         async defer></script>
+
+    <!-- 加入切換版面操作的js -->
+    <script src="./dist/js/myScheduleEdit.js"></script>
 
     <script>
         var map;
