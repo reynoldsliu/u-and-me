@@ -137,8 +137,8 @@
 
 
     <!-- -----Bread Crumb----- -->
-    <div> <!--  包到content結束-->
-        <div class="breadcontainer" style="margin-left: 70px; margin-top: 30px;">
+    <div id="prodDetail"> <!--  包到content結束-->
+        <!-- <div class="breadcontainer" style="margin-left: 70px; margin-top: 30px;">
             <div class="row">
                 <nav aria-label="breadcrumb sticky">
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -150,156 +150,148 @@
                     </nav>
                 </nav>
             </div>
-        </div>
-
+        </div> -->
 
         <!-- Product Details Area Start -->
-        <div class="container" style="margin-top: 120px;">
-            <div class="product-details-area" style=" margin-top: -100px;">
-                <div class="container" id="prodDetailTop">
-                    <!-- 動態生成內容 -->
-                    
-                    <!-- <div class="row">
-                        <div class="col-12 col-md-6">
-                            <div class="product-details-img product-details-tab product-details-tab-2 d-flex">
-                                <img src="http://picsum.photos/280/230?random=10" class="w-100 img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="product-details-content quickview-content ml-25px">
-                                <h2>商品名稱</h2>
-                                <div class="pricing-meta">
-                                    <ul class="d-flex mt-3">
-                                        <li class="price">價格</li>
-                                    </ul>
-                                </div>
-                            </div>
-                           
-                            <p class="mt-30px mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                eiusmodol tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veni
-                                nostrud
-                                exercitation ullamco laboris </p> -->
-
-
-                                <!-- 數量加減按鈕 -->
-                                <div class="product_variant_quantity" style="padding-bottom: 10px;">
-                                    <span class="product_quantity">
-                                        <div class="btn-group" role="group" aria-label="First group">
-                                            <button class="btn add-down qk-bd--product_border" type="button"
-                                                style="background-color: rgb(115, 176, 172); width: 35px;">-</button>
-                                            <input class="btn item-quantity qk-text--heading qk-bd--product_border"
-                                                type="text" name="quantity" value="1" data-old-value="1"
-                                                style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 400px; "
-                                                id="quantity-input"> <!-- 添加一个id属性用于JavaScript中的访问 -->
-                                            <button class="btn add-up qk-bd--product_border" type="button"
-                                                style="background-color: rgb(115, 176, 172); width: 35px;">+</button>
-                                        </div>
-                                    </span>
-                                </div>
-
-                                <!-- 加入購物車+立即購買按鈕 -->
-                                <div class="btn-group">
-                                    <div class="pro-details-cart me-2">
-                                        <button type="button" class="btn btn-outline-secondary"
-                                            style="width: 232px;">加入購物車</button>
-                                    </div>
-                                    <div class="pro-details-cart me-2">
-                                        <button type="button" class="btn btn-secondary"
-                                            style="width: 232px;">立即購買</button>
-                                    </div>
-                                </div>
-                                <br>
-
-                                <!-- 收藏+分享按鈕 -->
-                                <div class="btn-group pt-2">
-                                    <div class="pro-details-compare-wishlist pro-details-wishlist">
-                                        <button type="button" class="btn btn-outline-success"><i
-                                                class="fa-regular fa-heart"></i> 加入收藏</button>
-                                        <a href="wishlist.html"><i class="pe-7s-like"></i></a>
-                                    </div>
-                                    <div class="pro-details-social-info pro-details-same-style d-flex pt-0">
-                                        <button type="button" class="btn line" style="border: none;"><i
-                                                class="fa-brands fa-line fa-2xl" style="color: green;"></i></button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- -----商品內容---- -->
+        <!-- <div class="container" style="margin-top: 120px;">
+        <div class="product-details-area" style=" margin-top: -100px;">
             <div class="container">
                 <div class="row">
-                    <div class="productcontent text-center mt-5">
-                        <h3 class="title">商品內容</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Autem id nobis tempore corrupti quo nam, voluptas sint
-                            veniam minus cum maxime aliquam impedit velit sequi nostrum
-                            fugiat maiores perspiciatis earum?</p>
-                        <div class="col-12">
-                            <div class="item mb-3">
-                                <img src="http://picsum.photos/300/200?random=10" class="img-fluid">
+                    <div class="col-12 col-md-6">
+                        <div class="product-details-img product-details-tab product-details-tab-2 d-flex">
+                            <img src="http://picsum.photos/280/230?random=10" class="w-100 img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="product-details-content quickview-content ml-25px">
+                            <h2>商品名稱</h2>
+                            <div class="pricing-meta">
+                                <ul class="d-flex mt-3">
+                                    <li class="price">價格</li>
+                                </ul>
                             </div>
-                            <div class="item">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Autem id nobis tempore corrupti quo nam, voluptas sint
-                                    veniam minus cum maxime aliquam impedit velit sequi nostrum
-                                    fugiat maiores perspiciatis earum?</p>
+                        </div>
+
+                        <p class="mt-30px mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                            eiusmodol tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veni
+                            nostrud
+                            exercitation ullamco laboris </p> -->
+
+
+        <!-- 數量加減按鈕 -->
+        <!-- <div class="product_variant_quantity" style="padding-bottom: 10px;">
+                            <span class="product_quantity">
+                                <div class="btn-group" role="group" aria-label="First group">
+                                    <button class="btn add-down qk-bd--product_border" type="button"
+                                        style="background-color: rgb(115, 176, 172); width: 35px;">-</button>
+                                    <input class="btn item-quantity qk-text--heading qk-bd--product_border" type="text"
+                                        name="quantity" value="1" data-old-value="1"
+                                        style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 400px; "
+                                        id="quantity-input">
+                                    <button class="btn add-up qk-bd--product_border" type="button"
+                                        style="background-color: rgb(115, 176, 172); width: 35px;">+</button>
+                                </div>
+                            </span>
+                        </div> -->
+
+        <!-- 加入購物車按鈕 -->
+        <!-- <div class="btn-group">
+                            <div class="pro-details-cart me-2">
+                                <button type="button" class="btn btn-secondary" style="width: 468px;"><i class="fa-solid fa-cart-shopping"></i>  加入購物車</button>
                             </div>
+                        </div>
+                        <br> -->
+
+        <!-- 收藏+分享按鈕 -->
+        <!-- <div class="btn-group pt-2">
+                            <div class="pro-details-compare-wishlist pro-details-wishlist">
+                                <button type="button" class="btn btn-outline-success"><i class="fa-regular fa-heart"></i>
+                                    加入收藏</button>
+                                <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                            </div>
+                            <div class="pro-details-social-info pro-details-same-style d-flex pt-0">
+                                <button type="button" class="btn line" style="border: none;"><i
+                                        class="fa-brands fa-line fa-2xl" style="color: green;"></i></button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+        <!-- -----商品內容---- -->
+        <div class="container">
+            <div class="row">
+                <div class="productcontent text-center mt-5">
+                    <h3 class="title">商品內容</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Autem id nobis tempore corrupti quo nam, voluptas sint
+                        veniam minus cum maxime aliquam impedit velit sequi nostrum
+                        fugiat maiores perspiciatis earum?</p>
+                    <div class="col-12">
+                        <div class="item mb-3">
+                            <img src="http://picsum.photos/300/200?random=10" class="img-fluid">
+                        </div>
+                        <div class="item">
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Autem id nobis tempore corrupti quo nam, voluptas sint
+                                veniam minus cum maxime aliquam impedit velit sequi nostrum
+                                fugiat maiores perspiciatis earum?</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- -----推薦商品---- -->
-            <div class="suggestproduct">
-                <div class="container mb-5">
-                    <div class="row">
-                        <div class="section-title text-center mb-4">
-                            <h2 class="title">其他推薦商品</h2>
-                        </div>
-                        <div class="col-12 col-md-3">
-                            <div class="card">
-                                <img src="http://picsum.photos/300/250?random=10" class="card-img-top">
-                                <div class="card-body">
-                                    <p class="card-text">品名</p>
-                                    <p class="card-price">價格</p>
-                                </div>
+        <!-- -----推薦商品---- -->
+        <div class="suggestproduct">
+            <div class="container mb-5">
+                <div class="row">
+                    <div class="section-title text-center mb-4">
+                        <h2 class="title">其他推薦商品</h2>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="card">
+                            <img src="http://picsum.photos/300/250?random=10" class="card-img-top">
+                            <div class="card-body">
+                                <p class="card-text">品名</p>
+                                <p class="card-price">價格</p>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3">
-                            <div class="card">
-                                <img src="http://picsum.photos/300/250?random=10" class="card-img-top">
-                                <div class="card-body">
-                                    <p class="card-text">品名</p>
-                                    <p class="card-price">價格</p>
-                                </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="card">
+                            <img src="http://picsum.photos/300/250?random=10" class="card-img-top">
+                            <div class="card-body">
+                                <p class="card-text">品名</p>
+                                <p class="card-price">價格</p>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3">
-                            <div class="card">
-                                <img src="http://picsum.photos/300/250?random=10" class="card-img-top">
-                                <div class="card-body">
-                                    <p class="card-text">品名</p>
-                                    <p class="card-price">價格</p>
-                                </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="card">
+                            <img src="http://picsum.photos/300/250?random=10" class="card-img-top">
+                            <div class="card-body">
+                                <p class="card-text">品名</p>
+                                <p class="card-price">價格</p>
                             </div>
                         </div>
-                        <div class="col-12 col-md-3">
-                            <div class="card">
-                                <img src="http://picsum.photos/300/250?random=10" class="card-img-top">
-                                <div class="card-body">
-                                    <p class="card-text">品名</p>
-                                    <p class="card-price">價格</p>
-                                </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <div class="card">
+                            <img src="http://picsum.photos/300/250?random=10" class="card-img-top">
+                            <div class="card-body">
+                                <p class="card-text">品名</p>
+                                <p class="card-price">價格</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 
@@ -355,115 +347,136 @@
 
 
     <script>
-
-         // 取得 URL 中的參數
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        // 從參數中獲取 prodId
+        // // 從shoppingMall取得prodId值跳到該商品頁
+        const urlParams = new URLSearchParams(window.location.search);
         const prodId = urlParams.get('prodId');
-        // 就可使用 prodId 了
-        console.log(`prodId 是：${prodId}`);
 
+        // 拿到prodId抓商品內容
+        function listProdDetail() {
+            const prodDetail = document.getElementById('prodDetail');
+            let html = "";
+            fetch(`http://localhost:8080/u-and-me/product/listProductDetail/${prodId}`)
+                .then(resp => resp.json())
+                .then(data => {
+                    data.forEach(product => {
+                    let count = 0;
+                    const pp = product.productPictures[0];
+                    let base64Image;
+                    if (pp != null && pp != undefined) {
+                        base64Image = pp.prodPic;
+                    }
+                    function arrayBufferToBase64(arrayBuffer) {
+                        var binary = '';
+                        var bytes = new Uint8Array(arrayBuffer);
+                        var len = bytes.byteLength;
+                        for (var i = 0; i < len; i++) {
+                            binary += String.fromCharCode(bytes[i]);
+                        }
+                        return window.btoa(binary);
+                    }
+                    });
+
+                    let { prodId, prodName, prodPri, prodCon, base64Image} = data;
+                    html = `
+                
+                            <div class="container" style="margin-top: 120px;">
+                    <div class="product-details-area" style=" margin-top: -100px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    <div class="product-details-img product-details-tab product-details-tab-2 d-flex">
+                                        <img src="data:Image/jpeg;base64,${base64Image}" class="w-100 img-thumbnail">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                                    <div class="product-details-content quickview-content ml-25px">
+                                        <h2>${prodName}</h2>
+                                        <div class="pricing-meta">
+                                            <ul class="d-flex mt-3">
+                                                <li class="price">${prodPri}</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <p class="mt-30px mb-0">${prodCon}</p>
+
+
+                                    <!-- 數量加減按鈕 -->
+                                    <div class="product_variant_quantity" style="padding-bottom: 10px;">
+                                        <span class="product_quantity">
+                                            <div class="btn-group" role="group" aria-label="First group">
+                                                <button id="reduce" class="btn add-down qk-bd--product_border" type="button"
+                                                    style="background-color: rgb(115, 176, 172); width: 35px;">-</button>
+                                                <input id="quantity-input" class="btn item-quantity qk-text--heading qk-bd--product_border" type="text"
+                                                    name="quantity" value="1" data-old-value="1"
+                                                    style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 400px; "
+                                                    >
+                                                <button id="add" class="btn add-up qk-bd--product_border" type="button"
+                                                    style="background-color: rgb(115, 176, 172); width: 35px;">+</button>
+                                            </div>
+                                        </span>
+                                    </div>
+
+                                    <!-- 加入購物車按鈕 -->
+                                    <div class="btn-group">
+                                        <div class="pro-details-cart me-2">
+                                            <button type="button" class="btn btn-secondary" style="width: 468px;" onclick="addCarts(${prodId})">
+                                                <i class="fa-solid fa-cart-shopping"></i>  加入購物車</button>
+                                        </div>
+                                        <div class="pro-details-cart me-2">
+                                            <button type="button" class="btn btn-secondary" style="width: 232px;">立即購買</button>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <!-- 收藏+分享按鈕 -->
+                                    <div class="btn-group pt-2">
+                                        <div class="pro-details-compare-wishlist pro-details-wishlist">
+                                            <button type="button" class="btn btn-outline-success"><i class="fa-regular fa-heart"></i>
+                                                加入收藏</button>
+                                            <a href="wishlist.html"><i class="pe-7s-like"></i></a>
+                                        </div>
+                                        <div class="pro-details-social-info pro-details-same-style d-flex pt-0">
+                                            <button type="button" class="btn line" style="border: none;"><i
+                                                    class="fa-brands fa-line fa-2xl" style="color: green;"></i></button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+                prodDetail.innerHTML = html;
+
+       
+        // -----購物車數量-----
+        const addButton = document.querySelector("#add");
+        const reduceButton = document.querySelector("#reduce");
         const quantityInput = document.getElementById("quantity-input");
-        const addButton = document.querySelector(".add-up");
-        const subtractButton = document.querySelector(".add-down");
 
         // 數量+號按鈕事件監聽器
         addButton.addEventListener("click", function () {
             const currentValue = parseInt(quantityInput.value);
-            quantityInput.value = currentValue + 1;
+            currentValue += 1;
+            console.log(quantityInput); 
+            console.log(quantityInput.value); 
+            //更新輸入的值
+            quantityInput.value = currentValue;
         });
-
         // 數量-號按鈕事件監聽器
-        subtractButton.addEventListener("click", function () {
+        reduceButton.addEventListener("click", function () {
             const currentValue = parseInt(quantityInput.value);
             if (currentValue > 1) {
-                quantityInput.value = currentValue - 1;
+                currentValue -= 1;
+                //更新輸入的值
+                quantityInput.value = currentValue;
             }
         });
-     
-        document.addEventListener("DOMContentLoaded", function(){
-            listProdDetail();
-        })
+    })
+}
 
-                    
-        // 顯示商品詳情
-        const listProdDetail = async function(){
-            fetch('http://localhost:8080/u-and-me/product/listProductDetail')
-            .then(response => response.json())
-            .then(data =>{
-                const proDetail1 = document.getElementById('prodDetailTop');
-               
-                // <div class="row">
-                //         <div class="col-12 col-md-6">
-                //             <div class="product-details-img product-details-tab product-details-tab-2 d-flex">
-                //                 <img src="http://picsum.photos/280/230?random=10" class="w-100 img-thumbnail">
-                //             </div>
-                //         </div>
-                //         <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                //             <div class="product-details-content quickview-content ml-25px">
-                //                 <h2>商品名稱</h2>
-                //                 <div class="pricing-meta">
-                //                     <ul class="d-flex mt-3">
-                //                         <li class="price">價格</li>
-                //                     </ul>
-                //                 </div>
-                //             </div>
-                           
-                //             <p class="mt-30px mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                //                 eiusmodol tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veni
-                //                 nostrud
-                //                 exercitation ullamco laboris </p>
-
-                data.forEach(product =>{
-                    let count = 0;
-                    const div = document.createElement('div');
-                    div.classList.add('row');
-                    const pp = product.productPictures[0];
-                    const p2 = product.productPictures[1];
-                    let base64Image;
-                    if (pp != null && pp!= undefined){
-                        base64Image = pp.prodPic;
-                    }
-                    let base64Image2;
-                    if(p2 != null && p2!= undefined){
-                        base64Image2 = p2.prodPic;
-                    }
-
-                    function arrayBufferToBase64(arrayBuffer) {
-                            var binary = '';
-                            var bytes = new Uint8Array(arrayBuffer);
-                            var len = bytes.byteLength;
-                            for (var i = 0; i < len; i++) {
-                                binary += String.fromCharCode(bytes[i]);
-                            }
-                            return window.btoa(binary);
-                        }
-                    const text =`
-                    <div class="col-12 col-md-6">
-                            <div class="product-details-img product-details-tab product-details-tab-2 d-flex">
-                                <img src="data:Image/jpeg;base64,${base64Image}" class="w-100 img-thumbnail">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="product-details-content quickview-content ml-25px">
-                                <h2>${product.prodName}</h2>
-                                <div class="pricing-meta">
-                                    <ul class="d-flex mt-3">
-                                        <li class="price">${product.prodPri}</li>
-                                    </ul>
-                                </div>
-                            </div>
-                           
-                            <p class="mt-30px mb-0">${product.prodCon}</p>
-                    `;
-                    div.innerHTML = text;
-                    
-                    proDetail1.appendChild(div);
-                });
-            })
-            .catch(error => console.error('獲取商品數據時錯誤：', error));
-        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
