@@ -20,6 +20,8 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
     List<Group> findGroupByPaymentSta(Integer paymentSta);
 
+
+
     @Query(value = "select g.theme, r.phone FROM `group` as g left join reg_form as r on g.group_id = r.group_id where g.group_id = ?1 Order by r.mem_id desc", nativeQuery = true)
     List<GroupRegFormDto> findGroupRegFormDtoByGroupId(Integer groupId);
 
@@ -53,7 +55,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     Page<GroupListDto> findGroupByGroupStaOrderByAmountDesc(Integer groupSta, Pageable pageable);
 
     @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = ?1 AND theme LIKE %?2%", nativeQuery = true)
-    Page<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str ,Pageable pageable);
+    Page<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str, Pageable pageable);
 
     @Query(value = "SELECT g.sch_id, g.theme, g.members, g.dep_date, g.amount, DATEDIFF(g.deadline, current_date) as days, g.min_member, g.max_member, g.group_sta, g.group_desc, g.cover, g.notice, m.mem_name FROM `group` AS g LEFT JOIN members AS m ON g.mem_id = m.mem_id WHERE group_id = ?1", nativeQuery = true)
     GroupMemo findGroupMemo(Integer groupId);

@@ -3,7 +3,7 @@ package tw.idv.cha102.g7.group.dto;
 import java.sql.Date;
 
 public interface GroupRegFormMemberDetailDto {
-    Integer getGroup_Id();
+    Integer getGroupId();
 
     Integer getDetailId();
 
@@ -11,7 +11,11 @@ public interface GroupRegFormMemberDetailDto {
 
     String getName();
 
-    String getCitizenship();
+    String getEmail();
+
+    String getPhone();
+
+    Integer getJoinMember();
 
     String getIdnumber();
 

@@ -1,6 +1,10 @@
+let count = 0;
+
+
 // 網頁載入後執行
 document.addEventListener("DOMContentLoaded", function () {
     fetchMyGroupList();
+    console.log(count);
 });
 
 async function fetchMyGroupList() {
@@ -15,6 +19,8 @@ async function fetchMyGroupList() {
 
         myGroupList.forEach(group => {
             let group_Sta = "";
+            count++;
+
             switch (group.group_Sta) {
                 case 0:
                     group_Sta = "揪團中";
@@ -38,7 +44,8 @@ async function fetchMyGroupList() {
                 <td style="text-align: center;vertical-align: middle; width: 150px">${group.theme}</td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">行程</a></td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">資料</a></td>
-                <td style="text-align: center;vertical-align: middle; width: 75px""><a href="#">點此</a></td>
+                <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm${count}" id="regForm_btn${count}">
+                點此</button></td>
                 <td style="text-align: center;vertical-align: middle; width: 90px">${group_Sta}</td>
                 <td>
                     <button class="btn btn-outline-success  width: 70px" onclick="window.location.href='http://localhost:8080/u-and-me/tmp/Front/group/myGroupListUpdate.html?gorupId=${group.group_Id}'" type="button">
@@ -57,7 +64,6 @@ async function fetchMyGroupList() {
                </td>
             `;
             myGroupList_el.appendChild(row);
-
         });
 
     } catch (error) {
@@ -72,8 +78,6 @@ function formatDate(dateString) {
 }
 
 async function deleteGroup(groupId) {
-    // const response = await fetch('http://localhost:8080/u-and-me/myGroupList/1/0');
-    // const myGroupList = await response.json();
 
     //利用try catch 跳脫foreach循環
     try {
@@ -93,15 +97,10 @@ async function deleteGroup(groupId) {
         window.location.reload();
     }
 }
-    // // <!--按修改鈕會根據activityId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
-    // function redirectToDetailPage(activityId) {
-    //     var newPageUrl = `activityEdit.html?activId=${group_Id}`;
-    //     window.location.href = newPageUrl;
-    // }
 
-    //新增的按鈕
-/* <button class="btn btn-outline-success  width: 75px" onclick="redirectToDetailPage(${group.group_Id})">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-<path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-</svg>
-</button> */
+for(let i = 1; i <= count; i++){
+    let regForm_btn_el = document.getElementById("regForm_btn" + i);
+    regForm_btn_el.addEventListener('clock', function(e){
+        fetch('')
+    });
+}

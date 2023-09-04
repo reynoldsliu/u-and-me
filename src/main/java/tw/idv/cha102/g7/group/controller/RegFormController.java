@@ -2,11 +2,13 @@ package tw.idv.cha102.g7.group.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.group.dto.RegFormMemberDetailDto;
 import tw.idv.cha102.g7.group.dto.RegformIdDto;
 import tw.idv.cha102.g7.group.entity.RegForm;
 import tw.idv.cha102.g7.group.service.RegFormService;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @CrossOrigin
@@ -93,5 +95,11 @@ public class RegFormController {
     @GetMapping("/regForm/findFromId")
     public RegformIdDto findFormId(){
         return regFormService.findFormId();
+    }
+
+    @GetMapping("/regForms/findGroupId{groupId}/{page}")
+    public Stream<RegFormMemberDetailDto> findRegFormMemberDetailDtoByGroupId(@PathVariable Integer groupId,
+                                                                              @PathVariable Integer page){
+        return regFormService.findRegFormMemberDetailDtoByGroupId(groupId, page);
     }
 }

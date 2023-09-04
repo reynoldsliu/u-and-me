@@ -1,9 +1,12 @@
 package tw.idv.cha102.g7.group.service;
 
+import org.springframework.data.domain.Page;
+import tw.idv.cha102.g7.group.dto.RegFormMemberDetailDto;
 import tw.idv.cha102.g7.group.dto.RegformIdDto;
 import tw.idv.cha102.g7.group.entity.RegForm;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface RegFormService {
     void insert(RegForm regForm);
@@ -21,4 +24,6 @@ public interface RegFormService {
     List<RegForm> findByGroupIdOrderByRegTime(Integer groupId);
 
     RegformIdDto findFormId();
+
+    Stream<RegFormMemberDetailDto> findRegFormMemberDetailDtoByGroupId(Integer groupId, Integer page);
 }

@@ -1,7 +1,12 @@
 package tw.idv.cha102.g7.group.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import tw.idv.cha102.g7.group.dto.RegFormMemberDetailDto;
 import tw.idv.cha102.g7.group.dto.RegformIdDto;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.entity.RegForm;
@@ -10,6 +15,7 @@ import tw.idv.cha102.g7.group.repo.RegFormRepository;
 import tw.idv.cha102.g7.group.service.RegFormService;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Component
 public class RegFormServiceImpl implements RegFormService {
@@ -69,4 +75,12 @@ public class RegFormServiceImpl implements RegFormService {
     public RegformIdDto findFormId() {
         return regFormRepository.findFormId();
     }
+
+    @Override
+    public Stream<RegFormMemberDetailDto> findRegFormMemberDetailDtoByGroupId(Integer groupId, Integer page) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "reg_time");
+        Pageable pageable = PageRequest.of(page, 10, sort);
+        return regFormRepository.findRegFormMemberDetailDtoByGroupId(groupId, pageable).get();
+    }
+
 }
