@@ -28,6 +28,9 @@ public interface MemberService {
     //會員資料修改
     public Member update(Member member);
 
+
+
+
     //會員狀態更新(團主狀態更新/會員檢舉狀態更新)
     public Integer getMemberStatus(Integer memId, String memPassword);
 

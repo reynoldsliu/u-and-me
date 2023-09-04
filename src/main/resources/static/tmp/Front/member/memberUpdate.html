@@ -117,7 +117,7 @@
                 <a href="#">揪團記錄</a>
                 <a href="#">論壇記錄</a>
                 <a href="http://localhost:8081/u-and-me/tmp/Front/membePoint.html">點數記錄</a>
-                <a href="http://localhost:8081/u-and-me/tmp/Front/memberUpdate.html">會員資料修改</a>
+                <a href="/member/controller/showMemInfo">會員資料修改</a>
 
             </div>
 
@@ -154,22 +154,61 @@
             <br>
             <div class="col-md-6">
                 <label for="memIdcard" class="form-label">身分證</label>
-                <input type="text" class="form-control" id="memIdcard">
+                <input type="text" class="form-control" id="memIdCard">
             </div>
             <div class="col-md-6">
                 <label for="memPhone" class="form-label">電話</label>
-                <input type="text" class="form-control" id="memPhone", placeholder="請填寫您的手機號碼">
+                <input type="text" class="form-control" id="memPhone">
             </div>
             <br>
             <br>
             <br>
             <br>
-            <div class="col-12">
-                <label for="memAddr" class="form-label">地址</label>
-                <input type="text" class="form-control" id="memAddr" placeholder="請填寫您的居住地址">
+            <div class="col-md-3">
+                <label class="form-label">地址</label>
+                <select class="form-select text-secondary" id="myMemCity">
+                    <option value="0">請選擇居住縣市</option>
+                    <option value="臺北市">臺北市</option>
+                    <option value="新北市">新北市</option>
+                    <option value="基隆市">基隆市</option>
+                    <option value="桃園市">桃園市</option>
+                    <option value="新竹縣">新竹縣</option>
+                    <option value="新竹市">新竹市</option>
+                    <option value="苗栗縣">苗栗縣</option>
+                    <option value="臺中市">臺中市</option>
+                    <option value="南投縣">南投縣</option>
+                    <option value="彰化縣">彰化縣</option>
+                    <option value="雲林縣">雲林縣</option>
+                    <option value="嘉義縣">嘉義縣</option>
+                    <option value="嘉義市">嘉義市</option>
+                    <option value="臺南市">臺南市</option>
+                    <option value="高雄市">高雄市</option>
+                    <option value="屏東縣">屏東縣</option>
+                    <option value="宜蘭縣">宜蘭縣</option>
+                    <option value="花蓮縣">花蓮縣</option>
+                    <option value="臺東縣">臺東縣</option>
+                    <option value="澎湖縣">澎湖縣</option>
+                    <option value="金門縣">金門縣</option>
+                    <option value="連江縣">連江縣</option>
+                </select>
             </div>
 
-            
+            <!-- 地區 -->
+            <div class="col-md-3">
+                <label class="form-label">居住地區</label>
+                <select class="form-select text-secondary" id="myMemDist">
+                    <option value="0">請選擇居住地區</option>
+                </select>
+            </div>
+
+            <!-- Address -->
+            <div class="col-md-6">
+                <label class="form-label">居住地址</label>
+                <textarea class="form-control" id="myAddrInput" rows="1" spellcheck="false"
+                          placeholder="例：復興路8樓"></textarea>
+            </div>
+
+
             <!-- <div class="col-md-6">
                 <label for="inputPhone" class="form-label">電話</label>
                 <input type="text" class="form-control" id="inputPhone", placeholder="請填寫您的手機號碼">
@@ -237,81 +276,91 @@
 
     <script src="../dist/js/memberUpdate.js"></script>
 </body>
+
+<!-- 傳送基本資料到overview -->
 <script>
+    <!--網頁載入後執行-->
+<!--        document.addEventListener("DOMContentLoaded", function () {-->
+<!--            Update();-->
+<!--        });-->
 
-    async function Loaded(member) {
-const response = await fetch("http://localhost:8081/u-and-me/member/update", {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
-body: JSON.stringify(member)
-});
+    async function Update(member) {
+      const response = await fetch("http://localhost:8081/u-and-me/member/update", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(member)
+      });
 
-if (response.ok) {
-} else {
-alert("更新失敗，請再次嘗試");
-}
-}
+      if (response.ok) {
+          alert("更新成功");
+      } else {
+          alert("更新失敗，請再次嘗試");
+      }
+  }
 
-const subBtn_el = document.getElementById("submit");
-subBtn_el.addEventListener("load", function() {
-const memEmail = document.setElementById("memEmail").value;
-const memPassword = document.setElementById("memPassword").value;
-const memName = document.setElementById("memName").value;
-const memPhone = document.setElementById("memPhone").value;
-const memAddr = document.setElementById("memAddr").value;
-const memGender = document.setElementById("memGender").value;
+    const updateButton = document.getElementById("submit");
 
-const member = {
-"memEmail": memEmail,
-"memPassword": memPassword,
-"memName": memName,
-"memPhone": memPhone,
-"memAddr": memAddr,
-"memGender": memGender
-};
+    updateButton.addEventListener("click", () => {
+      // 會員資料更新
+      //姓名
+      const memberName = document.getElementById("memName");
+      const memName = memberName.value;
+      localStorage.setItem("memName", memName);
 
-Loaded(member);
-});
+      //身分證
+      const memberIdCard = document.getElementById("memIdCard");
+      const memIdCard = memberIdCard.value;
+      localStorage.setItem("memIdCard", memIdCard);
+
+      //手機
+      const memberPhone = document.getElementById("memPhone");
+      const memPhone = memberPhone.value;
+      localStorage.setItem("memPhone", memPhone);
+
+      // 儲存性別
+      const memGender = document.getElementById("memGender").value;
+      localStorage.setItem("memGender", memGender);
+
+      // 儲存地址
+      const myMemCity = document.getElementById("myCityOptions").value;
+      const myMemDist = document.getElementById("myDistOptions").value;
+      const myAddrInput = document.getElementById("myAddrInput").value;
+      const memAddr =`${member.memAddr}`;
 
 
-async function Update(member) {
-const response = await fetch("http://localhost:8081/u-and-me/member/update", {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
-body: JSON.stringify(member)
-});
 
-if (response.ok) {
-alert("更新成功");
-window.location.href ="";
-} else {
-alert("更新失敗，請再次嘗試");
-}
-}
 
-const subBtn_el = document.getElementById("submit");
-subBtn_el.addEventListener("click", function() {
-const memEmail = document.getElementById("memEmail").value;
-const memPassword = document.getElementById("memPassword").value;
-const memName = document.getElementById("memName").value;
-const memPhone = document.getElementById("memPhone").value;
-const memAddr = document.getElementById("memAddr").value;
-const memGender = document.getElementById("memGender").value;
 
-const member = {
-"memEmail": memEmail,
-"memPassword": memPassword,
-"memName": memName,
-"memPhone": memPhone,
-"memAddr": memAddr,
-"memGender": memGender
-};
 
-Update(member);
-});
+
+
+      localStorage.setItem("memAddr", memAddr);
+
+
+
+
+      // 更新相關欄位的值
+      memberNameInput.value = localStorage.setItem("memName");
+      memIdCardInput.value = localStorage.setItem("memIdCard");
+      memPhoneInput.value = localStorage.setItem("memPhone");
+      memGenderInput.value = localStorage.setItem("memGender");
+      memAddrInput.value = localStorage.setItem("memAddr");
+
+      alert("資料已儲存！");
+    });
+   const member = {
+          "memName": memName,
+          "memIdCard": memIdCard,
+          "memPhone": memPhone,
+          "memGender": memGender,
+          "memAddr" : memAddr
+
+
+      };
+        Update();
+
 </script>
 </html>
+

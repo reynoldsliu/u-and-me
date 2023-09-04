@@ -14,7 +14,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class MemberServiceImpl implements MemberService {
@@ -99,6 +103,9 @@ public class MemberServiceImpl implements MemberService {
         return null;
     }
 
+
+
+
     @Override
     public Member update(Member member) {
         String memEmail = member.getMemEmail();
@@ -106,14 +113,14 @@ public class MemberServiceImpl implements MemberService {
 //        Member existingMember = memberRepository.findById(member.getMemId()).orElse(null);
         System.out.println("member:" + member);
         if (existingMember != null) {
-        if(member.getMemAddr()!=null){
-            existingMember.setMemAddr(member.getMemAddr());
-        }if(member.getMemPhone()!=null){
+        if(member.getMemPhone()!=null){
             existingMember.setMemPhone(member.getMemPhone());
         }if(member.getMemName()!=null){
             existingMember.setMemName(member.getMemName());
-        }if(member.getMemPassword()!=null){
-            existingMember.setMemPassword(member.getMemPassword());
+        }if(member.getMemIdcard()!=null){
+            existingMember.setMemIdcard(member.getMemIdcard());
+        }if(member.getMemAddr()!=null){
+                existingMember.setMemAddr(member.getMemAddr());
         }
 
             System.out.println("existingMember" + existingMember);
