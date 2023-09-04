@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   'use strict'
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   tooltipTriggerList.forEach(function (tooltipTriggerEl) {
@@ -9,77 +9,57 @@ $(function () {
       return new bootstrap.Dropdown(dropdownToggle)
     });
   })
-
-
-});
+})()
 
 //綁定
-// const qaTitle = document.getElementById("qaTitle");
-// const addqaTitle = document.getElementById("addqaTitle");
-// const errortitle = document.getElementById("errortitle");
-// const qaCon = document.getElementById("qaCon");
-// const addqaCon = document.getElementById("addqaCon");
-// const errorcon = document.getElementById("errorcon");
-// const qaState = document.getElementById("qaState");
-// const addqaState = document.getElementById("addqaState");
-// const qabutton = document.getElementById("qabutton");
+const qaTitle = document.getElementById("qaTitle");
+let qaTitle_val = document.querySelector("#addqaTitle");
+const errortitle = document.getElementById("errortitle");
 
+const qaCon = document.getElementById("qaCon");
+let qaCon_val = document.querySelector("#addqaCon");
+let errorcon = document.getElementById("errorcon");
 
+const qaState = document.getElementById("qaState");
+let qaState_val = document.querySelector("#addqaState");
+let qabutton = document.getElementById("qabutton");
+var baseUrl = window.location.protocol + "//" + window.location.host;
 
+//點擊新增按鈕
+qabutton.addEventListener("click", function () {
 
-// //點擊新增按鈕
-// qabutton.addEventListener("click", function () {
+  //錯誤驗證
+  if (qaTitle_val.value.trim() === "") {
+    errortitle.innerHTML = '文章標題不可空白!';
+    return;
+  }
+  if (qaCon_val.value.trim() === "") {
+    errorcon.innerHTML = '文章內容不可空白!';
+    return;
+  }
 
-//   //錯誤驗證
-//   if (addqaTitle.value === null && addqaTitle.value.trim() === "") {
-//     errortitle.style.display = inline;
-//     return;
-//   }
+  //送出物件
+  fetch('/u-and-me/add/qa', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      qaTitle: qaTitle_val.value,
+      qaCon: qaCon_val.value,
+      qaState: qaState_val.value
+    })
+  }).catch(function () {
+    Swal.fire({
+      title: '新增失敗',
+      icon: 'error'
+    })
 
-//   if (addqaCon.value.trim() === null && addqaCon.value.trim() === "") {
-//     errorcon.style.display = inline;
-//     return;
-//   }
-
-
-
-//   //送出物件
-//   var baseUrl = window.location.protocol + "//" + window.location.host;
-
-//   fetch(baseUrl + "/u-and-me/addqa", {
-//     method: 'POST',
-//     headers: { 'Content-Type :': 'application/json' },
-//     body: JSON.stringify({
-//       qaTitle: qaTitle.value,
-//       qaCon: qaCon.value,
-//       qaState: qaState.value
-//     })
-
-//   }).then(function (resp) {
-//     return resp.json()
-
-//   }).then(function (body) {
-//     const { success } = body;
-//     if (success) {
-//       Swal.fire(
-//         '新增成功',
-//         'success'
-//       )
-//     } else {
-//       Swal.fire(
-//         '新增失敗',
-//         'error'
-//       )
-//     }
-
-//   }).catch(function (error) {
-//     console.error(error);
-//   })
-
-// })
-
-
-
-
+  })
+  Swal.fire({
+    title: '新增成功',
+    icon: 'success'
+  }).then(function(){
+    window.location.href = baseUrl + "/u-and-me/tmp/back_end/back_end/chat/qa.html";
+  })
+})
 
 

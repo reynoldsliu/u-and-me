@@ -58,9 +58,15 @@ public class CustomerQaController {
      * @param customerQa 單筆QA
      * @return 返回新增完畢的QA資料
      */
-    @PostMapping("/addqa")
-    public void addQa(@RequestBody CustomerQa customerQa) {
-        service.addQa(customerQa);
+    @PostMapping("/add/qa")
+    public ResponseEntity<?> addQa(@RequestBody CustomerQa customerQa) {
+
+        try {
+            service.addQa(customerQa);
+            return ResponseEntity.ok().build();
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
 

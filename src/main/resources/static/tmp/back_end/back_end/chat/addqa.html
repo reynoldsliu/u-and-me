@@ -226,35 +226,31 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="../index/index.html"
                             style="color:black;display: inline;">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">客服/Q&A專欄</li>
+                    <li class="breadcrumb-item active" aria-current="page">Q&A專欄</li>
                 </ol>
             </nav>
             <div class="shadow p-3 my-3 bg-body rounded">
 
-                <form action="/qa" method="post">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label" id="qaTitle">文章標題</label>
+                    <span id="errortitle" style="color: red; margin:15px;"></span>
+                    <input type="text" id="addqaTitle" class="form-control">
+                </div>
 
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label" id="qaTitle">文章標題</label>
-                        <span id="errortitle" style="color: red; margin:15px; display: none;" >文章標題不可空白!</span>
-                        <input type="text" id="addqaTitle" class="form-control">
-                    </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label" id="qaCon">文章內容</label>
+                    <span id="errorcon" style="color: red; margin:15px;"></span>
+                    <textarea class="form-control" id="addqaCon" rows="5"></textarea>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label" id="qaCon">文章內容</label>
-                        <span id="errorcon" style="color: red; margin:15px; display: none;" >文章內容不可空白!</span>
-                        <textarea class="form-control" id="addqaCon"
-                            rows="5"></textarea>
-                    </div>
+                <label for="exampleFormControlTextarea1" class="form-label" id="qaState">文章狀態</label>
+                <select class="form-select form-select-sm" id="addqaState" aria-label="Small select example">
+                    <option value='0' selected>下架</option>
+                    <option value='1'>上架</option>
+                </select>
+                <br>
+                <button type="button" class="btn btn-primary" id="qabutton">新增</button>
 
-                    <label for="exampleFormControlTextarea1" class="form-label" id="qaState">文章狀態</label>
-                    <select class="form-select form-select-sm" id="addqaState" aria-label="Small select example">
-                        <option value="0" selected>下架</option>
-                        <option value="1">上架</option>
-                    </select>
-                    <br>
-                    <button type="submit" class="btn btn-primary" id="qabutton">新增</button>
-
-                </form>
             </div>
         </div>
 
