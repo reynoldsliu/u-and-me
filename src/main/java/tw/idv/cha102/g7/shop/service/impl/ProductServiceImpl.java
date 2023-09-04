@@ -210,6 +210,7 @@ public class ProductServiceImpl implements ProductService {
                 product.getProdSta(),
                 productPictures};
         ProductDTO productDTO = new ProductDTO(objects);
+        productDTO.setProdPic(productPictures.get(0).getProdPic());
 
         return productDTO;
     }

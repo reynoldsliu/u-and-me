@@ -104,6 +104,7 @@ public class ProductController {
     public ResponseEntity<ProductDTO> listProductDetail(@PathVariable Integer prodId){
         ProductDTO productDTODetail = productService.listDetail(prodId);
         System.out.println("Test Success");
+        System.out.println(productDTODetail.getProdPic().toString());
         return ResponseEntity.ok(productDTODetail);
     }
 
