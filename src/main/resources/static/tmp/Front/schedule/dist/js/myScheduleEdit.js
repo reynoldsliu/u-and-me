@@ -13,20 +13,28 @@ const myCustomIcon = document.querySelectorAll("i.search")[2];
 const classSwitchOn = "-on";
 const classSwitchOff = "-off";
 const classMapOne = "-one";
-
 // 每個頁籤對應到的頁面
+const viewSearchPage = document.querySelector(".viewAttrSearchColumn");
 const attrSearchPage = document.querySelector(".attrSearch-result");
 const myAttrsPage = document.querySelector(".myAttrs");
 const myAttrCollectionList = document.querySelector(".attrCollectionList");
 const attrCollectNotFound = document.querySelector(".attrCollectNotFound");
 const myCustomizeAttrPage = document.querySelector(".myCustomizeAttr");
-
 // 景點詳情及 GOOGLE MAP
 const viewAttrDetailsCard = document.querySelector(".viewAttrDetailsColumn");
 const viewGoogleMap = document.querySelector(".map");
+// 自訂景點內容標籤
+const myAttrName_el = document.querySelector("#myAttrName");
+const myAttrAddr_el = document.querySelector("#myAttrAddr");
+// const attrPicFilesInput = document.querySelector("#attrPicFilesInput");
+
+// 按鈕
+const addAttrCollect_btn_el = document.querySelector(".addAttrCollect-btn");
+const addToSchedule_btn_el = document.querySelector(".addToSchedule-btn");
+const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 
 
-
+// ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", function () {
 
     switchIconsRemoveOn();
@@ -39,6 +47,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
+//  ================== 行程細節頁面(待新增) ================== //
+
+
+//  ================== 行程細節頁面結束 ================== //
+
+
+//  ================== 景點搜尋相關頁面 ================== //
+// 從景點搜尋頁面中按下箭頭返回鍵，返回行程細節頁面
+tab_back_el.addEventListener("click", function () {
+    viewSearchPage.classList.add(classSwitchOff);
+});
+
+// ---- 換頁籤處理 ----//
 // 將所有icon顏色移除
 function switchIconsRemoveOn() {
     for (let searchIcon of searchIcons) {
@@ -71,26 +93,9 @@ function switchAttrDetailsAndMapOff() {
         viewGoogleMap.classList.remove(classMapOne);
     }
 }
+// ---- 換頁籤處理結束 ----//
 
-// 按下景點搜尋結果的單一個景點cell，觸發此function
-function viewSearchResultOfOneAttr() {
-    // 顯示單一景點詳情頁面
-    viewAttrDetailsCard.classList.remove(classSwitchOff);
-    // 開啟 GOOGLE MAP(查看單一景點模式)
-    viewGoogleMap.classList.add(classMapOne);
-}
-
-
-// 關閉單一景點詳情頁面(按下叉叉時觸發)
-function closeViewAttrDetailsCard() {
-    // 關閉單一景點詳情頁面
-    viewAttrDetailsCard.classList.add(classSwitchOff);
-    // 開啟 GOOGLE MAP(查看單一景點模式)
-    viewGoogleMap.classList.remove(classMapOne);
-}
-
-
-
+// ================== 景點搜尋 ================== //
 // 按下景點搜尋頁籤時換到景點搜尋頁面
 tab_search_el.addEventListener("click", function (e) {
     e.preventDefault();
@@ -104,13 +109,39 @@ tab_search_el.addEventListener("click", function (e) {
     attrSearchPage.classList.remove(classSwitchOff);
 });
 
+// 點擊到單一景點收藏cell時，出現景點詳細頁面
+function viewSearchResultOfOneAttr() {
+    // 顯示單一景點詳情頁面
+    viewAttrDetailsCard.classList.remove(classSwitchOff);
+    // 開啟 GOOGLE MAP(查看單一景點模式)
+    viewGoogleMap.classList.add(classMapOne);
+}
+
+// 關閉單一景點詳情頁面(按下叉叉時觸發)
+function closeViewAttrDetailsCard() {
+    // 關閉單一景點詳情頁面
+    viewAttrDetailsCard.classList.add(classSwitchOff);
+    // 開啟 GOOGLE MAP(查看單一景點模式)
+    viewGoogleMap.classList.remove(classMapOne);
+}
+
+// 按下加入景點收藏按鈕時跳出提示視窗
+addAttrCollect_btn_el.onclick = () => {
+    Swal.fire(
+        '儲存成功!',
+        '已儲存至景點收藏!',
+        'success'
+    )
+}
+
+// ================== 景點收藏 ================== //
 // 按下我的景點收藏時換到景點收藏頁面
 tab_attrCollect_el.addEventListener("click", function (e) {
     e.preventDefault();
     // 將當前icon變色
     switchIconsRemoveOn();
     myCollectIcon.classList.add(classSwitchOn);
-    // 關閉其他籤內容
+    // 關閉其他頁籤內容
     switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
     // 顯示景點收藏清單
@@ -123,19 +154,67 @@ tab_attrCollect_el.addEventListener("click", function (e) {
     // if (attrCollectNotFound.classList.contains(classSwitchOff)) {
     //     attrCollectNotFound.classList.remove(classSwitchOff);
     // }
-    // 點擊到單一景點收藏cell時，出現景點詳細頁面
 });
 
+// ================== 自訂景點 ================== //
 // 按下自訂景點時換到自訂景點頁面
 tab_customize_el.addEventListener("click", function (e) {
     e.preventDefault();
     // 將當前icon變色
-    switchIconsRemoveOn(e);
+    switchIconsRemoveOn();
     myCustomIcon.classList.add(classSwitchOn);
     // 關閉其他籤內容
     switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
     // 顯示自訂景點頁面
     myCustomizeAttrPage.classList.remove(classSwitchOff);
-
 });
+
+// 自訂景點中新增景點圖片
+const attrPicFilesInput = document.querySelector("#attrPicFilesInput");
+const myAttrPicsPreview = document.querySelector("#attrPicsPreview");
+
+attrPicFilesInput.addEventListener('change', (event) => {
+    myAttrPicsPreview.innerHTML = '';
+    const files = event.target.files;
+
+    for (const file of files) {
+        const imageURL = URL.createObjectURL(file);
+        const image = new Image();
+        image.src = imageURL;
+        image.style.maxWidth = "318.3px"; // 設定預覽圖最大寬度
+        image.style.width = "100%";
+        image.style.objectFit = "cover;"// 設定圖片裁切
+        image.style.position = "relative";
+        image.style.marginTop = "5px";
+        myAttrPicsPreview.appendChild(image);
+    }
+});
+
+
+
+
+// 自訂景點內容完成後，顯示新增完成警示框
+myAttrDone_btn_el.onclick = () => {
+
+    let myAttrName = myAttrName_el.value.trim();
+    let myAttrAddr = myAttrAddr_el.value.trim();
+    const picFiles = attrPicFilesInput.files;
+
+    if (myAttrName === "" || myAttrAddr === "" || picFiles === null) {
+        Swal.fire({
+            icon: 'error',
+            title: '新增失敗',
+            text: '請檢查資料是否填寫正確!',
+            // footer: '<a href="">Why do I have this issue?</a>'
+        })
+    } else {
+        Swal.fire(
+            '新增成功!',
+            '您已新增一個自訂景點!',
+            'success'
+        )
+    }
+}
+
+//  ================== 景點搜尋相關頁面結束 ================== //

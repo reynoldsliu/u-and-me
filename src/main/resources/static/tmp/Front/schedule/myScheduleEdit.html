@@ -17,6 +17,9 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./dist/css/myScheduleEdit.css">
     <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
+    <!-- 警示窗 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 </head>
 
@@ -525,33 +528,50 @@
                                                 <div style="font-size: 1.3rem; font-weight: bold;">自建新景點</div>
                                                 <div style="color: red; font-weight:600;">*為必填欄位</div>
                                             </div>
+                                            <!-- 景點名稱 -->
                                             <div>
                                                 <input type="text" id="myAttrName" ref="site" v-model="site"
                                                     placeholder="*請輸入景點名稱" class="customizeInput">
                                             </div>
+                                            <!-- 景點地址 -->
                                             <div>
                                                 <div>
-                                                    <input type="text" id="myAttrAddr" class="google_input_text3 customizeInput"
-                                                        ref="site" v-model="site" placeholder="*請輸入地址">
+                                                    <input type="text" id="myAttrAddr"
+                                                        class="google_input_text3 customizeInput" ref="site"
+                                                        v-model="site" placeholder="*請輸入地址">
                                                 </div>
                                                 <a href="#"
                                                     style="position:absolute;left:88%;top:30%;font-size: 20px;color: green;"><i
                                                         class="fa-solid fa-magnifying-glass"></i></a>
                                             </div>
+                                            <!-- 景點電話 -->
                                             <div>
                                                 <input type="text" id="myAttrTel" ref="site" v-model="site"
                                                     placeholder="電話" class="customizeInput">
                                             </div>
+                                            <!-- 景點網站 -->
                                             <div>
                                                 <input type="text" id="myAttrURL" ref="site" v-model="site"
                                                     placeholder="網站" class="customizeInput">
                                             </div>
+                                            <!-- 景點圖片上傳 -->
+                                            <div style="height: 65px;">
+                                                <label for="attrPicFilesInput" class="form-label">
+                                                </label>
+                                                <input class="form-control customizeInput" type="file"
+                                                    id="attrPicFilesInput" multiple accept="image/gif, image/jpeg, image/png">
+                                            </div>
+                                            <div id="attrPicsPreview">
+                                                <!-- 景點圖片上傳插入處 -->
+                                            </div>
+                                            <!-- 是否加入景點收藏 -->
                                             <div>
                                                 <input type="checkbox" id="saveMyAttrInCollection" checked
                                                     style="width: 20px; vertical-align: middle;">
                                                 <span
                                                     style="margin-top: 50px;padding-left: 5px; vertical-align: middle; font-size: large;">加入收藏</span>
                                             </div>
+                                            <!-- 完成按鈕 -->
                                             <div class="myAttrDone-btn" style="text-align: center;">
                                                 <button type="button" class="btn btn-success" id="myAttrDone"
                                                     style="width: 90%;">完成</button>
@@ -564,7 +584,8 @@
                                     <!-- TODO....... -->
                                     <div class="card attrDetailsCard" style="width: 20rem;">
                                         <div class="attrDetailsBar">
-                                            <button type="button" class="btn-close" aria-label="Close" onclick="closeViewAttrDetailsCard()"></button>
+                                            <button type="button" class="btn-close" aria-label="Close"
+                                                onclick="closeViewAttrDetailsCard()"></button>
                                         </div>
                                         <!-- 景點圖片 -->
                                         <div class="attrDetailsImg">

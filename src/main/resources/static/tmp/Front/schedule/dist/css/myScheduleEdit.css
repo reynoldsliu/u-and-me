@@ -423,6 +423,7 @@ div.myCustomizeAttr {
     overflow-y: auto;
     box-shadow: 0px 2px 5px gray;
     z-index: 1;
+    padding-bottom: 20px;
 }
 
 div.myCustomizeAttr.-off {
@@ -441,7 +442,22 @@ input.customizeInput.-off{
 
 
 /* 待加入景點上傳照片的部分 */
+input#attrPicFilesInput{
+    /* border: 1px solid green; */
+    height: 37px;
+    position: relative;
+    bottom: 23px;
+}
 
+div#attrPicsPreview{
+    /* border: 1px solid red; */
+    width: 318.3px;
+    height: auto;
+    object-fit: cover;
+    position: relative;
+    left: 12%;
+    margin-top: 5px;
+}
 
 
 /* =============== 自訂景點結束 ============== */
