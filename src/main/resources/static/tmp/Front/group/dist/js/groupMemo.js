@@ -25,12 +25,10 @@ let groupSta = ""; //紀錄groupSta
 let days; //紀錄days
 let notice = ""; //紀錄notice
 let str = "";
-let maxMember;
+let groupId;
 //===================使用到的元素結束===================
 
 window.addEventListener("load", function () {
-
-    let groupId;
 
     //===================取得網址頁上傳遞的參數===================
 
@@ -97,7 +95,6 @@ async function fetchMyGroup(groupId) {
         }
 
         notice = group.notice; //紀錄notice資料到全局變數
-        maxMember = Number(group.max_Member) - Number(group.members);
 
         //由於後端傳進來的圖片是base64資料，基於base64，須將base64定義成image/png檔，然後變成一個網址data:
         let dataurl = `data:image/png;base64,${group.cover}`
@@ -121,7 +118,7 @@ async function fetchMyGroup(groupId) {
 
 //===================參與揪團點擊事件===================
 function jump() {
-    window.location.href="http://localhost:8080/u-and-me/tmp/Front/group/myGroupListUpdate.html?gorupId=" + groupId + 'maxMember' + maxMember;
+    window.location.href = "http://localhost:8080/u-and-me/tmp/Front/group/regForm.html?gorupId=" + groupId;
 }
 //===================參與揪團點擊事件結束===================
 

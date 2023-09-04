@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.group.service;
 
+import tw.idv.cha102.g7.group.dto.RegformIdDto;
 import tw.idv.cha102.g7.group.entity.RegForm;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface RegFormService {
     List<RegForm> findByMemIdOrderByRegTime(Integer memId);
 
     List<RegForm> findByGroupIdOrderByRegTime(Integer groupId);
+
+    RegformIdDto findFormId();
 }

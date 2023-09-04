@@ -51,4 +51,6 @@ public interface GroupService {
     Stream<GroupListDto> findGroupByGroupStaThemeLike(Integer groupSta, String str, Integer page);
 
     GroupMemo findGroupMemo(Integer groupId);
+
+    GroupMemberDto finGroupMember(Integer groupId);
 }

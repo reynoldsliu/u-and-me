@@ -25,8 +25,6 @@ public class MemberDetail implements Serializable {
     private Integer formId;
     @Column(name = "`name`")
     private String name;
-    @Column(name = "citizenship")
-    private String citizenship;
     @Column(name = "idnumber")
     private String idnumber;
     @Column(name = "birthday")

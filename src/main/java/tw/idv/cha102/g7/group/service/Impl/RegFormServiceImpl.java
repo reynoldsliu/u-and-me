@@ -2,7 +2,10 @@ package tw.idv.cha102.g7.group.service.Impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tw.idv.cha102.g7.group.dto.RegformIdDto;
+import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.entity.RegForm;
+import tw.idv.cha102.g7.group.repo.GroupRepository;
 import tw.idv.cha102.g7.group.repo.RegFormRepository;
 import tw.idv.cha102.g7.group.service.RegFormService;
 
@@ -13,8 +16,22 @@ public class RegFormServiceImpl implements RegFormService {
     @Autowired
     RegFormRepository regFormRepository;
 
+    @Autowired
+    private GroupRepository groupRepository;
+
     public void insert(RegForm regForm){
-        regFormRepository.save(regForm);
+        Group group = groupRepository.findById(regForm.getGroupId()).get();
+        //如果參加人數小於最大人數才新增
+        if(group.getMembers() + regForm.getJoinMember() <= group.getMaxMember()){
+            regFormRepository.save(regForm);
+
+            //將參與人數新增至group的參團人數
+            group.setMembers(group.getMembers() + regForm.getJoinMember());
+            groupRepository.save(group);
+        }
+
+
+
     }
 
     public void update(Integer formId, RegForm regForm){
@@ -46,5 +63,10 @@ public class RegFormServiceImpl implements RegFormService {
     @Override
     public List<RegForm> findByGroupIdOrderByRegTime(Integer groupId) {
         return regFormRepository.findByGroupIdOrderByRegTime(groupId);
+    }
+
+    @Override
+    public RegformIdDto findFormId() {
+        return regFormRepository.findFormId();
     }
 }

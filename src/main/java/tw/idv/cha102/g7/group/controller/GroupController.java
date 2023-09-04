@@ -261,6 +261,11 @@ public class GroupController {
         return groupService.findGroupMemo(groupId);
     }
 
+    //查找最大人數用
+    @GetMapping("/group/findMember/{groupId}")
+    public GroupMemberDto finGroupMember(@PathVariable Integer groupId) {
+        return groupService.finGroupMember(groupId);
+    }
 
     //測試包裝排序(有空優化)
 //    @PostMapping("/test")

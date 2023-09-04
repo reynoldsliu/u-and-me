@@ -19,8 +19,8 @@ public class RegForm implements Serializable {
     private static final long serialVersionUID = 7577470020250959553L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "form_id", insertable = false)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "form_id")
     private Integer formId;
     @Column(name = "group_id")
     private Integer groupId;

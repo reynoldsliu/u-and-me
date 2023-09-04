@@ -112,21 +112,21 @@ window.addEventListener("load", function (e) {
         coverStr.innerHTML = '';
 
         //會員編號
-        if (memId_el.value === null || memId_el.value === "") {
+        if (memId_el.value === null || memId_el.value.trim() === "") {
             control = false;
             memIdStr.innerHTML = ' *會員編號必須填入數值';
             inputMemId_el.appendChild(memIdStr);
         }
 
         //行程編號
-        if (schId_el.value === null || memId_el.value === "") {
+        if (schId_el.value === null || memId_el.value.trim() === "") {
             control = false;
             schIdStr.innerHTML = ' *行程編號必須填入數值';
             inputSchId_el.appendChild(schIdStr);
         }
 
         //最小人數
-        if (minMember_el.value === null || minMember_el.value === "") {
+        if (minMember_el.value === null || minMember_el.value.trim() === "") {
             control = false;
             minMemberStr.innerHTML = ' *最小人數必須填入數值';
             inputMinMember_el.appendChild(minMemberStr);
@@ -144,7 +144,7 @@ window.addEventListener("load", function (e) {
         }
 
         //最大人數
-        if (maxMember_el.value === null || maxMember_el.value === "") {
+        if (maxMember_el.value === null || maxMember_el.value.trim() === "") {
             control = false;
             maxMemberStr.innerHTML = ' *最大人數必須填入數值';
             inputMaxMember_el.appendChild(maxMemberStr);
@@ -161,7 +161,7 @@ window.addEventListener("load", function (e) {
             }
         }
         //標題
-        if (theme_el.value === null || theme_el.value === "") {
+        if (theme_el.value === null || theme_el.value.trim() === "") {
             // alert('標題不可為空值');
             control = false;
             themeStr.innerHTML = ' *標題必須填入數值';
@@ -169,7 +169,7 @@ window.addEventListener("load", function (e) {
         }
 
         //價格
-        if (amount_el.value === null || amount_el.value === "") {
+        if (amount_el.value === null || amount_el.value.trim() === "") {
             control = false;
             amountStr.innerHTML = ' *價格必須填入數值';
             inputAmount_el.appendChild(amountStr);
@@ -181,7 +181,7 @@ window.addEventListener("load", function (e) {
         }
 
         //出發日期
-        if (depDate_el.value === null || depDate_el.value === "") {
+        if (depDate_el.value === null || depDate_el.value.trim() === "") {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期必須填入數值';
             inputDepDate_el.appendChild(depDateStr);
@@ -196,7 +196,7 @@ window.addEventListener("load", function (e) {
         }
 
         //截止日期
-        if (deadline_el.value === null || deadline_el.value === "") {
+        if (deadline_el.value === null || deadline_el.value.trim() === "") {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期必須填入數值';
             inputDeadline_el.appendChild(deadlineStr);
@@ -211,14 +211,14 @@ window.addEventListener("load", function (e) {
         }
 
         //揪團描述
-        if (groupDesc_el.value === null || groupDesc_el.value === "") {
+        if (groupDesc_el.value === null || groupDesc_el.value.trim() === "") {
             control = false;
             groupDescStr.innerHTML = ' *揪團描述必須填入數值';
             inputGroupDesc_el.appendChild(groupDescStr);
         }
 
         //行前通知
-        if (notice_el.value === null || notice_el.value === "") {
+        if (notice_el.value === null || notice_el.value.trim() === "") {
             control = false;
             noticeStr.innerHTML = ' *行前通知必須填入數值';
             inputNotice_el.appendChild(noticeStr);
@@ -246,14 +246,14 @@ window.addEventListener("load", function (e) {
 
                 //將資料包裝成一個物件
                 const send_data = {
-                    memId: memId_el.value,
-                    schId: schId_el.value,
-                    minMember: minMember_el.value,
-                    maxMember: maxMember_el.value,
-                    theme: theme_el.value,
-                    amount: amount_el.value,
-                    depDate: depDate_el.value,
-                    deadline: deadline_el.value,
+                    memId: memId_el.value.trim(),
+                    schId: schId_el.value.trim(),
+                    minMember: minMember_el.value.trim(),
+                    maxMember: maxMember_el.value.trim(),
+                    theme: theme_el.value.trim(),
+                    amount: amount_el.value.trim(),
+                    depDate: depDate_el.value.trim(),
+                    deadline: deadline_el.value.trim(),
                     groupDesc: groupDesc_el.value,
                     notice: notice_el.value,
                     cover: base64Str
@@ -270,7 +270,7 @@ window.addEventListener("load", function (e) {
                     return;
                 });
                 alert('新增成功');
-                location.reload();
+                // location.reload();
             };
             try {
                 //5. 開始讀取檔案

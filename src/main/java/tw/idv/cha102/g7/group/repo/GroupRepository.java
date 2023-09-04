@@ -57,4 +57,8 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
     @Query(value = "SELECT g.sch_id, g.theme, g.members, g.dep_date, g.amount, DATEDIFF(g.deadline, current_date) as days, g.min_member, g.max_member, g.group_sta, g.group_desc, g.cover, g.notice, m.mem_name FROM `group` AS g LEFT JOIN members AS m ON g.mem_id = m.mem_id WHERE group_id = ?1", nativeQuery = true)
     GroupMemo findGroupMemo(Integer groupId);
+
+    @Query(value = "SELECT (max_member - members) AS `member` FROM `group` WHERE group_id = ?1", nativeQuery = true)
+    GroupMemberDto finGroupMember(Integer groupId);
+
 }

@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function fetchMyGroup(groupId) {
 
     // 取得修改資料
-    await fetch('http://localhost:8081/u-and-me/myGroup/update/' + groupId, {
+    await fetch('http://localhost:8080/u-and-me/myGroup/update/' + groupId, {
         method: 'GET',
 
         //取得所有資料

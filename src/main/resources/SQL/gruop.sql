@@ -1,17 +1,17 @@
-create database uandme;
-use uandme;
+create database main;
+use main;
 
 create table `group`
 (
-	group_id int primary key auto_increment,
-    mem_id int not null,
-    sch_id int not null,
-    members int default 0,
+	group_id int primary key auto_increment, -- 
+    mem_id int not null, -- 
+    sch_id int not null, -- 
+    members int default 0 not null,-- 
     min_member int not null,
     max_member int not null,
     amount int not null,
     theme varchar(32) not null,
-    start_date timestamp not null default current_timestamp,
+    start_date timestamp not null,
     dep_date timestamp not null,
     deadline timestamp not null,
     group_desc varchar(200) not null,
@@ -83,7 +83,6 @@ create table member_detail
 	detail_id int primary key auto_increment,
     form_id int not null,
     `name` varchar(32) not null,
-    citizenship varchar(32) not null,
     idnumber char(10) not null,
     birthday date not null,
     gender enum('男','女') not null default '男',
@@ -92,20 +91,20 @@ create table member_detail
 --     foreign key (form_id) references reg_form(form_id)
 );
 insert into member_detail values(
-1, 1, '李小明', '臺灣', 'A123456789', '2000-01-01',default, 0
+1, 1, '李小明', 'A123456789', '2000-01-01',default, 0
 );
-insert into member_detail (detail_id ,form_id, `name`, citizenship, idnumber, birthday)
+insert into member_detail (detail_id ,form_id, `name`, idnumber, birthday)
 values
-(2, 1, 'John Doe', 'USA', 'A123456789', '1990-05-15'),
-(3, 2, 'Jane Smith', 'Canada', 'B987654321', '1985-08-20'),
-(4, 3, 'Michael Johnson', 'Australia', 'C456789012', '1992-02-10'),
-(5, 4, 'Emily Lee', 'South Korea', 'D890123456', '1988-11-05'),
-(6, 5, 'David Wang', 'China', 'E234567890', '1995-07-30'),
-(7, 6, 'Sophia Chen', 'Taiwan', 'F789012345', '1997-04-25'),
-(8, 7, 'James Kim', 'South Korea', 'G345678901', '1987-09-12'),
-(9, 8, 'Olivia Tan', 'Singapore', 'H901234567', '1991-03-08'),
-(10, 9, 'William Ng', 'Malaysia', 'I678901234', '1993-06-18'),
-(11, 10, 'Ava Wong', 'Hong Kong', 'J012345678', '1999-01-22');
+(2, 1, 'John Doe', 'A123456789', '1990-05-15'),
+(3, 2, 'Jane Smith', 'B987654321', '1985-08-20'),
+(4, 3, 'Michael Johnson', 'C456789012', '1992-02-10'),
+(5, 4, 'Emily Lee', 'D890123456', '1988-11-05'),
+(6, 5, 'David Wang', 'E234567890', '1995-07-30'),
+(7, 6, 'Sophia Chen', 'F789012345', '1997-04-25'),
+(8, 7, 'James Kim', 'G345678901', '1987-09-12'),
+(9, 8, 'Olivia Tan', 'H901234567', '1991-03-08'),
+(10, 9, 'William Ng', 'I678901234', '1993-06-18'),
+(11, 10, 'Ava Wong', 'J012345678', '1999-01-22');
 select * from member_detail;
 
 create table group_rep

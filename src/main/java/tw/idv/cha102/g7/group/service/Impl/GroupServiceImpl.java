@@ -201,7 +201,20 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public GroupMemo findGroupMemo(Integer groupId) {
+        Group group = groupRepository.findById(groupId).get();
+
+        //如果人數達標則自動設置成團狀態
+        if(group.getMembers() == group.getMaxMember()){
+            group.setGroupSta(1);
+            groupRepository.save(group);
+        }
+
         return groupRepository.findGroupMemo(groupId);
+    }
+
+    @Override
+    public GroupMemberDto finGroupMember(Integer groupId) {
+        return groupRepository.finGroupMember(groupId);
     }
 
 

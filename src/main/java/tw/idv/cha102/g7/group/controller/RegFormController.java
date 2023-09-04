@@ -2,6 +2,7 @@ package tw.idv.cha102.g7.group.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.group.dto.RegformIdDto;
 import tw.idv.cha102.g7.group.entity.RegForm;
 import tw.idv.cha102.g7.group.service.RegFormService;
 
@@ -86,5 +87,11 @@ public class RegFormController {
     @GetMapping("/regForms/all")
     public List<RegForm> getAll(){
         return regFormService.getAll();
+    }
+
+    //報名表多表同時新增查找ID用
+    @GetMapping("/regForm/findFromId")
+    public RegformIdDto findFormId(){
+        return regFormService.findFormId();
     }
 }

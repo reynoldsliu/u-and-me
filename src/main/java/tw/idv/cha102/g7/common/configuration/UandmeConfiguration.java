@@ -3,7 +3,6 @@ package tw.idv.cha102.g7.common.configuration;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import tw.idv.cha102.g7.common.filter.GroupFilter;
 import tw.idv.cha102.g7.common.filter.HostFilter;
 import tw.idv.cha102.g7.common.filter.MemberFilter;
 
@@ -41,20 +40,20 @@ public class UandmeConfiguration {
 
         return bean;
     }
-    @Bean
-    public FilterRegistrationBean groupFilter(){
-        FilterRegistrationBean<GroupFilter> bean = new FilterRegistrationBean<>();
-        bean.setFilter(new GroupFilter());
-        //要通過此filter的入口
-//        bean.addUrlPatterns("/member/*");
-        bean.addUrlPatterns("/group/*");
-        bean.setName("groupFilter");
-
-        //設定此filter再filterChain的執行順序 數字越小 越早擷取請求 越晚擷取回應
-        bean.setOrder(2);
-        System.out.println("FILTER!!!!!");
-
-
-        return bean;
-    }
+//    @Bean
+//    public FilterRegistrationBean groupFilter(){
+//        FilterRegistrationBean<GroupFilter> bean = new FilterRegistrationBean<>();
+//        bean.setFilter(new GroupFilter());
+//        //要通過此filter的入口
+////        bean.addUrlPatterns("/member/*");
+////        bean.addUrlPatterns("/group/*");
+//        bean.setName("groupFilter");
+//
+//        //設定此filter再filterChain的執行順序 數字越小 越早擷取請求 越晚擷取回應
+//        bean.setOrder(2);
+//        System.out.println("FILTER!!!!!");
+//
+//
+//        return bean;
+//    }
 }
