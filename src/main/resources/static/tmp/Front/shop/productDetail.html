@@ -9,6 +9,9 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./dist/css/productDetail.css">
     <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
+    <!-- 警示窗 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
     <style>
         .btn.line:hover {
@@ -111,14 +114,14 @@
 
                     </li>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    <li class="nav-item" id="shoppingCart">
+                        <!-- 動態生成購物車Icon -->
+                        <!-- <a class="nav-link" href="http://localhost:8080/u-and-me/tmp/Front/shop/shoppingCart.html?"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
                                 <path
                                     d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                             </svg>
-
-                        </a>
+                        </a> -->
                     </li>
 
                 </ul>
@@ -348,53 +351,27 @@
 
     <script>
         // 頁面載入後
-        document.addEventListener("DOMContentLoaded", function () {
+        // document.addEventListener("DOMContentLoaded", function () {
 
-            // 從shoppingMall取得prodId值跳到該商品頁
-            const urlParams = new URLSearchParams(window.location.search);
-            const prodId = urlParams.get('prodId');
-            console.log("DOM");
-            listProdDetail(prodId);
-        });
+        // 從shoppingMall取得prodId值跳到該商品頁
+        const urlParams = new URLSearchParams(window.location.search);
+        const prodId = urlParams.get('prodId');
+        console.log("DOM");
+        listProdDetail(prodId);
+        // });
 
 
         // 拿到prodId抓商品內容
         function listProdDetail(prodId) {
             console.log("FUNC");
             const prodDetail = document.getElementById('prodDetail');
+            const shoppingCartIcon = document.getElementById('shoppingCart');
+
             let html = "";
             fetch(`http://localhost:8080/u-and-me/product/listProductDetail/${prodId}`)
                 .then(resp => resp.json())
                 .then(data => {
-                    // data.forEach(product => {
-                    // let count = 0;
-                    // const pp = product.productPictures[0];
-                    // let base64Image;
-                    // if (pp != null && pp != undefined) {
-                    //     base64Image = pp.prodPic;
-                    // }
-                    // function arrayBufferToBase64(arrayBuffer) {
-                    //     var binary = '';
-                    //     var bytes = new Uint8Array(arrayBuffer);
-                    //     var len = bytes.byteLength;
-                    //     for (var i = 0; i < len; i++) {
-                    //         binary += String.fromCharCode(bytes[i]);
-                    //     }
-                    //     return window.btoa(binary);
-                    // }
-                    // let { prodId, prodName, prodPri, prodCon, productPictures} = data;
-                    // 将 byte[] 转换为 Base64 字符串
-                    ///////////////
-                    // alert(data.prodPic);
-                    // const byteArray = new Uint8Array(data.prodPic);
-                    // let binary = '';
-                    // for (let i = 0; i < byteArray.byteLength; i++) {
-                    //     binary += String.fromCharCode(byteArray[i]);
-                    // }
-                    // alert(binary);
-                    // const base64Image = btoa(binary);
-                    ///////////////
-                    // console.log(base64Image);
+
                     html = `
                             <div class="breadcontainer" style="margin-left: 70px; margin-top: 30px;">
                             <div class="row">
@@ -416,7 +393,7 @@
                             <div class="row">
                                 <div class="col-12 col-md-6">
                                     <div class="product-details-img product-details-tab product-details-tab-2 d-flex">
-                                        <img src="data:Image/jpeg;base64,${data.prodPic}" class="w-100 img-thumbnail">
+                                        <img src="data:Image/jpeg;base64,${data.prodPic}" class="w-100 img-thumbnail" style=" width: 450px;height: 450px;object-fit: cover;">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
@@ -436,13 +413,11 @@
                                     <div class="product_variant_quantity" style="padding-bottom: 10px;">
                                         <span class="product_quantity">
                                             <div class="btn-group" role="group" aria-label="First group">
-                                                <button id="reduce" class="btn add-down qk-bd--product_border" type="button"
+                                                <button id="reduce" class="btn add-down qk-bd--product_border" type="button" onclick="reduceQuantity()"
                                                     style="background-color: rgb(115, 176, 172); width: 35px;">-</button>
                                                 <input id="quantity-input" class="btn item-quantity qk-text--heading qk-bd--product_border" type="text"
-                                                    name="quantity" value="1" data-old-value="1"
-                                                    style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 400px; "
-                                                    >
-                                                <button id="add" class="btn add-up qk-bd--product_border" type="button"
+                                                    name="quantity" value="1" data-old-value="1" style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 400px;">
+                                                <button id="add" class="btn add-up qk-bd--product_border" type="button" onclick="addQuantity()"
                                                     style="background-color: rgb(115, 176, 172); width: 35px;">+</button>
                                             </div>
                                         </span>
@@ -477,38 +452,88 @@
               
                 `;
                     prodDetail.innerHTML = html;
+                })
+                    .then(icondata => {
+                    const cartIcondata =`<a class="nav-link" onclick="redirectToCartPage()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                                    </svg>
+                                </a>`
+                    shoppingCartIcon.innerHTML = cartIcondata;
 
-                });
+        })
+    }
+  // <!--購物車icon會根據memId跳轉到購物車詳情頁面，並將資料映射到相關欄位上-->
+        function redirectToCartPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const memId = urlParams.get('memId');
+            if(memId === null){
+                window.location.href = "http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html";
+            }else{
+                const newPageUrl = `http://localhost:8080/u-and-me/tmp/Front/shop/shoppingCart.html?memId=${memId}`;
+                window.location.href = newPageUrl;
 
-
-
-
-            // // -----購物車數量-----
-            // const addButton = document.querySelector("#add");
-            // const reduceButton = document.querySelector("#reduce");
-            // const quantityInput = document.getElementById("quantity-input");
-
-            // // 數量+號按鈕事件監聽器
-            // addButton.addEventListener("click", function () {
-            //     const currentValue = parseInt(quantityInput.value);
-            //     currentValue += 1;
-            //     console.log(quantityInput);
-            //     console.log(quantityInput.value);
-            //     //更新輸入的值
-            //     quantityInput.value = currentValue;
-            // });
-            // // 數量-號按鈕事件監聽器
-            // reduceButton.addEventListener("click", function () {
-            //     const currentValue = parseInt(quantityInput.value);
-            //     if (currentValue > 1) {
-            //         currentValue -= 1;
-            //         //更新輸入的值
-            //         quantityInput.value = currentValue;
-            //     }
-            // });
+            }
+              
         }
-//     })
-// }
+
+        
+        //  -----商品數量增減-----
+        const addButton = document.getElementById("add");
+        const reduceButton = document.getElementById("reduce");
+   
+        function reduceQuantity() {
+            let quantityInput = document.getElementById("quantity-input");
+            let currentValue = quantityInput.value;
+            if (currentValue > 1) {
+                currentValue -= 1;
+                // //更新輸入的值
+                quantityInput.value = currentValue;
+            }
+        }
+            function addQuantity() {
+            let quantityInput = document.getElementById("quantity-input");
+            quantityInput.value++;
+        }
+        
+        // 加入購物車 數量1個
+        async function addCarts(ProdId){
+            //id為quantity-input的input元素
+            let inputElement = document.querySelector('input#quantity-input');
+            let quantity = inputElement.value;
+
+            
+            const cartList ={
+                cartPri:document.querySelector(".price").value,
+                cartQty:quantity
+
+            }
+            
+            await fetch(`http://localhost:8080/u-and-me/addCartList/`+ProdId,{
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(cartList)
+            }).then(resp => resp.json())
+              .then(addcart =>{
+                    if(addcart.cartListId===null){
+                        //輸入資訊暫存頁面+數量(登入後導回才會導回該商品頁面，以及看到先前增減的商品數量)
+                        //這邊要再測試是否可正常跳轉
+                        window.location.href = "http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html";
+                    }
+                    Swal.fire(
+                        '新增成功',
+                        '商品已加入購物車!',
+                        'success'
+                        )
+              })
+        }
+
+    
+        
+       
+
+
+       
 
     </script>
 

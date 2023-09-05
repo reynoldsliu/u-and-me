@@ -308,68 +308,68 @@
     <!--<script src="js/selectOneAttrById.js"></script>-->
 
     <script>
-        const baseUrl = window.location.protocol + "//" + window.location.host + window.location.pathname+ "/u-and-me/";
-        $(document).ready(function () {
-            $("#loadAttraction").click(function () {
+        const baseUrl = window.location.protocol + "//" + window.location.host +"/u-and-me/";
+        // $(document).ready(function () {
+        //     $("#loadAttraction").click(function () {
 
-                var id = $("#attractionId").val();
-                console.log(id);
-                var baseUrl = window.location.protocol + "//" + window.location.host;
+        //         var id = $("#attractionId").val();
+        //         console.log(id);
+        //         var baseUrl = window.location.protocol + "//" + window.location.host;
 
-                fetch(baseUrl + "/u-and-me/getAttraction/" + id)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Attraction not found!!!");
-                        }
-                        return response.json();
-                    })
-                    .then(attr => {
-                        const attr_el = document.getElementById("attrTarget");
-                        //document.getElementById("id").textContent = data.attrId;
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                        <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
-                        <td>
-                         <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
-                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
-                          </svg>
-                          </button>
-                        </td>
-                    `;
-                        attr_el.insertAdjacentElement('beforeend', row);
-                        // You can continue to populate other attributes here
-                    })
-                    .catch(error => {
-                        alert(error.message);
-                    });
-
-
-                //   $.ajax寫法
-                // < !--$.ajax({-- >
-                // < !--url: baseUrl + "getAttraction/" + id, -->
-                // < !--method: "GET", -->
-                // < !--dataType: "json", -->
-                // < !--success: function (data) {
-                //             -->
-                // < !--$("#id").text(JSON.stringify(data)); -->
-                // < !--                    // You can continue to populate other attributes here-->
-                // < !--                }, -->
-                // < !--error: function () {
-                //             -->
-                // < !--alert("Attraction not found"); -->
-                // < !--                }-- >
-
-            });
-        });
+        //         fetch(baseUrl + "/u-and-me/getAttraction/" + id)
+        //             .then(response => {
+        //                 if (!response.ok) {
+        //                     throw new Error("Attraction not found!!!");
+        //                 }
+        //                 return response.json();
+        //             })
+        //             .then(attr => {
+        //                 const attr_el = document.getElementById("attrTarget");
+        //                 //document.getElementById("id").textContent = data.attrId;
+        //                 const row = document.createElement("tr");
+        //                 row.innerHTML = `
+        //                 <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
+        //                 <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
+        //                 <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
+        //                 <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
+        //                 <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
+        //                 <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
+        //                 <td>
+        //                  <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
+        //                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+        //                   <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+        //                   </svg>
+        //                   </button>
+        //                 </td>
+        //             `;
+        //                 attr_el.insertAdjacentElement('beforeend', row);
+        //                 // You can continue to populate other attributes here
+        //             })
+        //             .catch(error => {
+        //                 alert(error.message);
+        //             });
 
 
+        //         //   $.ajax寫法
+        //         // < !--$.ajax({-- >
+        //         // < !--url: baseUrl + "getAttraction/" + id, -->
+        //         // < !--method: "GET", -->
+        //         // < !--dataType: "json", -->
+        //         // < !--success: function (data) {
+        //         //             -->
+        //         // < !--$("#id").text(JSON.stringify(data)); -->
+        //         // < !--                    // You can continue to populate other attributes here-->
+        //         // < !--                }, -->
+        //         // < !--error: function () {
+        //         //             -->
+        //         // < !--alert("Attraction not found"); -->
+        //         // < !--                }-- >
 
+        //     });
+        // });
+
+
+            //找出所有已經在資料庫的景點
         var findAllAttraction = async function () {
             //var baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";//+ window.location.pathname;
             try {
@@ -417,20 +417,24 @@
                 console.error('Error:', error);
             }
         };
+
+        //透過按鈕觸發 找出所有資料庫景點
         $(".findAllAttraction").click(findAllAttraction);
 
-        //透過名稱找出所有包含關鍵字的景點
+        //透過按鈕觸發 找出所有包含關鍵字的景點
         var page;
         $("#loadAttractions").click(function () {
             searchAttraction();
         });
 
+        //分頁換頁
         $("#page").change(function () {
             $("#pageChangeSubmit").click(function () {
                 searchAttraction();
             });
         });
 
+        //透過分頁顯示 找出符合關鍵字的景點
         async function searchAttraction() {
             const container = document.getElementById("attrTarget"); // 替换 "container" 为您的容器元素的 ID
             const elementToDelete = document.getElementById("elementToDelete"); // 替换 "elementToDelete" 为要保留的特定元素的 ID
@@ -494,11 +498,13 @@
 
         }
 
+        //針對每個新造的景點 查看單一景點詳情
         function redirectToDetailPage(attrId) {
-            var newPageUrl = baseUrl + `AttractionDetails.html?attrId=${attrId}`;
+            var newPageUrl = baseUrl + `tmp/Front/attraction/AttractionDetails.html?attrId=${attrId}`;
             window.location.href = newPageUrl;
         }
 
+        //針對每個新造的景點 從資料庫中刪除單一景點
         async function deleteAttraction(attrId) {
             alert("準備刪除 ")
             const response = await fetch(baseUrl + 'deleteAttraction/' + attrId);
