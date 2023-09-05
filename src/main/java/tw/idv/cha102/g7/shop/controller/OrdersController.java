@@ -23,7 +23,7 @@ public class OrdersController {
      * @param page  頁數(一頁10筆)
      * @return 查詢結果
      */
-    @GetMapping("/member/myOrders/memId/{page}")
+    @GetMapping("/myOrders/{page}")
     public List<Orders> findByMemId(HttpServletRequest request, @PathVariable Integer page) {
         return ordersService.findByMemId(request, page);
     }

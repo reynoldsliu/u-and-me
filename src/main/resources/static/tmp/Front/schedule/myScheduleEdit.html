@@ -160,24 +160,82 @@
                                         <!-- 行程標籤 -->
                                         <div class="mySchTagsInsert">
                                             <!-- 行程標籤由此插入 -->
-                                            <div class="toggleTags" id="mySchTag1">標籤標籤1</div>
-                                            <div class="toggleTags" id="mySchTag2">標籤標籤2</div>
-                                            <div class="toggleTags" id="mySchTag3">標籤標籤3</div>
-                                            <div class="toggleTags" id="mySchTag4">標籤標籤4</div>
-                                            <div class="toggleTags" id="mySchTag5">標籤標籤5</div>
-                                            <div class="toggleTags" id="mySchTag6">標籤標籤6</div>
-                                            <div class="toggleTags" id="mySchTag7">標籤標籤7</div>
-                                            <div class="toggleTags" id="mySchTag8">標籤標籤8</div>
-                                            <div class="toggleTags" id="mySchTag9">標籤標籤9</div>
-                                            <div class="toggleTags" id="mySchTag10">標籤標籤10</div>
+                                            <div class="toggleTags" id="mySchTag1">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag2">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag3">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag4">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag5">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag6">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag7">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag8">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag9">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
+                                            <div class="toggleTags" id="mySchTag10">標籤標籤<i
+                                                    class="fa-solid fa-xmark -on"></i></div>
                                         </div>
                                         <!-- 列印、下載PDF鈕 -->
-                                        <div class="printPDF"></div>
+                                        <div class="printPDF"><i class="fa-solid fa-circle-down"></i>下載PDF</div>
                                     </div>
-
-
                                     <!-- --------- 行程細節內容 --------- -->
                                     <!-- 行程日期、天數第幾天 -->
+                                    <div>
+                                        <div class="dateBar">
+                                            <!-- 向左 -->
+                                            <div class="dateBarTab -left"><i class="fa-solid fa-angle-left"></i></div>
+                                            <!-- 選擇第幾天 -->
+                                            <div class="dateSelect">
+                                                <!-- 第一天 -->
+                                                <div class="dateSelectCell" id="day1">
+                                                    <i class="fa-solid fa-arrow-right-arrow-left switch"></i>
+                                                    <div class="whichDate" id="date1">5月15日</div>
+                                                    <div class="whichDays">第<span id="smallDay1">1</span>天</div>
+                                                    <i class="fa-regular fa-trash-can trash"></i>
+                                                </div>
+                                                <!-- 第二天 -->
+                                                <div class="dateSelectCell" id="day2">
+                                                    <i class="fa-solid fa-arrow-right-arrow-left switch"></i>
+                                                    <div class="whichDate" id="date2">5月16日</div>
+                                                    <div class="whichDays">第<span id="smallDay2">2</span>天</div>
+                                                    <i class="fa-regular fa-trash-can trash"></i>
+                                                </div>
+                                                <!-- 第三天 -->
+                                                <div class="dateSelectCell" id="day3">
+                                                    <i class="fa-solid fa-arrow-right-arrow-left switch"></i>
+                                                    <div class="whichDate" id="date3">5月17日</div>
+                                                    <div class="whichDays">第<span id="smallDay3">3</span>天</div>
+                                                    <i class="fa-regular fa-trash-can trash"></i>
+                                                </div>
+                                                <div class="dateSelectCell" id="day4">
+                                                    <i class="fa-solid fa-arrow-right-arrow-left switch"></i>
+                                                    <div class="whichDate" id="date3">5月17日</div>
+                                                    <div class="whichDays">第<span id="smallDay3">3</span>天</div>
+                                                    <i class="fa-regular fa-trash-can trash"></i>
+                                                </div>
+                                                <div class="dateSelectCell" id="day5">
+                                                    <i class="fa-solid fa-arrow-right-arrow-left switch"></i>
+                                                    <div class="whichDate" id="date3">5月17日</div>
+                                                    <div class="whichDays">第<span id="smallDay3">3</span>天</div>
+                                                    <i class="fa-regular fa-trash-can trash"></i>
+                                                </div>
+                                                <div class="dateSelectCell" id="day6">
+                                                    <i class="fa-solid fa-arrow-right-arrow-left switch"></i>
+                                                    <div class="whichDate" id="date3">5月17日</div>
+                                                    <div class="whichDays">第<span id="smallDay3">3</span>天</div>
+                                                    <i class="fa-regular fa-trash-can trash"></i>
+                                                </div>
+                                            </div>
+                                            <!-- 向右 -->
+                                            <div class="dateBarTab -right"><i class="fa-solid fa-angle-right"></i></div>
+                                        </div>
+                                    </div>
                                     <!-- 行程第幾天及出發時間 -->
 
                                     <!-- 新增景點按鈕(要跳到景點搜尋頁面) -->
@@ -187,7 +245,10 @@
                                     <!-- 行程細節 cell 結束 -->
 
                                     <!-- 交通方式及交通時間顯示 -->
-
+                                    <!-- 交通時間耗時 -->
+                                    <div class="transTotalTime">
+                                        <div id="totalTime"></div>
+                                    </div>
                                 </div>
                                 <!-- --------------- 景點搜尋相關 --------------- -->
                                 <div class="viewAttrSearchColumn">
@@ -268,10 +329,7 @@
 
                                         <!-- 景點間總距離 -->
                                         <div id="totalDistance"></div>
-                                        <!-- 交通時間耗時 -->
-                                        <div class="transTotalTime">
-                                            <div id="totalTime"></div>
-                                        </div>
+
 
                                         <!-- 景點搜尋結果清單 -->
                                         <div class="attrSearchList">
