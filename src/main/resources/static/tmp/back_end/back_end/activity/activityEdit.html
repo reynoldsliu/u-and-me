@@ -27,12 +27,29 @@
           user-select: none;
         }
 
-
         @media (min-width: 768px) {
           .bd-placeholder-img-lg {
             font-size: 3.5rem;
           }
         }
+
+        .btn-success{
+            background-color: #4b9866; /* 修改 */
+                color: white; /* 修改 */
+        }
+
+        .btn-warning {
+            background-color: #E59560; /* 刪除 */
+            color: white; /* 刪除 */
+        }
+
+        .button-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 25px; /* 按鈕間隔 */
+        }
+
+
     </style>
 
 
@@ -237,11 +254,7 @@
             <!-- 以上是公版-->
             <h5 style="text-align: center">活動詳情</h5>
             <!-- 內容從這開始-->
-            <!--                <div class="container-fluid" style="background-color: #ffffff;" >-->
 
-            <!-- HTML-->
-            <!--        <div class="card">-->
-            <!--            <div class="card-body">-->
             <form>
                 <div class="row">
                     <div class="col-sm-7">
@@ -257,19 +270,15 @@
                             <input id="activName" name="activName" type="text"
                                    class="form-control">
                         </div>
-                        <div class="mb-3">
-                            <label for="activCon">活動內容</label>
-                            <input id="activCon" name="activCon" type="text"
-                                   class="form-control">
-                        </div>
+
                         <div class="mb-3">
                             <label for="activStarttime">開始時間</label>
-                            <input id="activStarttime" name="activStarttime" type="text"
+                            <input id="activStarttime" name="activStarttime" type="datetime"
                                    class="form-control" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="activEndtime">結束時間</label>
-                            <input id="activEndtime" name="activEndtime" type="text"
+                            <input id="activEndtime" name="activEndtime" type="datetime"
                                    class="form-control" readonly>
                         </div>
 
@@ -280,6 +289,11 @@
                                 <option value="1">上架</option>
                                 <option value="0">下架</option>
                             </select>
+                        </div>
+                        <div class="mb-3 ">
+                            <label for="activCon">活動內容</label>
+                            <textarea id="activCon" name="activCon" type="text" rows="4"
+                                   class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -301,142 +315,22 @@
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <div class="text-center">
-                            <button type="submit"
-                                    class="btn btn-success">確認修改
-                            </button>
+                        <div class="button-container">
+                            <div class="text-center">
+                                <button type="submit"
+                                        class="btn btn-success">確認修改
+                                </button>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-warning" id="deleteButton">確認刪除</button>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </form>
         </div>
     </div>
-
-
-    <!--JS--> <!--JS--> <!--JS--> <!--JS--> <!--JS--> <!--JS--> <!--JS--> <!--JS--> <!--JS-->
-    <script>
-
-        // 取得查詢activId值
-        const urlParams = new URLSearchParams(window.location.search);
-        const activId = urlParams.get('activId');
-
-        // 表單中的各輸入框元素
-        const activIdInput = document.getElementById('activId');
-        const activPicImage = document.getElementById('activPic');
-        const activNameInput = document.getElementById('activName');
-        const activConTextarea = document.getElementById('activCon');
-        const activStarttimeInput = document.getElementById('activStarttime');
-        const activEndtimeInput = document.getElementById('activEndtime');
-        const activStaSelect = document.querySelector('.form-control.select2');
-        const submitBtn = document.querySelector('button[type="submit"]');
-        let cover;
-
-        // 使用 fetch API 發送請求，獲取單筆活動詳細資料
-        async function fetchActivityDetail() {
-            try {
-                const response = await fetch(`http://localhost:8080/u-and-me/activity/${activId}`);
-                const activityDetail = await response.json();
-
-                // 沒有選擇新圖片，cover將保持舊的圖片數據
-                const dataurl = `data:image/png;base64,${activityDetail.activPic}`;
-                cover = activityDetail.activPic;
-
-                // 將活動詳細資訊填充到輸入框中
-                activIdInput.value = activityDetail.activId;
-                activPicImage.src = dataurl;
-                activNameInput.value = activityDetail.activName;
-                activConTextarea.value = activityDetail.activCon;
-                activStarttimeInput.value = formatDate(activityDetail.activStarttime);
-                activEndtimeInput.value = formatDate(activityDetail.activEndtime);
-                activStaSelect.value = activityDetail.activSta;
-
-            } catch (error) {
-                console.error('Error fetching activity detail:', error);
-            }
-        }
-
-        //格式化日期
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('zh-TW', options);
-        }
-
-        //在網頁載入完成後執行
-        document.addEventListener('DOMContentLoaded', function () {
-            fetchActivityDetail();
-
-            // 選擇圖片時觸發事件
-            const cover_el = document.getElementById('inputGroupFile04');
-            const cover_img = document.getElementById('activPic');
-
-
-            cover_el.addEventListener('change', function () {
-                const file = this.files[0];
-                if (file) {
-                    cover_img.src = URL.createObjectURL(file);
-
-                    const fileReader = new FileReader();
-                    fileReader.onload = event => {
-                        cover = btoa(event.target.result);
-                    };
-                    fileReader.readAsBinaryString(file);
-                } else {
-                    cover_img.src = "";
-
-                }
-            });
-        });
-
-
-        // 在提交審核按鈕被點擊時執行以下程式碼
-        submitBtn.addEventListener('click', async function (event) {
-
-            event.preventDefault()
-
-            // 構建要傳遞的資料
-            const requestData = {
-                activName: activNameInput.value,
-                activCon: activConTextarea.value,
-                activSta: activStaSelect.value
-            };
-
-            // if檢查cover是否有值，如果有選擇圖片，則更新activPic
-            if (cover) {
-                requestData.activPic = cover;
-            }
-
-            try {
-                const response = await fetch(`http://localhost:8080/u-and-me/update/${activId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestData)
-                });
-
-                if (response.ok) {
-                    const updatedActivityData = await response.json();
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: '更新成功',
-                        text: '',
-                        confirmButtonText: '確定'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        }
-                    });
-
-
-                } else {
-                    console.error('Failed to update activity.');
-                }
-            } catch (error) {
-                console.error('Error to update activity.',error);
-            }
-        });
-    </script>
-
 
 </main>
 
@@ -446,7 +340,8 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 
-<!--<script src="activityEdit.js"></script>-->
+<script src="activityEdit.js"></script>
+
 
 </body>
 

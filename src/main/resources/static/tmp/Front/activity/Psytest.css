@@ -1,6 +1,6 @@
 header {
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
     color: rgba(255, 255, 255, 0.913)
         /* padding: 10px; */
 }
@@ -54,7 +54,7 @@ header {
 
 /* 題目標題 */
 .quesPart h1 {
-    font-size: 30px;
+    font-size: 28px;
     color: rgb(32, 54, 78)
 }
 
@@ -85,7 +85,7 @@ header {
 .quesPart .answerList li .optContent {
     display: inline-block;
     width: 80%;
-    font-size: 24px;
+    font-size: 20px;
     color: rgb(42, 61, 81)
 }
 
@@ -134,7 +134,7 @@ input[type='radio']:checked:after {
     margin: 10px;
     border-radius: 6px;
     border: none;
-    font-size: 20px;
+    font-size: 18px;
     margin-top: 20px;
 }
 
@@ -175,7 +175,7 @@ input[type='radio']:checked:after {
 }
 
 body {
-    background-image: url('../img/phy.png');
+    background-image: url('phy.png');
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0; /* 重置默認的 margin 和 padding */

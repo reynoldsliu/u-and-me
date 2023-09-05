@@ -17,6 +17,11 @@ main {
   overflow-y: hidden;
 }
 
+.btn-success {
+  background-color: #4b9866;
+  color: white;
+}
+
 .b-example-divider {
   flex-shrink: 0;
   width: 1.5rem;

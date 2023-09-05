@@ -7,9 +7,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>ActivityList</title>
+    <title>UandMeInsert</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
+
+    <!-- sweetalert2-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
 
 
     <!-- Bootstrap core CSS -->
@@ -30,12 +33,17 @@
             font-size: 3.5rem;
           }
         }
+
+        .btn-success{
+            background-color: #4b9866; /* 新增 */
+                color: white; /* 新增 */
+        }
+
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="activityList.css" rel="stylesheet">
-
 
 </head>
 
@@ -147,6 +155,7 @@
     </div>
 
 </nav>
+
 <main>
     <div class="d-flex flex-column flex-shrink-0 p-3  "
          style="width: 200px;background-color: #1D3124;min-height:100vh;">
@@ -217,56 +226,103 @@
                 </a>
             </li>
         </ul>
-        <hr>
-
     </div>
 
-    <div class="d-flex flex-column flex-shrink-0 p-3  "
+
+    <div class="d-flex flex-column flex-shrink-0 p-3"
          style=" width: calc(100% - 200px);background-color: #F6F4E8;">
-        <nav aria-label="breadcrumb" class="d-flex justify-content-between align-items-center">
+        <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index/index.html" style="color:black;display: inline;">Home</a>
+                <li class="breadcrumb-item"><a href="../index/index.html"
+                                               style="color:black;display: inline;">Home</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">活動</li>
             </ol>
-            <div class="center-align">
-                <a class="btn btn-success" href="activityInsert.html" role="button">新增</a>
-            </div>
         </nav>
-
-        <div class="shadow p-3 my-3 bg-body rounded">
-
+        <div class="shadow p-3 my-3 bg-body rounded" style="min-height:70vh;">
+            <!-- 以上是公版-->
+            <h5 style="text-align: center">新增活動</h5>
             <!-- 內容從這開始-->
-            <h5 style="text-align: center">活動列表</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered border-secondary" id="dataTable1">
-                    <thead>
-                    <tr>
-                        <th style="text-align: center;">編號</th>
-                        <!--照片不顯示-->
-                        <th style="text-align: center;">名稱</th>
-                        <th style="text-align: center;">內容</th>
-                        <th style="text-align: center;">開始時間</th>
-                        <th style="text-align: center;">結束時間</th>
-                        <th style="text-align: center;">狀態</th>
-                        <th style="text-align: center;">修改</th>
-                    </tr>
-                    </thead>
-                    <tbody id="dataTableList">
-                    <!--活動列表在這裡動態插入 -->
-                    </tbody>
-                </table>
-            </div>
+
+            <form>
+                <div class="row">
+                    <div class="col-sm-7">
+
+                        <div class="mb-3">
+                            <label for="activId">活動編號</label>
+                            <input id="activId" name="activId" type="text"
+                                   class="form-control" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="activName">活動名稱</label>
+                            <input id="activName" name="activName" type="text"
+                                   class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="activStarttime">開始時間</label>
+                            <input id="activStarttime" name="activStarttime" type="datetime-local"
+                                   class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="activEndtime">結束時間</label>
+                            <input id="activEndtime" name="activEndtime" type="datetime-local"
+                                   class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="activSta">活動狀態</label>
+                            <select class="form-control select2">
+                                <option>Select</option>
+                                <option value="1">上架</option>
+                                <option value="0">下架</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="activCon">活動內容</label>
+                            <textarea id="activCon" name="activCon" type="text" rows="4" class="form-control"></textarea>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-5">
+
+                        <div class="mb-3">
+                            <label for="activPic">圖片</label>
+                            <div class="image-frame"
+                                 style="width :auto; height: auto; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;"
+                                 aria-readonly="">
+                                <img id="activPic" src="UploadImage.png" alt=" Upload Image "
+                                     style="max-width: 100%; max-height: 100%;">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="inputGroupFile04"
+                                   aria-describedby="inputGroupFileAddon04" aria-label="Upload" readonly>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success" id="addButton">確認新增</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
-
 
 </main>
 
 
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="activityList.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+<script src="activityInsert.js"></script>
 
 
 </body>

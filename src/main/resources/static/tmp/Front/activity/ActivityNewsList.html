@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>期間限定</title>
+    <title>活動資訊清單</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="./dist/css/HeaderandFooter.css">
-    <link rel="stylesheet" href="./dist/css/ActivityPeriodList.css">
+    <link rel="stylesheet" href="../dist/css/HeaderandFooter.css">
+    <link rel="stylesheet" href="./dist/css/ActivityList.css">
 
     <style>
         .navbar-brand {
@@ -18,6 +18,30 @@
         .navbar-brand>img {
             height: 115px;
             margin-top: -23px;
+        }
+
+        .card h5{
+            color:#4c6182;
+            font-weight:600;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* 將卡片的高度設定為100%，以便內容充滿整個卡片 */
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* 將內容元素在垂直方向上均勻分佈 */
+            height: 100%; /* 將卡片內容的高度設定為100%，以便內容充滿整個卡片內容區域 */
+        }
+
+        .card-title,
+        .card-text,
+        .btn {
+            margin: 0; /* 清除元素的預設邊距 */
         }
     </style>
 
@@ -36,8 +60,8 @@
 <nav class="navbar navbar-expand-lg  bg-dark navbar-dark fixed-top">
 
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="./dist/img/uandmelogo-removebg-preview.png">
+        <a class="navbar-brand" href="ActivityIndex.html">
+            <img src="../dist/img/uandmelogo-removebg-preview.png">
 
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -48,7 +72,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                 <li class="nav-item me-4">
-                    <a class="nav-link" href="#">活動資訊</a>
+                    <a class="nav-link" href="ActivityIndex.html">活動資訊</a>
                 </li>
                 </li>
                 <li class="nav-item me-4">
@@ -117,176 +141,166 @@
 
 <!-- -----Context----- -->
 <main>
+
+
     <section class="py-5 text-center container-fluid" style="background-color: #F6F4E8;position: relative;">
         <div class="row">
             <!-- 文字容器 -->
             <div
                     style="position: absolute; top: 26%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 1;">
-                <h1 class="fw-bold" style="font-size: 6rem; color: rgba(35, 76, 112, 0.397);">期間限定</h1>
+                <h1 class="fw-bold" style="font-size: 6rem; color: rgba(35, 76, 112, 0.397);">News</h1>
             </div>
 
             <div class="col" style="z-index: 0;padding: 0;">
-                <img src="./dist/img/Index.png" alt="Image" style="width: 100%; height: auto;">
+                <img src="../dist/img/Index.png" alt="Image" style="width: 100%; height: auto;">
             </div>
         </div>
     </section>
 
 
-    <!--Profile Card 5-->
-
+    <!--Card-->
     <div class="album py-4 bg-light"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
-                    </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
-                    </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="album py-4 bg-light"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
-                    </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
-                    </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="album py-4 bg-light"></div>
     <div class="container">
         <div class="row">
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
-                    </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
-                    </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4 mt-4">
-                <div class="card profile-card-5">
-                    <div class="card-img-block">
-                        <img class="card-img-top" src="https://images.unsplash.com/photo-1517832207067-4db24a2ae47c"
-                             alt="Card image cap">
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
-                    <div class="card-body pt-0" style="height: 90px; overflow: hidden;">
-                        <h5 class="card-title">Florence Garza</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                         alt="" class="card-img-top">
+                    <div class="card-body" style="height: 150px; overflow: hidden;">
+                        <h5 class="card-title">活動名稱</h5>
+                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
+                            similique repellat a laborum</p>
+                        <div class="btn-container">
+                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </main>
-<!-- 頁尾行距 -->
-<div class="album py-5 bg-light"></div>
 
 <!-- -----Footer----- -->
 
@@ -329,21 +343,23 @@
     </footer>
 </div>
 
+
+
 <!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS-->
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-      fetchRandomPeriods();
+      fetchRandomNews();
   });
 
-  async function fetchRandomPeriods() {
+  async function fetchRandomNews() {
       try {
-          const response = await fetch('http://localhost:8080/u-and-me/activityall');
-          const randomPeriods = await response.json();
+          const response = await fetch('http://localhost:8080/u-and-me/activityrandom?count=9');
+          const randomNews = await response.json();
 
-          const cardContainers = document.querySelectorAll('.card.profile-card-5');
+          const cardContainers = document.querySelectorAll('.card');
 
-          randomPeriods.forEach((item, index) => {
+          randomNews.forEach((item, index) => {
               const cardContainer = cardContainers[index];
               const cardImg = cardContainer.querySelector('.card-img-top');
               const cardTitle = cardContainer.querySelector('.card-title');
@@ -356,14 +372,11 @@
               cardText.textContent = item.activCon;
           });
       } catch (error) {
-          console.error('Error fetching random periods:', error);
+          console.error('Error fetching random news:', error);
       }
   }
 
-
-
 </script>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
