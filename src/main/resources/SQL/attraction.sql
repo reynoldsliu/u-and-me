@@ -13,7 +13,7 @@ values
 -- drop table attraction_type;
 
 create table attractions (
-attr_id int primary key auto_increment,
+attr_id int primary key,
 attr_veri_sta tinyint,
 attr_sta int,
 attr_name varchar(20),
