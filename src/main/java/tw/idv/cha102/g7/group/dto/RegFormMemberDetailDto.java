@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public interface RegFormMemberDetailDto {
+    Integer getGroup_Id();
     Integer getMem_Id();
     Integer getDetail_Id();
 

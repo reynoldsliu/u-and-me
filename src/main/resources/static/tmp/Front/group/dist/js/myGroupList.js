@@ -1,10 +1,10 @@
 let count = 0;
 
+const regFormList_el = document.getElementById("regFormList");
 
 // 網頁載入後執行
 document.addEventListener("DOMContentLoaded", function () {
     fetchMyGroupList();
-    console.log(count);
 });
 
 async function fetchMyGroupList() {
@@ -40,11 +40,11 @@ async function fetchMyGroupList() {
             }
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td style="text-align: center;vertical-align: middle; width: 60px">${group.group_Id}</td>
+                <td style="text-align: center;vertical-align: middle; width: 60px" id="id${count}">${group.group_Id}</td>
                 <td style="text-align: center;vertical-align: middle; width: 150px">${group.theme}</td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">行程</a></td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">資料</a></td>
-                <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm${count}" id="regForm_btn${count}">
+                <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm${group.group_Id}" id="regForm_btn${count}">
                 點此</button></td>
                 <td style="text-align: center;vertical-align: middle; width: 90px">${group_Sta}</td>
                 <td>
@@ -64,6 +64,45 @@ async function fetchMyGroupList() {
                </td>
             `;
             myGroupList_el.appendChild(row);
+
+
+            regFormList_el.innerHTML +=
+                `
+        <div class="modal fade" id="regForm${group.group_Id}" tabindex="-1" aria-labelledby="regFormTitle${count}" 
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="regFormTitle${count}">報名表資料</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+            <p id="regFormContent${count}">
+            <pre>會員編號: xxx  |   電子信箱: xxx@xxx.com  | 電話號碼: xxxxxx |  參加人數:xxxx | 報名時間:xxx
+            </pre>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                data-bs-target="#memberDetail_btn${count}" aria-expanded="false"
+                aria-controls="memberDetail_btn${count}" style="float: right;">
+                顯示資料
+            </button>
+            </p>
+            <div class="collapse" id="memberDetail_btn${count}">
+                <div class="card card-body" id="memberDetailContent${count}">
+                    <pre>
+                    姓名 | 身分證字號 | 出生日期 | 性別 (表格名)
+                    XXX  | XXXXXXX   | XXXXXXXX| X</pre>
+                </div>
+            </div>
+            <hr>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+`;
         });
 
     } catch (error) {
@@ -98,9 +137,6 @@ async function deleteGroup(groupId) {
     }
 }
 
-for(let i = 1; i <= count; i++){
-    let regForm_btn_el = document.getElementById("regForm_btn" + i);
-    regForm_btn_el.addEventListener('clock', function(e){
-        fetch('')
-    });
-}
+
+
+let regForm_btn_el = document.getElementById("regForm_btn" + count);

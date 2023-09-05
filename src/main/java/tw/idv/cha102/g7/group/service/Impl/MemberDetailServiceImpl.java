@@ -25,13 +25,14 @@ public class MemberDetailServiceImpl implements MemberDetailService {
     private GroupRepository groupRepository;
 
     public void insert(MemberDetail memberDetail){
-        RegForm regForm = regFormRepository.findById(memberDetail.getFormId()).get();
-        Group group = groupRepository.findById(regForm.getGroupId()).get();
+
+//        RegForm regForm = regFormRepository.findById(memberDetail.getFormId()).get();
+//        Group group = groupRepository.findById(regForm.getGroupId()).get();
 
         //如果參加人數沒超過最大人數才新增
-        if(group.getMembers() + regForm.getJoinMember() <= group.getMaxMember()) {
+//        if(group.getMembers() + regForm.getJoinMember() <= group.getMaxMember()) {
             memberDetailRepository.save(memberDetail);
-        }
+//        }
     }
 
     public void update(Integer detailId, MemberDetail memberDetail){
