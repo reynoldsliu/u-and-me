@@ -1,12 +1,14 @@
 
+var pageCount = 0;
 //<!--網頁載入後執行-->
 document.addEventListener("DOMContentLoaded", function () {
-    myOrderList();
+    
+    myOrderList(pageCount);
 });
 
-async function myOrderList() {
+async function myOrderList(page) {
     try {
-        const response = await fetch(`http://localhost:8081/u-and-me/myOrders/memId${memId}/${page}`);
+        const response = await fetch(`http://localhost:8081/u-and-me/myOrders/${page}`);
         const orderList = await response.json();
 
         const dataTableList = document.getElementById("dataTableList");
