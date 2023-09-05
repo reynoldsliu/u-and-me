@@ -88,30 +88,6 @@
     height: 100%;
   }
 }
-/* 頁首圖片 */
-h1.myScheduleListTitle{
-  font-size: 6rem;
-  color: rgba(255,255,255,0.9);
-  text-shadow: 5px 5px 3px black;
-}
-
-div.myScheduleListMainImg{
-  /* border: 1px solid blue; */
-  z-index: 0;
-  padding: 0;
-  height: 81%;
-  position: absolute;
-  top: 86px;
-  left: 0;
-  overflow: hidden;
-}
-
-div.myScheduleListMainImg>img{
-  width: 100%;
-  height: auto;
-  height: auto;
-}
-
 
 /* 搜尋欄、篩選條件相關 */
 .filter-search {

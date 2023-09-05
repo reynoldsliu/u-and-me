@@ -193,6 +193,28 @@ public class MemberController {
 
     }
 
+    @RequestMapping("/getMemId")
+    public ResponseEntity<Member> getMemId(HttpServletRequest request,
+                                           HttpServletResponse response){
+        HttpSession session = request.getSession();
+        String jsessionId = session.getAttribute("memberId").toString();
+        Integer memId = Integer.parseInt(jsessionId);
+        Member member = memberService.getMemByMemId(memId);
+        return new ResponseEntity<>(member,HttpStatus.OK);
+
+    }
+
+    @RequestMapping("/memberGroupRegister/{memId}")
+    public ResponseEntity<Member> memberGroupRegister(@PathVariable Integer memId,
+                                                      @RequestBody String groupRegisterCard){
+        Member member = memberService.getMemByMemId(memId);
+        member.setMemSta(1);
+        member.setMemIdPic(groupRegisterCard);
+        memberService.update(member);
+
+        return new ResponseEntity(member, HttpStatus.OK);
+    }
+
 
 
 }
