@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -81,8 +82,7 @@ public class MemberController {
         if (jsessionId == null || jsessionId.isEmpty())
             return new ResponseEntity("登出失敗", HttpStatus.BAD_REQUEST);
         session.removeAttribute("memberId");
-//        if(session.getAttribute("memberId").toString()==null)
-//            System.out.println("NULL");
+
         return new ResponseEntity("登出成功", HttpStatus.OK);
     }
 
@@ -146,6 +146,12 @@ public class MemberController {
         }
     }
 
+    /**
+     * 會員資料呈現
+     * @param member
+     * @param model
+     * @return
+     */
     @GetMapping("/controller/showMemInfo")
     public String showMemInfo(Member member, ModelMap model){
         String memEmail = member.getMemEmail();
@@ -173,19 +179,14 @@ public class MemberController {
      */
     @PostMapping("/update")
     public ResponseEntity<Member> update(@RequestBody Member member) {
-//        System.out.println(memEmail);
-//        String memEmail = member.getMemEmail();
-//        Member temp = memberRepository.findByMemEmail(memEmail);
-//        member.setMemId(temp.getMemId());
-//        if(member.getMemGender()==null){
-//            member.setMemGender(temp.getMemGender());
-//        }
-//        System.out.println(temp);
+        System.out.println("UPDATE");
         Member updatedMember = memberService.update(member);
-//        Member updatedMember2 = memberRepository.save(temp);
         if (updatedMember != null) {
-            return ResponseEntity.ok(updatedMember);
+            System.out.println("SUCCESS");
+            return new ResponseEntity<>(updatedMember,HttpStatus.OK);
+//            return ResponseEntity.ok(updatedMember);
         } else {
+            System.out.println("FAILED");
             return ResponseEntity.notFound().build();
         }
 

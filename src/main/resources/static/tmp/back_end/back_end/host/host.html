@@ -4,10 +4,11 @@
     integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>UandMe</title>
+    <title>UandMeEdit</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -35,8 +36,8 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="./css/addqa.css" rel="stylesheet">
-
+    <link href="./host.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -152,7 +153,7 @@
             <!-- 左側功能列表 -->
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a href="../member/member.html">
+                    <a href="../member/member2.html">
                         <svg class="bi me-2" width="16" height="16">
                             <use xlink:href="#home" />
                         </svg>
@@ -224,50 +225,220 @@
             style=" width: calc(100% - 200px);background-color: #F6F4E8;">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="../host/hostLogin.html"
-                            style="color:black;display: inline;">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">客服/Q&A專欄</li>
+                    <li class="breadcrumb-item"><a href="/index.html"
+                            style="color:black;display: inline;">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">會員</li>
                 </ol>
             </nav>
             <div class="shadow p-3 my-3 bg-body rounded">
 
-                <form action="/qa" method="post">
+                <!-- 內容從這開始-->
+                <h5 style="text-align: center">管理員列表</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered border-secondary" id="dataTable1">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">
+                                    管理員編號
+                                </th>
+                                <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">姓名
+                                </th>
+                                <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">電話
+                                </th>
+                                <th style="text-align: center;width: 100px; color:beige; background-color:#1D3124 ;">信箱
+                                </th>
+                                <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">
+                                    管理員狀態
+                                </th>
 
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label" id="qaTitle">文章標題</label>
-                        <span id="errortitle" style="color: red; margin:15px; display: none;" >文章標題不可空白!</span>
-                        <input type="text" id="addqaTitle" class="form-control">
-                    </div>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableList">
+                            <!--管理員列表在這裡動態插入 -->
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label" id="qaCon">文章內容</label>
-                        <span id="errorcon" style="color: red; margin:15px; display: none;" >文章內容不可空白!</span>
-                        <textarea class="form-control" id="addqaCon"
-                            rows="5"></textarea>
-                    </div>
 
-                    <label for="exampleFormControlTextarea1" class="form-label" id="qaState">文章狀態</label>
-                    <select class="form-select form-select-sm" id="addqaState" aria-label="Small select example">
-                        <option value="0" selected>下架</option>
-                        <option value="1">上架</option>
-                    </select>
-                    <br>
-                    <button type="submit" class="btn btn-primary" id="qabutton">新增</button>
-
-                </form>
             </div>
         </div>
-
-
+    
 
 
     </main>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+    <!--<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
     <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/addqa.js"></script>
+
+    <script>
+        <!--網頁載入後執行-->
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchHostList();
+        });
+
+        async function fetchHostList() {
+            try {
+                const response = await fetch('http://localhost:8081/u-and-me/host/hostAll');
+                const hostList = await response.json();
+
+                const dataTableList = document.getElementById("dataTableList");
+                dataTableList.innerHTML = "";
+
+
+                hostList.forEach(host => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+    <td style="width: 50px;text-align: center; vertical-align: middle; ">${host.hostId}</td>
+    <td style="width: 100px;text-align: center;vertical-align: middle;">${host.hostName}</td>
+    <td style="width: 100px;text-align: center;vertical-align: middle;">${host.hostPhone}</td>
+    <td style="width: 100px;text-align: center;vertical-align: middle;">${host.hostEmail}</td>
+    <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMappingHost.get(host.memGroup)}</td>
+    <td style="width: 65px;text-align: center;vertical-align: middle;">
+        <button type="button" id="buttonId" class="view_host" data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop${host.hostId}">
+            <i class="fa-solid fa-pen fa-xs" style="color: #1d3124;"></i>
+        </button>
+
+        <!-- Modal -->
+
+        <div class="modal fade" id="staticBackdrop${host.hostId}" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+            <!-- Modal-dialog -->
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel" style="padding-left:180px;">管理員明細</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+
+                    <!-- 小視窗內容 -->
+                    <div class="modal-body" style="padding-left:70px;">
+
+
+                        <table class="table1 table-bordered" id="modal_table"
+                            style="width: 350px;height:450px;padding-left: 20px;">
+                            <thead>
+
+
+
+                            </thead>
+                            <tbody id="dataTableList1">
+
+                                <th style="width: 40px; height:20px;color:beige;  background-color:#1D3124 ;">管理員編號</th>
+                                <td class="editStyle"
+                                    style="width: 40px;height:20px;text-align: center; vertical-align: middle; ">
+                                    ${host.hostId}</td>
+                                <td style="width: 40px;height:20px;text-align: center; vertical-align: middle; ">
+                                    ${host.hostId}</td>
+
+
+                                <tr>
+                                    <th style="width: 40px; height:20px;color:beige;  background-color:#1D3124 ;">姓名
+                                    </th>
+                                    <td class="editStyle"
+                                        style="width: 100px;height:50px;text-align: center;vertical-align: middle;">
+                                        ${host.hostName}</td>
+                                    <td style="width: 120px;height:50px;text-align: center;vertical-align: middle;">
+                                        <input type="text" class="form-control hostName" id="hostName"
+                                            placeholder="${host.hostName}" style="text-align: center;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 80px; height:30px;color:beige;  background-color:#1D3124 ;">電話
+                                    </th>
+                                    <td class="editStyle"
+                                        style="width: 100px;height:50px;text-align: center;vertical-align: middle;">
+                                        ${host.hostPhone}</td>
+                                    <td style="width: 120px;height:50px;text-align: center;vertical-align: middle;">
+                                        <input type="text" class="form-control" id="hostPhone"
+                                            placeholder="${host.hostPhone}" style="text-align: center;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px;height:50px;color:beige; background-color:#1D3124 ;">信箱</th>
+                                    <td class="editStyle"
+                                        style="width: 100px;height:50px;text-align: center;vertical-align: middle;">
+                                        ${host.hostEmail}</td>
+                                    <td style="width: 100px;height:50px;text-align: center;vertical-align: middle;">
+                                        <input type="text" class="form-control" id="hostEmail"
+                                            placeholder="${host.hostEmail}" style="text-align: center;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="width: 100px;height:50px;color:beige; background-color:#1D3124 ;">管理員狀態
+                                    </th>
+                                    <td class="editStyle"
+                                        style="width: 65px;height:50px;text-align: center;vertical-align: middle;">
+                                        ${statusMappingHost.get(host.hostSta)}</td>
+                                    <td style="width: 65px;height:50px;text-align: center;vertical-align: middle;">
+                                        <select class=" form-select text-secondary" id="hostSta">
+                                            <option value="0">正常使用</option>
+                                            <option value="1">停止使用</option>
+
+                                        </select>
+                                    </td>
+                                </tr>
+
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="editButton" type="button" class="editBtn" data-bs-dismiss="modal"
+                            onclick="edit()">完成</button>
+                    </div>
+
+                    <!--按下編輯鈕可以修改管理員資訊--!>
+
+
+
+        </div>
+      </div>
+    </div>
+
+  </td>
+  `;
+                    dataTableList.appendChild(row);
+                });
+
+            } catch (error) {
+                console.error("Error fetching host list:", error);
+            }
+        }
+
+
+
+
+
+        const statusMappingHost = new Map([
+            [0, '正常使用(在職)'],
+            [1, '停止使用(停職)'],
+        ]);
+
+            function redirectToDetailPage(hostId) {
+                var newPageUrl = `hostEdit.html?hostId=${hostId}`;
+                window.location.href = newPageUrl;
+            }
+
+
+
+
+    </script>
 </body>
 
 </html>
+
+<!--input box display placeholder ${member.memName}
+
+//按下編輯鈕後，小視窗表格會變成右邊是輸入框的表格，編輯鈕變成完成鈕
+//輸入框裡placeholder要有原本顯示的該筆會員資料 placeholder ${member.memName}
+//按下完成鈕，資料更新成功並即時顯示在表格欄位內-->

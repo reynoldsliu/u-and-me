@@ -32,6 +32,7 @@ public class UandmeConfiguration {
         bean.setFilter(new HostFilter());
         //要通過此filter的入口
         bean.addUrlPatterns("/host/*");
+//        bean.addUrlPatterns("/member/*");
         bean.setName("hostFilter");
 
         //設定此filter再filterChain的執行順序 數字越小 越早擷取請求 越晚擷取回應

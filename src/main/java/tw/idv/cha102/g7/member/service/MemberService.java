@@ -16,9 +16,6 @@ public interface MemberService {
     //會員註冊
     public String insert(Member member);
 
-    //會員登入驗證(信箱驗證)
-//    public void verifyEmail(String token);
-
     //會員登入
     public void login(LoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response);
 
@@ -27,18 +24,10 @@ public interface MemberService {
 
     //會員資料修改
     public Member update(Member member);
-
-
-
-
-    //會員狀態更新(團主狀態更新/會員檢舉狀態更新)
-    public Integer getMemberStatus(Integer memId, String memPassword);
-
+//
+//    public void updateMemByMemId(Integer memId, Member member) ;
 
     public Member getMemByMemId(Integer memId);
-
-//    public Member sendEmailVerify(Member member);
-
 
     }
 

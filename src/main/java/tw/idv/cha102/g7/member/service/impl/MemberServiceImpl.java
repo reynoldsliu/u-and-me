@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
+import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MailService;
@@ -90,20 +91,20 @@ public class MemberServiceImpl implements MemberService {
 //        }
 //        return "登入失敗";
 //    }
-
-    @Override
-    public Integer getMemberStatus(Integer memId, String memPassword) {
-        Optional<Member> optionalMember = memberRepository.findById(memId);
-        if (optionalMember.isPresent()) {
-            Member member = optionalMember.get();
-            if (member.getMemPassword().equals(memPassword)) {
-                return member.getMemSta();
-            }
-        }
-        return null;
-    }
-
-
+//
+//    @Override
+//    public Integer getMemberStatus(Integer memId, String memPassword) {
+//        Optional<Member> optionalMember = memberRepository.findById(memId);
+//        if (optionalMember.isPresent()) {
+//            Member member = optionalMember.get();
+//            if (member.getMemPassword().equals(memPassword)) {
+//                return member.getMemSta();
+//            }
+//        }
+//        return null;
+//    }
+//
+//
 
 
     @Override
@@ -121,13 +122,38 @@ public class MemberServiceImpl implements MemberService {
             existingMember.setMemIdcard(member.getMemIdcard());
         }if(member.getMemAddr()!=null){
                 existingMember.setMemAddr(member.getMemAddr());
-        }
+        }if(member.getMemGender()!=null){
+                existingMember.setMemGender(member.getMemGender());
+            }
 
             System.out.println("existingMember" + existingMember);
             return memberRepository.save(existingMember);
         }
         return null;
     }
+
+
+//    @Override
+//    public Member updateMemByMemId(Integer memId, Member member) {
+//        var existingMember = memberRepository.findById(memId);
+//        if (existingMember != null) {
+//            if(member.getMemPhone()!=null){
+//                existingMember.setMemPhone(member.getMemPhone());
+//            }if(member.getMemName()!=null){
+//                existingMember.setMemName(member.getMemName());
+//            }if(member.getMemIdcard()!=null){
+//                existingMember.setMemIdcard(member.getMemIdcard());
+//            }if(member.getMemAddr()!=null){
+//                existingMember.setMemAddr(member.getMemAddr());
+//            }if(member.getMemGender()!=null){
+//                existingMember.setMemGender(member.getMemGender());
+//            }
+//
+//            System.out.println("existingMember" + existingMember);
+//            return memberRepository.save(existingMember);
+//        }
+//        return null;
+//    }
 
     @Override
     public Member getMemByMemId(Integer memId) {
