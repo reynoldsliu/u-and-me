@@ -83,4 +83,9 @@ public class RegFormServiceImpl implements RegFormService {
         return regFormRepository.findRegFormMemberDetailDtoByGroupId(groupId, pageable).get();
     }
 
+    @Override
+    public List<RegForm> findByGroupIdOrderByFromId(Integer groupId) {
+        return regFormRepository.findByGroupIdOrderByFormId(groupId);
+    }
+
 }

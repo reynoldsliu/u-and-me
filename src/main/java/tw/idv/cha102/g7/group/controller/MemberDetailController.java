@@ -74,7 +74,7 @@ public class MemberDetailController {
      * @param formId 報名表編號
      * @return 查詢結果
      */
-    @GetMapping("/memberDetailsForm/{formId}")//以formId查詢全部報名細節
+    @GetMapping("/memberDetailsForms/{formId}")//以formId查詢全部報名細節
     List<MemberDetail> findByFormId(@PathVariable Integer formId){
         return memberDetailService.findByFormId(formId);
     }

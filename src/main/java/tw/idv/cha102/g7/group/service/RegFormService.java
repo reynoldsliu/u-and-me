@@ -26,4 +26,6 @@ public interface RegFormService {
     RegformIdDto findFormId();
 
     Stream<RegFormMemberDetailDto> findRegFormMemberDetailDtoByGroupId(Integer groupId, Integer page);
+
+    List<RegForm> findByGroupIdOrderByFromId(Integer groupId);
 }

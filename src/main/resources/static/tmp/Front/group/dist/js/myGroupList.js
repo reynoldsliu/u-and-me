@@ -44,7 +44,7 @@ async function fetchMyGroupList() {
                 <td style="text-align: center;vertical-align: middle; width: 150px">${group.theme}</td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">行程</a></td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">資料</a></td>
-                <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm${group.group_Id}" id="regForm_btn${count}">
+                <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm${group.group_Id}" id="regForm_btn${count}" onclick="fetchRegForm(${group.group_Id})">
                 點此</button></td>
                 <td style="text-align: center;vertical-align: middle; width: 90px">${group_Sta}</td>
                 <td>
@@ -77,22 +77,7 @@ async function fetchMyGroupList() {
                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
-            <div class="modal-body" >
-            <p id="regFormContent${count}">
-            <pre>會員編號: xxx  |   電子信箱: xxx@xxx.com  | 電話號碼: xxxxxx |  參加人數:xxxx | 報名時間:xxx
-            </pre>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                data-bs-target="#memberDetail_btn${count}" aria-expanded="false"
-                aria-controls="memberDetail_btn${count}" style="float: right;">
-                顯示資料
-            </button>
-            </p>
-            <div class="collapse" id="memberDetail_btn${count}">
-                <div class="card card-body" id="memberDetailContent${count}">
-                    <pre>
-                    姓名 | 身分證字號 | 出生日期 | 性別 (表格名)
-                    XXX  | XXXXXXX   | XXXXXXXX| X</pre>
-                </div>
+            <div class="modal-body" id="regFormContent${count}">
             </div>
             <hr>
             </div>
@@ -137,6 +122,79 @@ async function deleteGroup(groupId) {
     }
 }
 
+let j = 0; //賦予foreach裡的ID為不同變數
+async function fetchRegForm(groupId) {
+    for (let i = 1; i <= count; i++) {
+        console.log(groupId);
+
+        //動態偵測的元素
+        let regFormContent_el = document.getElementById("regFormContent" + i);
+
+        const response = await fetch('http://localhost:8080/u-and-me/regForms/findGroupId' + groupId);
+        const formList = await response.json();
+        regFormContent_el.innerHTML = "";
+
+        formList.forEach(regFrom => {
+            j++;
+
+            regFormContent_el.innerHTML +=
+                `<p>
+            <pre style="font-size: 18px;">報名表編號: ${regFrom.formId}    會員編號: ${regFrom.memId}     電子信箱: ${regFrom.email}     電話號碼: ${regFrom.phone}     參加人數:${regFrom.joinMember}</pre>
+                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#memberDetail_btn${j}" aria-expanded="false"
+                     aria-controls="memberDetail_btn${j}" style="float: right;" onclick="fetchMemberDetail(${regFrom.formId})">
+                     顯示資料
+                 </button>
+                 <br>
+                 <br>
+            </p>
+            <div class="collapse" id="memberDetail_btn${j}">
+            <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">姓名</th>
+                <th scope="col">身分證字號</th>
+                <th scope="col">出生日期</th>
+                <th scope="col">性別</th>
+              </tr>
+            </thead>
+            <tbody id="memberDetailContent${j}">
+            </tbody>
+          </table>
+            </div>
+            <hr>`
+        });
+    }
+}
 
 
-let regForm_btn_el = document.getElementById("regForm_btn" + count);
+
+let k = 0;
+async function fetchMemberDetail(formId) {
+    for (let i = 1; i <= j; i++) {
+        console.log('123');
+        //動態偵測元素
+        let memberDetailContent_el = document.getElementById("memberDetailContent" + i);
+        memberDetailContent_el.innerHTML = '';
+        const response = await fetch('http://localhost:8080/u-and-me/memberDetailsForms/' + formId);
+        const detailList = await response.json();
+
+        // memberDetailContent_el = "";
+
+        detailList.forEach(detail =>{
+            k++;
+            memberDetailContent_el.innerHTML +=
+            `<tr>
+                <th scope="row">${detail.name}</th>
+                <td>${detail.idnumber}</td>
+                <td>${detail.birthday}</td>
+                <td>${detail.gender}</td>
+              </tr>
+            </tbody>
+            `
+        })
+    }
+}
+
+
+

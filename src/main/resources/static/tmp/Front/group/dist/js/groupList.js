@@ -216,7 +216,6 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
             let groups = document.createElement('div');
             //賦予div class 'col-4'
             groups.classList.add('col-4');
-
             let f = 0;
             let cover_id = 'cover' + f
             let title_id = 'title' + f

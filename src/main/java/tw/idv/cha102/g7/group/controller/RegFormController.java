@@ -97,9 +97,16 @@ public class RegFormController {
         return regFormService.findFormId();
     }
 
+    //尋找用處中...
     @GetMapping("/regForms/findGroupId{groupId}/{page}")
     public Stream<RegFormMemberDetailDto> findRegFormMemberDetailDtoByGroupId(@PathVariable Integer groupId,
                                                                               @PathVariable Integer page){
         return regFormService.findRegFormMemberDetailDtoByGroupId(groupId, page);
+    }
+
+    //fetch報名表用
+    @GetMapping("/regForms/findGroupId{groupId}")
+    public List<RegForm> findByGroupIdOrderByFormId(@PathVariable Integer groupId){
+        return regFormService.findByGroupIdOrderByFromId(groupId);
     }
 }
