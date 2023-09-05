@@ -126,8 +126,72 @@
 
                                 <!-- ================================GOOGLE API=================================== -->
                                 <!-- 行程細節編輯側邊欄內容(行程細節、景點搜尋、單一景點詳細內容) -->
+                                <!-- --------------- 行程細節 --------------- -->
+                                <!-- 行程細節側邊欄 -->
+                                <div class="viewSchDetailsColumn -off">
+                                    <!-- ------ 行程大綱內容(起訖日、共編輯邀請鈕、行程標籤、列印) ------ -->
+                                    <!-- 背景圖 -->
+                                    <div class="schOutline">
+                                        <div class="schDetailbgPic">
+                                            <img src="https://images.pexels.com/photos/221471/pexels-photo-221471.jpeg"
+                                                alt="...">
+                                        </div>
+                                        <!-- ------ 行程細節上方返回、編輯bar ------ -->
+                                        <div class="schDetailsTopBar">
+                                            <!-- 返回我的行程箭頭 -->
+                                            <a href="./mySchedule.html" id="backToMySchedule"><i
+                                                    class="fa-solid fa-arrow-left"></i></a>
+                                            <!-- 行程名稱 -->
+                                            <div class="mySchName">行程名稱行程名稱行程名稱行程名稱行程名稱行程名稱</div>
+                                            <!-- 編輯行程細節按鈕 -->
+                                            <div class="editPen"><i class="fa-solid fa-pen editPen"></i>編輯</div>
+                                        </div>
+                                        <div>
+                                            <!-- 行程起訖日期 -->
+                                            <div class="schDateBetween">
+                                                <div class="schDateInOutline" id="mySchDateStart">2023/05/15</div> ～
+                                                <div class="schDateInOutline" id="mySchDateEnd">2023/09/28</div>
+                                                <!-- 邀請共編連結鈕 -->
+                                                <div class="inviteEditBtn">
+                                                    <i class="fa-solid fa-circle-plus"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 行程標籤 -->
+                                        <div class="mySchTagsInsert">
+                                            <!-- 行程標籤由此插入 -->
+                                            <div class="toggleTags" id="mySchTag1">標籤標籤1</div>
+                                            <div class="toggleTags" id="mySchTag2">標籤標籤2</div>
+                                            <div class="toggleTags" id="mySchTag3">標籤標籤3</div>
+                                            <div class="toggleTags" id="mySchTag4">標籤標籤4</div>
+                                            <div class="toggleTags" id="mySchTag5">標籤標籤5</div>
+                                            <div class="toggleTags" id="mySchTag6">標籤標籤6</div>
+                                            <div class="toggleTags" id="mySchTag7">標籤標籤7</div>
+                                            <div class="toggleTags" id="mySchTag8">標籤標籤8</div>
+                                            <div class="toggleTags" id="mySchTag9">標籤標籤9</div>
+                                            <div class="toggleTags" id="mySchTag10">標籤標籤10</div>
+                                        </div>
+                                        <!-- 列印、下載PDF鈕 -->
+                                        <div class="printPDF"></div>
+                                    </div>
+
+
+                                    <!-- --------- 行程細節內容 --------- -->
+                                    <!-- 行程日期、天數第幾天 -->
+                                    <!-- 行程第幾天及出發時間 -->
+
+                                    <!-- 新增景點按鈕(要跳到景點搜尋頁面) -->
+
+                                    <!-- --------- 行程細節 cell --------- -->
+                                    <!-- 行程細節 cell 開始 -->
+                                    <!-- 行程細節 cell 結束 -->
+
+                                    <!-- 交通方式及交通時間顯示 -->
+
+                                </div>
+                                <!-- --------------- 景點搜尋相關 --------------- -->
                                 <div class="viewAttrSearchColumn">
-                                    <!-- 搜尋頁籤 -->
+                                    <!-- 搜尋頁籤tab -->
                                     <div class="switchbox">
                                         <ul>
                                             <a href="#" id="tab-back"><i class="fa-solid fa-arrow-left"></i></a>
@@ -390,6 +454,7 @@
                                         </div>
                                     </div>
                                     <!-- 景點搜尋結束 -->
+                                    <!-- --------------- 景點收藏相關 --------------- -->
                                     <!-- 我的景點收藏 -->
                                     <div class="myAttrs">
                                         <div class="attrCollectionList">
@@ -521,6 +586,7 @@
                                         </div>
                                     </div>
                                     <!-- 我的景點收藏結束 -->
+                                    <!-- --------------- 自訂景點相關 --------------- -->
                                     <!-- 自訂景點 -->
                                     <div class="myCustomizeAttr">
                                         <div class="customizeColumn">
@@ -559,10 +625,12 @@
                                                 <label for="attrPicFilesInput" class="form-label">
                                                 </label>
                                                 <input class="form-control customizeInput" type="file"
-                                                    id="attrPicFilesInput" multiple accept="image/gif, image/jpeg, image/png">
+                                                    id="attrPicFilesInput" multiple
+                                                    accept="image/gif, image/jpeg, image/png">
                                             </div>
                                             <div id="attrPicsPreview">
                                                 <!-- 景點圖片上傳插入處 -->
+                                                <!-- 待加入取消部分圖片上傳的功能！！！！！！！！！！！！！！！！！！！！！！！ -->
                                             </div>
                                             <!-- 是否加入景點收藏 -->
                                             <div>
@@ -579,6 +647,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- --------------- 查看景點詳情相關 --------------- -->
                                 <!-- 查看單一景點的詳細資訊 -->
                                 <div class="viewAttrDetailsColumn">
                                     <!-- TODO....... -->
@@ -700,19 +769,16 @@
                                         </div>
 
                                         <div class="card-footer attrDetailsCardFooter">
+                                            <!-- 儲存景點按鈕 -->
                                             <button type="button"
                                                 class="btn btn-outline-success addAttrCollect-btn">儲存景點</button>
+                                            <!-- 加入行程按鈕(要跳到行程細節頁面) -->
                                             <button type="button"
                                                 class="btn btn-success addToSchedule-btn">加入行程</button>
                                         </div>
                                     </div>
-                                    <!-- 查看景點詳情結束 -->
                                 </div>
-                                <!-- 查看景點詳情容器結束 -->
-                                <!-- 安排新增景點後，行程細節容器 -->
-                                <div class="viewSchDetailsColumn">
-
-                                </div>
+                                <!-- 查看景點詳情結束 -->
                             </div>
                             <div class="col-12 col-lg-8" style="padding: 0;">
                                 <!-- <img src="https://picsum.photos/300/200?random=11" > -->

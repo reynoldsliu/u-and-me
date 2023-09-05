@@ -93,6 +93,289 @@ body {
     overflow: hidden;
 }
 
+/* ============ 查看行程細節 ============ */
+/* 行程細節側邊欄 */
+div.viewSchDetailsColumn {
+    border: 1px solid red;
+    /* display: none; */
+    height: 100%;
+    border-right: 1px solid gray;
+    box-shadow: 0px 2px 5px gray;
+    overflow: hidden;
+    /* z-index: 0; */
+}
+
+div.viewSchDetailsColumn.-off{
+    display: none;
+}
+
+
+/* ------ 行程大綱內容(起訖日、共編輯邀請鈕、行程標籤、列印) ------ */
+div.schOutline {
+    /* border: 1px solid orange; */
+    width: 100%;
+    height: 170px;
+}
+
+/* 背景圖 */
+div.schDetailbgPic {
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+div.schDetailbgPic>img {
+    max-width: 100%;
+    object-fit: cover;
+    /* z-index: 0; */
+}
+
+/* ------ 行程細節上方返回、編輯bar ------ */
+div.schDetailsTopBar {
+    /* border: 1px solid blue; */
+    display: inline-block;
+    /* border-bottom: 1px solid rgba(98, 94, 94, 0.7); */
+    /* box-shadow: 0px 2px 5px lightgray; */
+    background-color: transparent;
+    width: 425px;
+    height: 48px;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: 1;
+    /* display: none; */
+}
+
+
+/* 返回我的行程箭頭 */
+a#backToMySchedule {
+    /* border: 1px solid green; */
+    /* border-right: 1px solid lightgray; */
+    /* 調整用 */
+    width: 66px;
+    height: 100%;
+    display: inline-block;
+    font-size: 33px;
+    color: white;
+    text-shadow: 3px 3px 5px black;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* 行程名稱 */
+div.mySchName {
+    /* border: 1px solid red; */
+    width: 70%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 66px;
+    padding-top: 9px;
+    font-size: 1.3rem;
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px 2px black;
+    vertical-align: middle;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-text-stroke: 0.1px black;
+}
+
+/* 編輯行程細節按鈕 */
+div.editPen {
+    /* border: 1px solid white; */
+    width: 15%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-shadow: 2px 2px 2px black;
+    color: white;
+    /* text-align: center; */
+    font-size: 0.5rem;
+    padding-top: 4%;
+    padding-left: 30px;
+}
+
+i.editPen {
+    /* border: 1px solid white; */
+    text-shadow: 2px 2px 2px black;
+    color: white;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-top: 15px;
+    padding-left: 10px;
+    font-size: 1rem;
+}
+
+/* 行程起訖日期 */
+div.schDateBetween {
+    /* border: 1px solid blue; */
+    font-weight: bold;
+    text-shadow: 2px 2px 2px black;
+    color: white;
+    width: 31.8%;
+    height: 50px;
+    position: absolute;
+    top: 8%;
+    left: 1.5%;
+    padding-top: 10px;
+}
+
+div.schDateInOutline {
+    /* border: 1px solid red; */
+    display: inline-block;
+}
+
+/* 邀請共編連結鈕 */
+div.inviteEditBtn {
+    /* border: 1px solid red; */
+    width: 16.5%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1.8rem;
+    text-align: center;
+    z-index: 1;
+}
+
+div.inviteEditBtn>i {
+    /* border: 1px solid white; */
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    z-index: 0;
+}
+
+/* 行程標籤 */
+div.mySchTagsInsert {
+    /* border: 1px solid blue; */
+    width: 85%;
+    height: 40%;
+    position: relative;
+    top: -40%;
+    padding-left: 1%;
+    padding-top: 2.5%;
+    overflow: hidden;
+}
+
+div.toggleTags {
+    border: 1px solid rgba(25, 135, 84, 1);
+    background-color: rgba(25, 135, 84, 1);
+    border-radius: 50px;
+    display: inline-block;
+    width: 80px;
+    font-size: 0.9rem;
+    color: white;
+    text-align: center;
+    /* margin: 2px 0px; */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* 列印、下載PDF鈕 */
+div.printPDF{
+    border: 1px solid blue;
+    width: 10%;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    left: 0%;
+}
+
+/* --------- 行程細節內容 --------- */
+
+/* 行程日期、天數第幾天 */
+
+/* 行程第幾天及出發時間 */
+
+/* 新增景點按鈕(要跳到景點搜尋頁面) */
+
+/* --------- 行程細節 cell --------- */
+/* 行程細節 */
+div.schDetailCell {
+    max-width: 420px;
+    box-shadow: 0 0 10px lightgrey;
+}
+
+div.schDetailCell:hover {
+    box-shadow: 0 5px 10px gray;
+}
+
+/* 行程細節中每個景點的第一張圖片 */
+div.attrPic {}
+
+/* 行程細節排序(依照行程細節起始時間) */
+div.schDetailOrder {
+    /* border: 1px solid red; */
+    width: 8.5%;
+    height: 35%;
+    border-radius: 5px;
+    background-color: rgb(25, 135, 84);
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    padding: 2px;
+}
+
+/* 行程細節排序數字 */
+span#schDetailOrder {
+    vertical-align: middle;
+    color: white;
+    font-weight: bold;
+}
+
+/* 一個行程細節的內容 */
+div.schDetailsCardBody {
+    /* border: 1px solid red; */
+    position: absolute;
+    padding: 5px 10px;
+    width: 66.6%;
+    height: 100%;
+    font-weight: bold;
+    overflow: hidden;
+}
+
+/* 行程時間相關(停留時間 | 起始時間、結束時間) */
+p.schTimes {
+    margin-bottom: 8px;
+    color: rgb(25, 135, 84);
+}
+
+/* 行程細節內的景點名稱 */
+h5.attrName>div {
+    margin-bottom: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    font-weight: bold;
+}
+
+/* 景點地址 */
+p.attrAddr {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+}
+
+/* --------- 行程細節 cell 結束 --------- */
+
+/* 交通方式及交通時間顯示 */
+
+
+/* ============ 查看行程細節結束 ============ */
+
 /* ============ 景點搜尋開始 ============ */
 
 /* 景點搜尋側邊欄 */
@@ -118,6 +401,8 @@ div.switchbox {
     box-shadow: 0px 2px 5px lightgray;
     width: 100%;
     height: 48px;
+    /* 要調回來註解掉 */
+    /* display: none; */
 }
 
 /* 整個頁籤 */
@@ -320,7 +605,8 @@ div.attrCell {
     max-width: 420px;
     box-shadow: 0 0 10px lightgrey;
 }
-div.attrCell:first-child{
+
+div.attrCell:first-child {
     margin-top: 15px;
 }
 
@@ -369,7 +655,7 @@ div.myAttrs.-off {
 }
 
 /* 收藏景點清單 */
-div.attrCollectionList{
+div.attrCollectionList {
     /* border: 1px solid blue; */
     width: 100%;
     height: 100%;
@@ -377,7 +663,7 @@ div.attrCollectionList{
     overflow-y: auto;
 }
 
-div.attrCollectionList.-off{
+div.attrCollectionList.-off {
     display: none;
 }
 
@@ -430,26 +716,26 @@ div.myCustomizeAttr.-off {
     display: none;
 }
 
-input.customizeInput{
+input.customizeInput {
     /* border: 1px solid red; */
     width: 90%;
 }
 
-input.customizeInput.-off{
+input.customizeInput.-off {
     /* border: 1px solid blue; */
     width: 70%;
 }
 
 
 /* 待加入景點上傳照片的部分 */
-input#attrPicFilesInput{
+input#attrPicFilesInput {
     /* border: 1px solid green; */
     height: 37px;
     position: relative;
     bottom: 23px;
 }
 
-div#attrPicsPreview{
+div#attrPicsPreview {
     /* border: 1px solid red; */
     width: 318.3px;
     height: auto;
@@ -478,7 +764,7 @@ div.viewAttrDetailsColumn {
     overflow-y: auto;
 }
 
-div.viewAttrDetailsColumn.-off{
+div.viewAttrDetailsColumn.-off {
     display: none;
 }
 
@@ -505,11 +791,12 @@ button.btn-close {
 }
 
 /* 景點主要圖片框 */
-div.attrCardMainImg{
+div.attrCardMainImg {
     /* border: 1px solid red; */
     width: 100%;
     display: none;
 }
+
 /* 景點主要圖片 */
 div.attrCardMainImg>img {
     /* border: 1px solid blue; */
@@ -521,7 +808,7 @@ div.attrCardMainImg>img {
 
 /* 多張景點的圖片輪播 */
 /* TODO.... */
-div.attrTotalImgs{
+div.attrTotalImgs {
     /* border: 1px solid blue; */
     width: 100%;
     /* display: none; */
@@ -547,16 +834,23 @@ div.attrDetails {
 
 /* 滑動捲軸設定 */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; /* 滾動條背景颜色 */
+    background: #f1f1f1;
+    /* 滾動條背景颜色 */
 }
+
 ::-webkit-scrollbar-thumb {
-    background: rgba(255, 0, 0, 0); /* 滾動條滑塊颜色 */
-    background: rgba(255, 0, 0, 0); /* 滾動條滑塊颜色 */
+    background: rgba(255, 0, 0, 0);
+    /* 滾動條滑塊颜色 */
+    background: rgba(255, 0, 0, 0);
+    /* 滾動條滑塊颜色 */
 }
+
 /* 修改滾動條的寬度和高度 */
 ::-webkit-scrollbar {
-    width: 5px; /* 滾動條寬度 */
-    height: 100%; /* 滾動條高度 */
+    width: 5px;
+    /* 滾動條寬度 */
+    height: 100%;
+    /* 滾動條高度 */
 }
 
 div.attrDetails>ul {
@@ -612,7 +906,7 @@ div.attrDetailsCardFooter {
     margin-right: 8%;
 }
 
-/* 加入行程按鈕 */
+/* 加入行程按鈕(要跳到行程細節頁面) */
 .addToSchedule-btn {
     width: 45%;
     font-weight: bold;
@@ -667,77 +961,3 @@ div.attrDetailsCardFooter {
 }
 
 /* ============ GOOGLE MAP 結束 ============ */
-
-/* ============ 查看行程細節 ============ */
-/* --------- 行程細節 cell --------- */
-/* 行程細節 */
-div.schDetailCell {
-    max-width: 420px;
-    box-shadow: 0 0 10px lightgrey;
-}
-
-div.schDetailCell:hover {
-    box-shadow: 0 5px 10px gray;
-}
-
-/* 行程細節中每個景點的第一張圖片 */
-div.attrPic {}
-
-/* 行程細節排序(依照行程細節起始時間) */
-div.schDetailOrder {
-    /* border: 1px solid red; */
-    width: 8.5%;
-    height: 35%;
-    border-radius: 5px;
-    background-color: rgb(25, 135, 84);
-    position: absolute;
-    left: 0;
-    top: 0;
-    text-align: center;
-    padding: 2px;
-}
-
-/* 行程細節排序數字 */
-span#schDetailOrder {
-    vertical-align: middle;
-    color: white;
-    font-weight: bold;
-}
-
-/* 一個行程細節的內容 */
-div.schDetailsCardBody {
-    /* border: 1px solid red; */
-    position: absolute;
-    padding: 5px 10px;
-    width: 66.6%;
-    height: 100%;
-    font-weight: bold;
-    overflow: hidden;
-}
-
-/* 行程時間相關(停留時間 | 起始時間、結束時間) */
-p.schTimes {
-    margin-bottom: 8px;
-    color: rgb(25, 135, 84);
-}
-
-/* 行程細節內的景點名稱 */
-h5.attrName>div {
-    margin-bottom: 3px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    font-weight: bold;
-}
-
-/* 景點地址 */
-p.attrAddr {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 80%;
-}
-
-/* --------- 行程細節 cell 結束 --------- */
-/* ============ 查看行程細節結束 ============ */

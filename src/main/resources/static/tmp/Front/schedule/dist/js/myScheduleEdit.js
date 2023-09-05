@@ -1,4 +1,5 @@
 // 抓取所有會切換頁面使用到的標籤
+const backToMySchedule_el = document.querySelector("#backToMySchedule");
 // 返回行程細節(箭頭)、搜尋、景點收藏、自訂景點
 const tab_back_el = document.querySelector("#tab-back");
 const tab_search_el = document.querySelector("#tab-search");
@@ -14,6 +15,7 @@ const classSwitchOn = "-on";
 const classSwitchOff = "-off";
 const classMapOne = "-one";
 // 每個頁籤對應到的頁面
+const viewSchDetailsColumn = document.querySelector(".viewSchDetailsColumn");
 const viewSearchPage = document.querySelector(".viewAttrSearchColumn");
 const attrSearchPage = document.querySelector(".attrSearch-result");
 const myAttrsPage = document.querySelector(".myAttrs");
@@ -49,7 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //  ================== 行程細節頁面(待新增) ================== //
+backToMySchedule_el.addEventListener("click",function(){
 
+});
 
 //  ================== 行程細節頁面結束 ================== //
 
@@ -58,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // 從景點搜尋頁面中按下箭頭返回鍵，返回行程細節頁面
 tab_back_el.addEventListener("click", function () {
     viewSearchPage.classList.add(classSwitchOff);
+    viewSchDetailsColumn.classList.remove(classSwitchOff);
 });
 
 // ---- 換頁籤處理 ----//
@@ -171,6 +176,7 @@ tab_customize_el.addEventListener("click", function (e) {
 });
 
 // 自訂景點中新增景點圖片
+// 待加入取消部分圖片上傳的功能！！！！！！！！！！！！！！！！！！！！！！！
 const attrPicFilesInput = document.querySelector("#attrPicFilesInput");
 const myAttrPicsPreview = document.querySelector("#attrPicsPreview");
 
