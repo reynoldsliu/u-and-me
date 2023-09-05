@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/host")
 public class HostController {
@@ -141,6 +141,16 @@ public class HostController {
     public List<Member> getAllPaged(@PathVariable Integer page){
 
         return hostService.getAllPaged(page,7);
+    }
+
+    /**
+     * 管理員查詢全部管理員
+     * @return
+     */
+
+    @GetMapping("/hostAll")
+    public List<Host> hostAll(){
+        return hostService.getAll();
     }
 
 }

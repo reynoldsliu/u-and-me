@@ -7,7 +7,7 @@ public interface HostToMemberService {
     //////會員管理///////
 
 
-    //會員權限管理(檢舉)
+
 
     public String setMemberStatus(String memEmail, Integer sta);
 
@@ -17,10 +17,5 @@ public interface HostToMemberService {
     //會員團主認證
     public String setMemberGroupSta(String memEmail, Integer groupSta);
 
-    //會員通知發佈
-
-    //會員點數管理
-
-    //會員等級管理
 
 }

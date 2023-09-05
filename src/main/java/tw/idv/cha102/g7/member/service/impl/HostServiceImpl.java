@@ -69,15 +69,23 @@ public class HostServiceImpl implements HostService {
         httpSession.setAttribute("hostId", host.getHostId()); // 保存目前登入的管理員id，供後續使用
 
     }
-
+    @Override
     public Host update(Host host) {
-        Host existingHost = hostRepository.findById(host.getHostId()).orElse(null);
+        String hostEmail = host.getHostEmail();
+        Host existingHost = hostRepository.findByHostEmail(hostEmail);
+        System.out.println("host:" + host);
         if (existingHost != null) {
-            existingHost.setHostId(host.getHostId());
-            existingHost.setHostEmail(host.getHostEmail());
-            existingHost.setHostPassword(host.getHostPassword());
+            if(host.getHostPhone()!=null){
+                existingHost.setHostPhone(host.getHostPhone());
+            }if(host.getHostName()!=null){
+                existingHost.setHostName(host.getHostName());
+            }if(host.getHostEmail()!=null){
+                existingHost.setHostEmail(host.getHostEmail());
+            }if(host.getHostSta()!=null){
+                existingHost.setHostSta(host.getHostSta());
+            }
 
-
+            System.out.println("existingHost" + existingHost);
             return hostRepository.save(existingHost);
         }
         return null;
@@ -89,6 +97,10 @@ public class HostServiceImpl implements HostService {
                         size,//查詢的每頁筆數
                         Sort.by("memId").ascending())); //依造group_sta欄位升冪排序
         return pageResult.getContent();
+    }
+
+    public List<Host> getAll(){
+        return (List<Host>) hostRepository.findAll();
     }
 }
 

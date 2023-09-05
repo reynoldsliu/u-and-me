@@ -17,12 +17,17 @@ public interface HostService {
 
     //管理員註冊
     public String insert(Host host);
+
     //管理員帳號刪除
     public void deleteById(Integer hostId);
+
     public void hostLogin(@Valid HostLoginDTO loginDTO, HttpServletRequest request, HttpServletResponse response);
 
     public Host update(Host host);
+
     public List<Member> getAllPaged(int page, int size);
 
-    }
+    public List<Host> getAll();
 
+
+}

@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import tw.idv.cha102.g7.group.entity.Group;
+import tw.idv.cha102.g7.member.entity.Host;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.HostRepository;
 import tw.idv.cha102.g7.member.repo.HostToMemberRepository;
@@ -86,4 +88,33 @@ public class HostToMemberController {
     public List<Member> getAll(){
         return memberDetailsService.getAll();
     }
+
+    @PostMapping("/update")
+    public ResponseEntity<Member> update(@RequestBody Member member) {
+        System.out.println("UPDATE");
+        Member updatedMember = memberService.update(member);
+        if (updatedMember != null) {
+            System.out.println("SUCCESS");
+            return new ResponseEntity<>(updatedMember,HttpStatus.OK);
+//            return ResponseEntity.ok(updatedMember);
+        } else {
+            System.out.println("FAILED");
+            return ResponseEntity.notFound().build();
+        }
+
+
+    }
+
+//    @PutMapping("/memUpdate")
+//    public ResponseEntity<?> memUpdate(@RequestBody Member Member){
+//        try {
+//            memberService.updateMemBymemId(memId, Member);
+//            return ResponseEntity.ok("更新成功！");
+//        } catch (Exception e) {
+//            return ResponseEntity
+//                    .status(HttpStatus.NOT_FOUND).body("更新失敗！");
+//        }
+//    }
+//
+
 }
