@@ -143,15 +143,6 @@
       border-color: #ec715e
     }
   
-   
-    .NavigationBar.mod-desktop .NavigationBar-mainMenus .NavigationBar-mainMenu .Second-layer,
-    .NavigationBar.mod-desktop .js-sticky-cart-button-container.nav-desktop,
-    .QuickCart-modal .form-quantity button .fa,
-    .QuickCart-modal .quantity-container button .fa,
-    .ProductDetail-container .form-quantity button .fa,
-    .ProductDetail-container .quantity-container button .fa,
-    .ProductDetail-container .checkout-label,
-  
-   
-   
-   
+    body {
+      font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    }

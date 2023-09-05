@@ -7,6 +7,7 @@ import tw.idv.cha102.g7.shop.entity.CartList;
 import tw.idv.cha102.g7.shop.entity.CartListId;
 import tw.idv.cha102.g7.shop.repo.CartListRepository;
 import tw.idv.cha102.g7.shop.repo.OrdersRepository;
+import tw.idv.cha102.g7.shop.repo.ProductRepository;
 import tw.idv.cha102.g7.shop.service.CartService;
 
 import java.util.ArrayList;
@@ -18,24 +19,33 @@ public class CartServiceImpl implements CartService {
     private CartListRepository cartListRepository;
     @Autowired
     private OrdersRepository ordersRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
         @Override
         //加入購物車
-        public CartList addToCart(Integer memId, Integer prodId, Integer cartPri, Integer cartQty) {
-            CartListId cartListId = new CartListId(memId, prodId);
-            CartList cartList = cartListRepository.findByCartListId_MemIdAndCartListId_ProdId(memId, prodId);
+        public CartList addToCart(CartList cartList) {
+            System.out.println("addToCart");
+            CartListId cartListId = cartList.getCartListId();
+            CartList originCartList = cartListRepository.
+                    findByCartListId_MemIdAndCartListId_ProdId(cartListId.getMemId(), cartListId.getProdId());
 
-            if(cartList == null){
-            cartList = new CartList();  //創建一筆新的購物車清單
-            cartList.setCartListId(new CartListId(memId, prodId)); //因為複合主鍵，要用cartListId new新物件才有memId&prodId)同時set這兩項內容
-            cartList.setCartQty(cartQty);
-            cartList.setCartPri(cartPri);
+            if(originCartList == null){
+//            cartList = new CartList();  //創建一筆新的購物車清單
+//            cartList.setCartListId(new CartListId(memId, prodId)); //因為複合主鍵，要用cartListId new新物件才有memId&prodId)同時set這兩項內容
+//            cartList.setCartQty(cartQty);
+            cartList.setCartPri(productRepository.findByProdId(cartListId.getProdId()).getProdPri()*cartList.getCartQty());
+                return cartListRepository.save(cartList);
         }else {
                 //增加購物車清單數量
-                cartList.setCartQty(cartList.getCartQty() + cartQty);
+                originCartList.setCartQty(cartList.getCartQty() + originCartList.getCartQty());
+                originCartList.setCartPri(productRepository.
+                                                findByProdId(originCartList.getCartListId().
+                                                                getProdId()).getProdPri() * originCartList.getCartQty());
+                return cartListRepository.save(originCartList);
             }
             //save是新增與修改，如果同一個會員選同一個商品加入購物車，要讓他變成修改(增加)數量
-            return cartListRepository.save(cartList);
+//            return cartListRepository.save(cartList);
         }
 
 
