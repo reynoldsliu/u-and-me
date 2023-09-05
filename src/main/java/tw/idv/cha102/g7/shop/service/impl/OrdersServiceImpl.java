@@ -24,7 +24,7 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public List<Orders> findByMemId(HttpServletRequest request, Integer page) {
         HttpSession session = request.getSession();
-        int memId = parseInt(session.getAttribute("memberId").toString());
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
 
         Page<Orders> pageResult = ordersRepository.findByMemId(memId, PageRequest.of(page,
                 10, //每筆訂單數量
