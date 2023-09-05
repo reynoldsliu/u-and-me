@@ -40,7 +40,7 @@ public class Member {
 
     @Lob
     @Column(name ="mem_idpic")
-    private byte[] memIdPic;
+    private String memIdPic;
 
     @Column(name = "mem_phone")
     private String memPhone;

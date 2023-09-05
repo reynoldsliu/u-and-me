@@ -8,7 +8,7 @@ create table members (
 	mem_addr varchar(100) not null,
 	mem_grade int,
     mem_idcard varchar(10),
-    mem_idpic mediumblob,
+    mem_idpic longtext,
 	mem_phone varchar(15),
 	mem_point int,
 	mem_sta tinyint default 0 not null, -- 0:註冊未驗證,1:正常使用,2:停止使用(停權)

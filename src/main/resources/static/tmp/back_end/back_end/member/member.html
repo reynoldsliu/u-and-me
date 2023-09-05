@@ -38,9 +38,10 @@
     <!-- Custom styles for this template -->
     <link href="./member.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="body">
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
@@ -226,7 +227,8 @@
     <div class="d-flex flex-column flex-shrink-0 p-3  " style=" width: calc(100% - 200px);background-color: #F6F4E8;">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../host/hostLogin.html" style="color:black;display: inline;">Home</a>
+                <li class="breadcrumb-item"><a href="../host/hostLogin.html"
+                                               style="color:black;display: inline;">Home</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">會員</li>
             </ol>
@@ -245,7 +247,9 @@
                         <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">姓名</th>
                         <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">電話</th>
                         <th style="text-align: center;width: 100px; color:beige; background-color:#1D3124 ;">身分證</th>
-                        <th style="text-align: center;width: 100px; color:beige; background-color:#1D3124 ;">身分證照片</th>
+                        <th style="text-align: center;width: 100px; color:beige; background-color:#1D3124 ;">
+                            身分證照片
+                        </th>
                         <!--            <th style="text-align: center;width: 85px;">點數</th>-->
                         <!--            <th style="text-align: center;width: 85px;">會員等級</th>-->
                         <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">會員狀態
@@ -275,7 +279,6 @@
 <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 <!--<script src="./member.js"></script>-->
-
 
 
 <script>
@@ -342,7 +345,7 @@
                 <td style="width: 40px;height:20px;text-align: center; vertical-align: middle; ">${member.memId}</td>
 
 
-           
+
                 <tr>
                 <th style="width: 40px; height:20px;color:beige;  background-color:#1D3124 ;">姓名</th>
                 <td class="editStyle" style="width: 100px;height:50px;text-align: center;vertical-align: middle;">${member.memName}</td>
@@ -411,7 +414,7 @@
 
                 <!--編輯按鈕-->
           <div class="modal-footer">
-            <button type="submit" id="editButton"class="editBtn" data-bs-dismiss="modal" onclick="edit(${member.memId})">完成</button>
+            <button type="submit" id="editButton"class="editBtn" data-bs-dismiss="modal" data-memid="${member.memId}">完成</button>
           </div>
 
          <!--按下編輯鈕可以修改會員資訊--!>
@@ -460,7 +463,6 @@
 
 
 
-    console.log('bbb');
     const memName = document.getElementsByClassName("memName");
     const memEmail = document.getElementsByClassName("memEmail");
     const memPhone = document.getElementsByClassName("memPhone");
@@ -469,30 +471,20 @@
     const memGroup = document.getElementsByClassName("memGroup");
     const editBtnElements  = document.getElementsByClassName("editBtn");
 
-    
-    
-    async function edit(memId){
-     for (let i = 0; i < editBtnElements.length; i++) {
-   let editButton = editBtnElements[i];
-    // 在完成按鈕被點擊時執行以下程式碼
-    editButton.addEventListener('click',async function(event){
-            console.log('qqqqq');
 
-            event.preventDefault()
+   $(document).on("click", ".editBtn", async function(event){
 
-            console.log('qqq');
-
-           // 建立要傳遞的資料
-           //"memId": memId,
-           const requestMemberData = {
-          "memEmail": memEmail[memId-1].value,
-          "memName": memName[memId-1].value,
-          "memPhone": memPhone[memId-1].value,
-          "memIdcard": memIdcard[memId-1].value,
-          "memSta": memSta[memId-1].value,
-          "memGroup": memGroup[memId-1].value
-    
-    };
+        event.preventDefault();
+       // 建立要傳遞的資料
+        const memId = $(this).data('memid')
+        console.log(memId)
+        const requestMemberData = {
+        "memEmail": memEmail[memId-1].value,
+        "memName": memName[memId-1].value,
+        "memPhone": memPhone[memId-1].value,
+        "memIdcard": memIdcard[memId-1].value,
+        "memSta": memSta[memId-1].value,
+        "memGroup": memGroup[memId-1].value};
     try {
         const response = await fetch(`http://localhost:8081/u-and-me/hostToMember/update`, {
             method: 'POST',
@@ -504,30 +496,14 @@
 
                 if (response.ok) {
                     const updatedMemberData = await response.json();
-
-                ////改寫
-                    Swal.fire({
-                        icon: 'success',
-                        title: '更新成功',
-                        text: '',
-                        confirmButtonText: '確定'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        }
-                    });
-
-
                 } else {
                     console.error('Failed to update member.');
                 }
             } catch (error) {
                 console.error('Error to update member.',error);
             }
-        });
-
-    }
-}
-
+            location.reload();
+   })
 
 </script>
 </body>

@@ -124,6 +124,8 @@ public class MemberServiceImpl implements MemberService {
                 existingMember.setMemAddr(member.getMemAddr());
         }if(member.getMemGender()!=null){
                 existingMember.setMemGender(member.getMemGender());
+        }if(member.getMemIdPic()!=null){
+                existingMember.setMemIdPic(member.getMemIdPic());
             }
 
             System.out.println("existingMember" + existingMember);
