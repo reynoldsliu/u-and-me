@@ -594,6 +594,13 @@
                 attrBussTime: attrBussTime_input.value,
                 attrIlla: attrIlla_input.value
             };
+            //若景點已有一樣名稱 則更新失敗 進行錯誤處理
+            var resCheck = await fetch(baseUrl + 'getAttrByName/' + attrName_input.value);
+            //若景點已存在 跳出訊息並中斷方法
+            if(await resCheck.json().attrId===undefined){
+                alert("已存在景點");
+                return;
+            }
 
             // Send data to backend using fetch
             const response = await fetch(baseUrl + 'updateAttr/' + attrId, {

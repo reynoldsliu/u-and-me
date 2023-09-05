@@ -112,8 +112,8 @@ public class AttrController {
     }
 
     @RequestMapping("/getAttrByName/{attrName}")
-    public Attraction getAttrByName(@PathVariable String attrName){
-        return attrService.getAttrByName(attrName);
+    public ResponseEntity<Attraction> getAttrByName(@PathVariable String attrName){
+        return new ResponseEntity(attrService.getAttrByName(attrName),HttpStatus.OK);
     }
 
     @RequestMapping("/getAttrsByName/{attrName}")

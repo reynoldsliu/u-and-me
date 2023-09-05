@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.attraction.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -12,6 +13,7 @@ import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.repo.AttrRepository;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 
 @Component
@@ -79,8 +81,17 @@ public class AttrServiceImpl implements AttrService {
     }
 
     @Override
-    public Attraction getAttrByName(String attrName) {
-        return attrRepository.findByAttrName(attrName);
+    public ResponseEntity<Attraction> getAttrByName(String attrName) {
+        Attraction attraction = new Attraction();
+        try{
+            attraction = attrRepository.findByAttrName(attrName);
+        }
+        catch(NonUniqueResultException | IncorrectResultSizeDataAccessException e){
+            return new ResponseEntity(new Attraction(),HttpStatus.OK);
+        }
+
+
+            return new ResponseEntity(attraction,HttpStatus.OK);
     }
 
     @Override

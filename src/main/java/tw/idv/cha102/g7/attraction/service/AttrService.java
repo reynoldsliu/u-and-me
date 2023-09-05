@@ -30,7 +30,7 @@ public interface AttrService {
 
     public ResponseEntity<Attraction> insertNewAttraction(Attraction attraction);
 
-    public Attraction getAttrByName(String attrName);
+    public ResponseEntity<Attraction> getAttrByName(String attrName);
 
     public ResponseEntity<Attraction> updateAttrByAttrId(Integer attrId, Attraction attraction);
 

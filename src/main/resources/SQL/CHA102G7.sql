@@ -431,22 +431,19 @@ values
 -- products 慶琳
 -- 商品分類 --
 create table product_category(
-prodcat_id int primary key,
-prodcat_name varchar(10)
+prodcat_id int primary key auto_increment,
+prodcat_name varchar(10) not null
 );
 
 -- 商品 --
 create table product(
-prod_id int primary key,
-
-prodcat_id int,
-
-prod_name varchar(20),
+prod_id int primary key auto_increment,
+prodcat_id int not null,
+prod_name varchar(20) not null,
 prod_con varchar(1000),
-prod_price int,
+prod_pri int not null,
 prod_qty int,
-prod_sta tinyint default 0,
-
+prod_sta tinyint default 0 not null  not null comment '0:下架 1:上架',
 prod_spec varchar(20)
 
 -- constraint fk_prodcat_id
@@ -469,8 +466,8 @@ primary key (prod_id, mem_id)
 
 -- 商品圖片庫 --
 create table product_picture(
-prodpic_id int primary key,
-prod_id int,
+prodpic_id int primary key auto_increment,
+prod_id int not null,
 prod_pic mediumblob,
 constraint fk_prod_id
 foreign key(prod_id) references product (prod_id) 
@@ -478,8 +475,8 @@ foreign key(prod_id) references product (prod_id)
 
 -- 購物車清單 --
 create table cart_list(
-cart_pri int,
-cart_qty int,
+cart_pri int not null,
+cart_qty int not null,
 mem_id int,
 prod_id int,
 primary key (mem_id, prod_id)
@@ -492,33 +489,26 @@ primary key (mem_id, prod_id)
 select * from product_category;
 insert into product_category(prodcat_id,prodcat_name)
 values
-(001, '伴手禮'),
-(002, '紀念品'),
-(003, '特色小物'),
-(004, '手作工藝'),
-(005, '食品'),
-(006, '旅行配件'),
-(007, '北部'),
-(008, '中部'),
-(009, '南部'),
-(010, '東部');
+(1, '戶外選品'),
+(2, '在地美食'),
+(3, '旅遊必備小物'),
+(4, '流浪的意義');
 
 
 select * from product_category;
 
 select * from product;
-insert into product(prod_id,prod_name,prod_con,prod_price,prod_qty,prod_spec)
+insert into product(prod_id,prodcat_id,prod_name,prod_con,prod_pri,prod_qty,prod_spec)
 values
-(1,'太陽餅','台中名產',299,10,'10入'),
-(2,'鐵觀音','貓空茶葉',999,10,'2入'),
-(3,'日月潭紅茶','日月潭必買',799,10,'1入'),
-(4,'南投國姓咖啡','台灣咖啡',1080,10,'10入'),
-(5,'原住民編織包','原住民手作編織品',880,10,'10入'),
-(6,'行動電源','旅行配件',980,10,'10入'),
-(7,'轉接頭','旅行必備',199,10,'1入'),
-(8,'衣物收納袋','旅行小物',220,10,'3入'),
-(9,'行李吊牌','行李箱小物',300,10,'1入'),
-(10,'剝皮辣椒','新鮮',200,10,'1入');
+(101,2,'日月潭紅茶','台茶18號，茶湯呈現典雅金紅色，茶香中帶有淡淡薄荷肉桂香氣，此香氣更被世界紅茶專家譽為日月潭紅茶特有之「台灣香」',699,0,1,'3入'),
+(102,3,'設計師聯名款太陽眼鏡','UandMe與設計師太陽眼鏡款，擷取時尚與文化融入設計，絕對是旅行中不可或缺的配件 ',2999,2,1,'1入'),
+(103,4,'大自然的氣息','工作繁忙沒辦法安排假期旅行嗎? 把大自然的氣息帶回去，讓你在家也能有沉浸式的旅行體驗',11111,10,1,'1入'),
+(104,2,'冠軍烘培咖啡豆','COFFEE',1080,10,1,'2入'),
+(105,1,'原住民手工編織包','BAGS',1680,10,1,'1入'),
+(106,3,'多功能行動電源','POWERBANK',1080,10,1,'10入'),
+(107,4,'質感手提行李箱','LUGGAGE',3680,10,1,'10入'),
+(108,1,'手沖咖啡旅行組','COFFEEEEE',2980,10,0,'10入'),
+(109,1,'露營必備裝飾燈串','LIGHT',480,10,0,'1入');
 
 
 select * from product_collection;
@@ -549,6 +539,9 @@ value
 (270, 4, 9, 9),
 (160, 3, 10, 10);
 
+insert into product_picture values (
+1, 1, null
+);
 
 -- article 論壇 珮儀
 -- create schema article;
