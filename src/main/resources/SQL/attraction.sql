@@ -81,7 +81,7 @@ values
 
 -- drop table attraction_pictures;
 create table attraction_pictures (
-attr_pic_id int unsigned primary key,
+attr_pic_id int unsigned primary key auto_increment,
 attr_id int,
 -- constraint fk_attr_id
 -- foreign key(attr_id) references attractions(attr_id),

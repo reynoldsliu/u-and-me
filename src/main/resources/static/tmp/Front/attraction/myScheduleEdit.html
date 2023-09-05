@@ -17,9 +17,6 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./dist/css/myScheduleEdit.css">
     <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
-    <!-- 警示窗 -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 </head>
 
@@ -126,72 +123,8 @@
 
                                 <!-- ================================GOOGLE API=================================== -->
                                 <!-- 行程細節編輯側邊欄內容(行程細節、景點搜尋、單一景點詳細內容) -->
-                                <!-- --------------- 行程細節 --------------- -->
-                                <!-- 行程細節側邊欄 -->
-                                <div class="viewSchDetailsColumn -off">
-                                    <!-- ------ 行程大綱內容(起訖日、共編輯邀請鈕、行程標籤、列印) ------ -->
-                                    <!-- 背景圖 -->
-                                    <div class="schOutline">
-                                        <div class="schDetailbgPic">
-                                            <img src="https://images.pexels.com/photos/221471/pexels-photo-221471.jpeg"
-                                                alt="...">
-                                        </div>
-                                        <!-- ------ 行程細節上方返回、編輯bar ------ -->
-                                        <div class="schDetailsTopBar">
-                                            <!-- 返回我的行程箭頭 -->
-                                            <a href="./mySchedule.html" id="backToMySchedule"><i
-                                                    class="fa-solid fa-arrow-left"></i></a>
-                                            <!-- 行程名稱 -->
-                                            <div class="mySchName">行程名稱行程名稱行程名稱行程名稱行程名稱行程名稱</div>
-                                            <!-- 編輯行程細節按鈕 -->
-                                            <div class="editPen"><i class="fa-solid fa-pen editPen"></i>編輯</div>
-                                        </div>
-                                        <div>
-                                            <!-- 行程起訖日期 -->
-                                            <div class="schDateBetween">
-                                                <div class="schDateInOutline" id="mySchDateStart">2023/05/15</div> ～
-                                                <div class="schDateInOutline" id="mySchDateEnd">2023/09/28</div>
-                                                <!-- 邀請共編連結鈕 -->
-                                                <div class="inviteEditBtn">
-                                                    <i class="fa-solid fa-circle-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- 行程標籤 -->
-                                        <div class="mySchTagsInsert">
-                                            <!-- 行程標籤由此插入 -->
-                                            <div class="toggleTags" id="mySchTag1">標籤標籤1</div>
-                                            <div class="toggleTags" id="mySchTag2">標籤標籤2</div>
-                                            <div class="toggleTags" id="mySchTag3">標籤標籤3</div>
-                                            <div class="toggleTags" id="mySchTag4">標籤標籤4</div>
-                                            <div class="toggleTags" id="mySchTag5">標籤標籤5</div>
-                                            <div class="toggleTags" id="mySchTag6">標籤標籤6</div>
-                                            <div class="toggleTags" id="mySchTag7">標籤標籤7</div>
-                                            <div class="toggleTags" id="mySchTag8">標籤標籤8</div>
-                                            <div class="toggleTags" id="mySchTag9">標籤標籤9</div>
-                                            <div class="toggleTags" id="mySchTag10">標籤標籤10</div>
-                                        </div>
-                                        <!-- 列印、下載PDF鈕 -->
-                                        <div class="printPDF"></div>
-                                    </div>
-
-
-                                    <!-- --------- 行程細節內容 --------- -->
-                                    <!-- 行程日期、天數第幾天 -->
-                                    <!-- 行程第幾天及出發時間 -->
-
-                                    <!-- 新增景點按鈕(要跳到景點搜尋頁面) -->
-
-                                    <!-- --------- 行程細節 cell --------- -->
-                                    <!-- 行程細節 cell 開始 -->
-                                    <!-- 行程細節 cell 結束 -->
-
-                                    <!-- 交通方式及交通時間顯示 -->
-
-                                </div>
-                                <!-- --------------- 景點搜尋相關 --------------- -->
                                 <div class="viewAttrSearchColumn">
-                                    <!-- 搜尋頁籤tab -->
+                                    <!-- 搜尋頁籤 -->
                                     <div class="switchbox">
                                         <ul>
                                             <a href="#" id="tab-back"><i class="fa-solid fa-arrow-left"></i></a>
@@ -210,12 +143,12 @@
                                         <div class="searchColumn">
                                             <div>
                                                 <!-- 起點景點 -->
-                                                <input type="text" id="start" class="google_input_text1" ref="site"
+                                                <input type="text" id="start" class="google_input_text1 waypoint" ref="site"
                                                     v-model="site" placeholder="請輸入起點">
                                             </div>
                                             <div>
                                                 <!-- 終點景點 -->
-                                                <input type="text" id="end" class="google_input_text2" ref="site"
+                                                <input type="text" id="end" class="google_input_text2 waypoint" ref="site"
                                                     v-model="site" placeholder="請輸入終點">
                                             </div>
                                             <!-- 景點交通方式選擇 -->
@@ -454,7 +387,6 @@
                                         </div>
                                     </div>
                                     <!-- 景點搜尋結束 -->
-                                    <!-- --------------- 景點收藏相關 --------------- -->
                                     <!-- 我的景點收藏 -->
                                     <div class="myAttrs">
                                         <div class="attrCollectionList">
@@ -586,7 +518,6 @@
                                         </div>
                                     </div>
                                     <!-- 我的景點收藏結束 -->
-                                    <!-- --------------- 自訂景點相關 --------------- -->
                                     <!-- 自訂景點 -->
                                     <div class="myCustomizeAttr">
                                         <div class="customizeColumn">
@@ -594,52 +525,33 @@
                                                 <div style="font-size: 1.3rem; font-weight: bold;">自建新景點</div>
                                                 <div style="color: red; font-weight:600;">*為必填欄位</div>
                                             </div>
-                                            <!-- 景點名稱 -->
                                             <div>
                                                 <input type="text" id="myAttrName" ref="site" v-model="site"
                                                     placeholder="*請輸入景點名稱" class="customizeInput">
                                             </div>
-                                            <!-- 景點地址 -->
                                             <div>
                                                 <div>
-                                                    <input type="text" id="myAttrAddr"
-                                                        class="google_input_text3 customizeInput" ref="site"
-                                                        v-model="site" placeholder="*請輸入地址">
+                                                    <input type="text" id="myAttrAddr" class="google_input_text3 customizeInput"
+                                                        ref="site" v-model="site" placeholder="*請輸入地址">
                                                 </div>
                                                 <a href="#"
                                                     style="position:absolute;left:88%;top:30%;font-size: 20px;color: green;"><i
                                                         class="fa-solid fa-magnifying-glass"></i></a>
                                             </div>
-                                            <!-- 景點電話 -->
                                             <div>
                                                 <input type="text" id="myAttrTel" ref="site" v-model="site"
                                                     placeholder="電話" class="customizeInput">
                                             </div>
-                                            <!-- 景點網站 -->
                                             <div>
                                                 <input type="text" id="myAttrURL" ref="site" v-model="site"
                                                     placeholder="網站" class="customizeInput">
                                             </div>
-                                            <!-- 景點圖片上傳 -->
-                                            <div style="height: 65px;">
-                                                <label for="attrPicFilesInput" class="form-label">
-                                                </label>
-                                                <input class="form-control customizeInput" type="file"
-                                                    id="attrPicFilesInput" multiple
-                                                    accept="image/gif, image/jpeg, image/png">
-                                            </div>
-                                            <div id="attrPicsPreview">
-                                                <!-- 景點圖片上傳插入處 -->
-                                                <!-- 待加入取消部分圖片上傳的功能！！！！！！！！！！！！！！！！！！！！！！！ -->
-                                            </div>
-                                            <!-- 是否加入景點收藏 -->
                                             <div>
                                                 <input type="checkbox" id="saveMyAttrInCollection" checked
                                                     style="width: 20px; vertical-align: middle;">
                                                 <span
                                                     style="margin-top: 50px;padding-left: 5px; vertical-align: middle; font-size: large;">加入收藏</span>
                                             </div>
-                                            <!-- 完成按鈕 -->
                                             <div class="myAttrDone-btn" style="text-align: center;">
                                                 <button type="button" class="btn btn-success" id="myAttrDone"
                                                     style="width: 90%;">完成</button>
@@ -647,14 +559,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- --------------- 查看景點詳情相關 --------------- -->
                                 <!-- 查看單一景點的詳細資訊 -->
                                 <div class="viewAttrDetailsColumn">
                                     <!-- TODO....... -->
                                     <div class="card attrDetailsCard" style="width: 20rem;">
                                         <div class="attrDetailsBar">
-                                            <button type="button" class="btn-close" aria-label="Close"
-                                                onclick="closeViewAttrDetailsCard()"></button>
+                                            <button type="button" class="btn-close" aria-label="Close" onclick="closeViewAttrDetailsCard()"></button>
                                         </div>
                                         <!-- 景點圖片 -->
                                         <div class="attrDetailsImg">
@@ -769,16 +679,19 @@
                                         </div>
 
                                         <div class="card-footer attrDetailsCardFooter">
-                                            <!-- 儲存景點按鈕 -->
                                             <button type="button"
                                                 class="btn btn-outline-success addAttrCollect-btn">儲存景點</button>
-                                            <!-- 加入行程按鈕(要跳到行程細節頁面) -->
                                             <button type="button"
                                                 class="btn btn-success addToSchedule-btn">加入行程</button>
                                         </div>
                                     </div>
+                                    <!-- 查看景點詳情結束 -->
                                 </div>
-                                <!-- 查看景點詳情結束 -->
+                                <!-- 查看景點詳情容器結束 -->
+                                <!-- 安排新增景點後，行程細節容器 -->
+                                <div class="viewSchDetailsColumn">
+
+                                </div>
                             </div>
                             <div class="col-12 col-lg-8" style="padding: 0;">
                                 <!-- <img src="https://picsum.photos/300/200?random=11" > -->
@@ -817,13 +730,32 @@
         var stepDisplay;
         var markerArray = [];
 
-        var haight;
-        var oceanBeach;
+        // var haight;
+        // var oceanBeach;
         var travelMode_el = document.getElementById("mode");
         var travelMode = travelMode_el.value;
 
+        // const createNewPoint_el = document.getElementById("createNewPoint");
+        // createNewPoint_el.addEventListener("click", function () {
+        //     console.log("Creating");
+        //     // <input type="text" id="end" class="google_input_text2 waypoint" 
+        //     // ref="site" v-model="site" placeholder="請輸入終點">
+        //     const numOfExistingPoint = document.querySelectorAll(".waypoint").length - 1;
+        //     const newPoint_el = document.createElement("input");
+        //     newPoint_el.type = "text";
+        //     newPoint_el.id = "order" + numOfExistingPoint;
+        //     newPoint_el.classList.add("google_input_text");
+        //     newPoint_el.classList.add("waypoint");
+        //     newPoint_el.setAttribute("ref", "site");
+        //     newPoint_el.setAttribute("v-model", "site");
+        //     newPoint_el.placeholder = "請輸入景點";
+        //     const target = document.getElementById("end");
+        //     target.insertAdjacentElement("beforebegin", newPoint_el);
+        // })
+
         travelMode_el.addEventListener('change', function () {
             travelMode = travelMode_el.value;
+            reloadMap();
         });
 
         async function initMap() {
@@ -832,8 +764,8 @@
             directionsRenderer.setMap(map);
             directionsRenderer.setPanel(document.getElementById('directionsPanel'));
 
-            var haight = new google.maps.LatLng(37.7699298, -122.4469157);
-            var oceanBeach = new google.maps.LatLng(37.7683909618184, -122.51089453697205);
+            // var haight = new google.maps.LatLng(37.7699298, -122.4469157);
+            // var oceanBeach = new google.maps.LatLng(37.7683909618184, -122.51089453697205);
 
             // 預設顯示的地點：台北市政府親子劇場
             let location = {
@@ -843,7 +775,7 @@
 
             var mapOptions = {
                 zoom: 14,
-                center: haight
+                center: location//haight
             }
 
             const { Map } = await google.maps.importLibrary("maps");
@@ -854,7 +786,7 @@
 
             // 建立地圖
             this.map = new google.maps.Map(document.getElementById('map'), {
-                center: haight,//location,
+                center: location,//haight,//location,
                 zoom: 16,
                 mapTypeId: 'terrain'
             });
@@ -945,6 +877,57 @@
             total = total / 1000;
             document.getElementById("totalDistance").innerHTML = total + " km";
         }
+        //嘗試使用陣列裝入多個input
+        // function siteAuto() {
+        //     const siteInputs = document.querySelectorAll(".google_input_text");
+        //     let options = {
+        //         // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
+        //     };
+
+        //     // 创建一个数组来存储自动完成对象
+        //     let autocompletes = [];
+
+        //     // 创建一个数组来存储标记对象
+        //     let markers = [];
+
+        //     for (let i = 0; i < siteInputs.length; i++) {
+        //         let siteInput = siteInputs[i];
+
+        //         // 监听输入变化
+        //         siteInput.addEventListener('input', function (event) {
+        //             let inputValue = event.target.value;
+        //             // 在这里处理 inputValue
+        //         });
+
+        //         // 创建自动完成对象
+        //         autocompletes[i] = new google.maps.places.Autocomplete(siteInput, options);
+
+        //         // 创建标记并监听地址变化
+        //         autocompletes[i].addListener('place_changed', () => {
+        //             let place = autocompletes[i].getPlace();
+
+        //             // 确认回来的数据有经纬度
+        //             if (place.geometry) {
+        //                 // 改变地图的中心点
+        //                 let searchCenter = place.geometry.location;
+        //                 // 在搜寻结果的地点上放置标记
+        //                 markers[i] = new google.maps.Marker({
+        //                     position: searchCenter,
+        //                     map: this.map
+        //                 });
+
+        //                 // Info window
+        //                 let infowindow = new google.maps.InfoWindow({
+        //                     content: place.formatted_address
+        //                 });
+        //                 infowindow.open(this.map, markers[i]);
+
+        //                 // panTo是平滑移动、setCenter是直接改变地图中心
+        //                 this.map.panTo(searchCenter);
+        //             }
+        //         });
+        //     }
+        // }
 
 
         // 地址自動完成 + 地圖的中心移到輸入結果的地址上
@@ -987,6 +970,8 @@
                     this.map.panTo(searchCenter);
 
                     // 在搜尋結果的地點上放置標記
+                    let index = markerArray.length;
+                    console.log(index);
                     let marker = new google.maps.Marker({
                         // icon: {
                         //     path: google.maps.SymbolPath.CIRCLE,
@@ -995,10 +980,12 @@
                         position: searchCenter,
                         map: this.map
                     });
+                    console.log(markerArray);
 
                     // info window
                     let infowindow = new google.maps.InfoWindow({
-                        content: this.place.formatted_address
+                        content: this.place.formatted_address,
+                        open:false
                     });
                     infowindow.open(this.map, marker);
                 }
@@ -1024,10 +1011,12 @@
                         position: searchCenter,
                         map: this.map
                     });
+                    markerArray.push(marker);
 
                     // info window
                     let infowindow = new google.maps.InfoWindow({
-                        content: this.place.formatted_address
+                        content: this.place.formatted_address,
+                        open:false
                     });
                     infowindow.open(this.map, marker);
                 }
@@ -1040,27 +1029,101 @@
         var end = end_el.value;
 
         start_el.addEventListener('change', function () {
-            console.log("From: " + start_el.value + ",  To: " + end_el.value);
-            siteAuto();
-            calculateTravelTime(start_el.value, end_el.value, travelMode);
-            displayRoute(
-                start_el.value,// "Perth, WA",haight
-                end_el.value,// "Sydney, NSW",oceanBeach
-                directionsService,
-                directionsRenderer
-            );
+            reloadMap();
+            // console.log("From: " + start_el.value + ",  To: " + end_el.value);
+            // siteAuto();
+            // calculateTravelTime(start_el.value, end_el.value, travelMode);
+            // displayRoute(
+            //     start_el.value,// "Perth, WA",haight
+            //     end_el.value,// "Sydney, NSW",oceanBeach
+            //     directionsService,
+            //     directionsRenderer
+            // );
         })
+        start_el.addEventListener('keydown', (event) => {
+            // 检查是否按下 Enter 键 (键码 13)
+            if (event.keyCode === 13) { // 如果按下 Enter 键
+                event.preventDefault(); // 阻止默认行为
+
+                // 获取建议框中的第一个选项
+                const firstSuggestion = document.querySelector('.pac-container .pac-item:first-child');
+
+                // 如果存在建议项
+                if (firstSuggestion) {
+                    start_el.dispatchEvent(downArrowEvent);
+                    // start_el.dispatchEvent(enterEvent);
+                    // firstSuggestion.click(); // 模拟点击第一个建议项
+                }
+                reloadMap();
+            }
+        });
+        // 创建一个向下箭头键事件
+        var downArrowEvent = new KeyboardEvent("keydown", {
+            key: "ArrowDown",
+            code: "ArrowDown",
+            keyCode: 40, // 40 表示向下箭头键的键码
+            which: 40,
+            bubbles: true, // 确保事件冒泡
+            cancelable: true // 允许事件被取消
+        });
+        var upArrowEvent = new KeyboardEvent("keydown", {
+            key: "ArrowUp",
+            keyCode: 38,
+            which: 38,
+            code: "ArrowUp"
+        });
+        // 创建一个 Enter 键事件
+        const enterEvent = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            code: 'Enter',
+            keyCode: 13,
+            which: 13,
+            bubbles: true, // 确保事件冒泡
+            cancelable: true, // 允许事件被取消
+        });
+
         end_el.addEventListener('change', function () {
-            console.log("From: " + start_el.value + ",  To: " + end_el.value);
-            siteAuto();
-            calculateTravelTime(start_el.value, end_el.value, travelMode);
-            displayRoute(
-                start_el.value,// "Perth, WA",haight
-                end_el.value,// "Sydney, NSW",oceanBeach
-                directionsService,
-                directionsRenderer
-            );
+            reloadMap();
+            // console.log("From: " + start_el.value + ",  To: " + end_el.value);
+            // siteAuto();
+            // calculateTravelTime(start_el.value, end_el.value, travelMode);
+            // displayRoute(
+            //     start_el.value,// "Perth, WA",haight
+            //     end_el.value,// "Sydney, NSW",oceanBeach
+            //     directionsService,
+            //     directionsRenderer
+            // );
         })
+        end_el.addEventListener('keydown', (event) => {
+            // 检查是否按下 Enter 键 (键码 13)
+            if (event.keyCode === 13) { // 如果按下 Enter 键
+                event.preventDefault(); // 阻止默认行为
+
+                // 获取建议框中的第一个选项
+                const firstSuggestion = document.querySelector('.pac-container .pac-item:first-child');
+
+                // 如果存在建议项
+                if (firstSuggestion) {
+                    end_el.dispatchEvent(downArrowEvent);
+                    // start_el.dispatchEvent(enterEvent);
+                    // firstSuggestion.click(); // 模拟点击第一个建议项
+                }
+                reloadMap();
+            }
+        });
+        // //詭異的鴿子 小心解開reloadMap() 請求過多可能要付費
+        // start_el.addEventListener("blur",function(){
+        //     console.log("Place_changed");
+        //     start_el.focus();
+        //     start_el.blur();
+        //     // reloadMap();
+        // })
+        // end_el.addEventListener("blur",function(){
+        //     console.log("Place_changed");
+        //     end_el.focus();
+        //     end_el.blur();
+        //     // reloadMap();
+        // })
 
 
 
@@ -1070,6 +1133,7 @@
         window.addEventListener('load', () => {
             // googleMap.initMap();
             // googleMap.siteAuto();
+            initMap();
             reloadMap();
 
 
@@ -1080,8 +1144,20 @@
                 directionsService = new google.maps.DirectionsService();
             if (directionsRenderer == undefined || directionsRenderer == null)
                 directionsRenderer = new google.maps.DirectionsRenderer();
-            initMap();
+            // initMap();
+            // siteAuto();
+            //新增測試 準備替換上述程式
+            console.log("From: " + start_el.value + ",  To: " + end_el.value);
+            
+            // setMap(null);
             siteAuto();
+            calculateTravelTime(start_el.value, end_el.value, travelMode);
+            displayRoute(
+                start_el.value,// "Perth, WA",haight
+                end_el.value,// "Sydney, NSW",oceanBeach
+                directionsService,
+                directionsRenderer
+            );
         }
 
     // 監聽夜間模式變化
