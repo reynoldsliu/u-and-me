@@ -9,7 +9,11 @@ import tw.idv.cha102.g7.shop.entity.Orders;
 import tw.idv.cha102.g7.shop.repo.OrdersRepository;
 import tw.idv.cha102.g7.shop.service.OrdersService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 @Component
 public class OrdersServiceImpl implements OrdersService {
@@ -18,7 +22,10 @@ public class OrdersServiceImpl implements OrdersService {
     OrdersRepository ordersRepository;
 
     @Override
-    public List<Orders> findByMemId(Integer memId, Integer page) {
+    public List<Orders> findByMemId(HttpServletRequest request, Integer page) {
+        HttpSession session = request.getSession();
+        int memId = parseInt(session.getAttribute("memberId").toString());
+
         Page<Orders> pageResult = ordersRepository.findByMemId(memId, PageRequest.of(page,
                 10, //每筆訂單數量
                 Sort.by("ordTime").ascending())); //依造ord_time欄位從小到大排序

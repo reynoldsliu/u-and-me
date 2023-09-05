@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.shop.entity.Orders;
 import tw.idv.cha102.g7.shop.service.OrdersService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -19,14 +20,12 @@ public class OrdersController {
     /**
      * ?
      * 查詢該會員的訂單
-     * @param memId 會員ID
      * @param page  頁數(一頁10筆)
      * @return 查詢結果
      */
-    @GetMapping("/myOrders/memId{memId}/{page}")
-    public List<Orders> findByMemId(@PathVariable Integer memId,
-                                    @PathVariable Integer page) {
-        return ordersService.findByMemId(memId, page);
+    @GetMapping("/member/myOrders/memId/{page}")
+    public List<Orders> findByMemId(HttpServletRequest request, @PathVariable Integer page) {
+        return ordersService.findByMemId(request, page);
     }
 
     /**
