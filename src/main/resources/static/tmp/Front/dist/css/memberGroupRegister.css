@@ -289,11 +289,10 @@ margin-left:40px;
 padding-top:5px;
 }
 
-
-
-#priview{
-margin-top:500px;
-}
+.memImg{
+  max-height:55px;
+  }
+  
 
 .idPreview{
 margin-top:150px;
@@ -301,13 +300,21 @@ position: absolute;
 
 }
 #preview {
-display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 300px; /* Adjust the height as needed */
-            border: 2px dashed #ccc; ?
-            margin-right:250px;
-    }
-.memImg{
-max-height:55px;
+  position: absolute; /* 使用絕對定位 */
+  margin-left: 120px; 
+  margin-top: 180px;
+  background-color: rgba(198, 191, 191, 0.5); /* 使用rgba定義透明度 */
+  width: 330px;
+  height: 250px;
+  border-radius: 10px;
+  border: 1px dashed #55b271; /* 添加虛線邊框 */
+  display: flex; /* 使用Flexbox布局 */
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+}
+
+.preview-image {
+  width: 200px; /* 設置預覽圖寬度 */
+  height: 150px; /* 設置預覽圖高度 */
+
 }

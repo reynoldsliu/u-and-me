@@ -168,19 +168,13 @@
                 <input value="A123456789" type="text" class="form-control" id="memIdcard" ,
                        placeholder="此為申請團主必要條件">
             </div>
-            <div class="form-group-idcard" style="letter-spacing:2px;font-weight:bold; width:400px;
-margin-left:40px;
-padding-top:5px;">
+            <div class="form-group-idcard" style="letter-spacing:2px;font-weight:bold; width:400px; margin-left:40px; padding-top:5px;">
                 <label for="memIdcardPic">身分證照片上傳</label>
                 <input type="file" accept="image/*" id="memIdcardPic">
-                <!-- <br> -->
                 <br>
-                <div class="idPreview">
-                <div id="preview"></div>
-
-                </div>
+                <br>
+            
             </div>
-
 
 
 
@@ -189,11 +183,17 @@ padding-top:5px;">
 
                 </div>
             </div>
+
+
             <div id="groupBtn" class="updatebottom btn-sm" style="letter-spacing:2px;font-weight:bold; margin-top:650px; margin-left:550px;position: absolute;">
                 <button class="btn" type="button">送出</button>
             </div>
-
+            <div class="idPreview">
+                <div id="preview" class="preview-image"></div>
+              </div>
             </form>
+            
+          
         </div>
 
     </div>
@@ -259,8 +259,8 @@ padding-top:5px;">
         const imageURL = URL.createObjectURL(file);
         const image = new Image();
         image.src = imageURL;
-        image.style.maxWidth = '350px'; // 設定預覽圖最大寬度
-        image.style.maxHeight = '350px'; // 設定預覽圖最大高度
+        image.style.maxWidth = '200px'; // 設定預覽圖最大寬度
+        image.style.maxHeight = '200px'; // 設定預覽圖最大高度
         preview.appendChild(image);
     });
 
