@@ -238,15 +238,18 @@
                                     <div class="viewSchDetailsRows">
                                         <!-- 行程細節第幾天及出發時間 -->
                                         <div class="schDeStartTimeRows">
-                                            <span id="viewWhichDay">第1天 :</span>
-                                            <span id="viewWhichWeekDay">星期一</span>
-                                            <span id="schDeStratTime">出發時間：08:00</span>
+                                            <div>
+                                                <span id="viewWhichDay">第1天 :</span>
+                                                <span id="viewWhichWeekDay">星期一</span>
+                                                <span id="schDeStratTime">出發時間：08:00</span>
+                                            </div>
                                         </div>
                                         <!-- --------- 行程細節 cell --------- -->
-                                        <div>
+                                        <div class="schDetailCellInsert">
                                             <!-- 行程細節 cell 由此插入 -->
-                                            <!-- 待加入 onclick="functionName()" -->
-                                            <div class="schDetailCell card mb-3">
+                                            <!-- 第一個行程細節 cell -->
+                                            <!-- 待加入 onclick後將景點詳情資訊更改成點到的景點資料js -->
+                                            <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr();">
                                                 <div class="row g-0">
                                                     <div class="attrPic col-md-4">
                                                         <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
@@ -276,26 +279,126 @@
                                             </div>
                                             <!-- 行程細節 cell 結束 -->
                                         </div>
-                                        <!-- 新增景點按鈕(要跳到景點搜尋頁面) -->
-                                        <!-- 要調整跟行程細節的位置 -->
-                                        <div class="addNewAttrbtn">＋新增景點</div>
+
                                         <!-- 交通方式及交通時間顯示 -->
                                         <!-- 交通時間耗時 -->
+                                        <!-- &#x1F697; -->
+                                        <!-- &#x1F6B6; -->
+                                        <!-- &#x1F6B2; -->
+                                        <!-- &#x1F68C; -->
                                         <div class="transTotalTime">
-                                            <div id="totalTime"></div>
+                                            <span class="selectTransMode">
+                                                <select class="form-select form-select-lg mb-3"
+                                                    aria-label="Large select example">
+                                                    <option selected value="DRIVING">&#x1F697;</option>
+                                                    <option value="WALKING">&#x1F6B6;</option>
+                                                    <option value="BICYCLING">&#x1F6B2;</option>
+                                                    <option value="TRANSIT">&#x1F68C;</option>
+                                                </select>
+                                            </span>
+                                            <span class="transTotalTime">　
+                                                <span id="totalTime"></span>
+                                            </span>
                                         </div>
+                                        <!-- 交通方式及時間結束 -->
 
+                                        <!-- 第二個行程細節cell ！！！！！！！！　-->
+                                        <div class="schDetailCellInsert">
+                                            <!-- 行程細節 cell 由此插入 -->
+                                            <!-- 第一個行程細節 cell -->
+                                            <!-- 待加入 onclick後將景點詳情資訊更改成點到的景點資料js -->
+                                            <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr();">
+                                                <div class="row g-0">
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPicInschDetail" class="img-fluid rounded-start"
+                                                            alt="...">
+                                                        <div class="schDetailOrder"><span id="schDetailOrder">1</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="schDetailsCardBody">
+                                                            <p class="schTimes"><span id="stayTimes">1小時</span> |
+                                                                <span id="startTimes">09:00</span> - <span
+                                                                    id="endTimes">10:00</span>
+                                                            </p>
+                                                            <h5 class="attrName">
+                                                                <div id="attrNameInSchDetail">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                            <p class="attrAddr">
+                                                                <small class="text-body-secondary"
+                                                                    id="attrAddr">addressaddressaddressaddressaddressaddressaddressaddressaddressaddress</small>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- 行程細節 cell 結束 -->
+                                        </div>
+                                        <!-- 第二個行程細節cell結束 ！！！！！！！！　-->
+
+                                        <!-- 第三個測試！！！！ -->
+                                        <div class="transTotalTime">
+                                            <span class="selectTransMode">
+                                                <select class="form-select form-select-lg mb-3"
+                                                    aria-label="Large select example">
+                                                    <option selected value="DRIVING">&#x1F697;</option>
+                                                    <option value="WALKING">&#x1F6B6;</option>
+                                                    <option value="BICYCLING">&#x1F6B2;</option>
+                                                    <option value="TRANSIT">&#x1F68C;</option>
+                                                </select>
+                                            </span>
+                                            <span class="transTotalTime">　
+                                                <span id="totalTime"></span>
+                                            </span>
+                                        </div>
+                                        <div class="schDetailCellInsert">
+                                            <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr();">
+                                                <div class="row g-0">
+                                                    <div class="attrPic col-md-4">
+                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                                                            id="attrFirstPicInschDetail" class="img-fluid rounded-start"
+                                                            alt="...">
+                                                        <div class="schDetailOrder"><span id="schDetailOrder">1</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <div class="schDetailsCardBody">
+                                                            <p class="schTimes"><span id="stayTimes">1小時</span> |
+                                                                <span id="startTimes">09:00</span> - <span
+                                                                    id="endTimes">10:00</span>
+                                                            </p>
+                                                            <h5 class="attrName">
+                                                                <div id="attrNameInSchDetail">
+                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
+                                                                </div>
+                                                            </h5>
+                                                            <p class="attrAddr">
+                                                                <small class="text-body-secondary"
+                                                                    id="attrAddr">addressaddressaddressaddressaddressaddressaddressaddressaddressaddress</small>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 第三個測試！！！！ -->
+
+                                        <!-- 新增景點按鈕(要跳到景點搜尋頁面) -->
+                                        <!-- 要調整跟行程細節的位置 -->
+                                        <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
+
+                                        <!-- 第二天內容由此開始！！！！！！！！！ -->
                                         <!-- 第二天：行程細節第幾天及出發時間 -->
-                                        <!-- <div class="schDeStartTimeRows">
-                                            <span id="viewWhichDay">第1天 :</span>
-                                            <span id="viewWhichWeekDay">星期一</span>
+                                        <div class="schDeStartTimeRows">
+                                            <span id="viewWhichDay">第2天 :</span>
+                                            <span id="viewWhichWeekDay">星期二</span>
                                             <span id="schDeStratTime">出發時間：08:00</span>
-                                        </div> -->
+                                        </div>
                                         <!-- 第二天：新增景點按鈕(要跳到景點搜尋頁面) -->
-                                        <!-- <div class="addNewAttrbtn">＋新增景點</div> -->
-
-
-
+                                        <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
                                     </div>
                                 </div>
                                 <!-- --------------- 景點搜尋相關 --------------- -->
@@ -773,7 +876,7 @@
                                             <div class="attrTotalImgs">
                                                 <div id="carouselExample" class="carousel slide">
                                                     <div class="carousel-inner">
-                                                        <!-- 放入景點的第一張圖片(有active) -->
+                                                        <!-- 放入景點的第一張圖片(有active，屆時用js抓第一個標籤，classList.add(active)) -->
                                                         <div class="carousel-item active">
                                                             <img class="attrImgs" id="attrPic1"
                                                                 style="width: 318.3px;height: 208.3px;object-fit: cover;"

@@ -324,8 +324,7 @@ div.dateBar {
     border-bottom: 1px solid lightgray;
     box-shadow: 0px 2px 5px lightgray;
     width: 100%;
-    height: 48px;
-    /* 要調回來註解掉 */
+    height: 50px;
     /* display: none; */
 }
 
@@ -334,8 +333,9 @@ div.dateBarTab {
     height: 100%;
     width: 5%;
     display: inline-block;
-    padding-top: 2.5%;
+    padding-top: 2%;
     text-align: center;
+    font-size: 20px;
 }
 
 div.dateBarTab.-left {
@@ -343,7 +343,7 @@ div.dateBarTab.-left {
     border: 1px solid lightgray;
     box-shadow: 0px 2px 5px lightgray;
     background-color: white;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 div.dateBarTab.-right {
@@ -353,27 +353,31 @@ div.dateBarTab.-right {
     border: 1px solid lightgray;
     box-shadow: 0px 2px 5px lightgray;
     background-color: white;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 /* 行程幾月幾號、第幾天顯示欄 */
 div.dateSelect {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     width: 90%;
     height: 100%;
     margin-left: 5%;
+    padding-top: 0.5%;
     position: relative;
     bottom: 100%;
     /* 設定裡面的元素不斷行，無間距 */
     display: flex;
     flex-direction: row;
     gap: 0;
-    /* overflow: hidden; */
+    overflow: hidden;
+    z-index: 1;
 }
 
 /* 行程幾月幾號、第幾天 */
 div.dateSelectCell {
-    border: 1px solid red;
+    /* border: 1px solid red; */
+    border-right: 1px solid lightgray;
+    /* border: 1px solid lightgray; */
     width: 120px;
     height: 100%;
     flex-grow: 1;
@@ -386,6 +390,11 @@ div.dateSelectCell {
     /* 向右 */
     /* transform: translateX(120px); */
 }
+
+div.dateSelectCell:first-child {
+    border-left: 1px solid lightgray;
+}
+
 
 /* 幾月幾號 */
 div.whichDate {
@@ -424,7 +433,7 @@ div.dateSelectCell>i.switch {
     padding-top: 12.5%;
     text-align: center;
     /* display: none; */
-    z-index: 2;
+    /* z-index: 2; */
 }
 
 /* 刪除第幾天按鈕 */
@@ -439,13 +448,15 @@ div.dateSelectCell>i.trash {
     padding-top: 12.5%;
     text-align: center;
     /* display: none; */
+    /* z-index: 2; */
 }
 
 /* ------- 行程細節(行程第幾天、出發時間、行程細節cell、交通方式與時間) ------- */
 div.viewSchDetailsRows {
     /* border: 1px solid orange; */
     width: 100%;
-    height: 58%;
+    height: 40.5%;
+    height: 375px;
     position: relative;
     top: -85px;
     padding: 10px;
@@ -515,6 +526,7 @@ div.schDetailCell {
     /* border: 1px solid red; */
     max-width: 420px;
     box-shadow: 0 0 10px lightgrey;
+    margin: 0;
 }
 
 div.schDetailCell:hover {
@@ -579,6 +591,7 @@ p.attrAddr {
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 80%;
+    margin-top: -2%;
 }
 
 /* --------- 行程細節 cell 結束 --------- */
@@ -587,23 +600,69 @@ p.attrAddr {
 /* 交通時間耗時 */
 div.transTotalTime {
     /* border: 1px solid blue; */
+    border-left: 5px dashed gray;
     display: inline-block;
     /* display: none; */
-    width: 100%;
+    width: 90%;
     height: 50px;
-    position: absolute;
+    position: relative;
+    left: 5%;
+    top: -2%;
+    font-size: 0;
 }
 
-/* 總時間 */
-div#totalTime {
-    border: 1px solid red;
-    width: 95%;
+div.transTotalTime.-off {
+    display: none;
+}
+
+/* 交通方式區域 */
+span.selectTransMode {
+    /* border: 1px solid green; */
+    display: inline-block;
+    width: 80px;
+    height: 100%;
+    position: relative;
+    top: -4%;
+    left: 2%;
+    vertical-align: middle;
+}
+
+span.selectTransMode>select {
+    border: 1px solid gray;
+    /* border: transparent; */
+    position: absolute;
+    font-size: 1.9rem;
+    padding: 0;
+    margin: 0;
+}
+
+/* 交通時間區域 */
+span.transTotalTime {
+    /* border: 1px solid orange; */
+    display: inline-block;
+    width: 75%;
     height: 100%;
     font-size: 0.9rem;
     font-weight: bold;
     text-align: left;
-    padding-left: 8%;
-    padding-top: 10px;
+    padding-left: 2%;
+    padding-top: 3%;
+    margin-left: 2%;
+    position: relative;
+}
+
+/* 總時間 */
+span#totalTime {
+    /* border: 1px solid red; */
+    width: 35%;
+    height: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 2%;
+    padding-top: 5%;
+    position: absolute;
+    top: 0;
 }
 
 /* ============ 查看行程細節結束 ============ */

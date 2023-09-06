@@ -108,7 +108,7 @@ tab_dateBarRight_el.onclick = () => {
 
 
 // 在行程細節中按下新增景點按鈕
-addNewAttrbtn_el.onclick = () => {
+function addNewAttrbtnOnclick() {
     // 關閉行程細節Page
     if (!viewSchDetailsPage.classList.contains(classSwitchOff)) {
         viewSchDetailsPage.classList.add(classSwitchOff);
@@ -129,9 +129,7 @@ addNewAttrbtn_el.onclick = () => {
 
 
 // 點擊行程細節查看景點內容
-schDetailCells.addEventListener("click", function(){
-    viewSearchResultOfOneAttr();
-});
+// (綁定在div.schDetailCell標籤上onclick，方法為viewSearchResultOfOneAttr();)
 
 
 //  ================== 行程細節頁面結束 ================== //
@@ -142,6 +140,7 @@ schDetailCells.addEventListener("click", function(){
 tab_back_el.addEventListener("click", function () {
     viewSearchPage.classList.add(classSwitchOff);
     viewSchDetailsPage.classList.remove(classSwitchOff);
+    switchAttrDetailsAndMapOff();
 });
 
 // ---- 換頁籤處理 ----//

@@ -1,3 +1,19 @@
+/* 在选项前面添加自定义图标 */
+select.form-select{
+    border: 1px solid black;
+    width: 100px;
+}
+
+
+select.form-select option::before {
+    content: attr(data-icon); /* 通过 data 属性获取图标名称 */
+    margin-right: 10px; /* 调整图标与文本之间的距离 */
+    font-family: 'Font Awesome'; /* 你的图标字体库，替换成你使用的字体库 */
+}
+
+
+
+
 /* =========== 行程細節 cell =========== */
 /* 行程細節 */
 div.schDetailCell {
