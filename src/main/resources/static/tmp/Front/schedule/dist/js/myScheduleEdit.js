@@ -113,7 +113,8 @@ function addNewAttrbtnOnclick() {
     if (!viewSchDetailsPage.classList.contains(classSwitchOff)) {
         viewSchDetailsPage.classList.add(classSwitchOff);
     }
-    // 關閉開啟中的景點詳細Page
+    // 關閉開啟中的景點詳細Page及景點搜尋相關Page
+    switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
     // 開啟景點搜尋Page
     if (viewSearchPage.classList.contains(classSwitchOff)) {
@@ -138,9 +139,11 @@ function addNewAttrbtnOnclick() {
 //  ================== 景點搜尋相關頁面 ================== //
 // 從景點搜尋頁面中按下箭頭返回鍵，返回行程細節頁面
 tab_back_el.addEventListener("click", function () {
-    viewSearchPage.classList.add(classSwitchOff);
-    viewSchDetailsPage.classList.remove(classSwitchOff);
+    // 關閉所有景點搜尋相關頁面
+    switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
+    // 顯示查看行程細節頁面
+    viewSchDetailsPage.classList.remove(classSwitchOff);
 });
 
 // ---- 換頁籤處理 ----//
