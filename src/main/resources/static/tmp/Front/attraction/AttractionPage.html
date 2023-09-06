@@ -252,9 +252,9 @@
                             <!-- <div id="totalDistance"></div>
                             <div id="totalTime"></div> -->
                             <button id="createNewPoint">新增景點</button>
-                            <input type="text" id="start" class="google_input_text1 waypoint" ref="site" v-model="site"
+                            <input type="text" id="start" class="google_input_text1 google_input_text waypoint" ref="site" v-model="site"
                                 placeholder="請輸入起點">
-                            <input type="text" id="end" class="google_input_text2 waypoint" ref="site" v-model="site"
+                            <input type="text" id="end" class="google_input_text2 google_input_text waypoint" ref="site" v-model="site"
                                 placeholder="請輸入終點">
 
                         </div>
@@ -509,6 +509,8 @@
         //嘗試使用陣列裝入多個input
         function siteAuto() {
             const siteInputs = document.querySelectorAll(".google_input_text");
+            //顯示目前已有幾個輸入框
+            console.log("siteInputs_length: "+siteInputs.length);
             let options = {
                 // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
             };
@@ -556,9 +558,11 @@
                     }
                 });
             }
+            console.log("AutoCompletes elements: "+autocompletes);
+            console.log("Markers: "+markers);
         }
 
-        // 地址自動完成 + 地圖的中心移到輸入結果的地址上
+        // // 地址自動完成 + 地圖的中心移到輸入結果的地址上
         // function siteAuto() {
         //     let options = {
         //         // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
@@ -645,6 +649,8 @@
         //         }
         //     });
         // }
+
+
         //manual fixed
         var start_el = document.getElementById('start');
         var end_el = document.getElementById('end');
@@ -741,18 +747,18 @@
             }
         });
         //詭異的鴿子 小心解開reloadMap() 請求過多可能要付費
-        start_el.addEventListener("blur",function(){
-            console.log("Place_changed");
-            start_el.focus();
-            start_el.blur();
-            // reloadMap();
-        })
-        end_el.addEventListener("blur",function(){
-            console.log("Place_changed");
-            end_el.focus();
-            end_el.blur();
-            // reloadMap();
-        })
+        // start_el.addEventListener("blur",function(){
+        //     console.log("Place_changed");
+        //     start_el.focus();
+        //     start_el.blur();
+        //     // reloadMap();
+        // })
+        // end_el.addEventListener("blur",function(){
+        //     console.log("Place_changed");
+        //     end_el.focus();
+        //     end_el.blur();
+        //     // reloadMap();
+        // })
 
 
 
@@ -778,6 +784,8 @@
             //新增測試 準備替換上述程式
             console.log("From: " + start_el.value + ",  To: " + end_el.value);
             // setMap(null);
+
+            //renewMarkers();
             siteAuto();
             calculateTravelTime(start_el.value, end_el.value, travelMode);
             displayRoute(
