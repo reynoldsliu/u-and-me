@@ -96,7 +96,7 @@ body {
 /* ============ 查看行程細節 ============ */
 /* 行程細節側邊欄 */
 div.viewSchDetailsColumn {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* display: none; */
     height: 100%;
     border-right: 1px solid gray;
@@ -135,8 +135,6 @@ div.schDetailbgPic>img {
 div.schDetailsTopBar {
     /* border: 1px solid blue; */
     display: inline-block;
-    /* border-bottom: 1px solid rgba(98, 94, 94, 0.7); */
-    /* box-shadow: 0px 2px 5px lightgray; */
     background-color: transparent;
     width: 425px;
     height: 48px;
@@ -265,7 +263,7 @@ div.mySchTagsInsert {
     padding-left: 1%;
     padding-top: 2.5%;
     overflow: hidden;
-    display: none;
+    /* display: none; */
 }
 
 div.toggleTags {
@@ -288,7 +286,7 @@ div.toggleTags>i {
 }
 
 div.toggleTags>i.-on {
-    display: none;
+    /* display: none; */
 }
 
 /* 列印、下載PDF鈕 */
@@ -344,6 +342,8 @@ div.dateBarTab.-left {
     position: relative;
     border: 1px solid lightgray;
     box-shadow: 0px 2px 5px lightgray;
+    background-color: white;
+    z-index: 1;
 }
 
 div.dateBarTab.-right {
@@ -352,6 +352,8 @@ div.dateBarTab.-right {
     left: 95%;
     border: 1px solid lightgray;
     box-shadow: 0px 2px 5px lightgray;
+    background-color: white;
+    z-index: 1;
 }
 
 /* 行程幾月幾號、第幾天顯示欄 */
@@ -376,13 +378,17 @@ div.dateSelectCell {
     height: 100%;
     flex-grow: 1;
     min-width: 120px;
-    z-index: 1;
+    /* z-index: 1; */
     position: relative;
     text-align: center;
+    /* 向左 */
+    /* transform: translateX(-60px); */
+    /* 向右 */
+    /* transform: translateX(120px); */
 }
 
 /* 幾月幾號 */
-div.whichDate{
+div.whichDate {
     /* border: 1px solid blue; */
     width: 60%;
     height: 50%;
@@ -395,7 +401,7 @@ div.whichDate{
 }
 
 /* 第幾天 */
-div.whichDays{
+div.whichDays {
     /* border: 1px solid green; */
     width: 60%;
     height: 50%;
@@ -433,23 +439,88 @@ div.dateSelectCell>i.trash {
     padding-top: 12.5%;
     text-align: center;
     /* display: none; */
-    z-index: 2;
 }
 
-/* 行程第幾天及出發時間 */
+/* ------- 行程細節(行程第幾天、出發時間、行程細節cell、交通方式與時間) ------- */
+div.viewSchDetailsRows {
+    /* border: 1px solid orange; */
+    width: 100%;
+    height: 58%;
+    position: relative;
+    top: -85px;
+    padding: 10px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+/* 行程細節第幾天及出發時間 */
+div.schDeStartTimeRows {
+    /* border: 1px solid green; */
+    padding: 5px;
+    margin: 10px 0;
+    font-size: 0;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+div.schDeStartTimeRows:first-child {
+    margin-top: 0px;
+}
+
+/* 第幾天 */
+span#viewWhichDay {
+    /* border: 1px solid green; */
+    font-size: 1rem;
+    color: #fff;
+    background-color: rgba(25, 135, 84, 1);
+    border-radius: 5px 0 0 5px;
+    padding: 5px;
+}
+
+/* 星期幾 */
+span#viewWhichWeekDay {
+    /* border: 1px solid green; */
+    font-size: 1rem;
+    color: #fff;
+    background-color: rgba(25, 135, 84, 1);
+    border-radius: 0 5px 5px 0;
+    padding: 5px;
+}
+
+/* 出發時間 */
+span#schDeStratTime {
+    font-size: 0.9rem;
+    color: black;
+    /* border: 1px solid blue; */
+    margin-left: 10px;
+}
 
 /* 新增景點按鈕(要跳到景點搜尋頁面) */
+div.addNewAttrbtn {
+    border: 1px solid grey;
+    box-shadow: 0 1px 5px grey;
+    color: gray;
+    width: 100%;
+    height: 35px;
+    text-align: center;
+    padding-top: 5px;
+    font-weight: bold;
+    margin: 10px 0px;
+    z-index: 1;
+}
 
 /* --------- 行程細節 cell --------- */
 /* 行程細節 */
 div.schDetailCell {
+    /* border: 1px solid red; */
     max-width: 420px;
     box-shadow: 0 0 10px lightgrey;
 }
 
 div.schDetailCell:hover {
-    box-shadow: 0 5px 10px gray;
+    box-shadow: 0 0 10px gray;
 }
+
 
 /* 行程細節中每個景點的第一張圖片 */
 div.attrPic {}
@@ -526,9 +597,9 @@ div.transTotalTime {
 /* 總時間 */
 div#totalTime {
     border: 1px solid red;
-    width: 33.3%;
+    width: 95%;
     height: 100%;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
     font-weight: bold;
     text-align: left;
     padding-left: 8%;
@@ -607,17 +678,6 @@ div.switchbox ul>li {
 div.switchbox ul>li:last-child {
     border-right: 1px solid gray;
 }
-
-/* 使用偽元素消除間距 */
-/* div.switchbox ul>li::after {
-    content: "";
-    width: 100%;
-    display: inline-block;
-    visibility: hidden;
-    height: 0;
-    font-size: 0;
-    line-height: 0;
-} */
 
 /* 切換tab的連結 */
 div.switchbox ul>li>a {
@@ -946,7 +1006,6 @@ div.attrCardMainImg>img {
 }
 
 /* 多張景點的圖片輪播 */
-/* TODO.... */
 div.attrTotalImgs {
     /* border: 1px solid blue; */
     width: 100%;
