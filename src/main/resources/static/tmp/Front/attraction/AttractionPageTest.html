@@ -194,13 +194,13 @@
                     <!-- <div class="container-fluid" style="height: 800px;"> -->
                     <div class="row" style="height: 95%;">
                         <!-- The Function Adjust Position -->
-                        <div class="col-12 col-lg-2"">
-                                <div style=" width: 10px;"></div>
-                        <!-- <img src="https://picsum.photos/300/200?random=10" > -->
+                        <div class="col-12 col-lg-2" id="waypointsParent">
+                            <div style=" width: 10px;"></div>
+                            <!-- <img src="https://picsum.photos/300/200?random=10" > -->
 
-                        <!-- ================================GOOGLE API=================================== -->
-                        <div style="height: 100%;" width:200px;>
-                            <!-- <div>
+                            <!-- ================================GOOGLE API=================================== -->
+                            <div style="height: 100%;" width:200px;>
+                                <!-- <div>
                                         <input type="text" id="start" class="google_input_text1" ref="site"
                                             v-model="site" placeholder="請輸入起點">
                                     </div>
@@ -208,7 +208,7 @@
                                         <input type="text" id="end" class="google_input_text2" ref="site" v-model="site"
                                             placeholder="請輸入終點">
                                     </div> -->
-                            <!-- <div>
+                                <!-- <div>
                                     <strong>Start: </strong>
                                     <select id="start" onchange="calcRoute();">
                                         <option value="chicago, il">Chicago</option>
@@ -240,7 +240,7 @@
                                         <option value="los angeles, ca">Los Angeles</option>
                                     </select>
                                 </div> -->
-                            <!-- <div>
+                                <!-- <div>
                                         <strong>旅遊方式: </strong>
                                         <select id="mode">
                                             <option value="DRIVING" selected>Driving</option>
@@ -249,36 +249,36 @@
                                             <option value="TRANSIT">Transit</option>
                                         </select>
                                     </div> -->
-                            <!-- <div id="totalDistance"></div>
+                                <!-- <div id="totalDistance"></div>
                             <div id="totalTime"></div> -->
-                            <button id="createNewPoint">新增景點</button>
-                            <input type="text" id="start" class="google_input_text1 google_input_text waypoint" ref="site" v-model="site"
-                                placeholder="請輸入起點">
-                            <input type="text" id="end" class="google_input_text2 google_input_text waypoint" ref="site" v-model="site"
-                                placeholder="請輸入終點">
+                                <button id="createNewPoint">新增景點</button>
+                                <input type="text" id="start" class="google_input_text1 google_input_text " ref="site"
+                                    v-model="site" placeholder="請輸入起點">
+                                <input type="text" id="end" class="google_input_text2 google_input_text " ref="site"
+                                    v-model="site" placeholder="請輸入終點">
 
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-10">
-                        <!-- <img src="https://picsum.photos/300/200?random=11" > -->
-
-                        <!-- ================================GOOGLE API=================================== -->
-                        <div style="height: 100vh; width: 100%;background-color: rgb(198 191 191);">
-
-                            <!-- <div id="map"></div> -->
-                            <div id="map" style="float:left;width:70%;height:100%"></div>
-                            <div id="directionsPanel"
-                                style="float:right;width:30%;height:100vh;background-color:rgb(198 191 191);">
                             </div>
-
                         </div>
+                        <div class="col-12 col-lg-10">
+                            <!-- <img src="https://picsum.photos/300/200?random=11" > -->
+
+                            <!-- ================================GOOGLE API=================================== -->
+                            <div style="height: 100vh; width: 100%;background-color: rgb(198 191 191);">
+
+                                <!-- <div id="map"></div> -->
+                                <div id="map" style="float:left;width:70%;height:100%"></div>
+                                <div id="directionsPanel"
+                                    style="float:right;width:30%;height:100vh;background-color:rgb(198 191 191);">
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
-
             </div>
-        </div>
-        </section>
+            </section>
 
-    </div>
+        </div>
     </div>
     <div style="height: 50px;"></div>
     </div>
@@ -375,7 +375,7 @@
             //對新增的景點input 增加刪除按鈕
             const delBtn = document.createElement("button");
             delBtn.innerText = '刪除景點欄位';
-            delBtn.addEventListener("click",async function(){
+            delBtn.addEventListener("click", async function () {
                 inputContainer.remove();
             })
             target.insertAdjacentElement("beforebegin", inputContainer);
@@ -453,11 +453,12 @@
 
         }
 
-        function calculateTravelTime(start, end, travelMode) {
+        function calculateTravelTime(start, end, waypoints, travelMode) {
             // 设置起点和终点
             var request = {
                 origin: start,
                 destination: end,
+                waypoints:waypoints,
                 travelMode: travelMode // 可以是 'DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'
             };
 
@@ -484,15 +485,12 @@
 
 
 
-        function displayRoute(origin, destination, service, display) {
+        function displayRoute(origin, destination, waypoints, service, display) {
             service
                 .route({
                     origin: origin,
                     destination: destination,
-                    // waypoints: [
-                    //     { location: "Adelaide, SA" },
-                    //     { location: "Broken Hill, NSW" },
-                    // ],
+                    waypoints: waypoints,
                     travelMode: google.maps.TravelMode.DRIVING,
                     avoidTolls: true,
                 })
@@ -523,7 +521,7 @@
         function siteAuto() {
             const siteInputs = document.querySelectorAll(".google_input_text");
             //顯示目前已有幾個輸入框
-            console.log("siteInputs_length: "+siteInputs.length);
+            console.log("siteInputs_length: " + siteInputs.length);
             let options = {
                 // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
             };
@@ -571,8 +569,8 @@
                     }
                 });
             }
-            console.log("AutoCompletes elements: "+autocompletes);
-            console.log("Markers: "+markers);
+            // console.log("AutoCompletes elements: "+autocompletes);
+            // console.log("Markers: "+markers);
         }
 
         // // 地址自動完成 + 地圖的中心移到輸入結果的地址上
@@ -669,6 +667,10 @@
         var end_el = document.getElementById('end');
         var start = start_el.value;
         var end = end_el.value;
+        var waypoint = document.querySelectorAll('.waypoint');
+        // waypoint.addEventListener('change',function(){
+        //     reloadMap();
+        // })
 
         start_el.addEventListener('change', function () {
             reloadMap();
@@ -684,47 +686,47 @@
         })
 
 
-        start_el.addEventListener('keydown', (event) => {
-            // 检查是否按下 Enter 键 (键码 13)
-            if (event.keyCode === 13) { // 如果按下 Enter 键
-                event.preventDefault(); // 阻止默认行为
+        // start_el.addEventListener('keydown', (event) => {
+        //     // 检查是否按下 Enter 键 (键码 13)
+        //     if (event.keyCode === 13) { // 如果按下 Enter 键
+        //         event.preventDefault(); // 阻止默认行为
 
-                // 获取建议框中的第一个选项
-                const firstSuggestion = document.querySelector('.pac-container .pac-item:first-child');
+        //         // 获取建议框中的第一个选项
+        //         const firstSuggestion = document.querySelector('.pac-container .pac-item:first-child');
 
-                // 如果存在建议项
-                if (firstSuggestion) {
-                    start_el.dispatchEvent(downArrowEvent);
-                    // start_el.dispatchEvent(enterEvent);
-                    // firstSuggestion.click(); // 模拟点击第一个建议项
-                }
-                reloadMap();
-            }
-        });
-        // 创建一个向下箭头键事件
-        var downArrowEvent = new KeyboardEvent("keydown", {
-            key: "ArrowDown",
-            code: "ArrowDown",
-            keyCode: 40, // 40 表示向下箭头键的键码
-            which: 40,
-            bubbles: true, // 确保事件冒泡
-            cancelable: true // 允许事件被取消
-        });
-        var upArrowEvent = new KeyboardEvent("keydown", {
-            key: "ArrowUp",
-            keyCode: 38,
-            which: 38,
-            code: "ArrowUp"
-        });
-        // 创建一个 Enter 键事件
-        const enterEvent = new KeyboardEvent('keydown', {
-            key: 'Enter',
-            code: 'Enter',
-            keyCode: 13,
-            which: 13,
-            bubbles: true, // 确保事件冒泡
-            cancelable: true, // 允许事件被取消
-        });
+        //         // 如果存在建议项
+        //         if (firstSuggestion) {
+        //             start_el.dispatchEvent(downArrowEvent);
+        //             // start_el.dispatchEvent(enterEvent);
+        //             // firstSuggestion.click(); // 模拟点击第一个建议项
+        //         }
+        //         reloadMap();
+        //     }
+        // });
+        // // 创建一个向下箭头键事件
+        // var downArrowEvent = new KeyboardEvent("keydown", {
+        //     key: "ArrowDown",
+        //     code: "ArrowDown",
+        //     keyCode: 40, // 40 表示向下箭头键的键码
+        //     which: 40,
+        //     bubbles: true, // 确保事件冒泡
+        //     cancelable: true // 允许事件被取消
+        // });
+        // var upArrowEvent = new KeyboardEvent("keydown", {
+        //     key: "ArrowUp",
+        //     keyCode: 38,
+        //     which: 38,
+        //     code: "ArrowUp"
+        // });
+        // // 创建一个 Enter 键事件
+        // const enterEvent = new KeyboardEvent('keydown', {
+        //     key: 'Enter',
+        //     code: 'Enter',
+        //     keyCode: 13,
+        //     which: 13,
+        //     bubbles: true, // 确保事件冒泡
+        //     cancelable: true, // 允许事件被取消
+        // });
 
         //
         end_el.addEventListener('change', function () {
@@ -742,23 +744,23 @@
             // 获取建议框中的第一个选项
 
         });
-        end_el.addEventListener('keydown', (event) => {
-            // 检查是否按下 Enter 键 (键码 13)
-            if (event.keyCode === 13) { // 如果按下 Enter 键
-                event.preventDefault(); // 阻止默认行为
+        // end_el.addEventListener('keydown', (event) => {
+        //     // 检查是否按下 Enter 键 (键码 13)
+        //     if (event.keyCode === 13) { // 如果按下 Enter 键
+        //         event.preventDefault(); // 阻止默认行为
 
-                // 获取建议框中的第一个选项
-                const firstSuggestion = document.querySelector('.pac-container .pac-item:first-child');
+        //         // 获取建议框中的第一个选项
+        //         const firstSuggestion = document.querySelector('.pac-container .pac-item:first-child');
 
-                // 如果存在建议项
-                if (firstSuggestion) {
-                    end_el.dispatchEvent(downArrowEvent);
-                    // start_el.dispatchEvent(enterEvent);
-                    // firstSuggestion.click(); // 模拟点击第一个建议项
-                }
-                reloadMap();
-            }
-        });
+        //         // 如果存在建议项
+        //         if (firstSuggestion) {
+        //             end_el.dispatchEvent(downArrowEvent);
+        //             // start_el.dispatchEvent(enterEvent);
+        //             // firstSuggestion.click(); // 模拟点击第一个建议项
+        //         }
+        //         reloadMap();
+        //     }
+        // });
         //詭異的鴿子 小心解開reloadMap() 請求過多可能要付費
         // start_el.addEventListener("blur",function(){
         //     console.log("Place_changed");
@@ -798,15 +800,38 @@
             console.log("From: " + start_el.value + ",  To: " + end_el.value);
             // setMap(null);
 
+            //確定waypoints
+            var waypoints = [];
+            const waypointsParent = document.getElementById("waypointsParent");
+            waypointsParent.addEventListener("change", function () {
+                setWaypoints();
+                // const v = document.querySelectorAll('waypoint');
+                // v.forEach(point => {
+                //     waypoints.push(point.value);
+                //     console.log("waypoints value: " + point.value);
+                // });
+            })
+            
+
+
             //renewMarkers();
             siteAuto();
-            calculateTravelTime(start_el.value, end_el.value, travelMode);
+            calculateTravelTime(start_el.value, end_el.value, waypoints, travelMode);
             displayRoute(
                 start_el.value,// "Perth, WA",haight
                 end_el.value,// "Sydney, NSW",oceanBeach
+                waypoints,
                 directionsService,
                 directionsRenderer
             );
+        }
+
+        function setWaypoints(){
+            const v = document.querySelectorAll('waypoint');
+            v.forEach(point => {
+                waypoints.push(point.value);
+                console.log("waypoints value: " + point.value);
+            });
         }
 
 // 監聽夜間模式變化
