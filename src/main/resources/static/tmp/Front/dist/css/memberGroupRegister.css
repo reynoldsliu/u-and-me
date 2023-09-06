@@ -179,9 +179,26 @@ align-items: center;
   letter-spacing:0.1rem;
 }
 
+.memName{
+width:180px;
+}
 
-.title {
-  padding: 20px;
+.memGender{
+width:150px;
+margin-left:40px;
+}
+.memPhone{
+margin-left:60px;
+width:180px;
+}
+.memIdcard{
+
+width:180px;
+}
+
+
+.title111 {
+  padding: 10px;
   margin-left: 140px;
   border-radius: 10px;
   background-color: rgb(198, 191, 191);
@@ -267,5 +284,30 @@ align-items: center;
 }
 
 .form-group-idcard {
-  margin-bottom: 20px; /* 調整此數值來改變間距 */
+width:400px;
+margin-left:40px;
+padding-top:5px;
+}
+
+
+
+#priview{
+margin-top:500px;
+}
+
+.idPreview{
+margin-top:150px;
+position: absolute;
+
+}
+#preview {
+display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px; /* Adjust the height as needed */
+            border: 2px dashed #ccc; ?
+            margin-right:250px;
+    }
+.memImg{
+max-height:55px;
 }
