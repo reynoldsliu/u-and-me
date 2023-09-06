@@ -137,7 +137,11 @@
         <div class="wrap">
             <div class="row" style="text-align: center;">
                 <h3>我的訂單</h3>
-
+                <div style="margin-left:295px;">
+                    查詢訂單編號:
+                    <input id="selectById" type="text" value="" placeholder="輸入訂單編號">
+                    <button id="selectById_submitBtn" style="margin:8px 0px 5px 540px;width:60px;">查詢</button>
+                </div>
 
             </div>
             <div class="row">
@@ -160,6 +164,11 @@
                         <!--我的訂單列表從這裡動態插入 -->
                         </tbody>
                     </table>
+                    <div >
+                        <button style="display: inline-block;"id="pageDown">上一頁</button>
+                        <button style="display: inline-block;"id="pageUp">下一頁</button>
+                    </div>
+
 
                 </div>
             </div>

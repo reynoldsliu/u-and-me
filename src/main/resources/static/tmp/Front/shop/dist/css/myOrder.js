@@ -1,3 +1,4 @@
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 var pageCount = 0;
 var nextPage = true;
@@ -9,14 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const pageUp = document.getElementById("pageUp");
 const pageDown = document.getElementById("pageDown");
-pageUp.addEventListener("click",function(){
-    if(pageCount>=0)
-    myOrderList(++pageCount);
+pageUp.addEventListener("click", function () {
+    if (pageCount >= 0)
+        myOrderList(++pageCount);
 })
-pageDown.addEventListener("click",function(){
-    if(pageCount>=1)
-    myOrderList(--pageCount);
-    console.log("Page: "+pageCount);
+pageDown.addEventListener("click", function () {
+    if (pageCount >= 1)
+        myOrderList(--pageCount);
+    console.log("Page: " + pageCount);
 })
 
 
@@ -27,11 +28,11 @@ const selectById_submitBtn = document.getElementById("selectById_submitBtn");
 selectById_submitBtn.addEventListener("click", async function () {
     try {
         let ordId = selectById_el.value;
-        
+
         //透過輸入的ordId用API查出單一訂單資訊
         const response = await fetch(`http://localhost:8081/u-and-me/Orders/ordId${ordId}`);
         let orders = await response.json();
-        if(orders.ordId===undefined){
+        if (orders.ordId === undefined) {
             alert("查無此訂單");
             myOrderList(pageCount);
             return;
@@ -39,9 +40,9 @@ selectById_submitBtn.addEventListener("click", async function () {
         const dataTableList = document.getElementById("dataTableList");
         dataTableList.innerHTML = "";
 
-            console.log(orders);
-            const row = document.createElement("tr");
-            row.innerHTML = `
+        console.log(orders);
+        const row = document.createElement("tr");
+        row.innerHTML = `
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orders.ordId}</td>
     <td style="width: 130px;text-align: center;vertical-align: middle;">${formatDate(orders.ordTime)}</td>
     <td style="width: 100px;text-align: center;vertical-align: middle;">${orders.checktotal}</td>
@@ -57,8 +58,8 @@ selectById_submitBtn.addEventListener("click", async function () {
         </button>
     </td>
     `;
-            dataTableList.appendChild(row);
-        
+        dataTableList.appendChild(row);
+
 
     } catch (error) {
         console.error("Error fetching order list:", error);
@@ -67,11 +68,11 @@ selectById_submitBtn.addEventListener("click", async function () {
 
 async function myOrderList(page) {
     const dataTableList = document.getElementById("dataTableList");
-        dataTableList.innerHTML = "";
+    dataTableList.innerHTML = "";
     try {
         const response = await fetch(`http://localhost:8081/u-and-me/myOrders/${page}`);
         const orderList = await response.json();
-        
+
 
         orderList.forEach(orders => {
             console.log(orders);
@@ -98,9 +99,9 @@ async function myOrderList(page) {
     } catch (error) {
         console.error("Error fetching order list:", error);
     }
-    if(dataTableList.children.length!==10){
+    if (dataTableList.children.length !== 10) {
         pageUp.disabled = true;
-    }else{
+    } else {
         pageUp.disabled = false;
     }
 }
@@ -121,8 +122,13 @@ const statusMapping = new Map([
 
 // <!--按修改鈕會根據ordId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
 function redirectToDetailPage(ordId) {
-    var newPageUrl = `myOrder.html?ordId=${ordId}`;
-    window.location.href = newPageUrl;
+    alert("Go to OrderDetail page.")
+    var newPageUrl = baseUrl + `tmp/Front/shop/orderDetail.html?ordId=${ordId}`;
+    window.location = newPageUrl;
 }
+
+dataTableList.addEventListener("change", function () {
+    redirectToDetailPage(ordId);
+})
 
 
