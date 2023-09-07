@@ -191,25 +191,29 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     //每日的行程內容渲染
     let countDate = schStartDate;
-    // for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
+    for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
 
     //     //創造今天的物件 周幾 行程細節 等等
 
-    //     //印出今天周幾
-    //     viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
+        //印出今天周幾
+        viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
 
 
-    //     //每個行程要做的事
-    //     for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
-    //         if (schDetails[schDetail].schdeStarttime < schDetails[schDetail + 1])
-    //     }
+        //每個行程要做的事
+        for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
+            if (parseTimestamp(schDetails[schDetail].schdeStarttime) 
+                    < parseTimestamp(schDetails[schDetail + 1].schdeStarttime)){
+
+                        
+            }
+        }
 
 
 
 
-    //     //計算明天周幾 天數加一
-    //     countDate.setDate(countDate.getDate() + 1);
-    // }
+        //計算明天周幾 天數加一
+        countDate.setDate(countDate.getDate() + 1);
+    }
 
 
 

@@ -213,7 +213,7 @@
                             <tr>
                                 <th scope="col" style="width:100px;">景點類型</th>
                                 <th>
-                                    <input type="text" id="attrTypeId" disabled>
+                                    <input type="text" id="attrType" disabled>
                                 </th>
                             </tr>
                             <tr>
@@ -438,7 +438,7 @@
 
         const attrName = document.querySelector("#attrName");
         const attrAddr = document.querySelector("#attrAddr");
-        const attrTypeId = document.querySelector("#attrTypeId");
+        const attrType = document.querySelector("#attrType");
         const attrCostRange = document.querySelector("#attrCostRange");
         const attrBussTime = document.querySelector("#attrBussTime");
         const attrIlla = document.querySelector("#attrIlla");
@@ -484,7 +484,7 @@
             // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
             attrName.value = `${attr.attrName}`;
             attrAddr.value = `${attr.attrAddr}`;
-            attrTypeId.value = `${attr.attrTypeId}`;
+            attrType.value = `${attr.attrType}`;
             attrCostRange.value = `${attr.attrCostRange}`;
             attrBussTime.value = `${attr.attrBussTime}`;
             attrIlla.value = `${attr.attrIlla}`;
@@ -558,7 +558,7 @@
 
         const attrName_input = document.getElementById("attrName");
         const attrAddr_input = document.getElementById("attrAddr");
-        const attrTypeId_input = document.getElementById("attrTypeId");
+        const attrType_input = document.getElementById("attrType");
         const attrCostRange_input = document.getElementById("attrCostRange");
         const attrBussTime_input = document.getElementById("attrBussTime");
         const attrIlla_input = document.getElementById("attrIlla");
@@ -589,7 +589,7 @@
             const newData = {
                 attrName: attrName_input.value,
                 attrAddr: attrAddr_input.value,
-                attrTypeId: attrTypeId_input.value,
+                attrType: attrType_input.value,
                 attrCostRange: attrCostRange_input.value,
                 attrBussTime: attrBussTime_input.value,
                 attrIlla: attrIlla_input.value
@@ -627,7 +627,7 @@
         function enableEditing() {
             attrName_input.disabled = false;
             attrAddr_input.disabled = false;
-            attrTypeId_input.disabled = false;
+            attrType_input.disabled = false;
             attrCostRange_input.disabled = false;
             attrBussTime_input.disabled = false;
             attrIlla_input.disabled = false;
@@ -642,7 +642,7 @@
         function disableEditing() {
             attrName_input.disabled = true;
             attrAddr_input.disabled = true;
-            attrTypeId_input.disabled = true;
+            attrType_input.disabled = true;
             attrCostRange_input.disabled = true;
             attrBussTime_input.disabled = true;
             attrIlla_input.disabled = true;
