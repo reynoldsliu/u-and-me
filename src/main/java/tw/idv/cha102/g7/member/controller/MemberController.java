@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.attraction.dto.CommonResponse;
+import tw.idv.cha102.g7.common.entity.PictureBase64DTO;
 import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
@@ -206,10 +207,12 @@ public class MemberController {
 
     @RequestMapping("/memberGroupRegister/{memId}")
     public ResponseEntity<Member> memberGroupRegister(@PathVariable Integer memId,
-                                                      @RequestBody String groupRegisterCard){
+                                                      @RequestBody PictureBase64DTO groupRegisterCard){
         Member member = memberService.getMemByMemId(memId);
         member.setMemSta(1);
-        member.setMemIdPic(groupRegisterCard);
+        System.out.println(groupRegisterCard.getPictureData().toString());
+        member.setMemIdPic(groupRegisterCard.getPictureData());
+        System.out.println("memBer"+member.toString());
         memberService.update(member);
 
         return new ResponseEntity(member, HttpStatus.OK);

@@ -1,5 +1,7 @@
 const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
+
+
 const ordId = document.getElementById('ordId');
 const memName = document.getElementById('memName');
 const ordTime = document.getElementById('ordTime');
@@ -24,8 +26,33 @@ document.addEventListener("DOMContentLoaded", function () {
     // 获取特定参数的值
     var OrdId = urlParams.get('ordId');
     getOrderDetail(OrdId);
+    showProducts(OrdId);
 
 });
+
+const productList = document.getElementById('productList');
+async function showProducts(OrdId) {
+    const response = await fetch(baseUrl + `OrderDetailOrdId/${OrdId}`);
+    const orderDetailList = await response.json();
+    orderDetailList.forEach(async (orderDetail) => {
+        const response1 = await fetch(baseUrl + `product/listProductDetail/${orderDetail.id.prodId}`);
+        const product = await response1.json();
+        console.log(product);
+        const productPicture = btoa(product.prodPic);
+        
+        const row = document.createElement("tr");
+        row.innerHTML = `
+    <td style="width: 50px;text-align: center; vertical-align: middle;">{productPicture}</td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;">${product.prodId}</td>
+    <td style="width: 100px;text-align: center;vertical-align: middle;">${product.prodName}</td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodReview}</td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodQty}</td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodPrice}</td>
+                        
+    `;
+    productList.appendChild(row);
+    });
+}
 
 async function getOrderDetail(OrdId) {
     const response = await fetch(baseUrl + `Orders/ordId${OrdId}`);

@@ -246,6 +246,7 @@
 <script src="../dist/js/memberGroupRegister.js"></script>
 </body>
 <script>
+    const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
     //團主申請的身分證照片預覽
     // const imageInput = document.getElementById('imageInput');
     const preview = document.getElementById('preview');
@@ -265,7 +266,7 @@
     });
 
     async function getMemId() {
-        const response = await fetch("http://localhost:8081/u-and-me/member/getMemId");
+        const response = await fetch(baseUrl+"member/getMemId");
         console.log(response);
         respJson = await response.json();
         let memId = respJson.memId;
@@ -312,14 +313,16 @@
         const fileReader = await new FileReader();
         fileReader.onload = async event => {
             const base64Str = btoa(event.target.result);
-
-            const response = await fetch('http://localhost:8081/u-and-me/member/memberGroupRegister/' + await getMemId(), {
+            console.log(base64Str);
+            let memId = await getMemId();
+            console.log("memId: "+memId);
+            const response = await fetch(baseUrl+'member/memberGroupRegister/' + memId, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    PicData: base64Str
+                    pictureData: base64Str
                 })
             });
 
