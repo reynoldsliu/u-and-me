@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import tw.idv.cha102.g7.shop.entity.CartList;
 import tw.idv.cha102.g7.shop.entity.CartListId;
 
-import java.util.List;
-
 @Repository
 public interface CartListRepository extends JpaRepository<CartList, Integer> {
     CartList findByCartListId_MemIdAndCartListId_ProdId(Integer memId, Integer prodId);

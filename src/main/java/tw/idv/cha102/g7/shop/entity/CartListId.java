@@ -18,6 +18,10 @@ public class CartListId implements Serializable {
         this.prodId = prodId;
     }
 
+    public CartListId(Integer prodId) {
+        this.prodId = prodId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

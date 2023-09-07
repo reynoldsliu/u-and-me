@@ -8,6 +8,7 @@ import tw.idv.cha102.g7.shop.service.CartService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,10 +30,11 @@ public class CartListController {
         System.out.println("addCartList");
         HttpSession session = request.getSession();
         String jsessionId = session.getAttribute("memberId").toString();
-        if(jsessionId==null)
+        if(jsessionId == null)
             return new CartList();
         Integer memId = Integer.parseInt(jsessionId);
 
+//        session.setAttribute("cartInfo", cartList);
 
         CartListId cartListId = new CartListId();
         cartListId.setMemId(memId);
@@ -43,15 +45,39 @@ public class CartListController {
         return cartService.addToCart(cartList);
     }
 
-    @GetMapping("/showAllCartList/{memId}")
-    public List<CartList> showAllCartList(@PathVariable Integer memId) {
+    @GetMapping("/showAllCartList")
+    public List<CartList> showAllCartList(HttpServletRequest request) {
+        System.out.println("showAllCartList");
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("memberId");
+        String jsessionId;
+        Integer memId ;
+        if(obj == null) {
+            List<CartList> cartLists = new ArrayList<>();
+            return cartLists;
+        }else {
+            jsessionId = obj.toString();
+            memId = Integer.parseInt(jsessionId);
+        }
         return cartService.getAllCartList(memId);
     }
 
-    @DeleteMapping("/deleteCartList/{memId}/{prodId}")
-    public void deleteCartList(@PathVariable Integer memId,
+    @DeleteMapping("/deleteCartList/{prodId}")
+    public void deleteCartList(HttpServletRequest request,
                                @PathVariable Integer prodId){
-        cartService.deleteById(memId, prodId);
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("memberId");
+        String jsessionId;
+        Integer memId= 0 ;
+        if(obj == null) {
+            CartList cartList = new CartList();
+        }else {
+            jsessionId = obj.toString();
+            memId = Integer.parseInt(jsessionId);
+            System.out.println("memId: "+memId);
+        }
+        System.out.println("prodId: "+prodId);
+        cartService.deleteById(memId,prodId);
     }
 
     @RequestMapping("/updateCartList/{memId}/{prodId}/{prodQty}")
