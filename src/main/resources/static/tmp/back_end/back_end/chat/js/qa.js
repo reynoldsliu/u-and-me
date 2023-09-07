@@ -93,9 +93,51 @@ function findqalist() {
           },{
             //在操作欄位回傳按鈕。
             targets: [5],
-            render: function () {
-              return '<button type="button" class="btn btn-primary btn-sm">編輯</button> ' +
-                '<button type="button" class="btn btn-danger btn-sm">刪除</button>'
+            render: function (data, type, row) {
+              
+              $(document).on("click", `button.upd${row.qaId}`, function () {
+               
+                return window.location.href = baseUrl + `/u-and-me/tmp/back_end/back_end/chat/updqa.html?qaId=${row.qaId}`;
+              
+              })
+
+              $(document).on("click", `button.del${row.qaId}`, function () {
+               
+                Swal.fire({
+                  title: '刪除資料',
+                  text: "確定刪除此筆資料嗎?",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: '取消',
+                  confirmButtonText: '確定刪除'
+                }).then((result) => {
+
+                  if (result.isConfirmed) {
+                    fetch(`/u-and-me/delqa/${row.qaId}`,{
+                      method:'Delete',
+                      headers: { 'Content-Type': 'application/json' }
+                    }).catch(function(){
+                      Swal.fire({
+                        title: '刪除失敗',
+                        icon: 'error'
+                      })
+                    })
+                    Swal.fire({
+                      title: '刪除成功',
+                      icon:'success'
+                    }).then(function(){
+                      location.reload();
+                    })
+                  }
+
+                })
+
+              })
+
+              return `<button type="button" class="btn btn-primary btn-sm upd${row.qaId}">編輯</button> ` +
+                `<button type="button" class="btn btn-danger btn-sm del${row.qaId}">刪除</button>`
             }
           },{
             //將全部欄位的字置中。
@@ -114,5 +156,3 @@ function findqalist() {
     }
   });
 }
-
-

@@ -12,15 +12,12 @@
 })()
 
 //綁定
-const qaTitle = document.getElementById("qaTitle");
 let qaTitle_val = document.querySelector("#addqaTitle");
-const errortitle = document.getElementById("errortitle");
+let errortitle = document.getElementById("errortitle");
 
-const qaCon = document.getElementById("qaCon");
 let qaCon_val = document.querySelector("#addqaCon");
 let errorcon = document.getElementById("errorcon");
 
-const qaState = document.getElementById("qaState");
 let qaState_val = document.querySelector("#addqaState");
 let qabutton = document.getElementById("qabutton");
 var baseUrl = window.location.protocol + "//" + window.location.host;
@@ -57,9 +54,10 @@ qabutton.addEventListener("click", function () {
   Swal.fire({
     title: '新增成功',
     icon: 'success'
-  }).then(function(){
+  }).then(function () {
     window.location.href = baseUrl + "/u-and-me/tmp/back_end/back_end/chat/qa.html";
   })
+
 })
 
 
