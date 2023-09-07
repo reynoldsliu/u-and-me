@@ -1,3 +1,5 @@
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
+
 // class -on -off -one 屬性
 const classSwitchOn = "-on";
 const classSwitchOff = "-off";
@@ -5,7 +7,6 @@ const classMapOne = "-one";
 
 // 抓取所有會切換頁面使用到的標籤
 const backToMySchedule_el = document.querySelector("#backToMySchedule");
-
 
 // =============== 行程細節相關標籤 =============== 
 // 選擇日期天數頁籤
@@ -22,6 +23,16 @@ const addNewAttrbtn_el = document.querySelector("div.addNewAttrbtn");
 const schDetailCells = document.querySelector(".schDetailCell");
 // 單一景點cell(抓不到，直接綁定onclick)
 const attrCells = document.querySelector(".attrCell");
+
+// =============== 行程細節時間計算相關標籤(BY Reynolds) =============== 
+const mySchDateStart_el = document.getElementById("mySchDateStart");
+const mySchDateEnd_el = document.getElementById("mySchDateEnd");
+
+const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");
+const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");
+const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");
+// =============== 行程細節時間計算相關標籤(BY Reynolds) =============== 
+
 
 
 // =============== 景點搜尋相關標籤 =============== 
@@ -53,14 +64,13 @@ const viewGoogleMap = document.querySelector(".map");
 // 自訂景點內容標籤
 const myAttrName_el = document.querySelector("#myAttrName");
 const myAttrAddr_el = document.querySelector("#myAttrAddr");
-// const attrPicFilesInput = document.querySelector("#attrPicFilesInput");
 
 // 景點搜尋相關按鈕
 const addAttrCollect_btn_el = document.querySelector(".addAttrCollect-btn");
 const addToSchedule_btn_el = document.querySelector(".addToSchedule-btn");
 const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 
-// 元素插入處
+// =============== 元素插入處相關標籤 =============== 
 // 景點搜尋
 const attrSearchListInsert_el = document.querySelector(".attrSearchList");
 // 景點收藏
@@ -70,8 +80,159 @@ const attrTotalImgsInsert_el = document.querySelector(".attrTotalImgsInsert");
 // 單一景點詳情內容
 // 景點名稱(標題)
 const attrNameTitle = document.querySelector("#attrNameTitle");
+// 景點評價
 const attrComScore = document.querySelector("#attrComScore");
-// 景點評價(2.0~5.0)
+// 景點類型
+const attrTypeName = document.querySelector("#attrTypeName");
+// 景點地址
+const attrAddress = document.querySelector("#attrAddress");
+// 景點營業時間(只抓第一個標籤)
+const attrBussTime = document.querySelector(".attrBussTime");
+// 景點消費價位(低中高價位)
+const attrCostRange = document.querySelector("#attrCostRange");
+// 景點描述
+const attrIlla = document.querySelector("#attrIlla");
+
+
+
+// ================== 會使用到的函式 ================== //
+// =============== 行程細節時間計算相關函式(BY Reynolds) =============== 
+// 時間計算
+function getDayOfWeek(dateString) {
+    const daysOfWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const date = new Date(dateString);
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    console.log("Date to change: " + dateString + ":" + dayOfWeek);
+    return dayOfWeek;
+}
+
+//將轉換成字串的日期物件中的 "-" 改成"/"
+function modifiyDate(date) {
+    return date.replace(/-/g, '/');
+}
+
+//將轉換成字串的日期物件中的 "00:00:00" 改成 "X時X分"
+function formatStayTime(stayTime) {
+    const parts = stayTime.split(':');
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+
+    let formattedTime = '';
+
+    if (hours > 0) {
+        formattedTime += hours + '小時';
+    }
+
+    if (minutes > 0) {
+        formattedTime += minutes + '分';
+    }
+
+    return formattedTime || '0分'; // 如果没有小时和分钟，默认为0分
+}
+
+//將timestampString轉成Date 並調整精度
+function parseTimestamp(timestampString) {
+    const parts = timestampString.split(' ');
+    const datePart = parts[0];
+    const timePart = parts[1];
+
+    const dateParts = datePart.split('-');
+    const year = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1; // 月份从0开始，所以要减1
+    const day = parseInt(dateParts[2]);
+
+    const timeParts = timePart.split(':');
+    const hour = parseInt(timeParts[0]);
+    const minute = parseInt(timeParts[1]);
+    const second = parseInt(timeParts[2]);
+
+    return new Date(year, month, day);//後面可加 ,hour , minute, second 調整精度
+}
+
+// function todayFirstSchDetailIndex(data){
+
+// }
+
+// 頁面一載入時觸發此函式
+async function loadByRNfunction() {
+    // 获取当前页面的 URL
+    const currentURL = window.location.href;
+    // 创建一个 URLSearchParams 对象，传入查询参数部分
+    const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+    // 使用 get() 方法来获取特定查询参数的值
+    const schId = urlSearchParams.get('schId');
+
+    //透過schId 獲取整個schedule物件
+    const response = await fetch(baseURL + `/schedules/schId/${schId}`);
+    const schedule = await response.json();
+    console.log("Schedule ID: " + schId);
+    //行程開始日期 結束日期
+    var schStartDate = new Date(schedule.schStart);
+    var schEndDate = new Date(schedule.schEnd);
+    var schStart = schedule.schStart;
+    var schEnd = schedule.schEnd;
+    var schDuringDays = ((schEndDate - schStartDate) / (1000 * 60 * 60 * 24)) + 1;
+    //將起始日期及結束日期放在行程最上方
+    mySchDateStart_el.innerText = modifiyDate(schStart);
+    mySchDateEnd_el.innerText = modifiyDate(schEnd);
+
+    // const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");第幾天
+    // const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");周幾
+    // const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");今天的起始時間
+
+    //取出本行程所有的行程細節
+    const response1 = await fetch(baseURL + `/schDetails/${schId}`);
+    const schDetails = await response1.json();
+    console.log("STAY time: " + schDetails[0].schdeStaytime);
+    console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
+    const stayTimes = document.querySelectorAll(".stayTimes");
+    let count = 0;
+    //將所有行程細節stayTime顯示
+    for (let stayTime of stayTimes) {
+        stayTime.innerText = formatStayTime(schDetails[count++].schdeStaytime);
+    }
+
+
+    //將TimeStampString轉為Date 且可以直接比大小
+    //測試只比較日期的比大小 輸出應為相等
+    let date1 = parseTimestamp(schDetails[0].schdeStarttime)
+    let date2 = parseTimestamp(schDetails[1].schdeStarttime)
+
+    console.log("date1: " + date1);
+    console.log("date2: " + date2);
+    if (date1 < date2) {
+        console.log("date1 小于 date2");
+    } else if (date1 > date2) {
+        console.log("date1 大于 date2");
+    } else {
+        console.log("date1 等于 date2");
+    }
+
+    //每日的行程內容渲染
+    let countDate = schStartDate;
+    for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
+
+        //創造今天的物件 周幾 行程細節 等等
+
+        //印出今天周幾
+        viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
+
+        //每個行程要做的事
+        for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
+            if (parseTimestamp(schDetails[schDetail].schdeStarttime)
+                < parseTimestamp(schDetails[schDetail + 1].schdeStarttime)) {
+            }
+        }
+        //計算明天周幾 天數加一
+        countDate.setDate(countDate.getDate() + 1);
+    }
+}
+
+// =============== 行程細節時間計算相關函式(BY Reynolds)結束 =============== 
+
+
+
+// 景點評價(3.5~5.0)
 function generateRandomNumber() {
     const min = 3.5; // 最小值
     const max = 5.0; // 最大值
@@ -84,14 +245,8 @@ function generateRandomNumber() {
 
     return roundedNumber;
 }
-// 景點類型
-const attrTypeName = document.querySelector("#attrTypeName");
-// 景點地址
-const attrAddress = document.querySelector("#attrAddress");
-// 景點營業時間(只抓第一個標籤)
-const attrBussTime = document.querySelector(".attrBussTime");
-// 景點消費價位(低中高價位)
-const attrCostRange = document.querySelector("#attrCostRange");
+
+// 景點消費價位轉換
 function codeToPriceRange(code) {
     switch (code) {
         case 1:
@@ -105,23 +260,18 @@ function codeToPriceRange(code) {
             return "尚無資料";
     }
 }
-// 景點描述
-const attrIlla = document.querySelector("#attrIlla");
 
 
 
 
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", function () {
-
-
     // 關閉景點搜尋內其他頁籤內容
     switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
 
-
-    // 插入力辰的方法
-
+    // RN's LOADING function
+    loadByRNfunction();
 });
 
 
@@ -325,7 +475,6 @@ addAttrCollect_btn_el.onclick = () => {
 // ================== 景點收藏 ================== //
 
 // fetch to Controller路徑
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
 // 列出所有景點收藏
 let myAttrCollectionURL = baseURL + "/attrCol/getAttrsFromCollectionByMemId/";
 // 依據景點編號查詢景點資訊
