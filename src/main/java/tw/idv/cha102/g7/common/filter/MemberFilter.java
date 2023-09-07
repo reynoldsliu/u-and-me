@@ -24,10 +24,11 @@ public class MemberFilter extends OncePerRequestFilter {
 
         String requestUrl = request.getRequestURI();
         String login = "/u-and-me/member/login";
+        String register = "/u-and-me/member/register";
 
 
         //許可所有請求進入登入畫面
-        if (login.equals(requestUrl)) {
+        if (login.equals(requestUrl) || register.equals(requestUrl)) {
             chain.doFilter(request, response);
             return;
         }
