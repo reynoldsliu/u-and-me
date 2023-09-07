@@ -139,7 +139,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-6">
-<!-- 
+                                <!-- 
                                 <div class="px-5 ms-xl-4">
                                     <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
 
@@ -197,7 +197,7 @@
     </div>
 
 
-<div style="height: 50px;"></div>
+    <div style="height: 50px;"></div>
 
 
 
@@ -255,6 +255,7 @@
             crossorigin="anonymous"></script>
 
         <script>
+            const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
             const loginBtn_el = document.getElementById("loginBtn");
             loginBtn_el.addEventListener("click", function () {
                 const memEmail = document.getElementById("memEmail").value;
@@ -269,8 +270,8 @@
             })
 
             const testloginBtn_el = document.getElementById("testloginBtn");
-            testloginBtn_el.addEventListener("click",async function(){
-                const response = await fetch('http://localhost:8081/u-and-me/member/testlogin', {
+            testloginBtn_el.addEventListener("click", async function () {
+                const response = await fetch(baseUrl + 'member/testlogin', {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -279,8 +280,8 @@
                 console.log(response);
             })
             const logoutBtn_el = document.getElementById("logoutBtn");
-            logoutBtn_el.addEventListener("click",async function(){
-                const response = await fetch('http://localhost:8081/u-and-me/member/logout', {
+            logoutBtn_el.addEventListener("click", async function () {
+                const response = await fetch(baseUrl + 'member/logout', {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -326,17 +327,17 @@
                 //     "memEmail": memEmail,
                 //     "memPassword": memPassword
                 // }
-                const response = await fetch("http://localhost:8081/u-and-me/member/login", {
+                const response = await fetch(baseUrl + "member/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(member)
                 })
-                .then(response=>response.json())
-                .then(body=>{
-                    console.log(body.message);
-                }) 
+                    .then(response => response.json())
+                    .then(body => {
+                        console.log(body.message);
+                    })
             }
 
         </script>

@@ -215,6 +215,13 @@ public class MemberController {
         return new ResponseEntity(member, HttpStatus.OK);
     }
 
+    @RequestMapping("/getMemberByMemId/{memId}")
+    public ResponseEntity<Member> getMemberByMemId(@PathVariable Integer memId){
+
+
+        return new ResponseEntity(memberService.getMemByMemId(memId), HttpStatus.OK);
+    }
+
 
 
 }

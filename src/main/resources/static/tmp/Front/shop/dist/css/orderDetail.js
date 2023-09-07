@@ -1,13 +1,55 @@
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+
+const ordId = document.getElementById('ordId');
+const memName = document.getElementById('memName');
+const ordTime = document.getElementById('ordTime');
+const ordFee = document.getElementById('ordFee');
+const total = document.getElementById('total');
+const checktotal = document.getElementById('checktotal');
+const points = document.getElementById('points');
+//const checktotal = document.getElementById('checktotal');
+const recipientName = document.getElementById('recipientName');
+const recipientPhone = document.getElementById('recipientPhone');
+const recipientAddr = document.getElementById('recipientAddr');
+
 
 
 //<!--網頁載入後執行-->
 document.addEventListener("DOMContentLoaded", function () {
-    myOrderList();
+    // myOrderList();
+
+    // 获取当前页面的URL
+    var urlParams = new URLSearchParams(window.location.search);
+
+    // 获取特定参数的值
+    var OrdId = urlParams.get('ordId');
+    getOrderDetail(OrdId);
+
 });
+
+async function getOrderDetail(OrdId) {
+    const response = await fetch(baseUrl + `Orders/ordId${OrdId}`);
+    const orderDetail = await response.json();
+    const response1 = await fetch(baseUrl + `member/getMemberByMemId/${orderDetail.memId}`);
+    const member = await response1.json();
+
+
+    ordId.innerText = OrdId;
+    memName.innerText = member.memName;
+    ordTime.innerText = orderDetail.ordTime;
+    ordFee.innerText = orderDetail.ordFee;
+    total.innerText = orderDetail.total;
+    checktotal.innerText = orderDetail.checktotal + orderDetail.ordFee;
+    // points.innerText = orderDetail.points;
+    //checktotal = orderDetail.checktotal;
+    recipientName.innerText = orderDetail.recipientName;
+    recipientPhone.innerText = orderDetail.recipientPhone;
+    recipientAddr.innerText = orderDetail.recipientAddr;
+}
 
 async function myOrderList() {
     try {
-        const response = await fetch('http://localhost:8081/u-and-me/OrderDetail/{ordId}/{prodId}');
+        const response = await fetch(baseUrl + `OrderDetail/{ordId}/{prodId}`);
         const orderList = await response.json();
 
         const dataTableList = document.getElementById("dataTableList");

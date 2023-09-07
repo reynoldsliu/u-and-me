@@ -77,7 +77,7 @@ public class AttrCollectionController {
      * @param attrName
      * @return
      */
-    @RequestMapping("/getAttrsFromCollectionByMemName/{memId}/{attrName}")
+    @RequestMapping("/getAttrsFromCollectionByAttrName/{memId}/{attrName}")
     public ResponseEntity<List<AttrCollectionDTO>> getAttrsFromCollectionByMemName(
             @PathVariable Integer memId,
             @PathVariable String attrName){
