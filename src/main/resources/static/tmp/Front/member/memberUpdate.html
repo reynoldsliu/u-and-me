@@ -145,8 +145,8 @@
             </div>
             
             <div class="col-md-6">
-                <label for="memGender" class="form-label">性別</label>
-                <select id="memGender" class="form-select">
+                <label for="memGender" class="memGender">性別</label>
+                <select id="memGender" class="memGender">
                     <option selected>請選擇您的性別</option>
                     <option value="1">男</option>
                     <option value="2">女</option>
@@ -155,11 +155,11 @@
             </div>
             <br>
             <div class="col-md-6">
-                <label for="memIdcard" class="form-label">身分證</label>
-                <input type="text" class="form-control" id="memIdCard">
+                <label for="memIdcard" class="memIdcard">身分證</label>
+                <input type="text" class="memIdcard" id="memIdcard" value="">
             </div>
             <div class="col-md-6">
-                <label for="memPhone" class="form-label">電話</label>
+                <label for="memPhone" class="memPhone">電話</label>
                 <input type="text" class="form-control" id="memPhone">
             </div>
             <br>
@@ -167,7 +167,7 @@
             <br>
             <br>
             <div class="col-md-3">
-                <label class="form-label">地址</label>
+                <label class="myMemCity">地址</label>
                 <select class="form-select text-secondary" id="myMemCity">
                     <option value="0">請選擇居住縣市</option>
                     <option value="臺北市">臺北市</option>
@@ -225,7 +225,7 @@
             </div>
             <div class="updatebottom btn-sm">
 
-                <button class="btn" type="submit"value="Submit"id="submit">送出</button>
+                <button class="btn" type="submit" value="Submit"id="submit">送出</button>
             </div>
 
         </form>
@@ -279,90 +279,6 @@
     <script src="../dist/js/memberUpdate.js"></script>
 </body>
 
-<!-- 傳送基本資料到overview -->
-<script>
-    <!--網頁載入後執行-->
-<!--        document.addEventListener("DOMContentLoaded", function () {-->
-<!--            Update();-->
-<!--        });-->
 
-    async function Update(member) {
-      const response = await fetch("http://localhost:8081/u-and-me/member/update", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify(member)
-      });
-
-      if (response.ok) {
-          alert("更新成功");
-      } else {
-          alert("更新失敗，請再次嘗試");
-      }
-  }
-
-    const updateButton = document.getElementById("submit");
-
-    updateButton.addEventListener("click", () => {
-      // 會員資料更新
-      //姓名
-      const memberName = document.getElementById("memName");
-      const memName = memberName.value;
-      localStorage.setItem("memName", memName);
-
-      //身分證
-      const memberIdCard = document.getElementById("memIdCard");
-      const memIdCard = memberIdCard.value;
-      localStorage.setItem("memIdCard", memIdCard);
-
-      //手機
-      const memberPhone = document.getElementById("memPhone");
-      const memPhone = memberPhone.value;
-      localStorage.setItem("memPhone", memPhone);
-
-      // 儲存性別
-      const memGender = document.getElementById("memGender").value;
-      localStorage.setItem("memGender", memGender);
-
-      // 儲存地址
-      const myMemCity = document.getElementById("myCityOptions").value;
-      const myMemDist = document.getElementById("myDistOptions").value;
-      const myAddrInput = document.getElementById("myAddrInput").value;
-      const memAddr =`${member.memAddr}`;
-
-
-
-
-
-
-
-
-      localStorage.setItem("memAddr", memAddr);
-
-
-
-
-      // 更新相關欄位的值
-      memberNameInput.value = localStorage.setItem("memName");
-      memIdCardInput.value = localStorage.setItem("memIdCard");
-      memPhoneInput.value = localStorage.setItem("memPhone");
-      memGenderInput.value = localStorage.setItem("memGender");
-      memAddrInput.value = localStorage.setItem("memAddr");
-
-      alert("資料已儲存！");
-    });
-   const member = {
-          "memName": memName,
-          "memIdCard": memIdCard,
-          "memPhone": memPhone,
-          "memGender": memGender,
-          "memAddr" : memAddr
-
-
-      };
-        Update();
-
-</script>
 </html>
 

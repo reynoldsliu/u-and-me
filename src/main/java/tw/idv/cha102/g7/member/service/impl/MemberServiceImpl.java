@@ -120,12 +120,18 @@ public class MemberServiceImpl implements MemberService {
             existingMember.setMemName(member.getMemName());
         }if(member.getMemIdcard()!=null){
             existingMember.setMemIdcard(member.getMemIdcard());
+        }if(member.getMemCity()!=null){
+                existingMember.setMemCity(member.getMemCity());
+            }if(member.getMemDist()!=null){
+                existingMember.setMemDist(member.getMemDist());
         }if(member.getMemAddr()!=null){
                 existingMember.setMemAddr(member.getMemAddr());
-        }if(member.getMemGender()!=null){
+            }if(member.getMemGender()!=null){
                 existingMember.setMemGender(member.getMemGender());
         }if(member.getMemIdPic()!=null){
                 existingMember.setMemIdPic(member.getMemIdPic());
+        }if(member.getMemEmail()!=null){
+                existingMember.setMemEmail(member.getMemEmail());
             }
 
             System.out.println("existingMember" + existingMember);

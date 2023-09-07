@@ -1,36 +1,3 @@
-//錯誤驗證
-//身分證驗證
-//function checkPid(string) {
-//    let re = /^[A-Z]{1}[12]{1}[0-9]{8}$/;
-//    if (string === '') {
-//        return false; // 欄位空白
-//    }
-//    else if (!re.test(string)) {
-//        return false; // 身分證字號格式不符
-//    }
-//
-//    const conver = 'ABCDEFGHJKLMNPQRSTUVXYWZIO'; // 地區(對應轉換數字為10-35)
-//    const weights = [1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 1]; // 身分證字號對應位置權數
-//
-//    string = String(conver.indexOf(string[0]) + 10) + string.slice(1); // 將輸入的字串轉換為對應數字字元
-//    checkSum = 0;
-//    for (let i = 0; i < string.length; i++) {
-//        c = parseInt(string[i]) // 將每一個對應的字元轉換為數字
-//        w = weights[i]
-//        // 每個相對應數字乘上權數，將積相加
-//        checkSum += c * w
-//    }
-//    // 若積總和為10的倍數，則為true，反之則為false
-//    return checkSum % 10 === 0;
-//}
-//
-//const pid = document.getElementById("memIdcard");
-//pid.addEventListener("blur", function () {
-//    if (!checkPid(pid.value.trim())){
-//        alert("身分證字號未填寫或內容有誤，請重新輸入！");
-//    }
-//});
-
 
 //會員地址下拉式選單
     const dists = {
@@ -87,7 +54,6 @@ memDist.classList.add("text-secondary");
 }
 
 });
-
 memDist.addEventListener("change", function(){
 
 if(parseInt(memDist.value) === 0){
@@ -111,14 +77,11 @@ memDist.classList.remove("text-secondary");
     if(typeof memName !== "undefined"){
       if(memCity !== null){
         const distList2 = dists[memCity.value];
-//        memDist.innerHTML= `<option value="0" class="text-secondary">選擇居住地區</option>`;
         for(let dist of distList2){
-        console.log(":)))");
           memDist.insertAdjacentHTML("beforeend", `<option value=${dist} class="text-secondary">${dist}</option>`);
         }
 
         //填入居住地區
-
         for(let myDistOption of myDistOptions){
           if(myDistOption.value === memDist){
             myDistOption.setAttribute("selected", true);
@@ -136,3 +99,107 @@ memDist.classList.remove("text-secondary");
 
 
 
+
+//在網頁載入完成後執行
+        document.addEventListener("DOMContentLoaded", function () {
+             fetchMemDetail();
+        });
+
+
+//載入會員原先資料
+
+
+// 表單中的各輸入框元素
+const memName = document.getElementById('memName');
+const memIdcard = document.getElementById('memIdcard');
+const memPhone = document.getElementById('memPhone');
+//const myMemCity = document.getElementById('#myMemCity> option');
+//const myMemDist = document.getElementById('#myMemDist> option');
+//const myAddrInput = document.getElementById('myAddrInput');
+//const memGender = document.querySelector('memGender');
+const submitBtn = document.querySelector('button[type="submit"]');
+
+
+
+
+
+// 使用 fetch API 發送請求，獲取單筆會員詳細資料
+async function fetchMemDetail() {
+    try {
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+        const res = await fetch(baseUrl + `member/getMemId`);
+        const member = await res.json();
+        const memId = member.memId;
+        const response = await fetch(baseUrl + `member/Details/${memId}`);
+        const MemDetail = await response.json();
+
+
+        // 將會員詳細資訊填充到輸入框中
+        memName.value = MemDetail.memName;
+            memIdcard.value = MemDetail.memIdcard;
+            memPhone.value = MemDetail.memPhone;
+//        myMemCity.value = MemDetail.myMemCity;
+//        myMemDist.value = MemDetail.myMemDist;
+//        myAddrInput.value = MemDetail.myAddrInput;
+        memGender.value = MemDetail.memGender;
+
+    } catch (error) {
+        console.error('Error fetching Member detail:', error);
+    }
+}
+
+//    const statusMemGender = new Map([
+//      [0, '不方便透露']
+//      [1, '男'],
+//      [2, '女'],
+//    ]);
+
+
+// 在提交審核按鈕被點擊時執行以下程式碼
+// 修改
+
+submitBtn.addEventListener('click', async function (event) {
+    event.preventDefault()
+
+    // 構建要傳遞的資料
+    const requestData = {
+           memName: memName.value,
+//        memIdcard: memIdcard.value,
+           memPhone: memPhone.value,
+//        memAddr:memCity.value + memDist.value + myAddrInput.value,
+//        memGender: memGender.value
+    };
+
+
+    try {
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+        const response = await fetch(`${baseUrl}member/update`, {
+            method:  'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        });
+
+        if (response.ok) {
+            const updatedMemberData = await response.json();
+
+            Swal.fire({
+                icon: 'success',
+                title: '更新成功',
+                text: '',
+                confirmButtonText: '確定'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'memberUpdate.html';
+                }
+            });
+
+
+        } else {
+            console.error('Failed to update Member.');
+        }
+    } catch (error) {
+        console.error('Error to update Member.', error);
+    }
+});

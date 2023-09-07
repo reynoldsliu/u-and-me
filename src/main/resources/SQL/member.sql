@@ -5,6 +5,8 @@ create table members (
 	mem_password varchar(20) not null,
 	mem_name varchar(10),
 	mem_gender tinyint default 0 not null,  -- 0:不方便透露,1:男,2:女
+	mem_city varchar(100) not null,
+	mem_dist varchar(100) not null,
 	mem_addr varchar(100) not null,
 	mem_grade int,
     mem_idcard varchar(10),
@@ -17,16 +19,16 @@ create table members (
 select * from members;
 INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_addr, mem_grade, mem_idcard,mem_phone, mem_point, mem_sta, mem_group)
 VALUES
-  (1,'member1@example.com', 'password1', 'tong', 2, 'Address 1', 1,'A123456789','0911111111', 100, 1, 0),
-  (2,'member2@example.com', 'password2', 'lynn', 2, 'Address 2', 2,'B123456789', '0922222222', 400, 0, 0),
-  (3,'member3@example.com', 'password3', 'sian', 2, 'Address 3', 1,'C123456789','0933333333', 550, 1, 0),
-  (4,'member4@example.com', 'password4', 'reynolds', 1, 'Address 4','D123456789', 3,'0944444444', 300, 2, 1),
-  (5,'member5@example.com', 'password5', 'Katie', 2, 'Address 5', 2,'E123456789', '0955555555', 250, 1, 1),
-  (6,'member6@example.com', 'password6', 'jas', 2, 'Address 6', 1,'F123456789','0966666666', 50, 0, 0),
-  (7,'member7@example.com', 'password7', 'henry', 1, 'Address 7', 3,'G123456789', '0977777777', 50, 1, 0),
-  (8,'member8@example.com', 'password8', 'David', 0, 'Address 8', 2,'H123456789', '0988888888', 180, 1, 0),
-  (9,'member9@example.com', 'password9', 'hazel', 2, 'Address 9', 1,'I123456789', '0999999999', 120, 1, 1),
-  (10,'member10@example.com', 'password10', 'tou', 1, 'Address 10', 1,'J123456789', '0900000000', 80, 2, 1);
+  (1,'member1@example.com', 'password1', 'tong', 2, '台北市','大安區''復興南路一段123號', 1,'A123456789','0911111111', 100, 1, 0),
+  (2,'member2@example.com', 'password2', 'lynn', 2, '新北市','板橋區','文化路二段456號', 2,'B123456789', '0922222222', 400, 0, 0),
+  (3,'member3@example.com', 'password3', 'sian', 2, '高雄市','鳳山區','中山西路789號', 1,'C123456789','0933333333', 550, 1, 0),
+  (4,'member4@example.com', 'password4', 'reynolds', 1, '台中市','西屯區','文華路三段234號',1,'D123456789','0944444444', 300, 2, 1),
+  (5,'member5@example.com', 'password5', 'Katie', 2, '桃園市','中壢區','永安南路五段567號', 2,'E123456789', '0955555555', 250, 1, 1),
+  (6,'member6@example.com', 'password6', 'jas', 2, '新竹市','東區','光復路一段890號', 1,'F123456789','0966666666', 50, 0, 0),
+  (7,'member7@example.com', 'password7', 'henry', 1, '彰化縣','彰化市','中山路六段1234號', 3,'G123456789', '0977777777', 50, 1, 0),
+  (8,'member8@example.com', 'password8', 'David', 0, '雲林縣','斗六市','明德路七段567號', 2,'H123456789', '0988888888', 180, 1, 0),
+  (9,'member9@example.com', 'password9', 'hazel', 2, '嘉義縣','太保市','中正路八段789號', 1,'I123456789', '0999999999', 120, 1, 1),
+  (10,'member10@example.com', 'password10', 'tou', 1, '屏東縣','屏東市','建國路九段234號', 1,'J123456789', '0900000000', 80, 2, 1);
 select * from members;
 
 

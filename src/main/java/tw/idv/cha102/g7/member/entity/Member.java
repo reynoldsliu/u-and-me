@@ -29,6 +29,12 @@ public class Member {
     @Column(name = "mem_gender")
     private Integer memGender;
 
+    @Column(name = "mem_city")
+    private String memCity;
+
+    @Column(name = "mem_dist")
+    private String memDist;
+
     @Column(name = "mem_addr")
     private String memAddr;
 
