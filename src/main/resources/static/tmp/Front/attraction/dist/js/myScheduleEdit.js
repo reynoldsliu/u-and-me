@@ -81,7 +81,7 @@ const mySchDateEnd_el = document.getElementById("mySchDateEnd");
 const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");
 const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");
 const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");
-const schDetailCellInsert = document.querySelector(".schDetailCellInsert");
+const viewSchDetailsRows = document.querySelector(".viewSchDetailsRows");
 
 
 //將轉換成字串的日期物件中的 "-" 改成"/"
@@ -98,7 +98,7 @@ function formatStayTime(stayTime) {
     let formattedTime = '';
 
     if (hours > 0) {
-        formattedTime += hours + '小时';
+        formattedTime += hours + '小時';
     }
 
     if (minutes > 0) {
@@ -132,6 +132,48 @@ function parseTimestamp(timestampString) {
     return new Date(year, month, day);//後面可加 ,hour , minute, second 調整精度
 }
 
+function addTimeToStartTime(startTime, stayTime) {
+    // 解析 startTime 字符串为 Date 对象
+    const startDate = new Date(startTime);
+
+    // 解析 stayTime 字符串为小时、分钟和秒
+    const stayTimeParts = stayTime.split(':');
+    const stayHours = parseInt(stayTimeParts[0]);
+    const stayMinutes = parseInt(stayTimeParts[1]);
+
+    // 计算新的小时和分钟
+    let newHours = startDate.getHours() + stayHours;
+    let newMinutes = startDate.getMinutes() + stayMinutes;
+
+    // 处理跨天情况
+    if (newMinutes >= 60) {
+        newHours += Math.floor(newMinutes / 60);
+        newMinutes %= 60;
+    }
+    if (newHours >= 24) {
+        newHours -= 24;
+    }
+
+    // 更新日期对象
+    startDate.setHours(newHours);
+    startDate.setMinutes(newMinutes);
+    console.log(startDate);
+
+    return startDate;
+}
+
+function extractHourAndMinute(timeString) {
+    // 去掉字符串前后的方括号，然后解析为 Date 对象
+    const date = new Date(timeString);
+
+    // 获取时和分的部分
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+
+    // 格式化结果
+    return `${hours}:${minutes}`;
+}
+
 
 async function addDailySchedule(restScheDetails) {
     //拿第一個細節的起始時間當今天開始時間
@@ -142,35 +184,34 @@ async function addDailySchedule(restScheDetails) {
     //開始時間=結束時間+交通時間
 
     //一但有變動 重新呼叫本函式更新一天行程
-    var startTime = restScheDetails[0].schdeStarttime;
-    console.log("Func StartTime: " + startTime);
+    var schdeStarttime = restScheDetails[0].schdeStarttime;
     let countedScheDetails;
     for (countedScheDetails = 0; ; countedScheDetails++) {
         //如果下一筆行程細節是明天的 結束今天的行程列印
-        if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
-            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)) {
 
-            break;
-        }
+
         const schdeId = restScheDetails[countedScheDetails].schdeId;
         const schId = restScheDetails[countedScheDetails].schId;
         const attrId = restScheDetails[countedScheDetails].attrId;
-        const schdeStarttime = restScheDetails[countedScheDetails].schdeStarttime;
+        // const schdeStarttime = restScheDetails[countedScheDetails].schdeStarttime;
         const schdeStaytime = restScheDetails[countedScheDetails].schdeStaytime;
+        console.log("schdeStarttime::" + schdeStarttime);
+        console.log("schdeStaytime::" + schdeStaytime);
+        const schdeEndtime = addTimeToStartTime(schdeStarttime, schdeStaytime);
+        console.log("schdeEndtime::" + schdeEndtime);
+
         const schdeTranstime = restScheDetails[countedScheDetails].schdeTranstime;
         const schdeTrans = restScheDetails[countedScheDetails].schdeTrans;
         const schdeCost = restScheDetails[countedScheDetails].schdeCost;
         const schdeRemark = restScheDetails[countedScheDetails].schdeRemark;
-        const responseAttr = await fetch(baseUrl+`getAttr?attrId=`+attrId);
+        const responseAttr = await fetch(baseUrl + `getAttr?attrId=` + attrId);
         const attr = await responseAttr.json();
-        const responseAttrPics = await fetch(baseUrl+`getAttrPics/`+attrId);
+        const responseAttrPics = await fetch(baseUrl + `getAttrPics/` + attrId);
         const attrPicList = await responseAttrPics.json();
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
-        console.log("RS:"+countedScheDetails+"::"+  restScheDetails[countedScheDetails].attrId);
         let row = document.createElement("div");
         row.innerHTML = `
-            <div class="schDetailCellIndTimesnsert">
                 <!-- 行程細節 cell 由此插入 -->
                 <!-- 第一個行程細節 cell -->
                 <!-- 待加入 onclick後將景點詳情資訊更改成點到的景點資料js -->
@@ -180,14 +221,14 @@ async function addDailySchedule(restScheDetails) {
                             <img src="data:image/jpeg;base64,${attrPicture}"
                                 class="attrFirstPicInschDetail" class="img-fluid rounded-start"
                                 alt="...">
-                            <div class="schDetailOrder"><span class="schDetailOrder">${countedScheDetails+1}</span>
+                            <div class="schDetailOrder"><span class="schDetailOrder">${countedScheDetails + 1}</span>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="schDetailsCardBody">
-                                <p class="schTimes"><span class="stayTimes">${schdeStaytime}</span> |
-                                    <span class="startTimes">${schdeStarttime}</span> - <span
-                                        class="endTimes">${schdeStarttime+schdeStaytime}</span>
+                                <p class="schTimes"><span class="stayTimes">${formatStayTime(schdeStaytime)}</span> |
+                                    <span class="startTimes">${extractHourAndMinute(schdeStarttime)}</span> - <span
+                                        class="endTimes">${extractHourAndMinute(schdeEndtime)}</span>
                                 </p>
                                 <h5 class="attrName">
                                     <div class="attrNameInSchDetail">
@@ -203,10 +244,21 @@ async function addDailySchedule(restScheDetails) {
                     </div>
                 </div>
                 <!-- 行程細節 cell 結束 -->
-            </div>
             <!-- 第二個行程細節cell結束 ！！！！！！！！　-->
             `;
-            schDetailCellInsert.appendChild(row);
+
+        schdeStarttime = schdeEndtime;
+        
+        console.log("NEW START TIME: " + schdeStarttime);
+        viewSchDetailsRows.appendChild(row);
+
+        //將TimeStampString轉為Date 且可以直接比大小
+        //測試只比較日期的比大小 輸出應為相等
+        if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
+            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)) {
+
+            break;
+        }
     }
     return countedScheDetails;
 }
@@ -254,51 +306,36 @@ document.addEventListener("DOMContentLoaded", async function () {
     // console.log(schDetails);
     addDailySchedule(schDetails);
 
-    //將TimeStampString轉為Date 且可以直接比大小
-    //測試只比較日期的比大小 輸出應為相等
-    let date1 = parseTimestamp(schDetails[0].schdeStarttime)
-    let date2 = parseTimestamp(schDetails[1].schdeStarttime)
-
-    console.log("date1: " + date1);
-    console.log("date2: " + date2);
-    if (date1 < date2) {
-        console.log("date1 小于 date2");
-    } else if (date1 > date2) {
-        console.log("date1 大于 date2");
-    } else {
-        console.log("date1 等于 date2");
-    }
-
 
     //每日的行程內容渲染
-    let countDate = schStartDate;
-    for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
+    // let countDate = schStartDate;
+    // for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
 
-        //     //創造今天的物件 周幾 行程細節 等等
+    //     //     //創造今天的物件 周幾 行程細節 等等
 
-        //印出今天周幾
-        viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
-
-
-        //每個行程要做的事
-        for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
-            if (parseTimestamp(schDetails[schDetail].schdeStarttime)
-                < parseTimestamp(schDetails[schDetail + 1].schdeStarttime)) {
-
-                break;
-            }
-            //獲得行程開始時間
-            //取出行程停留時間
-            //計算行程結束時間
-            //印出上述資料
-        }
+    //     //印出今天周幾
+    //     viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
 
 
+    //     //每個行程要做的事
+    //     for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
+    //         if (parseTimestamp(schDetails[schDetail].schdeStarttime)
+    //             < parseTimestamp(schDetails[schDetail + 1].schdeStarttime)) {
+
+    //             break;
+    //         }
+    //         //獲得行程開始時間
+    //         //取出行程停留時間
+    //         //計算行程結束時間
+    //         //印出上述資料
+    //     }
 
 
-        //計算明天周幾 天數加一
-        countDate.setDate(countDate.getDate() + 1);
-    }
+
+
+    //     //計算明天周幾 天數加一
+    //     countDate.setDate(countDate.getDate() + 1);
+    // }
 
 
 
