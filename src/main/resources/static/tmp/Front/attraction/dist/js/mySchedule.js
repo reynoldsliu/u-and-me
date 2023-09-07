@@ -24,6 +24,7 @@ let memId = 1; // 會員Id從哪裡抓取？
 
 // fetch對應到的路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/mySch/";
+let baseURL2 = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 let myURL = baseURL + "my/";
 let addURL = baseURL + "create";
 let deleteURL = baseURL + "delete/";
@@ -64,7 +65,7 @@ async function fetchMyScheduleList(URL, memId, e) {
                     ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
                     <p class="sch-date" style="font-size: 10px">
                     行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
-                    <a href="myScheduleEdit.html" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
+                    <a href="${baseURL2}tmp/Front/attraction/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
                 </div>
               </div>
             </div>
