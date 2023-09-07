@@ -234,8 +234,11 @@ addAttrCollect_btn_el.onclick = () => {
 // fetch to Controller路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
 // 列出所有景點收藏
-let myAttrCollectionURL = baseURL + "/attrCol/getAttrsFromCollectionByMemId/"
-
+let myAttrCollectionURL = baseURL + "/attrCol/getAttrsFromCollectionByMemId/";
+// 依據景點編號查詢景點資訊
+let getAttrByAttrIdURL = baseURL + "/getAttr?attrId=";
+// 依據景點編號查詢所有景點圖片
+let getAttrPicsByAttrIdURL = baseURL + "/getAttrPics/";
 
 
 // 按下我的景點收藏時換到景點收藏頁面
@@ -247,58 +250,69 @@ tab_attrCollect_el.addEventListener("click", function (e) {
     // 關閉其他頁籤內容
     switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
-    // 顯示景點收藏清單
+    // 顯示景點收藏清單頁面
     myAttrsPage.classList.remove(classSwitchOff);
     if (myAttrCollectionList.classList.contains(classSwitchOff)) {
         myAttrCollectionList.classList.remove(classSwitchOff);
     }
-    // 若沒有景點收藏，則顯示尚未有任何收藏景點頁面
-    // myAttrCollectionList.classList.add(classSwitchOff);
-    // if (attrCollectNotFound.classList.contains(classSwitchOff)) {
-    //     attrCollectNotFound.classList.remove(classSwitchOff);
-    // }
 
-    let memId = 2;
-    FindAllAttrCollectionList(myAttrCollectionURL, memId);
+    // 根據會員id動態生成景點收藏清單
+    let memId = 1;
+    FindAllAttrCollectionList(memId);
 
 });
 
 
 // 查看景點收藏，動態生成景點收藏清單
-async function FindAllAttrCollectionList(URL, memId) {
+async function FindAllAttrCollectionList(memId) {
     try {
-        const response = await fetch(URL + memId);
-        const myAttrCollectList = await response.json();
-        // 如果找不到收藏，則顯示沒有收藏頁面的東西
-        if(myAttrCollectList == null || myAttrCollectList == undefined){
+        // 查詢會員專屬的景點收藏清單
+        const responseOfCollection = await fetch(myAttrCollectionURL + memId);
+        const myAttrCollectList = await responseOfCollection.json();
+
+        // 如果找不到收藏，則顯示您沒有收藏景點的頁面
+        // console.log(myAttrCollectList);
+        if (myAttrCollectList.length === 0) {
             attrCollectNotFound.classList.remove(classSwitchOff);
         }
 
-        // 清空插入處所有的資料
+        // 清空景點收藏清單插入處所有的資料
         attrCollectionListInsert_el.innerHTML = "";
 
-        myAttrCollectList.forEach(attr => {
+        // 加入async試試看(找出每一個景點收藏)
+        myAttrCollectList.forEach(async attrCollect => {
 
+            // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
+            // 找出每一個景點收藏中景點的資料：如景點名稱
+            const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.collectionId.attrId);
+            const attrList = await responseOfOneAttr.json();
 
+            // 景點的第一張圖片編號、景點的第一張圖片
+            const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attrCollect.collectionId.attrId);
+            const attrPicList = await responseOfAttrFirstPic.json();
+            const pics = attrPicList.attrPic;
+
+            // 動態生成每一個景點資訊框
             let row = document.createElement("div");
             row.innerHTML = `
-                <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()" id="attrId${attr.collectionId.attrId}">
-                <div class="row g-0">
-                    <div class="col-md-8">
-                        <div class="attrCardBody">
-                            <h5 class="attrName">
-                                <div id="attrName">
-                                    AAAAAAA
-                                </div>
-                            </h5>
+                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()" id="attrId${attrCollect.collectionId.attrId}">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <div class="attrCardBody">
+                                <h5 class="attrName">
+                                    <div id="attrName">
+                                        ${attrList.attrName}
+                                    </div>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="attrPic col-md-4">
+                            <img src="data: image/jpeg;base64,${pics[0].attrPicData}"
+                                class="img-fluid rounded-end" alt="..."
+                                style="width: 140.219px;height: 92.208px;object-fit: cover;">
                         </div>
                     </div>
-                    <div class="attrPic col-md-4">
-                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                    </div>
-                </div>
-            </div>`;
+                </div>`;
 
             attrCollectionListInsert_el.appendChild(row);
         });
