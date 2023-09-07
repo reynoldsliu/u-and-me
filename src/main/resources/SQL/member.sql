@@ -17,9 +17,10 @@ create table members (
 	mem_group tinyint default 0 not null  -- 0:非團主,1:團主
 );
 select * from members;
-INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_addr, mem_grade, mem_idcard,mem_phone, mem_point, mem_sta, mem_group)
+SELECT * FROM main.members;
+INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_city, mem_dist, mem_addr, mem_grade, mem_idcard,mem_phone, mem_point, mem_sta, mem_group)
 VALUES
-  (1,'member1@example.com', 'password1', 'tong', 2, '台北市','大安區''復興南路一段123號', 1,'A123456789','0911111111', 100, 1, 0),
+  (1,'member1@example.com', 'password1', 'tong', 2, '台北市','大安區','復興南路一段123號', 1,'A123456789','0911111111', 100, 1, 0),
   (2,'member2@example.com', 'password2', 'lynn', 2, '新北市','板橋區','文化路二段456號', 2,'B123456789', '0922222222', 400, 0, 0),
   (3,'member3@example.com', 'password3', 'sian', 2, '高雄市','鳳山區','中山西路789號', 1,'C123456789','0933333333', 550, 1, 0),
   (4,'member4@example.com', 'password4', 'reynolds', 1, '台中市','西屯區','文華路三段234號',1,'D123456789','0944444444', 300, 2, 1),
