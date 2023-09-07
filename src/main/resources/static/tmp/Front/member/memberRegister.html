@@ -364,7 +364,8 @@ memDist.classList.remove("text-secondary");
     }
 
   async function Register(member) {
-      const response = await fetch("http://localhost:8081/u-and-me/member/register", {
+      const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+       const response = await fetch(baseUrl + "member/register", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
@@ -385,11 +386,9 @@ memDist.classList.remove("text-secondary");
       const memPassword = document.getElementById("memPassword").value;
       const memName = document.getElementById("memName").value;
       const memPhone = document.getElementById("memPhone").value;
-      const myAddrInput = document.getElementById("my-addr-input");
-      const myCityOptions = document.querySelectorAll("#my-mem-city > option");
-      const myDistOptions = document.querySelectorAll("#my-mem-dist > option");
-
-      const memDist = document.getElementById("my-mem-dist");
+      const memAddr = document.getElementById("my-addr-input").value;
+      const memDist = document.getElementById("my-mem-dist").value;
+      const memCity = document.getElementById("my-mem-city").value;
       const memGender = document.getElementById("memGender").value;
 
       const member = {
@@ -397,8 +396,10 @@ memDist.classList.remove("text-secondary");
           "memPassword": memPassword,
           "memName": memName,
           "memPhone": memPhone,
-          "memAddr":memCity.value + memDist.value + myAddrInput.value,
-          "memGender": memGender,
+          "memCity":memCity,
+          "memDist":memDist,
+          "memAddr":memAddr,
+          "memGender": memGender
 
       };
 
@@ -409,46 +410,5 @@ memDist.classList.remove("text-secondary");
 </script>
 
 </body>
-
-<!--<script>-->
-
-<!--    async function Register(member) {-->
-<!--      const response = await fetch("http://localhost:8081/u-and-me/member/register", {-->
-<!--          method: "POST",-->
-<!--          headers: {-->
-<!--              "Content-Type": "application/json",-->
-<!--          },-->
-<!--          body: JSON.stringify(member)-->
-<!--      });-->
-
-<!--      if (response.ok) {-->
-<!--          alert("註冊成功");-->
-<!--      } else {-->
-<!--          alert("註冊失敗，請再次嘗試");-->
-<!--      }-->
-<!--  }-->
-
-<!--  const regBtn_el = document.getElementById("regButton");-->
-<!--  regBtn_el.addEventListener("click", function() {-->
-<!--      const memEmail = document.getElementById("memEmail").value;-->
-<!--      const memPassword = document.getElementById("memPassword").value;-->
-<!--      const memName = document.getElementById("memName").value;-->
-<!--      const memPhone = document.getElementById("memPhone").value;-->
-<!--      const memAddr = document.getElementById("memAddr").value;-->
-<!--      const memGender = document.getElementById("memGender").value;-->
-
-<!--      const member = {-->
-<!--          "memEmail": memEmail,-->
-<!--          "memPassword": memPassword,-->
-<!--          "memName": memName,-->
-<!--          "memPhone": memPhone,-->
-<!--          "memAddr": memAddr,-->
-<!--          "memGender": memGender-->
-<!--      };-->
-
-<!--      Register(member);-->
-<!--  });-->
-
-<!--</script>-->
 
 </html>

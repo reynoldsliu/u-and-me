@@ -146,17 +146,21 @@
             
             <div class="col-md-6">
                 <label for="memGender" class="memGender">性別</label>
-                <select id="memGender" class="memGender">
+                <div style="margin-top:10px;">
+                <select style=" width:300px; height:36px;" id="memGender" class="memGender">
                     <option selected>請選擇您的性別</option>
                     <option value="1">男</option>
                     <option value="2">女</option>
                     <option value="0">不方便透露</option>
                 </select>
+                </div>
             </div>
             <br>
             <div class="col-md-6">
                 <label for="memIdcard" class="memIdcard">身分證</label>
-                <input type="text" class="memIdcard" id="memIdcard" value="">
+                <div>
+                <input style=" width:300px; height:36px;" type="text" class="memIdcard" id="memIdcard" value="">
+                </div>
             </div>
             <div class="col-md-6">
                 <label for="memPhone" class="memPhone">電話</label>
@@ -167,9 +171,9 @@
             <br>
             <br>
             <div class="col-md-3">
-                <label class="myMemCity">地址</label>
-                <select class="form-select text-secondary" id="myMemCity">
-                    <option value="0">請選擇居住縣市</option>
+                <label class="myMemCity">居住縣市</label>
+                <select style="margin-top:8px;" class="form-select text-secondary" id="myMemCity">
+                    <option value="0">縣市</option>
                     <option value="臺北市">臺北市</option>
                     <option value="新北市">新北市</option>
                     <option value="基隆市">基隆市</option>
@@ -199,13 +203,13 @@
             <div class="col-md-3">
                 <label class="form-label">居住地區</label>
                 <select class="form-select text-secondary" id="myMemDist">
-                    <option value="0">請選擇居住地區</option>
+                    <option value="0">地區</option>
                 </select>
             </div>
 
             <!-- Address -->
             <div class="col-md-6">
-                <label class="form-label">居住地址</label>
+                <label class="form-label">地址</label>
                 <textarea class="form-control" id="myAddrInput" rows="1" spellcheck="false"
                           placeholder="例：復興路8樓"></textarea>
             </div>
@@ -277,6 +281,8 @@
     </div>
 
     <script src="../dist/js/memberUpdate.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 </body>
 
 

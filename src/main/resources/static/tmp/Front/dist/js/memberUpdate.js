@@ -102,6 +102,7 @@ memDist.classList.remove("text-secondary");
 
 //在網頁載入完成後執行
         document.addEventListener("DOMContentLoaded", function () {
+          console.log("HIIIII");
              fetchMemDetail();
         });
 
@@ -113,15 +114,12 @@ memDist.classList.remove("text-secondary");
 const memName = document.getElementById('memName');
 const memIdcard = document.getElementById('memIdcard');
 const memPhone = document.getElementById('memPhone');
-//const myMemCity = document.getElementById('#myMemCity> option');
-//const myMemDist = document.getElementById('#myMemDist> option');
-//const myAddrInput = document.getElementById('myAddrInput');
-//const memGender = document.querySelector('memGender');
+const myAddrInput = document.getElementById("myAddrInput");
+const myMemDist = document.getElementById("myMemDist");
+const myMemCity = document.getElementById("myMemCity");
+const memGender = document.getElementById("memGender");
 const submitBtn = document.querySelector('button[type="submit"]');
-
-
-
-
+var memEmail;
 
 // 使用 fetch API 發送請求，獲取單筆會員詳細資料
 async function fetchMemDetail() {
@@ -132,15 +130,18 @@ async function fetchMemDetail() {
         const memId = member.memId;
         const response = await fetch(baseUrl + `member/Details/${memId}`);
         const MemDetail = await response.json();
+        memEmail = MemDetail.memEmail;
+        console.log(MemDetail);
 
 
         // 將會員詳細資訊填充到輸入框中
+        memEmail.value = MemDetail.memEmail;
         memName.value = MemDetail.memName;
-            memIdcard.value = MemDetail.memIdcard;
-            memPhone.value = MemDetail.memPhone;
-//        myMemCity.value = MemDetail.myMemCity;
-//        myMemDist.value = MemDetail.myMemDist;
-//        myAddrInput.value = MemDetail.myAddrInput;
+        memIdcard.value = MemDetail.memIdcard;
+        memPhone.value = MemDetail.memPhone;
+        myMemCity.value = MemDetail.memCity;
+        myMemDist.value = MemDetail.memDist;
+        myAddrInput.value = MemDetail.memAddr;
         memGender.value = MemDetail.memGender;
 
     } catch (error) {
@@ -163,11 +164,14 @@ submitBtn.addEventListener('click', async function (event) {
 
     // 構建要傳遞的資料
     const requestData = {
-           memName: memName.value,
-//        memIdcard: memIdcard.value,
-           memPhone: memPhone.value,
-//        memAddr:memCity.value + memDist.value + myAddrInput.value,
-//        memGender: memGender.value
+            "memEmail":memEmail,
+           "memName": memName.value,
+           "memIdcard": memIdcard.value,
+           "memPhone": memPhone.value,
+           "memAddr": myAddrInput.value,
+           "memDist": myMemDist.value,
+           "memCity": myMemCity.value,
+           "memGender": memGender.value
     };
 
 

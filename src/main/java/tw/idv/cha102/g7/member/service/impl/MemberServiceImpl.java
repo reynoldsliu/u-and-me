@@ -46,6 +46,7 @@ public class MemberServiceImpl implements MemberService {
         httpSession.setAttribute("memberId", member.getMemId()); // 保存目前登入的會員id，供後續使用
 
     }
+
     @Autowired
     private MemberRepository memberRepository;
 //    private EmailVerificationRepository emailVerificationRepository;
@@ -114,25 +115,34 @@ public class MemberServiceImpl implements MemberService {
 //        Member existingMember = memberRepository.findById(member.getMemId()).orElse(null);
         System.out.println("member:" + member);
         if (existingMember != null) {
-        if(member.getMemPhone()!=null){
-            existingMember.setMemPhone(member.getMemPhone());
-        }if(member.getMemName()!=null){
-            existingMember.setMemName(member.getMemName());
-        }if(member.getMemIdcard()!=null){
-            existingMember.setMemIdcard(member.getMemIdcard());
-        }if(member.getMemCity()!=null){
-                existingMember.setMemCity(member.getMemCity());
-            }if(member.getMemDist()!=null){
-                existingMember.setMemDist(member.getMemDist());
-        }if(member.getMemAddr()!=null){
-                existingMember.setMemAddr(member.getMemAddr());
-            }if(member.getMemGender()!=null){
-                existingMember.setMemGender(member.getMemGender());
-        }if(member.getMemIdPic()!=null){
-                existingMember.setMemIdPic(member.getMemIdPic());
-        }if(member.getMemEmail()!=null){
-                existingMember.setMemEmail(member.getMemEmail());
+            if (member.getMemPhone() != null) {
+                existingMember.setMemPhone(member.getMemPhone());
             }
+            if (member.getMemName() != null) {
+                existingMember.setMemName(member.getMemName());
+            }
+            if (member.getMemIdcard() != null) {
+                existingMember.setMemIdcard(member.getMemIdcard());
+            }
+            if (member.getMemCity() != null) {
+                existingMember.setMemCity(member.getMemCity());
+            }
+            if (member.getMemDist() != null) {
+                existingMember.setMemDist(member.getMemDist());
+            }
+            if (member.getMemAddr() != null) {
+                existingMember.setMemAddr(member.getMemAddr());
+            }
+            if (member.getMemGender() != null) {
+                existingMember.setMemGender(member.getMemGender());
+            }
+            if (member.getMemIdPic() != null) {
+                existingMember.setMemIdPic(member.getMemIdPic());
+            }
+            if (member.getMemEmail() != null) {
+                existingMember.setMemEmail(memEmail);
+            }
+
 
             System.out.println("existingMember" + existingMember);
             return memberRepository.save(existingMember);

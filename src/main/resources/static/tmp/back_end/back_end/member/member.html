@@ -487,7 +487,7 @@
         "memSta": memSta[memId-1].value,
         "memGroup": memGroup[memId-1].value};
     try {
-        const response = await fetch(`http://localhost:8081/u-and-me/hostToMember/update`, {
+        const response = await fetch(`http://localhost:8080/u-and-me/hostToMember/update`, {
             method: 'POST',
             headers: {
                         'Content-Type': 'application/json'

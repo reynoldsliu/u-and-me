@@ -334,7 +334,7 @@
 
     const testloginBtn_el = document.getElementById("testloginBtn");
     testloginBtn_el.addEventListener("click", async function () {
-      const response = await fetch('http://localhost:8081/u-and-me/member/testlogin', {
+      const response = await fetch('http://localhost:8080/u-and-me/member/testlogin', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -344,7 +344,7 @@
     })
     const logoutBtn_el = document.getElementById("logoutBtn");
     logoutBtn_el.addEventListener("click", async function () {
-      const response = await fetch('http://localhost:8081/u-and-me/host/hostLogout', {
+      const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -358,7 +358,7 @@
 
     Login = async function Login(host) {
 
-      const response = await fetch("http://localhost:8081/u-and-me/host/hostLogin", {
+      const response = await fetch("http://localhost:8080/u-and-me/host/hostLogin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
