@@ -18,8 +18,11 @@ const iswitch_el = document.querySelectorAll("i.switch");
 const itrash_el = document.querySelectorAll("i.trash");
 // 新增景點按鈕
 const addNewAttrbtn_el = document.querySelector("div.addNewAttrbtn");
-// 行程細節cell
+// 行程細節cell(有很多個，先抓第一個)
 const schDetailCells = document.querySelector(".schDetailCell");
+// 單一景點cell(抓不到，直接綁定onclick)
+const attrCells = document.querySelector(".attrCell");
+
 
 // =============== 景點搜尋相關標籤 =============== 
 // 返回行程細節(箭頭)、搜尋、景點收藏、自訂景點
@@ -63,7 +66,9 @@ const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 const attrSearchListInsert_el = document.querySelector(".attrSearchList");
 // 景點收藏
 const attrCollectionListInsert_el = document.querySelector(".attrCollectionList")
-
+// 單一景點詳情圖片輪播
+const attrTotalImgsInsert_el = document.querySelector(".attrTotalImgsInsert");
+// 單一景點詳情內容
 
 
 
@@ -204,13 +209,54 @@ tab_search_el.addEventListener("click", function (e) {
     attrSearchPage.classList.remove(classSwitchOff);
 });
 
-// 點擊到單一景點收藏cell時，出現景點詳細頁面
-function viewSearchResultOfOneAttr() {
+// 點擊到schDetailCell(單一行程細節Cell)、attrCell(景點搜尋、景點收藏Cell)時，出現景點詳細頁面
+async function viewSearchResultOfOneAttr(attrId) {
     // 顯示單一景點詳情頁面
     viewAttrDetailsCard.classList.remove(classSwitchOff);
     // 開啟 GOOGLE MAP(查看單一景點模式)
     viewGoogleMap.classList.add(classMapOne);
+
+    // 藉由景點id查詢相應所有圖片
+    const responseOfAttrAllPic = await fetch(getAttrPicsByAttrIdURL + attrId);
+    const attrPicList = await responseOfAttrAllPic.json();
+    const pics = attrPicList.attrPic;
+
+    // 清空景點詳情圖片
+    attrTotalImgsInsert_el.innerHTML = "";
+
+    // 取出每一張圖片，放入輪播img標籤中
+    for (let pic of pics) {
+
+        // console.log(pic);
+        let imgs = document.createElement("div");
+        imgs.classList.add("carousel-item");
+
+        imgs.innerHTML = `
+            <img class="attrImgs"
+            style="width: 318.3px;height: 208.3px;object-fit: cover;"
+            src="data: image/jpeg;base64,${pic.attrPicData}"
+            alt="...">`;
+
+        attrTotalImgsInsert_el.appendChild(imgs);
+
+        // 將輪播的第一個圖片<div> class加上active屬性
+        let firstImgDiv = document.querySelector("div.carousel-item:first-child");
+        firstImgDiv.classList.add("active");
+    }
+
+    // 更改景點詳情內容
+    const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrId);
+    const attr = await responseOfOneAttr.json();
+
+
 }
+
+
+
+
+
+
+
 
 // 關閉單一景點詳情頁面(按下叉叉時觸發)
 function closeViewAttrDetailsCard() {
@@ -285,7 +331,7 @@ async function FindAllAttrCollectionList(memId) {
             // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
             // 找出每一個景點收藏中景點的資料：如景點名稱
             const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.collectionId.attrId);
-            const attrList = await responseOfOneAttr.json();
+            const attr = await responseOfOneAttr.json();
 
             // 景點的第一張圖片編號、景點的第一張圖片
             const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attrCollect.collectionId.attrId);
@@ -295,13 +341,13 @@ async function FindAllAttrCollectionList(memId) {
             // 動態生成每一個景點資訊框
             let row = document.createElement("div");
             row.innerHTML = `
-                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()" id="attrId${attrCollect.collectionId.attrId}">
+                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrCollect.collectionId.attrId})" id="attrId${attrCollect.collectionId.attrId}">
                     <div class="row g-0">
                         <div class="col-md-8">
                             <div class="attrCardBody">
                                 <h5 class="attrName">
                                     <div id="attrName">
-                                        ${attrList.attrName}
+                                        ${attr.attrName}
                                     </div>
                                 </h5>
                             </div>
