@@ -57,6 +57,15 @@ const addAttrCollect_btn_el = document.querySelector(".addAttrCollect-btn");
 const addToSchedule_btn_el = document.querySelector(".addToSchedule-btn");
 const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 
+// 元素插入處
+
+// 景點搜尋
+const attrSearchListInsert_el = document.querySelector(".attrSearchList");
+// 景點收藏
+const attrCollectionListInsert_el = document.querySelector(".attrCollectionList")
+
+
+
 
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", function () {
@@ -221,6 +230,14 @@ addAttrCollect_btn_el.onclick = () => {
 }
 
 // ================== 景點收藏 ================== //
+
+// fetch to Controller路徑
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
+// 列出所有景點收藏
+let myAttrCollectionURL = baseURL + "/attrCol/getAttrsFromCollectionByMemId/"
+
+
+
 // 按下我的景點收藏時換到景點收藏頁面
 tab_attrCollect_el.addEventListener("click", function (e) {
     e.preventDefault();
@@ -240,7 +257,60 @@ tab_attrCollect_el.addEventListener("click", function (e) {
     // if (attrCollectNotFound.classList.contains(classSwitchOff)) {
     //     attrCollectNotFound.classList.remove(classSwitchOff);
     // }
+
+    let memId = 2;
+    FindAllAttrCollectionList(myAttrCollectionURL, memId);
+
 });
+
+
+// 查看景點收藏，動態生成景點收藏清單
+async function FindAllAttrCollectionList(URL, memId) {
+    try {
+        const response = await fetch(URL + memId);
+        const myAttrCollectList = await response.json();
+        // 如果找不到收藏，則顯示沒有收藏頁面的東西
+        if(myAttrCollectList == null || myAttrCollectList == undefined){
+            attrCollectNotFound.classList.remove(classSwitchOff);
+        }
+
+        // 清空插入處所有的資料
+        attrCollectionListInsert_el.innerHTML = "";
+
+        myAttrCollectList.forEach(attr => {
+
+
+            let row = document.createElement("div");
+            row.innerHTML = `
+                <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()" id="attrId${attr.collectionId.attrId}">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <div class="attrCardBody">
+                            <h5 class="attrName">
+                                <div id="attrName">
+                                    AAAAAAA
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="attrPic col-md-4">
+                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
+                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
+                    </div>
+                </div>
+            </div>`;
+
+            attrCollectionListInsert_el.appendChild(row);
+        });
+
+    } catch (error) {
+        console.error("Error fetching AttrCollectList:", error);
+    }
+}
+
+
+
+
 
 // ================== 自訂景點 ================== //
 // 按下自訂景點時換到自訂景點頁面

@@ -69,16 +69,14 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
     @Override
     public List<AttrCollectionDTO> findAttrsByMemId(Integer memId) {
         List<AttrCollectionDTO> dtoList = attrCollectionRepository.findAll();
+        List<AttrCollectionDTO> returnList = new ArrayList<>();
         System.out.println(memId);
-        if(dtoList==null){
-            return new ArrayList<>();
-        }
         for(AttrCollectionDTO dto:dtoList){
-            if(dto.getCollectionId().getMemId() != memId){
-                dtoList.remove(dto);
+            if(dto.getCollectionId().getMemId() == memId){
+                returnList.add(dto);
             }
         }
-        return dtoList;
+        return returnList;
 //        return attrCollectionRepository.findByCollectionId((attrCollectionRepository.findByMemId(memId)));
     }
 
