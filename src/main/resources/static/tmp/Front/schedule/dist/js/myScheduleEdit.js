@@ -119,6 +119,9 @@ document.addEventListener("DOMContentLoaded", function () {
     switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
 
+
+    // 插入力辰的方法
+
 });
 
 

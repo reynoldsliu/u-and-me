@@ -479,7 +479,7 @@ div.schDeStartTimeRows:first-child {
 }
 
 /* 第幾天 */
-span#viewWhichDay {
+span.viewWhichDay {
     /* border: 1px solid green; */
     font-size: 1rem;
     color: #fff;
@@ -489,7 +489,7 @@ span#viewWhichDay {
 }
 
 /* 星期幾 */
-span#viewWhichWeekDay {
+span.viewWhichWeekDay {
     /* border: 1px solid green; */
     font-size: 1rem;
     color: #fff;
@@ -499,7 +499,7 @@ span#viewWhichWeekDay {
 }
 
 /* 出發時間 */
-span#schDeStratTime {
+span.schDeStartTime {
     font-size: 0.9rem;
     color: black;
     /* border: 1px solid blue; */
@@ -1125,7 +1125,7 @@ div.attrDetails>ul>li {
 
 /* 所有營業時間列 */
 div.attrBussTime {
-    margin-left: 41px;
+    /* margin-left: 41px; */
     /* text-align: center; */
 }
 
