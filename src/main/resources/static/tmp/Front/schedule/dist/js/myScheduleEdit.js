@@ -61,7 +61,6 @@ const addToSchedule_btn_el = document.querySelector(".addToSchedule-btn");
 const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 
 // 元素插入處
-
 // 景點搜尋
 const attrSearchListInsert_el = document.querySelector(".attrSearchList");
 // 景點收藏
@@ -69,6 +68,46 @@ const attrCollectionListInsert_el = document.querySelector(".attrCollectionList"
 // 單一景點詳情圖片輪播
 const attrTotalImgsInsert_el = document.querySelector(".attrTotalImgsInsert");
 // 單一景點詳情內容
+// 景點名稱(標題)
+const attrNameTitle = document.querySelector("#attrNameTitle");
+const attrComScore = document.querySelector("#attrComScore");
+// 景點評價(2.0~5.0)
+function generateRandomNumber() {
+    const min = 3.5; // 最小值
+    const max = 5.0; // 最大值
+
+    // 生成随机数
+    const randomNumber = Math.random() * (max - min) + min;
+
+    // 使用 toFixed 方法四舍五入到小数点第一位
+    const roundedNumber = Number(randomNumber.toFixed(1));
+
+    return roundedNumber;
+}
+// 景點類型
+const attrTypeName = document.querySelector("#attrTypeName");
+// 景點地址
+const attrAddress = document.querySelector("#attrAddress");
+// 景點營業時間(只抓第一個標籤)
+const attrBussTime = document.querySelector(".attrBussTime");
+// 景點消費價位(低中高價位)
+const attrCostRange = document.querySelector("#attrCostRange");
+function codeToPriceRange(code) {
+    switch (code) {
+        case 1:
+            return "低價位 (500元以下)";
+        case 2:
+            return "中價位 (500~1000元)";
+        case 3:
+            return "高價位 (1000元以上)";
+        // 添加更多的代号和对应的描述
+        default:
+            return "尚無資料";
+    }
+}
+// 景點描述
+const attrIlla = document.querySelector("#attrIlla");
+
 
 
 
@@ -247,8 +286,13 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 更改景點詳情內容
     const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrId);
     const attr = await responseOfOneAttr.json();
-
-
+    attrNameTitle.innerText = attr.attrName;
+    attrComScore.innerText = generateRandomNumber();
+    attrTypeName.innerText = attr.attrType;
+    attrAddress.innerText = attr.attrAddr;
+    attrBussTime.innerText = attr.attrBussTime;
+    attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
+    attrIlla.innerText = attr.attrIlla;
 }
 
 
