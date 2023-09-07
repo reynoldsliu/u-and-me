@@ -5,6 +5,7 @@ function getDayOfWeek(dateString) {
     const daysOfWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
     const date = new Date(dateString);
     const dayOfWeek = daysOfWeek[date.getDay()];
+    console.log("Date to change: " + dateString + ":" + dayOfWeek);
     return dayOfWeek;
 }
 
@@ -79,12 +80,55 @@ const mySchDateEnd_el = document.getElementById("mySchDateEnd");
 
 const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");
 const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");
-const schDeStratTime_els = document.querySelectorAll(".schDeStratTime");
+const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");
 
 
-
-function modifiyDate(date){
+//將轉換成字串的日期物件中的 "-" 改成"/"
+function modifiyDate(date) {
     return date.replace(/-/g, '/');
+}
+
+//將轉換成字串的日期物件中的 "00:00:00" 改成 "X時X分"
+function formatStayTime(stayTime) {
+    const parts = stayTime.split(':');
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+
+    let formattedTime = '';
+
+    if (hours > 0) {
+        formattedTime += hours + '小时';
+    }
+
+    if (minutes > 0) {
+        formattedTime += minutes + '分';
+    }
+
+    return formattedTime || '0分'; // 如果没有小时和分钟，默认为0分
+}
+
+
+// function todayFirstSchDetailIndex(data){
+
+// }
+
+//將timestampString轉成Date 並調整精度
+function parseTimestamp(timestampString) {
+    const parts = timestampString.split(' ');
+    const datePart = parts[0];
+    const timePart = parts[1];
+
+    const dateParts = datePart.split('-');
+    const year = parseInt(dateParts[0]);
+    const month = parseInt(dateParts[1]) - 1; // 月份从0开始，所以要减1
+    const day = parseInt(dateParts[2]);
+
+    const timeParts = timePart.split(':');
+    const hour = parseInt(timeParts[0]);
+    const minute = parseInt(timeParts[1]);
+    const second = parseInt(timeParts[2]);
+
+    return new Date(year, month, day);//後面可加 ,hour , minute, second 調整精度
 }
 
 
@@ -101,16 +145,73 @@ document.addEventListener("DOMContentLoaded", async function () {
     //透過schId 獲取整個schedule物件
     const response = await fetch(baseUrl + `schedules/schId/${schId}`);
     const schedule = await response.json();
+    console.log("Schedule ID: " + schId);
+    //行程開始日期 結束日期
+    var schStartDate = new Date(schedule.schStart);
+    var schEndDate = new Date(schedule.schEnd);
     var schStart = schedule.schStart;
     var schEnd = schedule.schEnd;
-    mySchDateStart_el.value = modifiyDate(schStart);
-    mySchDateEnd_el.value = modifiyDate(schEnd);
+    var schDuringDays = ((schEndDate - schStartDate) / (1000 * 60 * 60 * 24)) + 1;
+    //將起始日期及結束日期放在行程最上方
+    mySchDateStart_el.innerText = modifiyDate(schStart);
+    mySchDateEnd_el.innerText = modifiyDate(schEnd);
 
-    console.log(getDayOfWeek(schStart));
-    console.log(getDayOfWeek(++schStart));
-    for(let viewWhichWeekDay_el of viewWhichWeekDay_els){
-        viewWhichWeekDay_el.innerText = getDayOfWeek(schStart);
+    // const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");第幾天
+    // const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");周幾
+    // const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");今天的起始時間
+
+    //取出本行程所有的行程細節
+    const response1 = await fetch(baseUrl + `schDetails/${schId}`);
+    const schDetails = await response1.json();
+    console.log("STAY time: " + schDetails[0].schdeStaytime);
+    console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
+    const stayTimes = document.querySelectorAll(".stayTimes");
+    let count = 0;
+    //將所有行程細節stayTime顯示
+    for (let stayTime of stayTimes) {
+        stayTime.innerText = formatStayTime(schDetails[count++].schdeStaytime);
     }
+
+    
+    //將TimeStampString轉為Date 且可以直接比大小
+    //測試只比較日期的比大小 輸出應為相等
+    let date1 = parseTimestamp(schDetails[0].schdeStarttime)
+    let date2 = parseTimestamp(schDetails[1].schdeStarttime)
+
+    console.log("date1: " + date1);
+    console.log("date2: " + date2);
+    if (date1 < date2) {
+        console.log("date1 小于 date2");
+    } else if (date1 > date2) {
+        console.log("date1 大于 date2");
+    } else {
+        console.log("date1 等于 date2");
+    }
+
+
+    //每日的行程內容渲染
+    let countDate = schStartDate;
+    // for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
+
+    //     //創造今天的物件 周幾 行程細節 等等
+
+    //     //印出今天周幾
+    //     viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
+
+
+    //     //每個行程要做的事
+    //     for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
+    //         if (schDetails[schDetail].schdeStarttime < schDetails[schDetail + 1])
+    //     }
+
+
+
+
+    //     //計算明天周幾 天數加一
+    //     countDate.setDate(countDate.getDate() + 1);
+    // }
+
+
 
     // 關閉景點搜尋內其他頁籤內容
     switchSearchPagesAddOff();
