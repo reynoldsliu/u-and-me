@@ -70,6 +70,9 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
     public List<AttrCollectionDTO> findAttrsByMemId(Integer memId) {
         List<AttrCollectionDTO> dtoList = attrCollectionRepository.findAll();
         System.out.println(memId);
+        if(dtoList==null){
+            return new ArrayList<>();
+        }
         for(AttrCollectionDTO dto:dtoList){
             if(dto.getCollectionId().getMemId() != memId){
                 dtoList.remove(dto);

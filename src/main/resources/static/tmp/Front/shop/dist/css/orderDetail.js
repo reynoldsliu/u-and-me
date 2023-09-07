@@ -37,12 +37,13 @@ async function showProducts(OrdId) {
     orderDetailList.forEach(async (orderDetail) => {
         const response1 = await fetch(baseUrl + `product/listProductDetail/${orderDetail.id.prodId}`);
         const product = await response1.json();
-        console.log(product);
-        const productPicture = btoa(product.prodPic);
+        const productPicture = product.productPictures[0].prodPic;
+        console.log(productPicture);
+        const imgSrc = "data:image/jpeg;base64,"+productPicture;
         
         const row = document.createElement("tr");
         row.innerHTML = `
-    <td style="width: 50px;text-align: center; vertical-align: middle;">{productPicture}</td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;"><img src="${productPicture}"></td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${product.prodId}</td>
     <td style="width: 100px;text-align: center;vertical-align: middle;">${product.prodName}</td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodReview}</td>
