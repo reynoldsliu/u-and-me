@@ -3,11 +3,10 @@ package tw.idv.cha102.g7.customer.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.customer.entity.CustomerQa;
 import tw.idv.cha102.g7.customer.service.CustomerQaService;
-import tw.idv.cha102.g7.customer.service.Impl.CustomerQaServiceImpl;
+import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
 
 import java.util.List;
 
@@ -78,8 +77,15 @@ public class CustomerQaController {
      * @return 返回修改完畢的單筆QA資料
      */
     @PutMapping("/updqa/{qaId}")
-    public void updateById(@PathVariable Integer qaId, @RequestBody CustomerQa customerQa) {
-        service.updateById(qaId, customerQa);
+    public ResponseEntity<?> updateById(@PathVariable Integer qaId, @RequestBody CustomerQa customerQa) {
+
+        try {
+            service.updateById(qaId, customerQa);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND).body(new ScheduleNotFoundException(qaId));
+        }
     }
 
 
@@ -89,8 +95,15 @@ public class CustomerQaController {
      * @param qaId QaId編號
      */
     @DeleteMapping("/delqa/{qaId}")
-    public void deleteById(@PathVariable Integer qaId) {
-        service.deleteById(qaId);
+    public ResponseEntity<Boolean> deleteById(@PathVariable Integer qaId) {
+
+        try {
+            service.deleteById(qaId);
+            return ResponseEntity.ok(true);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+        }
+
     }
 
 }
