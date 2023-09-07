@@ -38,12 +38,14 @@ async function showProducts(OrdId) {
         const response1 = await fetch(baseUrl + `product/listProductDetail/${orderDetail.id.prodId}`);
         const product = await response1.json();
         const productPicture = product.productPictures[0].prodPic;
-        console.log(productPicture);
-        const imgSrc = "data:image/jpeg;base64,"+productPicture;
-        
+        // const byteArray = productPicture; // 你的字节数组
+        // console.log(byteArray);
+        // const base64String = btoa(String.fromCharCode.apply(null, byteArray));
+
+
         const row = document.createElement("tr");
         row.innerHTML = `
-    <td style="width: 50px;text-align: center; vertical-align: middle;"><img src="${productPicture}"></td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;"><img src="data:image/jpeg;base64,${productPicture}"></td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${product.prodId}</td>
     <td style="width: 100px;text-align: center;vertical-align: middle;">${product.prodName}</td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodReview}</td>
@@ -51,7 +53,7 @@ async function showProducts(OrdId) {
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodPrice}</td>
                         
     `;
-    productList.appendChild(row);
+        productList.appendChild(row);
     });
 }
 
