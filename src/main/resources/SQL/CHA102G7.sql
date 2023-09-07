@@ -10,6 +10,8 @@ create table members (
 	mem_password varchar(20) not null,
 	mem_name varchar(10),
 	mem_gender tinyint default 0 not null,  -- 0:不方便透露,1:男,2:女
+	mem_city varchar(50),
+	mem_dist varchar(50),
 	mem_addr varchar(100) not null,
 	mem_grade int,
     mem_idcard varchar(10),

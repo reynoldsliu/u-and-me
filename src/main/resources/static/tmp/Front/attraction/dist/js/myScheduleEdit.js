@@ -81,6 +81,7 @@ const mySchDateEnd_el = document.getElementById("mySchDateEnd");
 const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");
 const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");
 const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");
+const schDetailCellInsert = document.querySelector(".schDetailCellInsert");
 
 
 //將轉換成字串的日期物件中的 "-" 改成"/"
@@ -132,6 +133,84 @@ function parseTimestamp(timestampString) {
 }
 
 
+async function addDailySchedule(restScheDetails) {
+    //拿第一個細節的起始時間當今天開始時間
+    //迴圈塞入各個行程細節 直到下一個行程的日期不是本日
+    //期間 計算行程的停留時間 換算結束時間
+    //              透過交通方式計算行程間的交通距離 交通時間
+    //結束時間=開始時間+停留時間
+    //開始時間=結束時間+交通時間
+
+    //一但有變動 重新呼叫本函式更新一天行程
+    var startTime = restScheDetails[0].schdeStarttime;
+    console.log("Func StartTime: " + startTime);
+    let countedScheDetails;
+    for (countedScheDetails = 0; ; countedScheDetails++) {
+        //如果下一筆行程細節是明天的 結束今天的行程列印
+        if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
+            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)) {
+
+            break;
+        }
+        const schdeId = restScheDetails[countedScheDetails].schdeId;
+        const schId = restScheDetails[countedScheDetails].schId;
+        const attrId = restScheDetails[countedScheDetails].attrId;
+        const schdeStarttime = restScheDetails[countedScheDetails].schdeStarttime;
+        const schdeStaytime = restScheDetails[countedScheDetails].schdeStaytime;
+        const schdeTranstime = restScheDetails[countedScheDetails].schdeTranstime;
+        const schdeTrans = restScheDetails[countedScheDetails].schdeTrans;
+        const schdeCost = restScheDetails[countedScheDetails].schdeCost;
+        const schdeRemark = restScheDetails[countedScheDetails].schdeRemark;
+        const responseAttr = await fetch(baseUrl+`getAttr?attrId=`+attrId);
+        const attr = await responseAttr.json();
+        const responseAttrPics = await fetch(baseUrl+`getAttrPics/`+attrId);
+        const attrPicList = await responseAttrPics.json();
+        //取得景點的第一張圖片
+        const attrPicture = attrPicList.attrPic[0].attrPicData;
+        console.log("RS:"+countedScheDetails+"::"+  restScheDetails[countedScheDetails].attrId);
+        let row = document.createElement("div");
+        row.innerHTML = `
+            <div class="schDetailCellIndTimesnsert">
+                <!-- 行程細節 cell 由此插入 -->
+                <!-- 第一個行程細節 cell -->
+                <!-- 待加入 onclick後將景點詳情資訊更改成點到的景點資料js -->
+                <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr();">
+                    <div class="row g-0">
+                        <div class="attrPic col-md-4">
+                            <img src="data:image/jpeg;base64,${attrPicture}"
+                                class="attrFirstPicInschDetail" class="img-fluid rounded-start"
+                                alt="...">
+                            <div class="schDetailOrder"><span class="schDetailOrder">${countedScheDetails+1}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="schDetailsCardBody">
+                                <p class="schTimes"><span class="stayTimes">${schdeStaytime}</span> |
+                                    <span class="startTimes">${schdeStarttime}</span> - <span
+                                        class="endTimes">${schdeStarttime+schdeStaytime}</span>
+                                </p>
+                                <h5 class="attrName">
+                                    <div class="attrNameInSchDetail">
+                                        ${attr.attrName}
+                                    </div>
+                                </h5>
+                                <p class="attrAddr">
+                                    <small class="text-body-secondary"
+                                        class="attrAddr">${attr.attrAddr}</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 行程細節 cell 結束 -->
+            </div>
+            <!-- 第二個行程細節cell結束 ！！！！！！！！　-->
+            `;
+            schDetailCellInsert.appendChild(row);
+    }
+    return countedScheDetails;
+}
+
 
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", async function () {
@@ -171,8 +250,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     for (let stayTime of stayTimes) {
         stayTime.innerText = formatStayTime(schDetails[count++].schdeStaytime);
     }
+    schDetails.shift();
+    // console.log(schDetails);
+    addDailySchedule(schDetails);
 
-    
     //將TimeStampString轉為Date 且可以直接比大小
     //測試只比較日期的比大小 輸出應為相等
     let date1 = parseTimestamp(schDetails[0].schdeStarttime)
@@ -193,7 +274,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let countDate = schStartDate;
     for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
 
-    //     //創造今天的物件 周幾 行程細節 等等
+        //     //創造今天的物件 周幾 行程細節 等等
 
         //印出今天周幾
         viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
@@ -201,11 +282,15 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         //每個行程要做的事
         for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
-            if (parseTimestamp(schDetails[schDetail].schdeStarttime) 
-                    < parseTimestamp(schDetails[schDetail + 1].schdeStarttime)){
+            if (parseTimestamp(schDetails[schDetail].schdeStarttime)
+                < parseTimestamp(schDetails[schDetail + 1].schdeStarttime)) {
 
-                        
+                break;
             }
+            //獲得行程開始時間
+            //取出行程停留時間
+            //計算行程結束時間
+            //印出上述資料
         }
 
 
