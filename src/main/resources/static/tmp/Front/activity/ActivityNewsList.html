@@ -4,47 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>活動資訊清單</title>
+    <title>NewsDetail</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="../dist/css/HeaderandFooter.css">
-    <link rel="stylesheet" href="./dist/css/ActivityList.css">
-
-    <style>
-        .navbar-brand {
-            height: 70px;
-        }
-
-        .navbar-brand>img {
-            height: 115px;
-            margin-top: -23px;
-        }
-
-        .card h5{
-            color:#4c6182;
-            font-weight:600;
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            height: 100%; /* 將卡片的高度設定為100%，以便內容充滿整個卡片 */
-        }
-
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between; /* 將內容元素在垂直方向上均勻分佈 */
-            height: 100%; /* 將卡片內容的高度設定為100%，以便內容充滿整個卡片內容區域 */
-        }
-
-        .card-title,
-        .card-text,
-        .btn {
-            margin: 0; /* 清除元素的預設邊距 */
-        }
-    </style>
-
+    <link rel="stylesheet" href="ActivityNewsList.css">
 </head>
 
 <body>
@@ -108,7 +72,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-search" viewBox="0 0 16 16">
                         <path
-                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                     </svg>
                 </a>
             </li>
@@ -118,7 +82,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-person" viewBox="0 0 16 16">
                         <path
-                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
                     </svg>
                 </a>
 
@@ -126,10 +90,10 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                         fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-cart2" viewBox="0 0 16 16">
                         <path
-                                d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+                                d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                     </svg>
 
                 </a>
@@ -167,11 +131,10 @@
                     <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
                          alt="" class="card-img-top">
                     <div class="card-body" style="height: 150px; overflow: hidden;">
-                        <h5 class="card-title">活動名稱</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
-                            similique repellat a laborum</p>
+                        <h5 class="card-title"></h5>
+                        <p class="card-text"></p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
@@ -185,7 +148,7 @@
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
@@ -199,7 +162,7 @@
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
@@ -218,7 +181,7 @@
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
@@ -232,7 +195,7 @@
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
@@ -246,7 +209,7 @@
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
@@ -265,7 +228,7 @@
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
@@ -279,7 +242,7 @@
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
@@ -293,11 +256,27 @@
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum
                             similique repellat a laborum</p>
                         <div class="btn-container">
-                            <a href="Details.html" class="btn btn-outline-success btn-sm">Read More</a>
+                            <button type="button" class="btn btn-outline-success btn-sm">Read More</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!--Pagination Start  -->
+            <div class="row">
+                <div class="col pt-5">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item"><a class="page-link" href="#">上一頁</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">下一頁</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!--Pagination End  -->
         </div>
     </div>
 </main>
@@ -344,39 +323,7 @@
 </div>
 
 
-
-<!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS--><!--JS-->
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-      fetchRandomNews();
-  });
-
-  async function fetchRandomNews() {
-      try {
-          const response = await fetch('http://localhost:8080/u-and-me/activityrandom?count=9');
-          const randomNews = await response.json();
-
-          const cardContainers = document.querySelectorAll('.card');
-
-          randomNews.forEach((item, index) => {
-              const cardContainer = cardContainers[index];
-              const cardImg = cardContainer.querySelector('.card-img-top');
-              const cardTitle = cardContainer.querySelector('.card-title');
-              const cardText = cardContainer.querySelector('.card-text');
-
-              const dataurl = `data:image/png;base64,${item.activPic}`;
-
-              cardImg.src = dataurl;
-              cardTitle.textContent = item.activName;
-              cardText.textContent = item.activCon;
-          });
-      } catch (error) {
-          console.error('Error fetching random news:', error);
-      }
-  }
-
-</script>
+<script src="ActivityNewsList.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
