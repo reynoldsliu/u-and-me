@@ -1,10 +1,17 @@
 package tw.idv.cha102.g7.attraction.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.attraction.dto.AttrPrivateDTO;
 import tw.idv.cha102.g7.attraction.dto.AttrPrivateId;
+import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.service.AttrPrivateService;
+import tw.idv.cha102.g7.attraction.service.AttrService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class AttrPrivateController {
@@ -12,24 +19,61 @@ public class AttrPrivateController {
     @Autowired
     private AttrPrivateService attrPrivateService;
 
+    @Autowired
+    private AttrService attrService;
+
+
     /**
-     * 新增一個私人景點到私人景點資料庫
-     * @param attrPrivateDTO
-     * @return AttrPrivateDTO
+     * 新增一個私人景點到景點資料庫 預設可見度是true
+     * @param attraction
+     * @return ResponseEntity<Attraction>
      */
     @PostMapping("/createPrivateAttr")
-    public AttrPrivateDTO createPrivateAttr(@RequestBody AttrPrivateDTO attrPrivateDTO){
-        return attrPrivateService.addAndUpdatePrivateAttraction(attrPrivateDTO);
+    public ResponseEntity<AttrPrivateDTO> createPrivateAttraction(@RequestBody Attraction attraction,
+                                                                  HttpServletRequest request,
+                                                                  HttpServletResponse response){
+        return new ResponseEntity(attrPrivateService.addAndUpdatePrivateAttraction(request,response,attraction), HttpStatus.OK);
+    }
+
+    /**
+     * 刪除一個私人景點from景點資料庫
+     * @param attraction
+     * @return
+     */
+    @PostMapping("/deletePrivateAttr")
+    public ResponseEntity<String> deletePrivateAttraction(HttpServletRequest request,
+                                                          HttpServletResponse response,
+                                                          Integer attrId){
+        return new ResponseEntity(deletePrivateAttraction(request,response,attrId),HttpStatus.OK);
+    }
+
+    /**
+     * Deprecated
+     * 新增一個私人景點到私人景點資料庫
+     * @param request
+     * @param response
+     * @param attraction
+     * @return
+     */
+    @PostMapping("/createPrivateAttrDTO")
+    public ResponseEntity<AttrPrivateDTO> createPrivateAttr(HttpServletRequest request,
+                                                            HttpServletResponse response,
+                                                            @RequestBody Attraction attraction){
+        return attrPrivateService.addAndUpdatePrivateAttraction(request,response,attraction);
     }
 
     /**
      * 修改一個私人景點
-     * @param attrPrivateDTO
-     * @return AttrPrivateDTO
+     * @param request
+     * @param response
+     * @param attraction
+     * @return
      */
-    @RequestMapping("/updatePrivateAttr")
-    public AttrPrivateDTO updatePrivateAttr(@RequestBody AttrPrivateDTO attrPrivateDTO){
-        return attrPrivateService.addAndUpdatePrivateAttraction(attrPrivateDTO);
+    @RequestMapping("/updatePrivateAttrDTO")
+    public ResponseEntity<AttrPrivateDTO> updatePrivateAttr(HttpServletRequest request,
+                                                            HttpServletResponse response,
+                                                            @RequestBody Attraction attraction){
+        return attrPrivateService.addAndUpdatePrivateAttraction(request,response,attraction);
     }
 
     /**
@@ -37,9 +81,12 @@ public class AttrPrivateController {
      * @param attrPrivateId
      * @return
      */
-    @RequestMapping("/daletePrivateAttraction")
-    public String daletePrivateAttraction(@RequestBody AttrPrivateId attrPrivateId){
-        return attrPrivateService.deletePrivateAttraction(attrPrivateId);
+    @RequestMapping("/daletePrivateAttractionDTO")
+    public ResponseEntity<String> daletePrivateAttraction(HttpServletRequest request,
+                                                          HttpServletResponse response,
+                                                          @RequestBody Integer attrId){
+        return new ResponseEntity(attrPrivateService.
+                            deletePrivateAttraction(request,response,attrId),HttpStatus.OK);
     }
 
     /**
@@ -47,7 +94,7 @@ public class AttrPrivateController {
      * @param attrPrivateId
      * @return AttrPrivateDTO
      */
-    @RequestMapping("/getPrivateAttraction")
+    @RequestMapping("/getPrivateAttractionDTO")
     public AttrPrivateDTO getPrivateAttraction(@RequestBody AttrPrivateId attrPrivateId){
         return attrPrivateService.getPrivateAttraction(attrPrivateId);
     }

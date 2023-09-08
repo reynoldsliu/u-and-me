@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
+import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
 
 import java.util.List;
@@ -68,6 +69,16 @@ public class AttrCollectionController {
     @RequestMapping("/getAttrsFromCollectionByMemId/{memId}")
     public ResponseEntity<List<AttrCollectionDTO>> getAttrsFromCollectionByMemId(@PathVariable Integer memId){
         return new ResponseEntity<>(attrCollectionService.findAttrsByMemId(memId), HttpStatus.OK);
+    }
+
+    /**
+     * 顯示一個會員所有的景點收藏 過濾已下架景點
+     * @param memId
+     * @return
+     */
+    @RequestMapping("/getAttrsFromCollectionByMemIdFilter/{memId}")
+    public ResponseEntity<List<Attraction>> getAttrsFromCollectionByMemIdFilter(@PathVariable Integer memId){
+        return new ResponseEntity<>(attrCollectionService.findAttrsByMemIdFilter(memId), HttpStatus.OK);
     }
 
 

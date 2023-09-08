@@ -42,23 +42,27 @@ async function showProducts(OrdId) {
         // console.log(byteArray);
         // const base64String = btoa(String.fromCharCode.apply(null, byteArray));
 
-
+        let productPage = baseUrl + `product/prodtDetail.html?prodId=${product.prodId}`
         const row = document.createElement("tr");
         row.innerHTML = `
     <td style="width: 50px;text-align: center; vertical-align: middle;"><img src="data:image/jpeg;base64,${productPicture}"></td>
-    <td style="width: 50px;text-align: center; vertical-align: middle;">${product.prodId}</td>
     <td style="width: 100px;text-align: center;vertical-align: middle;">${product.prodName}</td>
-    <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodReview}</td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodQty}</td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodPrice}</td>
-                        
+    <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodQty*orderDetail.prodPrice}</td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;"><button onclick="redirectToProdDetailPage(${product.prodId})">${product.prodName}</button></td>
+                         
     `;
-        productList.appendChild(row);
+    dataTableList.appendChild(row);
     });
 }
+function redirectToProdDetailPage(prodId) {
+    var newPageUrl = baseUrl + `tmp/Front/shop/productDetail.html?prodId=${prodId}`;
+    window.location.href = newPageUrl;
+  }
 
 async function getOrderDetail(OrdId) {
-    const response = await fetch(baseUrl + `Orders/ordId${OrdId}`);
+    const response = await fetch(baseUrl + `Orders/ordId`+OrdId);
     const orderDetail = await response.json();
     const response1 = await fetch(baseUrl + `member/getMemberByMemId/${orderDetail.memId}`);
     const member = await response1.json();

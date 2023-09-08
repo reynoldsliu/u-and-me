@@ -12,7 +12,6 @@ public class AttrCollectionDTO {
     @EmbeddedId
     private AttrCollectionId collectionId;
 
-
     public AttrCollectionDTO() {
     }
 

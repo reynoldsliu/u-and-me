@@ -1,13 +1,4 @@
-const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
-
-//時間計算
-function getDayOfWeek(dateString) {
-    const daysOfWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-    const date = new Date(dateString);
-    const dayOfWeek = daysOfWeek[date.getDay()];
-    console.log("Date to change: " + dateString + ":" + dayOfWeek);
-    return dayOfWeek;
-}
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
 
 // class -on -off -one 屬性
 const classSwitchOn = "-on";
@@ -16,7 +7,6 @@ const classMapOne = "-one";
 
 // 抓取所有會切換頁面使用到的標籤
 const backToMySchedule_el = document.querySelector("#backToMySchedule");
-
 
 // =============== 行程細節相關標籤 =============== 
 // 選擇日期天數頁籤
@@ -29,8 +19,22 @@ const iswitch_el = document.querySelectorAll("i.switch");
 const itrash_el = document.querySelectorAll("i.trash");
 // 新增景點按鈕
 const addNewAttrbtn_el = document.querySelector("div.addNewAttrbtn");
-// 行程細節cell
+// 行程細節cell(有很多個，先抓第一個)
 const schDetailCells = document.querySelector(".schDetailCell");
+// 單一景點cell(抓不到，直接綁定onclick)
+const attrCells = document.querySelector(".attrCell");
+
+// =============== 行程細節時間計算相關標籤(BY Reynolds) =============== 
+const mySchDateStart_el = document.getElementById("mySchDateStart");
+const mySchDateEnd_el = document.getElementById("mySchDateEnd");
+
+const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");
+const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");
+const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");
+const viewSchDetailsRows = document.querySelector(".viewSchDetailsRows");
+// =============== 行程細節時間計算相關標籤(BY Reynolds) =============== 
+
+
 
 // =============== 景點搜尋相關標籤 =============== 
 // 返回行程細節(箭頭)、搜尋、景點收藏、自訂景點
@@ -61,28 +65,47 @@ const viewGoogleMap = document.querySelector(".map");
 // 自訂景點內容標籤
 const myAttrName_el = document.querySelector("#myAttrName");
 const myAttrAddr_el = document.querySelector("#myAttrAddr");
-// const attrPicFilesInput = document.querySelector("#attrPicFilesInput");
 
 // 景點搜尋相關按鈕
 const addAttrCollect_btn_el = document.querySelector(".addAttrCollect-btn");
 const addToSchedule_btn_el = document.querySelector(".addToSchedule-btn");
 const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 
-// 元素插入處
-
+// =============== 元素插入處相關標籤 =============== 
 // 景點搜尋
 const attrSearchListInsert_el = document.querySelector(".attrSearchList");
 // 景點收藏
 const attrCollectionListInsert_el = document.querySelector(".attrCollectionList")
+// 單一景點詳情圖片輪播
+const attrTotalImgsInsert_el = document.querySelector(".attrTotalImgsInsert");
+// 單一景點詳情內容
+// 景點名稱(標題)
+const attrNameTitle = document.querySelector("#attrNameTitle");
+// 景點評價
+const attrComScore = document.querySelector("#attrComScore");
+// 景點類型
+const attrTypeName = document.querySelector("#attrTypeName");
+// 景點地址
+const attrAddress = document.querySelector("#attrAddress");
+// 景點營業時間(只抓第一個標籤)
+const attrBussTime = document.querySelector(".attrBussTime");
+// 景點消費價位(低中高價位)
+const attrCostRange = document.querySelector("#attrCostRange");
+// 景點描述
+const attrIlla = document.querySelector("#attrIlla");
 
-const mySchDateStart_el = document.getElementById("mySchDateStart");
-const mySchDateEnd_el = document.getElementById("mySchDateEnd");
 
-const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");
-const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");
-const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");
-const viewSchDetailsRows = document.querySelector(".viewSchDetailsRows");
 
+// ================== 會使用到的函式 ================== //
+// =============== 行程細節時間計算相關函式(BY Reynolds) =============== 
+// 時間計算
+function getDayOfWeek(dateString) {
+    const daysOfWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    const date = new Date(dateString);
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    console.log("Date to change: " + dateString + ":" + dayOfWeek);
+    return dayOfWeek;
+}
 
 //將轉換成字串的日期物件中的 "-" 改成"/"
 function modifiyDate(date) {
@@ -108,11 +131,6 @@ function formatStayTime(stayTime) {
     return formattedTime || '0分'; // 如果没有小时和分钟，默认为0分
 }
 
-
-// function todayFirstSchDetailIndex(data){
-
-// }
-
 //將timestampString轉成Date 並調整精度
 function parseTimestamp(timestampString) {
     const parts = timestampString.split(' ');
@@ -132,6 +150,11 @@ function parseTimestamp(timestampString) {
     return new Date(year, month, day);//後面可加 ,hour , minute, second 調整精度
 }
 
+// function todayFirstSchDetailIndex(data){
+
+// }
+
+// 2023-09-08
 function addTimeToStartTime(startTime, stayTime) {
     // 解析 startTime 字符串为 Date 对象
     const startDate = new Date(startTime);
@@ -162,6 +185,7 @@ function addTimeToStartTime(startTime, stayTime) {
     return startDate;
 }
 
+
 function extractHourAndMinute(timeString) {
     // 去掉字符串前后的方括号，然后解析为 Date 对象
     const date = new Date(timeString);
@@ -173,7 +197,6 @@ function extractHourAndMinute(timeString) {
     // 格式化结果
     return `${hours}:${minutes}`;
 }
-
 
 async function addDailySchedule(restScheDetails) {
     //拿第一個細節的起始時間當今天開始時間
@@ -204,23 +227,20 @@ async function addDailySchedule(restScheDetails) {
         const schdeTrans = restScheDetails[countedScheDetails].schdeTrans;
         const schdeCost = restScheDetails[countedScheDetails].schdeCost;
         const schdeRemark = restScheDetails[countedScheDetails].schdeRemark;
-        const responseAttr = await fetch(baseUrl + `getAttr?attrId=` + attrId);
+        const responseAttr = await fetch(baseURL + `/getAttr?attrId=` + attrId);
         const attr = await responseAttr.json();
-        const responseAttrPics = await fetch(baseUrl + `getAttrPics/` + attrId);
+        const responseAttrPics = await fetch(baseURL + `/getAttrPics/` + attrId);
         const attrPicList = await responseAttrPics.json();
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
         let row = document.createElement("div");
         row.innerHTML = `
-                <!-- 行程細節 cell 由此插入 -->
-                <!-- 第一個行程細節 cell -->
-                <!-- 待加入 onclick後將景點詳情資訊更改成點到的景點資料js -->
-                <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr();">
+                <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrId});">
                     <div class="row g-0">
                         <div class="attrPic col-md-4">
                             <img src="data:image/jpeg;base64,${attrPicture}"
-                                class="attrFirstPicInschDetail" class="img-fluid rounded-start"
-                                alt="...">
+                                class="img-fluid rounded-start"
+                                alt="..." style="width: 140.219px;height: 92.208px;object-fit: cover;">
                             <div class="schDetailOrder"><span class="schDetailOrder">${countedScheDetails + 1}</span>
                             </div>
                         </div>
@@ -243,13 +263,13 @@ async function addDailySchedule(restScheDetails) {
                         </div>
                     </div>
                 </div>
-                <!-- 行程細節 cell 結束 -->
-            <!-- 第二個行程細節cell結束 ！！！！！！！！　-->
             `;
 
+        schdeStarttime = schdeEndtime;
 
+        console.log("NEW START TIME: " + schdeStarttime);
         viewSchDetailsRows.appendChild(row);
-        
+
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
         if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
@@ -257,18 +277,65 @@ async function addDailySchedule(restScheDetails) {
 
             break;
         }
-
-        schdeStarttime = schdeEndtime;
-
-        console.log("NEW START TIME: " + schdeStarttime);
-
     }
     return countedScheDetails;
 }
 
+// =============== 行程細節時間計算相關函式(BY Reynolds)結束 =============== 
 
+
+
+// 景點評價(3.5~5.0)
+function generateRandomNumber() {
+    const min = 3.5; // 最小值
+    const max = 5.0; // 最大值
+
+    // 生成随机数
+    const randomNumber = Math.random() * (max - min) + min;
+
+    // 使用 toFixed 方法四舍五入到小数点第一位
+    const roundedNumber = Number(randomNumber.toFixed(1));
+
+    return roundedNumber;
+}
+
+// 景點消費價位轉換
+function codeToPriceRange(code) {
+    switch (code) {
+        case 1:
+            return "低價位 (500元以下)";
+        case 2:
+            return "中價位 (500~1000元)";
+        case 3:
+            return "高價位 (1000元以上)";
+        // 添加更多的代号和对应的描述
+        default:
+            return "尚無資料";
+    }
+}
+
+
+// ================================= memId =========================================
+// async function getMemId(){
+//     const response = await fetch(baseURL+`/member/getMemId`);
+//     const member = await response.json();
+//     const memId = member.memId;
+//     console.log(member);
+//     console.log(memId);
+//     return memId;
+// }
+// async function getMem(){
+//     const response = await fetch(baseURL+`/member/getMemId`);
+//     const member = await response.json();
+//     return member;
+// }
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", async function () {
+    // 關閉景點搜尋內其他頁籤內容
+    switchSearchPagesAddOff();
+    switchAttrDetailsAndMapOff();
+
+    // RN's LOADING function
     // 获取当前页面的 URL
     const currentURL = window.location.href;
     // 创建一个 URLSearchParams 对象，传入查询参数部分
@@ -277,7 +344,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const schId = urlSearchParams.get('schId');
 
     //透過schId 獲取整個schedule物件
-    const response = await fetch(baseUrl + `schedules/schId/${schId}`);
+    const response = await fetch(baseURL + `/schedules/schId/${schId}`);
     const schedule = await response.json();
     console.log("Schedule ID: " + schId);
     //行程開始日期 結束日期
@@ -286,6 +353,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     var schStart = schedule.schStart;
     var schEnd = schedule.schEnd;
     var schDuringDays = ((schEndDate - schStartDate) / (1000 * 60 * 60 * 24)) + 1;
+
     //將起始日期及結束日期放在行程最上方
     mySchDateStart_el.innerText = modifiyDate(schStart);
     mySchDateEnd_el.innerText = modifiyDate(schEnd);
@@ -295,7 +363,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");今天的起始時間
 
     //取出本行程所有的行程細節
-    const response1 = await fetch(baseUrl + `schDetails/${schId}`);
+    const response1 = await fetch(baseURL + `/schDetails/${schId}`);
     const schDetails = await response1.json();
     console.log("STAY time: " + schDetails[0].schdeStaytime);
     console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
@@ -310,42 +378,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     addDailySchedule(schDetails);
 
 
-    //每日的行程內容渲染
-    // let countDate = schStartDate;
-    // for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
-
-    //     //     //創造今天的物件 周幾 行程細節 等等
-
-    //     //印出今天周幾
-    //     viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
-
-
-    //     //每個行程要做的事
-    //     for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
-    //         if (parseTimestamp(schDetails[schDetail].schdeStarttime)
-    //             < parseTimestamp(schDetails[schDetail + 1].schdeStarttime)) {
-
-    //             break;
-    //         }
-    //         //獲得行程開始時間
-    //         //取出行程停留時間
-    //         //計算行程結束時間
-    //         //印出上述資料
-    //     }
-
-
-
-
-    //     //計算明天周幾 天數加一
-    //     countDate.setDate(countDate.getDate() + 1);
-    // }
-
-
-
-    // 關閉景點搜尋內其他頁籤內容
-    switchSearchPagesAddOff();
-    switchAttrDetailsAndMapOff();
-
 });
 
 
@@ -359,9 +391,11 @@ backToMySchedule_el.addEventListener("click", function () {
 // 向左移
 let count_click_leftbtn = 0;
 let translateXValue = -60;
+let totalDisplacement = 0;
 tab_dateBarLeft_el.onclick = () => {
+    totalDisplacement += translateXValue;
     for (let dateSelectCell of dateSelectCell_el) {
-        dateSelectCell.style.transform = `translateX(${translateXValue * count_click_leftbtn}px)`;
+        dateSelectCell.style.transform = `translateX(${totalDisplacement}px)`;
     }
     count_click_rightbtn = 0;
     ++count_click_leftbtn;
@@ -372,14 +406,9 @@ tab_dateBarLeft_el.onclick = () => {
 let count_click_rightbtn = 0;
 tab_dateBarRight_el.onclick = () => {
     // 要讓元素從當下位置開始向右移動
-
+    totalDisplacement -= translateXValue;
     for (let dateSelectCell of dateSelectCell_el) {
-        // if (count_click_rightbtn === 0) {
-        // 讓元素停在當下位置不跑掉
-        // }
-        // if (count_click_rightbtn >= 1) {
-        dateSelectCell.style.transform = `translateX(${-(translateXValue * count_click_rightbtn)}px)`;
-        // }
+        dateSelectCell.style.transform = `translateX(${totalDisplacement}px)`;
     }
     count_click_leftbtn = 0;
     ++count_click_rightbtn;
@@ -407,10 +436,6 @@ function addNewAttrbtnOnclick() {
     // 顯示搜尋欄及搜尋結果
     attrSearchPage.classList.remove(classSwitchOff);
 }
-
-
-// 點擊行程細節查看景點內容
-// (綁定在div.schDetailCell標籤上onclick，方法為viewSearchResultOfOneAttr();)
 
 
 //  ================== 行程細節頁面結束 ================== //
@@ -475,13 +500,59 @@ tab_search_el.addEventListener("click", function (e) {
     attrSearchPage.classList.remove(classSwitchOff);
 });
 
-// 點擊到單一景點收藏cell時，出現景點詳細頁面
-function viewSearchResultOfOneAttr() {
+// 點擊到schDetailCell(單一行程細節Cell)、attrCell(景點搜尋、景點收藏Cell)時，出現景點詳細頁面
+async function viewSearchResultOfOneAttr(attrId) {
     // 顯示單一景點詳情頁面
     viewAttrDetailsCard.classList.remove(classSwitchOff);
     // 開啟 GOOGLE MAP(查看單一景點模式)
     viewGoogleMap.classList.add(classMapOne);
+
+    // 藉由景點id查詢相應所有圖片
+    const responseOfAttrAllPic = await fetch(getAttrPicsByAttrIdURL + attrId);
+    const attrPicList = await responseOfAttrAllPic.json();
+    const pics = attrPicList.attrPic;
+
+    // 清空景點詳情圖片
+    attrTotalImgsInsert_el.innerHTML = "";
+
+    // 取出每一張圖片，放入輪播img標籤中
+    for (let pic of pics) {
+
+        // console.log(pic);
+        let imgs = document.createElement("div");
+        imgs.classList.add("carousel-item");
+
+        imgs.innerHTML = `
+            <img class="attrImgs"
+            style="width: 318.3px;height: 208.3px;object-fit: cover;"
+            src="data: image/jpeg;base64,${pic.attrPicData}"
+            alt="...">`;
+
+        attrTotalImgsInsert_el.appendChild(imgs);
+
+        // 將輪播的第一個圖片<div> class加上active屬性
+        let firstImgDiv = document.querySelector("div.carousel-item:first-child");
+        firstImgDiv.classList.add("active");
+    }
+
+    // 更改景點詳情內容
+    const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrId);
+    const attr = await responseOfOneAttr.json();
+    attrNameTitle.innerText = attr.attrName;
+    attrComScore.innerText = generateRandomNumber();
+    attrTypeName.innerText = attr.attrType;
+    attrAddress.innerText = attr.attrAddr;
+    attrBussTime.innerText = attr.attrBussTime;
+    attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
+    attrIlla.innerText = attr.attrIlla;
 }
+
+
+
+
+
+
+
 
 // 關閉單一景點詳情頁面(按下叉叉時觸發)
 function closeViewAttrDetailsCard() {
@@ -503,14 +574,16 @@ addAttrCollect_btn_el.onclick = () => {
 // ================== 景點收藏 ================== //
 
 // fetch to Controller路徑
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
 // 列出所有景點收藏
-let myAttrCollectionURL = baseURL + "/attrCol/getAttrsFromCollectionByMemId/"
-
+let myAttrCollectionURL = baseURL + "/attrCol/getAttrsFromCollectionByMemId/";
+// 依據景點編號查詢景點資訊
+let getAttrByAttrIdURL = baseURL + "/getAttr?attrId=";
+// 依據景點編號查詢所有景點圖片
+let getAttrPicsByAttrIdURL = baseURL + "/getAttrPics/";
 
 
 // 按下我的景點收藏時換到景點收藏頁面
-tab_attrCollect_el.addEventListener("click", function (e) {
+tab_attrCollect_el.addEventListener("click", async function (e) {
     e.preventDefault();
     // 將當前icon變色
     switchIconsRemoveOn();
@@ -518,58 +591,73 @@ tab_attrCollect_el.addEventListener("click", function (e) {
     // 關閉其他頁籤內容
     switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
-    // 顯示景點收藏清單
+    // 顯示景點收藏清單頁面
     myAttrsPage.classList.remove(classSwitchOff);
     if (myAttrCollectionList.classList.contains(classSwitchOff)) {
         myAttrCollectionList.classList.remove(classSwitchOff);
     }
-    // 若沒有景點收藏，則顯示尚未有任何收藏景點頁面
-    // myAttrCollectionList.classList.add(classSwitchOff);
-    // if (attrCollectNotFound.classList.contains(classSwitchOff)) {
-    //     attrCollectNotFound.classList.remove(classSwitchOff);
-    // }
 
-    let memId = 2;
-    FindAllAttrCollectionList(myAttrCollectionURL, memId);
+    // 根據會員id動態生成景點收藏清單
+    // let memId = 1;
+    const response = await fetch(baseURL + `/member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
+
+    FindAllAttrCollectionList(memId);
 
 });
 
 
 // 查看景點收藏，動態生成景點收藏清單
-async function FindAllAttrCollectionList(URL, memId) {
+async function FindAllAttrCollectionList(memId) {
     try {
-        const response = await fetch(URL + memId);
-        const myAttrCollectList = await response.json();
-        // 如果找不到收藏，則顯示沒有收藏頁面的東西
-        if (myAttrCollectList == null || myAttrCollectList == undefined) {
+        // 查詢會員專屬的景點收藏清單
+        const responseOfCollection = await fetch(myAttrCollectionURL + memId);
+        const myAttrCollectList = await responseOfCollection.json();
+
+        // 如果找不到收藏，則顯示您沒有收藏景點的頁面
+        // console.log(myAttrCollectList);
+        if (myAttrCollectList.length === 0) {
             attrCollectNotFound.classList.remove(classSwitchOff);
         }
 
-        // 清空插入處所有的資料
+        // 清空景點收藏清單插入處所有的資料
         attrCollectionListInsert_el.innerHTML = "";
 
-        myAttrCollectList.forEach(attr => {
+        // 加入async試試看(找出每一個景點收藏)
+        myAttrCollectList.forEach(async attrCollect => {
 
+            // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
+            // 找出每一個景點收藏中景點的資料：如景點名稱
+            const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.collectionId.attrId);
+            const attr = await responseOfOneAttr.json();
 
+            // 景點的第一張圖片編號、景點的第一張圖片
+            const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attrCollect.collectionId.attrId);
+            const attrPicList = await responseOfAttrFirstPic.json();
+            const pics = attrPicList.attrPic;
+
+            // 動態生成每一個景點資訊框
             let row = document.createElement("div");
             row.innerHTML = `
-                <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()" id="attrId${attr.collectionId.attrId}">
-                <div class="row g-0">
-                    <div class="col-md-8">
-                        <div class="attrCardBody">
-                            <h5 class="attrName">
-                                <div id="attrName">
-                                    AAAAAAA
-                                </div>
-                            </h5>
+                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrCollect.collectionId.attrId})" id="attrId${attrCollect.collectionId.attrId}">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <div class="attrCardBody">
+                                <h5 class="attrName">
+                                    <div id="attrName">
+                                        ${attr.attrName}
+                                    </div>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="attrPic col-md-4">
+                            <img src="data: image/jpeg;base64,${pics[0].attrPicData}"
+                                class="img-fluid rounded-end" alt="..."
+                                style="width: 140.219px;height: 92.208px;object-fit: cover;">
                         </div>
                     </div>
-                    <div class="attrPic col-md-4">
-                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                    </div>
-                </div>
-            </div>`;
+                </div>`;
 
             attrCollectionListInsert_el.appendChild(row);
         });

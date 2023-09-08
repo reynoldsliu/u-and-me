@@ -101,6 +101,25 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
 //        return attrCollectionRepository.findByCollectionId((attrCollectionRepository.findByMemId(memId)));
     }
 
+    /**
+     * 透過會員編號，找出該會員的所有景點收藏 過濾已下架景點
+     *
+     * @param memId
+     * @return List<AttrCollectionDTO>
+     */
+    @Override
+    public List<Attraction> findAttrsByMemIdFilter(Integer memId){
+        List<Attraction> returnList = new ArrayList<>();
+        List<AttrCollectionDTO> attrCollectionDTOList = attrCollectionRepository.findAll();
+        for(AttrCollectionDTO attrCollectionDTO:attrCollectionDTOList){
+            Attraction attraction = attrRepository.findById(attrCollectionDTO.getCollectionId().getAttrId()).orElse(null);
+            if(attrCollectionDTO.getCollectionId().getMemId()==memId &&
+                        attraction.getAttrSta()!=0){
+                returnList.add(attraction);
+            }
+        }
+        return returnList;
+    }
 
     @Override
     public List<AttrCollectionDTO> findAttrCollectionsByAttrName(

@@ -339,7 +339,7 @@
 
     <script>
         const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
-        
+
         //必要參數宣告
         var map;
         var directionsRenderer;
@@ -505,6 +505,38 @@
             document.getElementById("totalDistance").innerHTML = total + " km";
         }
 
+        var bussTime=``;
+        async function getBussTime(place_id) {
+            return new Promise((resolve, reject) => {
+            const placesService = new google.maps.places.PlacesService(map);
+            placesService.getDetails({ placeId: place_id }, (placeResult, placeStatus) => {
+                if (placeStatus === google.maps.places.PlacesServiceStatus.OK) {
+                    const openingHours = placeResult.opening_hours;
+
+                    // 检查是否有开放时间信息
+                    if (openingHours) {
+                        const periods = openingHours.periods;
+                        
+                        // 处理开放时间信息
+                        periods.forEach((period) => {
+                            const openTime = period.open ? period.open.time : "";
+                            const closeTime = period.close ? period.close.time : "";
+                            bussTime += `${openTime}~${closeTime}|`;
+                            console.log(`开放时间：${openTime} - ${closeTime}`);
+                        });
+                        resolve(bussTime);
+                    } else {
+                        console.log("没有可用的开放时间信息。");
+                    }
+                } else {
+                    console.error("获取景点详情时发生错误：", placeStatus);
+                    reject(placeStatus);
+                }
+            });
+        });
+            
+        }
+
         //嘗試使用陣列裝入多個input
         function siteAuto() {
             const siteInputs = document.querySelectorAll(".google_input_text");
@@ -543,19 +575,54 @@
                         let latitude = place.geometry.location.lat();
                         let longitude = place.geometry.location.lng();
 
-                        // 获取地点的详细信息
-                        let placeInfo = {
-                            name: place.name,
-                            address: place.formatted_address,
-                            latitude: latitude,
-                            longitude: longitude
-                        };
+                        const { OpeningHours } = await google.maps.importLibrary("places");
+                        // const placesService = new google.maps.places.PlacesService(map);
 
+                        // const request = {
+                        //     location: map.getCenter(),
+                        //     radius: 20, // 搜索半径
+                        //     query: "景点名称", // 您要搜索的景点名称
+                        // };
+
+                        // placesService.textSearch(request, (results, status) => {
+                        //     if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        //         // 搜索结果中的第一个景点
+                        //         const place = results[0];
+
+                        //         // 获取景点详情，包括开放时间
+                        //         placesService.getDetails({ placeId: place.place_id }, (placeResult, placeStatus) => {
+                        //             if (placeStatus === google.maps.places.PlacesServiceStatus.OK) {
+                        //                 const openingHours = placeResult.opening_hours;
+
+                        //                 // 检查是否有开放时间信息
+                        //                 if (openingHours) {
+                        //                     const periods = openingHours.periods;
+
+                        //                     // 处理开放时间信息
+                        //                     periods.forEach((period) => {
+                        //                         const openTime = period.open ? period.open.time : "";
+                        //                         const closeTime = period.close ? period.close.time : "";
+                        //                         bussTime = `???`;
+                        //                         console.log(`开放时间：${openTime} - ${closeTime}`);
+                        //                     });
+                        //                 } else {
+                        //                     console.log("没有可用的开放时间信息。");
+                        //                 }
+                        //             } else {
+                        //                 console.error("获取景点详情时发生错误：", placeStatus);
+                        //             }
+                        //         });
+                        //     } else {
+                        //         console.error("景点搜索失败：", status);
+                        //     }
+                        // });
+                        
                         const attr = {
                             attrName: place.name,
                             attrAddr: place.formatted_address,
                             attrLat: place.geometry.location.lat(),
-                            attrLon: place.geometry.location.lng()
+                            attrLon: place.geometry.location.lng(),
+                            attrBussTime: await getBussTime(place.place_id)
                         }
 
                         const requestOptions = {
@@ -566,12 +633,10 @@
                             body: JSON.stringify(attr) // 将JSON数据转换为字符串并设置为请求主体
                         };
 
-                        const response = await fetch(baseUrl + `insertNewAttraction`,requestOptions);
+                        const response = await fetch(baseUrl + `insertNewAttraction`, requestOptions);
                         const insertedAttr = await response.json();
 
 
-                        // 在控制台中打印地点信息
-                        console.log(placeInfo);
 
 
                         // 改变地图的中心点
