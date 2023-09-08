@@ -201,11 +201,11 @@ async function loadByRNfunction() {
     console.log("date1: " + date1);
     console.log("date2: " + date2);
     if (date1 < date2) {
-        console.log("date1 小于 date2");
+        console.log("date1 小於 date2");
     } else if (date1 > date2) {
-        console.log("date1 大于 date2");
+        console.log("date1 小於 date2");
     } else {
-        console.log("date1 等于 date2");
+        console.log("date1 等於 date2");
     }
 
     //每日的行程內容渲染
@@ -285,9 +285,11 @@ backToMySchedule_el.addEventListener("click", function () {
 // 向左移
 let count_click_leftbtn = 0;
 let translateXValue = -60;
+let totalDisplacement = 0;
 tab_dateBarLeft_el.onclick = () => {
+    totalDisplacement += translateXValue;
     for (let dateSelectCell of dateSelectCell_el) {
-        dateSelectCell.style.transform = `translateX(${translateXValue * count_click_leftbtn}px)`;
+        dateSelectCell.style.transform = `translateX(${totalDisplacement}px)`;
     }
     count_click_rightbtn = 0;
     ++count_click_leftbtn;
@@ -298,14 +300,9 @@ tab_dateBarLeft_el.onclick = () => {
 let count_click_rightbtn = 0;
 tab_dateBarRight_el.onclick = () => {
     // 要讓元素從當下位置開始向右移動
-
+    totalDisplacement -= translateXValue;
     for (let dateSelectCell of dateSelectCell_el) {
-        // if (count_click_rightbtn === 0) {
-        // 讓元素停在當下位置不跑掉
-        // }
-        // if (count_click_rightbtn >= 1) {
-        dateSelectCell.style.transform = `translateX(${-(translateXValue * count_click_rightbtn)}px)`;
-        // }
+        dateSelectCell.style.transform = `translateX(${totalDisplacement}px)`;
     }
     count_click_leftbtn = 0;
     ++count_click_rightbtn;
