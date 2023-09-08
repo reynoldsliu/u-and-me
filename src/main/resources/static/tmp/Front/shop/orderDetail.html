@@ -134,70 +134,117 @@
 
 <!-- -----content----- -->
 
-<div class="container" style="margin-left: 150px;">
+<div class="container" style=" display: inline-block;">
     <div class="wrap" style="width: 1000px; height:600px;">
-        <div class="orderDetailTitle" style="margin-left: 400px;margin-bottom:30px;color: rgb(49, 47, 47); font-weight: bolder;">
+
+        <div class="orderDetailTitle"
+             style="margin-left:530px;margin-bottom:30px;color: rgb(49, 47, 47); font-weight: bolder;">
             <h3>訂單明細</h3>
         </div>
-        <!-- <div class="row"> -->
-        <!-- <div> -->
+        <div class="containerTable" style="display: flex;">
 
+        <!-- 商品明細 -->
+        <table class="orderProductTable " id="example"
+               style="width:400px;height:300px; margin-left:200px;">
 
-        <table class="orderDetailTable " id="orderDetail"
-               style="width: 550px;height:480px;">
+            <tbody id="orderProductTableList">
+            <tr>
+                <th>商品編號</th>
+                <td id="ordId"></td>
+            </tr>
+            <tr>
+                <th>商品名稱</th>
+                <td id="memName"></td>
 
-        <tbody id="orderDetailTableList">
-        <tr>
-            <th>訂單編號</th>
-            <td id="ordId"></td>
-        </tr>
-        <tr>
-            <th>會員姓名</th>
-            <td id="memName"></td>
-                
-        </tr>
-        <tr>
-            <th style="background-color: darkgray;">訂單日期
-            </th>
-            <td id="ordTime"></td>
-        </tr>
-        <tr>
-            <th style="background-color: darkgray;">運費
-            </th>
-            <td id="ordFee"></td>
-        </tr>
+            </tr>
+            <tr>
+                <th style="background-color: darkgray;">商品個數
+                </th>
+                <td id="ordTime"></td>
+            </tr>
+            <tr>
+                <th style="background-color: darkgray;">商品金額
+                </th>
+                <td id="ordFee"></td>
+            </tr>
 
-        <tr>
-            <th style="background-color: darkgray;">原價總金額
-            </th>
-            <td id="total"></td>
-        </tr>
-        <tr>
-            <th style="background-color: darkgray;">實際總金額
-            </th>
-            <td id="checktotal"></td>
-        </tr>
-        <tr>
-            <th style="background-color: darkgray;">收件人姓名
-            </th>
-            <td id="recipientName"></td>
-        </tr>
-        <tr>
-            <th style="background-color: darkgray;">收件人電話
-            </th>
-            <td id="recipientPhone"></td>
-        </tr>
-        <tr>
-            <th style="background-color: darkgray;">收件人地址
-            </th>
-            <td id="recipientAddr"></td>
-        </tr>
+            <tr>
+                <th style="background-color: darkgray;">商品小結
+                </th>
+                <td id="total"></td>
+            </tr>
+            <tr>
+                <th style="background-color: darkgray;">狀態
+                </th>
+                <td id="checktotal"></td>
+            </tr>
+            <tr>
+                <th style="background-color: darkgray;">查看商品頁面
+                </th>
+                <td id="recipientName"></td>
+            </tr>
 
-
-        </tbody>
+            </tbody>
         </table>
+
+
+            <table class="orderDetailTable " id="orderDetail"
+                   style="width:450px;height:480px; margin-left:100px;">
+
+                <tbody id="orderDetailTableList">
+                <tr>
+                    <th>訂單編號</th>
+                    <td id="ordId"></td>
+                </tr>
+                <tr>
+                    <th>會員姓名</th>
+                    <td id="memName"></td>
+
+                </tr>
+                <tr>
+                    <th style="background-color: darkgray;">訂單日期
+                    </th>
+                    <td id="ordTime"></td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkgray;">運費
+                    </th>
+                    <td id="ordFee"></td>
+                </tr>
+
+                <tr>
+                    <th style="background-color: darkgray;">原價總金額
+                    </th>
+                    <td id="total"></td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkgray;">實際總金額
+                    </th>
+                    <td id="checktotal"></td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkgray;">收件人姓名
+                    </th>
+                    <td id="recipientName"></td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkgray;">收件人電話
+                    </th>
+                    <td id="recipientPhone"></td>
+                </tr>
+                <tr>
+                    <th style="background-color: darkgray;">收件人地址
+                    </th>
+                    <td id="recipientAddr"></td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+        </div>
         <div id="productList">
-            
+
         </div>
         <button class="backBtn" type="button">返回</button>
 

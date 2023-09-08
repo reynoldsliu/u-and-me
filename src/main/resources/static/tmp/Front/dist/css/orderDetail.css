@@ -283,8 +283,9 @@ align-items: center;
   border-style:dotted;
   text-align: center; /* 水平居中 */
   vertical-align: middle; /* 垂直居中 */
-  margin-left:190px;
-  width:600px;
+  /* margin-left:190px; */
+  width:400px;
+
 }
 
 .orderDetailTable th {
@@ -303,8 +304,8 @@ align-items: center;
   height:45px;
   border-radius: 10px;
   color: #fff;
-  margin-left: 690px;
-  margin-top: 40px;
+  margin-left: 1000px;
+  margin-top: 80px;
 }
 .backBtn:hover {
   background-color: rgb(57, 54, 54);
@@ -312,4 +313,22 @@ align-items: center;
 
 
 
+
+.orderProductTable{
+  border-color: #f4f4f4;
+  border-style:dotted;
+  text-align: center; /* 水平居中 */
+  vertical-align: middle; /* 垂直居中 */
+  width:400px;
+}
+
+.orderProductTable th {
+  background-color: darkgray;
+  width: 500px;
+}
+
+.orderProductTable td {
+  background-color: rgb(235, 230, 226);
+  width: 650px;
+}
 
