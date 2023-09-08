@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDetailsDTO;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
+import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
 import tw.idv.cha102.g7.schedule.repo.ScheduleDetailRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleTagRepository;
@@ -35,9 +36,14 @@ public class ScheduleDetailServiceImpl implements ScheduleDetailService {
         Object[] objects = {};
         scheduleRepository.findById(schId);
         detailRepository.findBySchId(schId);
-
-
         return null;
+    }
+
+    @Override
+    public void updateDetails(ScheduleDetail scheduleDetail) {
+        if (scheduleDetail != null) {
+            detailRepository.save(scheduleDetail);
+        }
     }
 
 

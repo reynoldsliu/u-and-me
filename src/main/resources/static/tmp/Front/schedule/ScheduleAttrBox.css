@@ -44,7 +44,7 @@ div.schDetailOrder {
 }
 
 /* 行程細節排序數字 */
-span#schDetailOrder {
+span.schDetailOrder {
     vertical-align: middle;
     color: white;
     font-weight: bold;

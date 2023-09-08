@@ -246,6 +246,7 @@ div.schDateBetween {
     top: 8%;
     left: 1.5%;
     padding-top: 10px;
+    /* position: relative; */
 }
 
 div.schDateInOutline {
@@ -574,7 +575,7 @@ div.schDetailOrder {
 }
 
 /* 行程細節排序數字 */
-span#schDetailOrder {
+span.schDetailOrder {
     vertical-align: middle;
     color: white;
     font-weight: bold;

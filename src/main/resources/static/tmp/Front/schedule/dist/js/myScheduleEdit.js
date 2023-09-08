@@ -31,6 +31,7 @@ const mySchDateEnd_el = document.getElementById("mySchDateEnd");
 const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");
 const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");
 const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");
+const viewSchDetailsRows = document.querySelector(".viewSchDetailsRows");
 // =============== 行程細節時間計算相關標籤(BY Reynolds) =============== 
 
 
@@ -153,79 +154,131 @@ function parseTimestamp(timestampString) {
 
 // }
 
-// 頁面一載入時觸發此函式
-async function loadByRNfunction() {
-    // 获取当前页面的 URL
-    const currentURL = window.location.href;
-    // 创建一个 URLSearchParams 对象，传入查询参数部分
-    const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
-    // 使用 get() 方法来获取特定查询参数的值
-    const schId = urlSearchParams.get('schId');
+// 2023-09-08
+function addTimeToStartTime(startTime, stayTime) {
+    // 解析 startTime 字符串为 Date 对象
+    const startDate = new Date(startTime);
 
-    //透過schId 獲取整個schedule物件
-    const response = await fetch(baseURL + `/schedules/schId/${schId}`);
-    const schedule = await response.json();
-    console.log("Schedule ID: " + schId);
-    //行程開始日期 結束日期
-    var schStartDate = new Date(schedule.schStart);
-    var schEndDate = new Date(schedule.schEnd);
-    var schStart = schedule.schStart;
-    var schEnd = schedule.schEnd;
-    var schDuringDays = ((schEndDate - schStartDate) / (1000 * 60 * 60 * 24)) + 1;
-    //將起始日期及結束日期放在行程最上方
-    mySchDateStart_el.innerText = modifiyDate(schStart);
-    mySchDateEnd_el.innerText = modifiyDate(schEnd);
+    // 解析 stayTime 字符串为小时、分钟和秒
+    const stayTimeParts = stayTime.split(':');
+    const stayHours = parseInt(stayTimeParts[0]);
+    const stayMinutes = parseInt(stayTimeParts[1]);
 
-    // const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");第幾天
-    // const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");周幾
-    // const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");今天的起始時間
+    // 计算新的小时和分钟
+    let newHours = startDate.getHours() + stayHours;
+    let newMinutes = startDate.getMinutes() + stayMinutes;
 
-    //取出本行程所有的行程細節
-    const response1 = await fetch(baseURL + `/schDetails/${schId}`);
-    const schDetails = await response1.json();
-    console.log("STAY time: " + schDetails[0].schdeStaytime);
-    console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
-    const stayTimes = document.querySelectorAll(".stayTimes");
-    let count = 0;
-    //將所有行程細節stayTime顯示
-    for (let stayTime of stayTimes) {
-        stayTime.innerText = formatStayTime(schDetails[count++].schdeStaytime);
+    // 处理跨天情况
+    if (newMinutes >= 60) {
+        newHours += Math.floor(newMinutes / 60);
+        newMinutes %= 60;
+    }
+    if (newHours >= 24) {
+        newHours -= 24;
     }
 
+    // 更新日期对象
+    startDate.setHours(newHours);
+    startDate.setMinutes(newMinutes);
+    console.log(startDate);
 
-    //將TimeStampString轉為Date 且可以直接比大小
-    //測試只比較日期的比大小 輸出應為相等
-    let date1 = parseTimestamp(schDetails[0].schdeStarttime)
-    let date2 = parseTimestamp(schDetails[1].schdeStarttime)
+    return startDate;
+}
 
-    console.log("date1: " + date1);
-    console.log("date2: " + date2);
-    if (date1 < date2) {
-        console.log("date1 小於 date2");
-    } else if (date1 > date2) {
-        console.log("date1 小於 date2");
-    } else {
-        console.log("date1 等於 date2");
-    }
 
-    //每日的行程內容渲染
-    let countDate = schStartDate;
-    for (let day = 0, schDetail = 0; day < schDuringDays; day++) {
+function extractHourAndMinute(timeString) {
+    // 去掉字符串前后的方括号，然后解析为 Date 对象
+    const date = new Date(timeString);
 
-        //創造今天的物件 周幾 行程細節 等等
+    // 获取时和分的部分
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
 
-        //印出今天周幾
-        viewWhichWeekDay_els[day].innerText = getDayOfWeek(countDate);
+    // 格式化结果
+    return `${hours}:${minutes}`;
+}
 
-        //每個行程要做的事
-        for (/**schDetail要一直累加 所以放在上層迴圈宣告 */; ; schDetail++) {
-            if (parseTimestamp(schDetails[schDetail].schdeStarttime)
-                < parseTimestamp(schDetails[schDetail + 1].schdeStarttime)) {
-            }
+async function addDailySchedule(restScheDetails) {
+    //拿第一個細節的起始時間當今天開始時間
+    //迴圈塞入各個行程細節 直到下一個行程的日期不是本日
+    //期間 計算行程的停留時間 換算結束時間
+    //              透過交通方式計算行程間的交通距離 交通時間
+    //結束時間=開始時間+停留時間
+    //開始時間=結束時間+交通時間
+
+    //一但有變動 重新呼叫本函式更新一天行程
+    var schdeStarttime = restScheDetails[0].schdeStarttime;
+    let countedScheDetails;
+    for (countedScheDetails = 0; ; countedScheDetails++) {
+        //如果下一筆行程細節是明天的 結束今天的行程列印
+
+
+        const schdeId = restScheDetails[countedScheDetails].schdeId;
+        const schId = restScheDetails[countedScheDetails].schId;
+        const attrId = restScheDetails[countedScheDetails].attrId;
+        // const schdeStarttime = restScheDetails[countedScheDetails].schdeStarttime;
+        const schdeStaytime = restScheDetails[countedScheDetails].schdeStaytime;
+        console.log("schdeStarttime::" + schdeStarttime);
+        console.log("schdeStaytime::" + schdeStaytime);
+        const schdeEndtime = addTimeToStartTime(schdeStarttime, schdeStaytime);
+        console.log("schdeEndtime::" + schdeEndtime);
+
+        const schdeTranstime = restScheDetails[countedScheDetails].schdeTranstime;
+        const schdeTrans = restScheDetails[countedScheDetails].schdeTrans;
+        const schdeCost = restScheDetails[countedScheDetails].schdeCost;
+        const schdeRemark = restScheDetails[countedScheDetails].schdeRemark;
+        const responseAttr = await fetch(baseURL + `/getAttr?attrId=` + attrId);
+        const attr = await responseAttr.json();
+        const responseAttrPics = await fetch(baseURL + `/getAttrPics/` + attrId);
+        const attrPicList = await responseAttrPics.json();
+        //取得景點的第一張圖片
+        const attrPicture = attrPicList.attrPic[0].attrPicData;
+        let row = document.createElement("div");
+        row.innerHTML = `
+                <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrId});">
+                    <div class="row g-0">
+                        <div class="attrPic col-md-4">
+                            <img src="data:image/jpeg;base64,${attrPicture}"
+                                class="attrFirstPicInschDetail" class="img-fluid rounded-start"
+                                alt="..." style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                            <div class="schDetailOrder"><span class="schDetailOrder">${countedScheDetails + 1}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="schDetailsCardBody">
+                                <p class="schTimes"><span class="stayTimes">${formatStayTime(schdeStaytime)}</span> |
+                                    <span class="startTimes">${extractHourAndMinute(schdeStarttime)}</span> - <span
+                                        class="endTimes">${extractHourAndMinute(schdeEndtime)}</span>
+                                </p>
+                                <h5 class="attrName">
+                                    <div class="attrNameInSchDetail">
+                                        ${attr.attrName}
+                                    </div>
+                                </h5>
+                                <p class="attrAddr">
+                                    <small class="text-body-secondary"
+                                        class="attrAddr">${attr.attrAddr}</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+        schdeStarttime = schdeEndtime;
+
+        console.log("NEW START TIME: " + schdeStarttime);
+        viewSchDetailsRows.appendChild(row);
+
+        //將TimeStampString轉為Date 且可以直接比大小
+        //測試只比較日期的比大小 輸出應為相等
+        if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
+            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)) {
+
+            break;
         }
-        //計算明天周幾 天數加一
-        countDate.setDate(countDate.getDate() + 1);
     }
+    return countedScheDetails;
 }
 
 // =============== 行程細節時間計算相關函式(BY Reynolds)結束 =============== 
@@ -265,13 +318,54 @@ function codeToPriceRange(code) {
 
 
 // ================== 載入行程編輯頁面 ================== //
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     // 關閉景點搜尋內其他頁籤內容
     switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
 
     // RN's LOADING function
-    loadByRNfunction();
+    // 获取当前页面的 URL
+    const currentURL = window.location.href;
+    // 创建一个 URLSearchParams 对象，传入查询参数部分
+    const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+    // 使用 get() 方法来获取特定查询参数的值
+    const schId = urlSearchParams.get('schId');
+
+    //透過schId 獲取整個schedule物件
+    const response = await fetch(baseURL + `/schedules/schId/${schId}`);
+    const schedule = await response.json();
+    console.log("Schedule ID: " + schId);
+    //行程開始日期 結束日期
+    var schStartDate = new Date(schedule.schStart);
+    var schEndDate = new Date(schedule.schEnd);
+    var schStart = schedule.schStart;
+    var schEnd = schedule.schEnd;
+    var schDuringDays = ((schEndDate - schStartDate) / (1000 * 60 * 60 * 24)) + 1;
+
+    //將起始日期及結束日期放在行程最上方
+    mySchDateStart_el.innerText = modifiyDate(schStart);
+    mySchDateEnd_el.innerText = modifiyDate(schEnd);
+
+    // const viewWhichDay_els = document.querySelectorAll(".viewWhichDay");第幾天
+    // const viewWhichWeekDay_els = document.querySelectorAll(".viewWhichWeekDay");周幾
+    // const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");今天的起始時間
+
+    //取出本行程所有的行程細節
+    const response1 = await fetch(baseURL + `/schDetails/${schId}`);
+    const schDetails = await response1.json();
+    console.log("STAY time: " + schDetails[0].schdeStaytime);
+    console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
+    const stayTimes = document.querySelectorAll(".stayTimes");
+    let count = 0;
+    //將所有行程細節stayTime顯示
+    for (let stayTime of stayTimes) {
+        stayTime.innerText = formatStayTime(schDetails[count++].schdeStaytime);
+    }
+    // schDetails.shift();
+    // console.log(schDetails);
+    addDailySchedule(schDetails);
+
+
 });
 
 
@@ -330,10 +424,6 @@ function addNewAttrbtnOnclick() {
     // 顯示搜尋欄及搜尋結果
     attrSearchPage.classList.remove(classSwitchOff);
 }
-
-
-// 點擊行程細節查看景點內容
-// (綁定在div.schDetailCell標籤上onclick，方法為viewSearchResultOfOneAttr();)
 
 
 //  ================== 行程細節頁面結束 ================== //
