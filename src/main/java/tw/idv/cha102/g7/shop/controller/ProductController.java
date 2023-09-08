@@ -5,9 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.attraction.dto.AttrPictureDTO;
-import tw.idv.cha102.g7.attraction.entity.AttrPicture;
-import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.shop.dto.ProductDTO;
 import tw.idv.cha102.g7.shop.dto.ProductPictureDTO;
 import tw.idv.cha102.g7.shop.entity.Product;
@@ -16,9 +13,6 @@ import tw.idv.cha102.g7.shop.service.ProductPictureService;
 import tw.idv.cha102.g7.shop.service.ProductService;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 //介面層:負責接收前端請求，請業務邏輯層(Service)處理，再回傳資料給前端;也可以是View層，渲染使用者畫面

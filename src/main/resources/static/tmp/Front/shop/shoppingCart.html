@@ -150,6 +150,7 @@
                   <thead>
                     <tr>
                       <th scope="col" class="ps-2 inf" style="padding-right: 100px">商品資訊</th>
+                      <th scope="col" class="ps-2 inf" style="padding-right: 50px"></th>
                       <th scope="col" class="ps-2 pri" style="padding-right: 50px">單價</th>
                       <th scope="col" class="ps-2 num" style="padding-right: 50px">數量</th>
                       <th scope="col" class="ps-2 cou">小計</th>
@@ -213,11 +214,11 @@
                           </div>
                         </div>
                       </th>
-                      <td class="align-middle border-bottom-0">
+                      <td class="align-middle border-bottom-0" style="display: none;">
                         <p class="mb-0"></p>
                       </td>
 
-                      <td class="align-middle border-bottom-0">
+                      <td class="align-middle border-bottom-0" style="display: none;">
                         <p class="mb-0"></p>
                       </td>
 
@@ -226,34 +227,34 @@
                         <div class="row ">
                           <div class="col">
                     <tr>
+                      <!-- <td class="align-middle border-bottom-0">
+                      </td> -->
+                      <!-- <td class="align-middle border-bottom-0">
+                      </td> -->
                       <td class="align-middle border-bottom-0">
-                      </td>
-                      <td class="align-middle border-bottom-0">
-                      </td>
-                      <td class="align-middle border-bottom-0">
-                        <span style="margin-right:100px;"> 總計:</span>
-                        <span class="mb-0" id="totalPriceCount" style="font-weight: 500; font-size: 18px;margin-right:100px;"></span>
-                        <span style="margin-right:100px;">元</span>
+                        <span style="margin-left:920px;"> 總計:</span>
+                        <span class="mb-0" id="totalPriceCount" style="font-weight: 500; font-size: 18px;margin-left:20px;"></span>
+                        <span style="margin-left:20px">元</span>
                     </td>
                     </tr>
                     <tr>
-                      <td class="align-middle border-bottom-0">
-                      </td>
-                      <td class="align-middle border-bottom-0">
-                      </td>
+                      <!-- <td class="align-middle border-bottom-0">
+                      </td> -->
+                      <!-- <td class="align-middle border-bottom-0">
+                      </td> -->
                       <td class="align-middle border-bottom-0">
                         <p class="mb-0" style="font-weight: 500; display: none;">折抵</p>
                       </td>
                     </tr>
                     <tr>
-                      <td class="align-middle border-bottom-0">
+                      <!-- <td class="align-middle border-bottom-0">
                       </td>
                       <td class="align-middle border-bottom-0">
-                      </td>
+                      </td> -->
                       <td class="align-middle border-bottom-0">
-                        <span> 運費:</span>
-                        <span class="mb-0" id="shippingFee" style="font-weight: 500; font-size: 18px;">80</span>
-                        <span>元</span>
+                        <span style="margin-left:920px;"> 運費:</span>
+                        <span class="mb-0" id="shippingFee" style="font-weight: 500; font-size: 18px; margin-left:20px;width: 100px;">80</span>
+                        <span style="margin-left:20px">元</span>
       </td>
                     </tr>
               </div>
@@ -313,7 +314,7 @@
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">行程規劃</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">旅遊商城</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">論壇專區</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">客服專區</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary" >客服專區</a></li>
           </ul>
         </div>
 
@@ -346,113 +347,169 @@
       cartListContainer.innerHTML = "";
       const response = await fetch(`${baseUrl}showAllCartList`);
       const cartLists = await response.json();
-      await fetchProductDetails(cartLists);
+       fetchProductDetails(cartLists);
 
     }
     //拿到全部的商品資訊
-    async function fetchProductDetails(cartLists){
+    function fetchProductDetails(cartLists){
       //總計
       let toTalCount = 0; 
       for(let cartList of cartLists){
-        const response1 = await fetch(`${baseUrl}product/listProductDetail/${cartList.cartListId.prodId}`);
-        const data = await response1.json();
+        fetch(`${baseUrl}product/listProductDetail/${cartList.cartListId.prodId}`)
+        .then(resp=> resp.json())
+        .then(data=>{
 
+          
         const prodRow = document.createElement("tr");
+        prodRow.style.borderBottom = "1px solid black";
 
           // 創建每個表格
-          let prodInfoCell = document.createElement("td");
-          prodInfoCell.innerHTML = `
-            <div class="d-flex align-items-center" style="width: 200px;height: 150px;object-fit: cover;">
-              <img src="data:Image/jpeg;base64,${data.prodPic}" class="img-fluid rounded-3 prodImg" alt="商品照片" style="width: 200px;height: 150px;object-fit: cover;">
-              <div class="flex-column ms-4">
-                <p class="mb-2 pName" style="width: 120px; height: 30px; margin-right:115px;">${data.prodName}</p>
-              </div>
+          let prodInfo_el = document.createElement("td");
+          prodInfo_el.innerHTML = `
+            <div class="d-flex align-items-center" style="width: 200px;height: 150px;">
+              <img src="data:Image/jpeg;base64,${data.prodPic}" class="img-fluid rounded-3 prodImg" alt="商品照片" style="width: 200px;height: 150px;">
             </div>
+            `;
+            let prodName_el = document.createElement("td");
+            prodName_el.innerHTML =`
+            <span class="align-middle" style="background-color: red;">
+                <p class="mb-2 pName" style="width: 150px; height: 30px; margin-left:40px;">${data.prodName}</p>
+            </span>
           </th>
           `;
+          
 
-          const prodPriCell = document.createElement("td");
-          prodPriCell.classList.add("align-middle");
-          prodPriCell.innerHTML = 
-          `<p class="mb-0 ps-3" style="font-weight: 500; margin-right:160px;">${data.prodPri}</p> </td>`;
+          const prodPri_el = document.createElement("td");
+          prodPri_el.classList.add("align-middle");
+          prodPri_el.innerHTML = 
+          `<p class="mb-0 ps-3" style="font-weight: 500; margin-left:145px;">${data.prodPri}</p>`;
 
-          const quantityCell = document.createElement("td");
-          prodPriCell.classList.add("align-middle");
-          quantityCell.innerHTML = `
-            <div class="d-flex flex-row ps-4">
-              <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                <i class="fas fa-minus"></i>
-              </button>
-              <input id="changeQuantity" min="0" name="quantity" value="${cartList.cartQty}" type="number" class="form-control form-control-sm" style="width: 50px;" onchange="reduceCart(${cartList.cartListId.prodId});"/>
-              <button class="btn btn-link px-2" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                <i class="fas fa-plus"></i>
-              </button>
-            </div>
+          const quantity_el = document.createElement("td");
+          quantity_el.classList.add("align-middle");
+          quantity_el.innerHTML = `
+
+          <!-- 數量加減按鈕 -->
+          <div class="product_variant_quantity" style="padding-bottom: 10px; margin-left: 140px">
+          <span class="product_quantity">
+              <div class="btn-group" role="group" aria-label="First group">
+                  <button class="btn add-down qk-bd--product_border" type="button" onclick="reduceCart(${cartList.cartListId.prodId})"
+                      id="reduceBtn${cartList.cartListId.prodId}" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(115, 176, 172); width: 25px;">-</button>
+                  <input class="btn item-quantity qk-text--heading qk-bd--product_border" type="text"
+                       id="quantityInput${cartList.cartListId.prodId}" name="quantity" value="${cartList.cartQty}" onchange="updateCart(${cartList.cartQty},${cartList.cartListId.prodId})" data-old-value="1" style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 50px;">
+                  <button class="btn add-up qk-bd--product_border" type="button" onclick="addCarts(${cartList.cartListId.prodId})"
+                      id="addBtn${cartList.cartListId.prodId}" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(115, 176, 172); width: 25px;">+</button>
+              </div>
+            </span>
+        </div>                         
           `;
 
-          const cartPriCell = document.createElement("td");
-          prodPriCell.classList.add("align-middle");
-          cartPriCell.innerHTML =
-           `<p class="mb-0 ps-2" style="font-weight: 500; margin-left:160px;">NT ${cartList.cartPri}</p> </td> </tr>`;
+          const cartPri_el = document.createElement("td");
+          cartPri_el.classList.add("align-middle");
+          cartPri_el.innerHTML =
+           `<p class="mb-0 ps-2" style="font-weight: 500; width:80px;margin-left:105px;">NT ${cartList.cartPri}</p>`;
 
-           let line = document.createElement("td");
 
-            //  <!-- 下面間隔線1 -->
-            line.innerHTML = `       
-            <th scope="row"></th>
-            <td class="align-middle"></td>
-            <td class="align-middle"></td>
-            <td class="align-middle"></td>
-            </tr>
-          `;  
-                 
+            
 
           // 將每一列加入
-          prodRow.appendChild(prodInfoCell);
-          prodRow.appendChild(prodPriCell);
-          prodRow.appendChild(quantityCell);
-          prodRow.appendChild(cartPriCell);
-          prodRow.appendChild(line);
-
+          prodRow.appendChild(prodInfo_el);
+          prodRow.appendChild(prodName_el);
+          prodRow.appendChild(prodPri_el);
+          prodRow.appendChild(quantity_el);
+          prodRow.appendChild(cartPri_el);
           // 將列加到此id的位置
           cartListContainer.appendChild(prodRow);
+          
           //總計的計算
           toTalCount += cartList.cartPri;
           totalPriceCount.innerText = toTalCount;
           finalTotalPrice.innerText = toTalCount+80;
+        })
           };
 
           }
           
+           //  -----商品數量增減-----
+        const reduceButton = document.getElementById("reduceBtn");
+   
+        function reduceCart(prodId) {
+            // let quantityInput = document.getElementById("quantityInput");
+            let quantityInput = document.getElementById("quantityInput"+prodId);
+            let currentValue = quantityInput.value;
+            if (currentValue > 1) {
+                currentValue -= 1;
+                // //更新輸入的值
+                quantityInput.value = currentValue;
+            }
+            updateCart();
+        }
+            function addCarts(prodId,event) {
+            let quantityInput = document.getElementById("quantityInput"+prodId);
+            quantityInput.value++;
+            updateCart();
+        }
 
-        //商品刪除
-        async function reduceCart(prodId){
-           await fetch(`${baseUrl}deleteCartList/${prodId}`, {
-              method: 'DELETE',
-              headers: { 'Content-Type': 'application/json' },
-            }).then()
-              .then(body => {
-                let {message}=body;
-                Swal.fire({
-                  icon: 'success',
-                  title: '操作成功',
-                  text: `${message}`,
-                  confirmButtonText: '確定',
-                  focusConfirm: true
-                });
-              })
+        
+         // 數量增加或減少，要更新購物車 
+          async function updateCart(prodId,cartQty){
+            let quantityInput = document.getElementById("quantityInput"+prodId);
+            let quantity = quantityInput.value;
             
+            const cartList ={
+                cartPri:document.querySelector(".price").value,
+                cartQty:quantity
             }
             
-          // if 數量=0 呼叫reduceCart
-          numberInput.addEventListener('change', function(event) {
-            const numberValue = numberInput.value;
-                  if(numberValue < 1){
-                    reduceCart(prodId);
-                  }
-                  //成功刪除，重整此畫面
-             location.reload();
-            })
+            await fetch(`${baseUrl}updateCartList/${prodId}/${cartQty}`,{
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(cartList)
+            }).then(resp => resp.json())
+              .then(data =>{
+                    
+              })
+             
+        }
+
+        //數量<1，要將商品刪除
+        
+        // const changeQuantity = getElementById('changeQuantity');
+        // changeQuantity.addEventListener('change', function () {
+        // const numberValue = changeQuantity.value;
+        // if (numberValue < 1) {
+        //   reduceCart(prodId);
+        // }
+        // });
+
+        // async function reduceCart(prodId){
+        //    await fetch(`${baseUrl}deleteCartList/${prodId}`, {
+        //       method: 'DELETE',
+        //       headers: { 'Content-Type': 'application/json' },
+        //     })
+        //       .then(body => {
+        //         let {message}=body;
+        //         Swal.fire({
+        //           icon: 'success',
+        //           title: '操作成功',
+        //           text: `${message}`,
+        //           confirmButtonText: '確定',
+        //           focusConfirm: true
+        //         });
+        //          //成功刪除，重整此畫面
+        //          location.reload();
+        //       });
+        //     }
+            
+            
+          // // if 數量=0 呼叫reduceCart
+          // numberInput.addEventListener('change', function(event) {
+          //   const numberValue = numberInput.value;
+          //         if(numberValue < 1){
+          //           reduceCart(prodId);
+          //         }
+          //         //成功刪除，重整此畫面
+          //    location.reload();
+          //   })
         
 
 

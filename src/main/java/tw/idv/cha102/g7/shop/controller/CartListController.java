@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class CartListController {
 
@@ -80,10 +81,21 @@ public class CartListController {
         cartService.deleteById(memId,prodId);
     }
 
-    @RequestMapping("/updateCartList/{memId}/{prodId}/{prodQty}")
-    public CartList updateCartList(@PathVariable Integer memId,
+    @RequestMapping("/updateCartList/{prodId}/{cartQty}")
+    public CartList updateCartList(HttpServletRequest request,
                                    @PathVariable Integer prodId,
-                                   @PathVariable Integer prodQty){
-       return cartService.updateCartListQty(memId, prodId, prodQty);
+                                   @PathVariable Integer cartQty){
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("memberId");
+        String jsessionId;
+        Integer memId = 0 ;
+        if(obj == null) {
+            CartList cartList = new CartList();
+        }else {
+            jsessionId = obj.toString();
+            memId = Integer.parseInt(jsessionId);
+            System.out.println("memId: "+memId);
+        }
+       return cartService.updateCartListQty(memId, prodId, cartQty);
     }
 }
