@@ -304,7 +304,12 @@
                     const uniqueId = `statusSwitch${article.articleId}`;
 
                     row.innerHTML = `
-    <td class="td_articleId" style="text-align: center; vertical-align: middle;">${article.articleId}</td>
+    <td class="td_articleId" style="text-align: center; vertical-align: middle;">
+     <a   href="http://localhost:8081/u-and-me/tmp/Front/article/readArticle/singleArticle.html?articleId=${article.articleId}">
+
+        ${article.articleId}
+        </a>
+        </td>
     <td style="text-align: center;vertical-align: middle;">${article.memId}</td>
     <td class="truncate" style="vertical-align: middle;">${article.articleTitle}</td>
     <td class="truncate" style="vertical-align: middle;">${article.articleContent}</td>
