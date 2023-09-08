@@ -1,29 +1,33 @@
 package tw.idv.cha102.g7.article.service;
 
 import tw.idv.cha102.g7.article.entity.Article;
+import tw.idv.cha102.g7.article.entity.ArticlePicture;
 
 import java.util.List;
 
 public interface ArticleBrowserService {
 
-    // 新增文章
-    void postArticle(Article article);
 
-    // 刪除文章
-    void deleteByArticleId(Integer articleId);
+
 
     String updateByArticleId(Integer articleId, Article article);
 
     // 搜尋文章title，可依照熱門(讚數)或最新最舊排序
     List<Article> findByArticleTitle(String keyword);
 
-
-
     // 論壇首頁呈現所有未下架文章
     public List<Article>findPublicArticle();
 
-    // 使用者所有發表過的文章
-    public List<Article> getAllByMemId(Integer memId);
+    // 論壇首頁呈現所有商城文章(廢code)
+    public List<Article>findShopArticle();
+
+    // 論壇首頁呈現所有行程文章(廢code)
+    public List<Article>findScheduleArticle();
+
+    // 論壇首頁呈現所有揪團文章(廢code)
+    public List<Article>findGroupArticle();
+
+
 
 
     // 精確搜尋文章hashtag，可依照熱門(讚數)或最新最舊排序(多對多表格)

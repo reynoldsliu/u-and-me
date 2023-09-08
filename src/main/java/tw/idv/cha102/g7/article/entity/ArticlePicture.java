@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "article_picture")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "article_picture")
 public class ArticlePicture implements Serializable {
     private static final long serialVersionUID = 6618518644686967842L;
     @Id

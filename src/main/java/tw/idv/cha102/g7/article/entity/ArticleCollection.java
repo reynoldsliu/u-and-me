@@ -12,15 +12,15 @@ import java.sql.Date;
 
 // 複合主鍵
 @Entity
-@Table(name = "article_collection")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "article_collection")
 public class ArticleCollection {
 
-    @Column(name = "article_collection")
     @EmbeddedId
     private ArticleCollectionId id;
+
     @Column(name="ac_follow_date")
     private Date acFollowDate;
 
