@@ -247,11 +247,9 @@ async function addDailySchedule(restScheDetails) {
             <!-- 第二個行程細節cell結束 ！！！！！！！！　-->
             `;
 
-        schdeStarttime = schdeEndtime;
-        
-        console.log("NEW START TIME: " + schdeStarttime);
-        viewSchDetailsRows.appendChild(row);
 
+        viewSchDetailsRows.appendChild(row);
+        
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
         if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
@@ -259,6 +257,11 @@ async function addDailySchedule(restScheDetails) {
 
             break;
         }
+
+        schdeStarttime = schdeEndtime;
+
+        console.log("NEW START TIME: " + schdeStarttime);
+
     }
     return countedScheDetails;
 }
@@ -302,7 +305,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     for (let stayTime of stayTimes) {
         stayTime.innerText = formatStayTime(schDetails[count++].schdeStaytime);
     }
-    schDetails.shift();
+    // schDetails.shift();
     // console.log(schDetails);
     addDailySchedule(schDetails);
 

@@ -305,7 +305,7 @@ select * from group_picture;
 
 -- attractions景點相關表格建立 劉力辰
 create table attractions (
-attr_id int primary key,
+attr_id int primary key auto_increment,
 attr_veri_sta tinyint,
 attr_sta int,
 attr_name varchar(20),

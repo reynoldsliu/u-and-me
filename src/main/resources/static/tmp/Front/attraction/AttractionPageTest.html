@@ -252,8 +252,8 @@
                                 <!-- <div id="totalDistance"></div>
                             <div id="totalTime"></div> -->
                                 <button id="createNewPoint">新增景點</button>
-                                <input type="text" id="start" class="google_input_text " ref="site"
-                                    v-model="site" placeholder="請輸入起點">
+                                <input type="text" id="start" class="google_input_text " ref="site" v-model="site"
+                                    placeholder="請輸入起點">
 
                             </div>
                         </div>
@@ -338,6 +338,8 @@
         async defer></script>
 
     <script>
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+        
         //必要參數宣告
         var map;
         var directionsRenderer;
@@ -531,11 +533,47 @@
                 autocompletes[i] = new google.maps.places.Autocomplete(siteInput, options);
 
                 // 创建标记并监听地址变化
-                autocompletes[i].addListener('place_changed', () => {
+                autocompletes[i].addListener('place_changed', async () => {
                     let place = autocompletes[i].getPlace();
 
                     // 确认回来的数据有经纬度
                     if (place.geometry) {
+
+                        // 获取地点的经纬度
+                        let latitude = place.geometry.location.lat();
+                        let longitude = place.geometry.location.lng();
+
+                        // 获取地点的详细信息
+                        let placeInfo = {
+                            name: place.name,
+                            address: place.formatted_address,
+                            latitude: latitude,
+                            longitude: longitude
+                        };
+
+                        const attr = {
+                            attrName: place.name,
+                            attrAddr: place.formatted_address,
+                            attrLat: place.geometry.location.lat(),
+                            attrLon: place.geometry.location.lng()
+                        }
+
+                        const requestOptions = {
+                            method: 'POST', // 或 'PUT'、'GET'、'DELETE'
+                            headers: {
+                                'Content-Type': 'application/json' // 指定请求主体的类型为JSON
+                            },
+                            body: JSON.stringify(attr) // 将JSON数据转换为字符串并设置为请求主体
+                        };
+
+                        const response = await fetch(baseUrl + `insertNewAttraction`,requestOptions);
+                        const insertedAttr = await response.json();
+
+
+                        // 在控制台中打印地点信息
+                        console.log(placeInfo);
+
+
                         // 改变地图的中心点
                         let searchCenter = place.geometry.location;
                         // 在搜寻结果的地点上放置标记
@@ -626,7 +664,7 @@
             );
         }
 
-        function setWaypoints(){
+        function setWaypoints() {
             const v = document.querySelectorAll('waypoint');
             v.forEach(point => {
                 waypoints.push(point.value);

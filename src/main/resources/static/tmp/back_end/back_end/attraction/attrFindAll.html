@@ -285,6 +285,7 @@
     <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
         <!--網頁載入後執行-->
         document.addEventListener("DOMContentLoaded", function () {
@@ -293,7 +294,7 @@
 
         async function fetchAttractionList() {
             try {
-                const response = await fetch('http://localhost:8081/u-and-me/getAllAttr');
+                const response = await fetch(baseUrl + 'getAllAttr');
                 const attractionList = await response.json();
 
                 const dataTableList = document.getElementById("dataTableList");
