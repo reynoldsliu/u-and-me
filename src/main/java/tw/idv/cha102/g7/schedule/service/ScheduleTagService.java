@@ -26,4 +26,10 @@ public interface ScheduleTagService {
     // 依照行程id查詢對應標籤
     public List<ScheduleTag> findTagsBySchId(Integer schId);
 
+    // 新增行程標籤
+    public ScheduleTag createTag(ScheduleTag tag);
+
+    // 刪除行程標籤
+    public void deleteTag(Integer schTagId);
+
 }

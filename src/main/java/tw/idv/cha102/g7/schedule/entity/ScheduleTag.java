@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name = "schedule_tag")
 public class ScheduleTag {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "schtag_id")
     private Integer schTagId;
 

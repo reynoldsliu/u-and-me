@@ -46,7 +46,6 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
     }
 
 
-
     @Override
     public TagToSchedulesDTO findSchedulesBySchTagId(Integer schTagId) {
         ScheduleTag tag = tagRepository.findById(schTagId).orElse(null);
@@ -61,7 +60,7 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
                     schedule = scheduleRepository.findById(dto2.getScheduleTagListId().getSchId()).orElse(null);
                     if (!schList.contains(schedule) && schedule != null) {
                         if (schedule.getSchPub() == 2)
-                        schList.add(schedule);
+                            schList.add(schedule);
                     }
                 }
             }
@@ -110,5 +109,15 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
             }
         }
         return tagList;
+    }
+
+    @Override
+    public ScheduleTag createTag(ScheduleTag tag) {
+        return tagRepository.save(tag);
+    }
+
+    @Override
+    public void deleteTag(Integer schTagId) {
+        tagRepository.deleteById(schTagId);
     }
 }
