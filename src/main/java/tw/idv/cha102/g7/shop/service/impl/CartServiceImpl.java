@@ -75,7 +75,7 @@ public class CartServiceImpl implements CartService {
             CartListId cartListId = new CartListId(memId, prodId);
             CartList cartList = cartListRepository.findByCartListId_MemIdAndCartListId_ProdId(memId, prodId);
             if (cartList != null) {
-                cartList.setCartQty(cartList.getCartQty() + cartQty);
+                cartList.setCartQty(cartQty);
             }
                 return cartListRepository.save(cartList);
         }

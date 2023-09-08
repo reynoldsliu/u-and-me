@@ -382,7 +382,7 @@
           const prodPri_el = document.createElement("td");
           prodPri_el.classList.add("align-middle");
           prodPri_el.innerHTML = 
-          `<p class="mb-0 ps-3" style="font-weight: 500; margin-left:145px;">${data.prodPri}</p>`;
+          `<p class="mb-0 ps-3" id="prodPri${cartList.cartListId.prodId}" style="font-weight: 500; margin-left:145px;">${data.prodPri}</p>`;
 
           const quantity_el = document.createElement("td");
           quantity_el.classList.add("align-middle");
@@ -395,7 +395,7 @@
                   <button class="btn add-down qk-bd--product_border" type="button" onclick="reduceCart(${cartList.cartListId.prodId})"
                       id="reduceBtn${cartList.cartListId.prodId}" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(115, 176, 172); width: 25px;">-</button>
                   <input class="btn item-quantity qk-text--heading qk-bd--product_border" type="text"
-                       id="quantityInput${cartList.cartListId.prodId}" name="quantity" value="${cartList.cartQty}" onchange="updateCart(${cartList.cartQty},${cartList.cartListId.prodId})" data-old-value="1" style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 50px;">
+                       id="quantityInput${cartList.cartListId.prodId}" name="quantityIn" value="${cartList.cartQty}" oninput="updateCart(${cartList.cartListId.prodId})" data-prod-id="${cartList.cartListId.prodId}" data-old-value="1" style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 50px;">
                   <button class="btn add-up qk-bd--product_border" type="button" onclick="addCarts(${cartList.cartListId.prodId})"
                       id="addBtn${cartList.cartListId.prodId}" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(115, 176, 172); width: 25px;">+</button>
               </div>
@@ -406,9 +406,9 @@
           const cartPri_el = document.createElement("td");
           cartPri_el.classList.add("align-middle");
           cartPri_el.innerHTML =
-           `<p class="mb-0 ps-2" style="font-weight: 500; width:80px;margin-left:105px;">NT ${cartList.cartPri}</p>`;
+           `<p class="mb-0 ps-2 cartPrice" style="font-weight: 500; width:80px;margin-left:105px;">NT ${cartList.cartPri}</p>`;
 
-
+          //給class，取之後用innerHTML
             
 
           // 將每一列加入
@@ -441,26 +441,37 @@
                 // //更新輸入的值
                 quantityInput.value = currentValue;
             }
-            updateCart();
+            updateCart(prodId);
         }
             function addCarts(prodId,event) {
             let quantityInput = document.getElementById("quantityInput"+prodId);
             quantityInput.value++;
-            updateCart();
+            updateCart(prodId);
         }
 
         
          // 數量增加或減少，要更新購物車 
-          async function updateCart(prodId,cartQty){
+          function updateCart(prodId){
+            // console.log(prodId);
             let quantityInput = document.getElementById("quantityInput"+prodId);
-            let quantity = quantityInput.value;
+            console.log(quantityInput);
+            console.log(quantityInput.value);
+           
+            let ProdId = quantityInput.dataset.prodId;
+            let quantityFinal = quantityInput.value;
             
             const cartList ={
-                cartPri:document.querySelector(".price").value,
-                cartQty:quantity
+                cartPri:document.querySelector(".cartPrice").value,
+                cartQty:quantityFinal
             }
+            //根據數量變化計算新的小計
+            let ProdPri = document.getElementById("prodPri"+prodId);
+            let ProdPriValue = ProdPri.value;
+            let newCartPri = calculateNewCartPrice(quantityFinal,ProdPri);
+            let newCartPri_el = document.querySelector(".cartPrice");
+            newCartPri_el.textContent = `NT ${newCartPri}`;
             
-            await fetch(`${baseUrl}updateCartList/${prodId}/${cartQty}`,{
+          fetch(`${baseUrl}updateCartList/${ProdId}/${quantityFinal}`,{
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(cartList)
@@ -469,6 +480,10 @@
                     
               })
              
+        }
+
+        function calculateNewCartPrice(quantityFinal,ProdPri){
+              return quantityFinal * ProdPri;
         }
 
         //數量<1，要將商品刪除
