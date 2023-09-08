@@ -493,7 +493,12 @@
 
                 if (response.ok) {
                     const updatedMemberData = await response.json();
-                } else {
+              Swal.fire({
+                         icon: 'success',
+                         title: '更改成功',
+                         text: '',
+                         confirmButtonText: '確定'
+      })}else {
                     console.error('Failed to update member.');
                 }
             } catch (error) {
