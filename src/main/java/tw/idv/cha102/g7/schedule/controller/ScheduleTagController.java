@@ -47,7 +47,7 @@ public class ScheduleTagController {
 
     // 藉由行程id找出對應行程標籤
     @GetMapping("/schId/{schId}")
-    public TagsInScheduleDTO findTagsBySchId(@PathVariable Integer schId){
+    public List<ScheduleTag> findTagsBySchId(@PathVariable Integer schId){
         return service.findTagsBySchId(schId);
     }
 

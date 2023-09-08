@@ -47,16 +47,21 @@ public class ScheduleDetailController {
         }
     }
 
-//    @RequestMapping("/delete/{schdeId}")
-//    public ResponseEntity<?> deleteDetail(PathVariable schdeId) {
-//        try {
-//            detailService.deleteDetail(schdeId);
-//            return ResponseEntity.ok("更新成功!");
-//        } catch (Exception e) {
-//            return ResponseEntity
-//                    .status(HttpStatus.NOT_FOUND)
-//                    .body("資料存入失敗！");
-//        }
+    @RequestMapping("/delete/{schdeId}")
+    public ResponseEntity<?> deleteDetail(@PathVariable Integer schdeId) {
+        try {
+            detailService.deleteDetail(schdeId);
+            return ResponseEntity.ok("刪除成功!");
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("刪除失敗！");
+        }
+    }
+
+//    @GetMapping("/one/{schdeId}")
+//    public ResponseEntity<?> findOneDetail(@PathVariable Integer schdeId){
+//        detailService.
 //    }
 
     // 見ScheduleManageController.java

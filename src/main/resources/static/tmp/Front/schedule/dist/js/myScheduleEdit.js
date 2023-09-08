@@ -315,8 +315,20 @@ function codeToPriceRange(code) {
 }
 
 
-
-
+// ================================= memId =========================================
+// async function getMemId(){
+//     const response = await fetch(baseURL+`/member/getMemId`);
+//     const member = await response.json();
+//     const memId = member.memId;
+//     console.log(member);
+//     console.log(memId);
+//     return memId;
+// }
+// async function getMem(){
+//     const response = await fetch(baseURL+`/member/getMemId`);
+//     const member = await response.json();
+//     return member;
+// }
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", async function () {
     // 關閉景點搜尋內其他頁籤內容
@@ -571,7 +583,7 @@ let getAttrPicsByAttrIdURL = baseURL + "/getAttrPics/";
 
 
 // 按下我的景點收藏時換到景點收藏頁面
-tab_attrCollect_el.addEventListener("click", function (e) {
+tab_attrCollect_el.addEventListener("click", async function (e) {
     e.preventDefault();
     // 將當前icon變色
     switchIconsRemoveOn();
@@ -586,7 +598,11 @@ tab_attrCollect_el.addEventListener("click", function (e) {
     }
 
     // 根據會員id動態生成景點收藏清單
-    let memId = 1;
+    // let memId = 1;
+    const response = await fetch(baseURL + `/member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
+
     FindAllAttrCollectionList(memId);
 
 });

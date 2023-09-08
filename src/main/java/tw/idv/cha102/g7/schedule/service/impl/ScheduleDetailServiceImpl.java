@@ -17,26 +17,20 @@ public class ScheduleDetailServiceImpl implements ScheduleDetailService {
 
     @Autowired
     private ScheduleDetailRepository detailRepository;
-
     @Autowired
     private ScheduleRepository scheduleRepository;
-
     @Autowired
     private ScheduleTagRepository tagRepository;
 
 
     @Override
-    public List<ScheduleDetail> findBySchId(Integer schId) {
-        return detailRepository.findBySchId(schId);
+    public ScheduleDetail findOneDetail(Integer schdeId) {
+        return detailRepository.findById(schdeId).orElse(null);
     }
 
     @Override
-    public ScheduleDetailsDTO findAllDetailsBySchId(Integer schId) {
-        ScheduleDetailsDTO dto = new ScheduleDetailsDTO();
-        Object[] objects = {};
-        scheduleRepository.findById(schId);
-        detailRepository.findBySchId(schId);
-        return null;
+    public List<ScheduleDetail> findBySchId(Integer schId) {
+        return detailRepository.findBySchId(schId);
     }
 
     @Override
@@ -46,5 +40,18 @@ public class ScheduleDetailServiceImpl implements ScheduleDetailService {
         }
     }
 
+    @Override
+    public void deleteDetail(Integer schdeId) {
+        detailRepository.deleteById(schdeId);
+    }
 
+//    @Override
+//    public ScheduleDetailsDTO findAllDetailsBySchId(Integer schId) {
+//        ScheduleDetailsDTO dto = new ScheduleDetailsDTO();
+//        Object[] objects = {};
+//        scheduleRepository.findById(schId);
+//        detailRepository.findBySchId(schId);
+//
+//        return null;
+//    }
 }
