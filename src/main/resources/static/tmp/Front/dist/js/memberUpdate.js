@@ -30,9 +30,11 @@
 
       const memCity = document.getElementById("myMemCity");
       const memDist = document.getElementById("myMemDist");
+      const memAddrInput1 = document.getElementById("memAddrInput1");
+      const memAddrInput2 = document.getElementById("memAddrInput2");
 
- memCity.addEventListener("change", function(){
-
+ memCity.addEventListener("click", function(){
+  memAddrInput1.value = memCity.value;
 if(parseInt(memCity.value) === 0){
 memCity.classList.add("text-secondary");
 }else{
@@ -55,7 +57,7 @@ memDist.classList.add("text-secondary");
 
 });
 memDist.addEventListener("change", function(){
-
+  memAddrInput2.value = memDist.value;
 if(parseInt(memDist.value) === 0){
 memDist.classList.add("text-secondary");
 }else{
@@ -118,6 +120,7 @@ const myAddrInput = document.getElementById("myAddrInput");
 const myMemDist = document.getElementById("myMemDist");
 const myMemCity = document.getElementById("myMemCity");
 const memGender = document.getElementById("memGender");
+
 const submitBtn = document.querySelector('button[type="submit"]');
 var memEmail;
 
@@ -143,6 +146,9 @@ async function fetchMemDetail() {
         myMemDist.value = MemDetail.memDist;
         myAddrInput.value = MemDetail.memAddr;
         memGender.value = MemDetail.memGender;
+        memAddrInput1.value = MemDetail.memCity;
+        memAddrInput2.value = MemDetail.memDist;
+
 
     } catch (error) {
         console.error('Error fetching Member detail:', error);

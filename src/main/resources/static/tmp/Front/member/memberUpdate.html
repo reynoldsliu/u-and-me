@@ -10,7 +10,7 @@
     <title>UandMe Online Shopping</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="../dist/css/memberUpdate.css">
+    <link rel="stylesheet" href="dist.css/js/memberUpdate.css">
 
 </head>
 
@@ -171,6 +171,19 @@
             <br>
             <br>
             <div class="col-md-3">
+                <label class="form-label">原先填寫居住縣市</label>
+                <textarea style="width: 143px;" class="form-control" id="memAddrInput1" rows="1" spellcheck="false"
+                          placeholder="居住縣市" disabled></textarea>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">原先填寫居住地區</label>
+                <textarea style="width: 143px;"class="form-control" id="memAddrInput2" rows="1" spellcheck="false"
+                          placeholder="居住地區" disabled></textarea>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
                 <label class="myMemCity">居住縣市</label>
                 <select style="margin-top:8px;" class="form-select text-secondary" id="myMemCity">
                     <option value="0">縣市</option>
@@ -213,6 +226,8 @@
                 <textarea class="form-control" id="myAddrInput" rows="1" spellcheck="false"
                           placeholder="例：復興路8樓"></textarea>
             </div>
+
+
 
 
             <!-- <div class="col-md-6">

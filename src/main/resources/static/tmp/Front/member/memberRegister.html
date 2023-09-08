@@ -10,7 +10,7 @@
     <title>UandMe Online Shopping</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="../dist/css/memberRegister.css">
+    <link rel="stylesheet" href="dist.css/js/memberRegister.css">
 
 </head>
 
@@ -135,16 +135,16 @@
                         </div>
                         <div class="col-md-3">
                             <label for="memName" class="form-label">姓名</label>
-                            <input type="email" class="form-control" id="memName">
-                            <span id="memNameError" class="error-message"></span>
+                            <span id="errortitle" style="color: red; margin:15px;"></span>
+                            <input type="text" class="form-control" id="memName">
+
                         </div>
                         <div class="col-md-3">
                             <label for="memGender" class="form-label">性別</label>
                             <select id="memGender" class="form-select">
-                                <option selected>請選擇您的性別</option>
                                 <option value="1">男</option>
                                 <option value="2">女</option>
-                                <option value="0">不方便透露</option>
+                                <option value="0" selected>不方便透露</option>
                             </select>
                         </div>
 
@@ -154,14 +154,18 @@
                         <信箱>
                     </label>
                     <input type="email" class="form-control" id="memEmail">
+
+
                 </div>
                 <div class="col-md-6">
                     <label for="memPassword" class="form-label">密碼</label>
                     <input type="password" class="form-control" id="memPassword">
+
                 </div>
                 <div class="col-md-6">
                     <label for="memPhone" class="form-label">電話</label>
                     <input type="text" class="form-control" id="memPhone" , placeholder="請填寫您的手機號碼">
+
                 </div>
                 <div class="col-md-3">
                     <label class="form-label">居住縣市</label>
@@ -205,6 +209,7 @@
                     <label class="form-label">居住地址</label>
                     <textarea class="form-control" id="my-addr-input" rows="1" spellcheck="false"
                               placeholder="例：復興路8樓"></textarea>
+
                 </div>
 
 
@@ -320,6 +325,7 @@ memDist.classList.add("text-secondary");
 
 });
 
+
 memDist.addEventListener("change", function(){
 
 if(parseInt(memDist.value) === 0){
@@ -364,6 +370,8 @@ memDist.classList.remove("text-secondary");
       }
     }
 
+
+
   async function Register(member) {
       const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
        const response = await fetch(baseUrl + "member/register", {
@@ -383,6 +391,7 @@ memDist.classList.remove("text-secondary");
 
   const regBtn_el = document.getElementById("regButton");
   regBtn_el.addEventListener("click", function() {
+
       const memEmail = document.getElementById("memEmail").value;
       const memPassword = document.getElementById("memPassword").value;
       const memName = document.getElementById("memName").value;
@@ -391,6 +400,7 @@ memDist.classList.remove("text-secondary");
       const memDist = document.getElementById("my-mem-dist").value;
       const memCity = document.getElementById("my-mem-city").value;
       const memGender = document.getElementById("memGender").value;
+
 
       const member = {
           "memEmail": memEmail,

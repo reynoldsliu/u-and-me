@@ -290,12 +290,10 @@ align-items: center;
 
 .orderDetailTable th {
   background-color: darkgray;
-  width: 500px;
 }
 
 .orderDetailTable td {
   background-color: rgb(235, 230, 226);
-  width: 650px;
 }
 
 .backBtn{
@@ -314,21 +312,20 @@ align-items: center;
 
 
 
-.orderProductTable{
+#example{
   border-color: #f4f4f4;
   border-style:dotted;
   text-align: center; /* 水平居中 */
   vertical-align: middle; /* 垂直居中 */
-  width:400px;
+  width:1000px;
 }
 
-.orderProductTable th {
+#example th {
   background-color: darkgray;
-  width: 500px;
+  height: 30px;
 }
 
-.orderProductTable td {
+#example td {
   background-color: rgb(235, 230, 226);
-  width: 650px;
+  height:200px;
 }
-

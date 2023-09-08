@@ -282,7 +282,7 @@
 
         async function fetchHostList() {
             try {
-                const response = await fetch('http://localhost:8081/u-and-me/host/hostAll');
+                const response = await fetch('http://localhost:8080/u-and-me/host/hostAll');
                 const hostList = await response.json();
 
                 const dataTableList = document.getElementById("dataTableList");
