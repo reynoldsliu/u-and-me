@@ -70,7 +70,7 @@ async function myOrderList(page) {
     const dataTableList = document.getElementById("dataTableList");
     dataTableList.innerHTML = "";
     try {
-        const response = await fetch(`http://localhost:8081/u-and-me/myOrders/${page}`);
+        const response = await fetch(baseUrl + `myOrders/${page}`);
         const orderList = await response.json();
 
 
