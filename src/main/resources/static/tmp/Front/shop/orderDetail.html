@@ -144,52 +144,26 @@
         <div class="containerTable" style="display: flex;">
 
         <!-- 商品明細 -->
-        <table class="orderProductTable " id="example"
-               style="width:400px;height:300px; margin-left:200px;">
-
-            <tbody id="orderProductTableList">
-            <tr>
-                <th>商品編號</th>
-                <td id="ordId"></td>
-            </tr>
-            <tr>
-                <th>商品名稱</th>
-                <td id="memName"></td>
-
-            </tr>
-            <tr>
-                <th style="background-color: darkgray;">商品個數
-                </th>
-                <td id="ordTime"></td>
-            </tr>
-            <tr>
-                <th style="background-color: darkgray;">商品金額
-                </th>
-                <td id="ordFee"></td>
-            </tr>
-
-            <tr>
-                <th style="background-color: darkgray;">商品小結
-                </th>
-                <td id="total"></td>
-            </tr>
-            <tr>
-                <th style="background-color: darkgray;">狀態
-                </th>
-                <td id="checktotal"></td>
-            </tr>
-            <tr>
-                <th style="background-color: darkgray;">查看商品頁面
-                </th>
-                <td id="recipientName"></td>
-            </tr>
-
-            </tbody>
-        </table>
+            <table id="example" class="table table-striped table-bordered">
+                <thead style="height:40px;">
+                <tr>
+                    <th style="height:40px;">商品編號</th>
+                    <th style="height:40px;">商品名稱</th>
+                    <th style="height:40px;">商品個數</th>
+                    <th style="height:40px;" >商品金額</th>
+                    <th style="height:40px;">商品小結</th>
+                    <th style="height:40px;">狀態</th>
+                    <th style="height:40px; text-align:center;width:100px;">查看商品頁面</th>
+                </thead>
+                <tbody id="dataTableList">
+                <!--商品列表在這裡動態插入 -->
+                </tbody>
+            </table>
 
 
-            <table class="orderDetailTable " id="orderDetail"
-                   style="width:450px;height:480px; margin-left:100px;">
+
+        <table class="orderDetailTable " id="orderDetail"
+                   style="width:500px;height:480px; margin-left:100px;">
 
                 <tbody id="orderDetailTableList">
                 <tr>

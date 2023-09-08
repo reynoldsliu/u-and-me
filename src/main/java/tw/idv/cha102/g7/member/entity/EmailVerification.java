@@ -20,5 +20,7 @@ public class EmailVerification {
     @Column(name = "mem_id")
     private Integer memId;
 
-    private String token;
+    private String usermail;
+
+
 }

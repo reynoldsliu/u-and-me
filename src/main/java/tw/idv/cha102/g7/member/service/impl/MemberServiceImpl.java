@@ -2,12 +2,13 @@ package tw.idv.cha102.g7.member.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.member.dto.LoginDTO;
 import tw.idv.cha102.g7.member.entity.Member;
-import tw.idv.cha102.g7.member.repo.MailService;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.member.service.MemberService;
 
@@ -15,13 +16,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Component
+@Service
 public class MemberServiceImpl implements MemberService {
 
 
@@ -49,8 +46,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberRepository memberRepository;
-//    private EmailVerificationRepository emailVerificationRepository;
-
+    @Autowired
+    private JavaMailSender mailSender;
     /**
      * 新增
      *
@@ -62,6 +59,20 @@ public class MemberServiceImpl implements MemberService {
             member.setMemSta(0);
             member.setMemGroup(0);
             memberRepository.save(member);
+
+//寄註冊成功
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom("xiaoina914@gmail.com");
+            message.setTo(member.getMemEmail());
+            message.setSubject("U-and-Me 註冊成功通知");
+            message.setText(
+                    "＊－。－。－。－。－。－。－。－－。－。－。－。－＊"+"\n\n"+
+                    "您好!" + member.getMemName()+"\n\n"+
+                    "您已成功註冊 遊&Me 官方會員!"+"\n\n"+
+                    "＊－。－。－。－。－。－。－。－－。－。－。－。－＊");
+
+            mailSender.send(message);
+
             return "您已成功註冊";
         } else {
             return "此Email已註冊過，請使用其他信箱!";
