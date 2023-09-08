@@ -239,7 +239,7 @@ async function addDailySchedule(restScheDetails) {
                     <div class="row g-0">
                         <div class="attrPic col-md-4">
                             <img src="data:image/jpeg;base64,${attrPicture}"
-                                class="attrFirstPicInschDetail" class="img-fluid rounded-start"
+                                class="img-fluid rounded-start"
                                 alt="..." style="width: 140.219px;height: 92.208px;object-fit: cover;">
                             <div class="schDetailOrder"><span class="schDetailOrder">${countedScheDetails + 1}</span>
                             </div>
