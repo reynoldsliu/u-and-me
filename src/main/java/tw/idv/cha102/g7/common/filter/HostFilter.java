@@ -32,7 +32,7 @@ public class HostFilter extends OncePerRequestFilter {
         //檢查是否已經登入 如果沒有登入就重導至登入頁面
         if (session.getAttribute("hostId") == null) {
 //            response.getWriter().write("");
-            response.sendRedirect("http://localhost:8081/u-and-me/tmp/Front/member/memberLoginIn.html");
+            response.sendRedirect("http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html");
             return;
         }
 

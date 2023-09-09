@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.article.entity.Article;
 import tw.idv.cha102.g7.article.service.ArticleBackEndService;
-import tw.idv.cha102.g7.article.service.ArticleUpdateService;
+import tw.idv.cha102.g7.article.service.ArticleUserEditService;
+import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
 
 import java.util.List;
@@ -17,7 +18,8 @@ public class ArticleBackEndController {
     @Autowired
     ArticleBackEndService articleBackEndService;
     @Autowired
-    ArticleUpdateService articleUpdateService;
+    ArticleUserEditService articleUserEditService;
+
 
     // 後台瀏覽所有文章
     @GetMapping("/articles")
@@ -35,7 +37,7 @@ public class ArticleBackEndController {
         try {
             System.out.println(updArticle);
             // 在console印出回傳的Article
-            articleUpdateService.adminEdit(updArticle);
+            articleUserEditService.adminEdit(updArticle);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             Integer articleId = updArticle.getArticleId();
@@ -44,6 +46,11 @@ public class ArticleBackEndController {
                     .body(new ScheduleNotFoundException(articleId));
         }
 
+    }
+
+    @GetMapping("/{page}")
+    public List<Article> getAllPaged(@PathVariable Integer page){
+        return articleBackEndService.getAllPaged(page,5);
     }
 
 }

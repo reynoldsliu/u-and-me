@@ -1,19 +1,29 @@
 package tw.idv.cha102.g7.attraction.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
+import tw.idv.cha102.g7.attraction.dto.AttrPrivateDTO;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.repo.AttrCollectionRepository;
 import tw.idv.cha102.g7.attraction.repo.AttrRepository;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
 import tw.idv.cha102.g7.attraction.service.AttrService;
+import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 @Component
 public class AttrCollectionServiceImpl implements AttrCollectionService {
@@ -25,6 +35,19 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
     private MemberRepository memberRepository;
     @Autowired
     private AttrService attrService;
+
+    @Override
+    public TreeSet<Member> returnMemsByAttrId(Integer attrId){
+        List<AttrCollectionDTO> attrCollectionDTOS = attrCollectionRepository.findAll();
+        TreeSet<Member> members = new TreeSet<>();
+
+        for(AttrCollectionDTO attrCollectionDTO: attrCollectionDTOS){
+            if(attrCollectionDTO.getCollectionId().getAttrId()==attrId){
+                members.add(memberRepository.findById(attrCollectionDTO.getCollectionId().getMemId()).orElse(null));
+            }
+        }
+        return members;
+    }
 
 
     /**
@@ -41,6 +64,28 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
         }
         attrCollectionRepository.save(attrCollectionDTO);
         return "success";
+    }
+
+    @Override
+    public List<Attraction> findAttrsByMem(HttpServletRequest request,
+                                           HttpServletResponse response){
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("memberId");
+        if(obj==null){
+            return new ArrayList<>();
+        }
+        Integer memId = Integer.parseInt(obj.toString());
+        List<AttrCollectionDTO> attrCollectionDTOS = attrCollectionRepository.findAll();
+        List<Attraction> returnList = new ArrayList<>();
+        for(AttrCollectionDTO  attrCollectionDTO:attrCollectionDTOS){
+            Attraction attraction = attrRepository.findById(attrCollectionDTO.getCollectionId().getAttrId()).orElse(null);
+            if(attrCollectionDTO.getCollectionId().getMemId()==memId &&
+                    attraction.getAttrSta()!=0){
+                returnList.add(attraction);
+                System.out.println(attraction);
+            }
+        }
+        return returnList;
     }
 
 
@@ -69,13 +114,14 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
     @Override
     public List<AttrCollectionDTO> findAttrsByMemId(Integer memId) {
         List<AttrCollectionDTO> dtoList = attrCollectionRepository.findAll();
+        List<AttrCollectionDTO> returnList = new ArrayList<>();
         System.out.println(memId);
         for(AttrCollectionDTO dto:dtoList){
-            if(dto.getCollectionId().getMemId() != memId){
-                dtoList.remove(dto);
+            if(dto.getCollectionId().getMemId() == memId){
+                returnList.add(dto);
             }
         }
-        return dtoList;
+        return returnList;
 //        return attrCollectionRepository.findByCollectionId((attrCollectionRepository.findByMemId(memId)));
     }
 
@@ -100,6 +146,27 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
 //        return attrCollectionRepository.findByCollectionId((attrCollectionRepository.findByMemId(memId)));
     }
 
+    /**
+     * 透過會員編號，找出該會員的所有景點收藏 過濾已下架景點
+     *
+     * @param memId
+     * @return List<AttrCollectionDTO>
+     */
+    @Override
+    public List<Attraction> findAttrsByMemIdFilter(HttpServletRequest request,
+                                                   HttpServletResponse response,
+                                                   Integer memId){
+        List<Attraction> returnList = new ArrayList<>();
+        List<AttrCollectionDTO> attrCollectionDTOList = attrCollectionRepository.findAll();
+        for(AttrCollectionDTO attrCollectionDTO:attrCollectionDTOList){
+            Attraction attraction = attrRepository.findById(attrCollectionDTO.getCollectionId().getAttrId()).orElse(null);
+            if(attrCollectionDTO.getCollectionId().getMemId()==memId &&
+                        attraction.getAttrSta()!=0){
+                returnList.add(attraction);
+            }
+        }
+        return returnList;
+    }
 
     @Override
     public List<AttrCollectionDTO> findAttrCollectionsByAttrName(

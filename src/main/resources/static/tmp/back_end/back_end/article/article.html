@@ -119,9 +119,8 @@
         d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.319 1.319 0 0 0-.37.265.301.301 0 0 0-.057.09V14l.002.008a.147.147 0 0 0 .016.033.617.617 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.619.619 0 0 0 .146-.15.148.148 0 0 0 .015-.033L12 14v-.004a.301.301 0 0 0-.057-.09 1.318 1.318 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465-1.281 0-2.462-.172-3.34-.465-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411z" />
     </symbol>
   </svg>
-
+  <!-- Header -->
   <nav class="navbar navbar-light  shadow-sm  " style="background-color: #ebd0be">
-
     <div class="container-fluid" style="padding-left:0px;">
       <div style="width: 200px;height: 20px;">
       </div>
@@ -144,12 +143,13 @@
         </ul>
       </div>
     </div>
-
   </nav>
+
   <main>
-    <!-- changed height to min-height-->
-    <div class="d-flex flex-column flex-shrink-0 p-3  " style="width: 200px;background-color: #1D3124; min-height: 100vh;">
-      <!-- 左側功能列表 -->
+    <!-- 左側sidebar功能列表 -->
+    <div class="d-flex flex-column flex-shrink-0 p-3  "
+      style="width: 200px;background-color: #1D3124; min-height: 100vh;">
+
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
           <a href="../member/member.html">
@@ -219,7 +219,7 @@
       <hr>
 
     </div>
-
+    <!-- 右側主要content -->
     <div class="d-flex flex-column flex-shrink-0 p-3  " style=" width: calc(100% - 200px);background-color: #F6F4E8;">
       <!-- deleted height:100vh -->
       <nav aria-label="breadcrumb">
@@ -229,10 +229,10 @@
         </ol>
       </nav>
       <!-- changed to my-3 and changed from height: 800px to min-height -->
-      <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;" >
+      <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;">
         偶是文章!!!偶是文章!!!偶是文章!!!偶是文章!!!偶是文章!!!
-        
-        
+
+
       </div>
     </div>
     </div>
@@ -246,66 +246,66 @@
   <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="article.js"></script>
-     <script>
+  <script>
 
-        <!--網頁載入後執行-->
-     document.addEventListener("DOMContentLoaded", function () {
-        fetchArticleList();
+    <!--網頁載入後執行-->
+    document.addEventListener("DOMContentLoaded", function () {
+      fetchArticleList();
     });
 
     async function fetchArticleList() {
-        try {
-            const response = await fetch('http://localhost:8080/u-and-me/article/articles');
-            const articleList = await response.json();
+      try {
+        const response = await fetch('http://localhost:8080/u-and-me/article/articles');
+        const articleList = await response.json();
 
-                const dataTableList = document.getElementById("dataTableList");
-                dataTableList.innerHTML = "";
+        const dataTableList = document.getElementById("dataTableList");
+        dataTableList.innerHTML = "";
 
-                articleList.forEach(article => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td style="width: 50px;text-align: center; vertical-align: middle;">${article.articleId}</td>
-                        <td style="width: 100px;text-align: center;vertical-align: middle;">${article.memId}</td>
-                        <td style="vertical-align: middle;">${article.acTypeId}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${article.articleTitle}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${formatDate(activity.articleTime)}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${article.articleLike}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${article.commentNum}</td>
-                        <td style="width: 130px;text-align: center;vertical-align: middle;">${article.articleContent}</td>
-                       
-                        <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(article.articleSta)}</td>
-                        
-                    `;
-                    dataTableList.appendChild(row);
-                });
+        articleList.forEach(article => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+  <td style="width: 50px;text-align: center; vertical-align: middle;">${article.articleId}</td>
+  <td style="width: 100px;text-align: center;vertical-align: middle;">${article.memId}</td>
+  <td style="vertical-align: middle;">${article.acTypeId}</td>
+  <td style="width: 130px;text-align: center;vertical-align: middle;">${article.articleTitle}</td>
+  <td style="width: 130px;text-align: center;vertical-align: middle;">${formatDate(activity.articleTime)}</td>
+  <td style="width: 130px;text-align: center;vertical-align: middle;">${article.articleLike}</td>
+  <td style="width: 130px;text-align: center;vertical-align: middle;">${article.commentNum}</td>
+  <td style="width: 130px;text-align: center;vertical-align: middle;">${article.articleContent}</td>
 
-            } catch (error) {
-                console.error("Error fetching article list:", error);
-            }
-        }
+  <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(article.articleSta)}</td>
 
+  `;
+          dataTableList.appendChild(row);
+        });
 
-        function formatDate(dateString) {
-              const options = { year: 'numeric', month: 'long', day: 'numeric' };
-              return new Date(dateString).toLocaleDateString('zh-TW', options);
-        }
-
-        const statusMapping = new Map([
-            [0, '下架'],
-            [1, '上架'],
-        ]);
-
-        // 按修改鈕會根據activityId跳轉到詳細內容頁面，並將資料映射到相關欄位上
-        function redirectToDetailPage(articleId) {
-              var newPageUrl = `activityEdit.html?activId=${activId}`;
-              window.location.href = newPageUrl;
-        }
+      } catch (error) {
+        console.error("Error fetching article list:", error);
+      }
+    }
 
 
+    function formatDate(dateString) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString('zh-TW', options);
+    }
+
+    const statusMapping = new Map([
+      [0, '下架'],
+      [1, '上架'],
+    ]);
+
+    // 按修改鈕會根據activityId跳轉到詳細內容頁面，並將資料映射到相關欄位上
+    function redirectToDetailPage(articleId) {
+      var newPageUrl = `activityEdit.html?activId=${activId}`;
+      window.location.href = newPageUrl;
+    }
 
 
 
-    </script>
+
+
+  </script>
 </body>
 
 </html>

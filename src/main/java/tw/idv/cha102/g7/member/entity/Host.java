@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Host {
 
         @Id
-//        @GeneratedValue(strategy= GenerationType.AUTO)
+        @GeneratedValue(strategy= GenerationType.IDENTITY)
         @Column(name = "host_id")
         private Integer hostId;
 

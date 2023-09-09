@@ -148,4 +148,14 @@ input.editStyle{
 text-align: center;
 }
 
+.insert{
+  color:beige;
+  background-color: #1D3124;
+  border-radius: 10px;
+  height: 35px;
+  width: 65px;
+  margin-bottom:10px;
+  font-weight: bolder;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');

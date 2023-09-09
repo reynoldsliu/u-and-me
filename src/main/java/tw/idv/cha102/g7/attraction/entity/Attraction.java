@@ -28,8 +28,8 @@ public class Attraction {
     private Float attrLat;
     @Column(name = "attr_illa")
     private String attrIlla;
-    @Column(name = "attr_type_id")
-    private Integer attrTypeId;
+    @Column(name = "attr_type")
+    private String attrType;
     @Column(name = "attr_buss_time")
     private String attrBussTime;
     @Column(name = "attr_cost_range")

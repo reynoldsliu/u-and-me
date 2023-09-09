@@ -500,6 +500,7 @@
 
         //針對每個新造的景點 查看單一景點詳情
         function redirectToDetailPage(attrId) {
+            alert("GOTO");
             var newPageUrl = baseUrl + `tmp/Front/attraction/AttractionDetails.html?attrId=${attrId}`;
             window.location.href = newPageUrl;
         }

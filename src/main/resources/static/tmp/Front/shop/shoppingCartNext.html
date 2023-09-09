@@ -27,43 +27,46 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
-            <li class="nav-item me-2">
-              <a class="nav-link" href="#">活動資訊</a>
-            </li>
-            </li>
-            <li class="nav-item me-2">
-              <a class="nav-link" href="#">景點</a>
-            </li>
-            </li>
-            <li class="nav-item me-2">
-              <a class="nav-link" href="#">行程規劃</a>
-            </li>
-            </li>
-            <li class="nav-item me-2">
-              <a class="nav-link" href="#">旅遊商城</a>
-            </li>
-            <li class="nav-item me-2">
-              <a class="nav-link" href="#">揪團</a>
-            </li>
-            <li class="nav-item me-2">
-              <a class="nav-link" href="#">論壇專區</a>
-            </li>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">客服專區</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Q&A專欄</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">聯絡我們</a></li>
-              </ul>
-            </li>
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li class="nav-item me-2">
+                  <a class="nav-link" href="../ActivityIndex.html">活動資訊</a>
+              </li>
+              <li class="nav-item me-2">
+                  <a class="nav-link" href="#">旅遊景點</a>
+              </li>
+              <li class="nav-item dropdown me-2">
+                  <a class="nav-link dropdown-toggle" href="scheduleList.html" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">行程規劃</a>
+                  <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="scheduleList.html">旅遊行程</a></li>
+                      <li>
+                          <hr class="dropdown-divider">
+                      </li>
+                      <li><a class="dropdown-item" href="mySchedule.html">我的行程</a></li>
+                  </ul>
+              </li>
+              <li class="nav-item me-2">
+                  <a class="nav-link" href="../group/groupList.html">揪團專區</a>
+              </li>
+              <li class="nav-item me-2">
+                  <a class="nav-link" href="#">旅遊商城</a>
+              </li>
+              <li class="nav-item me-2">
+                  <a class="nav-link" href="../article/articleindex/ArticleIndex.html">論壇專區</a>
+              </li>
+              <li class="nav-item dropdown me-2">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">客服專區</a>
+                  <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="../CutomerQa.html">Q&A專欄</a></li>
+                      <li>
+                          <hr class="dropdown-divider">
+                      </li>
+                      <li><a class="dropdown-item" href="../CutomerContact.html">聯絡我們</a></li>
+                  </ul>
+              </li>
           </ul>
-        </div>
+      </div>
 
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
@@ -134,7 +137,7 @@
     <!-- -----Content----- -->
     <div class="container">
 
-      <div class="h3 my-5" style="margin-top: -100px;">購物車</div>
+      <div class="h3 my-5" style="margin-top: -100px;">訂購人資料</div>
       <form id="orderInfo">
         <div class="container mt-5 shadow-none p-3 mb-5 bg-light rounded">
 
@@ -144,28 +147,23 @@
           </span>
           <div class="row shadow-lg p-3 mb-5 bg-body rounded">
             <div class="row">
-              <h4>訂購人資料</h4>
+              <h4>收件資訊填寫</h4>
             </div>
 
             <hr>
             <div class="col-md-6">
               <label for="memberName" class="col-form-label">姓名</label>
-              <input disabled type="text" id="memberName" class="form-control" aria-describedby="passwordHelpInline">
+              <input type="text" id="memberName" class="form-control" aria-describedby="passwordHelpInline">
 
             </div>
             <div class="col-md-6">
-              <label for="memberPhone" class="col-form-label">郵件</label>
-              <input disabled type="text" id="memberPhone" class="form-control" aria-describedby="passwordHelpInline">
+              <label for="memberPhone" class="col-form-label">電話</label>
+              <input type="text" id="memberPhone" class="form-control" aria-describedby="passwordHelpInline">
 
             </div>
-            <div class="col-md-6">
-              <label for="memberEmail" class="col-form-label">電話</label>
-              <input disabled type="text" id="memberEmail" class="form-control" aria-describedby="passwordHelpInline">
-
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <label for="memberEmail" class="col-form-label">地址</label>
-              <input disabled type="text" id="memberEmail" class="form-control" aria-describedby="passwordHelpInline">
+              <input type="text" id="memberEmail" class="form-control" aria-describedby="passwordHelpInline">
 
             </div>
 

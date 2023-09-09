@@ -20,14 +20,11 @@
   --bs-dark-rgb: 245, 245, 245;
 }
 
-.highlight{
-background-color: #fff;
 
-}
 
 .table {
   --bs-table-color-type: initial;
-  /* --bs-table-bg-type: rgb(185, 180, 180); */
+  --bs-table-bg-type: rgb(185, 180, 180);
   --bs-table-color-state: initial;
   --bs-table-bg-state: initial;
   --bs-table-color: var(--bs-body-color);
@@ -278,47 +275,57 @@ align-items: center;
   background-color: #333;
 }
 
-.updatebottom{
-  background-color:rgb(115, 176, 172);
-  display: flex;
-  padding: 5px 5px;
-  color: white;
-  border: none;
-  border-radius: 10px; /* 設定圓角的像素值 */
-  cursor: pointer;
-  font-size: small;
-  justify-content: center;
-  align-items: center;
-  height: 45px; /* 减小按钮的高度 */
-  max-width: 90px; /* 设置按钮的最大宽度 */
-  margin: auto; /* 水平和垂直居中 */
+
+
+
+.orderDetailTable{
+  border-color: #f4f4f4;
+  border-style:dotted;
+  text-align: center; /* 水平居中 */
+  vertical-align: middle; /* 垂直居中 */
+  /* margin-left:190px; */
+  width:400px;
+
 }
-button, select {
-  background-color: rgb(185, 180, 180);
-  display: flex;
-  padding: 5px 5px;
-  color: white;
-  border: none;
-  border-radius: 10px; /* 設定圓角的像素值 */
-  cursor: pointer;
-  font-size: small;
-  justify-content: center;
-  align-items: center;
-  max-width: 90px; /* 设置按钮的最大宽度 */
-  margin: auto; /* 水平和垂直居中 */
-  display: flex;
-  padding: 5px 5px;
-  color: white;
-  border: none;
-  border-radius: 10px; /* 設定圓角的像素值 */
-  cursor: pointer;
-  font-size: small;
-  justify-content: center;
-  align-items: center;
-  max-width: 90px; /* 设置按钮的最大宽度 */
-  margin: auto; /* 水平和垂直居中 */
+
+.orderDetailTable th {
+  background-color: darkgray;
 }
-.view_order img {
-  width: auto; /* 设置所需的宽度 */
-  height: 25px; /* 让高度根据宽度自动调整，以保持图像比例 */
+
+.orderDetailTable td {
+  background-color: rgb(235, 230, 226);
+}
+
+.backBtn{
+  background-color: rgb(95, 92, 92);
+  width: 80px;
+  height:45px;
+  border-radius: 10px;
+  color: #fff;
+  margin-left: 1000px;
+  margin-top: 80px;
+}
+.backBtn:hover {
+  background-color: rgb(57, 54, 54);
+}
+
+
+
+
+#example{
+  border-color: #f4f4f4;
+  border-style:dotted;
+  text-align: center; /* 水平居中 */
+  vertical-align: middle; /* 垂直居中 */
+  width:1000px;
+}
+
+#example th {
+  background-color: darkgray;
+  height: 30px;
+}
+
+#example td {
+  background-color: rgb(235, 230, 226);
+  height:200px;
 }

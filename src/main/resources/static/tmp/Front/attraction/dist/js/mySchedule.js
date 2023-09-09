@@ -9,7 +9,7 @@ let pageSelect2_el = document.getElementById("pageSelect2");
 let pageSelect3_el = document.getElementById("pageSelect3");
 
 
-
+ 
 // const inputMemId_el = document.getElementById("inputMemId");
 const inputStartDate_el = document.getElementById("inputStartDate");
 const schNameInput_el = document.getElementById("schNameInput");
@@ -23,12 +23,13 @@ let e = 0; //用來控制分頁
 let memId = 1; // 會員Id從哪裡抓取？
 
 // fetch對應到的路徑
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/mySch/";
-let myURL = baseURL + "my/";
-let addURL = baseURL + "create";
-let deleteURL = baseURL + "delete/";
-let editURL = baseURL + "edit/";
-let hideURL = baseURL + "hide/";
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+let mySchbaseURL = baseURL + "mySch/";
+let myURL = mySchbaseURL + "my/";
+let addURL = mySchbaseURL + "create";
+let deleteURL = mySchbaseURL + "delete/";
+let editURL = mySchbaseURL + "edit/";
+let hideURL = mySchbaseURL + "hide/";
 
 
 // 載入網頁就將所有該會員的行程列表查出
@@ -64,7 +65,7 @@ async function fetchMyScheduleList(URL, memId, e) {
                     ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
                     <p class="sch-date" style="font-size: 10px">
                     行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
-                    <a href="myScheduleEdit.html" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
+                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
                 </div>
               </div>
             </div>
@@ -98,7 +99,7 @@ function calDays(schStart, schEnd) {
 search_btn_el.addEventListener("click", function (event) {
   event.preventDefault();
   let keywords = keywords_el.value;
-  let keywordsURL = baseURL + keywords + "/";
+  let keywordsURL = mySchbaseURL + keywords + "/";
   fetchMyScheduleList(keywordsURL, e);
 });
 

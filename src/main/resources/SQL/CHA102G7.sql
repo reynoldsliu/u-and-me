@@ -10,6 +10,8 @@ create table members (
 	mem_password varchar(20) not null,
 	mem_name varchar(10),
 	mem_gender tinyint default 0 not null,  -- 0:不方便透露,1:男,2:女
+	mem_city varchar(50),
+	mem_dist varchar(50),
 	mem_addr varchar(100) not null,
 	mem_grade int,
     mem_idcard varchar(10),
@@ -25,7 +27,7 @@ VALUES
   (1,'member1@example.com', 'password1', 'tong', 2, 'Address 1', 1,'A123456789','0911111111', 100, 1, 0),
   (2,'member2@example.com', 'password2', 'lynn', 2, 'Address 2', 2,'B123456789', '0922222222', 400, 0, 0),
   (3,'member3@example.com', 'password3', 'sian', 2, 'Address 3', 1,'C123456789','0933333333', 550, 1, 0),
-  (4,'member4@example.com', 'password4', 'reynolds', 1, 'Address 4','D123456789', '0944444444', 300, 2, 1),
+  (4,'member4@example.com', 'password4', 'reynolds', 1, 'Address 4',1,'D123456789', '0944444444', 300, 2, 1),
   (5,'member5@example.com', 'password5', 'Katie', 2, 'Address 5', 2,'E123456789', '0955555555', 250, 1, 1),
   (6,'member6@example.com', 'password6', 'jas', 2, 'Address 6', 1,'F123456789','0966666666', 50, 0, 0),
   (7,'member7@example.com', 'password7', 'henry', 1, 'Address 7', 3,'G123456789', '0977777777', 50, 1, 0),
@@ -177,20 +179,6 @@ values
     (108, 108, 208, 4, 3, 8, 1000, 'Photography Tour', '2023-11-12 09:00:00', '2023-11-18 17:00:00', '2023-11-01 23:59:59', 'Capture stunning landscapes and wildlife with photography', 'Bring your own camera gear', 0, 0, null),
     (109, 109, 209, 6, 4, 10, 1200, 'Foodie Adventure', '2023-10-05 12:00:00', '2023-10-15 20:00:00', '2023-09-25 23:59:59', 'Explore various cuisines and food spots', 'Come hungry and ready to eat', 0, 0, null),
     (110, 110, 210, 3, 2, 5, 700, 'Fishing Trip', '2023-11-25 07:00:00', '2023-11-28 15:00:00', '2023-11-15 19:00:00', 'Enjoy fishing in serene lakes and rivers', 'Fishing equipment will be provided', 0, 0, null);
-
-
-insert into `group`
-values
-    (101, 101, 201, 5, 3, 8, 1000, 'Hiking Trip', '2023-08-10 09:00:00', '2023-08-15 12:00:00', '2023-08-01 18:00:00', 'A fun hiking trip to the mountains', 'Bring your own water and snacks', 0),
-    (102, 102, 202, 4, 2, 6, 800, 'Beach Vacation', '2023-09-05 14:00:00', '2023-09-12 10:00:00', '2023-08-25 23:59:59', 'Relax and unwind at the sunny beach', 'Sunscreen is a must', 0),
-    (103, 103, 203, 6, 4, 10, 1200, 'City Tour', '2023-07-20 11:00:00', '2023-07-25 16:00:00', '2023-07-15 22:00:00', 'Explore the city and visit popular landmarks', 'Comfortable shoes are recommended', 0),
-    (104, 104, 204, 3, 2, 4, 600, 'Camping Adventure', '2023-08-28 15:00:00', '2023-09-02 09:00:00', '2023-08-20 20:00:00', 'Experience the great outdoors with camping', 'Bring your own tent and sleeping bag', 0),
-    (105, 105, 205, 7, 5, 12, 1500, 'Cruise Journey', '2023-10-15 13:00:00', '2023-10-25 18:00:00', '2023-10-01 19:00:00', 'Enjoy a luxurious cruise experience', 'Formal attire required for dinner', 0),
-    (106, 106, 206, 2, 2, 4, 400, 'Skiing Adventure', '2023-12-05 08:00:00', '2023-12-10 16:00:00', '2023-11-25 23:59:59', 'Hit the slopes and have fun skiing', 'Skiing equipment available for rent', 0),
-    (107, 107, 207, 8, 6, 15, 1800, 'Road Trip', '2023-09-30 10:00:00', '2023-10-10 14:00:00', '2023-09-15 18:00:00', 'Embark on an exciting road trip across the country', 'Prepare some road trip playlists', 0),
-    (108, 108, 208, 4, 3, 8, 1000, 'Photography Tour', '2023-11-12 09:00:00', '2023-11-18 17:00:00', '2023-11-01 23:59:59', 'Capture stunning landscapes and wildlife with photography', 'Bring your own camera gear', 0),
-    (109, 109, 209, 6, 4, 10, 1200, 'Foodie Adventure', '2023-10-05 12:00:00', '2023-10-15 20:00:00', '2023-09-25 23:59:59', 'Explore various cuisines and food spots', 'Come hungry and ready to eat', 0),
-    (110, 110, 210, 3, 2, 5, 700, 'Fishing Trip', '2023-11-25 07:00:00', '2023-11-28 15:00:00', '2023-11-15 19:00:00', 'Enjoy fishing in serene lakes and rivers', 'Fishing equipment will be provided', 0);
 select * from `group`;
 
 
@@ -316,21 +304,8 @@ insert into group_picture values
 select * from group_picture;
 
 -- attractions景點相關表格建立 劉力辰
-create table attraction_type(
-attr_type_id int primary key,
-attr_type_name varchar(10)
-);
-
-insert into attraction_type(attr_type_id, attr_type_name)
-values
-(1,"第一類"),
-(2,"第二類"),
-(3,"第三類");
--- select * from attraction_type;
--- drop table attraction_type;
-
 create table attractions (
-attr_id int primary key,
+attr_id int primary key auto_increment,
 attr_veri_sta tinyint,
 attr_sta int,
 attr_name varchar(20),
@@ -338,27 +313,24 @@ attr_addr varchar(100),
 attr_lon float,
 attr_lat float,
 attr_illa varchar(500),
-attr_type_id int,
--- constraint attr_type_id
--- foreign key(attr_type_id) references attraction_type(attr_type_id)
-
+attr_type varchar(10),
 attr_buss_time varchar(100),
 attr_cost_range tinyint,
 attr_rep varchar(500)
 );
 
-INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep)
+INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type, attr_buss_time, attr_cost_range, attr_rep)
 VALUES 
-  (1, 1, 3, 'Attraction 1', '123 Main St', 12.345, 67.890, 'Description for Attraction 1', 1, '9:00 AM - 5:00 PM', 2, 'Representative for Attraction 1'),
-  (2, 0, 2, 'Attraction 2', '456 Park Ave', -45.678, 12.345, 'Description for Attraction 2', 3, '10:00 AM - 6:00 PM', 1, 'Representative for Attraction 2'),
-  (3, 1, 1, 'Attraction 3', '789 Broad St', 98.765, -34.567, 'Description for Attraction 3', 2, '8:00 AM - 4:00 PM', 3, 'Representative for Attraction 3'),
-  (4, 0, 3, 'Attraction 4', '567 Elm St', -12.345, -78.901, 'Description for Attraction 4', 1, '9:30 AM - 5:30 PM', 2, 'Representative for Attraction 4'),
-  (5, 1, 2, 'Attraction 5', '234 Oak Ave', 23.456, 45.678, 'Description for Attraction 5', 3, '10:30 AM - 6:30 PM', 1, 'Representative for Attraction 5'),
-  (6, 0, 1, 'Attraction 6', '678 Pine St', -56.789, 78.901, 'Description for Attraction 6', 2, '8:30 AM - 4:30 PM', 3, 'Representative for Attraction 6'),
-  (7, 1, 3, 'Attraction 7', '890 Maple Ave', 34.567, -56.789, 'Description for Attraction 7', 1, '9:45 AM - 5:45 PM', 2, 'Representative for Attraction 7'),
-  (8, 0, 2, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', 3, '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
-  (9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', 2, '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
-  (10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', 1, '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
+  (1, 1, 3, 'Attraction 1', '123 Main St', 12.345, 67.890, 'Description for Attraction 1', '第一類', '9:00 AM - 5:00 PM', 2, 'Representative for Attraction 1'),
+  (2, 0, 2, 'Attraction 2', '456 Park Ave', -45.678, 12.345, 'Description for Attraction 2', '第三類', '10:00 AM - 6:00 PM', 1, 'Representative for Attraction 2'),
+  (3, 1, 1, 'Attraction 3', '789 Broad St', 98.765, -34.567, 'Description for Attraction 3', '第二類', '8:00 AM - 4:00 PM', 3, 'Representative for Attraction 3'),
+  (4, 0, 3, 'Attraction 4', '567 Elm St', -12.345, -78.901, 'Description for Attraction 4', '第一類', '9:30 AM - 5:30 PM', 2, 'Representative for Attraction 4'),
+  (5, 1, 2, 'Attraction 5', '234 Oak Ave', 23.456, 45.678, 'Description for Attraction 5', '第三類', '10:30 AM - 6:30 PM', 1, 'Representative for Attraction 5'),
+  (6, 0, 1, 'Attraction 6', '678 Pine St', -56.789, 78.901, 'Description for Attraction 6', '第二類', '8:30 AM - 4:30 PM', 3, 'Representative for Attraction 6'),
+  (7, 1, 3, 'Attraction 7', '890 Maple Ave', 34.567, -56.789, 'Description for Attraction 7', '第一類', '9:45 AM - 5:45 PM', 2, 'Representative for Attraction 7'),
+  (8, 0, 2, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', '第三類', '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
+  (9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', '第二類', '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
+  (10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', '第一類', '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
   
 select * from attractions;
 -- drop table attractions;
@@ -468,9 +440,9 @@ primary key (prod_id, mem_id)
 create table product_picture(
 prodpic_id int primary key auto_increment,
 prod_id int not null,
-prod_pic mediumblob,
-constraint fk_prod_id
-foreign key(prod_id) references product (prod_id) 
+prod_pic mediumblob -- ,
+-- constraint fk_prod_id
+-- foreign key(prod_id) references product (prod_id)
 );
 
 -- 購物車清單 --
@@ -500,15 +472,15 @@ select * from product_category;
 select * from product;
 insert into product(prod_id,prodcat_id,prod_name,prod_con,prod_pri,prod_qty,prod_spec)
 values
-(101,2,'日月潭紅茶','台茶18號，茶湯呈現典雅金紅色，茶香中帶有淡淡薄荷肉桂香氣，此香氣更被世界紅茶專家譽為日月潭紅茶特有之「台灣香」',699,0,1,'3入'),
-(102,3,'設計師聯名款太陽眼鏡','UandMe與設計師太陽眼鏡款，擷取時尚與文化融入設計，絕對是旅行中不可或缺的配件 ',2999,2,1,'1入'),
-(103,4,'大自然的氣息','工作繁忙沒辦法安排假期旅行嗎? 把大自然的氣息帶回去，讓你在家也能有沉浸式的旅行體驗',11111,10,1,'1入'),
-(104,2,'冠軍烘培咖啡豆','COFFEE',1080,10,1,'2入'),
-(105,1,'原住民手工編織包','BAGS',1680,10,1,'1入'),
-(106,3,'多功能行動電源','POWERBANK',1080,10,1,'10入'),
-(107,4,'質感手提行李箱','LUGGAGE',3680,10,1,'10入'),
-(108,1,'手沖咖啡旅行組','COFFEEEEE',2980,10,0,'10入'),
-(109,1,'露營必備裝飾燈串','LIGHT',480,10,0,'1入');
+(101,2,'日月潭紅茶','台茶18號，茶湯呈現典雅金紅色，茶香中帶有淡淡薄荷肉桂香氣，此香氣更被世界紅茶專家譽為日月潭紅茶特有之「台灣香」',699,10,'3入'),
+(102,3,'設計師聯名款太陽眼鏡','UandMe與設計師太陽眼鏡款，擷取時尚與文化融入設計，絕對是旅行中不可或缺的配件 ',2999,10,'1入'),
+(103,4,'大自然的氣息','工作繁忙沒辦法安排假期旅行嗎? 把大自然的氣息帶回去，讓你在家也能有沉浸式的旅行體驗',11111,10,'1入'),
+(104,2,'冠軍烘培咖啡豆','COFFEE',1080,10,'2入'),
+(105,1,'原住民手工編織包','BAGS',1680,10,'1入'),
+(106,3,'多功能行動電源','POWERBANK',1080,10,'10入'),
+(107,4,'質感手提行李箱','LUGGAGE',3680,10,'10入'),
+(108,1,'手沖咖啡旅行組','COFFEEEEE',2980,10,'10入'),
+(109,1,'露營必備裝飾燈串','LIGHT',480,10,'1入');
 
 
 select * from product_collection;
@@ -842,7 +814,7 @@ VALUES
   ('台北之旅', 1, '2023-08-01', '2023-08-05', 2, b'1', 5000),
   ('高雄行', 2, '2023-09-10', '2023-09-15', 0, b'1', 3500),
   ('花蓮探索', 1, '2023-10-20', '2023-10-25', 1, b'0', 4500),
-  ('台中一日游', 3, '2023-11-05', '2023-11-05', 2, b'1', NULL),
+  ('台中一日遊', 3, '2023-11-05', '2023-11-05', 2, b'1', NULL),
   ('墾丁之旅', 2, '2023-12-10', '2023-12-15', 0, b'0', 6000),
   ('九份老街', 1, '2023-01-08', '2023-01-08', 2, b'1', 800),
   ('太魯閣國家公園', 4, '2023-02-14', '2023-02-20', 1, b'0', NULL),

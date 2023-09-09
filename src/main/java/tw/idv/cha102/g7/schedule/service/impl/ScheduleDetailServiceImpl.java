@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDetailsDTO;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
+import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
 import tw.idv.cha102.g7.schedule.repo.ScheduleDetailRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleTagRepository;
@@ -16,13 +17,16 @@ public class ScheduleDetailServiceImpl implements ScheduleDetailService {
 
     @Autowired
     private ScheduleDetailRepository detailRepository;
-
     @Autowired
     private ScheduleRepository scheduleRepository;
-
     @Autowired
     private ScheduleTagRepository tagRepository;
 
+
+    @Override
+    public ScheduleDetail findOneDetail(Integer schdeId) {
+        return detailRepository.findById(schdeId).orElse(null);
+    }
 
     @Override
     public List<ScheduleDetail> findBySchId(Integer schId) {
@@ -30,15 +34,24 @@ public class ScheduleDetailServiceImpl implements ScheduleDetailService {
     }
 
     @Override
-    public ScheduleDetailsDTO findAllDetailsBySchId(Integer schId) {
-        ScheduleDetailsDTO dto = new ScheduleDetailsDTO();
-        Object[] objects = {};
-        scheduleRepository.findById(schId);
-        detailRepository.findBySchId(schId);
-
-
-        return null;
+    public void updateDetails(ScheduleDetail scheduleDetail) {
+        if (scheduleDetail != null) {
+            detailRepository.save(scheduleDetail);
+        }
     }
 
+    @Override
+    public void deleteDetail(Integer schdeId) {
+        detailRepository.deleteById(schdeId);
+    }
 
+//    @Override
+//    public ScheduleDetailsDTO findAllDetailsBySchId(Integer schId) {
+//        ScheduleDetailsDTO dto = new ScheduleDetailsDTO();
+//        Object[] objects = {};
+//        scheduleRepository.findById(schId);
+//        detailRepository.findBySchId(schId);
+//
+//        return null;
+//    }
 }

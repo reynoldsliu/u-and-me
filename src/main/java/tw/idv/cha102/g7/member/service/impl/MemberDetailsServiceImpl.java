@@ -24,7 +24,7 @@ public class MemberDetailsServiceImpl implements MemberDetailsService {
 
     @Override
     public Member getMember(Integer memId) {
-        return memberRepository.findById(memId).get();
+        return memberRepository.findById(memId).orElse(null);
     }
 
 }

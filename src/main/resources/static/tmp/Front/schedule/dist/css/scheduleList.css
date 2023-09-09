@@ -149,7 +149,7 @@ div.scheduleListMainImg>img{
 }
 
 /* 查看詳情 */
-a#viewDetails {
+a.viewDetails {
   width: 100%;
   height: 40px;
   font-size: 1.3rem;

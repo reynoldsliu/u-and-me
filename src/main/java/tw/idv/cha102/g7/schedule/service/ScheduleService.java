@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.schedule.service;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDaysDTO;
@@ -65,5 +66,11 @@ public interface ScheduleService {
 
     // 屏蔽一筆行程
     public void hide(Integer schId);
+
+    // 行程分享隱私權設定
+    public Schedule privateSelect(Integer schId,Byte schPub);
+
+    // 行程複製權限設定
+    public Schedule copyrightSelect(Integer schId,Boolean schCopy);
 
 }

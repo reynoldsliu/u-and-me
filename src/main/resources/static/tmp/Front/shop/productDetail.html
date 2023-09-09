@@ -22,6 +22,10 @@
             background-color: rgb(115, 176, 172);
             border-color: rgb(115, 176, 172);
         }
+        .btn.btn-secondary:hover {
+            background-color: rgb(81, 113, 111);
+            border-color: rgb(81, 113, 111);
+        }
 
         .btn.btn-outline-secondary:hover {
             background-color: rgb(201, 216, 215);
@@ -464,18 +468,17 @@
         })
     }
   // <!--購物車icon會根據memId跳轉到購物車詳情頁面，並將資料映射到相關欄位上-->
-        function redirectToCartPage() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const memId = urlParams.get('memId');
-            if(memId === null){
+        async function redirectToCartPage() {
+            const resp = await fetch("http://localhost:8080/u-and-me/member/getMemId");
+            let respJson = await resp.json();
+            let memId = respJson.memId;
+            if(memId === undefined){
                 window.location.href = "http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html";
             }else{
                 const newPageUrl = `http://localhost:8080/u-and-me/tmp/Front/shop/shoppingCart.html?memId=${memId}`;
                 window.location.href = newPageUrl;
-
             }
-              
-        }
+    }
 
         
         //  -----商品數量增減-----
@@ -496,7 +499,7 @@
             quantityInput.value++;
         }
         
-        // 加入購物車 數量1個
+        // 加入購物車 
         async function addCarts(ProdId){
             //id為quantity-input的input元素
             let inputElement = document.querySelector('input#quantity-input');
@@ -508,6 +511,7 @@
                 cartQty:quantity
 
             }
+            // sessionStorage.setItem('cartInfo', JSON.stringify(cartList));
             
             await fetch(`http://localhost:8080/u-and-me/addCartList/`+ProdId,{
                 method: 'POST',
@@ -515,7 +519,7 @@
                 body: JSON.stringify(cartList)
             }).then(resp => resp.json())
               .then(addcart =>{
-                    if(addcart.cartListId===null){
+                    if(addcart.cartListId === null){
                         //輸入資訊暫存頁面+數量(登入後導回才會導回該商品頁面，以及看到先前增減的商品數量)
                         //這邊要再測試是否可正常跳轉
                         window.location.href = "http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html";
@@ -527,7 +531,19 @@
                         )
               })
         }
+           
+        
+        // ////跳轉購物車頁面 應該可刪
+        // function checkAndRedirect(){
+        //         const cartInfo = sessionStorage.getItem('cartList');
+        //         if(cartInfo){
+        //             const cartList = JSON.parse(cartInfo);
 
+        //             //跳轉操作，將訊息傳遞到商品頁面
+        //             const newPageUrl = `http://localhost:8080/u-and-me/tmp/Front/shop/product.html?cartInfo=${encodeURIComponent(cartInfo)}`;
+        //             window.location.href = newPageUrl;
+        //         }
+        //     }
     
         
        

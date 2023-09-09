@@ -24,10 +24,11 @@ public class MemberFilter extends OncePerRequestFilter {
 
         String requestUrl = request.getRequestURI();
         String login = "/u-and-me/member/login";
+        String register = "/u-and-me/member/register";
 
 
         //許可所有請求進入登入畫面
-        if (login.equals(requestUrl)) {
+        if (login.equals(requestUrl) || register.equals(requestUrl)) {
             chain.doFilter(request, response);
             return;
         }
@@ -38,7 +39,7 @@ public class MemberFilter extends OncePerRequestFilter {
         //檢查是否已經登入 若是則跳過此條件進行內部功能 若否則進入此條件重導回登入頁面
         if (session.getAttribute("memberId") == null) {
 //            response.getWriter().write("");
-            response.sendRedirect("http://localhost:8081/u-and-me/tmp/Front/member/memberLoginIn.html");
+            response.sendRedirect("http://localhost:8080/u-and-me/tmp/Front/member/memberLogin.html");
             return;
         }
 

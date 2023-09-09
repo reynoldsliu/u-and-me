@@ -1,21 +1,21 @@
+// 行程搜尋欄相關的標籤
 let search_btn_el = document.getElementById("search-btn");
 let keywords_el = document.getElementById("keywords");
 let sortByStart_el = document.getElementById("sortByStart");
 let sortByDays_el = document.getElementById("sortByDays");
-// let sortByCost_el = document.getElementById("sortByCost");
 
+// 分頁元素
 let pageSelect1_el = document.getElementById("pageSelect1");
 let pageSelect2_el = document.getElementById("pageSelect2");
 let pageSelect3_el = document.getElementById("pageSelect3");
 
+// fetch對應到的路徑
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+let schListbaseURL = baseURL + "schedules/";
+let allURL = schListbaseURL + "all/";
+let daysURL = schListbaseURL + "days/";
 
 let e = 0; //用來控制分頁
-
-// fetch對應到的路徑
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/schedules/";
-let allURL = baseURL + "all/";
-let daysURL = baseURL + "days/";
-
 
 // 載入網頁就將所有公開行程列表查出
 document.addEventListener("DOMContentLoaded", function () {
@@ -39,15 +39,15 @@ async function fetchScheduleList(URL, e) {
 
       row.innerHTML = `
             <div class="card">
-            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                alt="" class="card-img-top">
+            <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg"
+                alt="" class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">${schedule.schName}</h5>
                     <p class="sch-date" style="font-size: 15px">
                     ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
                     <p class="sch-date" style="font-size: 10px">
                     行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
-                    <a href="myScheduleEdit.html" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
+                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
                 </div>
               </div>
             </div>
@@ -56,16 +56,17 @@ async function fetchScheduleList(URL, e) {
     });
 
   } catch (error) {
-    console.error("Error fetching scheRep list:", error);
+    console.error("Error fetching schedulePublic list:", error);
   }
 }
 
-
+// 日期格式化
 function formatDate(dateString) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return new Date(dateString).toLocaleDateString('zh-TW', options);
 }
 
+// 計算日期間的天數
 function calDays(schStart, schEnd) {
   // 創建兩個日期對象
   var startDate = new Date(schStart);
@@ -77,11 +78,18 @@ function calDays(schStart, schEnd) {
   return (daysDifference + 1);
 }
 
+// 隨機取整數函式，更改行程卡片圖片
+// 原先單一圖片網址:
+// https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60
+function getRandomInteger() {
+  return Math.floor(Math.random() * (40 - 1 + 1)) + 1;
+}
+
 // =============== 依關鍵字(行程名稱)搜尋行程清單 ===============
 search_btn_el.addEventListener("click", function (event) {
   event.preventDefault();
   let keywords = keywords_el.value;
-  let keywordsURL = baseURL + keywords + "/";
+  let keywordsURL = schListbaseURL + keywords + "/";
   fetchScheduleList(keywordsURL, e);
 });
 

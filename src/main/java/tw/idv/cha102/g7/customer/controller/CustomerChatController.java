@@ -14,7 +14,7 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-//@Component
+@Component
 @ServerEndpoint("/chat/{userName}")
 public class CustomerChatController {
 
@@ -24,6 +24,7 @@ public class CustomerChatController {
     @OnOpen
     public void onOpen(@PathParam("userName") String userName, Session userSession) throws IOException {
         sessionsMap.put(userName, userSession);
+
         if ("host".equals(userName)) {
             sendToAllForHostOnline();
         }else {

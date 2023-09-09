@@ -64,17 +64,19 @@ public class CartServiceImpl implements CartService {
         //刪除一筆購物車清單
         @Transactional //可確保該方法中的所有數據庫操作都在一個事務內進行，並在方法執行完成時，根據操作的結果進行事務的提交或回滾
         @Override
-        public void deleteById(Integer memId, Integer prodId) {
-            CartListId cartListId = new CartListId(memId, prodId);
+        public void deleteById(Integer memId,Integer prodId) {
+            CartListId cartListId = new CartListId(memId,prodId);
             cartListRepository.deleteByCartListId(cartListId);
+
         }
 
 //        //更新一筆購物車數量
-        public CartList updateCartListQty(Integer memId, Integer prodId, Integer cartQty) {
+        public CartList updateCartListQty(Integer memId, Integer prodId, Integer cartQty, Integer newCartPri) {
             CartListId cartListId = new CartListId(memId, prodId);
             CartList cartList = cartListRepository.findByCartListId_MemIdAndCartListId_ProdId(memId, prodId);
             if (cartList != null) {
-                cartList.setCartQty(cartList.getCartQty() + cartQty);
+                cartList.setCartQty(cartQty);
+                cartList.setCartPri(newCartPri);
             }
                 return cartListRepository.save(cartList);
         }

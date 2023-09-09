@@ -3,7 +3,9 @@ package tw.idv.cha102.g7.article.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.article.entity.Article;
+import tw.idv.cha102.g7.article.entity.ArticlePicture;
 import tw.idv.cha102.g7.article.repo.ArticleBrowserRepository;
+import tw.idv.cha102.g7.article.repo.ArticlePictureRepository;
 import tw.idv.cha102.g7.article.service.ArticleBrowserService;
 
 import java.util.List;
@@ -13,6 +15,9 @@ public class ArticleBrowserServiceImpl implements ArticleBrowserService {
 
     @Autowired
     private ArticleBrowserRepository articleBrowserRepository;
+    @Autowired
+    private ArticlePictureRepository articlePictureRepository;
+
 
     @Override
     public String updateByArticleId(Integer articleId, Article article) {
@@ -27,43 +32,47 @@ public class ArticleBrowserServiceImpl implements ArticleBrowserService {
             articleBrowserRepository.save(art);
             return "更新成功！";
         } else {
-            return "更新失敗，查詢的行程不存在";
+            return "更新失敗，查詢的文章不存在";
         }
 
-    }
-
-    @Override
-    public List<Article> findByArticleTitle(String keyword) {
-        return articleBrowserRepository.findByTitleOrderByLike(keyword);
     }
 
     //    public List<Article> findByArticleTitle(String keyword) {
     //   return articleRepository.findByTitleOrderByTime(keyword);
     //    }
 
+    // 查詢所有公開文章的title
+    @Override
+    public List<Article> findByArticleTitle(String keyword) {
+        return articleBrowserRepository.findByTitleOrderByLike(keyword);
+    }
 
 
+
+    // 首頁查詢未下架文章
     @Override
     public List<Article> findPublicArticle() {
         return articleBrowserRepository.findPublicArticle();
     }
 
-
+    // 首頁查詢商城文章(廢code)
     @Override
-    public void postArticle(Article article) {
-        articleBrowserRepository.save(article);
-        }
-
-
-    @Override
-    public void deleteByArticleId(Integer articleId) {
-
+    public List<Article> findShopArticle() {
+        return articleBrowserRepository.findShopArticle();
     }
 
+    // 首頁查詢行程文章(廢code)
     @Override
-    public List<Article> getAllByMemId(Integer memId) {
-        List<Article> articles = articleBrowserRepository.findByMemId(memId);
-        return articles;
-
+    public List<Article> findScheduleArticle() {
+        return articleBrowserRepository.findScheduleArticle();
     }
+
+    // 首頁查詢揪團文章(廢code)
+    @Override
+    public List<Article> findGroupArticle() {
+        return articleBrowserRepository.findGroupArticle();
+    }
+
+
+
 }

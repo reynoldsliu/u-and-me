@@ -12,7 +12,7 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
+    <link rel="shortcut icon" href="../../assets/dist/img/favicon.ico" type="image/x-icon">
 
     <!-- Bootstrap core CSS -->
     <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -247,15 +247,15 @@
                         <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">姓名</th>
                         <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">電話</th>
                         <th style="text-align: center;width: 100px; color:beige; background-color:#1D3124 ;">身分證</th>
-                        <th style="text-align: center;width: 100px; color:beige; background-color:#1D3124 ;">
+                        <th style="text-align: center;width: 100px;color:beige; background-color:#1D3124 ;">
                             身分證照片
                         </th>
-                        <!--            <th style="text-align: center;width: 85px;">點數</th>-->
-                        <!--            <th style="text-align: center;width: 85px;">會員等級</th>-->
+
                         <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">會員狀態
                         </th>
                         <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">團主狀態
                         </th>
+                        <th style="text-align: center;width: 60px; color:beige; background-color:#1D3124 ;"></th>
 
                     </tr>
                     </thead>
@@ -282,16 +282,17 @@
 
 
 <script>
-    <!--網頁載入後執行-->
+    const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+    // <!--網頁載入後執行-->
 
-     <!--生成會員列表-->
+    //  <!--生成會員列表-->
     document.addEventListener("DOMContentLoaded", function () {
       fetchMemberList();
     });
 
     async function fetchMemberList() {
       try {
-        const response = await fetch('http://localhost:8081/u-and-me/hostToMember/all');
+        const response = await fetch(baseUrl+'hostToMember/all');
         const memberList = await response.json();
 
         const dataTableList = document.getElementById("dataTableList");
@@ -306,10 +307,10 @@
   <td style="width: 100px;text-align: center;vertical-align: middle;">${member.memName}</td>
   <td style="width: 100px;text-align: center;vertical-align: middle;">${member.memPhone}</td>
   <td style="width: 100px;text-align: center;vertical-align: middle;">${member.memIdcard}</td>
-  <td style="width: 100px;text-align: center;vertical-align: middle;">${member.memIdPic}</td>
+  <td style="width: 100px; height:200px;text-align: center;vertical-align: middle;"><img src="data:image/jpeg;base64,${member.memIdPic}"style="max-width: 100px; max-height: 200px;"></td>
   <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(member.memSta)}</td>
   <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMappingGroup.get(member.memGroup)}</td>
-  <td style="width: 65px;text-align: center;vertical-align: middle;">
+  <td style="width: 65px;text-align: center;vertical-align: middle; backgroung-color:#1D3124;">
 
     <!--動態視窗觸發按鈕-->
 
@@ -332,17 +333,17 @@
 
 
           <!-- 小視窗內容 -->
-          <div class="modal-body" style="padding-left:70px;">
+          <div class="modal-body" style="padding-left:70px; height:400px;">
 
-            <table class="table1 table-bordered" id="modal_table" style="width: 350px;height:450px;padding-left: 20px;">
+            <table class="table1 table-bordered" id="modal_table" style="width: 350px;height:550px;padding-left: 20px; margin-top:10px;">
               <thead>
 
               </thead>
               <tbody id="dataTableList1">
 
-                <th style="width: 40px; height:20px;color:beige;  background-color:#1D3124 ;">會員編號</th>
-                <td class="editStyle" style="width: 40px;height:20px;text-align: center; vertical-align: middle; ">${member.memId}</td>
-                <td style="width: 40px;height:20px;text-align: center; vertical-align: middle; ">${member.memId}</td>
+                <th style="width: 40px; height:40px;color:beige;  background-color:#1D3124 ;">會員編號</th>
+                <td class="editStyle" style="width: 40px;height:40px;text-align: center; vertical-align: middle; ">${member.memId}</td>
+                <td style="width: 40px;height:40px;text-align: center; vertical-align: middle; ">${member.memId}</td>
 
 
 
@@ -368,22 +369,15 @@
                 style="text-align: center;">
                   </td>
                 </tr>
-                <tr>
-                  <th style="width: 100px;height:50px;color:beige; background-color:#1D3124 ;">身分證照片</th>
-                  <td class="editStyle" style="width: 100px;height:50px;text-align: center;vertical-align: middle;">${member.memIdPic}</td>
-                  <td style="width: 100px;height:50px;text-align: center;vertical-align: middle;">
-                <input type="text" class="form-control memIdPic" id="memIdPic" value="${member.memIdPic}"
-                style="text-align: center;">
-                  </td>
-                </tr>
+
                 <tr>
                   <th style="width: 100px;height:50px;color:beige; background-color:#1D3124 ;">會員狀態</th>
                   <td class="editStyle"style="width: 65px;height:50px;text-align: center;vertical-align: middle;">${statusMapping.get(member.memSta)}</td>
                     <td style="width: 65px;height:50px;text-align: center;vertical-align: middle;">
                     <select class=" form-select text-secondary memSta" id="memSta">
-                        <option value="0">註冊未驗證</option>
-                        <option value="1">正常使用</option>
-                        <option value="2">停止使用</option>
+                     <option value="0" ${member.memSta === 0 ? 'selected' : ''}>註冊未驗證</option>
+                     <option value="1" ${member.memSta === 1 ? 'selected' : ''}>正常使用</option>
+                     <option value="2" ${member.memSta === 2 ? 'selected' : ''}>停止使用</option>
                         </select>
                     </td>
                 </tr>
@@ -394,14 +388,15 @@
                     ${statusMappingGroup.get(member.memGroup)}</td>
                     <td style="width: 65px;height:50px;text-align: center;vertical-align: middle;">
                         <select class="form-select text-secondary memGroup" id="memGroup">
-                        <option value="0">非團主</option>
-                        <option value="1">團主</option>
+                          <option value="0" ${member.memGroup === 0 ? 'selected' : ''}>非團主</option>
+                          <option value="1" ${member.memGroup === 1 ? 'selected' : ''}>團主</option>
                         </select>
+                    </td>
                 </tr>
                 <tr>
-                <th style="display:none; width: 40px; height:20px;color:beige;  background-color:#1D3124 ;">會員信箱</th>
-                <td class="editStyle" style="display:none; width: 100px;height:50px;text-align: center;vertical-align: middle;">${member.memEmail}</td>
-                <td style="display:none; width: 120px;height:50px;text-align: center;vertical-align: middle;">
+                <th style="display:none; width: 5px; height:25px;color:beige;  background-color:#1D3124 ;">會員信箱</th>
+                <td class="editStyle" style="display:none; width: 5px;height:5px;text-align: center;vertical-align: middle;">${member.memEmail}</td>
+                <td style="display:none; width: 5px;height:50px;text-align: center;vertical-align: middle;">
                     <input type="text" class="form-control memEmail" id="memEmail" value="${member.memEmail}"
                     style="display:none; text-align: center;"></td>
                     </tr>
@@ -430,10 +425,12 @@
           dataTableList.appendChild(row);
         });
 
+
       } catch (error) {
         console.error("Error fetching member list:", error);
       }
     }
+
 
 
 
@@ -474,10 +471,10 @@
 
    $(document).on("click", ".editBtn", async function(event){
 
+
         event.preventDefault();
        // 建立要傳遞的資料
         const memId = $(this).data('memid')
-        console.log(memId)
         const requestMemberData = {
         "memEmail": memEmail[memId-1].value,
         "memName": memName[memId-1].value,
@@ -485,8 +482,10 @@
         "memIdcard": memIdcard[memId-1].value,
         "memSta": memSta[memId-1].value,
         "memGroup": memGroup[memId-1].value};
+        console.log( memSta[memId-1].value);
     try {
-        const response = await fetch(`http://localhost:8081/u-and-me/hostToMember/update`, {
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+        const response = await fetch(`${baseUrl}hostToMember/update`, {
             method: 'POST',
             headers: {
                         'Content-Type': 'application/json'
@@ -496,7 +495,12 @@
 
                 if (response.ok) {
                     const updatedMemberData = await response.json();
-                } else {
+              Swal.fire({
+                         icon: 'success',
+                         title: '更改成功',
+                         text: '',
+                         confirmButtonText: '確定'
+      })}else {
                     console.error('Failed to update member.');
                 }
             } catch (error) {

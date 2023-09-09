@@ -46,7 +46,6 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
     }
 
 
-
     @Override
     public TagToSchedulesDTO findSchedulesBySchTagId(Integer schTagId) {
         ScheduleTag tag = tagRepository.findById(schTagId).orElse(null);
@@ -61,7 +60,7 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
                     schedule = scheduleRepository.findById(dto2.getScheduleTagListId().getSchId()).orElse(null);
                     if (!schList.contains(schedule) && schedule != null) {
                         if (schedule.getSchPub() == 2)
-                        schList.add(schedule);
+                            schList.add(schedule);
                     }
                 }
             }
@@ -91,29 +90,34 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
 
 
     @Override
-    public TagsInScheduleDTO findTagsBySchId(Integer schId) {
-        Schedule schedule = scheduleRepository.findById(schId).orElse(null);
+    public List<ScheduleTag> findTagsBySchId(Integer schId) {
         List<ScheduleTagList> stList = listRepository.findAll();
+        List<ScheduleTagList> myList = new ArrayList<>();
         List<ScheduleTag> tagList = new ArrayList<>();
         ScheduleTag tag = null;
         for (ScheduleTagList stl : stList) {
-            if (stl.getScheduleTagListId().getSchId() != schId) {
+            if (stl.getScheduleTagListId().getSchId() == schId) {
                 // 將不符合schId的元素從stList中移除
-                stList.remove(stl);
-                for (ScheduleTagList stl2 : stList) {
+                myList.add(stl);
+                for (ScheduleTagList stl2 : myList) {
                     // 將stList的每個元素一一取出，用tagId查詢到對應的ScheduleTag物件加入tagList中
                     tag = tagRepository.findById(stl2.getScheduleTagListId().getSchTagId()).orElse(null);
                     // 若此ScheduleTag物件不存在於tagList才可加入
                     if (!tagList.contains(tag))
                         tagList.add(tag);
                 }
-
             }
         }
-        Object[] object = {schedule, tagList};
-        TagsInScheduleDTO tagsDTO = new TagsInScheduleDTO(object);
-        return tagsDTO;
+        return tagList;
     }
 
+    @Override
+    public ScheduleTag createTag(ScheduleTag tag) {
+        return tagRepository.save(tag);
+    }
 
+    @Override
+    public void deleteTag(Integer schTagId) {
+        tagRepository.deleteById(schTagId);
+    }
 }

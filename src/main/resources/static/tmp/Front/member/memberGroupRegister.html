@@ -10,9 +10,8 @@
     <title>UandMe Group Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="../dist/css/memberGroupRegister.css">
-
-    <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="dist.css/js/memberGroupRegister.css">
+    <link rel="shortcut icon" href="../dist/img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -123,9 +122,10 @@
 
     </div>
 
-    <div class="content-wrapper " style="
-            margin-left: 250px;
-        ">
+    <div class="content-wrapper " style=" background-color: white;
+  padding: 70px 80px 100px 100px; margin: 50px auto; box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+  width: 800px; height: 800px; margin-left: 250px;
+     ">
 
 
         <div class="row">
@@ -134,69 +134,49 @@
                 <form class="row g-3">
                     <div class="container_heading">
                         <h2>
-                            <div class="title">
-                            <i class="fa-solid fa-circle-user fa-xl" style="color: #ffffff;"></i>
-                            <span style="color:#fff; font-size: border;">團主身分註冊</span>
+                            <div class="title111" style=" padding:10px; margin-left:140px; border-radius:10px; background-color: rgb(198, 191, 191); width:300px;">
+                                <img class="memImg" style="height:55px;" src=".././dist/img/memberGroupRegister.png">
+                            <span style="color:#fff; font-size: border; ">團主身分註冊</span>
                         </div>
 
                         </h2>
                     </div>
-                    <div class="col-md-6">
-                        <label for="memName" class="form-label">姓名</label>
+                    <div class="memName" style="width:180px;">
+                        <label for="memName" class="form-label" style="letter-spacing:2px;font-weight:bold;">姓名</label>
                         <input type="text" class="form-control" id="memName"style="text-align: center;">
                     </div>
 
-                    <div class="col-md-6">
-                        <label for="memGender" class="form-label">性別</label>
+                    <div class="memGender" style="width:150px; margin-left:40px;">
+                        <label for="memGender" class="form-label" style="letter-spacing:2px;font-weight:bold;">性別</label>
                         <select id="memGender" class="form-select">
                             <option>請選擇您的性別</option>
                             <option value="1">男</option>
-                            <option value="2" selected>女</option>
+                            <option value="2">女</option>
                             <option value="0">不方便透露</option>
                         </select>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
 
-            </div>
-            <div class="col-md-">
-                <label for="memEmail" class="form-label">會員帳號<信箱></label>
-                <input value="member1@example.com" type="email" class="form-control" id="memEmail">
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
 
-            <div class="col-md-6">
-                <label for="memPhone" class="form-label">電話</label>
+
+
+            <div class="memPhone" style="margin-left:60px; width:180px;">
+                <label for="memPhone" class="form-label" style="letter-spacing:2px;font-weight:bold;">電話</label>
                 <input value="0911111111" type="text" class="form-control" id="memPhone" , placeholder="請填寫您的手機號碼">
             </div>
 
-            <div class="form-group-idcard col-md-6">
-                <label for="memIdcard" class="form-label">身分證</label>
+            <div class="memIdcard" style="width:180px;">
+                <label for="memIdcard" class="form-label" style="letter-spacing:2px;font-weight:bold;">身分證</label>
                 <input value="A123456789" type="text" class="form-control" id="memIdcard" ,
                        placeholder="此為申請團主必要條件">
             </div>
-            <div class="form-group-idcard">
+            <div class="form-group-idcard" style="letter-spacing:2px;font-weight:bold; width:400px; margin-left:40px; padding-top:5px;">
                 <label for="memIdcardPic">身分證照片上傳</label>
                 <input type="file" accept="image/*" id="memIdcardPic">
-                <!-- <br> -->
-                <div id="preview"></div>
+                <br>
+                <br>
+            
             </div>
 
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="col-12">
-                <label for="memAdress" class="form-label">地址</label>
-                <input value="Address 1" type="text" class="form-control" id="memAdress" placeholder="請填寫您的居住地址">
-            </div>
 
 
             <div class="col-12">
@@ -204,11 +184,17 @@
 
                 </div>
             </div>
-            <div id="groupBtn" class="updatebottom btn-sm">
+
+
+            <div id="groupBtn" class="updatebottom btn-sm" style="letter-spacing:2px;font-weight:bold; margin-top:650px; margin-left:550px;position: absolute;">
                 <button class="btn" type="button">送出</button>
             </div>
-
+            <div class="idPreview">
+                <div id="preview" class="preview-image"></div>
+              </div>
             </form>
+            
+          
         </div>
 
     </div>
@@ -258,9 +244,15 @@
 </div>
 </div>
 
-<script src="../dist/js/memberGroupRegister.js"></script>
+<script src="dist.css/js/js/memberGroupRegister.js"></script>
 </body>
 <script>
+
+
+
+
+
+    const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
     //團主申請的身分證照片預覽
     // const imageInput = document.getElementById('imageInput');
     const preview = document.getElementById('preview');
@@ -274,13 +266,13 @@
         const imageURL = URL.createObjectURL(file);
         const image = new Image();
         image.src = imageURL;
-        image.style.maxWidth = '220px'; // 設定預覽圖最大寬度
-        image.style.maxHeight = '220px'; // 設定預覽圖最大高度
+        image.style.maxWidth = '200px'; // 設定預覽圖最大寬度
+        image.style.maxHeight = '200px'; // 設定預覽圖最大高度
         preview.appendChild(image);
     });
 
     async function getMemId() {
-        const response = await fetch("http://localhost:8081/u-and-me/member/getMemId");
+        const response = await fetch(baseUrl+"member/getMemId");
         console.log(response);
         respJson = await response.json();
         let memId = respJson.memId;
@@ -327,14 +319,16 @@
         const fileReader = await new FileReader();
         fileReader.onload = async event => {
             const base64Str = btoa(event.target.result);
-
-            const response = await fetch('http://localhost:8081/u-and-me/member/memberGroupRegister/' + await getMemId(), {
+            console.log(base64Str);
+            let memId = await getMemId();
+            console.log("memId: "+memId);
+            const response = await fetch(baseUrl+'member/memberGroupRegister/' + memId, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    PicData: base64Str
+                    pictureData: base64Str
                 })
             });
 
