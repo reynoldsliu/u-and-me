@@ -225,7 +225,7 @@ btn_schDone.onclick = async event => {
     schPub: 0,
     schTags: destination_el.value
   }
-  console.log(send_data);
+  // console.log(send_data);
   await fetch(addURL, {
     headers: {
       "content-type": "application/json",
@@ -234,11 +234,16 @@ btn_schDone.onclick = async event => {
     body: JSON.stringify(send_data)
   })
     .catch(function (error) {
-      alert('新增失敗');
+      alert('新增失敗' + error);
       return;
     });
-  alert('新增成功');
-  location.reload();
+  Swal.fire({
+    title: '新增成功！',
+    // icon: 'success',
+    imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/11952172/LINEStorePC/main.png?v=1'
+  }).then(() => {
+    location.reload();
+  });
 }
 
 // =============== 新增一個行程大綱結束 ===============
@@ -285,8 +290,8 @@ async function selectPrivateSetting(schId) {
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire({
-        title: `設定成功！`,
-        imageUrl: 'https://storage.googleapis.com/sticker-prod/yZzo2n9q8atPzSyYEWBg/9-1.png'
+        title: `瀏覽權限設定成功！`,
+        imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/471356583/android/sticker.png'
       }).then(() => {
         // 在用戶按下"確定"後執行重新整理
         location.reload();
@@ -317,8 +322,8 @@ async function selectCopyrightSetting(schId) {
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire({
-        title: `設定成功！`,
-        imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/11952172/LINEStorePC/main.png?v=1'
+        title: `複製權限設定成功！`,
+        imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/425916056/android/sticker.png'
       }).then(() => {
         // 在用戶按下"確定"後執行重新整理
         location.reload();
@@ -335,7 +340,8 @@ async function deleteOneSchedule(schId) {
   Swal.fire({
     title: '確定要刪除此行程？',
     text: "注意：刪除後不可復原！",
-    icon: 'warning',
+    // icon: 'warning',
+    imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/438734965/android/sticker.png',
     showCancelButton: true,
     confirmButtonColor: '#008000',
     confirmButtonText: '刪除',

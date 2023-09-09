@@ -210,6 +210,12 @@ p#inputEndDate {
   right: 10.9%;
 }
 
+/* 游標經過行程卡片CSS */
+div.card:hover{
+  box-shadow: 3px 3px 10px black;
+}
+
+
 /* 行程設定(分享權限、刪除行程) */
 /* 編輯按鈕區塊 */
 div.settingSch {
