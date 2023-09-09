@@ -1,21 +1,17 @@
 package tw.idv.cha102.g7.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
-import tw.idv.cha102.g7.schedule.dto.ScheduleDaysDTO;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
 import java.sql.Date;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -160,6 +156,16 @@ public class ScheduleServiceImpl implements ScheduleService {
         var schedule = repository.findById(schId);
         if (schedule.isPresent()) {
             schedule.get().setSchPub(schPub);
+            return repository.save(schedule.get());
+        }
+        return null;
+    }
+
+    @Override
+    public Schedule copyrightSelect(Integer schId, Boolean schCopy) {
+        var schedule = repository.findById(schId);
+        if (schedule.isPresent()) {
+            schedule.get().setSchCopy(schCopy);
             return repository.save(schedule.get());
         }
         return null;

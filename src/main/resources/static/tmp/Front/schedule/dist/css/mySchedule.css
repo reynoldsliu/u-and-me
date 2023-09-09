@@ -243,7 +243,7 @@ div.settingSelect {
   background-color: white;
   box-shadow: 2px 2px 2px black;
   width: 130px;
-  height: 65px;
+  height: 100px;
   position: absolute;
   right: 0;
   margin: 10px 10px 0 0;
@@ -256,9 +256,8 @@ div.settingSelect.-off {
 /* 各個選項設定的區塊 */
 div.settingSelect>div {
   border-bottom: 1px solid lightgray;
-  border-radius: 10px 10px 0 0px;
   width: 100%;
-  height: 50%;
+  height: 33.3%;
   display: block;
   padding-top: 5px;
   font-size: 1rem;
@@ -271,6 +270,11 @@ div.settingSelect>div:hover {
   background-color: lightgray;
 }
 
+/* 隱私設定與分享區塊 */
+div.settingSelect>div:first-child {
+  border-radius: 10px 10px 0 0px;
+}
+
 /* 刪除區塊 */
 div.settingSelect>div:last-child {
   border-bottom: none;
@@ -278,6 +282,17 @@ div.settingSelect>div:last-child {
   border-radius: 0 0 10px 10px;
 }
 
+/* 行程卡片上的分享權限顯示 */
+p.sch-date>span {
+  /* border: 1px solid red; */
+  display: inline-block;
+  padding-left: 15%;
+}
+
+p.sch-date>span:last-child{
+  /* border: 1px solid blue; */
+  padding-left: 15%;
+}
 
 
 /* 查看詳情 */

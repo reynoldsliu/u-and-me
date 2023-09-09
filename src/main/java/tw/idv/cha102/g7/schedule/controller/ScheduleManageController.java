@@ -85,11 +85,36 @@ public class ScheduleManageController {
         }
     }
 
-
-    @RequestMapping("/edit/{schId}/{schPub}")
+    /**
+     * 會員
+     * 公開行程權限設定
+     * @param schId 行程id
+     * @param schPub 公開權限
+     * 0: 私密,
+     * 1: 透過連結分寫,
+     * 2: 公開,
+     * @return 行程物件
+     */
+    @RequestMapping("/private/{schId}/{schPub}")
     public ResponseEntity<?> privateSelect(@PathVariable Integer schId,
                                            @PathVariable Byte schPub) {
         return ResponseEntity.ok(service.privateSelect(schId, schPub));
+
+    }
+
+    /**
+     * 會員
+     * 複製行程權限設定
+     * @param schId 行程id
+     * @param schCopy 複製權限
+     * true: 可複製,
+     * false: 不可複製,
+     * @return 行程物件
+     */
+    @RequestMapping("/copyright/{schId}/{schCopy}")
+    public ResponseEntity<?> copyrightSelect(@PathVariable Integer schId,
+                                           @PathVariable Boolean schCopy) {
+        return ResponseEntity.ok(service.copyrightSelect(schId, schCopy));
 
     }
 

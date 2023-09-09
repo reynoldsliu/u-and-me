@@ -34,7 +34,8 @@ let mySchbaseURL = baseURL + "mySch/";
 let myURL = mySchbaseURL + "my/";
 let addURL = mySchbaseURL + "create";
 let deleteURL = mySchbaseURL + "delete/";
-let editURL = mySchbaseURL + "edit/";
+let privateURL = mySchbaseURL + "private/";
+let copyrightURL = mySchbaseURL + "copyright/"
 let hideURL = mySchbaseURL + "hide/";
 
 let e = 0; //用來控制分頁
@@ -71,6 +72,7 @@ async function fetchMyScheduleList(URL, memId, e) {
                   <div><i class="fa-solid fa-pen-to-square edit"></i></div>
                   <div class="settingSelect -off" id="settingSelect${schedule.schId}" onmouseleave="removeEditBox(${schedule.schId})">
                       <div class="privateSetting" id="privateSetting${schedule.schId}" onclick="selectPrivateSetting(${schedule.schId})">隱私設定與分享</div>
+                      <div class="copyrightSetting" onclick="selectCopyrightSetting(${schedule.schId})">複製權限設定</div>
                      <div class="deleteMySch">刪除</div>
                   </div>
                 </div>
@@ -78,8 +80,11 @@ async function fetchMyScheduleList(URL, memId, e) {
                     <h5 class="card-title">${schedule.schName}</h5>
                     <p class="sch-date" style="font-size: 15px">
                     ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
-                    <p class="sch-date" style="font-size: 10px">
-                    行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
+                    <p class="sch-date" style="font-size: 13px">
+                    行程共${calDays(schedule.schStart, schedule.schEnd)}天
+                    <span><i class="fa-solid fa-eye"></i> ${convertNumberToText(schedule.schPub)}</span>
+                    <span><i class="fa-solid fa-copy"></i> ${convertBooleanToText(schedule.schCopy)}</span>
+                    </p>
                     <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
                 </div>
               </div>
@@ -115,6 +120,24 @@ function calDays(schStart, schEnd) {
 // https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60
 function getRandomInteger() {
   return Math.floor(Math.random() * (40 - 1 + 1)) + 1;
+}
+
+// 轉換行程公開權限設定顯示文字
+function convertNumberToText(number) {
+  switch (number) {
+    case 0:
+      return "私人檢視";
+    case 1:
+      return "連結分享";
+    case 2:
+      return "公開瀏覽";
+
+  }
+}
+
+// 轉換行程複製權限設定顯示文字
+function convertBooleanToText(boolValue) {
+  return boolValue ? "可供複製" : "不可複製";
 }
 
 
@@ -255,7 +278,10 @@ async function selectPrivateSetting(schId) {
     confirmButtonText: '確定',
     showLoaderOnConfirm: true,
     preConfirm: async (selectedOption) => {
-      const response = await fetch(`${editURL}${schId}/${selectedOption}`);
+      // 如果設定為連結分享，要顯示分享的連結
+      // TODO...
+
+      const response = await fetch(`${privateURL}${schId}/${selectedOption}`);
       return response;
     },
     allowOutsideClick: () => !Swal.isLoading()
@@ -264,9 +290,44 @@ async function selectPrivateSetting(schId) {
       Swal.fire({
         title: `設定成功！`,
         imageUrl: 'https://storage.googleapis.com/sticker-prod/yZzo2n9q8atPzSyYEWBg/9-1.png'
-      })
+      }).then(() => {
+        // 在用戶按下"確定"後執行重新整理
+        location.reload();
+      });
     }
-  })
+  });
+}
+
+
+// 修改複製權限設定
+async function selectCopyrightSetting(schId) {
+  Swal.fire({
+    title: '是否供他人複製此行程？',
+    input: 'select',
+    inputOptions: {
+      true: '是',
+      false: '否'
+    },
+    showCancelButton: true,
+    cancelButtonText: '取消',
+    confirmButtonText: '確定',
+    showLoaderOnConfirm: true,
+    preConfirm: async (selectedOption) => {
+      const response = await fetch(`${copyrightURL}${schId}/${selectedOption}`);
+      return response;
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: `設定成功！`,
+        imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/11952172/LINEStorePC/main.png?v=1'
+      }).then(() => {
+        // 在用戶按下"確定"後執行重新整理
+        location.reload();
+      });
+    }
+  });
 }
 
 // =============== 編輯一個行程大綱結束 ===============
