@@ -713,6 +713,7 @@ tab_attrCollect_el.addEventListener("click", async function (e) {
     const response = await fetch(baseURL + `/member/getMemId`);
     const member = await response.json();
     const memId = member.memId;
+    console.log("MYMEMID: "+memId);
 
     FindAllAttrCollectionList(memId);
 

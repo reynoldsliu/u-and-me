@@ -288,10 +288,10 @@
     const attrInput = document.getElementById("attractionId");
     const memInput = document.getElementById("memberId");
 
-    attrInput.addEventListener("change",function(){
+    attrInput.addEventListener("change", function () {
       memInput.value = "";
     })
-    memInput.addEventListener("change",function(){
+    memInput.addEventListener("change", function () {
       attrInput.value = "";
     })
 
@@ -311,7 +311,7 @@
         row.innerHTML = `
           <td class="td_attrId" style="text-align: center; vertical-align: middle;">${member.memId}</td>
           <td style="text-align: center;vertical-align: middle;">${member.memEmail}</td>
-              <button class="btn btn-outline-success" onclick="redirectToMemDetailPage(${member.memId},${attractionId})">
+              <button class="btn btn-outline-success" onclick="redirectToMemDetailPage(${member.memId})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
                       viewBox="0 0 16 16">
                       <path
@@ -327,7 +327,8 @@
     }
 
     function redirectToMemDetailPage() {
-
+      var newPageUrl = baseUrl + `tmp/back_end/back_end/member/member.html`;
+      window.location.href = newPageUrl;
     }
 
     //透過會員編號 查出所有的收藏景點
@@ -345,7 +346,7 @@
         row.innerHTML = `
           <td class="td_attrId" style="text-align: center; vertical-align: middle;">${attr.attrId}</td>
           <td style="text-align: center;vertical-align: middle;">${attr.attrName}</td>
-              <button class="btn btn-outline-success" onclick="redirectToAttrDetailPage(${memberId},${attrs.attrId})">
+              <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
                       viewBox="0 0 16 16">
                       <path
@@ -359,8 +360,9 @@
       });
     }
 
-    function redirectToAttrDetailPage() {
-
+    function redirectToDetailPage(attrId) {
+      var newPageUrl = baseUrl + `tmp/back_end/back_end/attraction/attractionDetail.html?attrId=${attrId}`;
+      window.location.href = newPageUrl;
     }
 
 

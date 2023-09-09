@@ -1,5 +1,6 @@
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
-
+// 行程總天數
+var schDuringDays;
 // class -on -off -one 屬性
 const classSwitchOn = "-on";
 const classSwitchOff = "-off";
@@ -12,7 +13,6 @@ const backToMySchedule_el = document.querySelector("#backToMySchedule");
 // 選擇日期天數頁籤
 const tab_dateBarLeft_el = document.querySelector(".dateBarTab.-left");
 const tab_dateBarRight_el = document.querySelector(".dateBarTab.-right");
-const dateSelectCell_el = document.querySelectorAll(".dateSelectCell");
 // 更換順序
 const iswitch_el = document.querySelectorAll("i.switch");
 // 刪除第幾天行程
@@ -21,8 +21,6 @@ const itrash_el = document.querySelectorAll("i.trash");
 const addNewAttrbtn_el = document.querySelector("div.addNewAttrbtn");
 // 行程細節cell(有很多個，先抓第一個)
 const schDetailCells = document.querySelector(".schDetailCell");
-// 單一景點cell(抓不到，直接綁定onclick)
-const attrCells = document.querySelector(".attrCell");
 
 // =============== 行程細節時間計算相關標籤(BY Reynolds) =============== 
 const mySchDateStart_el = document.getElementById("mySchDateStart");
@@ -72,6 +70,10 @@ const addToSchedule_btn_el = document.querySelector(".addToSchedule-btn");
 const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 
 // =============== 元素插入處相關標籤 =============== 
+// --------- 行程相關 ------------
+const dateSelectCellInsert_el = document.querySelector("div.dateSelect");
+
+// --------- 景點相關 ------------
 // 景點搜尋
 const attrSearchListInsert_el = document.querySelector(".attrSearchList");
 // 景點收藏
@@ -103,7 +105,7 @@ function getDayOfWeek(dateString) {
     const daysOfWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
     const date = new Date(dateString);
     const dayOfWeek = daysOfWeek[date.getDay()];
-    console.log("Date to change: " + dateString + ":" + dayOfWeek);
+    // console.log("Date to change: " + dateString + ":" + dayOfWeek);
     return dayOfWeek;
 }
 
@@ -167,25 +169,28 @@ function addTimeToStartTime(startTime, stayTime) {
     // 计算新的小时和分钟
     let newHours = startDate.getHours() + stayHours;
     let newMinutes = startDate.getMinutes() + stayMinutes;
+    let newDays = startDate.getDate();
 
     // 处理跨天情况
     if (newMinutes >= 60) {
-        newHours += Math.floor(newMinutes / 60);
+        newHours += 1;
         newMinutes %= 60;
     }
     if (newHours >= 24) {
         newHours -= 24;
+        newDays += 1;
     }
 
     // 更新日期对象
+    startDate.setDate(newDays);
     startDate.setHours(newHours);
     startDate.setMinutes(newMinutes);
-    console.log(startDate);
+    // console.log(startDate);
 
     return startDate;
 }
 
-
+// 轉換成幾時幾分
 function extractHourAndMinute(timeString) {
     // 去掉字符串前后的方括号，然后解析为 Date 对象
     const date = new Date(timeString);
@@ -196,6 +201,19 @@ function extractHourAndMinute(timeString) {
 
     // 格式化结果
     return `${hours}:${minutes}`;
+}
+
+// 轉換成幾月幾日
+function extractMonthAndDate(timeString) {
+    // 去掉字符串前后的方括号，然后解析为 Date 对象
+    const date = new Date(timeString);
+
+    // 获取时和分的部分
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dates = date.getDate().toString().padStart(2, '0');
+
+    // 格式化结果
+    return `${month}月${dates}日`;
 }
 
 async function addDailySchedule(restScheDetails) {
@@ -218,10 +236,10 @@ async function addDailySchedule(restScheDetails) {
         const attrId = restScheDetails[countedScheDetails].attrId;
         // const schdeStarttime = restScheDetails[countedScheDetails].schdeStarttime;
         const schdeStaytime = restScheDetails[countedScheDetails].schdeStaytime;
-        console.log("schdeStarttime::" + schdeStarttime);
-        console.log("schdeStaytime::" + schdeStaytime);
+        // console.log("schdeStarttime::" + schdeStarttime);
+        // console.log("schdeStaytime::" + schdeStaytime);
         const schdeEndtime = addTimeToStartTime(schdeStarttime, schdeStaytime);
-        console.log("schdeEndtime::" + schdeEndtime);
+        // console.log("schdeEndtime::" + schdeEndtime);
 
         const schdeTranstime = restScheDetails[countedScheDetails].schdeTranstime;
         const schdeTrans = restScheDetails[countedScheDetails].schdeTrans;
@@ -267,7 +285,7 @@ async function addDailySchedule(restScheDetails) {
 
         schdeStarttime = schdeEndtime;
 
-        console.log("NEW START TIME: " + schdeStarttime);
+        // console.log("NEW START TIME: " + schdeStarttime);
         viewSchDetailsRows.appendChild(row);
 
         //將TimeStampString轉為Date 且可以直接比大小
@@ -279,6 +297,28 @@ async function addDailySchedule(restScheDetails) {
         }
     }
     return countedScheDetails;
+}
+
+// 幾月幾日直接+1天
+function addOneDay(dateString) {
+    // 将日期字符串转换为 Date 对象
+    const date = new Date(dateString);
+
+    // 将日期增加一天（24小时）
+    date.setDate(date.getDate() + 1);
+
+    // 提取月份和日期
+    const month = date.getMonth() + 1; // 月份是从0开始的，所以要加1
+    const day = date.getDate();
+
+    // 将月份和日期格式化成两位数
+    const formattedMonth = month.toString().padStart(2, '0');
+    const formattedDay = day.toString().padStart(2, '0');
+
+    // 构建新的日期字符串
+    const newDateString = `${formattedMonth}月${formattedDay}日`;
+
+    return newDateString;
 }
 
 // =============== 行程細節時間計算相關函式(BY Reynolds)結束 =============== 
@@ -346,13 +386,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     //透過schId 獲取整個schedule物件
     const response = await fetch(baseURL + `/schedules/schId/${schId}`);
     const schedule = await response.json();
-    console.log("Schedule ID: " + schId);
+    // console.log("Schedule ID: " + schId);
     //行程開始日期 結束日期
     var schStartDate = new Date(schedule.schStart);
     var schEndDate = new Date(schedule.schEnd);
     var schStart = schedule.schStart;
     var schEnd = schedule.schEnd;
-    var schDuringDays = ((schEndDate - schStartDate) / (1000 * 60 * 60 * 24)) + 1;
+    schDuringDays = ((schEndDate - schStartDate) / (1000 * 60 * 60 * 24)) + 1;
 
     //將起始日期及結束日期放在行程最上方
     mySchDateStart_el.innerText = modifiyDate(schStart);
@@ -365,8 +405,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     //取出本行程所有的行程細節
     const response1 = await fetch(baseURL + `/schDetails/${schId}`);
     const schDetails = await response1.json();
-    console.log("STAY time: " + schDetails[0].schdeStaytime);
-    console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
+    // console.log("STAY time: " + schDetails[0].schdeStaytime);
+    // console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
     const stayTimes = document.querySelectorAll(".stayTimes");
     let count = 0;
     //將所有行程細節stayTime顯示
@@ -377,6 +417,28 @@ document.addEventListener("DOMContentLoaded", async function () {
     // console.log(schDetails);
     addDailySchedule(schDetails);
 
+    // ====================== 生成行程細節天數tab內容 ======================
+
+    // 依據schDuringDays生成tab頁籤
+    dateSelectCellInsert_el.innerHTML = "";
+    let currentDate = schedule.schStart;
+    for (let i = 1; i <= schDuringDays; i++) {
+        // console.log(i);
+        let dateCell = document.createElement("div");
+        dateCell.classList.add("dateSelectCell");
+        dateCell.id = `day${i}`;
+
+        dateCell.innerHTML = `
+            <i class="fa-solid fa-arrow-right-arrow-left switch"></i>
+            <div class="whichDate" id="date${i}">${extractMonthAndDate(currentDate)}</div>
+            <div class="whichDays">第${i}天</div>
+            <i class="fa-regular fa-trash-can trash"></i>
+        `
+            ;
+        currentDate = addTimeToStartTime(currentDate, "24:00:00");
+        // currentDate = addOneDay(currentDate);
+        dateSelectCellInsert_el.appendChild(dateCell);
+    }
 
 });
 
@@ -389,31 +451,80 @@ backToMySchedule_el.addEventListener("click", function () {
 
 // 按下選擇天數tab，移動左右天數欄
 // 向左移
-let count_click_leftbtn = 0;
 let translateXValue = -60;
 let totalDisplacement = 0;
 tab_dateBarLeft_el.onclick = () => {
     totalDisplacement += translateXValue;
-    for (let dateSelectCell of dateSelectCell_el) {
+    for (let i = 1; i <= schDuringDays; i++) {
+        let dateSelectCell = document.querySelector("div#day" + i);
         dateSelectCell.style.transform = `translateX(${totalDisplacement}px)`;
     }
-    count_click_rightbtn = 0;
-    ++count_click_leftbtn;
-    console.log("向左" + count_click_leftbtn + "次");
 }
 
-// 向右移(要移除left設定)
+// 向右移
 let count_click_rightbtn = 0;
 tab_dateBarRight_el.onclick = () => {
     // 要讓元素從當下位置開始向右移動
     totalDisplacement -= translateXValue;
-    for (let dateSelectCell of dateSelectCell_el) {
+    for (let i = 1; i <= schDuringDays; i++) {
+        let dateSelectCell = document.querySelector("div#day" + i);
         dateSelectCell.style.transform = `translateX(${totalDisplacement}px)`;
     }
-    count_click_leftbtn = 0;
-    ++count_click_rightbtn;
-    console.log("向右" + count_click_rightbtn + "次");
 }
+
+// BBBBBBBBBBBBBBBBBBBBBBBUUUUUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGGGG
+// 移動到底部時，按鈕不會再有作用
+// 获取要测量距离的两个元素
+// const element1 = document.getElementById('element1');
+// const element2 = document.getElementById('element2');
+
+// 计算两个元素之间的距离
+function calculateDistance(element1,element2) {
+    const rect1 = element1.getBoundingClientRect();
+    const rect2 = element2.getBoundingClientRect();
+
+    const x1 = rect1.left + rect1.width / 2;
+    const x2 = rect2.left + rect2.width / 2;
+
+    const distance = Math.abs(x2 - x1);
+    return distance;
+}
+
+// // 触发事件
+// function handleDistanceCalculation() {
+//     const distance = calculateDistance();
+
+//     // 在这里可以根据距离触发事件
+//     if (distance < 50) {
+//         alert('距离小于50像素！');
+//     } else {
+//         alert('距离大于50像素。');
+//     }
+// }
+
+// LBTN.onclick{
+//     calculateDistance(l,l)
+//     if(cal<=0){
+//         LBtn.removeClass
+//     }else{
+//         LBtn.addClass
+//     }
+// }
+
+// RBTN.onclick{
+//     calculateDistance(r,r)
+//     if(cal<=0){
+//         RBtn.removeClass
+//     }else{
+//         RBtn.addClass
+//     }
+    
+// }
+
+// 给元素添加事件处理程序
+// element1.addEventListener('click', handleDistanceCalculation);
+// element2.addEventListener('click', handleDistanceCalculation);
+// BBBBBBBBBBBBBBBBBBBBBBBUUUUUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGGGG
 
 
 // 在行程細節中按下新增景點按鈕
