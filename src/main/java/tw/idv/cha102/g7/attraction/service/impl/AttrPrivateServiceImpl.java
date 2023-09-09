@@ -42,9 +42,17 @@ public class AttrPrivateServiceImpl implements AttrPrivateService {
         Attraction savedAttraction = attrRepository.save(attraction);
         AttrPrivateId attrPrivateId = new AttrPrivateId();
         attrPrivateId.setAttrId(savedAttraction.getAttrId());
+
         MemberController memberController = new MemberController();
         Member member = memberController.getMemId(request,response).getBody();
-        attrPrivateId.setMemId(member.getMemId());
+
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("memberId");
+        if (obj == null) {
+            return new ResponseEntity(new AttrPrivateDTO(),HttpStatus.OK);
+        }
+        Integer memId = Integer.parseInt(obj.toString());
+        attrPrivateId.setMemId(memId);
 
         AttrPrivateDTO attrPrivateDTO = new AttrPrivateDTO();
         attrPrivateDTO.setAttrPrivateId(attrPrivateId);

@@ -253,6 +253,31 @@
             <!-- changed to my-3 and changed from height: 800px to min-height -->
             <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;">
                 <h5 style="text-align: center">景點列表</h5>
+                <div>
+                    <div style="padding-left: 255px;">
+                        <button class="findAllAttraction  my-1 mx-1 ms-2">顯示所有景點</button>
+                        <div style="height: 10px;"></div>
+                    </div>
+                    <div class="my-1 mx-1 ms-2">
+                        <label for="attractionName">查詢景點: </label>
+                        <input type="text" id="attractionName" placeholder="請輸入景點名稱">
+                        <br>
+                        <div style="padding-left: 470px;">
+                            <button id="loadAttractions">查詢</button>
+                        </div>
+                    </div>
+                    <!--                                選擇每頁的資料顯示筆數-->
+                    <label for="pageSize">每頁筆數: </label>
+                    <select id="pageSize">
+                        <option value="1">1</option>
+                        <option value="5" selected>5</option>
+                        <option value="10">10</option>
+                    </select>
+                    頁碼:<input type="number" id="page" min="1" max="100" step="1" value="1">
+                    <div style="padding-left: 478px;">
+                        <input type="submit" id="pageChangeSubmit">
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered border-secondary" id="dataTable1">
                         <thead>
@@ -283,13 +308,14 @@
 
 
     <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="../../../../js/jquery-3.7.0.min.js"></script>
     <script>
         const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
-        <!--網頁載入後執行-->
+        // <!--網頁載入後執行-->
         document.addEventListener("DOMContentLoaded", function () {
-            fetchAttractionList();
+            // fetchAttractionList();
+            findAllAttraction();
         });
 
         async function fetchAttractionList() {
@@ -347,11 +373,218 @@
 
         // <!--按修改鈕會根據attrId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
         function redirectToDetailPage(attrId) {
-            var newPageUrl = ``;
+            var newPageUrl = baseUrl + `tmp/back_end/back_end/attraction/attraction.html`;
             window.location.href = newPageUrl;
         }
 
+        const baseUrl_func = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+        const baseUrl_page = window.location.protocol + "//" + window.location.host + "/u-and-me/" + "tmp/Front/";
+        $(document).ready(function () {
+            $("#loadAttraction").click(function () {
 
+                var id = $("#attractionId").val();
+                console.log(id);
+                var baseUrl = window.location.protocol + "//" + window.location.host;
+
+                fetch(baseUrl_func + "getAttraction/" + id)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Attraction not found!!!");
+                        }
+                        return response.json();
+                    })
+                    .then(attr => {
+                        const dataTableList = document.getElementById("dataTableList");
+                        dataTableList.innerHTML = "";
+
+                        const attr_el = document.getElementById("attrTarget");
+                        //document.getElementById("id").textContent = data.attrId;
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                        <td style="width: 100px;text-align: center;vertical-align: middle;">${attr.attrName}</td>
+                        <td style="width: 130px;text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrIlla}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrTypeId}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrCostRange}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">${attr.attrBussTime}</td>
+                        <td>
+                         <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                          <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                          </svg>
+                          </button>
+                        </td>
+                    `;
+                        dataTableList.appendChild(row);
+                        // attr_el.insertAdjacentElement('beforeend', row);
+                        // You can continue to populate other attributes here
+                    })
+                    .catch(error => {
+                        alert(error.message);
+                    });
+
+            });
+        });
+
+
+
+        var findAllAttraction = async function () {
+            var pageSize = $("#pageSize").val();
+            const page_el = $("#page");
+            page = $("#page").val() - 1;//校正頁數與Pageable的差
+
+            try {
+                var response = await fetch(baseUrl_func + 'getAllAttr');
+                console.log(response);
+                var attrList = await response.json();
+                console.log(attrList);
+
+                page_el.max = Math.floor(attrList.length / pageSize) + 1;
+                console.log(page_el.max);
+
+                response = await fetch(baseUrl_func + 'attr/all/' + pageSize + '/' + page);
+                attrList = await response.json();
+
+                const listStart_el = document.querySelector("#attrTarget");
+
+                const dataTableList = document.getElementById("dataTableList");
+                dataTableList.innerHTML = "";
+
+                let countNum = 0;
+                attrList.forEach(attraction => {
+                    const row = document.createElement("tr");
+                    // attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr,
+                    // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
+                    // 1	1	1	Attraction 1	123 Main St	12.345	67.89
+                    // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
+
+                    row.innerHTML = `
+                        <td class="td_attrId" style="text-align: center; vertical-align: middle;">${attraction.attrId}</td>
+                        <td style="text-align: center;vertical-align: middle;">${attraction.attrCostRange}</td>
+                        <td class="truncate" style="vertical-align: middle;">${attraction.attrName}</td>       
+                        <td class="truncate" style="vertical-align: middle;">${attraction.attrIlla}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(attraction.attrVeriSta)}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">
+                            <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attraction.attrId})">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                                </svg>
+                            </button>
+                        </td>
+                    `;
+                    dataTableList.appendChild(row);
+                    // listStart_el.insertAdjacentElement('beforeend', row);
+
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+        $(".findAllAttraction").click(function () {
+            $("#page").val(1);
+
+            $("#attractionName").val("");
+            findAllAttraction();
+        });
+
+        //透過名稱找出所有包含關鍵字的景點
+        var page;
+        $("#loadAttractions").click(function () {
+            if ($("#attractionName").val() == "") {
+                alert("搜尋欄不能為空");
+                return;
+            }
+            $("#page").val(1);
+            searchAttraction();
+        });
+
+
+        //其中的超出頁數BUG未修
+        $("#page").change(function () {
+            var inputValue = parseInt($("#page").val()); // 將輸入的值轉為整數
+            var max = parseInt($("#page").attr("max")); // 獲取max屬性的值並轉為整數
+
+            // 檢查輸入值是否有效
+            if (inputValue <= 0 || inputValue > max) {
+                alert("無效的頁數，請輸入介於1和" + max + "之間的值。");
+                $("#page").val(1); // 清空輸入框的值
+            } else {
+                if ($("#attractionName").val() != "") {
+                    searchAttraction();
+                } else {
+                    findAllAttraction();
+                }
+            }
+        });
+
+        async function searchAttraction() {
+            var attrName = $("#attractionName").val();
+            var pageSize = $("#pageSize").val();
+            const page_el = $("#page");
+            page = $("#page").val() - 1;//校正頁數與Pageable的差
+
+            try {
+                ///attr/{attrName}/{pageSize}/{page}
+                //可簡化
+                var response = await fetch(baseUrl + 'getAttrsByName/' + attrName);
+                var attrList = await response.json();
+                page_el.max = attrList.length / pageSize + 1;
+                console.log(page_el.max);
+                response = await fetch(baseUrl + 'attr/' + attrName + '/' + pageSize + '/' + page);
+                attrList = await response.json();
+                console.log(attrList);
+                const listStart_el = document.querySelector("#attrTarget");
+                let countNum = page * pageSize;
+
+                const dataTableList = document.getElementById("dataTableList");
+                dataTableList.innerHTML = "";
+
+                attrList.forEach(attraction => {
+
+                    const row = document.createElement("tr");
+                    // attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr,
+                    // attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep
+                    // 1	1	1	Attraction 1	123 Main St	12.345	67.89
+                    // Description for Attraction 1	1	9:00 AM - 5:00 PM	2	Representative for Attraction 1
+                    row.innerHTML = `
+                        <td class="td_attrId" style="text-align: center; vertical-align: middle;">${attraction.attrId}</td>
+                        <td style="text-align: center;vertical-align: middle;">${attraction.attrCostRange}</td>
+                        <td class="truncate" style="vertical-align: middle;">${attraction.attrName}</td>       
+                        <td class="truncate" style="vertical-align: middle;">${attraction.attrIlla}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(attraction.attrVeriSta)}</td>
+                        <td style="width: 65px;text-align: center;vertical-align: middle;">
+                            <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attraction.attrId})">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                                </svg>
+                            </button>
+                        </td>
+                    `;
+                    dataTableList.appendChild(row);
+
+                });
+
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function redirectToDetailPage(attrId) {
+            var newPageUrl = baseUrl_page + `AttractionDetails.html?attrId=${attrId}`;
+            window.location.href = newPageUrl;
+        }
+
+        async function deleteAttraction(attrId) {
+            alert("準備刪除 ")
+            const response = await fetch(baseUrl_func + 'deleteAttraction/' + attrId);
+            alert("刪除景點成功");
+            location.reload();
+        }
 
 
     </script>
