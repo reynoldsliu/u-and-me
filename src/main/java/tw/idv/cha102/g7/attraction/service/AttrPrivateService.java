@@ -15,6 +15,9 @@ public interface AttrPrivateService {
                                                                        HttpServletResponse response,
                                                                        Attraction Attraction);
 
+    List<Attraction> findAttrsByMem(HttpServletRequest request,
+                                    HttpServletResponse response);
+
     public ResponseEntity<String> deletePrivateAttraction(HttpServletRequest request,
                                                           HttpServletResponse response,
                                                           Integer attrId);

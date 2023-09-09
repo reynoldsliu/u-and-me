@@ -106,7 +106,7 @@ public class AttrPrivateController {
      * @param attrPrivateId
      * @return AttrPrivateDTO
      */
-    @RequestMapping("/getPrivateAttractions/{memId}")
+        @RequestMapping("/getPrivateAttractions/{memId}")
     public List<Attraction> getPrivateAttractions(@PathVariable Integer memId){
         return attrPrivateService.getPrivateAttractionByMemId(memId);
     }

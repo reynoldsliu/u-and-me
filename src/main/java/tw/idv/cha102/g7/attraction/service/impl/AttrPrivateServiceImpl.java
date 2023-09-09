@@ -60,6 +60,28 @@ public class AttrPrivateServiceImpl implements AttrPrivateService {
         return new ResponseEntity(attrPrivateRepository.save(attrPrivateDTO), HttpStatus.OK);
     }
 
+    @Override
+    public List<Attraction> findAttrsByMem(HttpServletRequest request,
+                                           HttpServletResponse response){
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("memberId");
+        if(obj==null){
+            return new ArrayList<>();
+        }
+        Integer memId = Integer.parseInt(obj.toString());
+        List<AttrPrivateDTO> attrPrivateDTOS = attrPrivateRepository.findAll();
+        List<Attraction> returnList = new ArrayList<>();
+        for(AttrPrivateDTO attrPrivateDTO:attrPrivateDTOS){
+            Attraction attraction = attrRepository.findById(attrPrivateDTO.getAttrPrivateId().getAttrId()).orElse(null);
+            if(attrPrivateDTO.getAttrPrivateId().getMemId()==memId &&
+                            attraction.getAttrSta()!=0){
+                returnList.add(attraction);
+            }
+        }
+        return returnList;
+    }
+
+
     @Transactional
     @Override
     public ResponseEntity<String> deletePrivateAttraction(HttpServletRequest request,

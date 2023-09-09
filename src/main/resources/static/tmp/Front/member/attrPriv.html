@@ -130,11 +130,12 @@
 
 
             <div class="groupHearder" style="background-color:rgb(81, 113, 111);color: #fff; border-radius: 10px;">
-                <span style="font-size: 23px; margin-left: 266px;">景點收藏</span>
+                <span style="font-size: 23px; margin-left: 266px;">私人景點</span>
             </div>
 
-            <div id="redirectAttrPriv" style="float: right;">
-                <button onclick="redirectAttrPriv()">>>前往私人景點</button>
+            <div id="redirectAttrPriv" style="float: left;">
+                <button onclick="redirectAttrFav()">
+                    <<返回景點收藏< /button>
             </div>
 
             <div style="height: 15px;"></div>
@@ -312,16 +313,20 @@
             const member = await res.json();
             const memId = member.memId;
             console.log("Member ID: " + memId);
-            const response = await fetch(baseUrl + `attrCol/getAttrsFromCollectionByMem`);
-            const attrCols = await response.json();
-            console.log(attrCols);
+            const response = await fetch(baseUrl + `attrPriv/getPrivateAttractions/` + memId);
+            const attrPrivs = await response.json();
+            console.log(attrPrivs);
             const dataTableList = document.getElementById("dataTableList");
             dataTableList.innerHTML = "";
-            attrCols.forEach(attr => {
+
+            for (let attr of attrPrivs) {
+                if (attr == null) {
+                    continue;
+                }
                 const row = document.createElement("div");
                 row.classList.add("attrFav");
                 let addr = '';
-                if (attr.attrCity != undefined)
+                if (attr.attrCity != undefined || attr.attrCity != null)
                     addr += attr.attrCity;
                 if (attr.attrDist != undefined)
                     addr += attr.attrDist;
@@ -343,7 +348,7 @@
                     <div class="attrFavTimeInput" style="display: inline;">${attr.attrBussTime}</div>
                     <div class="attrDetail">${attr.attrIlla}</div>
                     <span class="attrPage" style="margin-left:360px;">
-                        <a href="#" class="btn btn-outline-success btn-sm" id="attrPage" onclick="removeFromCollection(${memId},${attr.attrId})">移除收藏</a>
+                        <a href="#" class="btn btn-outline-success btn-sm" id="attrPage" onclick="removeFromPrivate(${attr.attrId})">刪除景點</a>
                     </span>
                     <div style="margin-top: 20px; margin-right: 10px;"></div>
 
@@ -354,27 +359,19 @@
                 </div>
                 `;
                 dataTableList.appendChild(row);
-            });
+            }
+
 
         })
 
-        async function removeFromCollection(MemId, AttrId) {
-            const collectionId = {
-                memId: MemId,
-                attrId: AttrId
-            }
-            const response = await fetch(baseUrl + `attrCol/removeAttrFromCollection`, {
-                method: 'POST', // 或 'PUT'、'GET'、'DELETE'
-                headers: {
-                    'Content-Type': 'application/json' // 指定请求主体的类型为JSON
-                },
-                body: JSON.stringify(collectionId)
-            });
+        async function removeFromPrivate(AttrId) {
+            const response = await fetch(baseUrl + `deleteAttraction/` + AttrId);
+            alert("刪除編號: " + AttrId);
             location.reload();
         }
 
-        function redirectAttrPriv(){
-            const url = baseUrl + `tmp/Front/member/attrPriv.html`;
+        function redirectAttrFav() {
+            let url = baseUrl + `tmp/Front/member/attrFav.html`;
             location.href = url;
         }
 

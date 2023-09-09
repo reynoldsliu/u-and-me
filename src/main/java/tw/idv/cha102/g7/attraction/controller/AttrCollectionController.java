@@ -11,6 +11,8 @@ import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
 import tw.idv.cha102.g7.member.entity.Member;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -79,8 +81,21 @@ public class AttrCollectionController {
      * @return
      */
         @RequestMapping("/getAttrsFromCollectionByMemIdFilter/{memId}")
-    public ResponseEntity<List<Attraction>> getAttrsFromCollectionByMemIdFilter(@PathVariable Integer memId){
-        return new ResponseEntity(attrCollectionService.findAttrsByMemIdFilter(memId), HttpStatus.OK);
+    public ResponseEntity<List<Attraction>> getAttrsFromCollectionByMemIdFilter(HttpServletRequest request,
+                                                                                HttpServletResponse response,
+                                                                                @PathVariable Integer memId){
+        return new ResponseEntity(attrCollectionService.findAttrsByMemIdFilter(request,response,memId), HttpStatus.OK);
+    }
+
+    /**
+     * 顯示一個會員所有的景點收藏 過濾已下架景點 會員本人用
+     * @param memId
+     * @return
+     */
+        @RequestMapping("/getAttrsFromCollectionByMem")
+    public ResponseEntity<List<Attraction>> getAttrsFromCollectionByMem(HttpServletRequest request,
+                                                                                HttpServletResponse response){
+        return new ResponseEntity(attrCollectionService.findAttrsByMem(request,response), HttpStatus.OK);
     }
 
 

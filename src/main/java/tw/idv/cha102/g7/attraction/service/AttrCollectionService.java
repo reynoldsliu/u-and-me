@@ -8,6 +8,8 @@ import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.member.entity.Member;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -17,7 +19,12 @@ public interface AttrCollectionService {
     public TreeSet<Member> returnMemsByAttrId(Integer attrId);
 
     public List<AttrCollectionDTO> findAttrsByMemId(Integer memId);
-    public List<Attraction> findAttrsByMemIdFilter(Integer memId);
+    public List<Attraction> findAttrsByMemIdFilter(HttpServletRequest request,
+                                                   HttpServletResponse response,
+                                                   Integer memId);
+
+    public List<Attraction> findAttrsByMem(HttpServletRequest request,
+                                           HttpServletResponse response);
     public List<AttrCollectionDTO> findAttrCollectionsByMemName(String memName);
 
     public List<AttrCollectionDTO> findAttrCollectionsByAttrName(Integer memId, String attrName);
