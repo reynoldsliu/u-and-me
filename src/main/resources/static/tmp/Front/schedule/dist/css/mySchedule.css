@@ -210,15 +210,74 @@ p#inputEndDate {
 }
 
 /* 行程設定(分享權限、刪除行程) */
+/* 編輯按鈕區塊 */
 div.settingSch {
+  /* border: 1px solid white; */
   width: 75px;
   height: 75px;
   position: absolute;
-  right: 0;
   top: 0;
-  border: 1px solid white;
+  right: 0;
   color: white;
+  font-size: 2rem;
+  text-align: center;
 }
+
+/* 編輯按鈕icon */
+i.edit{
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  position: absolute;
+  right: 0;
+  padding: 20px 10px 10px 10px;
+}
+
+/* 隱私權設定與刪除區塊 */
+div.settingSelect{
+  /* border: 1px solid white; */
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 2px 2px 2px black;
+  width: 130px;
+  height: 65px;
+  position: absolute;
+  right: 0;
+  margin: 10px 10px 0 0;
+}
+
+div.settingSelect.-off{
+  display: none;
+}
+
+/* 各個選項設定的區塊 */
+div.settingSelect>div{
+  border-bottom: 1px solid lightgray;
+  border-radius: 10px 10px 0 0px;
+  width: 100%;
+  height: 50%;
+  display: block;
+  padding-top: 5px;
+  font-size: 1rem;
+  color: black;
+  font-weight: bold;
+}
+
+/* 滑過時背景變色 */
+div.settingSelect>div:hover{
+  background-color: lightgray;
+}
+
+/* 刪除區塊 */
+div.settingSelect>div:last-child{
+  border-bottom: none;
+  color: rgb(25, 135, 84);
+  border-radius: 0 0 10px 10px;
+}
+
+
 
 /* 查看詳情 */
 a.viewDetails {

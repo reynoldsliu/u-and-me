@@ -1,3 +1,6 @@
+// class -off 屬性
+const classSwitchOff = "-off";
+
 // 行程搜尋欄相關的標籤
 let search_btn_el = document.getElementById("search-btn");
 let keywords_el = document.getElementById("keywords");
@@ -10,7 +13,12 @@ let pageSelect2_el = document.getElementById("pageSelect2");
 let pageSelect3_el = document.getElementById("pageSelect3");
 
 // 行程增刪改標籤
-let btn_schDone = document.getElementById("schDone");
+const btn_schDone = document.getElementById("schDone");
+// 編輯行程相關設定(會有多個，屆時動態生成，要重新取值)
+const settingSch_el = document.querySelector(".settingSch");
+const settingSelect_el = document.querySelector(".settingSelect");
+// 公開權限
+// 刪除
 
 // 行程卡片內容標籤
 const inputStartDate_el = document.getElementById("inputStartDate");
@@ -32,7 +40,7 @@ let hideURL = mySchbaseURL + "hide/";
 let e = 0; //用來控制分頁
 
 // 載入網頁就將所有該會員的行程列表查出
-document.addEventListener("DOMContentLoaded",async function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const response = await fetch(baseURL + `member/getMemId`);
   const member = await response.json();
   const memId = member.memId;
@@ -59,8 +67,12 @@ async function fetchMyScheduleList(URL, memId, e) {
             <div class="card">
             <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg"
                 alt="" class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
-                <div class="settingSch">
-                A
+                <div class="settingSch" id="settingSch${schedule.schId}" onclick="editMySchedule(${schedule.schId})">
+                  <div><i class="fa-solid fa-pen-to-square edit"></i></div>
+                  <div class="settingSelect -off" id="settingSelect${schedule.schId}" onmouseleave="removeEditBox(${schedule.schId})">
+                      <div class="privateSetting" id="privateSetting${schedule.schId}" onclick="selectPrivateSetting(${schedule.schId})">隱私設定與分享</div>
+                     <div class="deleteMySch">刪除</div>
+                  </div>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">${schedule.schName}</h5>
@@ -210,3 +222,75 @@ btn_schDone.onclick = async event => {
 }
 
 // =============== 新增一個行程大綱結束 ===============
+
+
+// =============== 編輯一個行程大綱(公開權限) ===============
+function editMySchedule(schId) {
+  // 跳出選擇公開權限及刪除選項框
+  const settingSelect_el = document.querySelector("#settingSelect"+schId);
+  if (settingSelect_el.classList.contains(classSwitchOff)) {
+    settingSelect_el.classList.remove(classSwitchOff);
+  }
+}
+// 滑鼠離開編輯選項時，自動關閉
+function removeEditBox(schId) {
+  const settingSelect_el = document.querySelector("#settingSelect"+schId);
+  if (!settingSelect_el.classList.contains(classSwitchOff)) {
+    settingSelect_el.classList.add(classSwitchOff);
+  }
+}
+
+async function selectPrivateSetting(schId) {
+
+  // const response = await fetch(baseURL + `member/getMemId`);
+  // const member = await response.json();
+  // const memId = member.memId;
+
+
+  Swal.fire({
+    title: '隱私設定與分享',
+    input: 'select',
+    inputOptions: {
+      '0': '私密',
+      '1': '透過連結分享',
+      '2': '公開'
+    },
+    showCancelButton: true,
+    cancelButtonText: '取消',
+    confirmButtonText: '確定',
+    showLoaderOnConfirm: true,
+    preConfirm: (login) => {
+      return fetch(`//api.github.com/users/${login}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(response.statusText)
+          }
+          return response.json()
+        })
+        .catch(error => {
+          Swal.showValidationMessage(
+            `隱私權設定失敗: ${error}`
+          )
+        })
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: `設定成功！`,
+        // success
+        imageUrl: 'https://storage.googleapis.com/sticker-prod/yZzo2n9q8atPzSyYEWBg/9-1.png'
+      })
+    }
+  })
+}
+
+// =============== 編輯一個行程大綱結束 ===============
+
+
+// =============== 刪除一個行程大綱 ===============
+
+
+
+
+// =============== 刪除一個行程大綱結束 ===============
