@@ -153,6 +153,13 @@ public class MemberServiceImpl implements MemberService {
             if (member.getMemEmail() != null) {
                 existingMember.setMemEmail(memEmail);
             }
+            if (member.getMemGroup() != null) {
+                existingMember.setMemGroup(member.getMemGroup());
+            } if (member.getMemSta() != null) {
+                existingMember.setMemSta(member.getMemSta());
+            }
+
+
 
 
             System.out.println("existingMember" + existingMember);

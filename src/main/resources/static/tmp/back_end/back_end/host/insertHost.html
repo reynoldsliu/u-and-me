@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="shortcut icon" href="../../assets/dist/img/favicon.ico" type="image/x-icon">
 
+
     <!-- Bootstrap core CSS -->
     <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
@@ -36,7 +37,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="./member.css" rel="stylesheet">
+    <link href="./host.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
@@ -233,290 +234,64 @@
                 <li class="breadcrumb-item active" aria-current="page">會員</li>
             </ol>
         </nav>
-        <div class="shadow p-3 my-3 bg-body rounded">
+        <div class="shadow rounded"style=" padding:20px 30px 50px 130px;border-radius:40px; margin-left:250px;height:450px; width:500px; background-color:#fff;">
 
             <!-- 內容從這開始-->
-            <h5 style="text-align: center">會員列表</h5>
-            <div class="table-responsive">
-                <table class="table table-bordered border-secondary" id="dataTable1">
-                    <thead>
-                    <tr>
-                        <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">會員編號
-                        </th>
-                        <th style="display:none">信箱</th>
-                        <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">姓名</th>
-                        <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">電話</th>
-                        <th style="text-align: center;width: 100px; color:beige; background-color:#1D3124 ;">身分證</th>
-                        <th style="text-align: center;width: 100px;color:beige; background-color:#1D3124 ;">
-                            身分證照片
-                        </th>
 
-                        <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">會員狀態
-                        </th>
-                        <th style="text-align: center;width: 85px; color:beige; background-color:#1D3124 ;">團主狀態
-                        </th>
-                        <th style="text-align: center;width: 60px; color:beige; background-color:#1D3124 ;"></th>
+            <form>
+                <div class="row">
+                    <div class="col-sm-7">
 
-                    </tr>
-                    </thead>
-                    <tbody id="dataTableList">
-                    <!--會員列表在這裡動態插入 -->
-                    </tbody>
-                </table>
-            </div>
+                        <div style="margin-left:40px; padding-bottom: 15px; font-size: 28px; font-weight: bolder; color: rgb(62, 46, 37);">新增管理員</div>
+                        <div style="width: 230px;">
+                            <label for="hostEmail" style="color: #1D3124; font-weight: bolder;">管理員信箱</label>
+                            <input id="hostEmail" name="hostEmail" type="text"
+                                   class="form-control">
+                        </div>
+                        <div style="width: 230px;">
+                            <label for="hostPassword" style="color: #1D3124; font-weight: bolder;">管理員密碼</label>
+                            <input id="hostPassword" name="hostPassword" type="password"
+                                   class="form-control">
+                        </div>
+
+                        <div style="width: 230px;">
+                            <label for="hostName" style="color: #1D3124; font-weight: bolder;">姓名</label>
+                            <input id="hostName" name="hostName" type="text"
+                                   class="form-control">
+                        </div>
+                        <div style="width: 230px;">
+                            <label for="hostPhone" style="color: #1D3124; font-weight: bolder;">電話</label>
+                            <input id="hostPhone" name="hostPhone" type="text"
+                                   class="form-control">
+                        </div>
 
 
+
+                    <div style="margin-left:200px; width: 100px; margin-top:30px;">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success" id="regButton">確認新增</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
-    </div>
-
 
 </main>
 
 
+
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 <!--<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="insertHost.js"></script>
 <!--<script src="./member.js"></script>-->
 
 
-<script>
-    const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
-    // <!--網頁載入後執行-->
-
-    //  <!--生成會員列表-->
-    document.addEventListener("DOMContentLoaded", function () {
-      fetchMemberList();
-    });
-
-    async function fetchMemberList() {
-      try {
-        const response = await fetch(baseUrl+'hostToMember/all');
-        const memberList = await response.json();
-
-        const dataTableList = document.getElementById("dataTableList");
-        dataTableList.innerHTML = "";
-
-
-        memberList.forEach(member => {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-  <td style="width: 50px;text-align: center; vertical-align: middle; ">${member.memId}</td>
-
-  <td style="width: 100px;text-align: center;vertical-align: middle;">${member.memName}</td>
-  <td style="width: 100px;text-align: center;vertical-align: middle;">${member.memPhone}</td>
-  <td style="width: 100px;text-align: center;vertical-align: middle;">${member.memIdcard}</td>
-  <td style="width: 100px; height:200px;text-align: center;vertical-align: middle;"><img src="data:image/jpeg;base64,${member.memIdPic}"style="max-width: 100px; max-height: 200px;"></td>
-  <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMapping.get(member.memSta)}</td>
-  <td style="width: 65px;text-align: center;vertical-align: middle;">${statusMappingGroup.get(member.memGroup)}</td>
-  <td style="width: 65px;text-align: center;vertical-align: middle; backgroung-color:#1D3124;">
-
-    <!--動態視窗觸發按鈕-->
-
-     <button type="button" id="buttonId" class="view_member" data-bs-toggle="modal" data-bs-target="#staticBackdrop${member.memId}">
-      <i class="fa-solid fa-pen fa-xs" style="color: #1d3124;"></i>
-       </button>
-
-     <!-- Modal -->
-
-    <div class="modal fade" id="staticBackdrop${member.memId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-
-      <!-- Modal-dialog -->
-      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel" style="padding-left:180px;">會員明細</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-
-
-          <!-- 小視窗內容 -->
-          <div class="modal-body" style="padding-left:70px; height:400px;">
-
-            <table class="table1 table-bordered" id="modal_table" style="width: 350px;height:550px;padding-left: 20px; margin-top:10px;">
-              <thead>
-
-              </thead>
-              <tbody id="dataTableList1">
-
-                <th style="width: 40px; height:40px;color:beige;  background-color:#1D3124 ;">會員編號</th>
-                <td class="editStyle" style="width: 40px;height:40px;text-align: center; vertical-align: middle; ">${member.memId}</td>
-                <td style="width: 40px;height:40px;text-align: center; vertical-align: middle; ">${member.memId}</td>
-
-
-
-                <tr>
-                <th style="width: 40px; height:20px;color:beige;  background-color:#1D3124 ;">姓名</th>
-                <td class="editStyle" style="width: 100px;height:50px;text-align: center;vertical-align: middle;">${member.memName}</td>
-                <td style="width: 120px;height:50px;text-align: center;vertical-align: middle;">
-                    <input type="text" class="form-control memName" id="memName" value="${member.memName}"
-                    style="text-align: center;"></td>
-                    </tr>
-                <tr>
-                <th style="width: 80px; height:30px;color:beige;  background-color:#1D3124 ;">電話</th>
-                  <td class="editStyle" style="width: 100px;height:50px;text-align: center;vertical-align: middle;">${member.memPhone}</td>
-                  <td style="width: 120px;height:50px;text-align: center;vertical-align: middle;">
-                  <input type="text" class="form-control memPhone" id="memPhone" value="${member.memPhone}"
-                    style="text-align: center;"></td>
-                </tr>
-                <tr>
-                  <th style="width: 100px;height:50px;color:beige; background-color:#1D3124 ;">身分證</th>
-                  <td class="editStyle" style="width: 100px;height:50px;text-align: center;vertical-align: middle;">${member.memIdcard}</td>
-                  <td style="width: 100px;height:50px;text-align: center;vertical-align: middle;">
-                <input type="text" class="form-control memIdcard" id="memIdcard" value="${member.memIdcard}"
-                style="text-align: center;">
-                  </td>
-                </tr>
-
-                <tr>
-                  <th style="width: 100px;height:50px;color:beige; background-color:#1D3124 ;">會員狀態</th>
-                  <td class="editStyle"style="width: 65px;height:50px;text-align: center;vertical-align: middle;">${statusMapping.get(member.memSta)}</td>
-                    <td style="width: 65px;height:50px;text-align: center;vertical-align: middle;">
-                    <select class=" form-select text-secondary memSta" id="memSta">
-                     <option value="0" ${member.memSta === 0 ? 'selected' : ''}>註冊未驗證</option>
-                     <option value="1" ${member.memSta === 1 ? 'selected' : ''}>正常使用</option>
-                     <option value="2" ${member.memSta === 2 ? 'selected' : ''}>停止使用</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                  <th style="width: 100px;height:50px;color:beige; background-color:#1D3124 ;">團主狀態
-                  </th>
-                  <td class="editStyle"style="width: 65px;height:50px;text-align: center;vertical-align: middle;">
-                    ${statusMappingGroup.get(member.memGroup)}</td>
-                    <td style="width: 65px;height:50px;text-align: center;vertical-align: middle;">
-                        <select class="form-select text-secondary memGroup" id="memGroup">
-                          <option value="0" ${member.memGroup === 0 ? 'selected' : ''}>非團主</option>
-                          <option value="1" ${member.memGroup === 1 ? 'selected' : ''}>團主</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                <th style="display:none; width: 5px; height:25px;color:beige;  background-color:#1D3124 ;">會員信箱</th>
-                <td class="editStyle" style="display:none; width: 5px;height:5px;text-align: center;vertical-align: middle;">${member.memEmail}</td>
-                <td style="display:none; width: 5px;height:50px;text-align: center;vertical-align: middle;">
-                    <input type="text" class="form-control memEmail" id="memEmail" value="${member.memEmail}"
-                    style="display:none; text-align: center;"></td>
-                    </tr>
-
-
-              </tbody>
-            </table>
-
-          </div>
-
-                <!--編輯按鈕-->
-          <div class="modal-footer">
-            <button type="submit" id="editButton"class="editBtn" data-bs-dismiss="modal" data-memid="${member.memId}">完成</button>
-          </div>
-
-         <!--按下編輯鈕可以修改會員資訊--!>
-
-
-
-        </div>
-      </div>
-    </div>
-
-  </td>
-  `;
-          dataTableList.appendChild(row);
-        });
-
-
-      } catch (error) {
-        console.error("Error fetching member list:", error);
-      }
-    }
-
-
-
-
-
-    const statusMapping = new Map([
-      [0, '註冊未驗證'],
-      [1, '正常使用'],
-      [2, '停止使用'],
-    ]);
-
-    const statusMappingGroup = new Map([
-      [0, '非團主'],
-      [1, '團主'],
-    ]);
-
-     <!--按修改鈕會根據memId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
-    function redirectToDetailPage(memId) {
-      var newPageUrl = `activityEdit.html?memId=${memId}`;
-      window.location.href = newPageUrl;
-    }
-
-
-     <!--編輯按鈕按下會能夠更新會員資料-->
-
-
-    //const editBtn_el = document.getElementsByClassName("editBtn");
-
-
-
-    const memName = document.getElementsByClassName("memName");
-    const memEmail = document.getElementsByClassName("memEmail");
-    const memPhone = document.getElementsByClassName("memPhone");
-    const memIdCard = document.getElementsByClassName("memIdcard");
-    const memSta = document.getElementsByClassName("memSta");
-    const memGroup = document.getElementsByClassName("memGroup");
-    const editBtnElements  = document.getElementsByClassName("editBtn");
-
-
-   $(document).on("click", ".editBtn", async function(event){
-
-
-        event.preventDefault();
-       // 建立要傳遞的資料
-        const memId = $(this).data('memid')
-        const requestMemberData = {
-        "memEmail": memEmail[memId-1].value,
-        "memName": memName[memId-1].value,
-        "memPhone": memPhone[memId-1].value,
-        "memIdcard": memIdcard[memId-1].value,
-        "memSta": memSta[memId-1].value,
-        "memGroup": memGroup[memId-1].value};
-        console.log( memSta[memId-1].value);
-    try {
-        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
-        const response = await fetch(`${baseUrl}hostToMember/update`, {
-            method: 'POST',
-            headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestMemberData)
-                });
-
-                if (response.ok) {
-                    const updatedMemberData = await response.json();
-              Swal.fire({
-                         icon: 'success',
-                         title: '更改成功',
-                         text: '',
-                         confirmButtonText: '確定'
-      })}else {
-                    console.error('Failed to update member.');
-                }
-            } catch (error) {
-                console.error('Error to update member.',error);
-            }
-            location.reload();
-   })
-
-</script>
 </body>
 
 </html>
 
-<!--input box display placeholder ${member.memName}
-
-//按下編輯鈕後，小視窗表格會變成右邊是輸入框的表格，編輯鈕變成完成鈕
-//輸入框裡placeholder要有原本顯示的該筆會員資料 placeholder ${member.memName}
-//按下完成鈕，資料更新成功並即時顯示在表格欄位內-->
 

@@ -9,7 +9,7 @@
                 }
 
                 Login(member);
-                alert("登入成功")
+//                alert("登入成功")
             })
 
             const testloginBtn_el = document.getElementById("testloginBtn");
@@ -45,9 +45,14 @@
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(member)
-                })
-                    .then(response => response.json())
-                    .then(body => {
-                        console.log(body.message);
-                    })
+                }); if (response.ok) {
+                             Swal.fire({
+                                            icon: 'success',
+                                            title: '登入成功',
+                                            text: '',
+                                            confirmButtonText: '確定'
+                         })}else {
+                             alert("登入失敗，請再次嘗試");
+                         }
+
             }
