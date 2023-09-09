@@ -1,6 +1,5 @@
 package tw.idv.cha102.g7.group.repo;
 
-import org.eclipse.tags.shaded.org.apache.bcel.generic.Select;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +21,7 @@ public interface RegFormRepository extends JpaRepository<RegForm, Integer> {
     Page<RegFormMemberDetailDto> findRegFormMemberDetailDtoByGroupId(Integer groupId, Pageable pageable);
 
     List<RegForm> findByGroupIdOrderByFormId(Integer groupId);
+
+    @Query(value = "SELECT m.refund_sta FROM reg_from AS r LEFT JOIN member_detail AS m ON r.form_id = m.form_id WHERE r.group_id = ?1", nativeQuery = true)
+    List<RegFormMemberDetailDto> findRefundSTaByGroupId(Integer groupId);
 }

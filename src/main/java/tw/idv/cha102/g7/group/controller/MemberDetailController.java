@@ -1,6 +1,8 @@
 package tw.idv.cha102.g7.group.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.group.dto.GroupRegFormMemberDetailDto;
 import tw.idv.cha102.g7.group.entity.MemberDetail;
@@ -115,5 +117,9 @@ public class MemberDetailController {
         return memberDetailService.findByMemId(memId);
     }
 
-
+    @PutMapping("/updRefundSta/{detailId}")
+    public void updateRefundSta(@PathVariable Integer detailId,
+                                @RequestBody MemberDetail memberDetail){
+        memberDetailService.updateRefundSta(detailId, memberDetail);
+    }
 }

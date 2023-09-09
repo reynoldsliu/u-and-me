@@ -1,4 +1,5 @@
 //==========使用到的元素==========
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me";
 const join_members_el = document.getElementById("join_members");
 const selectMember_el = document.getElementById("selectMember");
 const plus_el = document.getElementById("plus");
@@ -54,7 +55,7 @@ window.addEventListener("load", function (e) {
 
     // 取得插入的formId
     // 後面/1為memId
-    fetch('http://localhost:8080/u-and-me/regForm/findFromId', {
+    fetch(baseUrl + '/regForm/findFromId', {
         method: 'GET',
     }).then(response => {
         return response.json();
@@ -62,7 +63,7 @@ window.addEventListener("load", function (e) {
         formId = Number(regform.formId) + 1;
     });
 
-    fetch('http://localhost:8080/u-and-me/group/findMember/' + groupId, {
+    fetch(baseUrl + '/group/findMember/' + groupId, {
         method: 'GET',
     }).then(response => {
         return response.json();
@@ -106,9 +107,14 @@ order_confirmed_el.addEventListener('click', function (e) {
     emailStr.innerHTML = '';
     phoneStr.innerHTML = '';
 
-    if(maxMember === 0){
-        alert('該揪團已結束報名');
-        location.href='http://localhost:8080/u-and-me/tmp/Front/group/groupMemo.html?groupId=' + groupId;
+    if (maxMember === 0) {
+        Swal.fire({
+            icon: 'error',
+            title: '報名失敗',
+            text: '該揪團已達最大人數',
+            showCancelButton: true
+        })
+        location.href = baseUrl + '/tmp/Front/group/groupMemo.html?groupId=' + groupId;
     }
 
     if (email_el.value === null || email_el.value.trim() === "") {
@@ -157,7 +163,7 @@ order_confirmed_el.addEventListener('click', function (e) {
         nametext_el.innerHTML = '姓名';
         idnumbertext_el.innerHTML = '身分證字號';
         birthdaytext_el.innerHTML = '出生日期';
-        
+
 
         //錯誤判斷
         if (name_el.value === null || name_el.value.trim() === "") {
@@ -180,7 +186,7 @@ order_confirmed_el.addEventListener('click', function (e) {
             control = false;
             birthdayStr.innerHTML = ' *出生日期不可為空值';
             birthdaytext_el.appendChild(birthdayStr);
-        } else if (today < birthday_el.valueAsNumber){
+        } else if (today < birthday_el.valueAsNumber) {
             control = false;
             birthdayStr.innerHTML = ' *出生日期輸入錯誤';
             birthdaytext_el.appendChild(birthdayStr);
@@ -198,14 +204,19 @@ order_confirmed_el.addEventListener('click', function (e) {
         }
         // console.log(send_data);
         //先插入上面form的資料
-        fetch('http://localhost:8080/u-and-me/regForm', {
+        fetch(baseUrl + '/regForm', {
             headers: {
                 "content-type": "application/json",
             },
             method: 'POST',
             body: JSON.stringify(form_data)
         }).catch(function (error) {
-            alert('新增失敗 請檢察填寫資料');
+            Swal.fire({
+                icon: 'error',
+                title: '報名失敗',
+                text: '請檢查報名資料',
+                showCancelButton: true
+            })
             return;
         });
 
@@ -222,24 +233,38 @@ order_confirmed_el.addEventListener('click', function (e) {
                 gender: gender_el.value,
                 birthday: birthday_el.value
             }
-            fetch('http://localhost:8080/u-and-me/memberDetail', {
+            fetch(baseUrl + '/memberDetail', {
                 headers: {
                     "content-type": "application/json",
                 },
                 method: 'POST',
                 body: JSON.stringify(data)
             }).catch(function (error) {
-                alert('新增失敗 請檢察填寫資料');
+                Swal.fire({
+                    icon: 'error',
+                    title: '報名失敗',
+                    text: '請檢查報名資料',
+                    showCancelButton: true
+                })
             });
         }
-        alert('新增成功');
-        // location.reload();
+        Swal.fire({
+            icon: 'success',
+            title: '報名成功',
+            text: '已報名揪團',
+            showCancelButton: true
+        })
 
-        //跳轉至前頁
-        location.href='http://localhost:8080/u-and-me/tmp/Front/group/groupMemo.html?groupId=' + groupId;
     } else {
-        alert('新增失敗');
+        Swal.fire({
+            icon: 'error',
+            title: '報名失敗',
+            text: '請檢查報名資料',
+            showCancelButton: true
+        })
     }
+    //跳轉至前頁
+    location.href = baseUrl + '/tmp/Front/group/groupMemo.html?groupId=' + groupId;
 });
 
 

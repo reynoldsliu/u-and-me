@@ -1,4 +1,5 @@
 //===================使用到的元素===================
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me";
 const cover_img_el = document.getElementById("cover_img");
 const img1_el = document.getElementById("img1");
 const img2_el = document.getElementById("img2");
@@ -64,7 +65,7 @@ async function fetchMyGroup(groupId) {
 
 
     //取得所有資料
-    await fetch('http://localhost:8080/u-and-me/groupMemo/' + groupId, {
+    await fetch(baseUrl + '/groupMemo/' + groupId, {
         method: 'GET',
 
     }).then(response => {
@@ -84,6 +85,9 @@ async function fetchMyGroup(groupId) {
                 break;
             case 3:
                 groupSta = "揪團被下架";
+                break;
+            case 5:
+                groupSta = "揪團額滿";
                 break;
         }
 
@@ -118,7 +122,7 @@ async function fetchMyGroup(groupId) {
 
 //===================參與揪團點擊事件===================
 function jump() {
-    window.location.href = "http://localhost:8080/u-and-me/tmp/Front/group/regForm.html?gorupId=" + groupId;
+    window.location.href = baseUrl + "/tmp/Front/group/regForm.html?gorupId=" + groupId;
 }
 //===================參與揪團點擊事件結束===================
 

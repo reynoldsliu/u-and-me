@@ -28,4 +28,6 @@ public interface RegFormMemberDetailDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     Timestamp getReg_Time();
+
+    Integer getRefund_Sta();
 }

@@ -1,3 +1,4 @@
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me";
 
 //當頁面讀取後開始偵測function
 window.addEventListener("load", function (e) {
@@ -259,27 +260,46 @@ window.addEventListener("load", function (e) {
                     cover: base64Str
                 }
                 // console.log(send_data);
-                await fetch('http://localhost:8080/u-and-me/group', {
+                await fetch(baseUrl + '/group', {
                     headers: {
                         "content-type": "application/json",
                     },
                     method: 'POST',
                     body: JSON.stringify(send_data)
                 }).catch(function (error) {
-                    alert('新增失敗 請檢察填寫資料');
+                    Swal.fire({
+                        icon: 'error',
+                        title: '新增失敗',
+                        text: '請檢查填入資料',
+                        showCancelButton: true
+                      })
                     return;
                 });
-                alert('新增成功');
-                // location.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: '新增成功',
+                    text: '已新增揪團',
+                    showCancelButton: true
+                  })
             };
             try {
                 //5. 開始讀取檔案
                 fileReader.readAsBinaryString(cover);
             } catch (e) {
-                alert('新增失敗 請檢察填寫資料');
+                Swal.fire({
+                    icon: 'error',
+                    title: '新增失敗',
+                    text: '請檢查填入資料',
+                    showCancelButton: true
+                  })
             }
         } else {
-            alert('新增失敗 請檢察填寫資料');
+            Swal.fire({
+                icon: 'error',
+                title: '新增失敗',
+                text: '請檢查填入資料',
+                showCancelButton: true
+              })
         }
 
     });

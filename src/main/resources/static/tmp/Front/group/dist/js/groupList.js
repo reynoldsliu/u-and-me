@@ -1,3 +1,4 @@
+
 //=============== 以下為控制分頁 =================
 
 //====使用的元素====
@@ -12,7 +13,7 @@ const time_btn_direction_el = document.getElementById("time_btn_direction");
 const amount_btn_direction_el = document.getElementById("amount_btn_direction");
 
 // fetch對應到的路徑
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me";
 let url;
 
 let e = 0; //用來控制分頁
@@ -162,7 +163,7 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
     try {
         // await : await必須放在任何基於promise的函數之前，等到獲得resolve的資料後，再執行後續動作
         if(time_btn_count === 0 && amount_btn_count === 0 && name_btn_count === 0){
-        response = await fetch('http://localhost:8080/u-and-me/groupList/0/' + e);
+        response = await fetch(baseUrl + '/groupList/' + e);
         }
         console.log('time' + time_btn_count);
         console.log('amount' + amount_btn_count);
@@ -171,11 +172,11 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
         //控制揪團時間排序
         if(time_btn_count >= 1){
             if(time_btn_count % 2 === 0){
-                response = await fetch('http://localhost:8080/u-and-me/groupList/byDeadlineDesc/0/' + e);
+                response = await fetch(baseUrl + '/groupList/byDeadlineDesc/' + e);
                 time_btn_direction_el.classList.remove("dropup");
                 time_btn_direction_el.classList.add("dropdown");
             } else if (time_btn_count % 2 !== 0) {
-                response = await fetch('http://localhost:8080/u-and-me/groupList/byDeadline/0/' + e);
+                response = await fetch(baseUrl + '/groupList/byDeadline/' + e);
                 time_btn_direction_el.classList.remove("dropdown");
                 time_btn_direction_el.classList.add("dropup");
             }
@@ -184,11 +185,11 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
         //控制金額排序
         if(amount_btn_count >= 1){
             if(amount_btn_count % 2 !== 0){
-                response = await fetch('http://localhost:8080/u-and-me/groupList/byAmount/0/' + e);
+                response = await fetch(baseUrl + '/groupList/byAmount/' + e);
                 amount_btn_direction_el.classList.remove("dropdown");
                 amount_btn_direction_el.classList.add("dropup");
             } else if (amount_btn_count % 2 === 0) {
-                response = await fetch('http://localhost:8080/u-and-me/groupList/byAmountDesc/0/' + e);
+                response = await fetch(baseUrl + '/groupList/byAmountDesc/' + e);
                 amount_btn_direction_el.classList.remove("dropup");
                 amount_btn_direction_el.classList.add("dropdown");
             }
@@ -200,7 +201,7 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
              //先重製並定義搜尋欄的值
             
             // console.log('keyword' + keywords);
-            response = await fetch('http://localhost:8080/u-and-me/groupList/name'+ keywords + '/0/' + e);
+            response = await fetch(baseUrl + '/groupList/name'+ keywords + '/' + e);
         }
         
         //response.json()：把資料轉成JSON格式
@@ -258,7 +259,7 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
                         </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="window.location.href='http://localhost:8080/u-and-me/tmp/Front/group/groupMemo.html?gorupId=${group.group_Id}'">揪團詳情</a>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#" onclick="window.location.href='${baseUrl}/tmp/Front/group/groupMemo.html?gorupId=${group.group_Id}'">揪團詳情</a>
                                 </div>
                             </div>
                         </div>

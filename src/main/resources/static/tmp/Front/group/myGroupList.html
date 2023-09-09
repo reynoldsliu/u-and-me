@@ -114,7 +114,7 @@
 
             <a href="#">收藏清單</a>
             <a href="#">行程規劃</a>
-            <a href="#">我的揪團</a>
+            <a href="#">舉辦的揪團</a>
             <a href="#">揪團記錄</a>
             <a href="#">論壇記錄</a>
             <a href="#">點數記錄</a>
@@ -123,32 +123,32 @@
 
         </div>
 
-        <div class="content-wrapper " style="
-            margin-left: 250px;
-        ">
-
-
+        <div class="content-wrapper" style="margin-left: 250px; width: 1000px;">
             <div class="row">
                 <div class="col-12"></div>
                 <div class="container-fluid">
                     <form class="row g-6">
                         <div class="container_heading">
                             <h2>
-                                <span class="container_heading_main text-center">我的揪團</span>
+                                <span class="container_heading_main text-center">舉辦的揪團</span>
                             </h2>
                         </div>
-                        <div class="table-responsive" style="width: 700px;">
-                            <table class="table table-bordered border-secondary" id="myGroupListTable">
+                        <br>
+                        <br>
+                        <br>
+                        <div class="table-responsive" style="width: 800px;">
+                            <table class="table table-striped table-hover" id="myGroupListTable">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center;">編號</th>
-                                        <th style="text-align: center;">標題</th>
-                                        <th style="text-align: center;">行程</th>
-                                        <th style="text-align: center;">詳情</th>
-                                        <th style="text-align: center;">報名表</th>
-                                        <th style="text-align: center;">狀態</th>
-                                        <th style="text-align: center;">修改</th>
-                                        <th style="text-align: center;">刪除</th>
+                                        <th scope="col" style="text-align: center;">編號</th>
+                                        <th scope="col" style="text-align: center;">標題</th>
+                                        <th scope="col" style="text-align: center;">行程</th>
+                                        <th scope="col" style="text-align: center;">詳情</th>
+                                        <th scope="col" style="text-align: center;">報名表</th>
+                                        <th scope="col" style="text-align: center;">狀態</th>
+                                        <th scope="col" style="text-align: center;">修改</th>
+                                        <th scope="col" style="text-align: center;">上架</th>
+                                        <th scope="col" style="text-align: center;">刪除</th>
                                     </tr>
                                 </thead>
                                 <tbody id="myGroupList">
@@ -166,7 +166,7 @@
             <!-- 燈箱報名表資料 -->
             <div id="regFormList">
                 <!-- 由此插入 -->
-                 <!-- <div class="modal fade" id="regForm126" tabindex="-1" aria-labelledby="exampleModalLabel" 
+                <div class="modal fade" id="regForm" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
@@ -175,10 +175,9 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <p>
-                                <pre>會員編號: xxx  |   電子信箱: xxx@xxx.com  | 電話號碼: xxxxxx |  參加人數:xxxx | 報名時間:xxx
-                                </pre>
+                            <div class="modal-body" id="formContent">
+                                <!-- <p>
+                                <pre style="font-size: 18px;" >報名表編號: 1    會員編號: 1     電子信箱: 1     電話號碼: 1     參加人數: 1</pre>
                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseExample" aria-expanded="false"
                                     aria-controls="collapseExample" style="float: right;">
@@ -187,20 +186,37 @@
                                 </p>
                                 <div class="collapse" id="collapseExample">
                                     <div class="card card-body">
-                                        <pre>
-                                        姓名 | 身分證字號 | 出生日期 | 性別 (表格名)
-                                        XXX  | XXXXXXX   | XXXXXXXX| X</pre>
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">人員</th>
+                                                    <th scope="col">姓名</th>
+                                                    <th scope="col">身分證字號</th>
+                                                    <th scope="col">出生日期</th>
+                                                    <th scope="col">性別</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">1</th>
+                                                    <td>Mark</td>
+                                                    <td>Otto</td>
+                                                    <td>@mdo</td>
+                                                    <td>@mdo</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <hr>
+                                <hr> -->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
-                </div>  -->
-            </div> 
+                </div>
+            </div>
         </div>
 
         <!-- -----Footer----- -->
@@ -254,6 +270,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./dist/js/myGroupList.js"></script>
 </body>
 

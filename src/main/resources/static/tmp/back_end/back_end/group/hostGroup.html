@@ -10,7 +10,7 @@
   <title>UandMe</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
-
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
 
   <!-- Bootstrap core CSS -->
@@ -35,7 +35,7 @@
 
 
   <!-- Custom styles for this template -->
-  <link href="./css/group.css" rel="stylesheet">
+  <link href="./css/hostGroup.css" rel="stylesheet">
 
 </head>
 
@@ -121,15 +121,16 @@
   </svg>
 
   <nav class="navbar navbar-light  shadow-sm  " style="background-color: #ebd0be">
-    
-    <div class="container-fluid"style="padding-left:0px;">
+
+    <div class="container-fluid" style="padding-left:0px;">
       <div style="width: 200px;height: 20px;">
       </div>
       <a class="navbar-brand  " href="#" style="margin:auto;font-size: 30px;display: inline-block">後台管理系統</a>
       <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://www.holoface.photos/static/images/products/idphoto01.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
+          <img src="https://www.holoface.photos/static/images/products/idphoto01.jpg" alt="" width="32" height="32"
+            class="rounded-circle me-2">
           <strong>Penny</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -146,7 +147,8 @@
 
   </nav>
   <main>
-    <div class="d-flex flex-column flex-shrink-0 p-3  " style="width: 200px;background-color: #1D3124;min-height: 100vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3  "
+      style="width: 200px;background-color: #1D3124;min-height: 100vh;">
       <!-- 左側功能列表 -->
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
@@ -174,7 +176,7 @@
           </a>
         </li>
         <li>
-          <a href="../activity/activityList.html">
+          <a href="../activity/activity.html">
             <svg class="bi me-2" width="16" height="16">
               <use xlink:href="#grid" />
             </svg>
@@ -217,27 +219,91 @@
       <hr>
 
     </div>
-    
+
     <div class="d-flex flex-column flex-shrink-0 p-3  " style=" width: calc(100% - 200px);background-color: #F6F4E8;">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="../index/index.html"style="color:black;display: inline;">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">揪團</li>
-            </ol>
-          </nav>
-        <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;" >偶是揪團!</div>
-    </div>
-    </div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="../index/index.html" style="color:black;display: inline;">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Q&A專欄</li>
+          <li class="breadcrumb-item"><a href="../host/hostLogin.html" style="color:black;display: inline;">Home</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">客服/Q&A專欄</li>
+        </ol>
+      </nav>
+      <div class="shadow p-3 my-3 bg-body rounded">
+        <div class="wrap">
+          <table id="qatable">
+            <thead>
+              <th data-field="groupId">揪團編號</th>
+              <th data-field="theme">標題</th>
+              <th data-field="memId">團主編號</th>
+              <th data-field="amount">金額</th>
+              <th data-field="members">參團人數</th>
+              <th data-field="groupSta">揪團狀態</th>
+              <th data-field="paymentSta">尾款狀態</th>
+              <th data-field="depDate">出團日期</th>
+              <th data-field="deadline">截止日期</th>
+              <th>操作</th>
+            </thead>
+          </table>
+        </div>
 
 
+
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="gId" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gId">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="btn-group">
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="gStaVal" onchange="getGSta()">
+                <option selected id="gSta">Open this select menu</option>
+                <option value="0">0: 未成團</option>
+                <option value="1">1: 揪團成功</option>
+                <option value="2">2: 揪團取消</option>
+                <option value="2">3: 揪團延期</option>
+                <option value="2">4: 揪團被下架</option>
+                <option value="2">5: 揪團額滿</option>
+              </select>
+            </div>
+            <p>0: 未成團, 1: 揪團成功, 2: 揪團取消, 3: 揪團延期, 4: 揪團被下架, 5: 揪團額滿</p>
+            <br>
+            <br>
+            <div class="btn-group">
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="pStaVal" onchange="getPSta()">
+                <option selected id="pSta">Open this select menu</option>
+                <option value="0">0: 未到請款時間</option>
+                <option value="1">1: 可撥款</option>
+                <option value="2">2: 檢舉中</option>
+                <option value="3">3: 撥款完成</option>
+              </select>
+            </div>
+            <p>0: 未到請款時間, 1: 可撥款, 2: 檢舉中, 3: 撥款完成</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="confirm">提交修改</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
   </main>
 
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script src="./js/group.js"></script>
+  <script src="./js/hostGroup.js"></script>
 </body>
 
 </html>

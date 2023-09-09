@@ -1,3 +1,5 @@
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me";
+
 //===================使用到的元素===================
 const minMember_el = document.getElementById("minMember");
 const maxMember_el = document.getElementById("maxMember");
@@ -125,37 +127,43 @@ document.addEventListener("DOMContentLoaded", function () {
         noticeStr.innerHTML = '';
 
         //最小人數
-        if (minMember_el.value === null || minMember_el.value === "") {
+        if (minMember_el.value === null || minMember_el.value.trim() === "") {
             control = false;
             minMemberStr.innerHTML = ' *最小人數必須填入數值';
             inputMinMember_el.appendChild(minMemberStr);
-        } else if (minMember_el.value > maxMember_el.value) {
-            control = false;
-            minMemberStr.innerHTML = ' *最小人數不能大於最大人數';
-            inputMinMember_el.appendChild(minMemberStr);
-        } else if (!isInteger(minMember_el.value) || minMember_el.value < 0) {
+        } else if (!(Number.isInteger(Number(minMember_el.value))) || Number(minMember_el.value) < 0) {
             control = false;
             minMemberStr.innerHTML = ' *最小人數必須為正整數';
             inputMinMember_el.appendChild(minMemberStr);
+        } else if ((Number.isInteger(Number(maxMember_el.value))) && Number(maxMember_el.value) > 0) {
+            if (Number(minMember_el.value) > Number(maxMember_el.value)) {
+                control = false;
+                console.log(minMember_el.value);
+                minMemberStr.innerHTML = ' *最小人數不能大於最大人數';
+                inputMinMember_el.appendChild(minMemberStr);
+            }
         }
 
         //最大人數
-        if (maxMember_el.value === null || maxMember_el.value === "") {
+        if (maxMember_el.value === null || maxMember_el.value.trim() === "") {
             control = false;
             maxMemberStr.innerHTML = ' *最大人數必須填入數值';
             inputMaxMember_el.appendChild(maxMemberStr);
-        } else if (maxMember_el.value < minMember_el.value) {
-            control = false;
-            maxMemberStr.innerHTML = ' *最大人數不能小於最小人數';
-            inputMaxMember_el.appendChild(maxMemberStr);
-        } else if (!isInteger(maxMember_el.value) || minMember_el.value < 0) {
+        } else if (!(Number.isInteger(Number(maxMember_el.value))) || Number(maxMember_el.value) < 0) {
             control = false;
             maxMemberStr.innerHTML = ' *最大人數必須為正整數';
             inputMaxMember_el.appendChild(maxMemberStr);
+        } else if ((Number.isInteger(Number(minMember_el.value))) && Number(minMember_el.value) > 0) {
+            if (Number(maxMember_el.value) < Number(minMember_el.value)) {
+                control = false;
+                console.log(maxMember_el.value);
+                maxMemberStr.innerHTML = ' *最大人數不能小於最小人數';
+                inputMaxMember_el.appendChild(maxMemberStr);
+            }
         }
 
         //標題
-        if (theme_el.value === null || theme_el.value === "") {
+        if (theme_el.value === null || theme_el.value.trim() === "") {
             // alert('標題不可為空值');
             control = false;
             themeStr.innerHTML = ' *標題必須填入數值';
@@ -163,18 +171,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         //價格
-        if (amount_el.value === null || amount_el.value === "") {
+        if (amount_el.value === null || amount_el.value.trim() === "") {
             control = false;
             amountStr.innerHTML = ' *價格必須填入數值';
             inputAmount_el.appendChild(amountStr);
-        } else if (amount_el.value < 0 || !isInteger(amount_el.value)) {
+        } else if (amount_el.value < 0 || !(Number.isInteger(Number(amount_el.value)))) {
             control = false;
             amountStr.innerHTML = ' *價格必須為正整數';
             inputAmount_el.appendChild(amountStr);
         }
 
         //出發日期
-        if (depDate_el.value === null || depDate_el.value === "") {
+        if (depDate_el.value === null || depDate_el.value.trim() === "") {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期必須填入數值';
             inputDepDate_el.appendChild(depDateStr);
@@ -189,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         //截止日期
-        if (deadline_el.value === null || deadline_el.value === "") {
+        if (deadline_el.value === null || deadline_el.value.trim() === "") {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期必須填入數值';
             inputDeadline_el.appendChild(deadlineStr);
@@ -204,14 +212,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         //揪團描述
-        if (groupDesc_el.value === null || groupDesc_el.value === "") {
+        if (groupDesc_el.value === null || groupDesc_el.value.trim() === "") {
             control = false;
             groupDescStr.innerHTML = ' *揪團描述必須填入數值';
             inputGroupDesc_el.appendChild(groupDescStr);
         }
 
         //行前通知
-        if (notice_el.value === null || notice_el.value === "") {
+        if (notice_el.value === null || notice_el.value.trim() === "") {
             // alert('行前通知不可為空值');
             control = false;
             noticeStr.innerHTML = ' *行前通知必須填入數值';
@@ -223,29 +231,44 @@ document.addEventListener("DOMContentLoaded", function () {
             //將資料包裝成一個物件
             const send_data = {
                 groupId: groupId,
-                minMember: minMember_el.value,
-                maxMember: maxMember_el.value,
-                theme: theme_el.value,
-                amount: amount_el.value,
-                depDate: depDate_el.value,
-                deadline: deadline_el.value,
-                groupDesc: groupDesc_el.value,
-                notice: notice_el.value,
+                minMember: minMember_el.value.trim(),
+                maxMember: maxMember_el.value.trim(),
+                theme: theme_el.value.trim(),
+                amount: amount_el.value.trim(),
+                depDate: depDate_el.value.trim(),
+                deadline: deadline_el.value.trim(),
+                groupDesc: groupDesc_el.value.trim(),
+                notice: notice_el.value.trim(),
                 cover: cover,
             }
-            await fetch('http://localhost:8081/u-and-me/myGroup/update/' + groupId, {
+            await fetch(baseUrl + '/myGroup/update/' + groupId, {
                 headers: {
                     "content-type": "application/json",
                 },
                 method: 'PUT',
                 body: JSON.stringify(send_data)
             }).catch(function (e) {
-                alert('更新失敗');
+                Swal.fire({
+                    icon: 'error',
+                    title: '更新失敗',
+                    text: '請檢查更新資料',
+                    showCancelButton: true
+                  })
             });
-            alert('更新成功');
-            location.reload();
+            Swal.fire({
+                icon: 'success',
+                title: '更新成功',
+                text: '資料已更新',
+                showCancelButton: true
+              })
+            // location.reload();
         } else {
-            alert('更新失敗');
+            Swal.fire({
+                icon: 'error',
+                title: '更新失敗',
+                text: '請檢查更新資料',
+                showCancelButton: true
+              })
         }
     });
 });
@@ -258,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function fetchMyGroup(groupId) {
 
     // 取得修改資料
-    await fetch('http://localhost:8080/u-and-me/myGroup/update/' + groupId, {
+    await fetch(baseUrl + '/myGroup/update/' + groupId, {
         method: 'GET',
 
         //取得所有資料

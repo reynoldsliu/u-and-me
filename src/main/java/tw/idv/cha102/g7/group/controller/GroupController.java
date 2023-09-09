@@ -54,8 +54,14 @@ public class GroupController {
      * @param groupId 揪團ID
      */
     @DeleteMapping("/group/{groupId}")
-    public void delete(@PathVariable Integer groupId){
-        groupService.delete(groupId);
+    public ResponseEntity<?> delete(@PathVariable Integer groupId){
+        try {
+            groupService.delete(groupId);
+            return ResponseEntity.ok("success");
+        } catch (Exception e) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND).body("fail");
+        }
     }
 
     /**
@@ -111,6 +117,7 @@ public class GroupController {
      * 2: 揪團取消,
      * 3: 揪團延期,
      * 4: 揪團被下架
+     * 5: 已額滿
      * @return 查詢結果
      */
     @GetMapping("/groups/searchSta/{groupSta}")
@@ -133,15 +140,17 @@ public class GroupController {
         return groupService.findGroupByPaymentSta(paymentSta);
     }
 
-//    /**
-//     * 測試用
-//     * @param groupId
-//     * @return
-//     */
-//    @GetMapping("/test1/{groupId}")
-//    List<GroupRegFormDto> findGroupRegFormDtoByGroupId(@PathVariable Integer groupId){
-//        return groupService.findGroupRegFormDtoByGroupId(groupId);
-//    }
+    /**
+     * 會員
+     * 報名參加的揪團頁面
+     * @param memId 登入中的會員ID
+     * @return 查詢結果
+     */
+    @GetMapping("/groups/joined/{memId}/{page}")
+    Stream<GroupRegFormDto> findGroupRegFormDtoByMemId(@PathVariable Integer memId,
+                                                       @PathVariable Integer page){
+        return groupService.findGroupRegFormDtoByMemId(memId, page);
+    }
 
     /**
      * 遊客/揪團團主/一般使用者
@@ -157,7 +166,7 @@ public class GroupController {
     /**
      * 所有人
      * 揪團列表
-     * @param groupSta 揪團狀態
+     * @param page 分頁
      * 0: 未成團,
      * 1: 揪團成功,
      * 2: 揪團取消,
@@ -166,10 +175,10 @@ public class GroupController {
      * @param page 分頁頁數
      * @return 揪團列表
      */
-    @GetMapping("/groupList/{groupSta}/{page}")
-    public Stream<GroupListDto> findGroupListByGroupSta(@PathVariable Integer groupSta, @PathVariable Integer page, SortType sortType){
+    @GetMapping("/groupList/{page}")
+    public Stream<GroupListDto> findGroupListByGroupSta(@PathVariable Integer page, SortType sortType){
 //        sortType = this.sortType;
-          return groupService.findGroupListByGroupSta(groupSta, page);
+          return groupService.findGroupListByGroupSta(page);
     }
 
     /**
@@ -215,39 +224,34 @@ public class GroupController {
     }
 
     //揪團列表金額排序
-    @GetMapping("/groupList/byDeadline/{groupSta}/{page}")
-    public Stream<GroupListDto> findGroupByGroupStaOrderByDeadline(@PathVariable Integer groupSta,
-                                                               @PathVariable Integer page){
-           return groupService.findGroupByGroupStaOrderByDeadline(groupSta, page);
+    @GetMapping("/groupList/byDeadline/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaOrderByDeadline(@PathVariable Integer page){
+           return groupService.findGroupByGroupStaOrderByDeadline(page);
     }
 
     //揪團列表金額排序
-    @GetMapping("/groupList/byDeadlineDesc/{groupSta}/{page}")
-    public Stream<GroupListDto> findGroupByGroupStaOrderByDeadlineDesc(@PathVariable Integer groupSta,
-                                                               @PathVariable Integer page){
-            return groupService.findGroupByGroupStaOrderByDeadlineDesc(groupSta, page);
+    @GetMapping("/groupList/byDeadlineDesc/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaOrderByDeadlineDesc(@PathVariable Integer page){
+            return groupService.findGroupByGroupStaOrderByDeadlineDesc(page);
     }
 
     //揪團列表金額排序
-    @GetMapping("/groupList/byAmount/{groupSta}/{page}")
-    public Stream<GroupListDto> findGroupByGroupStaOrderByAmount(@PathVariable Integer groupSta,
-                                                                       @PathVariable Integer page){
-        return groupService.findGroupByGroupStaOrderByAmount(groupSta, page);
+    @GetMapping("/groupList/byAmount/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaOrderByAmount(@PathVariable Integer page){
+        return groupService.findGroupByGroupStaOrderByAmount(page);
     }
 
     //揪團列表金額排序
-    @GetMapping("/groupList/byAmountDesc/{groupSta}/{page}")
-    public Stream<GroupListDto> findGroupByGroupStaOrderByAmountDesc(@PathVariable Integer groupSta,
-                                                                       @PathVariable Integer page){
-        return groupService.findGroupByGroupStaOrderByAmountDesc(groupSta, page);
+    @GetMapping("/groupList/byAmountDesc/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaOrderByAmountDesc(@PathVariable Integer page){
+        return groupService.findGroupByGroupStaOrderByAmountDesc(page);
     }
 
     //揪團名查詢
-    @GetMapping("/groupList/name{str}/{groupSta}/{page}")
-    public Stream<GroupListDto> findGroupByGroupStaThemeLike(@PathVariable Integer groupSta,
-                                                           @PathVariable String str,
+    @GetMapping("/groupList/name{str}/{page}")
+    public Stream<GroupListDto> findGroupByGroupStaThemeLike(@PathVariable String str,
                                                            @PathVariable Integer page){
-        return groupService.findGroupByGroupStaThemeLike(groupSta, str, page);
+        return groupService.findGroupByGroupStaThemeLike(str, page);
     }
 
     /**
@@ -265,6 +269,57 @@ public class GroupController {
     @GetMapping("/group/findMember/{groupId}")
     public GroupMemberDto finGroupMember(@PathVariable Integer groupId) {
         return groupService.finGroupMember(groupId);
+    }
+
+
+    //會員以揪團狀態揪團紀錄
+    @GetMapping("/groups/joined/groupSta0/{memId}/{page}")
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(@PathVariable Integer memId,
+                                                                          @PathVariable Integer page){
+        return groupService.findGroupRegFormDtoByMemIdAndGroupSta0(memId, page);
+    }
+
+    //會員以揪團狀態揪團紀錄
+    @GetMapping("/groups/joined/groupSta1/{memId}/{page}")
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(@PathVariable Integer memId,
+                                                                          @PathVariable Integer page){
+        return groupService.findGroupRegFormDtoByMemIdAndGroupSta1(memId, page);
+    }
+
+    //會員以名稱搜尋揪團紀錄
+    @GetMapping("/groups/joined/searchTheme={str}/{memId}/{page}")
+    public  Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(@PathVariable Integer memId,
+                                                                           @PathVariable String str,
+                                                                           @PathVariable Integer page){
+        return groupService.findGroupRegFormDtoByMemIdAndThemeLike(memId, str, page);
+    }
+
+    //揪團主更改上下架
+    @PutMapping("/group/updateGroupSta/{groupId}")
+    public ResponseEntity<?> updateGroupSta(@PathVariable Integer groupId, 
+                               @RequestBody Group group){
+        try {
+            groupService.updateGroupSta(groupId, group);
+            return ResponseEntity.ok("更新成功");
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("更新失敗");
+        }
+    }
+
+    @PutMapping("/group/updateGStaPSta/{groupId}")
+    public ResponseEntity<?> updateGroupStaPaymentSta(@PathVariable Integer groupId,
+                                            @RequestBody Group group){
+        try {
+            groupService.updateGroupStaPaymentSta(groupId, group);
+            return ResponseEntity.ok("更新成功");
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("更新失敗");
+        }
+    }
+
+    @GetMapping("/groups")
+    public List<Group> findAll() {
+        return groupService.findAll();
     }
 
     //測試包裝排序(有空優化)

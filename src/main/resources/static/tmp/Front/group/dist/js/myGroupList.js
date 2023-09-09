@@ -1,5 +1,5 @@
 let count = 0;
-
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me";
 const regFormList_el = document.getElementById("regFormList");
 
 // 網頁載入後執行
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function fetchMyGroupList() {
     try {
         //此fetch url 的1為memId 應該要直接讀取當前使用者的memId 尚未研究
-        const response = await fetch('http://localhost:8080/u-and-me/myGroupList/1/0');
+        const response = await fetch(baseUrl + '/myGroupList/1/0');
         const myGroupList = await response.json();
 
         const myGroupList_el = document.getElementById("myGroupList");
@@ -40,12 +40,12 @@ async function fetchMyGroupList() {
             }
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td style="text-align: center;vertical-align: middle; width: 60px" id="id${count}">${group.group_Id}</td>
-                <td style="text-align: center;vertical-align: middle; width: 150px">${group.theme}</td>
+                <td scope="row" style="text-align: center;vertical-align: middle; width: 60px" id="id${count}">${group.group_Id}</td>
+                <td style="text-align: center;vertical-align: middle; width: 250px">${group.theme}</td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">行程</a></td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">資料</a></td>
-                <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm${group.group_Id}" id="regForm_btn${count}" onclick="fetchRegForm(${group.group_Id})">
-                點此</button></td>
+                <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm" id="regForm_btn${count}" onclick="fetchRegForm(${group.group_Id})">
+                    點此</button></td>
                 <td style="text-align: center;vertical-align: middle; width: 90px">${group_Sta}</td>
                 <td>
                     <button class="btn btn-outline-success  width: 70px" onclick="window.location.href='http://localhost:8080/u-and-me/tmp/Front/group/myGroupListUpdate.html?gorupId=${group.group_Id}'" type="button">
@@ -54,40 +54,28 @@ async function fetchMyGroupList() {
                         </svg>
                     </button>
                 </td>
+                <td style="text-align: center;vertical-align: middle; width: 50px">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="launched${count}" checked onclick="changeGroupSta(${group.group_Id}, ${count})">
+                    </div>
+                </td>
                 <td>
-                <button class="btn btn-outline-success id="delete" width: 70px" onclick="deleteGroup(${group.group_Id})" type="button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
-                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
-              </svg>
-            </button>
+                    <button class="btn btn-outline-success id="delete" width: 70px" onclick="deleteGroup(${group.group_Id})" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                        </svg>
+                    </button>
                </td>
             `;
+
             myGroupList_el.appendChild(row);
 
-
-            regFormList_el.innerHTML +=
-                `
-        <div class="modal fade" id="regForm${group.group_Id}" tabindex="-1" aria-labelledby="regFormTitle${count}" 
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="regFormTitle${count}">報名表資料</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="regFormContent${count}">
-            </div>
-            <hr>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-`;
+            let launched_el = document.getElementById(`launched${count}`);
+            if(group.group_Sta != 0 && group.group_Sta != 1){
+                launched_el.checked = false;
+                launched_el.disable = true;
+            }
         });
 
     } catch (error) {
@@ -108,93 +96,181 @@ async function deleteGroup(groupId) {
         let r = confirm('確定刪除？');
 
         if (r) {
-            await fetch('http://localhost:8080/u-and-me/group/' + groupId, {
+            await fetch(baseUrl + '/group/' + groupId, {
                 method: 'DELETE'
+            }).then(response => {
+                return response.text();
+            }).then(body => {
+                if(body == 'success'){
+                    Swal.fire({
+                        icon: 'success',
+                        title: '刪除成功',
+                        text: '已修改狀態',
+                        showCancelButton: true
+                      })
+                    throw new Error();
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: '刪除失敗',
+                        text: '需等待團員退款完畢才可以刪除',
+                        showCancelButton: true
+                      })
+                    throw new Error();
+                }
             });
-            window.location.reload();
-            throw new Error();
+            
         } else {
             throw new Error();
         }
 
     } catch (e) {
-        window.location.reload();
+        // window.location.reload();
     }
 }
 
-let j = 0; //賦予foreach裡的ID為不同變數
+let j = 0;
+let formId = [];
 async function fetchRegForm(groupId) {
-    for (let i = 1; i <= count; i++) {
-        console.log(groupId);
-
-        //動態偵測的元素
-        let regFormContent_el = document.getElementById("regFormContent" + i);
-
-        const response = await fetch('http://localhost:8080/u-and-me/regForms/findGroupId' + groupId);
-        const formList = await response.json();
-        regFormContent_el.innerHTML = "";
-
-        formList.forEach(regFrom => {
-            j++;
-
-            regFormContent_el.innerHTML +=
-                `<p>
-            <pre style="font-size: 18px;">報名表編號: ${regFrom.formId}    會員編號: ${regFrom.memId}     電子信箱: ${regFrom.email}     電話號碼: ${regFrom.phone}     參加人數:${regFrom.joinMember}</pre>
-                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                     data-bs-target="#memberDetail_btn${j}" aria-expanded="false"
-                     aria-controls="memberDetail_btn${j}" style="float: right;" onclick="fetchMemberDetail(${regFrom.formId})">
-                     顯示資料
-                 </button>
-                 <br>
-                 <br>
-            </p>
-            <div class="collapse" id="memberDetail_btn${j}">
-            <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th scope="col">姓名</th>
-                <th scope="col">身分證字號</th>
-                <th scope="col">出生日期</th>
-                <th scope="col">性別</th>
-              </tr>
-            </thead>
-            <tbody id="memberDetailContent${j}">
-            </tbody>
-          </table>
-            </div>
-            <hr>`
-        });
-    }
-}
-
-
-
-let k = 0;
-async function fetchMemberDetail(formId) {
-    for (let i = 1; i <= j; i++) {
-        console.log('123');
-        //動態偵測元素
-        let memberDetailContent_el = document.getElementById("memberDetailContent" + i);
-        memberDetailContent_el.innerHTML = '';
-        const response = await fetch('http://localhost:8080/u-and-me/memberDetailsForms/' + formId);
-        const detailList = await response.json();
-
-        // memberDetailContent_el = "";
-
-        detailList.forEach(detail =>{
-            k++;
-            memberDetailContent_el.innerHTML +=
-            `<tr>
-                <th scope="row">${detail.name}</th>
-                <td>${detail.idnumber}</td>
-                <td>${detail.birthday}</td>
-                <td>${detail.gender}</td>
-              </tr>
-            </tbody>
+    const response = await fetch(baseUrl + '/regForms/findGroupId' + groupId);
+    const formList = await response.json();
+    formContent.innerHTML = '';
+    j = 0;
+    formList.forEach(form => {
+        formId.push(form.formId);
+        j++;
+        formContent.innerHTML +=
             `
-        })
+        <p>
+            <span style="font-size: 18px;" >報名表編號: ${form.formId} ｜ 會員編號: ${form.memId} ｜ 電子信箱: ${form.email} ｜ 電話號碼: ${form.phone} ｜ 參加人數: ${form.joinMember}</span>
+        </p>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">姓名</th>
+                            <th scope="col">身分證字號</th>
+                            <th scope="col">出生日期</th>
+                            <th scope="col">性別</th>
+                            <th scope="col">付款狀態</th>
+                            <th scope="col">退款金額</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detailContent${j}">
+                    </tbody>
+                </table>
+        <hr>
+        `;
+    });
+    for (let i = 1; i <= j; i++) {
+        let detailContent_el = document.getElementById('detailContent' + i);
+        detailContent_el.innerHTML = '';
     }
+    for (let i = 1; i <= j; i++) {
+
+        
+        const res = await fetch(baseUrl + '/memberDetailsForms/' + formId.shift());
+        //取値後必須移除才不會導致重複讀取 shift() > 從數組中取値後刪除
+        const detailList = await res.json();
+        
+        let detailContent_el = document.getElementById('detailContent' + i);
+        let refundSta = '';
+        let refund;
+        detailContent_el.innerHTML = '';
+        detailList.forEach(detail => {
+            
+
+            switch(detail.refundSta){
+                case 0:
+                    refundSta = '已完成付款';
+                    refund = '無須退款';
+                    break;
+                case 1:
+                    refundSta = '退費期限到期';
+                    refund = '無須退款';
+                    break;
+                case 2:
+                    refundSta = '退款申請中';
+                    refund = '申請' + detail.refund + '元';
+                    break;
+                case 3:
+                    refundSta = '退款完成';
+                    refund = '已退款' + detail.refund + '元';
+                    break;
+                case 4:
+                    refundSta = '已完成付款';
+                    refund = '無須退款';
+            }
+            
+            detailContent_el.innerHTML +=
+                `<tr>
+            <th scope="row">${detail.name}</th>
+            <td>${detail.idnumber}</td>
+            <td>${detail.birthday}</td>
+            <td>${detail.gender}</td>
+            <td>${refundSta}</td>
+            <td>${refund}</td>
+        </tr>
+        `
+        });
+
+    }
+    
 }
 
+async function changeGroupSta(gorupId, count){
+    let launched_el = document.getElementById('launched'+count);
+    let data;
+    switch(launched_el.checked){
+        case true:
+            data ={
+                groupSta: 0
+            }
+            break;
+        case false:
+            data ={
+                groupSta: 2
+            }
+            break;
+    }
+    await fetch(baseUrl + '/group/updateGroupSta/' + gorupId,{
+        headers: {
+            "content-type": "application/json",
+        },
+        method: 'PUT',
+        body: JSON.stringify(data)
+    }).catch(function (e){
+        Swal.fire({
+            icon: 'error',
+            title: '更新失敗',
+            showCancelButton: true
+          })
+    });
+}
+// for(let i = 1; i <= count; i++){
+//     let launched_el = document.getElementById('launched' + i);
+    
+//     launched_el.addEventListener('change', function(e){
+//         switch(launched_el.cheaked){
+//             case true:
 
+//         }
+//     })
+// }
 
+// async function fetchMemberDetail(formId){
+//     const response = await fetch('http://localhost:8080/u-and-me/memberDetailsForms/' + formId);
+//     const detailList = await response.json();
+//     const detailContent_el = document.getElementById('detailContent');
+//     detailContent_el.innerHTML = '';
+
+//     detailList.forEach(detail => {
+//         detailContent_el.innerHTML +=
+//         `<tr>
+//             <th scope="row">${detail.name}</th>
+//             <td>${detail.idnumber}</td>
+//             <td>${detail.birthday}</td>
+//             <td>${detail.gender}</td>
+//         </tr>
+//         `
+//     })
+// }   
