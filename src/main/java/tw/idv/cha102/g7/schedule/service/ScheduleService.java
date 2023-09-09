@@ -66,4 +66,7 @@ public interface ScheduleService {
     // 屏蔽一筆行程
     public void hide(Integer schId);
 
+
+    public Schedule privateSelect(Integer schId,Byte schPub);
+
 }

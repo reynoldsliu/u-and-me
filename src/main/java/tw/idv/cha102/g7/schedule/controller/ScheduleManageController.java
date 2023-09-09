@@ -23,9 +23,9 @@ public class ScheduleManageController {
     // 查詢使用者自己所有建立過的行程清單
     @GetMapping("/my/{memId}/{page}")
     public ResponseEntity<List<Schedule>> findByMemId(@PathVariable Integer memId,
-                                                @PathVariable int page) {
+                                                      @PathVariable int page) {
         List<Schedule> mySchedules = service.getAllByMemId(memId, page)
-                                            .collect(Collectors.toList());
+                .collect(Collectors.toList());
         return new ResponseEntity(mySchedules, HttpStatus.OK);
     }
 
@@ -57,7 +57,7 @@ public class ScheduleManageController {
     // 查詢單一行程(行程概要)後，對行程內容進行修改
     // 修改行程公開權限(私密、透過連結分享、公開)
     // 行程共同編輯成員及權限設定(可檢視、可編輯、新增及移除共編成員，透過連結分享邀請成員共編)
-    @PutMapping("/edit/{schId}")
+    @RequestMapping("/edit/{schId}")
     public ResponseEntity<?> edit(@PathVariable Integer schId,
                                   @RequestBody Schedule schedule) {
         try {
@@ -66,7 +66,7 @@ public class ScheduleManageController {
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
-                    .body(new ScheduleNotFoundException(schId));
+                    .build();
         }
     }
 
@@ -84,4 +84,13 @@ public class ScheduleManageController {
                     .body(new ScheduleNotFoundException(schId));
         }
     }
+
+
+    @RequestMapping("/edit/{schId}/{schPub}")
+    public ResponseEntity<?> privateSelect(@PathVariable Integer schId,
+                                           @PathVariable Byte schPub) {
+        return ResponseEntity.ok(service.privateSelect(schId, schPub));
+
+    }
+
 }

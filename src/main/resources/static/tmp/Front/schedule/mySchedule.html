@@ -9,9 +9,11 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./dist/css/mySchedule.css">
     <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
-        <!-- 警示窗 -->
-        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- 警示窗 -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <!-- LOGO ICON -->
+    <link rel="shortcut icon" href="../../Front/dist/img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -129,7 +131,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item " style="display:inline-block"><a
                                         href="../activity/ActivityIndex.html">首頁</a></li>
-                                <!-- <li class="breadcrumb-item" style="display:inline-block"><a href="#">旅遊行程</a></li> -->
+                                <!-- <li class="breadcrumb-item" style="display:inline-block"><a href="#">行程規劃</a></li> -->
                                 <li class="breadcrumb-item active" aria-current="page" style="display:inline-block">我的行程
                                 </li>
                             </ol>
@@ -237,8 +239,8 @@
                     <!-- 我的行程內容由此插入 -->
                     <div class="col-lg-4 mb-4">
                         <div class="card">
-                            <img src="../dist/img/scheduleimg/trip24.jpeg"
-                                alt="等待圖片載入..." class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
+                            <img src="../dist/img/scheduleimg/trip24.jpeg" alt="等待圖片載入..." class="card-img-top"
+                                style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
                             <div class="settingSch" id="settingSch${schedule.schId}" onclick="editMySchedule()">
                                 <div><i class="fa-solid fa-pen-to-square edit"></i></div>
                                 <div class="settingSelect -off" onmouseleave="removeEditBox()">
@@ -252,7 +254,8 @@
                                     ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
                                 <p class="sch-date" style="font-size: 10px">
                                     行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
-                                <a href="myScheduleEdit.html" class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
+                                <a href="myScheduleEdit.html"
+                                    class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
                             </div>
                         </div>
                     </div>

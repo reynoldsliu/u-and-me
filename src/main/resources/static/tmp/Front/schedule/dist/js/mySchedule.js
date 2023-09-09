@@ -227,26 +227,21 @@ btn_schDone.onclick = async event => {
 // =============== 編輯一個行程大綱(公開權限) ===============
 function editMySchedule(schId) {
   // 跳出選擇公開權限及刪除選項框
-  const settingSelect_el = document.querySelector("#settingSelect"+schId);
+  const settingSelect_el = document.querySelector("#settingSelect" + schId);
   if (settingSelect_el.classList.contains(classSwitchOff)) {
     settingSelect_el.classList.remove(classSwitchOff);
   }
 }
 // 滑鼠離開編輯選項時，自動關閉
 function removeEditBox(schId) {
-  const settingSelect_el = document.querySelector("#settingSelect"+schId);
+  const settingSelect_el = document.querySelector("#settingSelect" + schId);
   if (!settingSelect_el.classList.contains(classSwitchOff)) {
     settingSelect_el.classList.add(classSwitchOff);
   }
 }
 
+// 修改行程隱私設定與分享
 async function selectPrivateSetting(schId) {
-
-  // const response = await fetch(baseURL + `member/getMemId`);
-  // const member = await response.json();
-  // const memId = member.memId;
-
-
   Swal.fire({
     title: '隱私設定與分享',
     input: 'select',
@@ -259,26 +254,15 @@ async function selectPrivateSetting(schId) {
     cancelButtonText: '取消',
     confirmButtonText: '確定',
     showLoaderOnConfirm: true,
-    preConfirm: (login) => {
-      return fetch(`//api.github.com/users/${login}`)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error(response.statusText)
-          }
-          return response.json()
-        })
-        .catch(error => {
-          Swal.showValidationMessage(
-            `隱私權設定失敗: ${error}`
-          )
-        })
+    preConfirm: async (selectedOption) => {
+      const response = await fetch(`${editURL}${schId}/${selectedOption}`);
+      return response;
     },
     allowOutsideClick: () => !Swal.isLoading()
   }).then((result) => {
     if (result.isConfirmed) {
       Swal.fire({
         title: `設定成功！`,
-        // success
         imageUrl: 'https://storage.googleapis.com/sticker-prod/yZzo2n9q8atPzSyYEWBg/9-1.png'
       })
     }

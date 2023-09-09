@@ -154,6 +154,16 @@ public class ScheduleServiceImpl implements ScheduleService {
             repository.save(schedule.get());
         }
     }
+
+    @Override
+    public Schedule privateSelect(Integer schId, Byte schPub) {
+        var schedule = repository.findById(schId);
+        if (schedule.isPresent()) {
+            schedule.get().setSchPub(schPub);
+            return repository.save(schedule.get());
+        }
+        return null;
+    }
 }
 
 
