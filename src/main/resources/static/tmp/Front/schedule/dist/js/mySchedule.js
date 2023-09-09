@@ -20,7 +20,7 @@ const schName_el = document.getElementById("schName");
 
 
 let e = 0; //用來控制分頁
-let memId = 1; // 會員Id從哪裡抓取？
+// let memId = 1; // 會員Id從哪裡抓取？
 
 // fetch對應到的路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
@@ -33,7 +33,10 @@ let hideURL = mySchbaseURL + "hide/";
 
 
 // 載入網頁就將所有該會員的行程列表查出
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded",async function () {
+  const response = await fetch(baseURL + `member/getMemId`);
+  const member = await response.json();
+  const memId = member.memId;
   fetchMyScheduleList(myURL, memId, e);
 });
 
@@ -127,6 +130,9 @@ pageSelect1_el.addEventListener('click', async function (e) {
 
   //控制fetch傳入網址
   e = 0
+  const response = await fetch(baseURL + `member/getMemId`);
+  const member = await response.json();
+  const memId = member.memId;
   //調用方法
   fetchMyScheduleList(myURL, memId, e);
 });
@@ -137,6 +143,9 @@ pageSelect2_el.addEventListener('click', async function (e) {
   pageSelect3_el.classList.remove("active");
 
   e = 1;
+  const response = await fetch(baseURL + `member/getMemId`);
+  const member = await response.json();
+  const memId = member.memId;
   fetchMyScheduleList(myURL, memId, e);
 });
 
@@ -146,6 +155,9 @@ document.getElementById('pageSelect3').addEventListener('click', async function 
   pageSelect3_el.classList.toggle("active");
 
   e = 2;
+  const response = await fetch(baseURL + `member/getMemId`);
+  const member = await response.json();
+  const memId = member.memId;
   fetchMyScheduleList(myURL, memId, e);
 });
 
@@ -159,6 +171,9 @@ document.getElementById('pageSelect3').addEventListener('click', async function 
 btn_schDone.onclick = async event => {
 
   event.preventDefault();
+  const response = await fetch(baseURL + `member/getMemId`);
+  const member = await response.json();
+  const memId = member.memId;
 
   // TODO...待加資料驗證，驗證通過後才執行以下內容
   const send_data = {

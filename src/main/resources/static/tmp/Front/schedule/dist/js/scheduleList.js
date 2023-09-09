@@ -12,9 +12,10 @@ let pageSelect3_el = document.getElementById("pageSelect3");
 let e = 0; //用來控制分頁
 
 // fetch對應到的路徑
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/schedules/";
-let allURL = baseURL + "all/";
-let daysURL = baseURL + "days/";
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+let schListbaseURL = baseURL + "schedules/";
+let allURL = schListbaseURL + "all/";
+let daysURL = schListbaseURL + "days/";
 
 
 // 載入網頁就將所有公開行程列表查出
@@ -47,7 +48,7 @@ async function fetchScheduleList(URL, e) {
                     ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
                     <p class="sch-date" style="font-size: 10px">
                     行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
-                    <a href="myScheduleEdit.html" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
+                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
                 </div>
               </div>
             </div>
@@ -81,7 +82,7 @@ function calDays(schStart, schEnd) {
 search_btn_el.addEventListener("click", function (event) {
   event.preventDefault();
   let keywords = keywords_el.value;
-  let keywordsURL = baseURL + keywords + "/";
+  let keywordsURL = schListbaseURL + keywords + "/";
   fetchScheduleList(keywordsURL, e);
 });
 
