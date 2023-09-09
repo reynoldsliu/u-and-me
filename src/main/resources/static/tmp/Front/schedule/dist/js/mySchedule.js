@@ -68,7 +68,7 @@ async function fetchMyScheduleList(URL, memId, e) {
                     ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
                     <p class="sch-date" style="font-size: 10px">
                     行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
-                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
+                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
                 </div>
               </div>
             </div>
@@ -113,10 +113,10 @@ sortByDays_el.addEventListener("click", function (event) {
 });
 
 // 按修改鈕會根據schRepId跳轉到詳細內容頁面，並將資料映射到相關欄位上
-function redirectToDetailPage(schId) {
-  var newPageUrl = `scheduleEdit.html/schId/${schId}`;
-  window.location.href = newPageUrl;
-}
+// function redirectToDetailPage(schId) {
+//   var newPageUrl = `scheduleEdit.html/schId/${schId}`;
+//   window.location.href = newPageUrl;
+// }
 
 //=============== 以下為控制分頁(目前寫死) =================
 

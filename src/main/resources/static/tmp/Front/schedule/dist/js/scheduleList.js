@@ -48,7 +48,7 @@ async function fetchScheduleList(URL, e) {
                     ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
                     <p class="sch-date" style="font-size: 10px">
                     行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
-                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm" id="viewDetails">查看詳情</a>
+                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
                 </div>
               </div>
             </div>
@@ -57,7 +57,7 @@ async function fetchScheduleList(URL, e) {
     });
 
   } catch (error) {
-    console.error("Error fetching scheRep list:", error);
+    console.error("Error fetching schedulePublic list:", error);
   }
 }
 
