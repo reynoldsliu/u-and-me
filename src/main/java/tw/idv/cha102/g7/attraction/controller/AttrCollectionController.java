@@ -9,8 +9,10 @@ import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.service.AttrCollectionService;
+import tw.idv.cha102.g7.member.entity.Member;
 
 import java.util.List;
+import java.util.TreeSet;
 
 @RestController
 @RequestMapping("/attrCol")
@@ -76,9 +78,9 @@ public class AttrCollectionController {
      * @param memId
      * @return
      */
-    @RequestMapping("/getAttrsFromCollectionByMemIdFilter/{memId}")
+        @RequestMapping("/getAttrsFromCollectionByMemIdFilter/{memId}")
     public ResponseEntity<List<Attraction>> getAttrsFromCollectionByMemIdFilter(@PathVariable Integer memId){
-        return new ResponseEntity<>(attrCollectionService.findAttrsByMemIdFilter(memId), HttpStatus.OK);
+        return new ResponseEntity(attrCollectionService.findAttrsByMemIdFilter(memId), HttpStatus.OK);
     }
 
 
@@ -94,6 +96,11 @@ public class AttrCollectionController {
             @PathVariable String attrName){
         System.out.println("IN");
         return new ResponseEntity<>(attrCollectionService.findAttrCollectionsByAttrName(memId,attrName),HttpStatus.OK);
+    }
+
+    @RequestMapping("/getMemsByAttrId/{attrId}")
+    public TreeSet<Member> getMemsByAttrId(@PathVariable Integer attrId){
+        return attrCollectionService.returnMemsByAttrId(attrId);
     }
 
 

@@ -7,6 +7,7 @@ import tw.idv.cha102.g7.attraction.entity.Attraction;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public interface AttrPrivateService {
 
@@ -19,4 +20,6 @@ public interface AttrPrivateService {
                                                           Integer attrId);
 
     public AttrPrivateDTO getPrivateAttraction(AttrPrivateId attrPrivateId);
+
+    public List<Attraction> getPrivateAttractionByMemId(Integer memId);
 }

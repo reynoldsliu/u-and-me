@@ -12,8 +12,10 @@ import tw.idv.cha102.g7.attraction.service.AttrService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @RestController
+@RequestMapping("/attrPriv")
 public class AttrPrivateController {
 
     @Autowired
@@ -98,6 +100,18 @@ public class AttrPrivateController {
     public AttrPrivateDTO getPrivateAttraction(@RequestBody AttrPrivateId attrPrivateId){
         return attrPrivateService.getPrivateAttraction(attrPrivateId);
     }
+
+    /**
+     * 查詢所有私人景點
+     * @param attrPrivateId
+     * @return AttrPrivateDTO
+     */
+    @RequestMapping("/getPrivateAttractions/{memId}")
+    public List<Attraction> getPrivateAttractions(@PathVariable Integer memId){
+        return attrPrivateService.getPrivateAttractionByMemId(memId);
+    }
+
+
 
 
 }

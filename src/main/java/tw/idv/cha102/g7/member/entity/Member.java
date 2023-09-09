@@ -11,7 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "members")
-public class Member {
+public class Member implements Comparable{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "mem_id")
@@ -59,5 +59,10 @@ public class Member {
 
     @Column(name = "mem_group")
     private Integer memGroup;
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }
 

@@ -85,6 +85,18 @@ public class AttrPrivateServiceImpl implements AttrPrivateService {
         return attrPrivateRepository.findByAttrPrivateId(attrPrivateId);
     }
 
+    @Override
+    public List<Attraction> getPrivateAttractionByMemId(Integer memId){
+        List<AttrPrivateDTO> attrPrivateDTOS = attrPrivateRepository.findAll();
+        List<Attraction> returnList = new ArrayList<>();
+        for(AttrPrivateDTO attrPrivateDTO:attrPrivateDTOS){
+            if(attrPrivateDTO.getAttrPrivateId().getMemId()==memId){
+                returnList.add(attrRepository.findById(attrPrivateDTO.getAttrPrivateId().getAttrId()).orElse(null));
+            }
+        }
+        return returnList;
+    }
+
 
 
 }
