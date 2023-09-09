@@ -2,6 +2,7 @@ package tw.idv.cha102.g7.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTagList;
 import tw.idv.cha102.g7.schedule.dto.TagsInScheduleDTO;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
@@ -119,5 +120,11 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
     @Override
     public void deleteTag(Integer schTagId) {
         tagRepository.deleteById(schTagId);
+    }
+
+    @Transactional
+    @Override
+    public int deleteScheduleTagListBySchId(Integer schId) {
+        return listRepository.deleteBySchId(schId);
     }
 }

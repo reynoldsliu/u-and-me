@@ -43,20 +43,24 @@ public class ScheduleManageController {
         }
     }
 
-    // 刪除一筆行程
-    @DeleteMapping("/delete/{schId}")
-    public ResponseEntity<Boolean> delete(@PathVariable Integer schId) {
+
+    /**
+     * 會員
+     * 刪除一個行程
+     * @param schId 行程id
+     * @return 刪除成功或失敗
+     */
+    @RequestMapping("/delete/{schId}")
+    public ResponseEntity<?> delete(@PathVariable Integer schId) {
         try {
-            service.delete(schId);
-            return ResponseEntity.ok(true);
+            String deleteMsg = service.deleteOneSchedule(schId);
+            return new ResponseEntity(deleteMsg, HttpStatus.OK);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // 查詢單一行程(行程概要)後，對行程內容進行修改
-    // 修改行程公開權限(私密、透過連結分享、公開)
-    // 行程共同編輯成員及權限設定(可檢視、可編輯、新增及移除共編成員，透過連結分享邀請成員共編)
+    // 對單一行程大綱內容進行修改
     @RequestMapping("/edit/{schId}")
     public ResponseEntity<?> edit(@PathVariable Integer schId,
                                   @RequestBody Schedule schedule) {
@@ -70,9 +74,7 @@ public class ScheduleManageController {
         }
     }
 
-    // 屏蔽一筆行程功能
-    // 結果:網頁上沒有顯示資料，但成功將資料庫中行程公開權限改成私人檢視
-    // 但輸入不存在的行程ID沒有報錯，頁面為全白
+    // 屏蔽一筆行程
     @GetMapping("/hide/{schId}")
     public ResponseEntity<?> hide(@PathVariable Integer schId) {
         try {

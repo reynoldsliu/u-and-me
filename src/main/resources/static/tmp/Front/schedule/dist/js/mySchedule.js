@@ -14,10 +14,6 @@ let pageSelect3_el = document.getElementById("pageSelect3");
 
 // 行程增刪改標籤
 const btn_schDone = document.getElementById("schDone");
-// 編輯行程相關設定(會有多個，屆時動態生成，要重新取值)
-const settingSch_el = document.querySelector(".settingSch");
-const settingSelect_el = document.querySelector(".settingSelect");
-// 公開權限
 // 刪除
 
 // 行程卡片內容標籤
@@ -33,10 +29,9 @@ let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-m
 let mySchbaseURL = baseURL + "mySch/";
 let myURL = mySchbaseURL + "my/";
 let addURL = mySchbaseURL + "create";
-let deleteURL = mySchbaseURL + "delete/";
 let privateURL = mySchbaseURL + "private/";
-let copyrightURL = mySchbaseURL + "copyright/"
-let hideURL = mySchbaseURL + "hide/";
+let copyrightURL = mySchbaseURL + "copyright/";
+let deleteURL = mySchbaseURL + "delete/";
 
 let e = 0; //用來控制分頁
 
@@ -48,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   fetchMyScheduleList(myURL, memId, e);
 });
 
-// 查詢會員專屬的行程
+// =============== 查詢會員專屬的行程 ===============
 async function fetchMyScheduleList(URL, memId, e) {
   try {
     const response = await fetch(URL + memId + "/" + e);
@@ -56,7 +51,7 @@ async function fetchMyScheduleList(URL, memId, e) {
 
     const schListInner = document.getElementById("schListInner");
     schListInner.innerHTML = "";
-
+    let i = 1;
     schList.forEach(schedule => {
 
       let row = document.createElement("div");
@@ -66,14 +61,14 @@ async function fetchMyScheduleList(URL, memId, e) {
 
       row.innerHTML = `
             <div class="card">
-            <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg"
+            <img src="../dist/img/scheduleimg/trip${i}.jpeg"
                 alt="" class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
                 <div class="settingSch" id="settingSch${schedule.schId}" onclick="editMySchedule(${schedule.schId})">
                   <div><i class="fa-solid fa-pen-to-square edit"></i></div>
                   <div class="settingSelect -off" id="settingSelect${schedule.schId}" onmouseleave="removeEditBox(${schedule.schId})">
                       <div class="privateSetting" id="privateSetting${schedule.schId}" onclick="selectPrivateSetting(${schedule.schId})">隱私設定與分享</div>
                       <div class="copyrightSetting" onclick="selectCopyrightSetting(${schedule.schId})">複製權限設定</div>
-                     <div class="deleteMySch">刪除</div>
+                     <div class="deleteMySch" id="deleteMySch${schedule.schId}" onclick="deleteOneSchedule(${schedule.schId})">刪除</div>
                   </div>
                 </div>
                 <div class="card-body">
@@ -90,6 +85,7 @@ async function fetchMyScheduleList(URL, memId, e) {
               </div>
             `;
       schListInner.appendChild(row);
+      i++;
     });
 
   } catch (error) {
@@ -205,6 +201,7 @@ document.getElementById('pageSelect3').addEventListener('click', async function 
 });
 
 //=============== 控制分頁結束 ===============
+// =============== 查詢會員專屬的行程結束 ===============
 
 
 // =============== 新增一個行程大綱 ===============
@@ -247,7 +244,7 @@ btn_schDone.onclick = async event => {
 // =============== 新增一個行程大綱結束 ===============
 
 
-// =============== 編輯一個行程大綱(公開權限) ===============
+// =============== 編輯一個行程大綱(瀏覽權限) ===============
 function editMySchedule(schId) {
   // 跳出選擇公開權限及刪除選項框
   const settingSelect_el = document.querySelector("#settingSelect" + schId);
@@ -334,7 +331,28 @@ async function selectCopyrightSetting(schId) {
 
 
 // =============== 刪除一個行程大綱 ===============
-
+async function deleteOneSchedule(schId) {
+  Swal.fire({
+    title: '確定要刪除此行程？',
+    text: "注意：刪除後不可復原！",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#008000',
+    confirmButtonText: '刪除',
+    cancelButtonColor: '#d33',
+    cancelButtonText: '取消'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await fetch(`${deleteURL}${schId}`);
+      Swal.fire({
+        title: '刪除成功！',
+        imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/524191583/android/sticker.png'
+      }).then(() => {
+        location.reload();
+      });
+    }
+  })
+}
 
 
 

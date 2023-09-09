@@ -2,6 +2,7 @@ package tw.idv.cha102.g7.schedule.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDetailsDTO;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
@@ -43,6 +44,12 @@ public class ScheduleDetailServiceImpl implements ScheduleDetailService {
     @Override
     public void deleteDetail(Integer schdeId) {
         detailRepository.deleteById(schdeId);
+    }
+
+    @Transactional
+    @Override
+    public int deleteDetailsInSch(Integer schId) {
+        return detailRepository.deleteBySchId(schId);
     }
 
 //    @Override

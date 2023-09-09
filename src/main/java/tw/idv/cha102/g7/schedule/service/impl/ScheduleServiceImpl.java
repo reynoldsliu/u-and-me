@@ -5,11 +5,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
+import tw.idv.cha102.g7.schedule.service.ScheduleDetailService;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
+import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 
 import java.sql.Date;
 import java.util.List;
@@ -21,6 +24,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
     private ScheduleRepository repository;
+    @Autowired
+    private ScheduleTagService tagService;
+    @Autowired
+    private ScheduleDetailService detailService;
 
     @Override
     public List<Schedule> findAllPublicPaged(int page, int size) {
@@ -52,7 +59,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public Stream<Schedule> findBySchNamePaged(String schName, int page) {
-//        Sort sort = Sort.by(Sort.Direction.DESC,"sch_start");　　// 已經在SQL時經過排序
         Pageable pageable = PageRequest.of(page, 6);
         return repository.findBySchName(schName, pageable).get();
     }
@@ -68,7 +74,6 @@ public class ScheduleServiceImpl implements ScheduleService {
         return repository.findOrderByDays(pageable).get();
     }
 
-
     @Override
     public Schedule getById(Integer schId) {
         Schedule schedule = repository.findById(schId).orElse(null);
@@ -79,17 +84,6 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<Schedule> getAll() {
         return repository.findAll();
     }
-
-
-    // 查詢行程及其細節，並依照行程細節起始時間排序
-    // @OneToMany的Join寫法
-//    @Override
-//    public Schedule getOneById(Integer schId) {
-//        Schedule schedule = repository.findByIdOrderByStarttime(schId);
-//        schedule.setScheduleDetails(schedule.getScheduleDetails().stream().sorted(Comparator.comparing(ScheduleDetail::getSchdeStarttime)).collect(Collectors.toList()));
-//        return schedule;
-//    }
-
 
     // 有重複行程資料的問題
     @Override
@@ -117,9 +111,19 @@ public class ScheduleServiceImpl implements ScheduleService {
         repository.save(schedule);
     }
 
+    @Transactional
     @Override
-    public void delete(Integer schId) {
+    public String deleteOneSchedule(Integer schId) {
+        // 刪除行程前，需先刪除與其關聯的相關欄位
+        // 從行程標籤清單中刪除行程與標籤關聯
+        int deleteTags =  tagService.deleteScheduleTagListBySchId(schId);
+        // 此行程的所有行程細節均需刪除
+        int deleteDetails = detailService.deleteDetailsInSch(schId);
+        // 與此行程相關的行程檢舉要刪除
+        // 活動推薦行程與揪團關聯行程清單記得要刪掉
+        // 刪除行程
         repository.deleteById(schId);
+        return "成功刪除"+deleteTags+"個標籤，"+deleteDetails+"個行程細節";
     }
 
     @Override
@@ -128,11 +132,11 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule sche = repository.findById(schId).orElse(null);
         if (sche != null) {  // schedule為欲修改的行程資料
             sche.setSchName(schedule.getSchName());
-//            sche.setSchStart(schedule.getSchStart());
-//            sche.setSchEnd(schedule.getSchEnd());
-//            sche.setSchCost(schedule.getSchCost());
-//            sche.setSchPub(schedule.getSchPub());
-//            sche.setSchCopy(schedule.getSchCopy());
+            sche.setSchStart(schedule.getSchStart());
+            sche.setSchEnd(schedule.getSchEnd());
+            sche.setSchCost(schedule.getSchCost());
+            sche.setSchPub(schedule.getSchPub());
+            sche.setSchCopy(schedule.getSchCopy());
             repository.save(sche);
             return "更新成功！";
         } else {

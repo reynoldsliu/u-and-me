@@ -32,4 +32,7 @@ public interface ScheduleTagService {
     // 刪除行程標籤
     public void deleteTag(Integer schTagId);
 
+    // 刪除與行程相關聯的行程與行程標籤清單
+    public int deleteScheduleTagListBySchId(Integer schId);
+
 }

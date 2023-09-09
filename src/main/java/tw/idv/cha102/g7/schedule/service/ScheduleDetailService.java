@@ -23,9 +23,15 @@ public interface ScheduleDetailService {
     public void updateDetails(ScheduleDetail scheduleDetail);
 
     /**
-     * 行程細節內容進行修改(刪除)
+     * 依照行程細節id刪除行程細節(刪除一筆行程細節)
      */
     public void deleteDetail(Integer schdeId);
+
+    /**
+     * 依照行程id刪除所有行程細節(刪除多筆行程細節)
+     */
+    public int deleteDetailsInSch(Integer schId);
+
 
     /**
      * 見ScheduleManageController.java

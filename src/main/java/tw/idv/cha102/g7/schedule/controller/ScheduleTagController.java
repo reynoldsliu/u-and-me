@@ -19,39 +19,67 @@ public class ScheduleTagController {
     @Autowired
     private ScheduleTagService service;
 
+    /**
+     * 查詢所有的行程標籤清單
+     * @return 所有的行程標籤清單
+     */
     @GetMapping("/")
     public List<ScheduleTag> finaAllTag() {
         return service.findAll();
     }
 
+    /**
+     * 查詢特定的行程標籤
+     * @param schTagId 行程標籤id
+     * @return 特定行程標籤
+     */
     @GetMapping("/id/{schTagId}")
     public ScheduleTag findById(@PathVariable Integer schTagId) {
         return service.findById(schTagId);
     }
 
+    /**
+     * 依照行程標籤名稱查詢行程標籤
+     * @param schTagName 行程標籤名稱
+     * @return 名稱相似的行程標籤
+     */
     @GetMapping("/name/{schTagName}")
     public List<ScheduleTag> findByName(@PathVariable String schTagName) {
         return service.findByName(schTagName);
     }
 
+    /**
+     * 依照行程標籤id查詢所有關聯行程DTO
+     * @param schTagId 行程標籤id
+     * @return 與行程標籤id相關的所有行程
+     */
     @GetMapping("/DTOid/{schTagId}")
     public TagToSchedulesDTO findSchedules(@PathVariable Integer schTagId) {
         return service.findSchedulesBySchTagId(schTagId);
     }
 
-    // 藉由行程標籤名字找出對應行程(待改寫)
+    /**
+     * 依照行程標籤名稱查詢所有關聯行程
+     * @param schTagName 行程標籤名稱
+     * @return 與行程標籤名稱相關的所有行程
+     */
     @GetMapping("/DTOname/{schTagName}")
     public List<TagToSchedulesDTO> findSchedulesByTagName(@PathVariable String schTagName) {
         return service.findSchedulesBySchTagName(schTagName);
     }
 
-    // 藉由行程id找出對應行程標籤
+    /**
+     * 依照行程id查詢所有關聯行程標籤
+     * @param schId 行程id
+     * @return 與行程相關的所有行程標籤
+     */
     @GetMapping("/schId/{schId}")
     public List<ScheduleTag> findTagsBySchId(@PathVariable Integer schId) {
         return service.findTagsBySchId(schId);
     }
 
     /**
+     * 新增行程標籤
      * @param tag 行程標籤
      * @return 新增的行程標籤本身
      */
@@ -61,13 +89,39 @@ public class ScheduleTagController {
     }
 
     /**
+     * 刪除行程標籤
      * @param schTagId 行程標籤id
-     * @return 新增的行程標籤本身
+     * @return 刪除成功
      */
     @RequestMapping("/delete/{schTagId}")
     public ResponseEntity<?> deleteTag(@PathVariable Integer schTagId){
         service.deleteTag(schTagId);
         return  new ResponseEntity("刪除成功！", HttpStatus.OK);
     }
+
+    /**
+     * 刪除行程時與其關聯的所有行程標籤
+     * @param schId 行程id
+     * @return 刪除成功資料筆數
+     */
+    @RequestMapping("/deleteTagListInSch/{schId}")
+    public ResponseEntity<?> deleteTagsInSchedule(@PathVariable Integer schId){
+        int deleteData= service.deleteScheduleTagListBySchId(schId);
+        return new ResponseEntity("共刪除"+deleteData+"筆資料",HttpStatus.OK);
+    }
+
+
+    /**
+     * 新增行程標籤至關聯行程
+     * @param schId 行程id
+     * @param schTagId 行程標籤id
+     * @return 新增成功資料筆數
+     */
+//    @RequestMapping("/addTagListInSch/{schId}/{schTagId}")
+//    public ResponseEntity<?> addTagsInSchedule(@PathVariable Integer schId,
+//                                                  @PathVariable Integer schTagId){
+//        int addData= service.addScheduleTagListById(schId);
+//        return new ResponseEntity("共刪除"+addData+"筆資料",HttpStatus.OK);
+//    }
 
 }
