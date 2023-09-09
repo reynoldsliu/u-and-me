@@ -81,10 +81,11 @@ public class CartListController {
         cartService.deleteById(memId,prodId);
     }
 
-    @RequestMapping("/updateCartList/{prodId}/{cartQty}")
+    @RequestMapping("/updateCartList/{prodId}/{cartQty}/{cartPri}")
     public CartList updateCartList(HttpServletRequest request,
                                    @PathVariable Integer prodId,
-                                   @PathVariable Integer cartQty){
+                                   @PathVariable Integer cartQty,
+                                   @PathVariable Integer cartPri){
         HttpSession session = request.getSession();
         Object obj = session.getAttribute("memberId");
         String jsessionId;
@@ -96,6 +97,6 @@ public class CartListController {
             memId = Integer.parseInt(jsessionId);
             System.out.println("memId: "+memId);
         }
-       return cartService.updateCartListQty(memId, prodId, cartQty);
+       return cartService.updateCartListQty(memId, prodId, cartQty, cartPri);
     }
 }

@@ -406,7 +406,7 @@
           const cartPri_el = document.createElement("td");
           cartPri_el.classList.add("align-middle");
           cartPri_el.innerHTML =
-           `<p class="mb-0 ps-2 cartPrice" style="font-weight: 500; width:80px;margin-left:105px;">NT ${cartList.cartPri}</p>`;
+           `<p class="mb-0 ps-2 cartPrice" id="cartPrice${cartList.cartListId.prodId}" style="font-weight: 500; width:80px;margin-left:105px;">NT ${cartList.cartPri}</p>`;
 
           //給class，取之後用innerHTML
             
@@ -432,17 +432,28 @@
            //  -----商品數量增減-----
         const reduceButton = document.getElementById("reduceBtn");
    
-        function reduceCart(prodId) {
-            // let quantityInput = document.getElementById("quantityInput");
+        //數量減少
+       async function reduceCart(prodId) {
             let quantityInput = document.getElementById("quantityInput"+prodId);
-            let currentValue = quantityInput.value;
-            if (currentValue > 1) {
+            let currentValue = parseInt(quantityInput.value); 
+            console.log("quantityInput: "+quantityInput.value);
+            console.log("currentValue: "+currentValue);
+            // let currentValue = quantityInput.value;
+            if (currentValue > 0) {
                 currentValue -= 1;
                 // //更新輸入的值
                 quantityInput.value = currentValue;
+                updateCart(prodId);
             }
-            updateCart(prodId);
+
+            if (currentValue === 0){
+              quantityInput.value = currentValue;
+              await deleteCart(prodId);
+            } 
         }
+      
+
+          //數量增加
             function addCarts(prodId,event) {
             let quantityInput = document.getElementById("quantityInput"+prodId);
             quantityInput.value++;
@@ -453,9 +464,10 @@
          // 數量增加或減少，要更新購物車 
           function updateCart(prodId){
             // console.log(prodId);
+            //取得每一列input標籤的值(input標籤在innerHTML有+prodId 讓每一列的input標籤都有唯一的id)
             let quantityInput = document.getElementById("quantityInput"+prodId);
-            console.log(quantityInput);
-            console.log(quantityInput.value);
+            // console.log(quantityInput);
+            // console.log(quantityInput.value);
            
             let ProdId = quantityInput.dataset.prodId;
             let quantityFinal = quantityInput.value;
@@ -465,13 +477,34 @@
                 cartQty:quantityFinal
             }
             //根據數量變化計算新的小計
-            let ProdPri = document.getElementById("prodPri"+prodId);
-            let ProdPriValue = ProdPri.value;
-            let newCartPri = calculateNewCartPrice(quantityFinal,ProdPri);
-            let newCartPri_el = document.querySelector(".cartPrice");
+            let ProdPriValue = document.getElementById("prodPri" + prodId).textContent;
+            let newCartPri = calculateNewCartPrice(parseFloat(ProdPriValue), parseFloat(quantityFinal));
+            //取得每一列cartPri的值(在innerHTML有+prodId 讓每一列生成的cartPri都有唯一的id)
+            let newCartPri_el = document.getElementById("cartPrice"+prodId);
+            //把計算好的新金額用.textContent放回去
             newCartPri_el.textContent = `NT ${newCartPri}`;
             
-          fetch(`${baseUrl}updateCartList/${ProdId}/${quantityFinal}`,{
+            
+            //根據小計變化計算新的總計
+            let toTalCountFinal = 0;
+            //遍歷所有以 "cartPrice" 開頭的元素
+            let newCartPri_els = document.querySelectorAll("[id^='cartPrice']");
+            newCartPri_els.forEach(newCartPri_el=>{
+              let str = newCartPri_el.textContent;
+              let price = str.replace(/\D/g, "");
+              let newCartPri_el_value = parseInt(price);
+              toTalCountFinal += newCartPri_el_value;
+            });
+
+            let test = document.getElementById("cartPrice"+prodId);
+            
+            console.log(toTalCountFinal);
+            console.log(test);
+            totalPriceCount.innerText = `${toTalCountFinal}`;
+            finalTotalPrice.innerText = `${toTalCountFinal + 80}`;
+
+            
+          fetch(`${baseUrl}updateCartList/${ProdId}/${quantityFinal}/${newCartPri}`,{
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(cartList)
@@ -481,9 +514,9 @@
               })
              
         }
-
-        function calculateNewCartPrice(quantityFinal,ProdPri){
-              return quantityFinal * ProdPri;
+        //計算新的小計
+        function calculateNewCartPrice(ProdPri,quantityFinal){
+              return ProdPri * quantityFinal;
         }
 
         //數量<1，要將商品刪除
@@ -496,24 +529,24 @@
         // }
         // });
 
-        // async function reduceCart(prodId){
-        //    await fetch(`${baseUrl}deleteCartList/${prodId}`, {
-        //       method: 'DELETE',
-        //       headers: { 'Content-Type': 'application/json' },
-        //     })
-        //       .then(body => {
-        //         let {message}=body;
-        //         Swal.fire({
-        //           icon: 'success',
-        //           title: '操作成功',
-        //           text: `${message}`,
-        //           confirmButtonText: '確定',
-        //           focusConfirm: true
-        //         });
-        //          //成功刪除，重整此畫面
-        //          location.reload();
-        //       });
-        //     }
+        function deleteCart(prodId){
+         fetch(`${baseUrl}deleteCartList/${prodId}`, {
+              method: 'DELETE',
+              headers: { 'Content-Type': 'application/json' },
+            })
+              .then(body => {
+                let {message}=body;
+                Swal.fire({
+                  icon: 'success',
+                  title: '操作成功',
+                  text: `${message}`,
+                  confirmButtonText: '確定',
+                  focusConfirm: true
+                });
+                 //成功刪除，重整此畫面
+                 location.reload();
+              });
+            }
             
             
           // // if 數量=0 呼叫reduceCart

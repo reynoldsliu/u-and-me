@@ -71,11 +71,12 @@ public class CartServiceImpl implements CartService {
         }
 
 //        //更新一筆購物車數量
-        public CartList updateCartListQty(Integer memId, Integer prodId, Integer cartQty) {
+        public CartList updateCartListQty(Integer memId, Integer prodId, Integer cartQty, Integer newCartPri) {
             CartListId cartListId = new CartListId(memId, prodId);
             CartList cartList = cartListRepository.findByCartListId_MemIdAndCartListId_ProdId(memId, prodId);
             if (cartList != null) {
                 cartList.setCartQty(cartQty);
+                cartList.setCartPri(newCartPri);
             }
                 return cartListRepository.save(cartList);
         }
