@@ -17,7 +17,7 @@ const recipientAddr = document.getElementById('recipientAddr');
 
 
 //<!--網頁載入後執行-->
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     // myOrderList();
 
     // 获取当前页面的URL
@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 获取特定参数的值
     var OrdId = urlParams.get('ordId');
+
     getOrderDetail(OrdId);
     showProducts(OrdId);
 
@@ -49,36 +50,44 @@ async function showProducts(OrdId) {
     <td style="width: 100px;text-align: center;vertical-align: middle;">${product.prodName}</td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodQty}</td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodPrice}</td>
-    <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodQty*orderDetail.prodPrice}</td>
-    <td style="width: 50px;text-align: center; vertical-align: middle;"><button onclick="redirectToProdDetailPage(${product.prodId})">${product.prodName}</button></td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodQty * orderDetail.prodPrice}</td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;"><button onclick="redirectToProdDetailPage(${product.prodId})">商品連結</button></td>
                          
     `;
-    dataTableList.appendChild(row);
+        dataTableList.appendChild(row);
     });
 }
 function redirectToProdDetailPage(prodId) {
     var newPageUrl = baseUrl + `tmp/Front/shop/productDetail.html?prodId=${prodId}`;
     window.location.href = newPageUrl;
-  }
+}
 
 async function getOrderDetail(OrdId) {
-    const response = await fetch(baseUrl + `Orders/ordId`+OrdId);
+    const response2 = await fetch(baseUrl + `member/getMemId`);
+    const memberCheck = await response2.json();
+    const response = await fetch(baseUrl + `Orders/ordId` + OrdId);
     const orderDetail = await response.json();
-    const response1 = await fetch(baseUrl + `member/getMemberByMemId/${orderDetail.memId}`);
-    const member = await response1.json();
+    console.log(memberCheck);
+    if (memberCheck.memId == undefined || memberCheck.memId!=orderDetail.memId) {
+        alert("此會員查無本單號" );
+        return;
+    }
+    else {
+        const response1 = await fetch(baseUrl + `member/getMemberByMemId/${orderDetail.memId}`);
+        const member = await response1.json();
 
-
-    ordId.innerText = OrdId;
-    memName.innerText = member.memName;
-    ordTime.innerText = orderDetail.ordTime;
-    ordFee.innerText = orderDetail.ordFee;
-    total.innerText = orderDetail.total;
-    checktotal.innerText = orderDetail.checktotal + orderDetail.ordFee;
-    // points.innerText = orderDetail.points;
-    //checktotal = orderDetail.checktotal;
-    recipientName.innerText = orderDetail.recipientName;
-    recipientPhone.innerText = orderDetail.recipientPhone;
-    recipientAddr.innerText = orderDetail.recipientAddr;
+        ordId.innerText = OrdId;
+        memName.innerText = member.memName;
+        ordTime.innerText = orderDetail.ordTime;
+        ordFee.innerText = orderDetail.ordFee;
+        total.innerText = orderDetail.total;
+        checktotal.innerText = orderDetail.checktotal + orderDetail.ordFee;
+        // points.innerText = orderDetail.points;
+        //checktotal = orderDetail.checktotal;
+        recipientName.innerText = orderDetail.recipientName;
+        recipientPhone.innerText = orderDetail.recipientPhone;
+        recipientAddr.innerText = orderDetail.recipientAddr;
+    }
 }
 
 async function myOrderList() {
