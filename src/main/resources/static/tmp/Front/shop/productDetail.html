@@ -354,16 +354,13 @@
 
 
     <script>
-        // 頁面載入後
-        // document.addEventListener("DOMContentLoaded", function () {
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
         // 從shoppingMall取得prodId值跳到該商品頁
         const urlParams = new URLSearchParams(window.location.search);
         const prodId = urlParams.get('prodId');
         console.log("DOM");
         listProdDetail(prodId);
-        // });
-
 
         // 拿到prodId抓商品內容
         function listProdDetail(prodId) {
@@ -372,7 +369,7 @@
             const shoppingCartIcon = document.getElementById('shoppingCart');
 
             let html = "";
-            fetch(`http://localhost:8080/u-and-me/product/listProductDetail/${prodId}`)
+            fetch(`${baseUrl}product/listProductDetail/${prodId}`)
                 .then(resp => resp.json())
                 .then(data => {
 
@@ -469,13 +466,15 @@
     }
   // <!--購物車icon會根據memId跳轉到購物車詳情頁面，並將資料映射到相關欄位上-->
         async function redirectToCartPage() {
-            const resp = await fetch("http://localhost:8080/u-and-me/member/getMemId");
+            const resp = await fetch(baseUrl+`member/getMemId`);
+            console.log(resp);
             let respJson = await resp.json();
+            console.log(respJson);
             let memId = respJson.memId;
-            if(memId === undefined){
-                window.location.href = "http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html";
+            if(memId === undefined || memId === null){
+                window.location.href = `${baseUrl}tmp/Front/member/memberLogin.html`;
             }else{
-                const newPageUrl = `http://localhost:8080/u-and-me/tmp/Front/shop/shoppingCart.html?memId=${memId}`;
+                const newPageUrl = `${baseUrl}tmp/Front/shop/shoppingCart.html?memId=${memId}`;
                 window.location.href = newPageUrl;
             }
     }
@@ -513,7 +512,7 @@
             }
             // sessionStorage.setItem('cartInfo', JSON.stringify(cartList));
             
-            await fetch(`http://localhost:8080/u-and-me/addCartList/`+ProdId,{
+            await fetch(`${baseUrl}addCartList/`+ProdId,{
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(cartList)
@@ -522,7 +521,7 @@
                     if(addcart.cartListId === null){
                         //輸入資訊暫存頁面+數量(登入後導回才會導回該商品頁面，以及看到先前增減的商品數量)
                         //這邊要再測試是否可正常跳轉
-                        window.location.href = "http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html";
+                        window.location.href = `${baseUrl}tmp/Front/member/memberLogin.html`;
                     }
                     Swal.fire(
                         '新增成功',

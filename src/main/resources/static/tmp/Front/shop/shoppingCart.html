@@ -231,9 +231,9 @@
                       </td> -->
                       <!-- <td class="align-middle border-bottom-0">
                       </td> -->
-                      <td class="align-middle border-bottom-0">
-                        <span style="margin-left:920px;"> 總計:</span>
-                        <span class="mb-0" id="totalPriceCount" style="font-weight: 500; font-size: 18px;margin-left:20px;"></span>
+                      <td class="align-middle border-bottom-0" style="padding-top:50px">
+                        <span style="margin-left:900px;"> 總計:</span>
+                        <span class="mb-0" id="totalPriceCount" style="font-weight: 500; font-size: 18px;margin-left:20px;width: 100px;"></span>
                         <span style="margin-left:20px">元</span>
                     </td>
                     </tr>
@@ -252,7 +252,7 @@
                       <td class="align-middle border-bottom-0">
                       </td> -->
                       <td class="align-middle border-bottom-0">
-                        <span style="margin-left:920px;"> 運費:</span>
+                        <span style="margin-left:900px;"> 運費:</span>
                         <span class="mb-0" id="shippingFee" style="font-weight: 500; font-size: 18px; margin-left:20px;width: 100px;">80</span>
                         <span style="margin-left:20px">元</span>
       </td>
@@ -268,7 +268,7 @@
 
       <!-- 總金額區 -->
       <div class="container ">
-        <div class="row my-5">
+        <div class="row mb-5">
           <div class="cart-step1-footer" style="display: flex; justify-content: flex-end;">
             <div class="h4 align-self-center px-4">
               <span >總金額:</span>
@@ -332,6 +332,7 @@
       </footer>
     </div>
   </div>
+  
   <script>
     const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
     //載入後顯示購物車清單
@@ -361,7 +362,8 @@
 
           
         const prodRow = document.createElement("tr");
-        prodRow.style.borderBottom = "1px solid black";
+        prodRow.style.borderBottom = "1px solid rgb(196, 204, 203)";
+      
 
           // 創建每個表格
           let prodInfo_el = document.createElement("td");
@@ -378,7 +380,6 @@
           </th>
           `;
           
-
           const prodPri_el = document.createElement("td");
           prodPri_el.classList.add("align-middle");
           prodPri_el.innerHTML = 
@@ -393,11 +394,11 @@
           <span class="product_quantity">
               <div class="btn-group" role="group" aria-label="First group">
                   <button class="btn add-down qk-bd--product_border" type="button" onclick="reduceCart(${cartList.cartListId.prodId})"
-                      id="reduceBtn${cartList.cartListId.prodId}" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(115, 176, 172); width: 25px;">-</button>
+                      id="reduceBtn${cartList.cartListId.prodId}" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(166, 173, 172); width: 30px;">-</button>
                   <input class="btn item-quantity qk-text--heading qk-bd--product_border" type="text"
-                       id="quantityInput${cartList.cartListId.prodId}" name="quantityIn" value="${cartList.cartQty}" oninput="updateCart(${cartList.cartListId.prodId})" data-prod-id="${cartList.cartListId.prodId}" data-old-value="1" style="color:rgb(115, 176, 172); border: 1px solid rgb(115, 176, 172);width: 50px;">
+                       id="quantityInput${cartList.cartListId.prodId}" name="quantityIn" value="${cartList.cartQty}" oninput="updateCart(${cartList.cartListId.prodId})" data-prod-id="${cartList.cartListId.prodId}" data-old-value="1" style="color:rgb(72, 74, 74); border: 1px solid rgb(166, 173, 172);width: 50px;">
                   <button class="btn add-up qk-bd--product_border" type="button" onclick="addCarts(${cartList.cartListId.prodId})"
-                      id="addBtn${cartList.cartListId.prodId}" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(115, 176, 172); width: 25px;">+</button>
+                      id="addBtn${cartList.cartListId.prodId}" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(166, 173, 172); width: 30px;">+</button>
               </div>
             </span>
         </div>                         
@@ -406,10 +407,8 @@
           const cartPri_el = document.createElement("td");
           cartPri_el.classList.add("align-middle");
           cartPri_el.innerHTML =
-           `<p class="mb-0 ps-2 cartPrice" id="cartPrice${cartList.cartListId.prodId}" style="font-weight: 500; width:80px;margin-left:105px;">NT ${cartList.cartPri}</p>`;
+           `<p class="mb-0 ps-2 cartPrice" id="cartPrice${cartList.cartListId.prodId}" style="font-weight: 500; width:80px;margin-left:125px;">NT ${cartList.cartPri}</p>`;
 
-          //給class，取之後用innerHTML
-            
 
           // 將每一列加入
           prodRow.appendChild(prodInfo_el);
@@ -427,7 +426,7 @@
         })
           };
 
-          }
+      }
           
            //  -----商品數量增減-----
         const reduceButton = document.getElementById("reduceBtn");
@@ -453,7 +452,7 @@
         }
       
 
-          //數量增加
+        //數量增加
             function addCarts(prodId,event) {
             let quantityInput = document.getElementById("quantityInput"+prodId);
             quantityInput.value++;
@@ -461,7 +460,7 @@
         }
 
         
-         // 數量增加或減少，要更新購物車 
+        // 數量增加或減少，更新購物車明細 
           function updateCart(prodId){
             // console.log(prodId);
             //取得每一列input標籤的值(input標籤在innerHTML有+prodId 讓每一列的input標籤都有唯一的id)
@@ -476,6 +475,7 @@
                 cartPri:document.querySelector(".cartPrice").value,
                 cartQty:quantityFinal
             }
+
             //根據數量變化計算新的小計
             let ProdPriValue = document.getElementById("prodPri" + prodId).textContent;
             let newCartPri = calculateNewCartPrice(parseFloat(ProdPriValue), parseFloat(quantityFinal));
@@ -484,13 +484,13 @@
             //把計算好的新金額用.textContent放回去
             newCartPri_el.textContent = `NT ${newCartPri}`;
             
-            
             //根據小計變化計算新的總計
             let toTalCountFinal = 0;
             //遍歷所有以 "cartPrice" 開頭的元素
             let newCartPri_els = document.querySelectorAll("[id^='cartPrice']");
             newCartPri_els.forEach(newCartPri_el=>{
               let str = newCartPri_el.textContent;
+              //把非數字的內容刪除(NT)只保留數字
               let price = str.replace(/\D/g, "");
               let newCartPri_el_value = parseInt(price);
               toTalCountFinal += newCartPri_el_value;
@@ -498,12 +498,11 @@
 
             let test = document.getElementById("cartPrice"+prodId);
             
-            console.log(toTalCountFinal);
-            console.log(test);
+            // console.log(toTalCountFinal);
+            // console.log(test);
             totalPriceCount.innerText = `${toTalCountFinal}`;
             finalTotalPrice.innerText = `${toTalCountFinal + 80}`;
 
-            
           fetch(`${baseUrl}updateCartList/${ProdId}/${quantityFinal}/${newCartPri}`,{
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -519,46 +518,18 @@
               return ProdPri * quantityFinal;
         }
 
-        //數量<1，要將商品刪除
-        
-        // const changeQuantity = getElementById('changeQuantity');
-        // changeQuantity.addEventListener('change', function () {
-        // const numberValue = changeQuantity.value;
-        // if (numberValue < 1) {
-        //   reduceCart(prodId);
-        // }
-        // });
-
+        //刪除購物車明細
         function deleteCart(prodId){
          fetch(`${baseUrl}deleteCartList/${prodId}`, {
               method: 'DELETE',
               headers: { 'Content-Type': 'application/json' },
             })
               .then(body => {
-                let {message}=body;
-                Swal.fire({
-                  icon: 'success',
-                  title: '操作成功',
-                  text: `${message}`,
-                  confirmButtonText: '確定',
-                  focusConfirm: true
-                });
                  //成功刪除，重整此畫面
                  location.reload();
               });
             }
-            
-            
-          // // if 數量=0 呼叫reduceCart
-          // numberInput.addEventListener('change', function(event) {
-          //   const numberValue = numberInput.value;
-          //         if(numberValue < 1){
-          //           reduceCart(prodId);
-          //         }
-          //         //成功刪除，重整此畫面
-          //    location.reload();
-          //   })
-        
+   
 
 
   </script>

@@ -30,10 +30,10 @@ public class CartListController {
             @RequestBody CartList cartList, HttpServletRequest request){
         System.out.println("addCartList");
         HttpSession session = request.getSession();
-        String jsessionId = session.getAttribute("memberId").toString();
-        if(jsessionId == null)
+        Object obj = session.getAttribute("memberId");
+        if(obj == null)
             return new CartList();
-        Integer memId = Integer.parseInt(jsessionId);
+        Integer memId = Integer.parseInt(obj.toString());
 
 //        session.setAttribute("cartInfo", cartList);
 

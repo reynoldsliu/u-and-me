@@ -10,6 +10,8 @@
     <title>UandMe</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 
     <!-- Bootstrap core CSS -->
@@ -234,20 +236,20 @@
 
             <!-- changed to my-3 and changed from height: 800px to min-height -->
             <!-- 內容從這開始-->
-            <button id=testname type="button" class="btn btn-primary">TEST</button>
+            <!-- <button id=testname type="button" class="btn btn-primary">TEST</button> -->
 
             <h5 style="text-align: center">商品列表</h5>
             <div class="table-responsive">
                 <table class="table table-bordered border-secondary" id="dataTable1">
-                    <thead>
+                    <thead >
                         <tr>
-                            <th style="text-align: center;">商品編號</th>
-                            <th style="text-align: center;">類別編號</th>
-                            <th style="text-align: center;">商品照片</th>
-                            <th style="text-align: center;">商品名稱</th>
-                            <th style="text-align: center;">商品價格</th>
-                            <th style="text-align: center;">商品狀態</th>
-                            <th style="text-align: center;">修改商品</th>
+                            <th style="width: 100px; text-align: center;background-color:#BACEC1;">商品編號</th>
+                            <th style="width: 50px; text-align: center; background-color: #BACEC1;">類別</th>
+                            <th style="width: 150px; text-align: center; background-color: #BACEC1;">商品照片</th>
+                            <th style="width: 150px; text-align: center; background-color: #BACEC1;">商品名稱</th>
+                            <th style="width: 100px; text-align: center; background-color: #BACEC1;">商品價格</th>
+                            <th style="width: 100px; text-align: center; background-color: #BACEC1;">商品狀態</th>
+                            <th style="width: 100px; text-align: center; background-color: #BACEC1;">編輯/刪除</th>
                         </tr>
                     </thead>
                     <tbody id="dataTableList">
@@ -263,6 +265,8 @@
     <script src="shop.js"></script>
 
     <script>
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+
         // <!--網頁載入後執行-->
         document.addEventListener("DOMContentLoaded", function () {
             fetchProductList();
@@ -272,7 +276,7 @@
         // 等待 fetch 完成並將回應轉換為 JSON 格式
         async function fetchProductList() {
             try {
-                const response = await fetch('http://localhost:8080/u-and-me/product/listAllProduct');
+                const response = await fetch(`${baseUrl}product/listAllProduct`);
                 const ProductList = await response.json();
 
                 // 這兩行將活動列表的 <tbody> 元素選取並清空，以便重新插入新的活動資料
@@ -309,16 +313,21 @@
 
 
                     row.innerHTML = `
-                        <td style="width: 10px;text-align: center; vertical-align: middle;">${product.prodId}</td>
-                        <td style="width: 20px;text-align: center;vertical-align: middle;">${product.prodCatId}</td>
-                        <td style="width: 70px;text-align: center;"><img src="data:image/jpeg;base64,${base64Image}" alt="商品照片" width="100" height="100"></td>
-                        <td style="width: 30px;text-align: center; vertical-align: middle;">${product.prodName}</td>
-                        <td style="width: 20px;text-align: center;vertical-align: middle;">${product.prodPri}</td>
-                        <td style="width: 20px;text-align: center;vertical-align: middle;">${statusMapping.get(product.prodSta)}</td>
-                        <td style="width: 30px;text-align: center;vertical-align: middle;">
+                        <td style="width: 100px;text-align: center; vertical-align: middle;">${product.prodId}</td>
+                        <td style="width: 50px;text-align: center; vertical-align: middle;">${product.prodCatId}</td>
+                        <td style="width: 150px;text-align: center; object-fit:cover; "><img src="data:image/jpeg;base64,${base64Image}" alt="商品照片" width="140" height="140"></td>
+                        <td style="width: 150px;text-align: center; vertical-align: middle;">${product.prodName}</td>
+                        <td style="width: 100px;text-align: center; vertical-align: middle;">${product.prodPri}</td>
+                        <td style="width: 100px;text-align: center; vertical-align: middle;">${statusMapping.get(product.prodSta)}</td>
+                        <td style="width: 100px;text-align: center; vertical-align: middle;">
                          <button class="btn btn-outline-success" onclick="redirectToDetailPage(${product.prodId})">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                           <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                          </svg>
+                          </button>
+                          <button class="btn btn-outline-danger" onclick="deleteProduct(${product.prodId})">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                          <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
                           </svg>
                           </button>
                         </td>
@@ -345,6 +354,37 @@
             var newPageUrl = `shopUpdate.html?prodId=${prodId}`;
             window.location.href = newPageUrl;
         }
+
+        //刪除商品
+        function deleteProduct(prodId) {
+                Swal.fire({
+                    icon: 'question',
+                    title: '確認',
+                    text: '確定刪除此商品？',
+                    confirmButtonText: '確定',
+                    showCancelButton: true,
+                    cancelButtonText: '取消'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        fetch(`${baseUrl}product/deleteProduct/${prodId}`, {
+                            method: 'DELETE',
+                            headers: { 'Content-Type': 'application/json' },
+                        })
+                        .then(resp => {
+                                if (resp.ok) {
+                                    //成功刪除，重整此畫面
+                                    location.reload();
+                                } else {
+                                    console.error("取消刪除");
+                                }
+                            }).catch(error => {
+                                console.error('錯誤：', error);
+                            });        
+                    }
+                });
+            }
+        
+    
 
     </script>
 </body>
