@@ -1,26 +1,24 @@
+// 行程搜尋欄相關的標籤
 let search_btn_el = document.getElementById("search-btn");
 let keywords_el = document.getElementById("keywords");
 let sortByStart_el = document.getElementById("sortByStart");
 let sortByDays_el = document.getElementById("sortByDays");
-let btn_schDone = document.getElementById("schDone");
 
+// 分頁元素
 let pageSelect1_el = document.getElementById("pageSelect1");
 let pageSelect2_el = document.getElementById("pageSelect2");
 let pageSelect3_el = document.getElementById("pageSelect3");
 
+// 行程增刪改標籤
+let btn_schDone = document.getElementById("schDone");
 
- 
-// const inputMemId_el = document.getElementById("inputMemId");
+// 行程卡片內容標籤
 const inputStartDate_el = document.getElementById("inputStartDate");
 const schNameInput_el = document.getElementById("schNameInput");
 const startDate_el = document.getElementById("startDate");
 const endDate_el = document.getElementById("endDate");
 const destination_el = document.getElementById("destination");
 const schName_el = document.getElementById("schName");
-
-
-let e = 0; //用來控制分頁
-// let memId = 1; // 會員Id從哪裡抓取？
 
 // fetch對應到的路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
@@ -31,6 +29,7 @@ let deleteURL = mySchbaseURL + "delete/";
 let editURL = mySchbaseURL + "edit/";
 let hideURL = mySchbaseURL + "hide/";
 
+let e = 0; //用來控制分頁
 
 // 載入網頁就將所有該會員的行程列表查出
 document.addEventListener("DOMContentLoaded",async function () {
@@ -40,6 +39,7 @@ document.addEventListener("DOMContentLoaded",async function () {
   fetchMyScheduleList(myURL, memId, e);
 });
 
+// 查詢會員專屬的行程
 async function fetchMyScheduleList(URL, memId, e) {
   try {
     const response = await fetch(URL + memId + "/" + e);
@@ -57,8 +57,8 @@ async function fetchMyScheduleList(URL, memId, e) {
 
       row.innerHTML = `
             <div class="card">
-            <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                alt="" class="card-img-top">
+            <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg"
+                alt="" class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
                 <div class="settingSch">
                 A
                 </div>
@@ -71,7 +71,6 @@ async function fetchMyScheduleList(URL, memId, e) {
                     <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
                 </div>
               </div>
-            </div>
             `;
       schListInner.appendChild(row);
     });
@@ -81,12 +80,13 @@ async function fetchMyScheduleList(URL, memId, e) {
   }
 }
 
-
+// 日期格式化
 function formatDate(dateString) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return new Date(dateString).toLocaleDateString('zh-TW', options);
 }
 
+// 計算日期間的天數
 function calDays(schStart, schEnd) {
   // 創建兩個日期對象
   var startDate = new Date(schStart);
@@ -97,6 +97,14 @@ function calDays(schStart, schEnd) {
   var daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
   return (daysDifference + 1);
 }
+
+// 隨機取整數函式，更改行程卡片圖片
+// 原先單一圖片網址:
+// https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60
+function getRandomInteger() {
+  return Math.floor(Math.random() * (40 - 1 + 1)) + 1;
+}
+
 
 // =============== 待改，依關鍵字(行程名稱)搜尋行程清單 ===============
 search_btn_el.addEventListener("click", function (event) {
