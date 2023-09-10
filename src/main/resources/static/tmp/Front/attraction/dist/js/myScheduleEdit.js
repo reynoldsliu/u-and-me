@@ -888,10 +888,14 @@ myAttrDone_btn_el.onclick = async () => {
     let myAttrName = myAttrName_el.value.trim();
     let myAttrAddr = myAttrAddr_el.value.trim();
     const picFiles = attrPicFilesInput.files;
+    alert(inputAttrBussTime);
 
     const newAttr = {
         attrName: myAttrName,
-        attrAddr: myAttrAddr
+        attrAddr: myAttrAddr,
+        attrLat:attrLat,
+        attrLon:attrLon,
+        attrBussTime: inputAttrBussTime
     };
     const response = await fetch(baseURL + `/attrPriv/createPrivateAttr`, {
         method: 'POST',
@@ -903,7 +907,8 @@ myAttrDone_btn_el.onclick = async () => {
     const attrPrivDTO = await response.json();
     console.log(attrPrivDTO);
     let attrBody = attrPrivDTO.body;
-    let attrId = attrBody.attrPrivateId.attrId;
+    let attrPrivateId = attrBody.attrPrivateId;
+    let attrId = attrPrivateId.attrId;
     console.log("ATTRID: "+attrId);
 
     console.log("開始上傳圖片");
