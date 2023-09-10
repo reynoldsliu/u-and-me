@@ -227,6 +227,7 @@ async function addDailySchedule(restScheDetails) {
     //一但有變動 重新呼叫本函式更新一天行程
     var schdeStarttime = restScheDetails[0].schdeStarttime;
     let countedScheDetails;
+    let travelIconCount = 0;
     for (countedScheDetails = 0; ; countedScheDetails++) {
         //如果下一筆行程細節是明天的 結束今天的行程列印
 
@@ -252,6 +253,7 @@ async function addDailySchedule(restScheDetails) {
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
         let row = document.createElement("div");
+
         row.innerHTML = `
                 <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrId});">
                     <div class="row g-0">
@@ -287,6 +289,29 @@ async function addDailySchedule(restScheDetails) {
 
         // console.log("NEW START TIME: " + schdeStarttime);
         viewSchDetailsRows.appendChild(row);
+
+        var parentElement = row.parentNode;
+        var children = Array.from(parentElement.children);
+        var index = children.indexOf(row);
+        // console.log("這是父元素的第 " + (index + 1) + " 個子元素。");
+
+        if (index>9) {
+            console.log("Not the first Row");
+            let row1 = document.createElement("div");
+
+            row1.innerHTML = `<div class="transTotalTime" id="travelIconCount${++travelIconCount}">
+                <span class="selectTransMode">
+                    <select class="form-select form-select-lg mb-3"
+                        aria-label="Large select example">
+                        <option selected value="DRIVING">&#x1F697;</option>
+                        <option value="WALKING">&#x1F6B6;</option>
+                        <option value="BICYCLING">&#x1F6B2;</option>
+                        <option value="TRANSIT">&#x1F68C;</option>
+                    </select>
+                </span>
+            </div>`;
+            row.insertAdjacentElement("beforebegin", row1);
+        }
 
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
@@ -656,6 +681,38 @@ async function viewSearchResultOfOneAttr(attrId) {
     attrBussTime.innerText = attr.attrBussTime;
     attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
     attrIlla.innerText = attr.attrIlla;
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //Reynolds
+    console.log("LatLng: " + attr.attrLat + "::" + attr.attrLon);
+    // 將 attr.attrLat 和 attr.attrLon 轉換為數字
+    // 假設你有一個經緯度
+    var latitude = attr.attrLat; // 緯度
+    var longitude = attr.attrLon; // 經度
+
+    // 創建一個包含經緯度信息的 Place 物件
+    var locationPlace = {
+        geometry: {
+            location: new google.maps.LatLng(latitude, longitude)
+        }
+    };
+
+    // 創建地圖選項
+    var mapOptions = {
+        center: locationPlace.geometry.location, // 設置地圖中心為 Place 的位置
+        zoom: 16, // 放大級別，根據需求調整
+    };
+
+    // 創建地圖對象
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    // 在地圖上放置標記
+    var marker = new google.maps.Marker({
+        position: locationPlace.geometry.location,
+        map: map,
+        title: '自定義位置' // 可以自定義標記的標題
+    });
+    ///////////////////////////////////////////////////////////////////////////////////
 }
 
 
@@ -893,8 +950,8 @@ myAttrDone_btn_el.onclick = async () => {
     const newAttr = {
         attrName: myAttrName,
         attrAddr: myAttrAddr,
-        attrLat:attrLat,
-        attrLon:attrLon,
+        attrLat: attrLat,
+        attrLon: attrLon,
         attrBussTime: inputAttrBussTime
     };
     const response = await fetch(baseURL + `/attrPriv/createPrivateAttr`, {
@@ -909,7 +966,7 @@ myAttrDone_btn_el.onclick = async () => {
     let attrBody = attrPrivDTO.body;
     let attrPrivateId = attrBody.attrPrivateId;
     let attrId = attrPrivateId.attrId;
-    console.log("ATTRID: "+attrId);
+    console.log("ATTRID: " + attrId);
 
     console.log("開始上傳圖片");
     for (const file of picFiles) {

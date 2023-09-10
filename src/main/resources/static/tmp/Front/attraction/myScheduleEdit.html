@@ -1140,11 +1140,17 @@
         var attrLat;
         myAttrAddr_el.addEventListener('change', () => {
             initMap();
+            singleSiteAuto();
+
+        });
+
+        function singleSiteAuto() {
+            console.log("In sigleSiteAuto");
             let options = {
                 // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
             };
 
-            let siteInput1 = document.querySelector('.google_input_text3');
+            let siteInput1 = document.querySelector('#searchAttrByName');
             // let siteInput1 = myAttrAddr_el;
 
             var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
@@ -1185,8 +1191,7 @@
                     infowindow.open(this.map, marker);
                 }
             });
-
-        });
+        }
         var inputAttrBussTime = ``;
         async function getBussTime(place_id) {
             return new Promise((resolve, reject) => {
@@ -1237,10 +1242,10 @@
                 console.log(attrPicList);
                 const pics = attrPicList.attrPic;
                 let picInput;
-                
+
                 if (!pics[0]) {
                     picInput = pic;// pic.js base64
-                     // 如果 pics[0] 是空值，使用 "replace"
+                    // 如果 pics[0] 是空值，使用 "replace"
                 } else {
                     picInput = pics[0].attrPicData;
                 }
@@ -1320,10 +1325,10 @@
             siteAuto();
         }
 
-    // 監聽夜間模式變化
-    // document.getElementById('nightModeSwitch').addEventListener('change', (event) => {
-    //     googleMap.nightModeChange(event.target.checked ? 'open' : 'close');
-    // });
+        // 監聽夜間模式變化
+        // document.getElementById('nightModeSwitch').addEventListener('change', (event) => {
+        //     googleMap.nightModeChange(event.target.checked ? 'open' : 'close');
+        // });
 
 
     </script>
