@@ -241,7 +241,7 @@
                         <div class="card">
                             <img src="../dist/img/scheduleimg/trip24.jpeg" alt="等待圖片載入..." class="card-img-top"
                                 style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
-                            <div class="settingSch" id="settingSch${schedule.schId}" onclick="editMySchedule()">
+                            <div class="settingSch" id="settingSch" onclick="editMySchedule()">
                                 <div><i class="fa-solid fa-pen-to-square edit"></i></div>
                                 <div class="settingSelect -off" onmouseleave="removeEditBox()">
                                     <div class="privateSetting" onclick="selectPrivateSetting()">隱私設定與分享</div>
@@ -249,10 +249,15 @@
                                     <div class="deleteMySch">刪除</div>
                                 </div>
                             </div>
+                            <div class="launchGroup" id="launchGroup" onclick="launchMyGroup()" onmouseover="hint()" onmouseout="hint()">
+                                <i class="fa-solid fa-people-group group"></i>
+                                <div class="launchGroupHint -off">發起揪團</div>
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">schNameschNameschName</h5>
                                 <p class="sch-date" style="font-size: 15px">
-                                    YYYY年MM月DD日</p>
+                                    YYYY年MM月DD日
+                                </p>
                                 <p class="sch-date" style="font-size: 13px">
                                     行程共???天
                                     <span><i class="fa-solid fa-eye"></i> 連結分享</span>

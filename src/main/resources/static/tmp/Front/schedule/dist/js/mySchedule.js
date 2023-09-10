@@ -12,9 +12,8 @@ let pageSelect1_el = document.getElementById("pageSelect1");
 let pageSelect2_el = document.getElementById("pageSelect2");
 let pageSelect3_el = document.getElementById("pageSelect3");
 
-// 行程增刪改標籤
+// 新增行程標籤
 const btn_schDone = document.getElementById("schDone");
-// 刪除
 
 // 行程卡片內容標籤
 const inputStartDate_el = document.getElementById("inputStartDate");
@@ -32,6 +31,7 @@ let addURL = mySchbaseURL + "create";
 let privateURL = mySchbaseURL + "private/";
 let copyrightURL = mySchbaseURL + "copyright/";
 let deleteURL = mySchbaseURL + "delete/";
+let selectOneSchURL = baseURL + "schedules/schId/";
 
 let e = 0; //用來控制分頁
 
@@ -70,6 +70,10 @@ async function fetchMyScheduleList(URL, memId, e) {
                       <div class="copyrightSetting" onclick="selectCopyrightSetting(${schedule.schId})">複製權限設定</div>
                      <div class="deleteMySch" id="deleteMySch${schedule.schId}" onclick="deleteOneSchedule(${schedule.schId})">刪除</div>
                   </div>
+                </div>
+                <div class="launchGroup" id="launchGroup${schedule.schId}" onclick="launchMyGroup(${schedule.schId})" onmouseover="hint(${schedule.schId})" onmouseout="hint(${schedule.schId})">
+                  <i class="fa-solid fa-people-group group"></i>
+                  <div class="launchGroupHint -off">發起揪團</div>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">${schedule.schName}</h5>
@@ -112,8 +116,6 @@ function calDays(schStart, schEnd) {
 }
 
 // 隨機取整數函式，更改行程卡片圖片
-// 原先單一圖片網址:
-// https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60
 function getRandomInteger() {
   return Math.floor(Math.random() * (40 - 1 + 1)) + 1;
 }
@@ -127,7 +129,6 @@ function convertNumberToText(number) {
       return "連結分享";
     case 2:
       return "公開瀏覽";
-
   }
 }
 
@@ -137,7 +138,7 @@ function convertBooleanToText(boolValue) {
 }
 
 
-// =============== 待改，依關鍵字(行程名稱)搜尋行程清單 ===============
+// === 待改，依關鍵字(行程名稱)搜尋行程清單 ==
 search_btn_el.addEventListener("click", function (event) {
   event.preventDefault();
   let keywords = keywords_el.value;
@@ -145,19 +146,13 @@ search_btn_el.addEventListener("click", function (event) {
   fetchMyScheduleList(keywordsURL, e);
 });
 
-// =============== 待改，依行程天數排序行程清單 ===============
+// == 待改，依行程天數排序行程清單 ==
 sortByDays_el.addEventListener("click", function (event) {
   event.preventDefault();
   fetchMyScheduleList(daysURL, e);
 });
 
-// 按修改鈕會根據schRepId跳轉到詳細內容頁面，並將資料映射到相關欄位上
-// function redirectToDetailPage(schId) {
-//   var newPageUrl = `scheduleEdit.html/schId/${schId}`;
-//   window.location.href = newPageUrl;
-// }
-
-//=============== 以下為控制分頁(目前寫死) =================
+//== 以下為控制分頁(目前寫死) ==
 
 pageSelect1_el.addEventListener('click', async function (e) {
 
@@ -200,8 +195,8 @@ document.getElementById('pageSelect3').addEventListener('click', async function 
   fetchMyScheduleList(myURL, memId, e);
 });
 
-//=============== 控制分頁結束 ===============
-// =============== 查詢會員專屬的行程結束 ===============
+// == 控制分頁結束 ==
+// ============ 查詢會員專屬的行程結束 =============
 
 
 // =============== 新增一個行程大綱 ===============
@@ -249,7 +244,7 @@ btn_schDone.onclick = async event => {
 // =============== 新增一個行程大綱結束 ===============
 
 
-// =============== 編輯一個行程大綱(瀏覽權限) ===============
+// ============ 編輯一個行程大綱(瀏覽權限) =============
 function editMySchedule(schId) {
   // 跳出選擇公開權限及刪除選項框
   const settingSelect_el = document.querySelector("#settingSelect" + schId);
@@ -335,7 +330,7 @@ async function selectCopyrightSetting(schId) {
 // =============== 編輯一個行程大綱結束 ===============
 
 
-// =============== 刪除一個行程大綱 ===============
+// ================= 刪除一個行程大綱 =================
 async function deleteOneSchedule(schId) {
   Swal.fire({
     title: '確定要刪除此行程？',
@@ -360,6 +355,73 @@ async function deleteOneSchedule(schId) {
   })
 }
 
-
-
 // =============== 刪除一個行程大綱結束 ===============
+
+// =============== 透過行程發起揪團 ===============
+// 按發起揪團鈕會帶著schId跳轉到詳細內容頁面，並將資料映射到相關欄位上
+function redirectToLaunchGroupPage(schId) {
+  let newPageUrl = `${baseURL}tmp/Front/group/groupListInsert.html?schId=${schId}`;
+  window.location.href = newPageUrl;
+}
+
+// 若尚未成為團主，則導向註冊會員頁面
+function redirectToGroupRegisterPage() {
+  let newPageUrl = `${baseURL}tmp/Front/member/memberGroupRegister.html`;
+  window.location.href = newPageUrl;
+}
+
+// 發起揪團提示字出現與否
+function hint(schId) {
+
+  // const launchGroupHint_el = document.querySelector(`#launchGroup>div`);
+  const launchGroupHint_el = document.querySelector(`#launchGroup${schId}>div`);
+  if (launchGroupHint_el.classList.contains(classSwitchOff)) {
+    launchGroupHint_el.classList.remove(classSwitchOff);
+  } else if (!launchGroupHint_el.classList.contains(classSwitchOff)) {
+    launchGroupHint_el.classList.add(classSwitchOff);
+  }
+}
+
+
+// 發起揪團
+async function launchMyGroup(schId) {
+  // 一、確認行程為公開才能發起揪團，否則不可發起揪團
+  const responseSchPub = await fetch(selectOneSchURL + schId);
+  const schedule = await responseSchPub.json();
+
+  // 確認行程為公開
+  if (schedule.schPub === 2) {
+    // 二、驗證團主身分是否符合發起揪團資格
+    const responseMemGroup = await fetch(baseURL + `member/getMemId`);
+    const member = await responseMemGroup.json();
+
+    switch (member.memGroup) {
+      // 非團主，跳轉到註冊成為團主頁面
+      case 0:
+        Swal.fire({
+          icon: 'error',
+          title: '發起揪團失敗',
+          text: '您不具團主資格，請註冊成為團主！'
+        }).then(() => { redirectToGroupRegisterPage(); });
+        break;
+      // 團主，跳轉到發起揪團頁面
+      case 1:
+        redirectToLaunchGroupPage(schId);
+        break;
+    }
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: '發起揪團失敗',
+      text: '行程需為公開瀏覽才可發起揪團！'
+    });
+  }
+
+
+
+}
+
+
+
+
+// =============== 透過行程發起揪團結束 ===============
