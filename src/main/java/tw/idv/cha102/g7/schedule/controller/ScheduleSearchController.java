@@ -13,7 +13,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// 瀏覽公開行程
 @RestController
 @RequestMapping("/schedules")
 public class ScheduleSearchController {
@@ -75,14 +74,7 @@ public class ScheduleSearchController {
 
     /**
      * 一般使用者
-     * 以行程預估消費範圍由小到大排序，查詢行程(查詢結果，物件屬性沒有經過排序，待修正)
-     * @return 返回查詢結果
-     */
-
-
-    /**
-     * 一般使用者(暫時不會用到)
-     * 查詢單一行程(依據行程ID)(若輸入不存在的id，甚麼都不會出現)
+     * 查詢單一行程(依據行程ID)
      *
      * @return 返回查詢結果
      */

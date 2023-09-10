@@ -16,8 +16,6 @@ let pageSelect3_el = document.getElementById("pageSelect3");
 const btn_schDone = document.getElementById("schDone");
 
 // 行程卡片內容標籤
-const inputStartDate_el = document.getElementById("inputStartDate");
-const schNameInput_el = document.getElementById("schNameInput");
 const startDate_el = document.getElementById("startDate");
 const endDate_el = document.getElementById("endDate");
 const destination_el = document.getElementById("destination");
@@ -33,13 +31,84 @@ let copyrightURL = mySchbaseURL + "copyright/";
 let deleteURL = mySchbaseURL + "delete/";
 let selectOneSchURL = baseURL + "schedules/schId/";
 
+// ------------ 行程顯示設定相關函式 ------------ 
+// 日期格式化(YYYY年MM月DD日)
+function formatDate(dateString) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString('zh-TW', options);
+}
+
+// 計算日期間的天數(行程共?天)
+function calDays(schStart, schEnd) {
+  // 創建兩個日期對象
+  var startDate = new Date(schStart);
+  var endDate = new Date(schEnd);
+  // 計算兩個日期之間的毫秒差距
+  var timeDifference = endDate - startDate;
+  // 將毫秒差距轉換為天數
+  var daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  return (daysDifference + 1);
+}
+
+// 隨機取整數函式，更改行程卡片圖片
+function getRandomInteger() {
+  return Math.floor(Math.random() * (40 - 1 + 1)) + 1;
+}
+
+// 轉換行程公開權限設定顯示文字
+function convertNumberToText(number) {
+  switch (number) {
+    case 0:
+      return "私人檢視";
+    case 1:
+      return "連結分享";
+    case 2:
+      return "公開瀏覽";
+  }
+}
+
+// 轉換行程複製權限設定顯示文字
+function convertBooleanToText(boolValue) {
+  return boolValue ? "可供複製" : "不可複製";
+}
+// ---------- 行程顯示設定相關函式結束 ----------
+// ------------ 行程參數驗證相關函式 ------------
+// 日期格式驗證
+function isDateValid(dateS, dateE) {
+
+  // 日期有填寫，才進行日期間的大小比較
+  if (dateS !== "" && dateE !== "") {
+    // 將日期轉換成Date物件
+    const today = new Date();
+    const dateStart = new Date(dateS);
+    const dateEnd = new Date(dateE);
+
+    if (dateStart >= today && dateEnd >= today && dateStart <= dateEnd) {
+      return true; // 起始日期小於等於結束日期(驗證通過)
+    } else {
+      return false; // 日期不得小於當天，且起始日期大於結束日期(驗證不通過)
+    }
+  } else {
+    return false;
+  }
+}
+// ---------- 行程參數驗證相關函式結束 -----------
+
+
+
+
+
+
+
 let e = 0; //用來控制分頁
 
-// 載入網頁就將所有該會員的行程列表查出
+// ====== 載入我的行程頁面，將所有該會員的行程列表查出 ======
 document.addEventListener("DOMContentLoaded", async function () {
+  // 拿取會員id
   const response = await fetch(baseURL + `member/getMemId`);
   const member = await response.json();
   const memId = member.memId;
+  // 查詢會員建立的私人行程
   fetchMyScheduleList(myURL, memId, e);
 });
 
@@ -91,53 +160,18 @@ async function fetchMyScheduleList(URL, memId, e) {
       schListInner.appendChild(row);
       i++;
     });
-
   } catch (error) {
     console.error("Error fetching MyScheduleList:", error);
   }
 }
-
-// 日期格式化
-function formatDate(dateString) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString('zh-TW', options);
-}
-
-// 計算日期間的天數
-function calDays(schStart, schEnd) {
-  // 創建兩個日期對象
-  var startDate = new Date(schStart);
-  var endDate = new Date(schEnd);
-  // 計算兩個日期之間的毫秒差距
-  var timeDifference = endDate - startDate;
-  // 將毫秒差距轉換為天數
-  var daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-  return (daysDifference + 1);
-}
-
-// 隨機取整數函式，更改行程卡片圖片
-function getRandomInteger() {
-  return Math.floor(Math.random() * (40 - 1 + 1)) + 1;
-}
-
-// 轉換行程公開權限設定顯示文字
-function convertNumberToText(number) {
-  switch (number) {
-    case 0:
-      return "私人檢視";
-    case 1:
-      return "連結分享";
-    case 2:
-      return "公開瀏覽";
-  }
-}
-
-// 轉換行程複製權限設定顯示文字
-function convertBooleanToText(boolValue) {
-  return boolValue ? "可供複製" : "不可複製";
-}
+// ============ 查詢會員專屬的行程結束 =============
 
 
+
+
+
+
+// ============ 分頁查詢行程 =============
 // === 待改，依關鍵字(行程名稱)搜尋行程清單 ==
 search_btn_el.addEventListener("click", function (event) {
   event.preventDefault();
@@ -196,62 +230,85 @@ document.getElementById('pageSelect3').addEventListener('click', async function 
 });
 
 // == 控制分頁結束 ==
-// ============ 查詢會員專屬的行程結束 =============
+// ============ 分頁查詢行程結束 =============
+
+
+
+
+
 
 
 // =============== 新增一個行程大綱 ===============
-
-// 當新增行程燈箱內容填寫完畢，按下完成按鈕後，
-// 將行程大綱資料傳輸進資料庫，並回到會員自己的行程頁面
+// 將新增行程資料傳輸進資料庫，並回到我的行程頁面
 btn_schDone.onclick = async event => {
 
   event.preventDefault();
+  // 抓取會員id
   const response = await fetch(baseURL + `member/getMemId`);
   const member = await response.json();
   const memId = member.memId;
 
-  // TODO...待加資料驗證，驗證通過後才執行以下內容
-  const send_data = {
-    schName: schName_el.value,
-    memId: memId,
-    schStart: startDate_el.value,
-    schEnd: endDate_el.value,
-    schCopy: true,
-    schPub: 0,
-    schTags: destination_el.value
-  }
-  // console.log(send_data);
-  await fetch(addURL, {
-    headers: {
-      "content-type": "application/json",
-    },
-    method: 'POST',
-    body: JSON.stringify(send_data)
-  })
-    .catch(function (error) {
-      alert('新增失敗' + error);
-      return;
-    });
-  Swal.fire({
-    title: '新增成功！',
-    // icon: 'success',
-    imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/11952172/LINEStorePC/main.png?v=1'
-  }).then(() => {
-    location.reload();
-  });
-}
+  // 資料驗證(日期及行程名稱不得為空值)，驗證通過後才新增一筆行程
+  const dateValidResult = isDateValid(startDate_el.value, endDate_el.value);
+  const schNameInput = schName_el.value.trim();
 
+  if (dateValidResult && schNameInput !== "") {
+    // 欲新增的行程資料
+    const send_data = {
+      schName: schNameInput,
+      memId: memId,
+      schStart: startDate_el.value,
+      schEnd: endDate_el.value,
+      schCopy: true,
+      schPub: 0,
+      schTags: destination_el.value
+    }
+    await fetch(addURL, {
+      headers: {
+        "content-type": "application/json",
+      },
+      method: 'POST',
+      body: JSON.stringify(send_data)
+    })
+      .catch(function (error) {
+        alert('新增失敗' + error);
+        return;
+      });
+    Swal.fire({
+      title: '新增成功！',
+      // icon: 'success',
+      imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/product/11952172/LINEStorePC/main.png?v=1'
+    }).then(() => {
+      location.reload();
+    });
+  } else {
+    if (schNameInput === "") {
+      Swal.fire({
+        icon: 'error',
+        title: '新增失敗',
+        text: '行程名稱為必填欄位！',
+      })
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: '新增失敗',
+        text: '請選擇有效的日期！',
+      })
+    }
+  }
+}
 // =============== 新增一個行程大綱結束 ===============
 
 
-// ============ 編輯一個行程大綱(瀏覽權限) =============
+// ========= 編輯一個行程大綱(瀏覽、複製權限) ==========
 function editMySchedule(schId) {
-  // 跳出選擇公開權限及刪除選項框
+  // 跳出選擇公開權限、複製權限及刪除選項框
   const settingSelect_el = document.querySelector("#settingSelect" + schId);
   if (settingSelect_el.classList.contains(classSwitchOff)) {
     settingSelect_el.classList.remove(classSwitchOff);
   }
 }
+
 // 滑鼠離開編輯選項時，自動關閉
 function removeEditBox(schId) {
   const settingSelect_el = document.querySelector("#settingSelect" + schId);
@@ -295,7 +352,6 @@ async function selectPrivateSetting(schId) {
   });
 }
 
-
 // 修改複製權限設定
 async function selectCopyrightSetting(schId) {
   Swal.fire({
@@ -326,7 +382,6 @@ async function selectCopyrightSetting(schId) {
     }
   });
 }
-
 // =============== 編輯一個行程大綱結束 ===============
 
 
@@ -354,10 +409,9 @@ async function deleteOneSchedule(schId) {
     }
   })
 }
-
 // =============== 刪除一個行程大綱結束 ===============
 
-// =============== 透過行程發起揪團 ===============
+// ================= 透過行程發起揪團 =================
 // 按發起揪團鈕會帶著schId跳轉到詳細內容頁面，並將資料映射到相關欄位上
 function redirectToLaunchGroupPage(schId) {
   let newPageUrl = `${baseURL}tmp/Front/group/groupListInsert.html?schId=${schId}`;
@@ -372,8 +426,6 @@ function redirectToGroupRegisterPage() {
 
 // 發起揪團提示字出現與否
 function hint(schId) {
-
-  // const launchGroupHint_el = document.querySelector(`#launchGroup>div`);
   const launchGroupHint_el = document.querySelector(`#launchGroup${schId}>div`);
   if (launchGroupHint_el.classList.contains(classSwitchOff)) {
     launchGroupHint_el.classList.remove(classSwitchOff);
@@ -381,7 +433,6 @@ function hint(schId) {
     launchGroupHint_el.classList.add(classSwitchOff);
   }
 }
-
 
 // 發起揪團
 async function launchMyGroup(schId) {
@@ -416,12 +467,5 @@ async function launchMyGroup(schId) {
       text: '行程需為公開瀏覽才可發起揪團！'
     });
   }
-
-
-
 }
-
-
-
-
 // =============== 透過行程發起揪團結束 ===============

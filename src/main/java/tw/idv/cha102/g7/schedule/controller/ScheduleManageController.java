@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-// 行程管理
 @RestController
 @RequestMapping("/mySch")
 public class ScheduleManageController {
