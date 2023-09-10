@@ -277,7 +277,7 @@ async function addDailySchedule(restScheDetails) {
                                 </h5>
                                 <p class="attrAddr">
                                     <small class="text-body-secondary"
-                                        class="attrAddr">${attr.attrAddr}</small>
+                                        id="attrAddr${countedScheDetails+1}">${attr.attrAddr}</small>
                                 </p>
                             </div>
                         </div>
@@ -299,10 +299,11 @@ async function addDailySchedule(restScheDetails) {
             console.log("Not the first Row");
             let row1 = document.createElement("div");
 
-            row1.innerHTML = `<div class="transTotalTime" id="travelIconCount${++travelIconCount}">
+            row1.innerHTML = `<div class="transTotalTime" >
                 <span class="selectTransMode">
-                    <select class="form-select form-select-lg mb-3"
-                        aria-label="Large select example">
+                    <select id="travelIconCount${++travelIconCount}"
+                     class="travelIcon form-select form-select-lg mb-3"
+                        aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">
                         <option selected value="DRIVING">&#x1F697;</option>
                         <option value="WALKING">&#x1F6B6;</option>
                         <option value="BICYCLING">&#x1F6B2;</option>
@@ -323,6 +324,8 @@ async function addDailySchedule(restScheDetails) {
     }
     return countedScheDetails;
 }
+
+
 
 // 幾月幾日直接+1天
 function addOneDay(dateString) {

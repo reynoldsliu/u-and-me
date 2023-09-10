@@ -1032,6 +1032,7 @@
             }
 
             total = total / 1000;
+            console.log(total + " km");
             document.getElementById("totalDistance").innerHTML = total + " km";
         }
 
@@ -1138,9 +1139,53 @@
         //Reynolds
         var attrLon;
         var attrLat;
-        myAttrAddr_el.addEventListener('change', () => {
+        myAttrAddr_el.addEventListener('focus', () => {
             initMap();
-            singleSiteAuto();
+            let options = {
+                // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
+            };
+
+            let siteInput1 = document.querySelector('#myAttrAddr');
+            // let siteInput1 = myAttrAddr_el;
+
+            var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
+            // 地址的輸入框，值有變動時執行
+            autocomplete1.addListener('place_changed', async () => {
+                this.place = autocomplete1.getPlace(); // 地點資料存進place
+
+                // 確認回來的資料有經緯度
+                if (this.place.geometry) {
+
+                    // 改變map的中心點
+                    let searchCenter = this.place.geometry.location;
+
+                    // panTo是平滑移動、setCenter是直接改變地圖中心
+                    this.map.panTo(searchCenter);
+
+                    attrLat = this.place.geometry.location.lat();
+                    attrLon = this.place.geometry.location.lng();
+                    inputAttrBussTime = await getBussTime(place.place_id);
+
+                    console.log("LAT: " + attrLat);
+                    console.log("LON: " + attrLon);
+
+                    // 在搜尋結果的地點上放置標記
+                    let marker = new google.maps.Marker({
+                        // icon: {
+                        //     path: google.maps.SymbolPath.CIRCLE,
+                        //     scale: 10
+                        // },
+                        position: searchCenter,
+                        map: this.map
+                    });
+
+                    // info window
+                    let infowindow = new google.maps.InfoWindow({
+                        content: this.place.formatted_address
+                    });
+                    infowindow.open(this.map, marker);
+                }
+            });
 
         });
 
@@ -1329,6 +1374,67 @@
         // document.getElementById('nightModeSwitch').addEventListener('change', (event) => {
         //     googleMap.nightModeChange(event.target.checked ? 'open' : 'close');
         // });
+
+
+        function mapApiBetw2(travelIconCount, travelMode) {
+            const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);
+            const ancestor = travelIconCount_el.parentElement.parentElement.parentElement;
+            const prevCell = ancestor.previousSibling.lastChild;
+            console.log(prevCell);
+            const nextCell = ancestor.nextSibling;
+            var addr1 = document.querySelector(`#attrAddr${travelIconCount}`).innerText;
+            var addr2 = document.querySelector(`#attrAddr${travelIconCount + 1}`).innerText;
+            calculateTravelTime2(addr1, addr2, 'DRIVING');
+            let result = [addr1, addr2];
+            computeTotalDistance2(result);
+            console.log("In mapApiBetw2");
+        }
+
+        function computeTotalDistance2(result) {
+            let total = 0;
+            const myroute = result.routes[0];
+
+            if (!myroute) {
+                return;
+            }
+
+            for (let i = 0; i < myroute.legs.length; i++) {
+                total += myroute.legs[i].distance.value;
+            }
+
+            total = total / 1000;
+            console.log(total + " km");
+            document.getElementById("totalDistance").innerHTML = total + " km";
+        }
+
+        function calculateTravelTime2(start, end, travelMode) {
+            // 设置起点和终点
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: travelMode // 可以是 'DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'
+            };
+
+            // 调用 Directions Service 来计算旅程时间
+            directionsService.route(request, function (response, status) {
+                if (status === 'OK') {
+                    // 获取路线和旅程信息
+                    var route = response.routes[0];
+                    var legs = route.legs[0];
+
+                    // 获取旅程的时间信息（text 表示可读的时间）
+                    var duration = legs.duration.text;
+
+                    // 在控制台打印旅程时间信息
+                    console.log('Travel Duration:', duration);
+                    document.getElementById("totalTime").innerHTML = duration;
+                    // 更新 Directions Renderer 显示路线
+                    directionsRenderer.setDirections(response);
+                } else {
+                    console.log('Directions request failed:', status);
+                }
+            });
+        }
 
 
     </script>
