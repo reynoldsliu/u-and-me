@@ -139,6 +139,35 @@ nav div{
   text-align: center;
  
 }
+/* 按鈕 */
+.findAllAttraction{
+background-color: #1D3124;
+color:beige;
+border-radius: 5px;
+padding:3px 7px;
+}
+
+
+#loadAttractions{
+background-color: #1D3124;
+color:beige;
+border-radius: 5px;
+padding:2px 6px;
+}
+
+#page{
+  width:40px;
+  height:30px
+}
+
+#pageChangeSubmit{
+background-color: #1D3124;
+color:beige;
+border-radius: 5px;
+padding:2px 6px;
+margin-bottom: 7px;
+}
+
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
 

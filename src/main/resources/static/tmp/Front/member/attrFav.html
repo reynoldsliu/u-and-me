@@ -134,92 +134,12 @@
             </div>
 
             <div id="redirectAttrPriv" style="float: right;">
-                <button onclick="redirectAttrPriv()">>>前往私人景點</button>
+                <button class="privatebtn" onclick="redirectAttrPriv()">>>前往私人景點</button>
             </div>
 
             <div style="height: 15px;"></div>
             <div id="dataTableList"></div>
 
-            <!-- <div class="attrFav">
-                <div class="attrFav_left">
-                    <img src="../dist/img/attrFav.png" alt="">
-                </div>
-
-                <div class="attrFav_right">
-                    <div class="attrFavTittle" style="font-weight:bold;display: inline;">景點名稱</div>
-                    <div class="attrFavTittleInput" style="display: inline;">名稱名稱名稱</div>
-                    <div></div>
-                    <div class="attrFavContent" style="font-weight:bold;display: inline;">景點地址</div>
-                    <div class="attrFavuContentInput" style="display: inline;">地址地址地址</div>
-                    <div></div>
-                    <div class="attrFavTime" style="font-weight:bold;display: inline;">營業時間 </div>
-                    <div class="attrFavTimeInput" style="display: inline;">00:00-00:00</div>
-                    <div class="attrDetail">詳情劈哩啪啦劈哩啪啦劈哩啪啦劈哩啪啦劈哩啪啦</div>
-                    <span class="attrPage" style="margin-left:360px;">
-                        <a href="#" class="btn btn-outline-success btn-sm" id="attrPage">前往頁面</a>
-                    </span>
-                    <div style="margin-top: 20px; margin-right: 10px;"></div>
-
-
-                    <div> </div>
-
-
-                </div>
-            </div>
-
-            <div class="attrFav">
-                <div class="attrFav_left">
-                    <img src="../dist/img/attrFav.png" alt="">
-                </div>
-
-                <div class="attrFav_right">
-                    <div class="attrFavTittle" style="font-weight:bold;display: inline;">景點名稱</div>
-                    <div class="attrFavTittleInput" style="display: inline;">名稱名稱名稱</div>
-                    <div></div>
-                    <div class="attrFavContent" style="font-weight:bold;display: inline;">景點地址</div>
-                    <div class="attrFavuContentInput" style="display: inline;]">地址地址地址</div>
-                    <div></div>
-                    <div class="attrFavTime" style="font-weight:bold;display: inline;">營業時間 </div>
-                    <div class="attrFavTimeInput" style="display: inline;">00:00-00:00</div>
-                    <div class="attrDetail">詳情劈哩啪啦劈哩啪啦劈哩啪啦劈哩啪啦劈哩啪啦</div>
-                    <span class="attrPage" style="margin-left:360px;">
-                        <a href="#" class="btn btn-outline-success btn-sm" id="attrPage">前往頁面</a>
-                    </span>
-                    <div style="margin-top: 20px; margin-right: 10px;"></div>
-                    <div> </div>
-
-
-                </div>
-
-            </div>
-            <div class="attrFav">
-                <div class="attrFav_left">
-                    <img src="../dist/img/attrFav.png" alt="">
-                </div>
-
-                <div class="attrFav_right">
-                    <div class="attrFavTittle" style="font-weight:bold;display: inline;">景點名稱</div>
-                    <div class="attrFavTittleInput" style="display: inline;">名稱名稱名稱</div>
-                    <div></div>
-                    <div class="attrFavContent" style="font-weight:bold;display: inline;">景點地址</div>
-                    <div class="attrFavuContentInput" style="display: inline;]">地址地址地址</div>
-                    <div></div>
-                    <div class="attrFavTime" style="font-weight:bold;display: inline;">營業時間 </div>
-                    <div class="attrFavTimeInput" style="display: inline;">00:00-00:00</div>
-                    <div class="attrDetail">詳情劈哩啪啦劈哩啪啦劈哩啪啦劈哩啪啦劈哩啪啦</div>
-                    <span class="attrPage" style="margin-left:360px;">
-                        <a href="#" class="btn btn-outline-success btn-sm" id="attrPage">前往頁面</a>
-                    </span>
-                    <div style="margin-top: 20px; margin-right: 10px;"></div>
-                    <div> </div>
-
-
-                </div>
-            </div> -->
-
-            <div class="nextPage">
-                <a href="#" class="btn btn-outline-success btn-sm" id="viewMenuDetails">>>下一頁</a>
-            </div>
 
         </div>
 
@@ -281,32 +201,7 @@
 
     <script>
         const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
-        // <div class="attrFav">
-        // <div class="attrFav_left">
-        //     <img src="../dist/img/attrFav.png" alt="">
-        // </div>
 
-        // <div class="attrFav_right">
-        //     <div class="attrFavTittle" style="font-weight:bold;display: inline;">景點名稱</div>
-        //     <div class="attrFavTittleInput" style="display: inline;">名稱名稱名稱</div>
-        //     <div></div>
-        //     <div class="attrFavContent" style="font-weight:bold;display: inline;">景點地址</div>
-        //     <div class="attrFavuContentInput" style="display: inline;">地址地址地址</div>
-        //     <div></div>
-        //     <div class="attrFavTime" style="font-weight:bold;display: inline;">營業時間 </div>
-        //     <div class="attrFavTimeInput" style="display: inline;">00:00-00:00</div>
-        //     <div class="attrDetail">詳情劈哩啪啦劈哩啪啦劈哩啪啦劈哩啪啦劈哩啪啦</div>
-        //     <span class="attrPage" style="margin-left:360px;">
-        //         <a href="#" class="btn btn-outline-success btn-sm" id="attrPage">前往頁面</a>
-        //     </span>
-        //     <div style="margin-top: 20px; margin-right: 10px;"></div>
-
-
-        //     <div> </div>
-
-
-        // </div>
-        //     </div>
         window.addEventListener("DOMContentLoaded", async function () {
             const res = await fetch(baseUrl + `member/getMemId`);
             const member = await res.json();
