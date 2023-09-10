@@ -62,13 +62,14 @@ public class ProductServiceImpl implements ProductService {
     public void updateProduct(Integer prodId, ProductDTO productDTO) {
 
         Product product = new Product();
-        product.setProdId(productDTO.getProdId());
+        product.setProdId(prodId);
         product.setProdCatId(productDTO.getProdCatId());
         product.setProdName(productDTO.getProdName());
         product.setProdCon(productDTO.getProdCon());
         product.setProdPri(productDTO.getProdPri());
         product.setProdSta(productDTO.getProdSta());
         productRepository.save(product);
+        System.out.println("STA: "+product.getProdSta());
 
 
         List<ProductPicture> pplist = productDTO.getProductPictures();
