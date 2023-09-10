@@ -29,5 +29,7 @@ public interface ActivityService {
 
     public List<Activity> getRandomActivity(int count);
 
+    public List<Activity> findAvailableActivity();
+
 
 }

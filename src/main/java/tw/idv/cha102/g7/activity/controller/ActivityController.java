@@ -99,15 +99,21 @@ public class ActivityController {
     // 隨機  加?count=3
     @GetMapping("/activityrandom")
     public List<Activity> getRandomActivity(@RequestParam int count) {
-        return activityService.getRandomActivity(count);
+//        return activityService.getRandomActivity(count);
+        List<Activity> activityList = activityService.getRandomActivity(count);
+        return activityList;
     }
 
 
     // -------------------- 待辦 ------------------
 
 
-
-
+    // 查上架中活動
+    @GetMapping("/activityavailable")
+    public List<Activity> findAvailableActivity() {
+        List<Activity> activityList = activityService.findAvailableActivity();
+        return activityList;
+    }
 
 
 }

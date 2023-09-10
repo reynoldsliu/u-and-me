@@ -4,61 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Index</title>
+    <title>NewsDetail</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="../dist/css/HeaderandFooter.css">
-    <link rel="stylesheet" href="ActivityIndex.css">
+    <link rel="stylesheet" href="ActivityNewsList.css">
     <link rel="shortcut icon" href="../dist/img/favicon.icon" type="image/x-icon">
-
-    <style>
-        .navbar-brand {
-            height: 70px;
-        }
-
-        .navbar-brand>img {
-            height: 115px;
-            margin-top: -23px;
-        }
-
-        .card-text {
-            display: -webkit-box;
-            -webkit-line-clamp: 2; /* 顯示行數 */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis; /* 截斷顯示(...) */
-        }
-
-        .form-control:focus {
-            box-shadow: none;
-        }
-
-        .form-control-underlined {
-            border-width: 0;
-            border-bottom-width: 1px;
-            border-radius: 0;
-            padding-left: 0;
-        }
-
-        .form-control::placeholder {
-            font-size: 0.95rem;
-            color: #aaa;
-            font-style: italic;
-        }
-
-        body {
-            background: #ffd89b;
-            background: -webkit-linear-gradient(to right, #ffd89b, #9ed5f9);
-            background: linear-gradient(to right, #ffd89b, #84b5d5);
-            min-height: 100vh;
-        }
-
-    </style>
-
 </head>
 
 <body>
+
 <!-- -----Header----- -->
 <div class="containerbread">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -164,14 +120,13 @@
 
 <!-- -----Context----- -->
 <main>
-
-    <section class="py-5 text-center container-fluid" style="background-color: #F6F4E8;position: relative; padding-bottom: 5px !important;">
+    <section class="py-5 text-center container-fluid" style="background-color: #F6F4E8;position: relative;padding-bottom: 5px !important;">
         <div class="row">
             <!-- 文字容器 -->
-            <div style="position: absolute; top: 28%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 1;">
-                <h1 class="fw-bold" style="font-size: 6rem; color: rgba(78, 102, 132, 0.735);">U and Me</h1>
-                <h2 style="margin-top: 10px; font-size:40px; color: rgba(241, 240, 240, 0.884);">Find you Destination</h2>
+            <div style="position: absolute; top: 22%; left: 50%; transform: translate(-50%, -50%); text-align: center; z-index: 1;">
+                <h1 class="fw-bold" style="font-size: 6rem; color: rgba(35, 76, 112, 0.397);">Activity</h1>
             </div>
+
             <div class="col" style="z-index: 0;padding: 0;">
                 <img src="../dist/img/Index.png" alt="Image" style="width: 100%; height: auto;">
             </div>
@@ -186,177 +141,21 @@
         </form>
     </section>
 
-
-    <!-- News start -->
+    <!-- Result start -->
     <div class="album py-5 bg-light">
         <div class="container">
 
             <div class="section-title text-center mb-40">
-                <h2 class="fw-bold" style="color:rgba(42, 77, 81, 0.728)">News</h2>
+                <h2 class="fw-bold" style="color:rgba(42, 77, 81, 0.728)"> Search Results</h2>
             </div>
 
             <div class="row row-cols-1 row-cols-md-3 g-3">
                 <!--卡片1-->
             </div>
-            <div style="text-align: right; margin-top: 8px;">
-                <a href="ActivityNewsList.html" style="color:rgba(42, 77, 81, 0.728); text-decoration; font-size: 20px;">See More...</a>
-            </div>
+
+
         </div>
     </div>
-    <!-- News end -->
-
-    <!--期間限定start-->
-    <div class="album py-5 bg-light">
-        <div class="container">
-
-            <div class="section-title text-center mb-40">
-                <h2 class="fw-bold" style="color:rgba(42, 77, 81, 0.728)">期間限定</h2>
-            </div>
-
-            <div class="row row-cols-1 row-cols-md-4 g-4">
-                <!--卡片2-->
-            </div>
-            <div style="text-align: right; margin-top: 8px;">
-                <a href="ActivityPeriodList.html" style="color:rgba(42, 77, 81, 0.728); text-decoration; font-size: 20px;">See More...</a>
-            </div>
-        </div>
-    </div>
-    <!--期間限定end-->
-
-    <!--行程推薦start-->
-    <div class="album py-5 bg-light">
-        <div class="container">
-
-            <div class="section-title text-center mb-40">
-                <h2 class="fw-bold" style="color:rgba(42, 77, 81, 0.728)">推薦行程</h2>
-            </div>
-
-            <div class="row row-cols-1 row-cols-md-3 g-3">
-                <!--卡片-->
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div class="hovereffect">
-                            <img class="bd-placeholder-img card-img-top img-responsive"
-                                 src="http://placehold.it/350x250">
-                            <div class="overlay">
-                                <h2>Effect 13</h2>
-                                <p>
-                                    <a href="#">LINK HERE</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <p class="card-text">行程簡介</p>
-                            <div class="d-flex justify-content-between align-items-center">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div class="hovereffect">
-                            <img class="bd-placeholder-img card-img-top img-responsive"
-                                 src="http://placehold.it/350x250" alt="Thumbnail">
-                            <div class="overlay">
-                                <h2>Effect 13</h2>
-                                <p>
-                                    <a href="#">LINK HERE</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <p class="card-text">行程簡介</p>
-                            <div class="d-flex justify-content-between align-items-center">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <div class="hovereffect">
-                            <img class="bd-placeholder-img card-img-top img-responsive"
-                                 src="http://placehold.it/350x250" alt="Thumbnail">
-                            <div class="overlay">
-                                <h2>Effect 13</h2>
-                                <p>
-                                    <a href="#">LINK HERE</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <p class="card-text">行程簡介</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--行程推薦end-->
-
-    <!--心理測驗start-->
-
-    <div class="album py-4 bg-light">
-        <!-- <div class="section-title text-center mb-40">
-            <h2>心理測驗</h2> -->
-    </div>
-    <div class="container-fluid"></div>
-    <div class="row g-0">
-        <div class="col-md-5" style="height: 50vh;">
-            <img src="phy.png" class="img-fluid rounded-start" style="width: 100%; height: 100%;">
-        </div>
-        <div class="col-md-7" style="height: 50vh;">
-            <div class="card-body d-flex flex-column justify-content-center align-items-center"
-                 style="height: 100%;">
-                <h2 class="fw-bold" style="color:rgba(0, 0, 0, 0.728)">探索屬於你的旅程</h2>
-                <p class="card-text" style="font-size: 2.5vh;">Discover & connect with great local through the
-                    interesting game.</p>
-
-                <!-- Button trigger modal -->
-                <button type="button" class="btn custom-btn-color" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">
-                    Play now
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                即將開始您的探索旅程！
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancel
-                                </button>
-                                <a href="Psytest.html" class="btn btn-primary">Start</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--心理測驗end-->
-
-    <!-- 頁尾行距 -->
-    <div class="album py-5 bg-light"></div>
-
 
 </main>
 
@@ -402,8 +201,7 @@
 </div>
 
 
-
-<script src="ActivityIndex.js"></script>
+<script src="ActivityResults.js"></script>
 <script src="ActivitySearch.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

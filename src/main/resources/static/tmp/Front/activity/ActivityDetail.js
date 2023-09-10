@@ -30,3 +30,30 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchActivityDetail();
 
 });
+
+//讀不出來----------------------------------------------------------------
+
+//    document.addEventListener("DOMContentLoaded", function () {
+//    fetchRandomNews();
+//});
+//
+//    async function fetchRandomNews() {
+//    try {
+//        const response = await fetch('http://localhost:8080/u-and-me/activityall');
+//        const randomNews = await response.json();
+//
+//        const cardContainers = document.querySelectorAll('.media.post_item');
+//
+//        randomNews.forEach((item, index) => {
+//            const cardContainer = cardContainers[index];
+//            const cardImg = cardContainer.querySelector('.postImage');
+//            const cardTitle = cardContainer.querySelector('.postTitle');
+//
+//            const dataurl = `data:image/png;base64,${item.activPic}`;
+//            cardImg.src = dataurl;
+//            cardTitle.textContent = item.activName;
+//        });
+//    } catch (error) {
+//        console.error('Error fetching random activity:', error);
+//    }
+//}
