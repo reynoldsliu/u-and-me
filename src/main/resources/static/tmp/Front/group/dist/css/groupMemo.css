@@ -86,15 +86,32 @@
   .groupbutton{
     background-color:rgb(115, 176, 172); 
     display: flex;
-    width: 800px;
+    /* width: 200px; */
     padding: 2px 5px;
     color: white;
     border: none;
     border-radius: 10px; /* 設定圓角的像素值 */
-    cursor: pointer;
+    /* cursor: pointer; */
     font-size: smaller;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
+    margin-left:10px;
+    max-width: 150px; /* 设置按钮的最大宽度 */
+
+  }
+  .goSche{
+    background-color:rgb(115, 176, 172); 
+    display: flex;
+    /* width: 200px; */
+    padding: 2px 5px;
+    color: white;
+    border: none;
+    border-radius: 10px; /* 設定圓角的像素值 */
+    /* cursor: pointer; */
+    font-size: smaller;
+    /* justify-content: center;
+    align-items: center; */
+    margin-left:50px;
     max-width: 150px; /* 设置按钮的最大宽度 */
 
   }
