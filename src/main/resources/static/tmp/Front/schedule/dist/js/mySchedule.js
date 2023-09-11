@@ -114,6 +114,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // =============== 查詢會員專屬的行程 ===============
 async function fetchMyScheduleList(URL, memId, e) {
+  
   try {
     const response = await fetch(URL + memId + "/" + e);
     const schList = await response.json();
@@ -172,12 +173,19 @@ async function fetchMyScheduleList(URL, memId, e) {
 
 
 // ============ 分頁查詢行程 =============
-// === 待改，依關鍵字(行程名稱)搜尋行程清單 ==
-search_btn_el.addEventListener("click", function (event) {
+// 依關鍵字(行程名稱)搜尋會員自己的行程清單(依照起始日期降冪排序)
+search_btn_el.addEventListener("click", async function (event) {
   event.preventDefault();
+
+  const responseMem = await fetch(baseURL + `member/getMemId`);
+  const member = await responseMem.json();
+  const memId = member.memId;
+  
   let keywords = keywords_el.value;
-  let keywordsURL = mySchbaseURL + keywords + "/";
-  fetchMyScheduleList(keywordsURL, e);
+  let keywordsURL = `${mySchbaseURL}${keywords}/`;
+  fetchMyScheduleList(keywordsURL,memId, e);
+
+  // console.log(keywordsURL+memId+e);
 });
 
 // == 待改，依行程天數排序行程清單 ==

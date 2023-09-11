@@ -10,7 +10,9 @@ import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,6 +35,23 @@ public class ScheduleSearchController {
     }
 
     /**
+     * 隨機選取三個公開行程放置於首頁
+     * @return 返回隨機的公開行程列表
+     */
+    @GetMapping("/all")
+    public Set<Schedule> findAll() {
+        List<Schedule> scheduleList = service.findAllPublic();
+        Set<Schedule> randomSchList = new HashSet<>();
+        int randomIndex;
+        for (int i = 0; randomSchList.size() < 3; i++) {
+            randomIndex = (int) (Math.random() * 9 + 1);
+            randomSchList.add(scheduleList.get(randomIndex));
+        }
+        return randomSchList;
+    }
+
+
+    /**
      * 一般使用者
      * 以行程名稱查詢行程
      *
@@ -44,6 +63,7 @@ public class ScheduleSearchController {
                                         @PathVariable int page) {
         return service.findBySchNamePaged(keyword, page).collect(Collectors.toList());
     }
+
 
     /**
      * 一般使用者
@@ -71,6 +91,7 @@ public class ScheduleSearchController {
         List<ScheduleDayDTO> schedules = service.findOrderByDays(page).collect(Collectors.toList());
         return schedules;
     }
+
 
     /**
      * 一般使用者
