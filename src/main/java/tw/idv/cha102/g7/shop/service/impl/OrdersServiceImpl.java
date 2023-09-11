@@ -7,7 +7,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.customer.entity.ContentEmail;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 import tw.idv.cha102.g7.shop.entity.Orders;
@@ -50,7 +49,10 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void insert(Orders orders) {
+    public void insert(Orders orders, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
+        orders.setMemId(memId);
         Member member = memberRepository.findById(orders.getMemId()).orElse(null);
         String recieverEmail = member.getMemEmail();
         ordersRepository.save(orders);

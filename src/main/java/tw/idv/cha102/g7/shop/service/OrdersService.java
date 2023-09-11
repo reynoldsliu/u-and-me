@@ -10,7 +10,7 @@ public interface OrdersService {
 
     Orders findByOrdId(Integer ordId);
 
-    void insert(Orders orders);
+    void insert(Orders orders, HttpServletRequest request);
 
     void delete(Integer ordId);
 

@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 
@@ -20,7 +17,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class Orders {
 
-    //    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ord_id")
     private Integer ordId;
@@ -28,10 +25,10 @@ public class Orders {
     @Column(name = "mem_id")
     private Integer memId;
 
-    @Column(name = "points")
+    @Column(name = "points", insertable = false)
     private Integer points;
 
-    @Column(name = "ord_fee")
+    @Column(name = "ord_fee", insertable = false)
     private Integer ordFee;
 
     @Column(name = "recipient_phone")

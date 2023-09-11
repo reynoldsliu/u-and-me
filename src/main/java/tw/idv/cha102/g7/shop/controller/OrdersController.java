@@ -45,15 +45,15 @@ public class OrdersController {
      * @param orders 欲新增的資料
      * @return 新增成功 / 新增失敗
      */
-    @PostMapping("/orders")
-    public ResponseEntity<?> insert(@RequestBody Orders orders) {
+    @PostMapping("/member/orders")
+    public void insert(@RequestBody Orders orders, HttpServletRequest request) {
 
-        try {
-            ordersService.insert(orders);
-            return ResponseEntity.ok("新增成功");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("新增失敗");
-        }
+//        try {
+            ordersService.insert(orders, request);
+//            return ResponseEntity.ok("新增成功");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("新增失敗");
+//        }
     }
 
     /**
