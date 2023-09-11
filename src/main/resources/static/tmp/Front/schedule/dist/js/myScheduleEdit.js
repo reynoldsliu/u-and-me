@@ -227,6 +227,7 @@ async function addDailySchedule(restScheDetails) {
     //一但有變動 重新呼叫本函式更新一天行程
     var schdeStarttime = restScheDetails[0].schdeStarttime;
     let countedScheDetails;
+    let travelIconCount = 0;
     for (countedScheDetails = 0; ; countedScheDetails++) {
         //如果下一筆行程細節是明天的 結束今天的行程列印
 
@@ -275,7 +276,7 @@ async function addDailySchedule(restScheDetails) {
                                 </h5>
                                 <p class="attrAddr">
                                     <small class="text-body-secondary"
-                                        class="attrAddr">${attr.attrAddr}</small>
+                                        id="attrAddr${countedScheDetails + 1}">${attr.attrAddr}</small>
                                 </p>
                             </div>
                         </div>
@@ -287,6 +288,54 @@ async function addDailySchedule(restScheDetails) {
 
         // console.log("NEW START TIME: " + schdeStarttime);
         viewSchDetailsRows.appendChild(row);
+
+
+        // 2023/09/11========================================================================================
+        var parentElement = row.parentNode;
+        var children = Array.from(parentElement.children);
+        var index = children.indexOf(row);
+        // console.log("這是父元素的第 " + (index + 1) + " 個子元素。");
+
+        if (index > 5) {
+            console.log("Not the first Row");
+            // let row1 = document.createElement("div");
+
+            // row1.innerHTML = `<div class="transTotalTime" id="transTotalTime${++travelIconCount}">
+            //     <span class="selectTransMode" >
+            //         <select id="travelIconCount${travelIconCount}" style="display: inline-block;"
+            //          class="travelIcon form-select form-select-lg mb-3"
+            //             aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">
+            //             <option selected value="DRIVING">&#x1F697;</option>
+            //             <option value="WALKING">&#x1F6B6;</option>
+            //             <option value="BICYCLING">&#x1F6B2;</option>
+            //             <option value="TRANSIT">&#x1F68C;</option>
+            //         </select>
+            //     </span>
+            // </div>`;
+            // row1.innerHTML="";
+
+            let row1 = document.createElement("div");
+            row1.classList.add("transTotalTime");
+            row1.id = `transTotalTime${++travelIconCount}`;
+
+            row1.innerHTML = `
+                <span class="selectTransMode">
+                    <select id="travelIconCount${travelIconCount}"
+                     class="travelIcon form-select form-select-lg mb-3"
+                        aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">
+                        <option selected value="DRIVING">&#x1F697;</option>
+                        <option value="WALKING">&#x1F6B6;</option>
+                        <option value="BICYCLING">&#x1F6B2;</option>
+                        <option value="TRANSIT">&#x1F68C;</option>
+                    </select>
+                </span>
+                `;
+
+            row.insertAdjacentElement("beforebegin", row1);
+            // row.appendChild(row1);
+            mapApiBetw2(travelIconCount);
+        }
+        // 2023/09/11========================================================================================
 
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
