@@ -675,7 +675,7 @@ span.transTotalTime {
 }
 
 /* 總時間 */
-span#totalTime {
+span.totalTime {
     /* border: 1px solid red; */
     width: 35%;
     height: 100%;
