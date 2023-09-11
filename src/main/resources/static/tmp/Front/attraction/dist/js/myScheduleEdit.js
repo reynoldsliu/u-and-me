@@ -301,8 +301,8 @@ async function addDailySchedule(restScheDetails) {
             console.log("Not the first Row");
             let row1 = document.createElement("div");
 
-            row1.innerHTML = `<div  class="transTotalTime">
-                <span class="selectTransMode" id="transTotalTime${++travelIconCount}">
+            row1.innerHTML = `<div class="transTotalTime" id="transTotalTime${++travelIconCount}">
+                <span class="selectTransMode" >
                     <select id="travelIconCount${travelIconCount}" style="display:inline-block;"
                      class="travelIcon form-select form-select-lg mb-3"
                         aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">

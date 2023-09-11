@@ -300,7 +300,7 @@
                                                 </select>
                                             </span>
                                             <span class="transTotalTime">　
-                                                <span id="totalTime"></span>
+                                                <span class="totalTime"></span>
                                             </span>
                                         </div>
                                         <!-- 交通方式及時間結束 -->
@@ -1418,7 +1418,10 @@
 
             const transTotalTime_el = document.getElementById("transTotalTime" + travelIconCount);
             const span = document.createElement("span");
-            span.innerText = total + " km";
+            span.classList.add("transTotalTime");
+            const spanInner = document.createElement("span");
+            spanInner.innerText = total + " km";
+            span.appendChild(spanInner);
             transTotalTime_el.appendChild(span);
 
             // document.getElementById("totalDistance").innerHTML = total + " km";
@@ -1444,8 +1447,8 @@
                     var duration = legs.duration.text;
 
                     // 在控制台打印旅程时间信息
-                    console.log('Travel Duration:', duration);
-                    document.getElementById("totalTime").innerHTML = duration;
+                    // console.log('Travel Duration:', duration);
+                    // document.getElementById("totalTime").innerHTML = duration;
 
                     let total = 0;
                     for (let i = 0; i < route.legs.length; i++) {
@@ -1459,14 +1462,13 @@
                     directionsRenderer.setDirections(response);
 
                     const transTotalTime_el = document.getElementById("transTotalTime" + travelIconCount);
-                    const span1 = document.createElement("div");
-                    span1.style = "display:inline-block; height:50px;width:100px;z-index=0;";
-                    span1.innerText = duration;
-                    transTotalTime_el.appendChild(span1);
-                    const span2 = document.createElement("div");
-                    span2.style = "display:inline-block;";
-                    span2.innerText = total+" km";
-                    transTotalTime_el.appendChild(span2);
+                    let row = document.createElement("span");
+                    row.classList.add("transTotalTime");
+                    row.innerHTML = `
+                    <span class="totalTime">${duration}</span>
+                    <span class="totalDistence">${total} km</span>
+                    `;
+                    transTotalTime_el.appendChild(row);
 
                     return duration;
                 } else {
