@@ -46,7 +46,7 @@ public class Orders {
     @Column(name = "ord_sta", insertable = false)
     private Byte ordSta;
 
-    @Column(name = "total", insertable = false)//把所有訂單價格總合後傳到後端新增
+    @Column(name = "total")//把所有訂單價格總合後傳到後端新增
     private Integer total;
 
     @Column(name = "checktotal")
