@@ -26,9 +26,11 @@ const prodName_el = document.getElementById('prodName');
 const prodPri_el = document.getElementById('prodPri');
 const prodCon_el = document.getElementById('prodCon');
 const btnSubmit_el = document.getElementById('btnSubmit');
-let prodPic_el = document.getElementById('prodPic');
-let cover_img_el = document.getElementById('cover_img');
-//用於紀錄原始數據
+//上傳的圖片
+let prodPicUpload_el = document.getElementById('prodPicUpload');
+//預覽圖
+let preview_img_el = document.getElementById('preview_img');
+//用於紀錄原始fetch圖片的base64(還沒修改前的圖片)
 let cover;
 
 //商品類別下拉選單
@@ -94,7 +96,7 @@ async function fetchListProductDetail(){
     prodPri_el.value = productDetail.prodPri;
     prodSta_el.value = productDetail.prodSta;
     // prodSta.value = productDetail.prodSta;
-    cover_img_el.src = dataurl;
+    preview_img_el.src = dataurl;
 
 
   }catch(error){
@@ -109,69 +111,58 @@ document.addEventListener('DOMContentLoaded',function() {
   fetchListProductDetail(); 
 
   //選擇圖片時觸發事件
-  const prodPic_el = document.getElementById('prodPic');
-  const cover_img_el = document.getElementById('cover_img');
-
-  prodPic_el.addEventListener('change', changePicture);
-  function changePicture(){
+  prodPicUpload_el.addEventListener('change', function(){
     const id = this.id;
     const files = this.files;
-    const img = document.getElementById("cover_img");
+console.log(123);
+      cover = files[0];
+      //URL.createObjectURL(file)創建一個臨時的URL，指用戶選擇的文件，將圖片顯示在img元素中
+      preview_img_el.src = URL.createObjectURL(cover);
+      //創建一個FileReader對象，用於讀取文件的內容
+      const fileReader = new FileReader();
+      //當文件加載/讀取完成，將執行event以下的程式
+      // btoa 用於將二進制數據轉換為 Base64 編碼的字符串
+      fileReader.onload = async event => {
+        cover = btoa(event.target.result);
+        console.log(cover);
+      };
+      //將文件內容讀取為二進位字符串
+      fileReader.readAsBinaryString(cover);
 
-    //1. 取得File物件
-    prodPic = files[0];
-    img.src = URL.createObjectURL(prodPic);
-
-    //2. 實例化FileReader物件
-    const fileReader = new FileReader();
-
-    //3. 替FileReader物件 註冊 載入監聽器
-    fileReader.onload = async event => {
-        //4. 轉成Base64字串
-        prodPic = btoa(event.target.result);
-    }
-    //5. 開始讀取檔案
-    fileReader.readAsBinaryString(prodPic);
-  }
-
-
-  //   //透過this關鍵字來引用觸發事件的元素即上傳圖片的prodPic_el
-  //   //files 是文件上傳輸入框的屬性，取第一個文件
-  //   const file = this.files[0]
-  //   if(file){
-  //     //URL.createObjectURL(file)創建一個臨時的URL，指用戶選擇的文件，將圖片顯示在img元素中
-  //     cover_img_el.src = URL.createObjectURL(file);
-  //     //創建一個FileReader對象，用於讀取文件的內容
-  //     const fileReader = new FileReader();
-  //     //當文件加載/讀取完成，將執行event以下的程式
-  //     fileReader.onload = event => {
-  //       cover = bota(event.target.result);
-  //     };
-  //     //將文件內容讀取為二進位字符串
-  //     fileReader.readAsBinaryString(file);
-  //   }else {
-  //     //如果未選擇文件，將清空原先顯示的圖像為空白
-  //     cover_img_el.src = "";
-  //   }
-  // });
-
+  });
 });
+//     // const img = document.getElementById("cover_img");
+// console.log(file);
+//     //1. 取得File物件
+//     cover_img_el.src = URL.createObjectURL(file);
+    
+//     //2. 實例化FileReader物件
+//     const fileReader = new FileReader();
+    
+//     cover_img_el.src = fileReader.readAsBinaryString(file);
+//     //3. 替FileReader物件 註冊 載入監聽器
+//     fileReader.onload = async event => {
+//         //4. 轉成Base64字串
+//         prodPic_el = btoa(event.target.result);
+//     }
+//     //5. 開始讀取檔案
+//     fileReader.readAsBinaryString(prodPic_el);
+//   }
+
+
+    //透過this關鍵字來引用觸發事件的元素即上傳圖片的prodPic_el
+    //files 是文件上傳輸入框的屬性，取第一個文件
+    // const files = this.files;
+    // console.log(files);
+
+    // cover = files[0];
+    // console.log(cover);
+
+    
+
 
 //按下確認修改按鈕時觸發
 btnSubmit_el.addEventListener('click', async function(event){
-    Swal.fire({
-      icon: 'question',
-      title: '確認',
-      text: '確定更新此商品？',
-      confirmButtonText: '確定',
-      showCancelButton: true,
-      cancelButtonText: '取消'
-  }).then((result) => {
-    if (result.isConfirmed) {
-        window.location.href = 'productList.html';
-    }
-  });
-
   //將要傳遞的資料包裝成一個物件
   const send_data = {
     prodName: prodName_el.value,
@@ -179,29 +170,42 @@ btnSubmit_el.addEventListener('click', async function(event){
     prodCatId: prodCatId_el.value,
     prodPri: prodPri_el.value,
     prodCon: prodCon_el.value,
-    prodPic: prodPic
-  };
-//檢查cover_img_el是否有值，如果有選擇圖片，則更新prodPic
-  if(cover){
-    send_data.prodPic = cover;
-  }
+    prodPic: cover
+};
+// //檢查cover是否有值，如果有選擇圖片，則更新cover_img_el
+// if(cover){
+//   send_data.cover_img_el = cover;
+// }
 
-  try{
-    const resp = await fetch (`${baseUrl}product/updateProduct/${prodId}`,{
-      method: 'PUT',
-      headers: {'Content-Type': 'application/json'},
-      //將數據對象轉換為可在請求主體中傳輸的JSON字符串
-      body: JSON.stringify(send_data)
-    });
-    
-    if(resp.ok){
-      const updatedProductData = await resp.json();
-      
-  } else {
-    console.error('Failed to update product.');
-  }
-  } catch (error) {
-  console.error('Error to update product.', error);
-  }
-
+try{
+  const resp = await fetch (`${baseUrl}product/updateProduct/${prodId}`,{
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    //將數據對象轉換為可在請求主體中傳輸的JSON字符串
+    body: JSON.stringify(send_data)
   });
+  
+  if(resp.ok){
+    const updatedProductData = await resp.json();
+
+    Swal.fire({
+      icon: 'question',
+      title: '確認',
+      text: '確定更新此商品？',
+      confirmButtonText: '確定',
+      showCancelButton: true,
+      cancelButtonText: '取消'
+  })
+  .then((result) => {
+    // if (result.isConfirmed) {
+    //     // window.location.href = 'productList.html';
+    // }
+});
+} else {
+  console.error('Failed to update product.');
+}
+} catch (error) {
+console.error('Error to update product.', error);
+}
+
+});

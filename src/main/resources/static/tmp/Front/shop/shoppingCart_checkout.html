@@ -152,23 +152,23 @@
 
             <hr>
             <div class="col-md-6">
-              <label for="memberName" class="col-form-label">姓名</label>
-              <input type="text" id="memberName" class="form-control" aria-describedby="passwordHelpInline">
+              <label for="recipientName" class="col-form-label">姓名</label>
+              <input type="text" id="recipientName" title="請輸入收件人姓名" placeholder="請輸入收件人姓名" class="form-control" aria-describedby="passwordHelpInline">
 
             </div>
             <div class="col-md-6">
-              <label for="memberPhone" class="col-form-label">電話</label>
-              <input type="text" id="memberPhone" class="form-control" aria-describedby="passwordHelpInline">
+              <label for="recipientPhone" class="col-form-label">電話</label>
+              <input type="text" id="recipientPhone" title="請輸入收件人電話" placeholder="請輸入收件人電話" class="form-control" aria-describedby="passwordHelpInline">
 
             </div>
             <div class="col-md-12">
-              <label for="memberEmail" class="col-form-label">地址</label>
-              <input type="text" id="memberEmail" class="form-control" aria-describedby="passwordHelpInline">
+              <label for="recipientAddr" class="col-form-label">地址</label>
+              <input type="text" id="recipientAddr" title="請輸入收件人地址" placeholder="請輸入收件人地址"class="form-control" aria-describedby="passwordHelpInline">
 
             </div>
 
             <div class="row mt-5">
-              <h4 id="proAmount">訂購金額: 888 元</h4>
+              <h4 id="finalTotalPrice">訂購總金額:</h4>
             </div>
 
             <hr>
@@ -208,7 +208,7 @@
 
           <div class="row justify-content-end">
             <div class="col-2">
-              <button type="button" id="order_confirmed" class="btn btn-primary btn-lg">確認付款</button>
+              <button type="button" id="orderConfirmedBtn" class="btn btn-primary btn-lg">確認結帳</button>
             </div>
           </div>
           <!-- ===== 結束 ===== -->
@@ -271,5 +271,80 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
 </body>
+
+<script>
+
+  const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+ 
+  //-----取得元素-----
+  const totalPriceCount_el = document.getElementById('totalPriceCount');
+  const finalTotalPrice_el = document.getElementById('finalTotalPrice');
+  const recipientPhone_el = document.getElementById('recipientPhone');
+  const recipientName_el = document.getElementById('recipientName');
+  const recipientAddr_el = document.getElementById('recipientAddr');
+  
+  const orderConfirmedBtn_el = document.getElementById('orderConfirmedBtn');
+
+
+  //-----載入後顯示總金額-----
+     document.addEventListener("DOMContentLoaded", function () {
+      fetchCartList();
+      // fetchMember();
+    })
+
+  //取得整個購物車清單
+  async function fetchCartList() {
+      const response = await fetch(`${baseUrl}showAllCartList`);
+      const cartLists = await response.json();
+   console.log(cartLists);
+
+  // List 購物車清單 從資料庫拿到每一筆小計+運費就會是總金額顯示
+ 
+  // 初始化總金額
+  totalPriceCount = 0;
+  finalTotalPrice = 0;
+
+  //cartLists 是包含所有購物車清單的陣列
+  for (const cartList of cartLists) {
+      // cartList 是購物車清單中的一項
+      // 取到小計金額
+      if (cartList.cartPri) {
+          // 將 cartPri 的值轉換為數字並加到總金額
+          totalPriceCount += parseFloat(cartList.cartPri);
+      }
+          finalTotalPrice= totalPriceCount + 80;
+          console.log(finalTotalPrice);
+          finalTotalPrice_el.innerText = "訂單總金額:" + finalTotalPrice + "元";
+  }
+}  
+
+  //按下確認結帳按鈕，前往結帳&生成一筆新的訂單
+  orderConfirmedBtn.addEventListener('click', function(){
+
+  // 將資料包裝成一個物件
+  const send_data = {
+    ordFee: 80,
+    recipientPhone: recipientPhone_el.value,
+    // ordPaySta:不知道怎麼取得!!!,
+    recipientName: recipientName_el.value,
+    recipientAddr: recipientAddr_el.value,
+    // ordSta:不知道怎麼取得!!!,
+    total: totalPriceCount.value,
+    checktotal: finalTotalPrice_el.value,
+    // ordTime:不知道怎麼取得!!!
+  }
+  //不確定是否是用這個controller!!!
+  fetch(`${baseUrl}orders`,{
+    method: 'POST',
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(send_data)
+  })
+
+  })
+
+
+
+  
+</script>
 
 </html>

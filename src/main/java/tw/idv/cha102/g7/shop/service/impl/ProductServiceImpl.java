@@ -68,16 +68,24 @@ public class ProductServiceImpl implements ProductService {
         product.setProdCon(productDTO.getProdCon());
         product.setProdPri(productDTO.getProdPri());
         product.setProdSta(productDTO.getProdSta());
+
+        List<ProductPicture> productPictures = new ArrayList<>();
+        productPictures = productPictureRepository.findByProdId(prodId);
+        for(ProductPicture productPicture : productPictures){
+            productPicture.setProdPic(productDTO.getProdPic());
+        }
+
         productRepository.save(product);
+        productPictureRepository.save(productPictures.get(0));
         System.out.println("STA: "+product.getProdSta());
 
 
-        List<ProductPicture> pplist = productDTO.getProductPictures();
-            if(pplist != null) {
-                for (ProductPicture pp : pplist) {
-                    productPictureRepository.save(pp);
-                }
-            }
+//        List<ProductPicture> pplist = productDTO.getProductPictures();
+//            if(pplist != null) {
+//                for (ProductPicture pp : pplist) {
+//                    productPictureRepository.save(pp);
+//                }
+//            }
 
     }
 
