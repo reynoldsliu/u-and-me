@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 notice: notice_el.value.trim(),
                 cover: cover,
             }
-            await fetch(baseUrl + '/myGroup/update/' + groupId, {
+            await fetch(baseUrl + '/member/grouper/myGroup/update/' + groupId, {
                 headers: {
                     "content-type": "application/json",
                 },
@@ -260,6 +260,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 title: '更新成功',
                 text: '資料已更新',
                 showCancelButton: true
+              }).then(()=>{
+                location.href = baseUrl + '/tmp/Front/group/myGroupList.html'
               })
             // location.reload();
         } else {
@@ -281,7 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
 async function fetchMyGroup(groupId) {
 
     // 取得修改資料
-    await fetch(baseUrl + '/myGroup/update/' + groupId, {
+    await fetch(baseUrl + '/member/grouper/myGroup/update/' + groupId, {
         method: 'GET',
 
         //取得所有資料
@@ -313,6 +315,6 @@ async function fetchMyGroup(groupId) {
         notice_el.value = group.notice;
         cover_img_el.src = dataurl;
     });
-
+    
 }
 //===================取得原揪團資料結束===================

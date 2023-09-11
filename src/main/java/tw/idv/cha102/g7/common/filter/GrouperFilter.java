@@ -49,7 +49,7 @@ public class GrouperFilter extends OncePerRequestFilter {
             //我還沒打 :: 確認會員登入後檢查團主狀態!!確認是否為團主
             chain.doFilter(requestWrapper, responseWrapper);
             responseWrapper.copyBodyToResponse();
-            System.out.println("你是團主!!!!" + (session.getAttribute("memberId")) + "grouper=" + (session.getAttribute("grouper")) + "class=" + (session.getAttribute("grouper")).getClass());
+            System.out.println("你是團主!!!!" + (session.getAttribute("memberId")) + "grouper=" + (session.getAttribute("grouper")));
         }
     }
 }

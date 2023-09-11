@@ -27,7 +27,7 @@ public class GroupController {
      * 新增揪團
      * @param group 欲新增的揪團資訊
      */
-    @PostMapping("/group")
+    @PostMapping("/member/grouper/group")
     public void insert(@RequestBody Group group){
         groupService.insert(group);
     }
@@ -54,11 +54,16 @@ public class GroupController {
      * 刪除揪團
      * @param groupId 揪團ID
      */
-    @DeleteMapping("/group/{groupId}")
+    @DeleteMapping("/member/grouper/group/{groupId}")
     public ResponseEntity<?> delete(@PathVariable Integer groupId){
         try {
-            groupService.delete(groupId);
-            return ResponseEntity.ok("success");
+            boolean control = groupService.delete(groupId);
+            if(control == true){
+                return ResponseEntity.ok("success");
+            }else{
+                return ResponseEntity
+                        .status(HttpStatus.NOT_FOUND).body("fail");
+            }
         } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND).body("fail");
@@ -185,14 +190,13 @@ public class GroupController {
     /**
      * 揪團團主
      * 顯示揪團團主舉辦的揪團
-     * @param memId 揪團團主的會員ID
      * @param page 目標顯示的頁數
      * @return 查詢結果
      */
-    @GetMapping("/myGroupList/{memId}/{page}")
-    public Stream<MyGroupListDto> findMyGroupListDtoByGroupId(@PathVariable Integer memId,
+    @GetMapping("/member/grouper/myGroupList/{page}")
+    public Stream<MyGroupListDto> findMyGroupListDtoByGroupId(HttpServletRequest request,
                                                               @PathVariable Integer page){
-        return groupService.findMyGroupListDtoByMemId(memId, page);
+        return groupService.findMyGroupListDtoByMemId(request, page);
     }
 
     /**
@@ -201,7 +205,7 @@ public class GroupController {
      * @param groupId 揪團ID
      * @return 查詢結果
      */
-    @GetMapping("/myGroup/update/{groupId}")
+    @GetMapping("/member/grouper/myGroup/update/{groupId}")
     public UpdateMyGroupDto findUpdateMyGroupByGroupId(@PathVariable Integer groupId){
         return groupService.findUpdateMyGroupByGroupId(groupId);
     }
@@ -212,7 +216,7 @@ public class GroupController {
      * @param groupId 揪團ID
      * @param group 前端傳送來須修改的值
      */
-    @PutMapping("/myGroup/update/{groupId}")
+    @PutMapping("/member/grouper/myGroup/update/{groupId}")
     public ResponseEntity<?> updateMyGroupByGroupId(@PathVariable Integer groupId,
                                                     @RequestBody Group group){
         try {
@@ -299,7 +303,7 @@ public class GroupController {
     }
 
     //揪團主更改上下架
-    @PutMapping("/group/updateGroupSta/{groupId}")
+    @PutMapping("/member/grouper/group/updateGroupSta/{groupId}")
     public ResponseEntity<?> updateGroupSta(@PathVariable Integer groupId, 
                                @RequestBody Group group){
         try {

@@ -9,10 +9,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function fetchMyGroupList() {
     try {
-        //此fetch url 的1為memId 應該要直接讀取當前使用者的memId 尚未研究
-        const response = await fetch(baseUrl + '/myGroupList/1/0');
+        const response = await fetch(baseUrl + '/member/grouper/myGroupList/0');
+        if(response.status == 401){
+            Swal.fire({
+                icon: 'error',
+                title: '尚未登入',
+                showCancelButton: true
+            }).then(()=>{
+                location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+            });
+        }else if(response.status == 403){
+            Swal.fire({
+                icon: 'error',
+                title: '尚未成為團主',
+                showCancelButton: true
+            }).then(()=>{
+                location.href = baseUrl + '/tmp/Front/member/memberGroupRegister.html';
+            });
+        }
         const myGroupList = await response.json();
-
         const myGroupList_el = document.getElementById("myGroupList");
 
         myGroupList_el.innerHTML = "";
@@ -32,10 +47,13 @@ async function fetchMyGroupList() {
                     group_Sta = "揪團取消";
                     break;
                 case 3:
-                    group_Sta = "揪團延期";
+                    group_Sta = "揪團下架";
                     break;
                 case 4:
                     group_Sta = "揪團被下架";
+                    break;
+                case 5:
+                    group_Sta = '揪團額滿';
                     break;
             }
             const row = document.createElement("tr");
@@ -96,7 +114,7 @@ async function deleteGroup(groupId) {
         let r = confirm('確定刪除？');
 
         if (r) {
-            await fetch(baseUrl + '/group/' + groupId, {
+            await fetch(baseUrl + '/member/grouper/group/' + groupId, {
                 method: 'DELETE'
             }).then(response => {
                 return response.text();
@@ -113,7 +131,7 @@ async function deleteGroup(groupId) {
                     Swal.fire({
                         icon: 'error',
                         title: '刪除失敗',
-                        text: '需等待團員退款完畢才可以刪除',
+                        text: '需將揪團下架並等待團員退款完畢才可以刪除',
                         showCancelButton: true
                       })
                     throw new Error();
@@ -132,7 +150,7 @@ async function deleteGroup(groupId) {
 let j = 0;
 let formId = [];
 async function fetchRegForm(groupId) {
-    const response = await fetch(baseUrl + '/regForms/findGroupId' + groupId);
+    const response = await fetch(baseUrl + '/member/regForms/findGroupId' + groupId);
     const formList = await response.json();
     formContent.innerHTML = '';
     j = 0;
@@ -168,7 +186,7 @@ async function fetchRegForm(groupId) {
     for (let i = 1; i <= j; i++) {
 
         
-        const res = await fetch(baseUrl + '/memberDetailsForms/' + formId.shift());
+        const res = await fetch(baseUrl + '/member/memberDetailsForms/' + formId.shift());
         //取値後必須移除才不會導致重複讀取 shift() > 從數組中取値後刪除
         const detailList = await res.json();
         
@@ -199,6 +217,7 @@ async function fetchRegForm(groupId) {
                 case 4:
                     refundSta = '已完成付款';
                     refund = '無須退款';
+                    break;
             }
             
             detailContent_el.innerHTML +=
@@ -228,23 +247,28 @@ async function changeGroupSta(gorupId, count){
             break;
         case false:
             data ={
-                groupSta: 2
+                groupSta: 3
             }
             break;
     }
-    await fetch(baseUrl + '/group/updateGroupSta/' + gorupId,{
+    await fetch(baseUrl + '/member/grouper/group/updateGroupSta/' + gorupId,{
         headers: {
             "content-type": "application/json",
         },
         method: 'PUT',
         body: JSON.stringify(data)
+    }).then(()=>{
+        location.reload();
     }).catch(function (e){
         Swal.fire({
             icon: 'error',
             title: '更新失敗',
             showCancelButton: true
-          })
+          }).then(()=>{
+            location.reload();
+          });
     });
+    
 }
 // for(let i = 1; i <= count; i++){
 //     let launched_el = document.getElementById('launched' + i);

@@ -55,9 +55,18 @@ window.addEventListener("load", async function (e) {
 
     // 取得插入的formId
     // 後面/1為memId
-    fetch(baseUrl + '/regForm/findFromId', {
+    fetch(baseUrl + '/member/regForm/findFromId', {
         method: 'GET',
     }).then(response => {
+        if(response.status == 401){
+            Swal.fire({
+                icon: 'error',
+                title: '尚未登入',
+                showCancelButton: true
+            }).then(() => {
+                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+            });
+        }
         return response.json();
     }).then(regform => {
         formId = Number(regform.formId) + 1;
@@ -113,8 +122,10 @@ order_confirmed_el.addEventListener('click', function (e) {
             title: '報名失敗',
             text: '該揪團已達最大人數',
             showCancelButton: true
+        }).then(()=>{
+            location.href = baseUrl + '/tmp/Front/group/groupMemo.html?groupId=' + groupId;
         })
-        location.href = baseUrl + '/tmp/Front/group/groupMemo.html?groupId=' + groupId;
+        
     }
 
     if (email_el.value === null || email_el.value.trim() === "") {
@@ -204,7 +215,7 @@ order_confirmed_el.addEventListener('click', function (e) {
         }
         // console.log(send_data);
         //先插入上面form的資料
-        fetch(baseUrl + '/regForm', {
+        fetch(baseUrl + '/member/regForm', {
             headers: {
                 "content-type": "application/json",
             },
@@ -233,7 +244,7 @@ order_confirmed_el.addEventListener('click', function (e) {
                 gender: gender_el.value,
                 birthday: birthday_el.value
             }
-            fetch(baseUrl + '/memberDetail', {
+            fetch(baseUrl + '/member/memberDetail', {
                 headers: {
                     "content-type": "application/json",
                 },

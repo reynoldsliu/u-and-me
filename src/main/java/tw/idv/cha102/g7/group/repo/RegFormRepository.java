@@ -22,6 +22,6 @@ public interface RegFormRepository extends JpaRepository<RegForm, Integer> {
 
     List<RegForm> findByGroupIdOrderByFormId(Integer groupId);
 
-    @Query(value = "SELECT m.refund_sta FROM reg_from AS r LEFT JOIN member_detail AS m ON r.form_id = m.form_id WHERE r.group_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT m.refund_sta FROM reg_form AS r LEFT JOIN member_detail AS m ON r.form_id = m.form_id WHERE r.group_id = ?1", nativeQuery = true)
     List<RegFormMemberDetailDto> findRefundSTaByGroupId(Integer groupId);
 }

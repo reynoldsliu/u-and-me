@@ -62,10 +62,10 @@ select * from hosts;
 
 
  create table orders (
-    ord_id int primary key ,
+    ord_id int primary key auto_increment,
     mem_id int not null,
     points int,
-    ord_fee int,
+    ord_fee int default 80,
     recipient_phone varchar(15) not null,
     ord_pay_sta tinyint default 0 not null, -- 0:未付款,1:已付款
     recipient_name varchar(10),

@@ -46,7 +46,7 @@ window.addEventListener("load", function (e) {
                 title: '尚未成為團主',
                 showCancelButton: true
             }).then(() => {
-                this.location.href = baseUrl + '/tmp/Front/member/memberRegister.html';
+                this.location.href = baseUrl + '/tmp/Front/member/memberGroupRegister.html';
             })
         }
     });
@@ -280,7 +280,7 @@ window.addEventListener("load", function (e) {
                     cover: base64Str
                 }
                 // console.log(send_data);
-                await fetch(baseUrl + '/group', {
+                await fetch(baseUrl + '/member/grouper/group', {
                     headers: {
                         "content-type": "application/json",
                     },

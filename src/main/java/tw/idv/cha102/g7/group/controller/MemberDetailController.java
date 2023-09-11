@@ -21,7 +21,7 @@ public class MemberDetailController {
      * 於報名揪團時新增報名細節
      * @param memberDetail 欲新增的報名細節
      */
-    @PostMapping("/memberDetail")//新增報名細節
+    @PostMapping("/member/memberDetail")//新增報名細節
     public void insert(@RequestBody MemberDetail memberDetail){
         memberDetailService.insert(memberDetail);
     }

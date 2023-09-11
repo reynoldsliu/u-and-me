@@ -91,7 +91,7 @@ function findqalist() {
                     groupSta = '揪團取消';
                     break;
                   case 3:
-                    groupSta = '揪團延期';
+                    groupSta = '揪團下架';
                     break;
                   case 4:
                     groupSta = '揪團被下架';

@@ -22,7 +22,7 @@ public class RegFormController {
      * 新增報名表
      * @param regForm 欲新增的報名表
      */
-    @PostMapping("/regForm")//新增報名表
+    @PostMapping("/member/regForm")//新增報名表
     public void insert(@RequestBody RegForm regForm){
         regFormService.insert(regForm);
     }
@@ -92,7 +92,7 @@ public class RegFormController {
     }
 
     //報名表多表同時新增查找ID用
-    @GetMapping("/regForm/findFromId")
+    @GetMapping("/member/regForm/findFromId")
     public RegformIdDto findFormId(){
         return regFormService.findFormId();
     }
@@ -105,7 +105,7 @@ public class RegFormController {
     }
 
     //fetch報名表用
-    @GetMapping("/regForms/findGroupId{groupId}")
+    @GetMapping("/member/regForms/findGroupId{groupId}")
     public List<RegForm> findByGroupIdOrderByFormId(@PathVariable Integer groupId){
         return regFormService.findByGroupIdOrderByFromId(groupId);
     }

@@ -16,7 +16,7 @@ public interface GroupService {
 
     void updateMyGroupByGroupId(Integer groupId, Group group);
 
-    void delete(Integer groupId);
+    boolean delete(Integer groupId);
 
     Group getGroupByGroupId(Integer groupId);
 
@@ -39,7 +39,7 @@ public interface GroupService {
     //Stream 使用一種類似用 SQL 語句從數據庫查詢數據的直觀方式來提供一種對 Java 集合運算和表達的高階抽象。
     Stream<GroupListDto> findGroupListByGroupSta(Integer page);
 
-    Stream<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Integer page);
+    Stream<MyGroupListDto> findMyGroupListDtoByMemId(HttpServletRequest request, Integer page);
 
     UpdateMyGroupDto findUpdateMyGroupByGroupId(Integer groupId);
 

@@ -67,10 +67,10 @@ public class GroupServiceImpl implements GroupService {
         }
     }
 
-    public void delete(Integer groupId) {
+    public boolean delete(Integer groupId) {
         boolean control = true;
         List<RegFormMemberDetailDto> refundList = regFormRepository.findRefundSTaByGroupId(groupId);
-
+        System.out.println(refundList);
         //如果還有尚未退費的，就不能刪除
         if (refundList != null) {
             for (RegFormMemberDetailDto refundLists : refundList) {
@@ -83,6 +83,7 @@ public class GroupServiceImpl implements GroupService {
         if (control) {
             groupRepository.deleteById(groupId);
         }
+        return control;
     }
 
     public Group getGroupByGroupId(Integer groupId) {
@@ -208,7 +209,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Stream<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Integer page) {
+    public Stream<MyGroupListDto> findMyGroupListDtoByMemId(HttpServletRequest request, Integer page) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
         Sort sort = Sort.by(Sort.Direction.ASC, "Group_Sta");
         Pageable pageable = PageRequest.of(page, 6, sort);
 
