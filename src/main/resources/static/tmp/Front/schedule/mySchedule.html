@@ -148,9 +148,7 @@
                         data-bs-target="#exampleModal">
                         ＋ 新的行程
                     </button>
-
                     <!-- Modal -->
-
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -167,7 +165,7 @@
                                             <!-- 行程出發日期 -->
                                             <p>
                                                 <label for="inputStartDate">
-                                                    <p style="font-size: 20px;" id="inputStartDate">旅遊日期</p>
+                                                    <p style="font-size: 20px;" id="inputStartDate">旅遊日期<span style="color:red; font-size: 10px;">(必填，日期須大於今日，且結束日期不得小於起始日期！)</span></p>
                                                 </label>
                                                 <input class="dateSelector" type="date" id="startDate">
                                                 <!-- 行程結束日期 -->
@@ -184,13 +182,13 @@
                                                 <input class="destInput" type="text" id="destination"
                                                     placeholder="您想去哪個城市呢？">
                                             </p>
-                                            <!--  -->
+                                            <!-- 行程名稱 -->
                                             <p>
                                                 <label class="nameInput" for="schNameInput">
-                                                    <p style="font-size: 20px;" id="schNameInput">行程名稱</p>
+                                                    <p style="font-size: 20px;" id="schNameInput">行程名稱<span style="color:red; font-size: 10px;">(必填)</span></p>
                                                 </label>
                                                 <input class="nameInput" type="text" id="schName" value="新的行程"
-                                                    placeholder="新的行程">
+                                                    placeholder="行程名稱">
                                             </p>
                                         </div>
 
@@ -204,10 +202,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                     <!-- 搜尋欄 -->
                     <input
                         class="form-control me-2 d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2"
@@ -228,8 +222,6 @@
                         </ul>
                     </div>
                 </form>
-
-
             </div>
 
             <!--Card-->
@@ -237,11 +229,11 @@
             <div class="container">
                 <div class="row" id="schListInner">
                     <!-- 我的行程內容由此插入 -->
-                    <div class="col-lg-4 mb-4">
+                    <!-- <div class="col-lg-4 mb-4">
                         <div class="card">
                             <img src="../dist/img/scheduleimg/trip24.jpeg" alt="等待圖片載入..." class="card-img-top"
                                 style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
-                            <div class="settingSch" id="settingSch${schedule.schId}" onclick="editMySchedule()">
+                            <div class="settingSch" id="settingSch" onclick="editMySchedule()">
                                 <div><i class="fa-solid fa-pen-to-square edit"></i></div>
                                 <div class="settingSelect -off" onmouseleave="removeEditBox()">
                                     <div class="privateSetting" onclick="selectPrivateSetting()">隱私設定與分享</div>
@@ -249,10 +241,16 @@
                                     <div class="deleteMySch">刪除</div>
                                 </div>
                             </div>
+                            <div class="launchGroup" id="launchGroup" onclick="launchMyGroup()" onmouseover="hint()"
+                                onmouseout="hint()">
+                                <i class="fa-solid fa-people-group group"></i>
+                                <div class="launchGroupHint -off">發起揪團</div>
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">schNameschNameschName</h5>
                                 <p class="sch-date" style="font-size: 15px">
-                                    YYYY年MM月DD日</p>
+                                    YYYY年MM月DD日
+                                </p>
                                 <p class="sch-date" style="font-size: 13px">
                                     行程共???天
                                     <span><i class="fa-solid fa-eye"></i> 連結分享</span>
@@ -262,7 +260,7 @@
                                     class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

@@ -32,13 +32,13 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
             "ORDER BY days ASC, sch_start DESC", nativeQuery = true)
     public Page<ScheduleDayDTO> findOrderByDays(Pageable pageable);
 
-
-    // 依行程預估消費範圍小到大，查詢所有範圍內的公開行程清單，並依照起始日期新到舊排序
-
-
     // 查詢使用者自己建立過的所有行程清單
     @Query(value = "SELECT * FROM schedules WHERE mem_id = ?1", nativeQuery = true)
     public Page<Schedule> findByMemId(Integer memId, Pageable pageable);
+
+    // 依照行程名稱查詢使用者自己建立過的相關行程清單
+    @Query(value = "SELECT * FROM schedules WHERE mem_id = ?1 AND sch_name like %?2%", nativeQuery = true)
+    public Page<Schedule> findByMemIdAndSchName(Integer memId, String schName, Pageable pageable);
 
 
     // 查詢行程及其細節，並依照行程細節起始時間排序

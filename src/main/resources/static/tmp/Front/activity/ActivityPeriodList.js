@@ -1,16 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetchRandomNews();
+    fetchRandomPeriods();
 });
 
-async function fetchRandomNews() {
+async function fetchRandomPeriods() {
     try {
         const response = await fetch('http://localhost:8080/u-and-me/activityavailable');
-        const randomNews = await response.json();
+        const randomPeriods = await response.json();
 
-        const cardContainers = document.querySelectorAll('.card');
+        const cardContainers = document.querySelectorAll('.card.profile-card-5');
 
-        randomNews.forEach((item, index) => {
-
+        randomPeriods.forEach((item, index) => {
             const cardContainer = cardContainers[index];
             const cardImg = cardContainer.querySelector('.card-img-top');
             const cardTitle = cardContainer.querySelector('.card-title');
@@ -24,13 +23,12 @@ async function fetchRandomNews() {
             cardText.textContent = item.activCon;
 
             detailBtn_el.addEventListener('click', function () {
-                const newPageUrl = `ActivityDetail.html?activId=${item.activId}`;
+                const newPageUrl = `ActivityPeriodDetail.html?activId=${item.activId}`;
                 window.location.href = newPageUrl;
             });
 
-
         });
     } catch (error) {
-        console.error('Error fetching random news:', error);
+        console.error('Error fetching random periods:', error);
     }
 }

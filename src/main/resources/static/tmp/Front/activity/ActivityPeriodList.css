@@ -31,3 +31,25 @@
     background-color:#4E5E30;
     border-color:#4E5E30;
 }
+
+.navbar-brand {
+     height: 70px;
+}
+
+.navbar-brand>img {
+     height: 115px;
+     margin-top: -23px;
+}
+
+.btn {
+     margin-left: 10px;
+     margin-bottom: 10px;
+}
+
+.card-text {
+     display: -webkit-box;
+     -webkit-line-clamp: 2; /* 顯示行數 */
+     -webkit-box-orient: vertical;
+     overflow: hidden;
+     text-overflow: ellipsis; /* 截斷顯示(...) */
+}

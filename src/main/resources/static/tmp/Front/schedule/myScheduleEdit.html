@@ -115,7 +115,6 @@
             </div>
         </nav>
         <div class="container" style="margin: 0;padding: 0;">
-            <!-- 需再調整不要讓縱向卷軸出現，頂部為56px -->
             <!-- -----Content----- -->
             <div class="content">
                 <section style="height: 100%; width: 100%; position: absolute; top: 56px;">
@@ -425,18 +424,23 @@
                                     <div class="attrSearch-result -off">
                                         <!-- 搜尋欄框框 -->
                                         <div class="searchColumn">
+                                            <!-- 起點景點 -->
                                             <div>
-                                                <!-- 起點景點 -->
                                                 <input type="text" id="start" class="google_input_text1" ref="site"
-                                                    v-model="site" placeholder="請輸入起點">
+                                                    v-model="site" placeholder="請輸入地址">
                                             </div>
+                                            <!-- 景點名稱模糊搜尋 -->
                                             <div>
-                                                <!-- 終點景點 -->
+                                                <input type="text" id="searchAttrByName" class="google_input_text3"
+                                                    ref="site" v-model="site" placeholder="請輸入景點名稱">
+                                            </div>
+                                            <!-- 終點景點 -->
+                                            <div>
                                                 <input type="text" id="end" class="google_input_text2" ref="site"
                                                     v-model="site" placeholder="請輸入終點">
                                             </div>
                                             <!-- 景點交通方式選擇 -->
-                                            <div class="trans-mode">
+                                            <div class="trans-mode" style="display: none;">
                                                 <select id="mode">
                                                     <option value="DRIVING" selected>Driving</option>
                                                     <option value="WALKING">Walking</option>
@@ -450,43 +454,8 @@
                                                     id="attrSearch-btn">搜尋</button>
                                             </div>
                                         </div>
-                                        <!-- <div>
-                                        <strong>Start: </strong>
-                                        <select id="start" onchange="calcRoute();">
-                                            <option value="chicago, il">Chicago</option>
-                                            <option value="st louis, mo">St Louis</option>
-                                            <option value="joplin, mo">Joplin, MO</option>
-                                            <option value="oklahoma city, ok">Oklahoma City</option>
-                                            <option value="amarillo, tx">Amarillo</option>
-                                            <option value="gallup, nm">Gallup, NM</option>
-                                            <option value="flagstaff, az">Flagstaff, AZ</option>
-                                            <option value="winona, az">Winona</option>
-                                            <option value="kingman, az">Kingman</option>
-                                            <option value="barstow, ca">Barstow</option>
-                                            <option value="san bernardino, ca">San Bernardino</option>
-                                            <option value="los angeles, ca">Los Angeles</option>
-                                        </select>
-                                        <strong>End: </strong>
-                                        <select id="end" onchange="calcRoute();">
-                                            <option value="chicago, il">Chicago</option>
-                                            <option value="st louis, mo">St Louis</option>
-                                            <option value="joplin, mo">Joplin, MO</option>
-                                            <option value="oklahoma city, ok">Oklahoma City</option>
-                                            <option value="amarillo, tx">Amarillo</option>
-                                            <option value="gallup, nm">Gallup, NM</option>
-                                            <option value="flagstaff, az">Flagstaff, AZ</option>
-                                            <option value="winona, az">Winona</option>
-                                            <option value="kingman, az">Kingman</option>
-                                            <option value="barstow, ca">Barstow</option>
-                                            <option value="san bernardino, ca">San Bernardino</option>
-                                            <option value="los angeles, ca">Los Angeles</option>
-                                        </select>
-                                        </div> -->
-
-                                        <!-- 景點間總距離 -->
+                                        <!-- 景點間總距離(隱藏不顯示) -->
                                         <div id="totalDistance"></div>
-
-
                                         <!-- 景點搜尋結果清單 -->
                                         <div class="attrSearchList">
                                             <!-- 搜尋到的景點由此插入，第一個cell -->
@@ -508,163 +477,6 @@
                                                 </div>
                                             </div>
                                             <!-- 以上為一個cell -->
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- 以上是第二個cell -->
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- 以上是第三個cell -->
-                                            <!-- 以下為測試 -->
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr()">
-                                                <div class="row g-0">
-                                                    <div class="col-md-8">
-                                                        <div class="attrCardBody">
-                                                            <h5 class="attrName">
-                                                                <div id="attrName">
-                                                                    AttrNameAttrNameAttrNameAttrNameAttrNameAttrName
-                                                                </div>
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                    <div class="attrPic col-md-4">
-                                                        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
-                                                            id="attrFirstPic" class="img-fluid rounded-end" alt="...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- 測試結束 -->
                                         </div>
                                     </div>
                                     <!-- 景點搜尋結束 -->
@@ -699,9 +511,9 @@
                                                         class="google_input_text3 customizeInput" ref="site"
                                                         v-model="site" placeholder="*請輸入地址">
                                                 </div>
-                                                <a href="#"
-                                                    style="position:absolute;left:88%;top:30%;font-size: 20px;color: green;"><i
-                                                        class="fa-solid fa-magnifying-glass"></i></a>
+                                                <a href="#" class="myAttrGlass">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </a>
                                             </div>
                                             <!-- 景點電話 -->
                                             <!-- <div>
@@ -723,7 +535,6 @@
                                             </div>
                                             <div id="attrPicsPreview">
                                                 <!-- 景點圖片上傳插入處 -->
-                                                <!-- 待加入取消部分圖片上傳的功能！！！！！！！！！！！！！！！！！！！！！！！ -->
                                             </div>
                                             <!-- 是否加入景點收藏 -->
                                             <div>
@@ -743,7 +554,7 @@
                                 <!-- --------------- 查看景點詳情相關 --------------- -->
                                 <!-- 查看單一景點的詳細資訊 -->
                                 <div class="viewAttrDetailsColumn">
-                                    <!-- TODO....... -->
+                                    <!-- 景點詳情資訊欄位 -->
                                     <div class="card attrDetailsCard" style="width: 20rem;">
                                         <div class="attrDetailsBar">
                                             <button type="button" class="btn-close" aria-label="Close"
@@ -787,7 +598,6 @@
                                                     <span id="attrTypeName">海鮮餐廳</span>
                                                 </li>
                                                 <!-- 景點地址 -->
-                                                <!-- 景點經緯度應該不用放？ -->
                                                 <li class="list-group-item">
                                                     <span><i class="fa-solid fa-location-dot"></i> 地址</span><br>
                                                     <span id="attrAddress">320桃園市中壢區復興路46號9樓</span>
@@ -861,11 +671,9 @@
                                     <div id="directionsPanel"></div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </section>
-
             </div>
         </div>
     </div>
@@ -1109,6 +917,148 @@
         var end_el = document.getElementById('end');
         var start = start_el.value;
         var end = end_el.value;
+        // var myAttrAddr_el = document.getElementById("myAttrAddr");
+        // var myAttrAddr = myAttrAddr_el.value;
+
+        //********************************************更改開始***********************************************
+        //2023/09/10 Reynolds
+        var attrLon;
+        var attrLat;
+        myAttrAddr_el.addEventListener('focus', () => {
+            initMap();
+            let options = {
+                // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
+            };
+
+            let siteInput1 = document.querySelector('#myAttrAddr');
+            // let siteInput1 = myAttrAddr_el;
+
+            var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
+            // 地址的輸入框，值有變動時執行
+            autocomplete1.addListener('place_changed', async () => {
+                this.place = autocomplete1.getPlace(); // 地點資料存進place
+
+                // 確認回來的資料有經緯度
+                if (this.place.geometry) {
+
+                    // 改變map的中心點
+                    let searchCenter = this.place.geometry.location;
+
+                    // panTo是平滑移動、setCenter是直接改變地圖中心
+                    this.map.panTo(searchCenter);
+
+                    attrLat = this.place.geometry.location.lat();
+                    attrLon = this.place.geometry.location.lng();
+                    inputAttrBussTime = await getBussTime(place.place_id);
+
+                    console.log("LAT: " + attrLat);
+                    console.log("LON: " + attrLon);
+
+                    // 在搜尋結果的地點上放置標記
+                    let marker = new google.maps.Marker({
+                        // icon: {
+                        //     path: google.maps.SymbolPath.CIRCLE,
+                        //     scale: 10
+                        // },
+                        position: searchCenter,
+                        map: this.map
+                    });
+
+                    // info window
+                    let infowindow = new google.maps.InfoWindow({
+                        content: this.place.formatted_address
+                    });
+                    infowindow.open(this.map, marker);
+                }
+            });
+
+        });
+        var inputAttrBussTime = ``;
+        async function getBussTime(place_id) {
+            return new Promise((resolve, reject) => {
+                const placesService = new google.maps.places.PlacesService(map);
+                placesService.getDetails({ placeId: place_id }, (placeResult, placeStatus) => {
+                    if (placeStatus === google.maps.places.PlacesServiceStatus.OK) {
+                        const openingHours = placeResult.opening_hours;
+
+                        // 检查是否有开放时间信息
+                        if (openingHours) {
+                            const periods = openingHours.periods;
+
+                            // 处理开放时间信息
+                            periods.forEach((period) => {
+                                const openTime = period.open ? period.open.time : "";
+                                const closeTime = period.close ? period.close.time : "";
+                                inputAttrBussTime += `${openTime}~${closeTime}|`;
+                                console.log(`开放时间：${openTime} - ${closeTime}`);
+                            });
+                            resolve(inputAttrBussTime);
+                        } else {
+                            console.log("没有可用的开放时间信息。");
+                        }
+                    } else {
+                        console.error("获取景点详情时发生错误：", placeStatus);
+                        reject(placeStatus);
+                    }
+                });
+            });
+        }
+        var searchAttrByName = document.getElementById('searchAttrByName');
+        searchAttrByName.addEventListener("change", async function () {
+            const response = await fetch(baseURL + `getAttrsByNameFilter/` + searchAttrByName.value);
+            const resJson = await response.json();
+            const attrList = resJson.body;
+
+            // 清空景點收藏清單插入處所有的資料
+            attrSearchListInsert_el.innerHTML = "";
+
+            // 加入async試試看(找出每一個景點收藏)
+            for (let attr of attrList) {
+                // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
+                // 找出每一個景點收藏中景點的資料：如景點名稱
+
+                // 景點的第一張圖片編號、景點的第一張圖片
+                const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attr.attrId);
+                const attrPicList = await responseOfAttrFirstPic.json();
+                console.log(attrPicList);
+                const pics = attrPicList.attrPic;
+                let picInput;
+
+                if (!pics[0]) {
+                    picInput = pic;// pic.js base64
+                    // 如果 pics[0] 是空值，使用 "replace"
+                } else {
+                    picInput = pics[0].attrPicData;
+                }
+
+                // 動態生成每一個景點資訊框
+                let row = document.createElement("div");
+                row.innerHTML = `
+            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attr.attrId})" id="attrId${attr.attrId}">
+            <div class="row g-0">
+                <div class="col-md-8">
+                    <div class="attrCardBody">
+                        <h5 class="attrName">
+                            <div id="attrName">
+                                ${attr.attrName}
+                            </div>
+                        </h5>
+                    </div>
+                </div>
+                <div class="attrPic col-md-4">
+                    <img src="data: image/jpeg;base64,${picInput}"
+                        class="img-fluid rounded-end" alt="..."
+                        style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                </div>
+            </div>
+        </div>`;
+
+                attrSearchListInsert_el.appendChild(row);
+            }
+        })
+
+        //********************************************更改結束***********************************************
+
 
         start_el.addEventListener('change', function () {
             console.log("From: " + start_el.value + ",  To: " + end_el.value);
@@ -1132,9 +1082,6 @@
                 directionsRenderer
             );
         })
-
-
-
 
 
         // 監聽網頁載入事件

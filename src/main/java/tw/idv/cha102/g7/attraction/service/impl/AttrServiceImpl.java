@@ -14,6 +14,7 @@ import tw.idv.cha102.g7.attraction.repo.AttrRepository;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 
 import javax.persistence.NonUniqueResultException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -52,6 +53,19 @@ public class AttrServiceImpl implements AttrService {
     @Override
     public List<Attraction> getAttrsByName(String attrName) {
         return attrRepository.findAllByAttrNameContaining(attrName);
+    }
+
+    @Override
+    public ResponseEntity<Attraction> getAttrByNameFilter(String attrName){
+        List<Attraction> attractions = attrRepository.findAllByAttrNameContaining(attrName);
+        if(attractions==null)
+            return new ResponseEntity(new ArrayList<>(),HttpStatus.OK);
+        for(Attraction attraction:attractions){
+            if(attraction.getAttrSta()==0){
+                attractions.remove(attraction);
+            }
+        }
+        return new ResponseEntity(attractions,HttpStatus.OK);
     }
 
     @Override

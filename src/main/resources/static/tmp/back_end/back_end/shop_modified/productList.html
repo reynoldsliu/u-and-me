@@ -35,9 +35,9 @@
     </style>
 
 
-    <!-- Custom styles for this template -->
-    <link href="shop.css" rel="stylesheet">
-
+       <!-- Custom styles for this template -->
+       <link href="css/productList.css" rel="stylesheet">
+       <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -237,8 +237,11 @@
             <!-- changed to my-3 and changed from height: 800px to min-height -->
             <!-- 內容從這開始-->
             <!-- <button id=testname type="button" class="btn btn-primary">TEST</button> -->
+            <button type="button" id="buttonToProductAdd" class="btn btn-outline-warning" style="text-align: center; width: 150px; font-weight: 550">
+            <i class="fa-regular fa-square-plus"></i> 新增商品</button>
 
-            <h5 style="text-align: center">商品列表</h5>
+
+            <h3 style="text-align: center">商品列表</h3>
             <div class="table-responsive">
                 <table class="table table-bordered border-secondary" id="dataTable1">
                     <thead >
@@ -262,8 +265,6 @@
 
     <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="shop.js"></script>
-
     <script>
         const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
@@ -271,6 +272,14 @@
         document.addEventListener("DOMContentLoaded", function () {
             fetchProductList();
         });
+
+        //跳轉新增商品頁面按鈕
+        const buttonToProductAdd = document.getElementById('buttonToProductAdd');
+        buttonToProductAdd.addEventListener('click', function(){
+        const targetPageUrl = `${baseUrl}tmp/back_end/back_end/shop_modified/productAdd.html`;
+        window.location.href = targetPageUrl;
+        });
+
         // 在 DOM 元素載入完成後觸發，呼叫 fetchProductList 函數
         // async 函數 fetchProducList 使用了 fetch API 從指定的 URL(controller對應的) 取得商品列表資料。
         // 等待 fetch 完成並將回應轉換為 JSON 格式
@@ -336,7 +345,7 @@
                 });
 
             } catch (error) {
-                console.error("Error fetching product1 list:", error);
+                console.error("Error fetching productList:", error);
             }
         }
 
@@ -351,7 +360,7 @@
         // activityEdit.html?prodId=${prodId} 是一個動態生成的 URL 字串，用於將參數 prodId 插入到 URL 中，以便導航到指定的詳細內容頁面
         // <!--按修改鈕會根據prodId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
         function redirectToDetailPage(prodId) {
-            var newPageUrl = `shopUpdate.html?prodId=${prodId}`;
+            var newPageUrl = `productEdit.html?prodId=${prodId}`;
             window.location.href = newPageUrl;
         }
 
@@ -387,6 +396,10 @@
     
 
     </script>
+
+    <script src="./js/productList.js"></script>
+    
+
 </body>
 
 </html>

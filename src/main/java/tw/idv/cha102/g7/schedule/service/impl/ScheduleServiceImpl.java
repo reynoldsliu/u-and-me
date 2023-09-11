@@ -107,8 +107,17 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void create(Schedule schedule) {
-        repository.save(schedule);
+    public Stream<Schedule> findByMemIdAndSchNameDESC(Integer memId,String schName, int page) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "sch_start");
+        Pageable pageable = PageRequest.of(page, 6, sort);
+        return repository.findByMemIdAndSchName(memId,schName, pageable).get();
+    }
+
+
+
+    @Override
+    public Schedule create(Schedule schedule) {
+        return repository.save(schedule);
     }
 
     @Transactional

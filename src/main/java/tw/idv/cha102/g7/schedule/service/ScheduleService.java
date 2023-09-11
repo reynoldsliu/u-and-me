@@ -44,8 +44,11 @@ public interface ScheduleService {
     // 查詢使用者自己所有建立過的行程清單
     public Stream<Schedule> getAllByMemId(Integer memId, int page);
 
+    // 依照行程名稱查詢使用者自己建立過的相關行程清單(依照起始日期降冪排序)
+    public Stream<Schedule> findByMemIdAndSchNameDESC(Integer memId,String schName, int page);
+
     // 新增一筆行程(包含選擇出發及結束日期、目的地標籤、行程名稱)
-    public void create(Schedule schedule);
+    public Schedule create(Schedule schedule);
 
     // 刪除一筆行程
     public String deleteOneSchedule(Integer schId);

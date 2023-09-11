@@ -430,11 +430,26 @@
                                                 <input type="text" id="start" class="google_input_text1" ref="site"
                                                     v-model="site" placeholder="請輸入起點">
                                             </div>
+
+
+                                            <!-- //********************************************更改開始*********************************************** -->
+                                            <!-- Reynolds -->
+                                            <div>
+                                                <!-- 終點景點 -->
+                                                <input type="text" id="searchAttrByName" class="google_input_text3"
+                                                    ref="site" v-model="site" placeholder="請輸入景點名稱">
+                                            </div>
+                                            <!-- //********************************************更改結束*********************************************** -->
+
+
                                             <div>
                                                 <!-- 終點景點 -->
                                                 <input type="text" id="end" class="google_input_text2" ref="site"
                                                     v-model="site" placeholder="請輸入終點">
                                             </div>
+
+
+
                                             <!-- 景點交通方式選擇 -->
                                             <div class="trans-mode">
                                                 <select id="mode">
@@ -879,9 +894,12 @@
         async defer></script>
 
     <!-- 加入切換版面操作的js -->
+    <script src="./dist/js/pic.js"></script>
     <script src="./dist/js/myScheduleEdit.js"></script>
 
     <script>
+        // let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
+
         var map;
         var directionsRenderer;
         var directionsService;
@@ -1014,8 +1032,13 @@
             }
 
             total = total / 1000;
+            console.log(total + " km");
             document.getElementById("totalDistance").innerHTML = total + " km";
+            return total;
         }
+
+
+
 
 
         // 地址自動完成 + 地圖的中心移到輸入結果的地址上
@@ -1104,25 +1127,31 @@
                 }
             });
         }
+
         //manual fixed
         var start_el = document.getElementById('start');
         var end_el = document.getElementById('end');
         var start = start_el.value;
-        var end = end_el.value; 
+        var end = end_el.value;
         // var myAttrAddr_el = document.getElementById("myAttrAddr");
         // var myAttrAddr = myAttrAddr_el.value;
-        myAttrAddr_el.addEventListener('change', ()=> {
+
+        //********************************************更改開始***********************************************
+        //Reynolds
+        var attrLon;
+        var attrLat;
+        myAttrAddr_el.addEventListener('focus', () => {
             initMap();
             let options = {
                 // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
             };
 
-            let siteInput1 = document.querySelector('.google_input_text3');
+            let siteInput1 = document.querySelector('#myAttrAddr');
             // let siteInput1 = myAttrAddr_el;
 
             var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
             // 地址的輸入框，值有變動時執行
-            autocomplete1.addListener('place_changed', () => {
+            autocomplete1.addListener('place_changed', async () => {
                 this.place = autocomplete1.getPlace(); // 地點資料存進place
 
                 // 確認回來的資料有經緯度
@@ -1133,6 +1162,13 @@
 
                     // panTo是平滑移動、setCenter是直接改變地圖中心
                     this.map.panTo(searchCenter);
+
+                    attrLat = this.place.geometry.location.lat();
+                    attrLon = this.place.geometry.location.lng();
+                    inputAttrBussTime = await getBussTime(place.place_id);
+
+                    console.log("LAT: " + attrLat);
+                    console.log("LON: " + attrLon);
 
                     // 在搜尋結果的地點上放置標記
                     let marker = new google.maps.Marker({
@@ -1151,58 +1187,293 @@
                     infowindow.open(this.map, marker);
                 }
             });
-            
-            })
 
-            start_el.addEventListener('change', function () {
-                console.log("From: " + start_el.value + ",  To: " + end_el.value);
-                siteAuto();
-                calculateTravelTime(start_el.value, end_el.value, travelMode);
-                displayRoute(
-                    start_el.value,// "Perth, WA",haight
-                    end_el.value,// "Sydney, NSW",oceanBeach
-                    directionsService,
-                    directionsRenderer
-                );
-            })
-            end_el.addEventListener('change', function () {
-                console.log("From: " + start_el.value + ",  To: " + end_el.value);
-                siteAuto();
-                calculateTravelTime(start_el.value, end_el.value, travelMode);
-                displayRoute(
-                    start_el.value,// "Perth, WA",haight
-                    end_el.value,// "Sydney, NSW",oceanBeach
-                    directionsService,
-                    directionsRenderer
-                );
-            })
+        });
 
+        function singleSiteAuto() {
+            console.log("In sigleSiteAuto");
+            let options = {
+                // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
+            };
 
+            let siteInput1 = document.querySelector('#searchAttrByName');
+            // let siteInput1 = myAttrAddr_el;
 
+            var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
+            // 地址的輸入框，值有變動時執行
+            autocomplete1.addListener('place_changed', async () => {
+                this.place = autocomplete1.getPlace(); // 地點資料存進place
 
+                // 確認回來的資料有經緯度
+                if (this.place.geometry) {
 
-            // 監聽網頁載入事件
-            window.addEventListener('load', () => {
-                // googleMap.initMap();
-                // googleMap.siteAuto();
-                reloadMap();
+                    // 改變map的中心點
+                    let searchCenter = this.place.geometry.location;
 
+                    // panTo是平滑移動、setCenter是直接改變地圖中心
+                    this.map.panTo(searchCenter);
 
+                    attrLat = this.place.geometry.location.lat();
+                    attrLon = this.place.geometry.location.lng();
+                    inputAttrBussTime = await getBussTime(place.place_id);
+
+                    console.log("LAT: " + attrLat);
+                    console.log("LON: " + attrLon);
+
+                    // 在搜尋結果的地點上放置標記
+                    let marker = new google.maps.Marker({
+                        // icon: {
+                        //     path: google.maps.SymbolPath.CIRCLE,
+                        //     scale: 10
+                        // },
+                        position: searchCenter,
+                        map: this.map
+                    });
+
+                    // info window
+                    let infowindow = new google.maps.InfoWindow({
+                        content: this.place.formatted_address
+                    });
+                    infowindow.open(this.map, marker);
+                }
             });
+        }
+        var inputAttrBussTime = ``;
+        async function getBussTime(place_id) {
+            return new Promise((resolve, reject) => {
+                const placesService = new google.maps.places.PlacesService(map);
+                placesService.getDetails({ placeId: place_id }, (placeResult, placeStatus) => {
+                    if (placeStatus === google.maps.places.PlacesServiceStatus.OK) {
+                        const openingHours = placeResult.opening_hours;
 
-            function reloadMap() {
-                if (directionsService == undefined || directionsService == null)
-                    directionsService = new google.maps.DirectionsService();
-                if (directionsRenderer == undefined || directionsRenderer == null)
-                    directionsRenderer = new google.maps.DirectionsRenderer();
-                initMap();
-                siteAuto();
+                        // 检查是否有开放时间信息
+                        if (openingHours) {
+                            const periods = openingHours.periods;
+
+                            // 处理开放时间信息
+                            periods.forEach((period) => {
+                                const openTime = period.open ? period.open.time : "";
+                                const closeTime = period.close ? period.close.time : "";
+                                inputAttrBussTime += `${openTime}~${closeTime}|`;
+                                console.log(`开放时间：${openTime} - ${closeTime}`);
+                            });
+                            resolve(inputAttrBussTime);
+                        } else {
+                            console.log("没有可用的开放时间信息。");
+                        }
+                    } else {
+                        console.error("获取景点详情时发生错误：", placeStatus);
+                        reject(placeStatus);
+                    }
+                });
+            });
+        }
+        var searchAttrByName = document.getElementById('searchAttrByName');
+        searchAttrByName.addEventListener("change", async function () {
+            const response = await fetch(baseURL + `/getAttrsByNameFilter/` + searchAttrByName.value);
+            const resJson = await response.json();
+            const attrList = resJson.body;
+
+            // 清空景點收藏清單插入處所有的資料
+            attrSearchListInsert_el.innerHTML = "";
+
+            // 加入async試試看(找出每一個景點收藏)
+            for (let attr of attrList) {
+                // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
+                // 找出每一個景點收藏中景點的資料：如景點名稱
+
+                // 景點的第一張圖片編號、景點的第一張圖片
+                const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attr.attrId);
+                const attrPicList = await responseOfAttrFirstPic.json();
+                console.log(attrPicList);
+                const pics = attrPicList.attrPic;
+                let picInput;
+
+                if (!pics[0]) {
+                    picInput = pic;// pic.js base64
+                    // 如果 pics[0] 是空值，使用 "replace"
+                } else {
+                    picInput = pics[0].attrPicData;
+                }
+
+                // 動態生成每一個景點資訊框
+                let row = document.createElement("div");
+                row.innerHTML = `
+            <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attr.attrId})" id="attrId${attr.attrId}">
+            <div class="row g-0">
+                <div class="col-md-8">
+                    <div class="attrCardBody">
+                        <h5 class="attrName">
+                            <div id="attrName">
+                                ${attr.attrName}
+                            </div>
+                        </h5>
+                    </div>
+                </div>
+                <div class="attrPic col-md-4">
+                    <img src="data: image/jpeg;base64,${picInput}"
+                        class="img-fluid rounded-end" alt="..."
+                        style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                </div>
+            </div>
+        </div>`;
+
+                attrSearchListInsert_el.appendChild(row);
+            }
+        })
+
+        //********************************************更改結束***********************************************
+
+
+
+        start_el.addEventListener('change', function () {
+            console.log("From: " + start_el.value + ",  To: " + end_el.value);
+            siteAuto();
+            calculateTravelTime(start_el.value, end_el.value, travelMode);
+            displayRoute(
+                start_el.value,// "Perth, WA",haight
+                end_el.value,// "Sydney, NSW",oceanBeach
+                directionsService,
+                directionsRenderer
+            );
+        })
+        end_el.addEventListener('change', function () {
+            console.log("From: " + start_el.value + ",  To: " + end_el.value);
+            siteAuto();
+            calculateTravelTime(start_el.value, end_el.value, travelMode);
+            displayRoute(
+                start_el.value,// "Perth, WA",haight
+                end_el.value,// "Sydney, NSW",oceanBeach
+                directionsService,
+                directionsRenderer
+            );
+        })
+
+
+
+
+
+        // 監聽網頁載入事件
+        window.addEventListener('load', () => {
+            // googleMap.initMap();
+            // googleMap.siteAuto();
+            reloadMap();
+
+
+        });
+
+        function reloadMap() {
+            if (directionsService == undefined || directionsService == null)
+                directionsService = new google.maps.DirectionsService();
+            if (directionsRenderer == undefined || directionsRenderer == null)
+                directionsRenderer = new google.maps.DirectionsRenderer();
+            initMap();
+            siteAuto();
+        }
+
+        // 監聽夜間模式變化
+        // document.getElementById('nightModeSwitch').addEventListener('change', (event) => {
+        //     googleMap.nightModeChange(event.target.checked ? 'open' : 'close');
+        // });
+
+
+        function mapApiBetw2(travelIconCount) {
+            const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);
+            const ancestor = travelIconCount_el.parentElement.parentElement.parentElement;
+            const prevCell = ancestor.previousSibling.lastChild;
+            const nextCell = ancestor.nextSibling;
+
+            var addr1 = document.querySelector(`#attrAddr${travelIconCount}`).innerText;
+            var addr2 = document.querySelector(`#attrAddr${travelIconCount + 1}`).innerText;
+            console.log("addr1: " + addr1);
+            console.log("addr2: " + addr2);
+
+
+            let result = [addr1, addr2];
+            calculateTravelTime2(travelIconCount,addr1, addr2, travelIconCount_el.value);
+            computeTotalDistance2(travelIconCount,result);
+
+
+            // console.log('Travel Duration:', totalDuration);
+            // console.log(totalDistance + " km");
+
+            console.log("In mapApiBetw2");
+        }
+
+        function computeTotalDistance2(travelIconCount,result) {
+            let total = 0;
+            const myroute = result.routes;
+
+            if (!myroute) {
+                return;
             }
 
-    // 監聽夜間模式變化
-    // document.getElementById('nightModeSwitch').addEventListener('change', (event) => {
-    //     googleMap.nightModeChange(event.target.checked ? 'open' : 'close');
-    // });
+            for (let i = 0; i < myroute.legs.length; i++) {
+                total += myroute.legs[i].distance.value;
+            }
+
+            total = total / 1000;
+            console.log(total + " km");
+            let totalDistance = total;
+
+            const transTotalTime_el = document.getElementById("transTotalTime" + travelIconCount);
+            const span = document.createElement("span");
+            span.innerText = total + " km";
+            transTotalTime_el.appendChild(span);
+
+            // document.getElementById("totalDistance").innerHTML = total + " km";
+            return total;
+        }
+
+        function calculateTravelTime2(travelIconCount,start, end, travelMode) {
+            // 设置起点和终点
+            var request = {
+                origin: start,
+                destination: end,
+                travelMode: travelMode // 可以是 'DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'
+            };
+
+            // 调用 Directions Service 来计算旅程时间
+            directionsService.route(request, function (response, status) {
+                if (status === 'OK') {
+                    // 获取路线和旅程信息
+                    var route = response.routes[0];
+                    var legs = route.legs[0];
+
+                    // 获取旅程的时间信息（text 表示可读的时间）
+                    var duration = legs.duration.text;
+
+                    // 在控制台打印旅程时间信息
+                    console.log('Travel Duration:', duration);
+                    document.getElementById("totalTime").innerHTML = duration;
+
+                    let total = 0;
+                    for (let i = 0; i < route.legs.length; i++) {
+                        total += route.legs[i].distance.value;
+                    }
+
+                    total = total / 1000;
+                    console.log(total + " km");
+                    totalDuration = duration;
+                    // 更新 Directions Renderer 显示路线
+                    directionsRenderer.setDirections(response);
+
+                    const transTotalTime_el = document.getElementById("transTotalTime" + travelIconCount);
+                    const span1 = document.createElement("div");
+                    span1.style = "display:inline-block; height:50px;width:100px;z-index=0;";
+                    span1.innerText = duration;
+                    transTotalTime_el.appendChild(span1);
+                    const span2 = document.createElement("div");
+                    span2.style = "display:inline-block;";
+                    span2.innerText = total+" km";
+                    transTotalTime_el.appendChild(span2);
+
+                    return duration;
+                } else {
+                    console.log('Directions request failed:', status);
+                }
+            });
+        }
 
 
     </script>

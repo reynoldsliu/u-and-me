@@ -13,7 +13,9 @@ import tw.idv.cha102.g7.shop.service.ProductPictureService;
 import tw.idv.cha102.g7.shop.service.ProductService;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //介面層:負責接收前端請求，請業務邏輯層(Service)處理，再回傳資料給前端;也可以是View層，渲染使用者畫面
 //表示這個類別是一個 REST 風格的控制器，會處理 HTTP 請求並返回 JSON 格式的數據
@@ -68,6 +70,10 @@ public class ProductController {
 
         //修改商品後就可用prodId去把更新的商品數據取回
         ProductDTO updatedProduct = productService.getProductById(prodId);
+
+        // 建構返回的JSON資料
+//        Map<String, String> responseJson = new HashMap<>();
+//        responseJson.put("message", "更新成功");
 
         //更新後的數據放在body裡傳回給前端
         return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);

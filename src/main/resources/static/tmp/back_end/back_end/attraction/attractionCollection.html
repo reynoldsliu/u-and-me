@@ -35,7 +35,7 @@
 
 
   <!-- Custom styles for this template -->
-  <link href="attraction.css" rel="stylesheet">
+  <link href="attractionCollection.css" rel="stylesheet">
 
 </head>
 
@@ -227,19 +227,21 @@
           <li class="breadcrumb-item active" aria-current="page">景點</li>
         </ol>
       </nav>
-      <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;">景點收藏管理
-        <div>
-          <div style="display: inline-block;" class="my-1 mx-1 ms-2">
-            <label for="attractionId">景點編號查詢會員: </label>
-            <input style="display: inline-block;" type="text" id="attractionId" placeholder="請輸入景點名稱">
+      <div style="display: flex;">
+      <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;">
+        <h4 style="text-align: center; font-weight: bolder;">景點收藏管理</h4>
+        <div style="margin-bottom: 10px;">
+          <div style="display: inline-block;margin-left: 10px; ">
+            <label for="attractionId" style="font-weight: bolder;">景點編號查詢會員: </label>
+            <input style="display: inline-block; margin-left: 5px;" type="text" id="attractionId" placeholder="請輸入景點名稱">
             <br>
             <div style="display: inline-block;">
               <button id="loadMembers" onclick="searchMemByAttrId()">查詢</button>
             </div>
           </div>
-          <div style="display: inline-block;" class="my-1 mx-1 ms-2">
-            <label for="memberId">會員編號查詢景點: </label>
-            <input style="display: inline-block;" type="text" id="memberId" placeholder="請輸入景點名稱">
+          <div style="display: inline-block; margin-left: 180px;">
+            <label for="memberId"style="font-weight: bolder;">會員編號查詢景點: </label>
+            <input style="display: inline-block; margin-left: 5px;" type="text" id="memberId" placeholder="請輸入景點名稱">
             <br>
             <div style="display: inline-block;">
               <button id="loadAttractions" onclick="searchArrtByMemId()">查詢</button>
@@ -250,13 +252,11 @@
           <table class="table table-bordered border-secondary" id="dataTable1">
             <thead>
               <tr>
-                <th style="text-align: center;width: 85px;">編號</th>
-                <!--照片不顯示-->
-                <th style="text-align: center;width: 85px;">內容</th>
-                <!-- <th style="text-align: center;width: 100px;">景點名稱</th>
-                      <th style="text-align: center;">景點描述</th>
-                      <th style="text-align: center;width: 85px;">景點狀態</th> -->
-                <th style="text-align: center;">修改</th>
+                <th style="text-align: center;width: 85px;color:beige; background-color:#1D3124 ;">編號</th>
+
+                <th style="text-align: center;width: 85px;color:beige; background-color:#1D3124 ;">內容</th>
+
+                <th style="text-align: center;color:beige; background-color:#1D3124 ;">修改</th>
 
               </tr>
             </thead>
@@ -271,6 +271,7 @@
     </div>
 
     </div>
+  </div>
   </main>
 
 

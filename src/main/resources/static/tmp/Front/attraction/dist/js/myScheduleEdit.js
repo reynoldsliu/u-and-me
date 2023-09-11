@@ -216,6 +216,8 @@ function extractMonthAndDate(timeString) {
     return `${month}月${dates}日`;
 }
 
+let totalDuration;
+        let totalDistance;
 async function addDailySchedule(restScheDetails) {
     //拿第一個細節的起始時間當今天開始時間
     //迴圈塞入各個行程細節 直到下一個行程的日期不是本日
@@ -227,6 +229,7 @@ async function addDailySchedule(restScheDetails) {
     //一但有變動 重新呼叫本函式更新一天行程
     var schdeStarttime = restScheDetails[0].schdeStarttime;
     let countedScheDetails;
+    let travelIconCount = 0;
     for (countedScheDetails = 0; ; countedScheDetails++) {
         //如果下一筆行程細節是明天的 結束今天的行程列印
 
@@ -252,6 +255,7 @@ async function addDailySchedule(restScheDetails) {
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
         let row = document.createElement("div");
+
         row.innerHTML = `
                 <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrId});">
                     <div class="row g-0">
@@ -275,7 +279,7 @@ async function addDailySchedule(restScheDetails) {
                                 </h5>
                                 <p class="attrAddr">
                                     <small class="text-body-secondary"
-                                        class="attrAddr">${attr.attrAddr}</small>
+                                        id="attrAddr${countedScheDetails+1}">${attr.attrAddr}</small>
                                 </p>
                             </div>
                         </div>
@@ -288,6 +292,31 @@ async function addDailySchedule(restScheDetails) {
         // console.log("NEW START TIME: " + schdeStarttime);
         viewSchDetailsRows.appendChild(row);
 
+        var parentElement = row.parentNode;
+        var children = Array.from(parentElement.children);
+        var index = children.indexOf(row);
+        // console.log("這是父元素的第 " + (index + 1) + " 個子元素。");
+
+        if (index>9) {
+            console.log("Not the first Row");
+            let row1 = document.createElement("div");
+
+            row1.innerHTML = `<div  class="transTotalTime">
+                <span class="selectTransMode" id="transTotalTime${++travelIconCount}">
+                    <select id="travelIconCount${travelIconCount}" style="display:inline-block;"
+                     class="travelIcon form-select form-select-lg mb-3"
+                        aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">
+                        <option selected value="DRIVING">&#x1F697;</option>
+                        <option value="WALKING">&#x1F6B6;</option>
+                        <option value="BICYCLING">&#x1F6B2;</option>
+                        <option value="TRANSIT">&#x1F68C;</option>
+                    </select>
+                </span>
+            </div>`;
+            row.insertAdjacentElement("beforebegin", row1);
+            mapApiBetw2(travelIconCount);
+        }
+
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
         if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
@@ -298,6 +327,8 @@ async function addDailySchedule(restScheDetails) {
     }
     return countedScheDetails;
 }
+
+
 
 // 幾月幾日直接+1天
 function addOneDay(dateString) {
@@ -479,7 +510,7 @@ tab_dateBarRight_el.onclick = () => {
 // const element2 = document.getElementById('element2');
 
 // 计算两个元素之间的距离
-function calculateDistance(element1,element2) {
+function calculateDistance(element1, element2) {
     const rect1 = element1.getBoundingClientRect();
     const rect2 = element2.getBoundingClientRect();
 
@@ -518,7 +549,7 @@ function calculateDistance(element1,element2) {
 //     }else{
 //         RBtn.addClass
 //     }
-    
+
 // }
 
 // 给元素添加事件处理程序
@@ -656,6 +687,38 @@ async function viewSearchResultOfOneAttr(attrId) {
     attrBussTime.innerText = attr.attrBussTime;
     attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
     attrIlla.innerText = attr.attrIlla;
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    //Reynolds
+    console.log("LatLng: " + attr.attrLat + "::" + attr.attrLon);
+    // 將 attr.attrLat 和 attr.attrLon 轉換為數字
+    // 假設你有一個經緯度
+    var latitude = attr.attrLat; // 緯度
+    var longitude = attr.attrLon; // 經度
+
+    // 創建一個包含經緯度信息的 Place 物件
+    var locationPlace = {
+        geometry: {
+            location: new google.maps.LatLng(latitude, longitude)
+        }
+    };
+
+    // 創建地圖選項
+    var mapOptions = {
+        center: locationPlace.geometry.location, // 設置地圖中心為 Place 的位置
+        zoom: 16, // 放大級別，根據需求調整
+    };
+
+    // 創建地圖對象
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    // 在地圖上放置標記
+    var marker = new google.maps.Marker({
+        position: locationPlace.geometry.location,
+        map: map,
+        title: '自定義位置' // 可以自定義標記的標題
+    });
+    ///////////////////////////////////////////////////////////////////////////////////
 }
 
 
@@ -801,32 +864,156 @@ tab_customize_el.addEventListener("click", function (e) {
 const attrPicFilesInput = document.querySelector("#attrPicFilesInput");
 const myAttrPicsPreview = document.querySelector("#attrPicsPreview");
 
-attrPicFilesInput.addEventListener('change', (event) => {
+attrPicFilesInput.addEventListener('change', async (event) => {
     myAttrPicsPreview.innerHTML = '';
+    console.log("準備上傳");
     const files = event.target.files;
 
+    // for (const file of files) {
+    //     const imageURL = URL.createObjectURL(file);
+    //     const image = new Image();
+    //     image.src = imageURL;
+    //     image.style.maxWidth = "318.3px"; // 設定預覽圖最大寬度
+    //     image.style.width = "100%";
+    //     image.style.objectFit = "cover;"// 設定圖片裁切
+    //     image.style.position = "relative";
+    //     image.style.marginTop = "5px";
+    //     myAttrPicsPreview.appendChild(image);
+    // }
     for (const file of files) {
-        const imageURL = URL.createObjectURL(file);
-        const image = new Image();
-        image.src = imageURL;
-        image.style.maxWidth = "318.3px"; // 設定預覽圖最大寬度
-        image.style.width = "100%";
-        image.style.objectFit = "cover;"// 設定圖片裁切
-        image.style.position = "relative";
-        image.style.marginTop = "5px";
-        myAttrPicsPreview.appendChild(image);
+        let count = 0;
+        var fileReader = await new FileReader();
+        fileReader.onload = async event => {
+            const base64String = btoa(event.target.result);
+            //   const imgdata = {
+            //     attrPicId: 0,
+            //     attrId: attrId,
+            //     attrPicData: base64String
+            //   }
+            const imgdata = {
+                attrPicData: base64String
+            }
+
+            const imageContainer = createImageContainer_preview(imgdata);
+
+            attrPicsPreview.appendChild(imageContainer);
+        };
+        console.log(++count);
+        await fileReader.readAsBinaryString(file);
     }
 });
 
+//包裝預覽圖容器及生成鴻叉叉可以取消上傳
+function createImageContainer_preview(pic) {
+    console.log("Creating preview");
+    const imageContainer = document.createElement("div");
+    imageContainer.classList.add("image-container");
+    imageContainer.style.zIndex = '0';
+    imageContainer.style.position = 'relative';
+    const image = document.createElement("img");
+    image.src = "data: image/jpg;base64," + pic.attrPicData;
+    image.style.maxWidth = "318.3px"; // 設定預覽圖最大寬度
+    image.style.width = "100%";
+    image.style.objectFit = "cover;"// 設定圖片裁切
+    image.style.position = "relative";
+    image.style.marginTop = "5px";
+    // const attrPicId = pic.attrPicId;
+    // imageContainer.setAttribute("attrPicId", attrPicId);
+    // const attrId = pic.attrId;
+    // imageContainer.setAttribute("attrId", attrId);
 
+    const closeButton = document.createElement("span");
+    closeButton.classList.add("close-button");
+    closeButton.innerHTML = `<i class="fa-solid fa-xmark" style="font-size: 30px;color:red; text-shadow:2px 2px 2px black;"></i>`;
+    closeButton.style.zIndex = "1";
+    closeButton.style.position = "relative";
+    closeButton.style.top = "38px";
+    closeButton.style.left = "90%";
+
+    closeButton.addEventListener("click", async function () {
+        const attrPicId = imageContainer.getAttribute("attrPicId");
+        console.log("deleting attrPicId:" + attrPicId);
+        // const delResponse = await fetch(baseURL + 'delAttrPic/' + attrPicId);
+        imageContainer.remove();
+        attrPicFilesInput.value = '';
+    });
+    // console.log("attrId:" + attrId + ", attrPicId:" + attrPicId + ", attrPicData" + image.src);
+    imageContainer.appendChild(closeButton);
+    imageContainer.appendChild(image);
+
+    return imageContainer;
+}
 
 
 // 自訂景點內容完成後，顯示新增完成警示框
-myAttrDone_btn_el.onclick = () => {
+myAttrDone_btn_el.onclick = async () => {
 
     let myAttrName = myAttrName_el.value.trim();
     let myAttrAddr = myAttrAddr_el.value.trim();
     const picFiles = attrPicFilesInput.files;
+    alert(inputAttrBussTime);
+
+    const newAttr = {
+        attrName: myAttrName,
+        attrAddr: myAttrAddr,
+        attrLat: attrLat,
+        attrLon: attrLon,
+        attrBussTime: inputAttrBussTime
+    };
+    const response = await fetch(baseURL + `/attrPriv/createPrivateAttr`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newAttr)
+    });
+    const attrPrivDTO = await response.json();
+    console.log(attrPrivDTO);
+    let attrBody = attrPrivDTO.body;
+    let attrPrivateId = attrBody.attrPrivateId;
+    let attrId = attrPrivateId.attrId;
+    console.log("ATTRID: " + attrId);
+
+    console.log("開始上傳圖片");
+    for (const file of picFiles) {
+        try {
+            const fileReader = await new FileReader();
+            // 获取当前页面的 URL
+            const currentURL = window.location.href;
+            // // 创建一个 URLSearchParams 对象，传入查询参数部分
+            // const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+            // // 使用 get() 方法来获取特定查询参数的值
+            // const attrId = urlSearchParams.get('attrId');
+            fileReader.onload = async event => {
+                const base64Str = btoa(event.target.result);
+                const response = await fetch(baseURL + '/insertAttrPictures/' + attrId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        attrId: attrId,
+                        attrPicData: base64Str
+                    })
+                });
+
+            };
+            // const base64String = "your-base64-string-here";
+            // const contentType = "image/jpeg"; // 替换为实际的内容类型
+            // const base64String = file.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
+            // const blob = dataURItoBlob(file);
+            // const blob = base64ToBlob(base64String, contentType);
+            fileReader.readAsBinaryString(file);
+
+            // if (response.ok) {
+            //     console.log('Image uploaded successfully');
+            // } else {
+            //     console.error('Image upload failed');
+            // }
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    }
 
     if (myAttrName === "" || myAttrAddr === "" || picFiles === null) {
         Swal.fire({

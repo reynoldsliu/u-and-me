@@ -148,6 +148,11 @@ div.scheduleListMainImg>img{
   right: 10.9%;
 }
 
+/* 游標經過行程卡片CSS */
+div.card:hover{
+  box-shadow: 3px 3px 10px black;
+}
+
 /* 查看詳情 */
 a.viewDetails {
   width: 100%;

@@ -17,26 +17,6 @@ main {
   overflow-y: hidden;
 }
 
-
-
-       .bd-placeholder-img {
-           font-size: 1.125rem;
-           text-anchor: middle;
-           -webkit-user-select: none;
-           -moz-user-select: none;
-           user-select: none;
-       }
-
-
-       @media (min-width: 768px) {
-           .bd-placeholder-img-lg {
-               font-size: 3.5rem;
-           }
-       }
-
-
-
-
 .b-example-divider {
   flex-shrink: 0;
   width: 1.5rem;
@@ -139,35 +119,28 @@ nav div{
   text-align: center;
  
 }
-/* 按鈕 */
-.findAllAttraction{
-background-color: #1D3124;
-color:beige;
-border-radius: 5px;
-padding:3px 7px;
-}
-
-
-#loadAttractions{
-background-color: #1D3124;
-color:beige;
-border-radius: 5px;
-padding:2px 6px;
-}
-
-#page{
-  width:40px;
-  height:30px
-}
-
-#pageChangeSubmit{
-background-color: #1D3124;
-color:beige;
-border-radius: 5px;
-padding:2px 6px;
-margin-bottom: 7px;
-}
-
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
 
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+
+/* 選中時的按鈕樣式 */
+.btn.active {
+  background: #376c49; /* 選中時的背景色 */
+  color: #ffffff; /* 選中時的文本色 */
+  border-color: #376c49; /* 選中時的邊框色 */
+}

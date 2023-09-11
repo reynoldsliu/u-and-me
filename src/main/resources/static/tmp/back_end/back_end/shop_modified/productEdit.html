@@ -7,37 +7,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>UandMe</title>
+    <title>UandMeProductEdit</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 
     <!-- Bootstrap core CSS -->
     <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
-    <style>
-        .bd-placeholder-img {
-          font-size: 1.125rem;
-          text-anchor: middle;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          user-select: none;
-        }
-
-
-        @media (min-width: 768px) {
-          .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-          }
-        }
-    </style>
-
-
     <!-- Custom styles for this template -->
-    <link href="shop.css" rel="stylesheet">
-    <link href="productEdit.js" rel="stylesheet">
+    <link href="css/productEdit.css" rel="stylesheet">
 
 
 </head>
@@ -244,75 +224,88 @@
                 <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;">
 
                     <div class="container-fluid">
-                        <h3 class="text-dark mb-1" style="color: #574f36;--bs-dark: #574f36;--bs-dark-rgb: 87,79,54;">
+                        <h3 class="text mb-1" style="color: #376c49;">
                             商品資訊編輯
                         </h3>
                         <!--          <form style="padding: 16px;">-->
 
 
                         <div style="margin: 20px;"><label class="form-label"
-                                                          style="width: 90px;color: #a67c52;">商品Id：</label>
-                            <input class="form-control" type="text" id="prodId" name="prodId"
-                                   style="display: inline-block;width: 750px;border-color: #f1ecd1;color: #a67c52;">
+                                                          style="width: 90px;color: #376c49;">商品Id：</label>
+                            <input class="form-control" readonly type="text" id="prodId" name="prodId"
+                                   style="display: inline-block;width: 750px;border-color: #BACEC1;color: #376c49;">
                         </div>
 
-                        <div style="margin: 20px;"><label class="form-label"
-                                                          style="width: 90px;color: #a67c52;">商品名稱：</label>
+                        <div style="margin: 20px;">
+                            <label for="prodName" class="form-label" style="width: 90px; color:#376c49;">商品名稱：</label>
                             <input class="form-control" type="text" id="prodName" name="prodName"
-                                   style="display: inline-block;width: 750px;border-color: #f1ecd1;color: #a67c52;">
+                                   style="display: inline-block;width: 750px; border-color:#BACEC1; color:#376c49;">
                         </div>
-                        <div id="prodStaButtons" name="prodStaButtons" style="margin: 20px;">
-                            <label class="form-label" style="width: 90px;color: #a67c52;">商品狀態：</label>
+                        <!-- <div id="prodStaButtons" name="prodStaButtons" style="margin: 20px;">
+                            <label class="form-label" style="width: 90px;color: #376c49;">商品狀態：</label>
                             <div class="btn-group" role="group">
                                 <button class="btn btn-primary" type="button" id="prodStaButtons_off"
-                                        style="background: #ffffff;color: #a67c52;border-width: 2px;border-color: #f1ecd1;">
+                                        style="background: #ffffff;color: #376c49;border-width: 1px;border-color: #BACEC1;">
                                     下架
                                 </button>
                                 <button class="btn btn-primary" type="button" id="prodStaButtons_on"
-                                        style="background: #ffffff;color: #a67c52;border-width: 2px;border-color: #f1ecd1;">
+                                        style="background: #ffffff;color: #376c49;border-width: 1px;border-color: #BACEC1;">
                                     上架
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
+
                         <div style="margin: 20px;">
-                            <label class="form-label" style="width: 90px;color: #a67c52;">商品類別：</label>
-                            <select id="prodCatIdSelect" name="prodCatSelect" class="form-select"
-                                    style="width: 350px;display: inline-block;border-color: #f1ecd1;color: #a67c52;">
+                            <label class="form-label" style="width: 90px;color: #376c49;">商品狀態：</label>
+                            <select id="prodStaSelect" name="prodStaSelect" class="form-select"
+                                style="width: 350px;display: inline-block;border-color: #BACEC1;color: #376c49;">
                                 <optgroup label="This is a group">
-                                    <option value="1" selected="">This is item 1</option>
-                                    <option value="2">This is item 2</option>
-                                    <option value="3">This is item 3</option>
+                                    <option value="0" selected>下架</option>
+                                    <option value="1">上架</option>
                                 </optgroup>
-                            </select></div>
+                            </select>
+                        </div>
+
+                        <div style="margin: 20px;">
+                            <label class="form-label" style="width: 90px;color: #376c49;">商品類別：</label>
+                            <select id="prodCatIdSelect" name="prodCatSelect" class="form-select"
+                                style="width: 350px;display: inline-block;border-color: #BACEC1;color: #376c49;">
+                                <optgroup label="This is a group">
+                                    <option value="1" selected>1-戶外選品</option>
+                                    <option value="2">2-在地美食</option>
+                                    <option value="3">3-旅遊必備小物</option>
+                                    <option value="4">4-流浪的意義</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
                         <div style="margin: 20px;"><label class="form-label"
-                                                          style="width: 90px;color: #a67c52;">商品售價：</label>
+                                                          style="width: 90px;color: #376c49;">商品售價：</label>
                             <input class="form-control" type="number" id="prodPri" name="prodPri"
-                                   style="width: 350px;display: inline-block;border-color: #f1ecd1;color: #a67c52;">
+                                   style="width: 350px;display: inline-block;border-color: #BACEC1;color: #376c49;">
                         </div>
                         <div style="margin: 20px;"><label class="form-label"
-                                                          style="width: 90px;color: #a67c52;">商品圖片：</label>
+                                                          style="width: 90px;color: #376c49;">商品圖片：</label>
                             <!-- accept 可以限制檔案類型上傳 -->
-                            <input class="form-control" type="file" id="prodPic" name="prodPic"
-                                   accept="image/gif, image/jpeg, image/png"
-                                   style="display: inline-block;width: 350px;color: #a67c52;">
+                            <input class="form-control" type="file" id="prodPicUpload" name="prodPicUpload"
+                                   accept="image/gif, image/jpeg, image/png,base64"
+                                   style="display: inline-block;width: 350px;color: #376c49;">
                             <div>
-
-
-                                <div style="width: 200px;height: 200px;border-radius: 10px;border: 2px dashed #f1ecd1;display: flex;justify-content: center;align-items: center;margin-top: 5px;margin-left: 90px;">
-                                    <span>預覽圖
-                                    <img id="cover_img"/>
+                                <div style="width: 200px;height: 200px;border-radius: 10px;border: 2px dashed #BACEC1;display: flex;justify-content: center;align-items: center;margin-top: 5px;margin-left: 90px;">
+                                    <span>
+                                    <img id="preview_img" width="100%" height="100%" style="max-width: 100%; max-height: 100%; object-fit: contain;"/>
                                     </span>
                                 </div>
                             </div>
                         </div>
                         <div style="margin: 20px;"><label class="form-label"
-                                                          style="width: 90px;color: #a67c52;">商品詳情：</label>
+                                                          style="width: 90px;color: #376c49;">商品詳情：</label>
                             <textarea id="prodCon" name="prodCon" class="form-control"
-                                      style="width: 750px;margin-left: 90px;margin-top: -30px;border-color: #f1ecd1;color: #a67c52;"></textarea>
+                                      style="width: 750px;margin-left: 90px;margin-top: -30px;border-color: #BACEC1;color: #376c49;"></textarea>
                         </div>
                         <div class="mb-3" style="text-align: left;margin: 20px;">
-                            <button id="btnSubmit" name="btnSubmit" class="btn btn-primary" type="submit"
-                                    style="background: #f1ecd1;border-style: none;text-align: left;margin-left: 90px;color: #a67c52;">
+                            <button id="btnSubmit" name="btnSubmit" class="btn btn-primary" type="button"
+                                    style="background: #BACEC1;border-style: none;text-align: left;margin-left: 90px;color: #376c49;">
                                 確認修改
                             </button>
                         </div>
@@ -330,185 +323,10 @@
 
 <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="shop.js"></script>
+<script src="../../../../js/jquery-3.7.0.min.js"></script>
 
-<script>
-    //===================使用到的元素===================
-
-   // const prodId_el = document.querySelector('#prodId');
-    const prodName_el = document.querySelector('#prodName');
-    const prodPri_el = document.querySelector('#prodPri');
-    const prodCon_el = document.querySelector('#prodCon');
-    const btnSubmit_el = document.querySelector('#btnSubmit')
-    let prodPic_el = document.getElementById("prodPic");
-    let cover_img_el = document.getElementById("cover_img");
-
-    let prodCatId;
-    const prodCatId_el = document.getElementById('prodCatIdSelect');
-    prodCatId_el.addEventListener('change', prodCatIdChange)
-    function prodCatIdChange(){
-       console.log(prodCatId_el.value);
-       prodCatId = prodCatId_el.value;
-    }
-
-    let prodSta;
-    const prodStaButtons_on_el = document.getElementById("prodStaButtons_on");
-    const prodStaButtons_off_el = document.getElementById("prodStaButtons_off");
-    const buttons = prodStaButtons.querySelectorAll("button");
-    prodStaButtons_on_el.addEventListener('click',function(){
-        prodSta = 1;
-    })
-    prodStaButtons_off_el.addEventListener('click',function(){
-        prodSta = 0;
-    })
-
-    //===================使用到的元素結束===================
-
- //用於紀錄原始數據
- let prodId;
- //let prodCatId;
- let prodName;
- let prodPri;
- let prodCon;
- //let prodSta;
-
-
- // //讓圖片轉成blob給filereader解析
- // cover = dataURItoBlob(dataurl);
- //網頁載入後執行
- document.addEventListener("DOMContentLoaded", function () {
-     let prodId;
-
-     //===================取得網址頁上傳遞的參數===================
-
-     //先取得當前網址完整字串
-     let url = location.href;
-
-     //再來用去尋找網址列中是否有資料傳遞(QueryString)(有?則代表有資料傳遞)
-     if (url.indexOf('?') != -1) {
-
-         //之後去分割字串把分割後的字串放進陣列中
-         let ary1 = url.split('?');
-         //此時ary1裡的內容為：
-         //ary1[0] = 'http://localhost:8080/u-and-me/tmp/back_end/back_end/shop_modified/shopUpdate.html'，ary2[1] = 'prodId=1'
-
-         //以下為若傳遞參數為兩個做法 如果為一個可省略
-         //let ary2 = ary1[1].split('&');
-         //參數分別為 arr2[0],arr2[1]
-
-         //再進一步以=做劃分 取得id資料
-         let arr3 = ary1[1].split('=');
-         //ary3[0] = prodId, arr3[1]=1
-
-         //取得傳遞的Id值
-         prodId = arr3[1];
-     }
-     //===================取得網址頁上傳遞的參數結束===================
-     //fetchProduct(prodId);
-
-     //因為可能不改圖片，所以當change時才觸發檔案流
-     prodPic_el.addEventListener('change', changeListener);
-     function changeListener() {
-         const id = this.id;
-         const files = this.files;
-         const img = document.getElementById("cover_img");
-
-         //1. 取得File物件
-         prodPic = files[0];
-         img.src = URL.createObjectURL(prodPic);
-
-         //2. 實例化FileReader物件
-         const fileReader = new FileReader();
-
-         //3. 替FileReader物件 註冊 載入監聽器
-         fileReader.onload = async event => {
-         //4. 轉成Base64字串
-         cover = btoa(event.target.result);
-         }
-         //5. 開始讀取檔案
-         fileReader.readAsBinaryString(cover);
-     }
-
-     //===================送出更新開始===================
-     btnSubmit_el.addEventListener("click", async function (e) {
-         e.preventDefault();
-
-         //將資料包裝成一個物件
-         const send_data = {
-
-                prodId: prodId,
-                prodName: prodName_el.value,
-                prodSta: prodSta,
-                prodCatId: prodCatId_el.value,
-                prodPri: prodPri_el.value,
-                prodCon: prodCon_el.value,
-                prodPic: base64Str
-
-         }
-         // console.log(send_data);
-         await fetch('http://localhost:8080/u-and-me/product/' + prodId, {
-             headers: {
-                 "content-type": "application/json",
-             },
-             method: 'PUT',
-             body: JSON.stringify(send_data)
-
-         });
-         alert('更新成功');
-     });
- });
-
-
- //===================送出更新結束===================
-
-
- //===================取得原商品資料方法===================
- let prodURL = "http://localhost:8080/u-and-me/product/updateProduct/";
-
- async function fetchProduct(prodId) {
-
-     //取得修改資料而已(目前沒找到更新特定資料的方法)
-     // await fetch('http://localhost:8080/u-and-me/product/updateProduct/' + prodId, {
-     //     method: 'PUT',
-
-     //取得所有修改資料
-     //product 是用來接收前一個 .then 方法中的解析值
-     await fetch(prodURL + prodId, {
-         method: 'PUT',
-     }).then(response => {
-         return response.json();
-     }).then(product => {
-
-         prodPic = product.prodPic;
-         //prodId = product.proId;
-         prodName = product.prodName;
-         prodSta = product.prodSta;
-         prodPri = product.prodPri;
-         prodCon = product.prodCon;
-
-
-
-         //由於後端傳進來的圖片是base64資料，基於base64，須將base64定義成image/png檔，然後變成一個網址data:
-         let dataurl = `data:image/png;base64,${product.prodPic}`
-         cover_img_el.src = dataurl;
-
-        console.log(prodSta);
-        //{} 用來插入 product 物件的屬性值到相對應的 HTML 元素的 value 屬性中。
-        //插入的值將會被轉換成字串，然後被賦值給對應的元素
-         //prodId_el.value = `${product.prodId}`;
-         prodName_el.value = `${product.prodName}`;
-         prodSta.value = prodSta;
-         prodCatId_el.value = `${product.prodCatId}`;
-         prodPri_el.value = `${product.prodPri}`;
-         prodCon_el.value =`${product.prodCon}`
-         cover_img_el.src = dataurl;
-     });
-
- }
- //===================取得原商品資料結束===================
-
-</script>
-
+<script src="./js/productEdit.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 </body>
 

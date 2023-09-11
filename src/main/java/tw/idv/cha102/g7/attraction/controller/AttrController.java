@@ -121,6 +121,11 @@ public class AttrController {
         return new ResponseEntity(attrService.getAttrsByName(attrName),HttpStatus.OK);
     }
 
+    @RequestMapping("/getAttrsByNameFilter/{attrName}")
+    public ResponseEntity<List<Attraction>> getAttrsByNameFilter(@PathVariable String attrName){
+        return new ResponseEntity(attrService.getAttrByNameFilter(attrName),HttpStatus.OK);
+    }
+
     @GetMapping("/attr/all/{pageSize}/{page}")
     public List<Attraction> getAllPaged(@PathVariable Integer pageSize,@PathVariable Integer page){
         return attrService.getAllPaged(page,pageSize);

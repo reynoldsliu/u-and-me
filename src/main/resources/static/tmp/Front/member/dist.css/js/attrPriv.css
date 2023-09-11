@@ -268,7 +268,7 @@
   }
   
   
-  .privatebtn{
+  .favBtn{
     background-color: rgb(81, 113, 111);
 color:beige;
 border-radius: 5px;
@@ -277,7 +277,7 @@ border: none; /* 移除按钮边框 */
 margin-top: 5px;
   }
 
-  .privatebtn:hover {
+  .favBtn:hover {
      background-color: rgb(81, 113, 111);
 color:beige;
 border-radius: 5px;

@@ -10,10 +10,11 @@ import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-// 瀏覽公開行程
 @RestController
 @RequestMapping("/schedules")
 public class ScheduleSearchController {
@@ -34,6 +35,23 @@ public class ScheduleSearchController {
     }
 
     /**
+     * 隨機選取三個公開行程放置於首頁
+     * @return 返回隨機的公開行程列表
+     */
+    @GetMapping("/all")
+    public Set<Schedule> findAll() {
+        List<Schedule> scheduleList = service.findAllPublic();
+        Set<Schedule> randomSchList = new HashSet<>();
+        int randomIndex;
+        for (int i = 0; randomSchList.size() < 3; i++) {
+            randomIndex = (int) (Math.random() * 9 + 1);
+            randomSchList.add(scheduleList.get(randomIndex));
+        }
+        return randomSchList;
+    }
+
+
+    /**
      * 一般使用者
      * 以行程名稱查詢行程
      *
@@ -45,6 +63,7 @@ public class ScheduleSearchController {
                                         @PathVariable int page) {
         return service.findBySchNamePaged(keyword, page).collect(Collectors.toList());
     }
+
 
     /**
      * 一般使用者
@@ -73,16 +92,10 @@ public class ScheduleSearchController {
         return schedules;
     }
 
+
     /**
      * 一般使用者
-     * 以行程預估消費範圍由小到大排序，查詢行程(查詢結果，物件屬性沒有經過排序，待修正)
-     * @return 返回查詢結果
-     */
-
-
-    /**
-     * 一般使用者(暫時不會用到)
-     * 查詢單一行程(依據行程ID)(若輸入不存在的id，甚麼都不會出現)
+     * 查詢單一行程(依據行程ID)
      *
      * @return 返回查詢結果
      */

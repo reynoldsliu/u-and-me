@@ -10,6 +10,8 @@
     <title>UandMe</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 
     <!-- Bootstrap core CSS -->
@@ -34,8 +36,8 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="shop.css" rel="stylesheet">
-
+    <link href="css/productAdd.css" rel="stylesheet">
+    <link href="js/productAdd.js" rel="stylesheet">
 </head>
 
 <body>
@@ -240,62 +242,68 @@
                     <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;">
 
                         <div class="container-fluid">
-                            <h3 class="text-dark mb-1"
-                                style="color: #574f36;--bs-dark: #574f36;--bs-dark-rgb: 87,79,54;">
+                            <h3 class="text mb-1"
+                                style="color: #376c49">
                                 新增商品
                             </h3>
                             <!--          <form style="padding: 16px;">-->
 
-
                             <div style="margin: 20px;"><label class="form-label"
-                                    style="width: 90px;color: #a67c52;">商品Id：</label>
-                                <input class="form-control" type="text" id="prodId" name="prodId"
-                                    style="display: inline-block;width: 750px;border-color: #f1ecd1;color: #a67c52;">
+                                    style="width: 90px;color: #376c49;">商品名稱：</label>
+                                <input class="form-control" type="text" id="prodName" name="prodName" title="請輸入商品名稱"
+                                    style="display: inline-block;width: 750px;border-color: #BACEC1;color: #376c49;">
                             </div>
-
-                            <div style="margin: 20px;"><label class="form-label"
-                                    style="width: 90px;color: #a67c52;">商品名稱：</label>
-                                <input class="form-control" type="text" id="prodName" name="prodName"
-                                    style="display: inline-block;width: 750px;border-color: #f1ecd1;color: #a67c52;">
-                            </div>
-                            <div id="prodStaButtons" name="prodStaButtons" style="margin: 20px;">
-                                <label class="form-label" style="width: 90px;color: #a67c52;">商品狀態：</label>
+                            <!-- <div id="prodStaButtons" name="prodStaButtons" style="margin: 20px;">
+                                <label class="form-label" style="width: 90px;color: #376c49;">商品狀態：</label>
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-primary" type="button" id="prodStaButtons_off"
-                                        style="background: #ffffff;color: #a67c52;border-width: 2px;border-color: #f1ecd1;">
+                                        style="background: #ffffff;color: #376c49;border-width: 1px;border-color: #BACEC1;">
                                         下架
                                     </button>
                                     <button class="btn btn-primary" type="button" id="prodStaButtons_on"
-                                        style="background: #ffffff;color: #a67c52;border-width: 2px;border-color: #f1ecd1;">
+                                        style="background: #ffffff;color: #376c49;border-width: 1px;border-color: #BACEC1;">
                                         上架
                                     </button>
                                 </div>
-                            </div>
+                            </div> -->
+
                             <div style="margin: 20px;">
-                                <label class="form-label" style="width: 90px;color: #a67c52;">商品類別：</label>
-                                <select id="prodCatIdSelect" name="prodCatSelect" class="form-select"
-                                    style="width: 350px;display: inline-block;border-color: #f1ecd1;color: #a67c52;">
+                                <label class="form-label" style="width: 90px;color: #376c49;">商品狀態：</label>
+                                <select id="prodStaSelect" name="prodStaSelect" class="form-select"
+                                    style="width: 350px;display: inline-block;border-color: #BACEC1;color: #376c49;">
                                     <optgroup label="This is a group">
-                                        <option value="1" selected="">This is item 1</option>
-                                        <option value="2">This is item 2</option>
-                                        <option value="3">This is item 3</option>
+                                        <option value="0" selected="">下架</option>
+                                        <option value="1">上架</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <div style="margin: 20px;">
+                                <label class="form-label" style="width: 90px;color: #376c49;">商品類別：</label>
+                                <select id="prodCatIdSelect" name="prodCatSelect" class="form-select"
+                                    style="width: 350px;display: inline-block;border-color: #BACEC1;color: #376c49;">
+                                    <optgroup label="This is a group">
+                                        <option value="1" selected="">1-戶外選品</option>
+                                        <option value="2">2-在地美食</option>
+                                        <option value="3">3-旅遊必備小物</option>
+                                        <option value="4">4-流浪的意義</option>
                                     </optgroup>
                                 </select>
                             </div>
                             <div style="margin: 20px;"><label class="form-label"
-                                    style="width: 90px;color: #a67c52;">商品售價：</label>
-                                <input class="form-control" type="number" id="prodPri" name="prodPri"
-                                    style="width: 350px;display: inline-block;border-color: #f1ecd1;color: #a67c52;">
+                                    style="width: 90px;color: #376c49;">商品售價：</label>
+                                <input class="form-control" type="number" id="prodPri" name="prodPri" title="請輸入商品售價"
+                                    style="width: 350px;display: inline-block;border-color: #BACEC1;color: #376c49;">
                             </div>
                             <div style="margin: 20px;"><label class="form-label"
-                                    style="width: 90px;color: #a67c52;">商品圖片：</label>
+                                    style="width: 90px;color: #376c49;">商品圖片：</label>
                                 <input class="form-control" type="file" id="prodPic" name="prodPic" accept="image/*" multiple
-                                    style="display: inline-block;width: 350px;color: #a67c52;">
+                                    style="display: inline-block;width: 350px;color: #376c49;">
                                 <div>
-                                <div>預覽圖</div>
+                                <div></div>
 
                                     <div
-                                        style="width: 220px;height: 220px;border-radius: 10px;border: 2px dashed #f1ecd1;display: flex;justify-content: center;align-items: center;margin-top: 5px;margin-left: 30px;margin-right: 30px;">
+                                        style="width: 200px;height: 200px;border-radius: 10px;border: 2px dashed #BACEC1;display: flex;justify-content: center;align-items: center;margin-top: 5px;margin-left: 90px;">
                                         <span>
                                             <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60" id="cover_img" style="width: 210px;height: 210px; border-radius: 10px;display: flex;justify-content: center;align-items: center;margin-left: 30px;margin-right: 30px;" />
                                         </span>
@@ -303,17 +311,17 @@
                                 </div>
                             </div>
                             <div style="margin: 20px;"><label class="form-label"
-                                    style="width: 90px;color: #a67c52;">商品詳情：</label>
-                                <textarea id="prodCon" name="prodCon" class="form-control"
-                                    style="width: 750px;margin-left: 90px;margin-top: -30px;border-color: #f1ecd1;color: #a67c52;"></textarea>
+                                    style="width: 90px;color: #376c49;">商品詳情：</label>
+                                <textarea id="prodCon" name="prodCon" class="form-control" title="請輸入商品詳細介紹"
+                                    style="width: 750px;margin-left: 90px;margin-top: -30px;border-color: #BACEC1;color: #376c49;"></textarea>
                             </div>
 
                             <div id="errorContainer"></div>
 
                             <div class="mb-3" style="text-align: left;margin: 20px;">
                                 <button id="btnSubmit" name="btnSubmit" class="btn btn-primary" type="submit"
-                                    style="background: #f1ecd1;border-style: none;text-align: left;margin-left: 90px;color: #a67c52;">
-                                    發布
+                                    style="background: #BACEC1;border-style: none;text-align: left;margin-left: 90px;color: #376c49;">
+                                    確認新增
                                 </button>
                             </div>
                             <!--          </form>-->
@@ -329,8 +337,6 @@
 
 
     <script src="../../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="shop.js"></script>
 
     <script>
         let prodCatId;
@@ -352,17 +358,23 @@
                 prodCatId = prodCatId_el.value;
             }
 
+            const prodSta_el = document.getElementById('prodStaSelect');
+            prodSta_el.addEventListener('change', prodStaChange)
+            function prodStaChange() {
+                console.log(prodSta_el.value);
+                prodSta = prodSta_el.value;
+            }
             const prodName_el = document.querySelector('#prodName');
 
-            const prodStaButtons_on_el = document.getElementById("prodStaButtons_on");
-            const prodStaButtons_off_el = document.getElementById("prodStaButtons_off");
-            const buttons = prodStaButtons.querySelectorAll("button");
-            prodStaButtons_on_el.addEventListener('click', function () {
-                prodSta = 1;
-            })
-            prodStaButtons_off_el.addEventListener('click', function () {
-                prodSta = 0;
-            })
+            // const prodStaButtons_on_el = document.getElementById("prodStaButtons_on");
+            // const prodStaButtons_off_el = document.getElementById("prodStaButtons_off");
+            // const buttons = prodStaButtons.querySelectorAll("button");
+            // prodStaButtons_on_el.addEventListener('click', function () {
+            //     prodSta = 1;
+            // })
+            // prodStaButtons_off_el.addEventListener('click', function () {
+            //     prodSta = 0;
+            // })
 
             const prodPri_el = document.querySelector('#prodPri');
             const prodCon_el = document.querySelector('#prodCon');
@@ -436,12 +448,12 @@
                 //3. 替FileReader物件 註冊 載入監聽器-->
                 fileReader.onload = async event => {
 
-                    //4. 轉成Base64字串-->
-                    const base64Str = btoa(event.target.result);
+                //4. 轉成Base64字串-->
+                const base64Str = btoa(event.target.result);
 
-                    //將資料包裝成一個物件-->
+                //將資料包裝成一個物件-->
                     const send_data = {
-                        prodId: prodId_el.value,
+                        // prodId: prodId_el.value,
                         prodName: prodName_el.value,
                         prodSta: prodSta,
                         prodCatId: prodCatId_el.value,
@@ -451,9 +463,7 @@
                     }
                     console.log(send_data);
                     await fetch(baseURL+"createProduct", {
-                        headers: {
-                            "content-type": "application/json"
-                        },
+                        headers: {"content-type": "application/json"},
                         method: 'POST',
                         body: JSON.stringify(send_data)
                     })
@@ -461,8 +471,17 @@
                         alert('新增失敗');
                         return;
                     });
-                    alert('新增成功');
-                    location.reload();
+                    Swal.fire({
+                    icon: 'success',
+                    title: '新增成功',
+                    text: '',
+                    confirmButtonText: '確定'
+                    })
+                    .then((result) => {
+                    if (result.isConfirmed) {
+                    window.location.href = 'productList.html';
+                     }
+                     });
                 };
                 try {
 

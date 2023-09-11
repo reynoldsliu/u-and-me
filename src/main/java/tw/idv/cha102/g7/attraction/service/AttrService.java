@@ -25,12 +25,14 @@ public interface AttrService {
 
     public List<Attraction> getAllPaged(int page, int size);
 
+
     //TRY PAGEABLE
     public Page<Attraction> getAllPagedByName(String attrName, int page, int size);
 
     public ResponseEntity<Attraction> insertNewAttraction(Attraction attraction);
 
     public ResponseEntity<Attraction> getAttrByName(String attrName);
+    public ResponseEntity<Attraction> getAttrByNameFilter(String attrName);
 
     public ResponseEntity<Attraction> updateAttrByAttrId(Integer attrId, Attraction attraction);
 

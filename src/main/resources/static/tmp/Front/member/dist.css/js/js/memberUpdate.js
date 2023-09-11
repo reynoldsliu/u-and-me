@@ -120,9 +120,26 @@ const myAddrInput = document.getElementById("myAddrInput");
 const myMemDist = document.getElementById("myMemDist");
 const myMemCity = document.getElementById("myMemCity");
 const memGender = document.getElementById("memGender");
-
 const submitBtn = document.querySelector('button[type="submit"]');
 var memEmail;
+
+  const inputMemName_el = this.document.getElementById("inputMemName");
+    const inputMemPhone_el = this.document.getElementById("inputMemPhone");
+    const inputMyAddr_el = this.document.getElementById("inputMyAddr");
+
+
+ //錯誤判斷新增的字串
+    let memNameStr = document.createElement("span");
+    memNameStr.style.color = 'red';
+
+    let memPhoneStr = document.createElement("span");
+    memPhoneStr.style.color = 'red';
+
+    let myAddrInputStr = document.createElement("span");
+    myAddrInputStr.style.color = 'red';
+
+   //////////
+
 
 // 使用 fetch API 發送請求，獲取單筆會員詳細資料
 async function fetchMemDetail() {
@@ -134,7 +151,7 @@ async function fetchMemDetail() {
         const response = await fetch(baseUrl + `member/Details/${memId}`);
         const MemDetail = await response.json();
         memEmail = MemDetail.memEmail;
-        console.log(MemDetail);
+
 
 
         // 將會員詳細資訊填充到輸入框中
@@ -155,18 +172,40 @@ async function fetchMemDetail() {
     }
 }
 
-//    const statusMemGender = new Map([
-//      [0, '不方便透露']
-//      [1, '男'],
-//      [2, '女'],
-//    ]);
-
 
 // 在提交審核按鈕被點擊時執行以下程式碼
 // 修改
 
 submitBtn.addEventListener('click', async function (event) {
     event.preventDefault()
+    let control = true; //控制是否進入fetch
+    //==================錯誤驗證==================
+        //初始化Str
+        memNameStr.innerHTML = "";
+        memPhoneStr.innerHTML = '';
+        myAddrInputStr.innerHTML = '';
+
+        //會員姓名
+        if (memName.value === null || memName.value.trim() === "") {
+            control = false;
+            memNameStr.innerHTML = ' *會員姓名必須填入';
+            inputMemName_el.appendChild(memName);
+        }
+
+            //會員電話
+                if (memPhone.value === null || memPhone.value.trim() === "") {
+                    control = false;
+                    memPhoneStr.innerHTML = ' *會員電話必須填入';
+                    inputMemPhone_el.appendChild(memPhone);
+                }
+                    //會員地址
+                        if (myAddrInput.value === null || myAddrInput.value.trim() === "") {
+                            control = false;
+                            myAddrInputStr.innerHTML = ' *會員地址必須填入';
+                            inputMyAddr_el.appendChild(myAddrInput);
+                        }
+
+
 
     // 構建要傳遞的資料
     const requestData = {
