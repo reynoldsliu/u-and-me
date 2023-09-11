@@ -1034,6 +1034,7 @@
             total = total / 1000;
             console.log(total + " km");
             document.getElementById("totalDistance").innerHTML = total + " km";
+            return total;
         }
 
 
@@ -1376,23 +1377,32 @@
         // });
 
 
-        function mapApiBetw2(travelIconCount, travelMode) {
+        function mapApiBetw2(travelIconCount) {
             const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);
             const ancestor = travelIconCount_el.parentElement.parentElement.parentElement;
             const prevCell = ancestor.previousSibling.lastChild;
-            console.log(prevCell);
             const nextCell = ancestor.nextSibling;
+
             var addr1 = document.querySelector(`#attrAddr${travelIconCount}`).innerText;
             var addr2 = document.querySelector(`#attrAddr${travelIconCount + 1}`).innerText;
-            calculateTravelTime2(addr1, addr2, 'DRIVING');
+            console.log("addr1: " + addr1);
+            console.log("addr2: " + addr2);
+
+
             let result = [addr1, addr2];
-            computeTotalDistance2(result);
+            calculateTravelTime2(travelIconCount,addr1, addr2, travelIconCount_el.value);
+            computeTotalDistance2(travelIconCount,result);
+
+
+            // console.log('Travel Duration:', totalDuration);
+            // console.log(totalDistance + " km");
+
             console.log("In mapApiBetw2");
         }
 
-        function computeTotalDistance2(result) {
+        function computeTotalDistance2(travelIconCount,result) {
             let total = 0;
-            const myroute = result.routes[0];
+            const myroute = result.routes;
 
             if (!myroute) {
                 return;
@@ -1404,10 +1414,18 @@
 
             total = total / 1000;
             console.log(total + " km");
-            document.getElementById("totalDistance").innerHTML = total + " km";
+            let totalDistance = total;
+
+            const transTotalTime_el = document.getElementById("transTotalTime" + travelIconCount);
+            const span = document.createElement("span");
+            span.innerText = total + " km";
+            transTotalTime_el.appendChild(span);
+
+            // document.getElementById("totalDistance").innerHTML = total + " km";
+            return total;
         }
 
-        function calculateTravelTime2(start, end, travelMode) {
+        function calculateTravelTime2(travelIconCount,start, end, travelMode) {
             // 设置起点和终点
             var request = {
                 origin: start,
@@ -1428,8 +1446,29 @@
                     // 在控制台打印旅程时间信息
                     console.log('Travel Duration:', duration);
                     document.getElementById("totalTime").innerHTML = duration;
+
+                    let total = 0;
+                    for (let i = 0; i < route.legs.length; i++) {
+                        total += route.legs[i].distance.value;
+                    }
+
+                    total = total / 1000;
+                    console.log(total + " km");
+                    totalDuration = duration;
                     // 更新 Directions Renderer 显示路线
-                    directionsRenderer.setDirections(response);
+                    // directionsRenderer.setDirections(response);
+
+                    const transTotalTime_el = document.getElementById("transTotalTime" + travelIconCount);
+                    const span1 = document.createElement("div");
+                    span1.style = "display:inline-block; height:50px;width:100px;z-index=0;";
+                    span1.innerText = duration;
+                    transTotalTime_el.appendChild(span1);
+                    const span2 = document.createElement("div");
+                    span2.style = "display:inline-block;";
+                    span2.innerText = total+" km";
+                    transTotalTime_el.appendChild(span2);
+
+                    return duration;
                 } else {
                     console.log('Directions request failed:', status);
                 }

@@ -286,16 +286,16 @@
 
           <div style=" margin-left:410px;">
             <!-- <div> -->
-              <button class="edit-button" id="editButton">編輯</button>
-              <button class="edit-button" id="saveButton" style="display: none;">儲存</button>
-              <button class="edit-button" id="deleteButton" onclick="deleteAttr()" >刪除</button>
+            <button class="edit-button" id="editButton">編輯</button>
+            <button class="edit-button" id="saveButton" style="display: none;">儲存</button>
+            <button class="edit-button" id="deleteButton" onclick="deleteAttr()">刪除</button>
             <!-- </div> -->
           </div>
           <div style="margin-left: 430px;">
             <button id="submitButton">送出資料</button>
           </div>
           <br>
-         
+
           <div id="imageContainer"></div>
           <div id="inputFile"></div>
 
@@ -420,19 +420,19 @@
       });
 
       // 預覽圖大小設定
-    const maxImageSize = 300;
-    image.onload = function () {
-     if (image.width > maxImageSize || image.height > maxImageSize) {
-        const aspectRatio = image.width / image.height;
-      if (image.width > image.height) {
-        image.width = maxImageSize;
-        image.height = maxImageSize / aspectRatio;
-      } else {
-        image.height = maxImageSize;
-        image.width = maxImageSize * aspectRatio;
-      }
-    }
-  };
+      const maxImageSize = 300;
+      image.onload = function () {
+        if (image.width > maxImageSize || image.height > maxImageSize) {
+          const aspectRatio = image.width / image.height;
+          if (image.width > image.height) {
+            image.width = maxImageSize;
+            image.height = maxImageSize / aspectRatio;
+          } else {
+            image.height = maxImageSize;
+            image.width = maxImageSize * aspectRatio;
+          }
+        }
+      };
       console.log("attrId:" + attrId + ", attrPicId:" + attrPicId + ", attrPicData" + image.src);
       imageContainer.appendChild(image);
       imageContainer.appendChild(closeButton);
@@ -463,6 +463,21 @@
         const delResponse = await fetch(baseUrl + 'delAttrPic/' + attrPicId);
         imageContainer.remove();
       });
+
+      // 預覽圖大小設定
+      const maxImageSize = 300;
+      image.onload = function () {
+        if (image.width > maxImageSize || image.height > maxImageSize) {
+          const aspectRatio = image.width / image.height;
+          if (image.width > image.height) {
+            image.width = maxImageSize;
+            image.height = maxImageSize / aspectRatio;
+          } else {
+            image.height = maxImageSize;
+            image.width = maxImageSize * aspectRatio;
+          }
+        }
+      }
 
       imageContainer.appendChild(image);
       imageContainer.appendChild(closeButton);
@@ -692,7 +707,7 @@
         confirmButtonText: 'Yes, delete it!'
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const response = await fetch(baseUrl+`deleteAttraction/`+attrId);
+          const response = await fetch(baseUrl + `deleteAttraction/` + attrId);
 
           Swal.fire(
             'Deleted!',

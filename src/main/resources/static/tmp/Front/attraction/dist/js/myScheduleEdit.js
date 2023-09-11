@@ -216,6 +216,8 @@ function extractMonthAndDate(timeString) {
     return `${month}月${dates}日`;
 }
 
+let totalDuration;
+        let totalDistance;
 async function addDailySchedule(restScheDetails) {
     //拿第一個細節的起始時間當今天開始時間
     //迴圈塞入各個行程細節 直到下一個行程的日期不是本日
@@ -299,9 +301,9 @@ async function addDailySchedule(restScheDetails) {
             console.log("Not the first Row");
             let row1 = document.createElement("div");
 
-            row1.innerHTML = `<div class="transTotalTime" >
-                <span class="selectTransMode">
-                    <select id="travelIconCount${++travelIconCount}"
+            row1.innerHTML = `<div  class="transTotalTime">
+                <span class="selectTransMode" id="transTotalTime${++travelIconCount}">
+                    <select id="travelIconCount${travelIconCount}" style="display:inline-block;"
                      class="travelIcon form-select form-select-lg mb-3"
                         aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">
                         <option selected value="DRIVING">&#x1F697;</option>
@@ -312,6 +314,7 @@ async function addDailySchedule(restScheDetails) {
                 </span>
             </div>`;
             row.insertAdjacentElement("beforebegin", row1);
+            mapApiBetw2(travelIconCount);
         }
 
         //將TimeStampString轉為Date 且可以直接比大小
