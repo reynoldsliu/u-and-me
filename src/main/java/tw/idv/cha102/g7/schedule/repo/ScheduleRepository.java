@@ -32,9 +32,23 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
             "ORDER BY days ASC, sch_start DESC", nativeQuery = true)
     public Page<ScheduleDayDTO> findOrderByDays(Pageable pageable);
 
+    // 依行程天數小到大，查詢所有會員行程清單，並依照起始日期降冪排序
+    @Query(value = "SELECT sch_id as schId, sch_name as schName, mem_id as memId, sch_start as schStart, sch_end as schEnd, sch_pub as schPub, sch_copy as schCopy, sch_cost as schCost, DATEDIFF(sch_end, sch_start) as days FROM schedules WHERE mem_id = ?1 " +
+            "ORDER BY days ASC, sch_start DESC", nativeQuery = true)
+    public Page<ScheduleDayDTO> findByMemIdOrderByDays(Integer memId,Pageable pageable);
+
+    // 依行程天數大到小，查詢所有會員行程清單，並依照起始日期降冪排序
+    @Query(value = "SELECT sch_id as schId, sch_name as schName, mem_id as memId, sch_start as schStart, sch_end as schEnd, sch_pub as schPub, sch_copy as schCopy, sch_cost as schCost, DATEDIFF(sch_end, sch_start) as days FROM schedules WHERE mem_id = ?1 " +
+            "ORDER BY days DESC, sch_start DESC", nativeQuery = true)
+    public Page<ScheduleDayDTO> findByMemIdOrderByDaysDESC(Integer memId,Pageable pageable);
+
     // 查詢使用者自己建立過的所有行程清單
     @Query(value = "SELECT * FROM schedules WHERE mem_id = ?1", nativeQuery = true)
-    public Page<Schedule> findByMemId(Integer memId, Pageable pageable);
+    public Page<Schedule> findByMemIdPaged(Integer memId, Pageable pageable);
+
+    // 查詢使用者自己建立過的所有行程清單(不分頁)
+    @Query(value = "SELECT * FROM schedules WHERE mem_id = ?1", nativeQuery = true)
+    public List<Schedule> findByMemId(Integer memId);
 
     // 依照行程名稱查詢使用者自己建立過的相關行程清單
     @Query(value = "SELECT * FROM schedules WHERE mem_id = ?1 AND sch_name like %?2%", nativeQuery = true)

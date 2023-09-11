@@ -5,7 +5,9 @@ const classSwitchOff = "-off";
 let search_btn_el = document.getElementById("search-btn");
 let keywords_el = document.getElementById("keywords");
 let sortByStart_el = document.getElementById("sortByStart");
+let sortByStartASC_el = document.getElementById("sortByStartASC");
 let sortByDays_el = document.getElementById("sortByDays");
+let sortByDaysDESC_el = document.getElementById("sortByDaysDESC");
 
 // 分頁元素
 let pageSelect1_el = document.getElementById("pageSelect1");
@@ -109,14 +111,14 @@ document.addEventListener("DOMContentLoaded", async function () {
   const member = await response.json();
   const memId = member.memId;
   // 查詢會員建立的私人行程
-  fetchMyScheduleList(myURL, memId, e);
+  fetchMyScheduleList(`${myURL + memId}`, e);
 });
 
 // =============== 查詢會員專屬的行程 ===============
-async function fetchMyScheduleList(URL, memId, e) {
-  
+async function fetchMyScheduleList(URL, e) {
+
   try {
-    const response = await fetch(URL + memId + "/" + e);
+    const response = await fetch(`${URL}/${e}`);
     const schList = await response.json();
 
     const schListInner = document.getElementById("schListInner");
@@ -173,6 +175,38 @@ async function fetchMyScheduleList(URL, memId, e) {
 
 
 // ============ 分頁查詢行程 =============
+// 依照起始日期降冪排序
+sortByStart_el.addEventListener("click", async function (event) {
+  event.preventDefault();
+
+  const response = await fetch(baseURL + `member/getMemId`);
+  const member = await response.json();
+  const memId = member.memId;
+
+  fetchMyScheduleList(`${myURL + memId}`, e);
+});
+
+// 依照起始日期升冪排序
+sortByStartASC_el.addEventListener("click", async function (event) {
+  event.preventDefault();
+  let myURLASC = `${mySchbaseURL}my`;
+  fetchMyScheduleList(myURLASC, e);
+});
+
+// 依行程天數排序行程清單(由小到大)，並依照起始日期降冪排序
+sortByDays_el.addEventListener("click", async function (event) {
+  event.preventDefault();
+  let daysURL = `${mySchbaseURL}days`;
+  fetchMyScheduleList(daysURL, e);
+});
+
+// 依行程天數排序行程清單(由大到小)，並依照起始日期降冪排序
+sortByDaysDESC_el.addEventListener("click", async function (event) {
+  event.preventDefault();
+  let daysDESCURL = `${mySchbaseURL}daysDESC`;
+  fetchMyScheduleList(daysDESCURL, e);
+});
+
 // 依關鍵字(行程名稱)搜尋會員自己的行程清單(依照起始日期降冪排序)
 search_btn_el.addEventListener("click", async function (event) {
   event.preventDefault();
@@ -180,19 +214,12 @@ search_btn_el.addEventListener("click", async function (event) {
   const responseMem = await fetch(baseURL + `member/getMemId`);
   const member = await responseMem.json();
   const memId = member.memId;
-  
+
   let keywords = keywords_el.value;
-  let keywordsURL = `${mySchbaseURL}${keywords}/`;
-  fetchMyScheduleList(keywordsURL,memId, e);
-
-  // console.log(keywordsURL+memId+e);
+  let keywordsURL = `${mySchbaseURL}${keywords}/${memId}`;
+  fetchMyScheduleList(keywordsURL, e);
 });
 
-// == 待改，依行程天數排序行程清單 ==
-sortByDays_el.addEventListener("click", function (event) {
-  event.preventDefault();
-  fetchMyScheduleList(daysURL, e);
-});
 
 //== 以下為控制分頁(目前寫死) ==
 
@@ -209,8 +236,16 @@ pageSelect1_el.addEventListener('click', async function (e) {
   const response = await fetch(baseURL + `member/getMemId`);
   const member = await response.json();
   const memId = member.memId;
+
+
   //調用方法
-  fetchMyScheduleList(myURL, memId, e);
+  // fetchMyScheduleList(`${myURL + memId}`, e);
+  let myURLASC = `${mySchbaseURL}my`;
+  fetchMyScheduleList(myURLASC, e);
+  // let daysURL = `${mySchbaseURL}days`;
+  // fetchMyScheduleList(daysURL, e);
+  // let daysDESCURL = `${mySchbaseURL}daysDESC`;
+  // fetchMyScheduleList(daysDESCURL, e);
 });
 
 pageSelect2_el.addEventListener('click', async function (e) {
@@ -222,7 +257,15 @@ pageSelect2_el.addEventListener('click', async function (e) {
   const response = await fetch(baseURL + `member/getMemId`);
   const member = await response.json();
   const memId = member.memId;
-  fetchMyScheduleList(myURL, memId, e);
+
+  //調用方法
+  // fetchMyScheduleList(`${myURL + memId}`, e);
+  let myURLASC = `${mySchbaseURL}my`;
+  fetchMyScheduleList(myURLASC, e);
+  // let daysURL = `${mySchbaseURL}days`;
+  // fetchMyScheduleList(daysURL, e);
+  // let daysDESCURL = `${mySchbaseURL}daysDESC`;
+  // fetchMyScheduleList(daysDESCURL, e);
 });
 
 document.getElementById('pageSelect3').addEventListener('click', async function (e) {
@@ -234,7 +277,15 @@ document.getElementById('pageSelect3').addEventListener('click', async function 
   const response = await fetch(baseURL + `member/getMemId`);
   const member = await response.json();
   const memId = member.memId;
-  fetchMyScheduleList(myURL, memId, e);
+
+  //調用方法
+  // fetchMyScheduleList(`${myURL + memId}`, e);
+  let myURLASC = `${mySchbaseURL}my`;
+  fetchMyScheduleList(myURLASC, e);
+  // let daysURL = `${mySchbaseURL}days`;
+  // fetchMyScheduleList(daysURL, e);
+  // let daysDESCURL = `${mySchbaseURL}daysDESC`;
+  // fetchMyScheduleList(daysDESCURL, e);
 });
 
 // == 控制分頁結束 ==

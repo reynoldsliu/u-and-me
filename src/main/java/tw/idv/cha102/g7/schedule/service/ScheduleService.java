@@ -41,11 +41,20 @@ public interface ScheduleService {
      * 以下為管理行程功能
      */
 
-    // 查詢使用者自己所有建立過的行程清單
+    // 查詢使用者自己所有建立過的行程清單(依起始日期降冪排序)
     public Stream<Schedule> getAllByMemId(Integer memId, int page);
 
+    // 查詢使用者自己所有建立過的行程清單(依起始日期升冪排序)
+    public Stream<Schedule> getAllByMemIdASC(Integer memId, int page);
+
     // 依照行程名稱查詢使用者自己建立過的相關行程清單(依照起始日期降冪排序)
-    public Stream<Schedule> findByMemIdAndSchNameDESC(Integer memId,String schName, int page);
+    public Stream<Schedule> findByMemIdAndSchNameDESC(Integer memId, String schName, int page);
+
+    // 依照行程天數(小到大)排序會員自己的行程
+    public Stream<ScheduleDayDTO> findByMemIdOrderByDays(Integer memId, int page);
+
+    // 依照行程天數(大到小)排序會員自己的行程
+    public Stream<ScheduleDayDTO> findByMemIdOrderByDaysDESC(Integer memId, int page);
 
     // 新增一筆行程(包含選擇出發及結束日期、目的地標籤、行程名稱)
     public Schedule create(Schedule schedule);
@@ -60,9 +69,9 @@ public interface ScheduleService {
     public void hide(Integer schId);
 
     // 行程分享隱私權設定
-    public Schedule privateSelect(Integer schId,Byte schPub);
+    public Schedule privateSelect(Integer schId, Byte schPub);
 
     // 行程複製權限設定
-    public Schedule copyrightSelect(Integer schId,Boolean schCopy);
+    public Schedule copyrightSelect(Integer schId, Boolean schCopy);
 
 }
