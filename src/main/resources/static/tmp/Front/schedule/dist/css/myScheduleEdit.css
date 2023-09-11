@@ -645,7 +645,7 @@ span.selectTransMode {
     width: 80px;
     height: 100%;
     position: relative;
-    top: -4%;
+    top: -25px;
     left: 2%;
     vertical-align: middle;
 }
@@ -675,9 +675,10 @@ span.transTotalTime {
 }
 
 /* 總時間 */
-span#totalTime {
+span.totalTime {
     /* border: 1px solid red; */
-    width: 35%;
+    display: inline-block;
+    width: 55%;
     height: 100%;
     font-size: 1rem;
     font-weight: bold;
@@ -687,6 +688,20 @@ span#totalTime {
     position: absolute;
     top: 0;
 }
+
+span.totalDistance{
+    /* border: 1px solid green; */
+    display: inline-block;
+    width: 40%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-top: 5%;
+    text-align: end;
+}
+
+
 
 /* ============ 查看行程細節結束 ============ */
 
