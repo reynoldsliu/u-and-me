@@ -1,4 +1,4 @@
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me";
+let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 // 行程總天數
 var schDuringDays;
 // class -on -off -one 屬性
@@ -98,7 +98,7 @@ const attrIlla = document.querySelector("#attrIlla");
 
 
 
-// ================== 會使用到的函式 ================== //
+// ================== 會使用到的函式 ==================
 // =============== 行程細節時間計算相關函式(BY Reynolds) =============== 
 // 時間計算
 function getDayOfWeek(dateString) {
@@ -216,8 +216,14 @@ function extractMonthAndDate(timeString) {
     return `${month}月${dates}日`;
 }
 
-let totalDuration;
-        let totalDistance;
+function formatDateToYYYYMMDD(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需要加1并补齐两位
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+
 async function addDailySchedule(restScheDetails) {
     //拿第一個細節的起始時間當今天開始時間
     //迴圈塞入各個行程細節 直到下一個行程的日期不是本日
@@ -225,6 +231,36 @@ async function addDailySchedule(restScheDetails) {
     //              透過交通方式計算行程間的交通距離 交通時間
     //結束時間=開始時間+停留時間
     //開始時間=結束時間+交通時間
+
+    const response = await fetch(baseURL + `schedules/schId/` + restScheDetails[0].schId);
+    const schedule = await response.json();
+    const startDay = schedule.schStart;
+    console.log(startDay);
+    let firstDay = parseTimestamp(startDay + " 0");
+    //印出 第幾天 星期幾 本日出發時間
+    // viewSchDetailsRows
+    let today = parseTimestamp(restScheDetails[0].schdeStarttime);
+    console.log("today: " + (today));
+    console.log("today: " + formatDateToYYYYMMDD(today));
+    let todayDate = new Date(today);
+    let startDate = new Date(startDay);
+    console.log("todayDate: " + todayDate);
+    console.log("startDate: " + firstDay);
+    let nthDays = (todayDate - firstDay + 24 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000);
+    let nthDay = today - startDay + 1;
+    console.log("nthday: " + nthDays);
+
+    let row = document.createElement("div");
+    row.classList.add("schDeStartTimeRows");
+    row.innerHTML = `
+        <div>
+            <span class="viewWhichDay">第${nthDays}天 :</span>
+            <span class="viewWhichWeekDay">${getDayOfWeek((today + " 0"))}</span>
+            <span class="schDeStartTime">出發時間：${extractHourAndMinute(restScheDetails[0].schdeStarttime)}</span>
+        </div>
+    `;
+    viewSchDetailsRows.appendChild(row);
+
 
     //一但有變動 重新呼叫本函式更新一天行程
     var schdeStarttime = restScheDetails[0].schdeStarttime;
@@ -248,14 +284,13 @@ async function addDailySchedule(restScheDetails) {
         const schdeTrans = restScheDetails[countedScheDetails].schdeTrans;
         const schdeCost = restScheDetails[countedScheDetails].schdeCost;
         const schdeRemark = restScheDetails[countedScheDetails].schdeRemark;
-        const responseAttr = await fetch(baseURL + `/getAttr?attrId=` + attrId);
+        const responseAttr = await fetch(baseURL + `getAttr?attrId=` + attrId);
         const attr = await responseAttr.json();
-        const responseAttrPics = await fetch(baseURL + `/getAttrPics/` + attrId);
+        const responseAttrPics = await fetch(baseURL + `getAttrPics/` + attrId);
         const attrPicList = await responseAttrPics.json();
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
         let row = document.createElement("div");
-
         row.innerHTML = `
                 <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrId});">
                     <div class="row g-0">
@@ -279,7 +314,7 @@ async function addDailySchedule(restScheDetails) {
                                 </h5>
                                 <p class="attrAddr">
                                     <small class="text-body-secondary"
-                                        id="attrAddr${countedScheDetails+1}">${attr.attrAddr}</small>
+                                        id="attrAddr${countedScheDetails + 1}">${attr.attrAddr}</small>
                                 </p>
                             </div>
                         </div>
@@ -292,18 +327,38 @@ async function addDailySchedule(restScheDetails) {
         // console.log("NEW START TIME: " + schdeStarttime);
         viewSchDetailsRows.appendChild(row);
 
+
+        // 2023/09/11========================================================================================
         var parentElement = row.parentNode;
         var children = Array.from(parentElement.children);
         var index = children.indexOf(row);
         // console.log("這是父元素的第 " + (index + 1) + " 個子元素。");
 
-        if (index>9) {
+        if (index > 2 && !row.previousSibling.classList.contains("schDeStartTimeRows")) {
             console.log("Not the first Row");
-            let row1 = document.createElement("div");
+            // let row1 = document.createElement("div");
 
-            row1.innerHTML = `<div class="transTotalTime" id="transTotalTime${++travelIconCount}">
-                <span class="selectTransMode" >
-                    <select id="travelIconCount${travelIconCount}" style="display:inline-block;"
+            // row1.innerHTML = `<div class="transTotalTime" id="transTotalTime${++travelIconCount}">
+            //     <span class="selectTransMode" >
+            //         <select id="travelIconCount${travelIconCount}" style="display: inline-block;"
+            //          class="travelIcon form-select form-select-lg mb-3"
+            //             aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">
+            //             <option selected value="DRIVING">&#x1F697;</option>
+            //             <option value="WALKING">&#x1F6B6;</option>
+            //             <option value="BICYCLING">&#x1F6B2;</option>
+            //             <option value="TRANSIT">&#x1F68C;</option>
+            //         </select>
+            //     </span>
+            // </div>`;
+            // row1.innerHTML="";
+
+            let row1 = document.createElement("div");
+            row1.classList.add("transTotalTime");
+            row1.id = `transTotalTime${++travelIconCount}`;
+
+            row1.innerHTML = `
+                <span class="selectTransMode">
+                    <select id="travelIconCount${travelIconCount}"
                      class="travelIcon form-select form-select-lg mb-3"
                         aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">
                         <option selected value="DRIVING">&#x1F697;</option>
@@ -312,23 +367,37 @@ async function addDailySchedule(restScheDetails) {
                         <option value="TRANSIT">&#x1F68C;</option>
                     </select>
                 </span>
-            </div>`;
+                `;
+
             row.insertAdjacentElement("beforebegin", row1);
+            // row.appendChild(row1);
             mapApiBetw2(travelIconCount);
         }
+
+        // 2023/09/11========================================================================================
 
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
         if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
-            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)) {
+            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)
+                ) {
+
+            // <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
+            const addNewAttrbtn = document.createElement("div");
+            addNewAttrbtn.classList.add("addNewAttrbtn");
+            // addNewAttrbtn.onclick = "addNewAttrbtnOnclick()";
+            addNewAttrbtn.addEventListener("click", addNewAttrbtnOnclick);
+            addNewAttrbtn.innerText = "＋新增景點";
+            viewSchDetailsRows.appendChild(addNewAttrbtn);
+            console.log("DO NEW A BTN");
 
             break;
         }
     }
+
+
     return countedScheDetails;
 }
-
-
 
 // 幾月幾日直接+1天
 function addOneDay(dateString) {
@@ -386,20 +455,6 @@ function codeToPriceRange(code) {
 }
 
 
-// ================================= memId =========================================
-// async function getMemId(){
-//     const response = await fetch(baseURL+`/member/getMemId`);
-//     const member = await response.json();
-//     const memId = member.memId;
-//     console.log(member);
-//     console.log(memId);
-//     return memId;
-// }
-// async function getMem(){
-//     const response = await fetch(baseURL+`/member/getMemId`);
-//     const member = await response.json();
-//     return member;
-// }
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", async function () {
     // 關閉景點搜尋內其他頁籤內容
@@ -415,7 +470,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const schId = urlSearchParams.get('schId');
 
     //透過schId 獲取整個schedule物件
-    const response = await fetch(baseURL + `/schedules/schId/${schId}`);
+    const response = await fetch(baseURL + `schedules/schId/${schId}`);
     const schedule = await response.json();
     // console.log("Schedule ID: " + schId);
     //行程開始日期 結束日期
@@ -434,7 +489,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     // const schDeStartTime_els = document.querySelectorAll(".schDeStartTime");今天的起始時間
 
     //取出本行程所有的行程細節
-    const response1 = await fetch(baseURL + `/schDetails/${schId}`);
+    const response1 = await fetch(baseURL + `schDetails/${schId}`);
     const schDetails = await response1.json();
     // console.log("STAY time: " + schDetails[0].schdeStaytime);
     // console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
@@ -446,7 +501,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     // schDetails.shift();
     // console.log(schDetails);
+    const result = await addDailySchedule(schDetails);
+    for (let i = 0; i < result + 1; i++) {
+        schDetails.shift();
+    }
+    // result.then(data=>{
+    //     console.log(data);
+    //     for(let i = 0;i<data+1;i++){
+    //         schDetails.shift();
+    //     }
+    // });
+    console.log(schDetails);
     addDailySchedule(schDetails);
+    console.log("!!!!!!!: " + schDetails);
 
     // ====================== 生成行程細節天數tab內容 ======================
 
@@ -688,9 +755,7 @@ async function viewSearchResultOfOneAttr(attrId) {
     attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
     attrIlla.innerText = attr.attrIlla;
 
-    ///////////////////////////////////////////////////////////////////////////////////
-    //Reynolds
-    console.log("LatLng: " + attr.attrLat + "::" + attr.attrLon);
+    // console.log("LatLng: " + attr.attrLat + "::" + attr.attrLon);
     // 將 attr.attrLat 和 attr.attrLon 轉換為數字
     // 假設你有一個經緯度
     var latitude = attr.attrLat; // 緯度
@@ -718,13 +783,8 @@ async function viewSearchResultOfOneAttr(attrId) {
         map: map,
         title: '自定義位置' // 可以自定義標記的標題
     });
-    ///////////////////////////////////////////////////////////////////////////////////
+
 }
-
-
-
-
-
 
 
 
@@ -749,11 +809,11 @@ addAttrCollect_btn_el.onclick = () => {
 
 // fetch to Controller路徑
 // 列出所有景點收藏
-let myAttrCollectionURL = baseURL + "/attrCol/getAttrsFromCollectionByMemId/";
+let myAttrCollectionURL = baseURL + "attrCol/getAttrsFromCollectionByMemId/";
 // 依據景點編號查詢景點資訊
-let getAttrByAttrIdURL = baseURL + "/getAttr?attrId=";
+let getAttrByAttrIdURL = baseURL + "getAttr?attrId=";
 // 依據景點編號查詢所有景點圖片
-let getAttrPicsByAttrIdURL = baseURL + "/getAttrPics/";
+let getAttrPicsByAttrIdURL = baseURL + "getAttrPics/";
 
 
 // 按下我的景點收藏時換到景點收藏頁面
@@ -772,8 +832,7 @@ tab_attrCollect_el.addEventListener("click", async function (e) {
     }
 
     // 根據會員id動態生成景點收藏清單
-    // let memId = 1;
-    const response = await fetch(baseURL + `/member/getMemId`);
+    const response = await fetch(baseURL + `member/getMemId`);
     const member = await response.json();
     const memId = member.memId;
 
@@ -860,36 +919,18 @@ tab_customize_el.addEventListener("click", function (e) {
 });
 
 // 自訂景點中新增景點圖片
-// 待加入取消部分圖片上傳的功能！！！！！！！！！！！！！！！！！！！！！！！
 const attrPicFilesInput = document.querySelector("#attrPicFilesInput");
 const myAttrPicsPreview = document.querySelector("#attrPicsPreview");
 
 attrPicFilesInput.addEventListener('change', async (event) => {
     myAttrPicsPreview.innerHTML = '';
-    console.log("準備上傳");
     const files = event.target.files;
 
-    // for (const file of files) {
-    //     const imageURL = URL.createObjectURL(file);
-    //     const image = new Image();
-    //     image.src = imageURL;
-    //     image.style.maxWidth = "318.3px"; // 設定預覽圖最大寬度
-    //     image.style.width = "100%";
-    //     image.style.objectFit = "cover;"// 設定圖片裁切
-    //     image.style.position = "relative";
-    //     image.style.marginTop = "5px";
-    //     myAttrPicsPreview.appendChild(image);
-    // }
     for (const file of files) {
         let count = 0;
         var fileReader = await new FileReader();
         fileReader.onload = async event => {
             const base64String = btoa(event.target.result);
-            //   const imgdata = {
-            //     attrPicId: 0,
-            //     attrId: attrId,
-            //     attrPicData: base64String
-            //   }
             const imgdata = {
                 attrPicData: base64String
             }
@@ -898,14 +939,14 @@ attrPicFilesInput.addEventListener('change', async (event) => {
 
             attrPicsPreview.appendChild(imageContainer);
         };
-        console.log(++count);
+        // console.log(++count);
         await fileReader.readAsBinaryString(file);
     }
 });
 
 //包裝預覽圖容器及生成鴻叉叉可以取消上傳
 function createImageContainer_preview(pic) {
-    console.log("Creating preview");
+    // console.log("Creating preview");
     const imageContainer = document.createElement("div");
     imageContainer.classList.add("image-container");
     imageContainer.style.zIndex = '0';
@@ -924,7 +965,7 @@ function createImageContainer_preview(pic) {
 
     const closeButton = document.createElement("span");
     closeButton.classList.add("close-button");
-    closeButton.innerHTML = `<i class="fa-solid fa-xmark" style="font-size: 30px;color:red; text-shadow:2px 2px 2px black;"></i>`;
+    closeButton.innerHTML = `<i class="fa-solid fa-xmark" style="font-size: 30px;color:white; text-shadow:2px 2px 2px black;"></i>`;
     closeButton.style.zIndex = "1";
     closeButton.style.position = "relative";
     closeButton.style.top = "38px";
@@ -932,7 +973,7 @@ function createImageContainer_preview(pic) {
 
     closeButton.addEventListener("click", async function () {
         const attrPicId = imageContainer.getAttribute("attrPicId");
-        console.log("deleting attrPicId:" + attrPicId);
+        // console.log("deleting attrPicId:" + attrPicId);
         // const delResponse = await fetch(baseURL + 'delAttrPic/' + attrPicId);
         imageContainer.remove();
         attrPicFilesInput.value = '';
@@ -951,7 +992,6 @@ myAttrDone_btn_el.onclick = async () => {
     let myAttrName = myAttrName_el.value.trim();
     let myAttrAddr = myAttrAddr_el.value.trim();
     const picFiles = attrPicFilesInput.files;
-    alert(inputAttrBussTime);
 
     const newAttr = {
         attrName: myAttrName,
@@ -960,7 +1000,7 @@ myAttrDone_btn_el.onclick = async () => {
         attrLon: attrLon,
         attrBussTime: inputAttrBussTime
     };
-    const response = await fetch(baseURL + `/attrPriv/createPrivateAttr`, {
+    const response = await fetch(baseURL + `attrPriv/createPrivateAttr`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -968,13 +1008,13 @@ myAttrDone_btn_el.onclick = async () => {
         body: JSON.stringify(newAttr)
     });
     const attrPrivDTO = await response.json();
-    console.log(attrPrivDTO);
+    // console.log(attrPrivDTO);
     let attrBody = attrPrivDTO.body;
     let attrPrivateId = attrBody.attrPrivateId;
     let attrId = attrPrivateId.attrId;
-    console.log("ATTRID: " + attrId);
+    // console.log("ATTRID: " + attrId);
 
-    console.log("開始上傳圖片");
+    // console.log("開始上傳圖片");
     for (const file of picFiles) {
         try {
             const fileReader = await new FileReader();
@@ -986,7 +1026,7 @@ myAttrDone_btn_el.onclick = async () => {
             // const attrId = urlSearchParams.get('attrId');
             fileReader.onload = async event => {
                 const base64Str = btoa(event.target.result);
-                const response = await fetch(baseURL + '/insertAttrPictures/' + attrId, {
+                const response = await fetch(baseURL + 'insertAttrPictures/' + attrId, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

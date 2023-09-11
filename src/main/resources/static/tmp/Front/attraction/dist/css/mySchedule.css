@@ -210,6 +210,11 @@ p#inputEndDate {
   right: 10.9%;
 }
 
+/* 游標經過行程卡片CSS */
+div.card:hover {
+  box-shadow: 3px 3px 10px black;
+}
+
 /* 行程設定(分享權限、刪除行程) */
 /* 編輯按鈕區塊 */
 div.settingSch {
@@ -234,6 +239,10 @@ i.edit {
   position: absolute;
   right: 0;
   padding: 20px 10px 10px 10px;
+}
+
+i.edit:hover {
+  text-shadow: 2px 2px 2px gray;
 }
 
 /* 隱私權設定與刪除區塊 */
@@ -282,6 +291,55 @@ div.settingSelect>div:last-child {
   border-radius: 0 0 10px 10px;
 }
 
+/* 發起揪團區塊 */
+div.launchGroup {
+  /* border: 1px solid red; */
+  width: 75px;
+  height: 75px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  z-index: 1;
+}
+
+/* 發起揪團icon */
+i.group {
+  /* border: 1px solid blue; */
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  position: absolute;
+  right: 0;
+  padding: 20px 10px 10px 10px;
+}
+
+i.group:hover {
+  text-shadow: 2px 2px 2px gray;
+}
+
+/* 發起揪團提示字 */
+div.launchGroupHint {
+  /* border: 1px solid white; */
+  position: absolute;
+  top: 50px;
+  width: 75px;
+  height: 25px;
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 2px gray;
+  z-index: 0;
+}
+
+div.launchGroupHint.-off {
+  display: none;
+}
+
 /* 行程卡片上的分享權限顯示 */
 p.sch-date>span {
   /* border: 1px solid red; */
@@ -289,11 +347,10 @@ p.sch-date>span {
   padding-left: 15%;
 }
 
-p.sch-date>span:last-child{
+p.sch-date>span:last-child {
   /* border: 1px solid blue; */
   padding-left: 15%;
 }
-
 
 /* 查看詳情 */
 a.viewDetails {
