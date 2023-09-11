@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -29,7 +30,7 @@ public interface GroupService {
 
     List<Group> findGroupByPaymentSta(Integer paymentSta);
 
-    Stream<GroupRegFormDto> findGroupRegFormDtoByMemId(Integer memId, Integer page);
+    Stream<GroupRegFormDto> findGroupRegFormDtoByMemId(HttpServletRequest request, Integer page);
 
     List<GroupGroupPicDto> findGroupRegFormDtoByGroupIdOrderByGroupPicId(Integer groupId);
 
@@ -56,11 +57,11 @@ public interface GroupService {
 
     GroupMemberDto finGroupMember(Integer groupId);
 
-    Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(Integer memId, Integer page);
+    Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(HttpServletRequest request, Integer page);
 
-    Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(Integer memId, Integer page);
+    Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(HttpServletRequest request, Integer page);
 
-    Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(Integer memId, String str, Integer page);
+    Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(HttpServletRequest request, String str, Integer page);
 
     void updateGroupSta(Integer groupId, Group group);
 

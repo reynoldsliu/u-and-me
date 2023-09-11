@@ -41,6 +41,7 @@ public class MemberServiceImpl implements MemberService {
         sessionCookie.setPath("/"); // 設置 Cookie 的路徑
         response.addCookie(sessionCookie);
         httpSession.setAttribute("memberId", member.getMemId()); // 保存目前登入的會員id，供後續使用
+        httpSession.setAttribute("grouper", member.getMemGroup()); // 保存目前登入的團主狀態，供後續使用
 
     }
 

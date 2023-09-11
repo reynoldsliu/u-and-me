@@ -29,7 +29,27 @@ window.addEventListener("load", function (e) {
     const inputFormFile_el = this.document.getElementById("inputFormFile");
     //==========需要用的元素結束=========
 
-
+    this.fetch(baseUrl + '/member/grouper/match', {
+        method: 'GET'
+    }).then(response => {
+        if(response.status == 401){
+            Swal.fire({
+                icon: 'error',
+                title: '尚未登入',
+                showCancelButton: true
+            }).then(() => {
+                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+            })
+        }else if(response.status == 403){
+            Swal.fire({
+                icon: 'error',
+                title: '尚未成為團主',
+                showCancelButton: true
+            }).then(() => {
+                this.location.href = baseUrl + '/tmp/Front/member/memberRegister.html';
+            })
+        }
+    });
 
     //==========判斷錯誤需要用的=========
     let today = new Date().getTime();//實體化當前時間變數 getTime()轉成毫秒

@@ -9,6 +9,7 @@ import tw.idv.cha102.g7.group.dto.*;
 import tw.idv.cha102.g7.group.entity.Group;
 import tw.idv.cha102.g7.group.service.GroupService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -143,13 +144,13 @@ public class GroupController {
     /**
      * 會員
      * 報名參加的揪團頁面
-     * @param memId 登入中的會員ID
+     * @param page 頁面
      * @return 查詢結果
      */
-    @GetMapping("/groups/joined/{memId}/{page}")
-    Stream<GroupRegFormDto> findGroupRegFormDtoByMemId(@PathVariable Integer memId,
+    @GetMapping("/member/groups/joined/{page}")
+    Stream<GroupRegFormDto> findGroupRegFormDtoByMemId(HttpServletRequest request,
                                                        @PathVariable Integer page){
-        return groupService.findGroupRegFormDtoByMemId(memId, page);
+        return groupService.findGroupRegFormDtoByMemId(request, page);
     }
 
     /**
@@ -271,27 +272,30 @@ public class GroupController {
         return groupService.finGroupMember(groupId);
     }
 
-
-    //會員以揪團狀態揪團紀錄
-    @GetMapping("/groups/joined/groupSta0/{memId}/{page}")
-    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(@PathVariable Integer memId,
-                                                                          @PathVariable Integer page){
-        return groupService.findGroupRegFormDtoByMemIdAndGroupSta0(memId, page);
+    @GetMapping("/member/grouper/match")
+    public void matchGrouper(){
     }
 
     //會員以揪團狀態揪團紀錄
-    @GetMapping("/groups/joined/groupSta1/{memId}/{page}")
-    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(@PathVariable Integer memId,
+    @GetMapping("/groups/joined/groupSta0/{page}")
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(HttpServletRequest request,
                                                                           @PathVariable Integer page){
-        return groupService.findGroupRegFormDtoByMemIdAndGroupSta1(memId, page);
+        return groupService.findGroupRegFormDtoByMemIdAndGroupSta0(request, page);
+    }
+
+    //會員以揪團狀態揪團紀錄
+    @GetMapping("/groups/joined/groupSta1/{page}")
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(HttpServletRequest request,
+                                                                          @PathVariable Integer page){
+        return groupService.findGroupRegFormDtoByMemIdAndGroupSta1(request, page);
     }
 
     //會員以名稱搜尋揪團紀錄
-    @GetMapping("/groups/joined/searchTheme={str}/{memId}/{page}")
-    public  Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(@PathVariable Integer memId,
+    @GetMapping("/groups/joined/searchTheme={str}/{page}")
+    public  Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(HttpServletRequest request,
                                                                            @PathVariable String str,
                                                                            @PathVariable Integer page){
-        return groupService.findGroupRegFormDtoByMemIdAndThemeLike(memId, str, page);
+        return groupService.findGroupRegFormDtoByMemIdAndThemeLike(request, str, page);
     }
 
     //揪團主更改上下架

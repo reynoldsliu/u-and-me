@@ -32,7 +32,7 @@ public class MemberDetailController {
      * @param detailId　報名細節ID
      * @param memberDetail 修改後的報名資料
      */
-    @PutMapping("/memberDetail/{detailId}")
+    @PutMapping("/member/memberDetail/{detailId}")
     public void update(@PathVariable Integer detailId,
                        @RequestBody MemberDetail memberDetail){
         memberDetailService.update(detailId, memberDetail);
@@ -76,7 +76,7 @@ public class MemberDetailController {
      * @param formId 報名表編號
      * @return 查詢結果
      */
-    @GetMapping("/memberDetailsForms/{formId}")//以formId查詢全部報名細節
+    @GetMapping("/member/memberDetailsForms/{formId}")//以formId查詢全部報名細節
     List<MemberDetail> findByFormId(@PathVariable Integer formId){
         return memberDetailService.findByFormId(formId);
     }

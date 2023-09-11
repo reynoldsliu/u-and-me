@@ -26,8 +26,8 @@ let groupId;//紀錄groupId
 let maxMember;//紀錄能參與揪團的人數
 let member = 1;//紀錄參團人數
 let formId;
-
-window.addEventListener("load", function (e) {
+let memId;
+window.addEventListener("load", async function (e) {
 
     //===================取得網址頁上傳遞的參數===================
 
@@ -264,7 +264,7 @@ order_confirmed_el.addEventListener('click', function (e) {
         })
     }
     //跳轉至前頁
-    location.href = baseUrl + '/tmp/Front/group/groupMemo.html?groupId=' + groupId;
+    // location.href = baseUrl + '/tmp/Front/group/groupMemo.html?groupId=' + groupId;
 });
 
 

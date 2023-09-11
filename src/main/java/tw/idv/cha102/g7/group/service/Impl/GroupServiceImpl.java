@@ -15,12 +15,16 @@ import tw.idv.cha102.g7.group.repo.MemberDetailRepository;
 import tw.idv.cha102.g7.group.repo.RegFormRepository;
 import tw.idv.cha102.g7.group.service.GroupService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
+
+import static java.lang.Integer.parseInt;
 
 @Component
 public class GroupServiceImpl implements GroupService {
@@ -124,7 +128,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemId(Integer memId, Integer page) {
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemId(HttpServletRequest request, Integer page) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
         Sort sort = Sort.by(Sort.Direction.ASC, "Group_Sta");
         Pageable pageable = PageRequest.of(page, 3, sort);
         return groupRepository.findGroupRegFormDtoByMemId(memId, pageable).get();
@@ -284,21 +290,27 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(Integer memId, Integer page) {
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(HttpServletRequest request, Integer page) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
         Sort sort = Sort.by(Sort.Direction.ASC, "Dep_Date");
         Pageable pageable = PageRequest.of(page, 3, sort);
         return groupRepository.findGroupRegFormDtoByMemIdAndGroupSta0(memId, pageable).get();
     }
 
     @Override
-    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(Integer memId, Integer page) {
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(HttpServletRequest request, Integer page) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
         Sort sort = Sort.by(Sort.Direction.ASC, "Dep_Date");
         Pageable pageable = PageRequest.of(page, 3, sort);
         return groupRepository.findGroupRegFormDtoByMemIdAndGroupSta1(memId, pageable).get();
     }
 
     @Override
-    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(Integer memId, String str, Integer page) {
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(HttpServletRequest request, String str, Integer page) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
         Sort sort = Sort.by(Sort.Direction.ASC, "Group_Sta");
         Pageable pageable = PageRequest.of(page, 3, sort);
         return groupRepository.findGroupRegFormDtoByMemIdAndThemeLike(memId, str, pageable).get();

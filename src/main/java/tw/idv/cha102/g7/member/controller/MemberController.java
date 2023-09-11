@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.lang.Integer.parseInt;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/member")
@@ -83,6 +85,7 @@ public class MemberController {
         if (jsessionId == null || jsessionId.isEmpty())
             return new ResponseEntity("登出失敗", HttpStatus.BAD_REQUEST);
         session.removeAttribute("memberId");
+        session.removeAttribute("grouper");
 
         return new ResponseEntity("登出成功", HttpStatus.OK);
     }
@@ -205,9 +208,10 @@ public class MemberController {
 
     }
 
-    @RequestMapping("/memberGroupRegister/{memId}")
-    public ResponseEntity<Member> memberGroupRegister(@PathVariable Integer memId,
-                                                      @RequestBody PictureBase64DTO groupRegisterCard){
+    @RequestMapping("/memberGroupRegister")
+    public ResponseEntity<Member> memberGroupRegister(HttpServletRequest request, @RequestBody PictureBase64DTO groupRegisterCard){
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
         Member member = memberService.getMemByMemId(memId);
         member.setMemSta(1);
         System.out.println(groupRegisterCard.getPictureData().toString());

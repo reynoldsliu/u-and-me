@@ -39,7 +39,7 @@ btn_submit_el.addEventListener('click', async function(e){
         reason: reason_el.value,
     }
 
-    await fetch(baseUrl + '/memberDetail/' + detailId, {
+    await fetch(baseUrl + '/member/memberDetail/' + detailId, {
         headers: {
             "content-type": "application/json",
         },

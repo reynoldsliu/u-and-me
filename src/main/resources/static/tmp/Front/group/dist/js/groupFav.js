@@ -24,16 +24,25 @@ window.addEventListener('load', function (e) {
 
 let count = 0;
 async function fetchGroup(page, urlstr) {
-    //1為memId
-    let response = await fetch(baseUrl + '/groups/joined/' + urlstr + '1/' + page);
-    const groupList = await response.json();
-    groups_el.innerHTML = '';
-    count = 0;
-    groupList.forEach(group => {
-        let dataurl = `data:image/png;base64,${group.cover}`
+    // try{
+        let response = await fetch(baseUrl + '/member/groups/joined/' + urlstr + page);
+        if(response.status == 401){
+            Swal.fire({
+                icon: 'error',
+                title: '尚未登入',
+                showCancelButton: true
+            }).then(() => {
+                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+            });
+        }
+        const groupList = await response.json();
+        groups_el.innerHTML = '';
+        count = 0;
+        groupList.forEach(group => {
+            let dataurl = `data:image/png;base64,${group.cover}`
 
-        groups_el.innerHTML +=
-            `
+            groups_el.innerHTML +=
+                `
         <div class="favMenu">
             <div class="favMenu_left">
                 <img src="../dist/img/groupFav.png" alt="">
@@ -60,11 +69,14 @@ async function fetchGroup(page, urlstr) {
             </div>
         </div>
         `
-        count++;
-    });
+            count++;
+        });
+    // }catch(error){
+    //     console.log(error.response.status);
+    // }
 }
 
-sta0_el.addEventListener('click', function(e){
+sta0_el.addEventListener('click', function (e) {
     e.preventDefault();
     select_el.innerHTML = '持續揪團中';
     urlstr = 'groupSta0/';
@@ -73,7 +85,7 @@ sta0_el.addEventListener('click', function(e){
     fetchGroup(page, urlstr);
 });
 
-sta1_el.addEventListener('click', function(e){
+sta1_el.addEventListener('click', function (e) {
     e.preventDefault();
     select_el.innerHTML = '揪團成功';
     urlstr = 'groupSta1/';
@@ -82,7 +94,7 @@ sta1_el.addEventListener('click', function(e){
     fetchGroup(page, urlstr);
 });
 
-name_btn_el.addEventListener('click', function(e){
+name_btn_el.addEventListener('click', function (e) {
     e.preventDefault();
     urlstr = 'searchTheme=' + inputName_el.value + '/';
     page = 0;
@@ -93,11 +105,11 @@ name_btn_el.addEventListener('click', function(e){
 nextPage_el.addEventListener('click', function (e) {
     let control = 0;
 
-    if(count === 3) {
+    if (count === 3) {
         page++;
     }
-    
-    if (count % 3 !== 0 || count === 0){
+
+    if (count % 3 !== 0 || count === 0) {
         nextPage_el.disabled = true;
     }
 
@@ -117,36 +129,37 @@ prePage_el.addEventListener('click', function (e) {
     fetchGroup(page, urlstr);
 });
 
-async function fetchDetail(formId){
+async function fetchDetail(formId) {
     let count = 0;
-    const response = await fetch(baseUrl + '/memberDetailsForms/' + formId);
-    const memberDetails = await response.json();
-    detailContent_el.innerHTML = '';
-    let refundSta = '';
+    try {
+        const response = await fetch(baseUrl + '/member/memberDetailsForms/' + formId);
+        const memberDetails = await response.json();
+        detailContent_el.innerHTML = '';
+        let refundSta = '';
 
-    memberDetails.forEach(detail => {
+        memberDetails.forEach(detail => {
 
-        switch(detail.refundSta){
-            case 0:
-                refundSta = `<button type="button" class="btn btn-outline-success btn-sm" id="viewMenuDetails" onclick="window.location.href='${baseUrl}/tmp/Front/group/refund.html?detailId=${detail.detailId}'">退費申請</button>`;
-                break;
-            case 1:
-                refundSta = `退款時間到期`;
-                break;
-            case 2:
-                refundSta = `已申請退款`;
-                break;
-            case 3:
-                refundSta = `退款已完成`;
-                break;
-            case 4:
-                refundSta = `退款為0失敗`;
-                break;
-        }
+            switch (detail.refundSta) {
+                case 0:
+                    refundSta = `<button type="button" class="btn btn-outline-success btn-sm" id="viewMenuDetails" onclick="window.location.href='${baseUrl}/tmp/Front/group/refund.html?detailId=${detail.detailId}'">退費申請</button>`;
+                    break;
+                case 1:
+                    refundSta = `退款時間到期`;
+                    break;
+                case 2:
+                    refundSta = `已申請退款`;
+                    break;
+                case 3:
+                    refundSta = `退款已完成`;
+                    break;
+                case 4:
+                    refundSta = `退款為0失敗`;
+                    break;
+            }
 
-        count++;
-        detailContent_el.innerHTML += 
-        `
+            count++;
+            detailContent_el.innerHTML +=
+                `
         <th scope="row">${count}</th>
             <td>${detail.name}</td>
             <td>${detail.idnumber}</td>
@@ -154,5 +167,8 @@ async function fetchDetail(formId){
             <td>${detail.gender}</td>
             <td>${refundSta}</td>
         `
-    })
+        })
+    }catch(error){
+        location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+    }
 }
