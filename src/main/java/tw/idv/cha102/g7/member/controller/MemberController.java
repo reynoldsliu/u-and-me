@@ -108,34 +108,6 @@ public class MemberController {
     }
 
     /**
-     * 團主註冊
-     *
-     * @param member
-     * @return
-     */
-    @PostMapping("/groupRegister")
-    public ResponseEntity<String> groupRegister(@RequestBody Member member) {
-        Integer memId = member.getMemId();
-        String memPassword = member.getMemPassword();
-
-        // 檢查用戶是否已登入
-//        HttpSession httpSession = request.getSession();
-//        String sessionId = httpSession.getAttribute("memberId").toString();
-//        Integer memSta = memberService.getMemberStatus(memId, memPassword);
-//        if (memSta == null || memSta == 0 || memSta == 2) {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("請先登入");
-//        }
-
-        // 更新會員的團主狀態為 1（團主）
-        member.setMemSta(1);
-        member.setMemGroup(1);
-        memberService.update(member);
-
-        return ResponseEntity.ok("您已成功註冊為團主");
-    }
-
-
-    /**
      * 會員刪除
      *
      * @param memId
@@ -214,6 +186,13 @@ public class MemberController {
 
     }
 
+
+    /**
+     * 團主註冊
+     *
+     * @param member
+     * @return
+     */
     @RequestMapping("/memberGroupRegister/{memIdcardUpdate}")
     public ResponseEntity<Member> memberGroupRegister(HttpServletRequest request,
                                                       @PathVariable String memIdcardUpdate,
@@ -221,7 +200,7 @@ public class MemberController {
         HttpSession session = request.getSession();
         Integer memId = parseInt(session.getAttribute("memberId").toString());
         Member member = memberService.getMemByMemId(memId);
-        member.setMemSta(1);
+        member.setMemGroup(1);
         System.out.println(groupRegisterCard.getPictureData().toString());
         member.setMemIdPic(groupRegisterCard.getPictureData());
         System.out.println("memBer"+member.toString());
@@ -237,7 +216,10 @@ public class MemberController {
 
         return new ResponseEntity(memberService.getMemByMemId(memId), HttpStatus.OK);
     }
+ @RequestMapping("/match")
+    public void memMatch(){
 
+    }
 
 
 }

@@ -123,8 +123,10 @@
 
         <a href="../member/memberCenter.html">收藏清單</a>
         <a href="../schedule/mySchedule.html">行程規劃</a>
-        <a href="../group/myGroupList.html">揪團記錄</a>
-        <a href="../article/userUpdAndDel/userArticleUpdate.html">論壇記錄</a>
+        <a href="../group/myGroupList.html">我的揪團</a>
+        <a href="../member/memberGroupRegister.html">註冊團主</a>
+        <a href="../group/groupFav.html">舉辦的揪團</a>
+        <a href="../article/userUpdAndDel/ArticleCollection.html">論壇記錄</a>
         <a href="../member/memberUpdate.html">會員資料修改</a>
 
 
@@ -157,10 +159,9 @@
                     <div class="memGender" style="width:150px; margin-left:40px;">
                         <label for="memGender" class="form-label" style="letter-spacing:2px;font-weight:bold;">性別</label>
                         <select id="memGender" class="form-select">
-                            <option>請選擇您的性別</option>
                             <option value="1">男</option>
                             <option value="2">女</option>
-                            <option value="0">不方便透露</option>
+                            <option value="0" selected>不方便透露</option>
                         </select>
                     </div>
 
@@ -206,6 +207,9 @@
         </div>
 
     </div>
+</div>
+<div id="logoutBtn" class="logoutBtn pt-1 mb-4">
+    <button class="btn" type="button">登出</button>
 </div>
 
 <div class="container-fluid footer1">

@@ -9,7 +9,6 @@
                 }
 
                 Login(member);
-//                alert("登入成功")
             })
 
             const testloginBtn_el = document.getElementById("testloginBtn");

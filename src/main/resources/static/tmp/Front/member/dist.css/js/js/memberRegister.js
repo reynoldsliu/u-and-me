@@ -98,6 +98,11 @@ memDist.classList.remove("text-secondary");
       }
     }
   });
+
+
+
+
+  
 /////////////////////////////
 
       const memEmail = document.getElementById("memEmail");
@@ -136,6 +141,7 @@ memDist.classList.remove("text-secondary");
 
 
 
+
   function Register(member) {
 //      console.log(123);
       const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
@@ -152,7 +158,9 @@ memDist.classList.remove("text-secondary");
                          title: '註冊成功',
                          text: '',
                          confirmButtonText: '確定'
-      })}else if(response.status == 400){
+      }).then(() => {window.history.go(-1);
+                            });
+   }else if(response.status == 400){
                             Swal.fire({
                                 icon: 'error',
                                 title: '此信箱已註冊過會員',
@@ -186,13 +194,17 @@ memDist.classList.remove("text-secondary");
               memNameStr.innerHTML = ' *會員姓名必須填入';
               inputMemName_el.appendChild(memNameStr);
           }
-
           //會員電話
+          const phoneCheck = /^09[0-9]{8}$/;
           if (memPhone.value === null || memPhone.value.trim() === "") {
               control = false;
               memPhoneStr.innerHTML = ' *會員電話必須填入';
               inputMemPhone_el.appendChild(memPhoneStr);
-                  }
+                  }else if (!phoneCheck.test(memPhone.value)) {
+                    control = false;
+                    memPhoneStr.innerHTML = ' *請輸入正確的手機號碼格式';
+                    inputMemPhone_el.appendChild(memPhoneStr);
+                   }
           //會員地址
           if (memAddr.value === null || memAddr.value.trim() === "") {
               control = false;
@@ -201,18 +213,28 @@ memDist.classList.remove("text-secondary");
                           }
 
           //會員密碼
+          const passwordCheck = /^[A-Za-z\d!@#$%^&*()]{8,12}$/;
           if (memPassword.value === null || memPassword.value.trim() === "") {
               control = false;
               memPasswordStr.innerHTML = ' *會員密碼必須填入';
               inputMemPassword_el.appendChild(memPasswordStr);
-                          }
+              }else if (!passwordCheck.test(memPassword.value)) {
+              control = false;
+              memPasswordStr.innerHTML = ' *密碼必須介於8至12字元';
+              inputMemPassword_el.appendChild(memPasswordStr);
+             }
 
           //會員信箱
+          const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
           if (memEmail.value === null || memEmail.value.trim() === "") {
               control = false;
               memEmailStr.innerHTML = ' *會員信箱必須填入';
               inputMemEmail_el.appendChild(memEmailStr);
-                          }
+              }else if (!emailRegex.test(memEmail.value)) {
+              control = false;
+              memEmailStr.innerHTML = ' *必須符合信箱格式';
+              inputMemEmail_el.appendChild(memEmailStr);
+              }
 
       const member = {
           "memEmail": memEmail.value,
