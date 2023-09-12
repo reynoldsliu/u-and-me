@@ -66,7 +66,7 @@ public class OrdersServiceImpl implements OrdersService {
                 "收件人信箱：" + member.getMemEmail()+"\n\n"+
                 "收件人地址：" + member.getMemCity()+member.getMemDist()+member.getMemAddr()+"\n\n"+
                 "＊－。－。－。－。－ 收件人留言 －。－。－。－。－＊\n\n"+
-                "您的商品已寄出，請確認查收!"+"\n\n\n\n\n\n"+
+                "您的訂單已確認，感謝您的購買!"+"\n\n\n\n\n\n"+
                 "From U-and-Me"+
                 "＊－。－。－。－。－。－。－。－－。－。－。－。－＊");//信件內容 長String 可以加\n換行
 
