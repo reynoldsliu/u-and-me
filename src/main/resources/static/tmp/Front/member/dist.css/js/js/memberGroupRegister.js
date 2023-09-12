@@ -1,3 +1,21 @@
+
+const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+// <!--網頁載入後執行-->
+
+
+window.addEventListener("load", function (e) {
+this.fetch(baseUrL + 'member/match', {
+    method: 'GET'
+}).then(response => {
+    if(response.status == 401){
+
+            this.location.href = baseUrL + 'tmp/Front/member/memberLogin.html';
+
+    }
+});
+})   
+   
+   
    document.addEventListener("DOMContentLoaded", function () {
 
              fetchMemDetail();
@@ -30,9 +48,27 @@ function checkPid(string) {
 const pid = document.getElementById("memIdcard");
 pid.addEventListener("blur", function () {
     if (!checkPid(pid.value.trim())){
-        alert("身分證字號未填寫或內容有誤，請重新輸入！");
+        Swal.fire({
+            icon: 'error',
+            title: '身分證字號格式錯誤',
+            text: '',
+            confirmButtonText: '確定'
+})
     }
 });
+
+//會員登出鍵
+const logoutBtn_el = document.getElementById("logoutBtn");
+logoutBtn_el.addEventListener("click", async function () {
+ const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+    const response = await fetch(baseUrl + 'member/logout', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+       location.reload();
+})
 
 //載入會員原先資料
 
@@ -120,7 +156,7 @@ async function fetchMemDetail() {
                 },
                 body: JSON.stringify(data),
             });
-             console.log(updatedIdcard);
+            //  console.log(updatedIdcard);
               if (response.ok) {
                       Swal.fire({
                                      icon: 'success',

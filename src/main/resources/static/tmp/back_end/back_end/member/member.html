@@ -124,29 +124,10 @@
 
 <nav class="navbar navbar-light  shadow-sm  " style="background-color: #ebd0be">
 
-    <div class="container-fluid" style="padding-left:0px;">
-        <div style="width: 200px;height: 20px;">
-        </div>
-        <a class="navbar-brand  " href="#" style="margin:auto;font-size: 30px;display: inline-block">後台管理系統</a>
-        <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-               id="dropdownUser1"
-               data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://www.holoface.photos/static/images/products/idphoto01.jpg" alt="" width="32"
-                     height="32"
-                     class="rounded-circle me-2">
-                <strong>Penny</strong>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
-            </ul>
-        </div>
+         <img src="../../assets/dist/img/hostIcon.png" alt="" width="32" height="32" style="margin-left: ;">
+
+            <button></button>
+        <!-- </div> -->
     </div>
 
 </nav>
@@ -161,6 +142,14 @@
                         <use xlink:href="#home"/>
                     </svg>
                     會員
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../host/host.html">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#home"/>
+                    </svg>
+                    管理員
                 </a>
             </li>
             <li>
@@ -393,9 +382,8 @@ window.addEventListener("load", function (e) {
                   <td class="editStyle"style="width: 65px;height:50px;text-align: center;vertical-align: middle;">${statusMapping.get(member.memSta)}</td>
                     <td style="width: 65px;height:50px;text-align: center;vertical-align: middle;">
                     <select class=" form-select text-secondary memSta" id="memSta">
-                     <option value="0" ${member.memSta === 0 ? 'selected' : ''}>註冊未驗證</option>
-                     <option value="1" ${member.memSta === 1 ? 'selected' : ''}>正常使用</option>
-                     <option value="2" ${member.memSta === 2 ? 'selected' : ''}>停止使用</option>
+                     <option value="0" ${member.memSta === 0 ? 'selected' : ''}>正常使用</option>
+                     <option value="1" ${member.memSta === 1 ? 'selected' : ''}>停止使用</option>
                         </select>
                     </td>
                 </tr>
@@ -454,9 +442,8 @@ window.addEventListener("load", function (e) {
 
 
     const statusMapping = new Map([
-      [0, '註冊未驗證'],
-      [1, '正常使用'],
-      [2, '停止使用'],
+      [0, '正常使用'],
+      [1, '停止使用'],
     ]);
 
     const statusMappingGroup = new Map([

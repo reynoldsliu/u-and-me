@@ -275,3 +275,12 @@ width: 130px;
 .updatebottom {
   margin-left: 540px;
 }
+
+.logoutBtn{
+  background-color:rgb(115, 176, 172); 
+  padding: 5px 5px;
+  color: white;
+  border-radius: 10px; /* 設定圓角的像素值 */
+  margin-left: 1150px;
+  margin-right: 45px;
+}
