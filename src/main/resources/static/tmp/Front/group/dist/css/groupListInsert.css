@@ -93,26 +93,22 @@
   }
 }
 
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-
 }
 
 .card {
+  border: 1px solid gray;
   margin-bottom: 20px;
+  width: 354.656px;
 }
-
-
-
-
 
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  min-height:800px;
+  min-height: 800px;
   display: flex;
 }
 
@@ -153,31 +149,36 @@ body {
   margin-bottom: 20px;
   border-radius: 20px;
 }
-#menu>div{
+
+#menu>div {
   padding: 6.3rem 5rem 6.3rem 15rem;
 }
+
 .menu a {
   text-decoration: none;
   color: #333;
   margin: 0 10px;
 }
-.menu > menu_left{
-display:flex;
-align-items: center;
+
+.menu>menu_left {
+  display: flex;
+  align-items: center;
 }
 
-.menu_left>img{
-  width:10rem;
+.menu_left>img {
+  width: 10rem;
   margin-right: 8.1rem;
 }
 
 .content {
   line-height: 1.6;
 }
-.menu_right{
-  line-height:2rem;
-  letter-spacing:0.1rem;
+
+.menu_right {
+  line-height: 2rem;
+  letter-spacing: 0.1rem;
 }
+
 .content-wrapper {
   margin-top: 500px;
   background-color: white;
@@ -191,14 +192,12 @@ align-items: center;
   width: 800px;
   height: 800px;
 
-
   /* Additional styles to move it to the right */
   /* position: absolute;
   right: 0; */
 }
 
 .sidebar {
-
   margin-top: 80px;
   height: 350px;
   width: 250px;
@@ -206,14 +205,9 @@ align-items: center;
   top: 0;
   left: 0;
   background-color: #c6bfbf;
-  ;
   padding-top: 10px;
   font-family: Arial, sans-serif;
-
-
 }
-
-
 
 .target {
   position: sticky;
@@ -222,18 +216,10 @@ align-items: center;
   padding: 30px;
 }
 
-
 .target-2 {
-  
   bottom: 0px;
   left: 100px;
 }
-
-
-
-
-
-
 
 .sidebar a {
   padding: 15px;
@@ -249,20 +235,24 @@ align-items: center;
   background-color: #333;
 }
 
-.updatebottom{
-  background-color:rgb(115, 176, 172); 
+.updatebottom {
+  background-color: rgb(115, 176, 172);
   display: flex;
   padding: 5px 5px;
   color: white;
   border: none;
-  border-radius: 10px; /* 設定圓角的像素值 */
+  border-radius: 10px;
+  /* 設定圓角的像素值 */
   cursor: pointer;
   font-size: small;
   justify-content: center;
   align-items: center;
-  height: 45px; /* 减小按钮的高度 */
-  max-width: 90px; /* 设置按钮的最大宽度 */
-  margin: auto; /* 水平和垂直居中 */
+  height: 45px;
+  /* 减小按钮的高度 */
+  max-width: 90px;
+  /* 设置按钮的最大宽度 */
+  margin: auto;
+  /* 水平和垂直居中 */
 }
 
 .navbar-brand {
@@ -363,248 +353,16 @@ h1.myScheduleListTitle {
   text-shadow: 5px 5px 3px black;
 }
 
-div.myScheduleListMainImg {
-  /* border: 1px solid blue; */
-  z-index: 0;
-  padding: 0;
-  height: 81%;
-  position: absolute;
-  top: 86px;
-  left: 0;
-  overflow: hidden;
-}
-
-div.myScheduleListMainImg>img {
-  width: 100%;
-  height: auto;
-  height: auto;
-}
-
-
-/* 搜尋欄、篩選條件相關 */
-.filter-search {
-  display: inline-block;
-  padding: 15px 70px;
-  /* border: 1px solid red; */
-  align-items: center;
-  width: 100vw;
-  height: 70px;
-}
-
-/* 新增行程 */
-#addSch {
-  position: relative;
-  bottom: 5px;
-}
-
 /* 建立行程燈箱 */
 div.modal-content {
-  width: 450px;
-  height: 500px;
-}
-
-input.dateSelector {
-  display: inline-block;
-  position: relative;
-  left: 20px;
-  width: 170px;
-  height: 35px;
-}
-
-
-p#inputStartDate {
-  position: relative;
-  bottom: 20px;
-  left: 20px;
   /* border: 1px solid red; */
-  margin: 0;
-}
-
-p#inputEndDate {
-  display: inline-block;
-  position: relative;
-  left: 20px;
-}
-
-.destInput {
-  display: block;
-  margin-left: 20px;
-}
-
-#inputDest {
-  margin-left: 20px;
-}
-
-#destination {
-  width: 90%;
-  height: 35px;
-}
-
-.nameInput {
-  display: block;
-  margin-left: 20px;
-}
-
-#schNameInput {
-  margin-left: 20px;
-}
-
-#schName {
-  width: 90%;
-  height: 35px;
-}
-
-
-/* 搜尋欄 */
-#keywords {
-  width: 200px;
-  align-items: center;
-  border: 1px solid rgb(158, 158, 158);
-  position: absolute;
-  right: 30%;
-
-}
-
-#search-btn {
-  position: absolute;
-  right: 25%;
-}
-
-
-/* 排序 */
-.filter-sorted {
-  position: absolute;
-  right: 10.9%;
+  width: 100%;
+  height: 100%;
 }
 
 /* 游標經過行程卡片CSS */
 div.card:hover {
   box-shadow: 3px 3px 10px black;
-}
-
-/* 行程設定(分享權限、刪除行程) */
-/* 編輯按鈕區塊 */
-div.settingSch {
-  /* border: 1px solid white; */
-  width: 75px;
-  height: 75px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: white;
-  font-size: 2rem;
-  text-align: center;
-}
-
-/* 編輯按鈕icon */
-i.edit {
-  /* border: 1px solid red; */
-  width: 100%;
-  height: 100%;
-  color: white;
-  text-shadow: 2px 2px 2px black;
-  position: absolute;
-  right: 0;
-  padding: 20px 10px 10px 10px;
-}
-
-i.edit:hover {
-  text-shadow: 2px 2px 2px gray;
-}
-
-/* 隱私權設定與刪除區塊 */
-div.settingSelect {
-  /* border: 1px solid white; */
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 2px 2px 2px black;
-  width: 130px;
-  height: 100px;
-  position: absolute;
-  right: 0;
-  margin: 10px 10px 0 0;
-}
-
-div.settingSelect.-off {
-  display: none;
-}
-
-/* 各個選項設定的區塊 */
-div.settingSelect>div {
-  border-bottom: 1px solid lightgray;
-  width: 100%;
-  height: 33.3%;
-  display: block;
-  padding-top: 5px;
-  font-size: 1rem;
-  color: black;
-  font-weight: bold;
-}
-
-/* 滑過時背景變色 */
-div.settingSelect>div:hover {
-  background-color: lightgray;
-}
-
-/* 隱私設定與分享區塊 */
-div.settingSelect>div:first-child {
-  border-radius: 10px 10px 0 0px;
-}
-
-/* 刪除區塊 */
-div.settingSelect>div:last-child {
-  border-bottom: none;
-  color: rgb(25, 135, 84);
-  border-radius: 0 0 10px 10px;
-}
-
-/* 發起揪團區塊 */
-div.launchGroup {
-  /* border: 1px solid red; */
-  width: 75px;
-  height: 75px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: white;
-  font-size: 2rem;
-  text-align: center;
-  z-index: 1;
-}
-
-/* 發起揪團icon */
-i.group {
-  /* border: 1px solid blue; */
-  width: 100%;
-  height: 100%;
-  color: white;
-  text-shadow: 2px 2px 2px black;
-  position: absolute;
-  right: 0;
-  padding: 20px 10px 10px 10px;
-}
-
-i.group:hover {
-  text-shadow: 2px 2px 2px gray;
-}
-
-/* 發起揪團提示字 */
-div.launchGroupHint {
-  /* border: 1px solid white; */
-  position: absolute;
-  top: 50px;
-  width: 75px;
-  height: 25px;
-  font-size: 0.8rem;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  text-shadow: 2px 2px 2px gray;
-  z-index: 0;
-}
-
-div.launchGroupHint.-off {
-  display: none;
 }
 
 /* 行程卡片上的分享權限顯示 */

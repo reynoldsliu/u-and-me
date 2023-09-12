@@ -373,21 +373,15 @@ async function fetchSch() {
 
         let row = document.createElement("div");
 
-        // row.classList.add("col-lg-4");
-        // row.classList.add("mb-4");
+        row.classList.add("col-lg-3");
+        row.classList.add("mb-4");
+        row.style.width = "354.656px";
+        row.style.marginRight = "35px";
 
         row.innerHTML = `
-              <div class="card" style="display: block">
+              <div class="card">
               <img src="../dist/img/scheduleimg/trip${i}.jpeg"
-                  alt="" class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
-                  <div class="settingSch" id="settingSch${schedule.schId}" onclick="editMySchedule(${schedule.schId})">
-                    <div><i class="fa-solid fa-pen-to-square edit"></i></div>
-                    <div class="settingSelect -off" id="settingSelect${schedule.schId}" onmouseleave="removeEditBox(${schedule.schId})">
-                        <div class="privateSetting" id="privateSetting${schedule.schId}" onclick="selectPrivateSetting(${schedule.schId})">隱私設定與分享</div>
-                        <div class="copyrightSetting" onclick="selectCopyrightSetting(${schedule.schId})">複製權限設定</div>
-                       <div class="deleteMySch" id="deleteMySch${schedule.schId}" onclick="deleteOneSchedule(${schedule.schId})">刪除</div>
-                    </div>
-                  </div>
+                  alt="" class="card-img-top" style="width: 354.656px; height: 236.604px; object-fit: cover;">
                   <div class="card-body">
                       <h5 class="card-title">${schedule.schName}</h5>
                       <p class="sch-date" style="font-size: 13px">
@@ -404,7 +398,6 @@ async function fetchSch() {
               `;
         schListInner.appendChild(row);
         i++;
-
     });
 
     // } catch (error) {
