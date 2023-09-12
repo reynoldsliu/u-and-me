@@ -1,5 +1,5 @@
-create database main;
-use main;
+
+use test;
 
 create table `group`
 (
@@ -32,7 +32,7 @@ insert into `group` values (
 );
 insert into `group`
 values
-    (1, 1, 1, default, 3, 8, 1000, 'Hiking Trip', '2023-08-10 09:00:00', '2023-08-15 12:00:00', '2023-08-01 18:00:00', 'A fun hiking trip to the mountains', 'Bring your own water and snacks', 0, 0, null),
+    (11, 11, 11, default, 3, 8, 1000, 'Hiking Trip', '2023-08-10 09:00:00', '2023-08-15 12:00:00', '2023-08-01 18:00:00', 'A fun hiking trip to the mountains', 'Bring your own water and snacks', 0, 0, null),
     (2, 2, 2, default, 2, 6, 800, 'Beach Vacation', '2023-09-05 14:00:00', '2023-09-12 10:00:00', '2023-08-25 23:59:59', 'Relax and unwind at the sunny beach', 'Sunscreen is a must', 0, 0, null),
     (3, 3, 3, default, 4, 10, 1200, 'City Tour', '2023-07-20 11:00:00', '2023-07-25 16:00:00', '2023-07-15 22:00:00', 'Explore the city and visit popular landmarks', 'Comfortable shoes are recommended', 0, 0, null),
     (4, 4, 4, default, 2, 4, 600, 'Camping Adventure', '2023-08-28 15:00:00', '2023-09-02 09:00:00', '2023-08-20 20:00:00', 'Experience the great outdoors with camping', 'Bring your own tent and sleeping bag', 0, 0, null),
@@ -94,9 +94,8 @@ create table member_detail
 --     constraint fk_form_id
 --     foreign key (form_id) references reg_form(form_id)
 );
-insert into member_detail values(
-1, 1, '李小明', 'A123456789', '2000-01-01',default, 0
-);
+insert into member_detail (detail_id ,form_id, `name`, idnumber, birthday) values(
+1, 1, '李小明', 'A123456789', '2000-01-01');
 insert into member_detail (detail_id ,form_id, `name`, idnumber, birthday)
 values
 (2, 1, 'John Doe', 'A123456789', '1990-05-15'),
