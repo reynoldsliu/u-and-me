@@ -224,6 +224,8 @@ function formatDateToYYYYMMDD(date) {
     return `${year}-${month}-${day}`;
 }
 
+let travelIconCount = 0;
+let countedScheDetailsBase = 0;
 async function addDailySchedule(restScheDetails) {
     //拿第一個細節的起始時間當今天開始時間
     //迴圈塞入各個行程細節 直到下一個行程的日期不是本日
@@ -265,7 +267,7 @@ async function addDailySchedule(restScheDetails) {
     //一但有變動 重新呼叫本函式更新一天行程
     var schdeStarttime = restScheDetails[0].schdeStarttime;
     let countedScheDetails;
-    let travelIconCount = 0;
+    
     for (countedScheDetails = 0; ; countedScheDetails++) {
         //如果下一筆行程細節是明天的 結束今天的行程列印
 
@@ -314,7 +316,7 @@ async function addDailySchedule(restScheDetails) {
                                 </h5>
                                 <p class="attrAddr">
                                     <small class="text-body-secondary"
-                                        id="attrAddr${countedScheDetails + 1}">${attr.attrAddr}</small>
+                                        id="attrAddr${countedScheDetailsBase+countedScheDetails + 1}">${attr.attrAddr}</small>
                                 </p>
                             </div>
                         </div>
@@ -394,7 +396,7 @@ async function addDailySchedule(restScheDetails) {
             break;
         }
     }
-
+    countedScheDetailsBase = travelIconCount;
 
     return countedScheDetails;
 }
