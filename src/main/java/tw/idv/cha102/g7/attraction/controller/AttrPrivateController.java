@@ -103,7 +103,7 @@ public class AttrPrivateController {
 
     /**
      * 查詢所有私人景點
-     * @param attrPrivateId
+     * @param memId
      * @return AttrPrivateDTO
      */
         @RequestMapping("/getPrivateAttractions/{memId}")

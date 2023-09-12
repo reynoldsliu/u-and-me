@@ -269,7 +269,7 @@ async function addDailySchedule(restScheDetails) {
     //一但有變動 重新呼叫本函式更新一天行程
     var schdeStarttime = restScheDetails[0].schdeStarttime;
     let countedScheDetails;
-    
+
     for (countedScheDetails = 0; ; countedScheDetails++) {
         //如果下一筆行程細節是明天的 結束今天的行程列印
 
@@ -317,8 +317,8 @@ async function addDailySchedule(restScheDetails) {
                                     </div>
                                 </h5>
                                 <p class="attrAddr">
-                                    <small class="text-body-secondary"
-                                        id="attrAddr${countedScheDetailsBase+countedScheDetails + 1}">${attr.attrAddr}</small>
+                                    <small class="text-body-secondary attrAddrWaypoints"
+                                        id="attrAddr${countedScheDetailsBase + countedScheDetails + 1}">${attr.attrAddr}</small>
                                 </p>
                             </div>
                         </div>
@@ -364,7 +364,7 @@ async function addDailySchedule(restScheDetails) {
                 <span class="selectTransMode">
                     <select id="travelIconCount${travelIconCount}"
                      class="travelIcon form-select form-select-lg mb-3"
-                        aria-label="Large select example" onchange="mapApiBetw2(${travelIconCount})">
+                        aria-label="Large select example" onchange="reloadMapApiBetw2(${travelIconCount})">
                         <option selected value="DRIVING">&#x1F697;</option>
                         <option value="WALKING">&#x1F6B6;</option>
                         <option value="BICYCLING">&#x1F6B2;</option>
@@ -384,7 +384,7 @@ async function addDailySchedule(restScheDetails) {
         //測試只比較日期的比大小 輸出應為相等
         if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
             < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)
-                ) {
+        ) {
 
             // <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
             const addNewAttrbtn = document.createElement("div");
@@ -714,6 +714,41 @@ tab_search_el.addEventListener("click", function (e) {
     attrSearchPage.classList.remove(classSwitchOff);
 });
 
+function bussTimeString(inputString) {
+    // 使用逗号分割字符串，并将结果存储在数组中
+    const timeRanges = inputString.split('|');
+
+    // 分别存储平日和假日的时间范围
+    let weekdayTimeRange = "";
+    let holidayTimeRange = "";
+
+    holidayTimeRange = timeRanges[0];
+    holidayTimeRangeArr = [];
+    holidayTimeRangeArr = holidayTimeRange.split('');
+    holidayTimeRange = holidayTimeRangeArr[0]+holidayTimeRange[1]+":"
+    +holidayTimeRange[2]+holidayTimeRange[3]+"~"
+    +holidayTimeRange[5]+holidayTimeRange[6]+":"
+    +holidayTimeRange[7]+holidayTimeRange[8];
+    weekdayTimeRange = timeRanges[1];
+    weekdayTimeRangeArr = [];
+    weekdayTimeRangeArr = weekdayTimeRange.split('');
+    weekdayTimeRange = weekdayTimeRangeArr[0]+weekdayTimeRange[1]+":"
+    +weekdayTimeRange[2]+weekdayTimeRange[3]+"~"
+    +weekdayTimeRange[5]+weekdayTimeRange[6]+":"
+    +weekdayTimeRange[7]+weekdayTimeRange[8];
+    const resultString = `平日:${weekdayTimeRange} | 假日:${holidayTimeRange}`;
+    return resultString;
+}
+
+function getAllWaypoints(){
+    const waypoints = document.querySelectorAll(".attrAddrWaypoints");
+    let waypointsContents=[];
+    for(let waypoint of waypoints){
+        waypointsContents.push(waypoint.textContent);
+    }
+    return waypointsContents;
+}
+
 // 點擊到schDetailCell(單一行程細節Cell)、attrCell(景點搜尋、景點收藏Cell)時，出現景點詳細頁面
 async function viewSearchResultOfOneAttr(attrId) {
     // 顯示單一景點詳情頁面
@@ -756,7 +791,7 @@ async function viewSearchResultOfOneAttr(attrId) {
     attrComScore.innerText = generateRandomNumber();
     attrTypeName.innerText = attr.attrType;
     attrAddress.innerText = attr.attrAddr;
-    attrBussTime.innerText = attr.attrBussTime;
+    attrBussTime.innerText = bussTimeString(attr.attrBussTime);
     attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
     attrIlla.innerText = attr.attrIlla;
 
@@ -765,6 +800,8 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 假設你有一個經緯度
     var latitude = attr.attrLat; // 緯度
     var longitude = attr.attrLon; // 經度
+    console.log("經度: "+latitude);
+    console.log("緯度: "+longitude);
 
     // 創建一個包含經緯度信息的 Place 物件
     var locationPlace = {

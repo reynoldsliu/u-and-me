@@ -233,8 +233,10 @@
         <div class="showlist">
           <table class="table">
             <thead>
-              <tr>
-                <th scope="col" style="width:90px;color: #1D3124; font-weight:bolder;">景點名稱</th>
+              <tr style="text-align: auto;">
+                <th scope="col" style="width:90px;color: #1D3124; font-weight:bolder;">
+                  景點名稱
+                </th>
                 <th>
                   <input type="text" id="attrName" disabled>
                 </th>
@@ -277,27 +279,26 @@
             </tbody>
           </table>
           <div id="attrTarget"></div>
-          <div id="attrPics" style="width: 100%;">
+          <div id="attrPics" style="width: 100%;"></div>
 
-          </div>
           <div id="imageGallery"></div>
           <label for="imageInput"></label>
           <input type="file" id="imageInput" accept="image/*" multiple>
 
-          <div style=" margin-left:410px;">
+          <div style=" margin-left:110px;">
             <!-- <div> -->
-            <button class="edit-button" id="editButton">編輯</button>
-            <button class="edit-button" id="saveButton" style="display: none;">儲存</button>
-            <button class="edit-button" id="deleteButton" onclick="deleteAttr()">刪除</button>
-            <!-- </div> -->
-          </div>
-          <div style="margin-left: 430px;">
             <button id="submitButton">送出資料</button>
-          </div>
-          <br>
 
-          <div id="imageContainer"></div>
-          <div id="inputFile"></div>
+            <button class="edit-button" id="deleteButton" onclick="deleteAttr()">刪除</button>
+            <button class="edit-button" id="saveButton" style="visibility: hidden;">儲存</button>
+            <!-- </div> -->
+            <button class="edit-button" id="editButton">編輯</button>
+          </div>
+
+
+
+          <!-- <div id="imageContainer"></div>
+          <div id="inputFile"></div> -->
 
         </div>
 
@@ -678,8 +679,8 @@
       attrBussTime_input.disabled = false;
       attrIlla_input.disabled = false;
 
-      editButton.style.display = "none";
-      saveButton.style.display = "block";
+      editButton.style.visibility = "hidden";
+      saveButton.style.visibility = "visible";
     }
 
 
@@ -692,8 +693,8 @@
       attrBussTime_input.disabled = true;
       attrIlla_input.disabled = true;
 
-      editButton.style.display = "block";
-      saveButton.style.display = "none";
+      editButton.style.visibility = "visible";
+      saveButton.style.visibility = "hidden";
     }
 
     async function deleteAttr() {
@@ -713,9 +714,13 @@
             'Deleted!',
             'Your file has been deleted.',
             'success'
-          )
+          ).then(()=>{
+            window.location.href=baseUrl+`tmp/back_end/back_end/attraction/attrFindAll.html`;
+          })
+          
         }
       })
+      
     }
   </script>
 </body>

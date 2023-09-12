@@ -228,7 +228,7 @@
         </ol>
       </nav>
       <div class="shadow p-3 my-3 bg-body rounded" style="min-height: 70vh;">
-     
+
         <h4 style="text-align: center; font-weight: bolder;">私人景點管理</h4>
         <div>
 
@@ -237,7 +237,7 @@
             <input style="display: inline-block; margin-left:3px;" type="text" id="memberId" placeholder="請輸入景點名稱">
             <!-- <br> -->
             <!-- <div style="display: inline-block;"> -->
-              <button id="loadAttractions" onclick="searchArrtByMemId()">查詢</button>
+            <button id="loadAttractions" onclick="searchArrtByMemId()">查詢</button>
             <!-- </div> -->
           </div>
 
@@ -279,22 +279,37 @@
   <script>
     const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
-    const serchMemBtn = document.getElementById("loadMembers");
+    const serchMemBtn = document.getElementById("loadAttractions");
     const memInput = document.getElementById("memberId");
-
+    const errorMsgs = document.createElement("span");
+    serchMemBtn.insertAdjacentElement("afterend", errorMsgs);
     //透過會員編號 查出所有的收藏景點
     async function searchArrtByMemId() {
+      errorMsgs.innerText = "";
       const memberId = document.getElementById("memberId").value;
+        
+      if (!/\d/.test(memberId)) {
+        errorMsgs.innerText = "*請輸入數字";
+        errorMsgs.style = "color:red;";
+        return;
+      }
       const response = await fetch(baseUrl + `attrPriv/getPrivateAttractions/` + memberId);
       const attrs = await response.json();
-      console.log(attrs);
+      console.log("attrs: " + attrs.length);
 
       const dataTableList = document.getElementById("dataTableList");
       dataTableList.innerHTML = "";
-
-      attrs.forEach(attr => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
+      
+      if (attrs.length === 0) {
+        errorMsgs.innerText = "*查無此會員資料";
+        errorMsgs.style = "color:red;";
+        return;
+      }
+      else {
+        console.log(attrs);
+        attrs.forEach(attr => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
       <td class="td_attrId" style="text-align: center; vertical-align: middle;">${attr.attrId}</td>
       <td style="text-align: center;vertical-align: middle;">${attr.attrName}</td>
       <td style="text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
@@ -317,14 +332,16 @@
       </td>
     
     `;
-        dataTableList.appendChild(row);
-      });
+          dataTableList.appendChild(row);
+        });
+      }
+
     }
 
     function redirectToDetailPage(attrId) {
-            var newPageUrl = baseUrl + `tmp/back_end/back_end/attraction/attractionDetail.html?attrId=${attrId}`;
-            window.location.href = newPageUrl;
-        }
+      var newPageUrl = baseUrl + `tmp/back_end/back_end/attraction/attractionDetail.html?attrId=${attrId}`;
+      window.location.href = newPageUrl;
+    }
   </script>
 
 </body>

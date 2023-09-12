@@ -7,7 +7,7 @@
     新增景點同時增加行程欄位及相關連結 -->
 
 <!doctype html>
-<html lang="en">    
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -307,10 +307,10 @@
 
                                         <!-- 第二個行程細節cell ！！！！！！！！　-->
                                         <!-- <div class="schDetailCellInsert"> -->
-                                            <!-- 行程細節 cell 由此插入 -->
-                                            <!-- 第一個行程細節 cell -->
-                                            <!-- 待加入 onclick後將景點詳情資訊更改成點到的景點資料js -->
-                                            <!-- <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr();">
+                                        <!-- 行程細節 cell 由此插入 -->
+                                        <!-- 第一個行程細節 cell -->
+                                        <!-- 待加入 onclick後將景點詳情資訊更改成點到的景點資料js -->
+                                        <!-- <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr();">
                                                 <div class="row g-0">
                                                     <div class="attrPic col-md-4">
                                                         <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
@@ -339,7 +339,7 @@
                                                     </div>
                                                 </div>
                                             </div> -->
-                                            <!-- 行程細節 cell 結束 -->
+                                        <!-- 行程細節 cell 結束 -->
                                         <!-- </div> -->
                                         <!-- 第二個行程細節cell結束 ！！！！！！！！　-->
 
@@ -437,24 +437,24 @@
                                                     ref="site" v-model="site" placeholder="請輸入景點名稱">
                                             </div>
                                             <!-- 終點景點 -->
-                                            <div>
+                                            <!-- <div>
                                                 <input type="text" id="end" class="google_input_text2" ref="site"
                                                     v-model="site" placeholder="請輸入終點">
-                                            </div>
+                                            </div> -->
                                             <!-- 景點交通方式選擇 -->
-                                            <div class="trans-mode" style="display: none;">
+                                            <!-- <div class="trans-mode" style="display: none;">
                                                 <select id="mode">
                                                     <option value="DRIVING" selected>Driving</option>
                                                     <option value="WALKING">Walking</option>
                                                     <option value="BICYCLING">Bicycling</option>
                                                     <option value="TRANSIT">Transit</option>
                                                 </select>
-                                            </div>
+                                            </div> -->
                                             <!-- 搜尋按鈕 -->
-                                            <div class="attrSearch-btn">
+                                            <!-- <div class="attrSearch-btn">
                                                 <button type="button" class="btn btn-success"
                                                     id="attrSearch-btn">搜尋</button>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <!-- 景點間總距離(隱藏不顯示) -->
                                         <div id="totalDistance"></div>
@@ -685,7 +685,7 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmXZPx-vRB-PUgoaST5buz16HDtD6LqPk&callback=initMap&libraries=places"
+        src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=places"
         async defer></script>
 
     <!-- 加入切換版面操作的js -->
@@ -698,23 +698,19 @@
         var stepDisplay;
         var markerArray = [];
 
-        var haight;
-        var oceanBeach;
-        var travelMode_el = document.getElementById("mode");
-        var travelMode = travelMode_el.value;
+        // var travelMode_el = document.getElementById("mode");
+        // var travelMode = travelMode_el.value;
 
-        travelMode_el.addEventListener('change', function () {
-            travelMode = travelMode_el.value;
-        });
+        // travelMode_el.addEventListener('change', function () {
+        //     travelMode = travelMode_el.value;
+        // });
 
         async function initMap() {
-            directionsService = new google.maps.DirectionsService();
-            directionsRenderer = new google.maps.DirectionsRenderer();
-            directionsRenderer.setMap(map);
-            directionsRenderer.setPanel(document.getElementById('directionsPanel'));
+            // directionsService = new google.maps.DirectionsService();
+            // directionsRenderer = new google.maps.DirectionsRenderer();
+            // directionsRenderer.setMap(map);
+            // directionsRenderer.setPanel(document.getElementById('directionsPanel'));
 
-            var haight = new google.maps.LatLng(37.7699298, -122.4469157);
-            var oceanBeach = new google.maps.LatLng(37.7683909618184, -122.51089453697205);
 
             // 預設顯示的地點：台北市政府親子劇場
             let location = {
@@ -724,7 +720,7 @@
 
             var mapOptions = {
                 zoom: 14,
-                center: haight
+                center: location
             }
 
             const { Map } = await google.maps.importLibrary("maps");
@@ -735,28 +731,24 @@
 
             // 建立地圖
             this.map = new google.maps.Map(document.getElementById('map'), {
-                center: haight,//location,
+                center: location,//location,
                 zoom: 16,
                 mapTypeId: 'terrain'
             });
 
             // Create a renderer for directions and bind it to the map.
-            var rendererOptions = {
-                map: map
-            }
-            // directionsRenderer = new google.maps.DirectionsRenderer(rendererOptions);
             directionsRenderer = new google.maps.DirectionsRenderer({
-                draggable: true,
+                // draggable: true,
                 map: map,
-                panel: document.getElementById("directionsPanel"),
+                // panel: document.getElementById("directionsPanel"),
             });
-            directionsRenderer.addListener("directions_changed", () => {
-                const directions = directionsRenderer.getDirections();
+            // directionsRenderer.addListener("directions_changed", () => {
+            //     const directions = directionsRenderer.getDirections();
 
-                if (directions) {
-                    computeTotalDistance(directions);
-                }
-            });
+            //     if (directions) {
+            //         computeTotalDistance(directions);
+            //     }
+            // });
 
         }
 
@@ -831,96 +823,96 @@
 
 
         // 地址自動完成 + 地圖的中心移到輸入結果的地址上
-        function siteAuto() {
+        // function siteAuto() {
 
-            let options = {
-                // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
-            };
+        //     let options = {
+        //         // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
+        //     };
 
-            let siteInput1 = document.querySelector('.google_input_text1');
-            let siteInput2 = document.querySelector('.google_input_text2');
+        //     let siteInput1 = document.querySelector('.google_input_text1');
+        //     let siteInput2 = document.querySelector('.google_input_text2');
 
-            // 監聽 input 變化
-            // if (siteInput)
-            siteInput1.addEventListener('input', function (event) {
-                let inputValue = event.target.value;
-                // 在這裡處理 inputValue
-            });
-            siteInput2.addEventListener('input', function (event) {
-                let inputValue = event.target.value;
-                // 在這裡處理 inputValue
-            });
+        //     // 監聽 input 變化
+        //     // if (siteInput)
+        //     siteInput1.addEventListener('input', function (event) {
+        //         let inputValue = event.target.value;
+        //         // 在這裡處理 inputValue
+        //     });
+        //     siteInput2.addEventListener('input', function (event) {
+        //         let inputValue = event.target.value;
+        //         // 在這裡處理 inputValue
+        //     });
 
-            // this.autocomplete = new google.maps.places.Autocomplete(this.$refs.site, options);
+        //     // this.autocomplete = new google.maps.places.Autocomplete(this.$refs.site, options);
 
-            var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
-            var autocomplete2 = new google.maps.places.Autocomplete(siteInput2, options);
+        //     var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
+        //     var autocomplete2 = new google.maps.places.Autocomplete(siteInput2, options);
 
-            // 地址的輸入框，值有變動時執行
-            autocomplete1.addListener('place_changed', () => {
-                this.place = autocomplete1.getPlace(); // 地點資料存進place
+        //     // 地址的輸入框，值有變動時執行
+        //     autocomplete1.addListener('place_changed', () => {
+        //         this.place = autocomplete1.getPlace(); // 地點資料存進place
 
-                // 確認回來的資料有經緯度
-                if (this.place.geometry) {
+        //         // 確認回來的資料有經緯度
+        //         if (this.place.geometry) {
 
-                    // 改變map的中心點
-                    let searchCenter = this.place.geometry.location;
+        //             // 改變map的中心點
+        //             let searchCenter = this.place.geometry.location;
 
-                    // panTo是平滑移動、setCenter是直接改變地圖中心
-                    this.map.panTo(searchCenter);
+        //             // panTo是平滑移動、setCenter是直接改變地圖中心
+        //             this.map.panTo(searchCenter);
 
-                    // 在搜尋結果的地點上放置標記
-                    let marker = new google.maps.Marker({
-                        // icon: {
-                        //     path: google.maps.SymbolPath.CIRCLE,
-                        //     scale: 10
-                        // },
-                        position: searchCenter,
-                        map: this.map
-                    });
+        //             // 在搜尋結果的地點上放置標記
+        //             let marker = new google.maps.Marker({
+        //                 // icon: {
+        //                 //     path: google.maps.SymbolPath.CIRCLE,
+        //                 //     scale: 10
+        //                 // },
+        //                 position: searchCenter,
+        //                 map: this.map
+        //             });
 
-                    // info window
-                    let infowindow = new google.maps.InfoWindow({
-                        content: this.place.formatted_address
-                    });
-                    infowindow.open(this.map, marker);
-                }
-            });
-            autocomplete2.addListener('place_changed', () => {
-                this.place = autocomplete2.getPlace(); // 地點資料存進place
+        //             // info window
+        //             let infowindow = new google.maps.InfoWindow({
+        //                 content: this.place.formatted_address
+        //             });
+        //             infowindow.open(this.map, marker);
+        //         }
+        //     });
+        //     autocomplete2.addListener('place_changed', () => {
+        //         this.place = autocomplete2.getPlace(); // 地點資料存進place
 
-                // 確認回來的資料有經緯度
-                if (this.place.geometry) {
+        //         // 確認回來的資料有經緯度
+        //         if (this.place.geometry) {
 
-                    // 改變map的中心點
-                    let searchCenter = this.place.geometry.location;
+        //             // 改變map的中心點
+        //             let searchCenter = this.place.geometry.location;
 
-                    // panTo是平滑移動、setCenter是直接改變地圖中心
-                    this.map.panTo(searchCenter);
+        //             // panTo是平滑移動、setCenter是直接改變地圖中心
+        //             this.map.panTo(searchCenter);
 
-                    // 在搜尋結果的地點上放置標記
-                    let marker = new google.maps.Marker({
-                        // icon: {
-                        //     path: google.maps.SymbolPath.CIRCLE,
-                        //     scale: 10
-                        // },
-                        position: searchCenter,
-                        map: this.map
-                    });
+        //             // 在搜尋結果的地點上放置標記
+        //             let marker = new google.maps.Marker({
+        //                 // icon: {
+        //                 //     path: google.maps.SymbolPath.CIRCLE,
+        //                 //     scale: 10
+        //                 // },
+        //                 position: searchCenter,
+        //                 map: this.map
+        //             });
 
-                    // info window
-                    let infowindow = new google.maps.InfoWindow({
-                        content: this.place.formatted_address
-                    });
-                    infowindow.open(this.map, marker);
-                }
-            });
-        }
+        //             // info window
+        //             let infowindow = new google.maps.InfoWindow({
+        //                 content: this.place.formatted_address
+        //             });
+        //             infowindow.open(this.map, marker);
+        //         }
+        //     });
+        // }
         //manual fixed
-        var start_el = document.getElementById('start');
-        var end_el = document.getElementById('end');
-        var start = start_el.value;
-        var end = end_el.value;
+        // var start_el = document.getElementById('start');
+        // var end_el = document.getElementById('end');
+        // var start = start_el.value;
+        // var end = end_el.value;
         // var myAttrAddr_el = document.getElementById("myAttrAddr");
         // var myAttrAddr = myAttrAddr_el.value;
 
@@ -984,7 +976,7 @@
                 // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
             };
 
-            let siteInput1 = document.querySelector('#searchAttrByName');
+            let siteInput1 = document.querySelector('#start');
             // let siteInput1 = myAttrAddr_el;
 
             var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
@@ -1114,37 +1106,33 @@
         //********************************************更改結束***********************************************
 
 
-        start_el.addEventListener('change', function () {
-            console.log("From: " + start_el.value + ",  To: " + end_el.value);
-            siteAuto();
-            calculateTravelTime(start_el.value, end_el.value, travelMode);
-            displayRoute(
-                start_el.value,// "Perth, WA",haight
-                end_el.value,// "Sydney, NSW",oceanBeach
-                directionsService,
-                directionsRenderer
-            );
-        })
-        end_el.addEventListener('change', function () {
-            console.log("From: " + start_el.value + ",  To: " + end_el.value);
-            siteAuto();
-            calculateTravelTime(start_el.value, end_el.value, travelMode);
-            displayRoute(
-                start_el.value,// "Perth, WA",haight
-                end_el.value,// "Sydney, NSW",oceanBeach
-                directionsService,
-                directionsRenderer
-            );
-        })
+        // start_el.addEventListener('change', function () {
+        //     console.log("From: " + start_el.value + ",  To: " + end_el.value);
+        //     siteAuto();
+        //     calculateTravelTime(start_el.value, end_el.value, travelMode);
+        //     displayRoute(
+        //         start_el.value,// "Perth, WA",haight
+        //         end_el.value,// "Sydney, NSW",oceanBeach
+        //         directionsService,
+        //         directionsRenderer
+        //     );
+        // })
+        // end_el.addEventListener('change', function () {
+        //     console.log("From: " + start_el.value + ",  To: " + end_el.value);
+        //     siteAuto();
+        //     calculateTravelTime(start_el.value, end_el.value, travelMode);
+        //     displayRoute(
+        //         start_el.value,// "Perth, WA",haight
+        //         end_el.value,// "Sydney, NSW",oceanBeach
+        //         directionsService,
+        //         directionsRenderer
+        //     );
+        // })
 
 
         // 監聽網頁載入事件
         window.addEventListener('load', () => {
-            // googleMap.initMap();
-            // googleMap.siteAuto();
             reloadMap();
-
-
         });
 
         function reloadMap() {
@@ -1153,7 +1141,8 @@
             if (directionsRenderer == undefined || directionsRenderer == null)
                 directionsRenderer = new google.maps.DirectionsRenderer();
             initMap();
-            siteAuto();
+            singleSiteAuto();
+            // siteAuto();
         }
 
         // 監聽夜間模式變化
@@ -1164,6 +1153,29 @@
 
         // 2023/09/11
         function mapApiBetw2(travelIconCount) {
+            const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);
+            const ancestor = travelIconCount_el.parentElement.parentElement.parentElement;
+            const prevCell = ancestor.previousSibling.lastChild;
+            const nextCell = ancestor.nextSibling;
+
+            var addr1 = document.querySelector(`#attrAddr${travelIconCount}`).innerText;
+            var addr2 = document.querySelector(`#attrAddr${travelIconCount + 1}`).innerText;
+            console.log("addr1: " + addr1);
+            console.log("addr2: " + addr2);
+
+
+            let result = [addr1, addr2];
+            calculateTravelTime2(travelIconCount, addr1, addr2, travelIconCount_el.value);
+            // computeTotalDistance2(travelIconCount, result);
+
+
+            // console.log('Travel Duration:', totalDuration);
+            // console.log(totalDistance + " km");
+
+            console.log("In mapApiBetw2");
+        }
+        function reloadMapApiBetw2(travelIconCount) {
+            initMap();
             const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);
             const ancestor = travelIconCount_el.parentElement.parentElement.parentElement;
             const prevCell = ancestor.previousSibling.lastChild;
@@ -1240,6 +1252,7 @@
                     let total = 0;
                     for (let i = 0; i < route.legs.length; i++) {
                         total += route.legs[i].distance.value;
+                        console.log(i);
                     }
 
                     total = total / 1000;
@@ -1254,6 +1267,8 @@
                     row.classList.add("transTotalTime");
                     row.innerHTML = `
                     <span class="totalTime">${duration}</span>
+                    <span style="z-inedx:1;" class="showRoute" onclick="showRoute('DRIVING')">顯示路線</span>
+                    <button onclick="showRoute(${travelIconCount})">顯示路線</button>
                     <span class="totalDistance">${total} km</span>
                     `;
                     transTotalTime_el.appendChild(row);
@@ -1262,6 +1277,88 @@
                 } else {
                     console.log('Directions request failed:', status);
                 }
+            });
+        }
+
+        
+
+        function calculateMultipleTravelTimes(waypoints, travelMode) {
+            // 设置起点、终点和途经点
+            var origin = waypoints[0];
+            console.log(waypoints[0]);
+            var destination = waypoints[waypoints.length - 1];
+            var intermediateWaypoints = waypoints.slice(1, waypoints.length - 1);
+
+            // 构建请求对象
+            var request = {
+                origin: origin,
+                destination: destination,
+                waypoints: intermediateWaypoints.map(function (waypoint) {
+                    return { location: waypoint, stopover: true };
+                }),
+                travelMode: travelMode // 可以是 'DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'
+            };
+
+            // 调用 Directions Service 来计算旅程时间
+            directionsService.route(request, function (response, status) {
+                if (status === 'OK') {
+                    // 更新 Directions Renderer 显示路线
+                    directionsRenderer.setDirections(response);
+
+                    
+                } else {
+                    console.log('Directions request failed:', status);
+                }
+            });
+        }
+
+        // function showAllRoute(travelMode) {
+        //     calculateMultipleTravelTimes(getAllWaypoints(),travelMode);
+        // }
+        // function showRoute(wayoints,travelMode) {
+        //     calculateMultipleTravelTimes(wayoints,travelMode);
+        // }
+        function showRoute(travelIconCount) {
+            initMap();
+            const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);
+
+            const ancestor = travelIconCount_el.parentElement.parentElement.parentElement;
+            const prevCell = ancestor.previousSibling.lastChild;
+            const nextCell = ancestor.nextSibling;
+
+            var addr1 = document.querySelector(`#attrAddr${travelIconCount}`).innerText;
+            var addr2 = document.querySelector(`#attrAddr${travelIconCount + 1}`).innerText;
+            console.log("addr1: " + addr1);
+            console.log("addr2: " + addr2);
+
+            let result = [addr1, addr2];
+            var request = {
+                origin: addr1,
+                destination: addr2,
+                travelMode: travelIconCount_el.value // 可以是 'DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'
+            };
+
+            // 调用 Directions Service 来计算旅程时间
+            directionsService.route(request, function (response, status) {
+                if (status === 'OK') {
+                    // 获取路线和旅程信息
+                    var route = response.routes[0];
+                    var legs = route.legs[0];
+
+                    var duration = legs.duration.text;
+
+                    let total = 0;
+                    for (let i = 0; i < route.legs.length; i++) {
+                        total += route.legs[i].distance.value;
+                        console.log(i);
+                    }
+
+                    total = total / 1000;
+                    console.log(total + " km");
+                    totalDuration = duration;
+                    // 更新 Directions Renderer 显示路线
+                    directionsRenderer.setDirections(response);
+                };
             });
         }
 
