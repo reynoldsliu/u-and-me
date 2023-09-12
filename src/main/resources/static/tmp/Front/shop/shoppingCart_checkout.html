@@ -28,45 +28,45 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li class="nav-item me-2">
-                  <a class="nav-link" href="../ActivityIndex.html">活動資訊</a>
-              </li>
-              <li class="nav-item me-2">
-                  <a class="nav-link" href="#">旅遊景點</a>
-              </li>
-              <li class="nav-item dropdown me-2">
-                  <a class="nav-link dropdown-toggle" href="scheduleList.html" role="button"
-                      data-bs-toggle="dropdown" aria-expanded="false">行程規劃</a>
-                  <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="scheduleList.html">旅遊行程</a></li>
-                      <li>
-                          <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="mySchedule.html">我的行程</a></li>
-                  </ul>
-              </li>
-              <li class="nav-item me-2">
-                  <a class="nav-link" href="../group/groupList.html">揪團專區</a>
-              </li>
-              <li class="nav-item me-2">
-                  <a class="nav-link" href="#">旅遊商城</a>
-              </li>
-              <li class="nav-item me-2">
-                  <a class="nav-link" href="../article/articleindex/ArticleIndex.html">論壇專區</a>
-              </li>
-              <li class="nav-item dropdown me-2">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">客服專區</a>
-                  <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="../CutomerQa.html">Q&A專欄</a></li>
-                      <li>
-                          <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="../CutomerContact.html">聯絡我們</a></li>
-                  </ul>
-              </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="../ActivityIndex.html">活動資訊</a>
+            </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="#">旅遊景點</a>
+            </li>
+            <li class="nav-item dropdown me-2">
+              <a class="nav-link dropdown-toggle" href="scheduleList.html" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">行程規劃</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="scheduleList.html">旅遊行程</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="mySchedule.html">我的行程</a></li>
+              </ul>
+            </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="../group/groupList.html">揪團專區</a>
+            </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="#">旅遊商城</a>
+            </li>
+            <li class="nav-item me-2">
+              <a class="nav-link" href="../article/articleindex/ArticleIndex.html">論壇專區</a>
+            </li>
+            <li class="nav-item dropdown me-2">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">客服專區</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="../CutomerQa.html">Q&A專欄</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="../CutomerContact.html">聯絡我們</a></li>
+              </ul>
+            </li>
           </ul>
-      </div>
+        </div>
 
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
@@ -147,23 +147,42 @@
           </span>
           <div class="row shadow-lg p-3 mb-5 bg-body rounded">
             <div class="row">
+              <h4>會員資訊</h4>
+            </div>
+
+            <hr>
+            <div class="col-md-6">
+              <label for="memName" class="col-form-label">姓名</label>
+              <input type="text" id="memName" title="會員姓名" class="form-control" readonly
+                aria-describedby="passwordHelpInline">
+
+            </div>
+            <div class="col-md-6">
+              <label for="memEmail" class="col-form-label">E-mail</label>
+              <input type="text" id="memEmail" title="會員Email" class="form-control"
+                aria-describedby="passwordHelpInline">
+            </div>
+            <div class="row mt-5">
               <h4>收件資訊填寫</h4>
             </div>
 
             <hr>
             <div class="col-md-6">
               <label for="recipientName" class="col-form-label">姓名</label>
-              <input type="text" id="recipientName" title="請輸入收件人姓名" placeholder="請輸入收件人姓名" class="form-control" aria-describedby="passwordHelpInline">
+              <input type="text" id="recipientName" title="請輸入收件人姓名" placeholder="請輸入收件人姓名" class="form-control"
+                aria-describedby="passwordHelpInline">
 
             </div>
             <div class="col-md-6">
               <label for="recipientPhone" class="col-form-label">電話</label>
-              <input type="text" id="recipientPhone" title="請輸入收件人電話" placeholder="請輸入收件人電話" class="form-control" aria-describedby="passwordHelpInline">
+              <input type="text" id="recipientPhone" title="請輸入收件人電話" placeholder="請輸入收件人電話" class="form-control"
+                aria-describedby="passwordHelpInline">
 
             </div>
             <div class="col-md-12">
               <label for="recipientAddr" class="col-form-label">地址</label>
-              <input type="text" id="recipientAddr" title="請輸入收件人地址" placeholder="請輸入收件人地址"class="form-control" aria-describedby="passwordHelpInline">
+              <input type="text" id="recipientAddr" title="請輸入收件人地址" placeholder="請輸入收件人地址" class="form-control"
+                aria-describedby="passwordHelpInline">
 
             </div>
 
@@ -178,27 +197,27 @@
             <!--                    <h3>付款方式</h3>-->
             <!--                </div>-->
             <!--                <hr>-->
-            
+
             <!--                <div class="row">-->
             <!--                    <div class="col-auto">-->
-            
+
             <!--                        <div class="form-check">-->
             <!--                            <label for="payType" class="col-form-label">信用卡/簽帳金融卡</label>-->
             <!--                            <input type="text" id="payType" class="form-control" aria-describedby="passwordHelpInline">-->
             <!--                        </div>-->
-            
-            
+
+
             <!--                    </div>-->
             <!--                    <div class="col-auto">-->
             <!--                        <label for="cardValid" class="col-form-label">有效日期</label>-->
             <!--                        <input type="text" id="cardValid" class="form-control" aria-describedby="passwordHelpInline">-->
-            
+
             <!--                    </div>-->
             <!--                    <div class="col-1">-->
             <!--                        <label for="scv" class="col-form-label">末三碼</label>-->
             <!--                        <input type="text" id="scv" class="form-control" aria-describedby="passwordHelpInline">-->
             <!--                    </div>-->
-            
+
             <!--                    <br>-->
             <!--                    <br>-->
             <!--                    <h6> *卡號用於保留資格 </h6>-->
@@ -213,11 +232,11 @@
           </div>
           <!-- ===== 結束 ===== -->
         </div>
-    </form>
-  </div>
+      </form>
+    </div>
 
   </div>
- 
+
 
 
   <!-- -----Footer----- -->
@@ -275,76 +294,140 @@
 <script>
 
   const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
- 
+
   //-----取得元素-----
   const totalPriceCount_el = document.getElementById('totalPriceCount');
   const finalTotalPrice_el = document.getElementById('finalTotalPrice');
+  const memName_el = document.getElementById('memName');
+  const memEmail_el = document.getElementById('memEmail');
   const recipientPhone_el = document.getElementById('recipientPhone');
   const recipientName_el = document.getElementById('recipientName');
   const recipientAddr_el = document.getElementById('recipientAddr');
-  
   const orderConfirmedBtn_el = document.getElementById('orderConfirmedBtn');
+  let totalPriceCount = 0;
+  let finalTotalPrice = 0;
 
+  //-----載入後顯示總金額+會員名/email-----
+  document.addEventListener("DOMContentLoaded", function () {
+    fetchCartList();
 
-  //-----載入後顯示總金額-----
-     document.addEventListener("DOMContentLoaded", function () {
-      fetchCartList();
-      // fetchMember();
-    })
+    // 先獲取 memId
+    fetch(`${baseUrl}member/getMemId`)
+      .then(response => response.json())
+      .then(data => {
+        const memId = data.memId;
+        // console.log(data);
+        // console.log(memId);
+        fetchMember(memId);
+      })
+      .catch(error => {
+        console.error('Error fetching memId:', error);
+      });
+  })
 
-  //取得整個購物車清單
+  // 再取得會員資料 姓名+email
+  async function fetchMember(memId) {
+    const response = await fetch(`${baseUrl}member/Details/${memId}`);
+    const memberDetail = await response.json();
+    // console.log(memberDetail);
+    memName_el.value = memberDetail.memName;
+    memEmail_el.value = memberDetail.memEmail;
+  }
+
+  // 取得整個購物車清單
   async function fetchCartList() {
-      const response = await fetch(`${baseUrl}showAllCartList`);
-      const cartLists = await response.json();
-   console.log(cartLists);
+    const response = await fetch(`${baseUrl}showAllCartList`);
+    const cartLists = await response.json();
+    // console.log(cartLists);
 
-  // List 購物車清單 從資料庫拿到每一筆小計+運費就會是總金額顯示
- 
-  // 初始化總金額
-  totalPriceCount = 0;
-  finalTotalPrice = 0;
+    // // /將總計從httpSession拿出來
+    //   async function getTotal() {
+    //     const response = await fetch(`${baseUrl}getTotal`, {
+    //       method: 'GET',
+    //       headers: { 'Content-Type': 'application/json' }
+    //     });
 
-  //cartLists 是包含所有購物車清單的陣列
-  for (const cartList of cartLists) {
+    //     if (response.ok) {
+    //       // console.log(response);
+    //       const data = await response.json();
+    //       const total = data.total;
+    //       return total;
+    //       console.log(total);
+    //       // console.log('Response JSON:', total);
+    //       // return {total};
+    //     } 
+    // }
+    // finalTotalPrice = total + 80;
+    // finalTotalPrice_el.innerText = "訂單總金額:" + finalTotalPrice + "元";
+    
+
+
+
+    // List 購物車清單 從資料庫拿到每一筆小計+運費就會是總金額顯示
+
+    // 初始化總金額
+
+    //cartLists 是包含所有購物車清單的陣列
+    for (const cartList of cartLists) {
       // cartList 是購物車清單中的一項
       // 取到小計金額
       if (cartList.cartPri) {
-          // 將 cartPri 的值轉換為數字並加到總金額
-          totalPriceCount += parseFloat(cartList.cartPri);
+        // 將 cartPri 的值轉換為數字並加到總金額
+        totalPriceCount += parseInt(cartList.cartPri);
       }
-          finalTotalPrice= totalPriceCount + 80;
-          console.log(finalTotalPrice);
-          finalTotalPrice_el.innerText = "訂單總金額:" + finalTotalPrice + "元";
-  }
-}  
-
-  //按下確認結帳按鈕，前往結帳&生成一筆新的訂單
-  orderConfirmedBtn.addEventListener('click', function(){
-
-  // 將資料包裝成一個物件
-  const send_data = {
-    ordFee: 80,
-    recipientPhone: recipientPhone_el.value,
-    // ordPaySta:不知道怎麼取得!!!,
-    recipientName: recipientName_el.value,
-    recipientAddr: recipientAddr_el.value,
-    // ordSta:不知道怎麼取得!!!,
-    total: totalPriceCount.value,
-    checktotal: finalTotalPrice_el.value,
-    // ordTime:不知道怎麼取得!!!
-  }
-  //不確定是否是用這個controller!!!
-  fetch(`${baseUrl}orders`,{
-    method: 'POST',
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(send_data)
-  })
-
-  })
-
-
-
+    }
+      finalTotalPrice = totalPriceCount + 80;
+      // console.log(finalTotalPrice);
+      // totalPriceCount_el.innerText = "總計:" + totalPriceCount + "元";
+      finalTotalPrice_el.innerText = "訂單總金額:" + finalTotalPrice + "元";
+      console.log(totalPriceCount);
+    }
+    
   
+
+
+  // 按下確認結帳按鈕，前往結帳&生成一筆新的訂單
+    orderConfirmedBtn.addEventListener('click', async function () {
+      try {
+          // const total = await getTotal();
+          // 將資料包裝成一個物件
+          const send_data = {
+            recipientPhone: recipientPhone_el.value,
+            recipientName: recipientName_el.value,
+            recipientAddr: recipientAddr_el.value,
+            total: totalPriceCount,
+            checktotal: finalTotalPrice
+          }
+          // console.log(totalPriceCount);
+          // console.log(finalTotalPrice);
+          const response = await fetch(`${baseUrl}member/orders`, {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(send_data)
+
+          });
+          if (response.ok) {
+              console.log(`${baseUrl}member/orders`);
+            } else {
+              console.error('Failed to submit order.');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+            });
+
+
+      
+  
+
+// 過了頁面就拿不到，就要放session 
+ // .then(跳轉結帳);
+ //新增一筆訂單
+    // .then(寄email通知);
+    // 購物車刪除
+    // .then(跳轉到list訂單資料頁面);
+
+
 </script>
 
 </html>

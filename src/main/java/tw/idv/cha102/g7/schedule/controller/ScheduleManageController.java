@@ -5,9 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
+import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +34,24 @@ public class ScheduleManageController {
     public ResponseEntity<List<Schedule>> findByMemId(@PathVariable Integer memId,
                                                       @PathVariable int page) {
         List<Schedule> mySchedules = service.getAllByMemId(memId, page)
+                .collect(Collectors.toList());
+        return new ResponseEntity(mySchedules, HttpStatus.OK);
+    }
+
+    /**
+     * 會員
+     * 查詢使用者自己所有建立過的行程清單(依照起始日期升冪排序)
+     *
+     * @param page  頁數
+     * @return 返回查詢結果
+     */
+    @GetMapping("/my/{page}")
+    public ResponseEntity<List<Schedule>> findByMemIdDESC(HttpServletRequest request,
+                                                          @PathVariable int page) {
+        HttpSession session = request.getSession();
+        String jsessionId = session.getAttribute("memberId").toString();
+        Integer memId = Integer.parseInt(jsessionId);
+        List<Schedule> mySchedules = service.getAllByMemIdASC(memId, page)
                 .collect(Collectors.toList());
         return new ResponseEntity(mySchedules, HttpStatus.OK);
     }
@@ -71,6 +92,41 @@ public class ScheduleManageController {
                 .collect(Collectors.toList());
         return new ResponseEntity(mySchedulesNameASC, HttpStatus.OK);
     }
+
+    /**
+     * 會員
+     * 以行程天數由小到大排序，查詢該會員的行程
+     *
+     * @param page 頁數
+     * @return 返回查詢結果
+     */
+    @GetMapping("/days/{page}")
+    public ResponseEntity<List<ScheduleDayDTO>> findOrderByDays(HttpServletRequest request, @PathVariable int page) {
+        HttpSession session = request.getSession();
+        String jsessionId = session.getAttribute("memberId").toString();
+        Integer memId = Integer.parseInt(jsessionId);
+        List<ScheduleDayDTO> schedules = service.findByMemIdOrderByDays(memId, page)
+                .collect(Collectors.toList());
+        return new ResponseEntity(schedules, HttpStatus.OK);
+    }
+
+    /**
+     * 會員
+     * 以行程天數由大到小排序，查詢該會員的行程
+     *
+     * @param page 頁數
+     * @return 返回查詢結果
+     */
+    @GetMapping("/daysDESC/{page}")
+    public ResponseEntity<List<ScheduleDayDTO>> findOrderByDaysDESC(HttpServletRequest request, @PathVariable int page) {
+        HttpSession session = request.getSession();
+        String jsessionId = session.getAttribute("memberId").toString();
+        Integer memId = Integer.parseInt(jsessionId);
+        List<ScheduleDayDTO> schedules = service.findByMemIdOrderByDaysDESC(memId, page)
+                .collect(Collectors.toList());
+        return new ResponseEntity(schedules, HttpStatus.OK);
+    }
+
 
     /**
      * 會員

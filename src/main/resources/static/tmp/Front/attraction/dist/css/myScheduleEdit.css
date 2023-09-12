@@ -150,7 +150,7 @@ div.schDetailsTopBar {
 a#backToMySchedule {
     /* border: 1px solid green; */
     /* 調整用 */
-    width: 66px;
+    width: 65px;
     height: 100%;
     display: inline-block;
     font-size: 28px;
@@ -645,7 +645,7 @@ span.selectTransMode {
     width: 80px;
     height: 100%;
     position: relative;
-    top: -4%;
+    top: -25px;
     left: 2%;
     vertical-align: middle;
 }
@@ -677,7 +677,8 @@ span.transTotalTime {
 /* 總時間 */
 span.totalTime {
     /* border: 1px solid red; */
-    width: 35%;
+    display: inline-block;
+    width: 55%;
     height: 100%;
     font-size: 1rem;
     font-weight: bold;
@@ -687,6 +688,20 @@ span.totalTime {
     position: absolute;
     top: 0;
 }
+
+span.totalDistance{
+    /* border: 1px solid green; */
+    display: inline-block;
+    width: 40%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-top: 5%;
+    text-align: end;
+}
+
+
 
 /* ============ 查看行程細節結束 ============ */
 
@@ -824,10 +839,18 @@ input {
 }
 
 /* 下面的搜尋欄 */
+input#searchAttrByName {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 70%;
+}
+
+/* 暫時隱藏起來(終點搜尋) */
 input.google_input_text2 {
     margin-top: 5px;
     margin-bottom: 5px;
     width: 70%;
+    display: none;
 }
 
 /* 選擇交通方式區塊 */
@@ -1008,6 +1031,23 @@ input.customizeInput.-off {
 }
 
 
+a.myAttrGlass {
+    position: absolute;
+    left: 88%;
+    top: 29.4%;
+    font-size: 20px;
+    color: green;
+    background-color: white;
+    /* border: 1px solid red;  */
+    border-radius: 6px;
+    vertical-align: middle;
+    text-align: center;
+    width: 27px;
+    height: 36px;
+    padding-top: 5px;
+}
+
+
 /* 待加入景點上傳照片的部分 */
 input#attrPicFilesInput {
     /* border: 1px solid green; */
@@ -1025,7 +1065,6 @@ div#attrPicsPreview {
     left: 12%;
     margin-top: 5px;
 }
-
 
 /* =============== 自訂景點結束 ============== */
 

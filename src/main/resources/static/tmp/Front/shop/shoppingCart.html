@@ -276,7 +276,7 @@
               <span>元</span>
             </div>
             <div class="cart-continue-wrapper">
-              <button id="confirmCartList" onclick="window.location.href = 'shoppingCartNext.html'" type="button" name="submit.x"
+              <button id="confirmCartList" onclick="window.location.href = 'shoppingCart_checkout.html'" type="button" name="submit.x"
                 class="btn btn-secondary btn-lg">確認訂單內容</button>
             </div>
             <div class="cart-notice" id="cart_promotion_block"></div>
@@ -435,8 +435,8 @@
        async function reduceCart(prodId) {
             let quantityInput = document.getElementById("quantityInput"+prodId);
             let currentValue = parseInt(quantityInput.value); 
-            console.log("quantityInput: "+quantityInput.value);
-            console.log("currentValue: "+currentValue);
+            // console.log("quantityInput: "+quantityInput.value);
+            // console.log("currentValue: "+currentValue);
             // let currentValue = quantityInput.value;
             if (currentValue > 0) {
                 currentValue -= 1;
@@ -444,7 +444,7 @@
                 quantityInput.value = currentValue;
                 updateCart(prodId);
             }
-
+            //數量為0，刪除此明細
             if (currentValue === 0){
               quantityInput.value = currentValue;
               await deleteCart(prodId);
@@ -509,7 +509,7 @@
                 body: JSON.stringify(cartList)
             }).then(resp => resp.json())
               .then(data =>{
-                    
+                saveTotal(toTalCountFinal);
               })
              
         }
@@ -517,6 +517,25 @@
         function calculateNewCartPrice(ProdPri,quantityFinal){
               return ProdPri * quantityFinal;
         }
+
+        //將總計存在httpSession
+          function saveTotal(total) {
+          fetch(`${baseUrl}saveTotal/${total}`, {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({ total: total })
+          })
+          .then(resp => resp.json())
+          .then(data => {
+              console.log('Total saved:', data);
+          })
+          .catch(error => {
+              console.error('Error saving total:', error);
+          });
+           }
+
+
+
 
         //刪除購物車明細
         function deleteCart(prodId){

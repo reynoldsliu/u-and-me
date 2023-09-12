@@ -7,6 +7,7 @@ import tw.idv.cha102.g7.shop.entity.CartListId;
 import tw.idv.cha102.g7.shop.service.CartService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,5 +99,23 @@ public class CartListController {
             System.out.println("memId: "+memId);
         }
        return cartService.updateCartListQty(memId, prodId, cartQty, cartPri);
+    }
+
+    @RequestMapping("/saveTotal/{total}")
+    public Integer saveTotal(HttpServletRequest request,
+                             @PathVariable Integer total){
+        HttpSession session = request.getSession();
+        session.setAttribute("total",total);
+        return total;
+    }
+    @RequestMapping("/getTotal")
+    public Integer getTotal(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Object obj= session.getAttribute("total");
+        if(obj==null){
+            return null;
+        }
+        Integer total = Integer.parseInt(obj.toString());
+        return total;
     }
 }

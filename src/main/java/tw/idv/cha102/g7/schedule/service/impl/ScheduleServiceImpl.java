@@ -44,7 +44,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 //                        Sort.by("schStart").descending())); //依造sch_start欄位降冪排序
 //            List<Schedule> scheduleList = pageResult.getContent();
 //            List<Schedule> filtScheList = scheduleList.stream().filter(schedule -> schedule.getSchPub() == 2).collect(Collectors.toList());
-//        (航)可能會運用到的方法
+//        可能會運用到的方法
 //        pageResult.getNumberOfElements(); //本頁筆數
 //        pageResult.getSize(); //每頁筆數
 //        pageResult.getTotalElements(); //全部筆數
@@ -103,17 +103,34 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Stream<Schedule> getAllByMemId(Integer memId, int page) {
         Sort sort = Sort.by(Sort.Direction.DESC, "sch_start");
         Pageable pageable = PageRequest.of(page, 6, sort);
-        return repository.findByMemId(memId, pageable).get();
+        return repository.findByMemIdPaged(memId, pageable).get();
     }
 
     @Override
-    public Stream<Schedule> findByMemIdAndSchNameDESC(Integer memId,String schName, int page) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "sch_start");
+    public Stream<Schedule> getAllByMemIdASC(Integer memId, int page) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "sch_start");
         Pageable pageable = PageRequest.of(page, 6, sort);
-        return repository.findByMemIdAndSchName(memId,schName, pageable).get();
+        return repository.findByMemIdPaged(memId, pageable).get();
     }
 
+    @Override
+    public Stream<Schedule> findByMemIdAndSchNameDESC(Integer memId, String schName, int page) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "sch_start");
+        Pageable pageable = PageRequest.of(page, 6, sort);
+        return repository.findByMemIdAndSchName(memId, schName, pageable).get();
+    }
 
+    @Override
+    public Stream<ScheduleDayDTO> findByMemIdOrderByDays(Integer memId, int page) {
+        Pageable pageable = PageRequest.of(page, 6);
+        return repository.findByMemIdOrderByDays(memId, pageable).get();
+    }
+
+    @Override
+    public Stream<ScheduleDayDTO> findByMemIdOrderByDaysDESC(Integer memId, int page) {
+        Pageable pageable = PageRequest.of(page, 6);
+        return repository.findByMemIdOrderByDaysDESC(memId, pageable).get();
+    }
 
     @Override
     public Schedule create(Schedule schedule) {
@@ -125,14 +142,14 @@ public class ScheduleServiceImpl implements ScheduleService {
     public String deleteOneSchedule(Integer schId) {
         // 刪除行程前，需先刪除與其關聯的相關欄位
         // 從行程標籤清單中刪除行程與標籤關聯
-        int deleteTags =  tagService.deleteScheduleTagListBySchId(schId);
+        int deleteTags = tagService.deleteScheduleTagListBySchId(schId);
         // 此行程的所有行程細節均需刪除
         int deleteDetails = detailService.deleteDetailsInSch(schId);
         // 與此行程相關的行程檢舉要刪除
         // 活動推薦行程與揪團關聯行程清單記得要刪掉
         // 刪除行程
         repository.deleteById(schId);
-        return "成功刪除"+deleteTags+"個標籤，"+deleteDetails+"個行程細節";
+        return "成功刪除" + deleteTags + "個標籤，" + deleteDetails + "個行程細節";
     }
 
     @Override

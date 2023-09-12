@@ -5,12 +5,14 @@ const classSwitchOff = "-off";
 let search_btn_el = document.getElementById("search-btn");
 let keywords_el = document.getElementById("keywords");
 let sortByStart_el = document.getElementById("sortByStart");
+let sortByStartASC_el = document.getElementById("sortByStartASC");
 let sortByDays_el = document.getElementById("sortByDays");
+let sortByDaysDESC_el = document.getElementById("sortByDaysDESC");
 
 // 分頁元素
-let pageSelect1_el = document.getElementById("pageSelect1");
-let pageSelect2_el = document.getElementById("pageSelect2");
-let pageSelect3_el = document.getElementById("pageSelect3");
+const pageSelect_els = document.querySelectorAll("li.page-item");
+const page_els = document.querySelectorAll("li.page-item>a");
+const pagination_el = document.querySelector("ul.pagination");
 
 // 新增行程標籤
 const btn_schDone = document.getElementById("schDone");
@@ -95,28 +97,23 @@ function isDateValid(dateS, dateE) {
 // ---------- 行程參數驗證相關函式結束 -----------
 
 
-
-
-
-
-
-let e = 0; //用來控制分頁
-
 // ====== 載入我的行程頁面，將所有該會員的行程列表查出 ======
+let page = 0; // 從第一個分頁開始
 document.addEventListener("DOMContentLoaded", async function () {
   // 拿取會員id
   const response = await fetch(baseURL + `member/getMemId`);
   const member = await response.json();
   const memId = member.memId;
+
   // 查詢會員建立的私人行程
-  fetchMyScheduleList(myURL, memId, e);
+  fetchMyScheduleList(`${myURL + memId}`, page);
 });
 
 // =============== 查詢會員專屬的行程 ===============
-async function fetchMyScheduleList(URL, memId, e) {
-  
+async function fetchMyScheduleList(URL, page) {
+
   try {
-    const response = await fetch(URL + memId + "/" + e);
+    const response = await fetch(`${URL}/${page}`);
     const schList = await response.json();
 
     const schListInner = document.getElementById("schListInner");
@@ -167,84 +164,154 @@ async function fetchMyScheduleList(URL, memId, e) {
 }
 // ============ 查詢會員專屬的行程結束 =============
 
+// ================= 分頁查詢行程 ==================
+// 每次搜尋鈕觸發點擊事件時，就將分頁按鈕重置回第一頁
+function switchToPage1() {
+  pagination_el.style.display = "";
+  // 將分頁按鈕換成第一頁亮起
+  for (let pageSelect of pageSelect_els) {
+    if (pageSelect.classList.contains("active"))
+      pageSelect.classList.remove("active");
+  }
+  pageSelect_els[0].classList.add("active");
+}
 
+let searchSortByStartDESC = true; // (預設)查詢行程，並依照起始日期降冪排序(新到舊)
+let searchSortByStartASC = false; // 查詢行程，並依照起始日期升冪排序(舊到新)
+let searchByKeyWords = false; // 依照關鍵字查詢行程，並依照起始日期降冪排序
+let searchByDaysASC = false;  // 依照行程天數查詢行程，並依照天數(小到大)升冪排序
+let searchByDaysDESC = false; // 依照行程天數查詢行程，並依照天數(大到小)降冪排序
 
+// 依照起始日期降冪排序
+sortByStart_el.addEventListener("click", async function (event) {
+  event.preventDefault();
+  switchToPage1();
 
+  const response = await fetch(baseURL + `member/getMemId`);
+  const member = await response.json();
+  const memId = member.memId;
 
+  fetchMyScheduleList(`${myURL + memId}`, page);
+  searchSortByStartDESC = true;
+  searchSortByStartASC = false;
+  searchByKeyWords = false;
+  searchByDaysASC = false;
+  searchByDaysDESC = false;
+  // 清空搜尋關鍵字
+  keywords_el.value = "";
+});
 
-// ============ 分頁查詢行程 =============
+// 依照起始日期升冪排序
+sortByStartASC_el.addEventListener("click", async function (event) {
+  event.preventDefault();
+  switchToPage1();
+
+  let myURLASC = `${mySchbaseURL}my`;
+  fetchMyScheduleList(myURLASC, page);
+
+  searchSortByStartDESC = false;
+  searchSortByStartASC = true;
+  searchByKeyWords = false;
+  searchByDaysASC = false;
+  searchByDaysDESC = false;
+  // 清空搜尋關鍵字
+  keywords_el.value = "";
+});
+
+// 依行程天數排序行程清單(由小到大)，並依照起始日期降冪排序
+sortByDays_el.addEventListener("click", async function (event) {
+  event.preventDefault();
+  switchToPage1();
+
+  let daysURL = `${mySchbaseURL}days`;
+  fetchMyScheduleList(daysURL, page);
+
+  searchSortByStartDESC = false;
+  searchSortByStartASC = false;
+  searchByKeyWords = false;
+  searchByDaysASC = true;
+  searchByDaysDESC = false;
+  // 清空搜尋關鍵字
+  keywords_el.value = "";
+});
+
+// 依行程天數排序行程清單(由大到小)，並依照起始日期降冪排序
+sortByDaysDESC_el.addEventListener("click", async function (event) {
+  event.preventDefault();
+  switchToPage1();
+
+  let daysDESCURL = `${mySchbaseURL}daysDESC`;
+  fetchMyScheduleList(daysDESCURL, page);
+
+  searchSortByStartDESC = false;
+  searchSortByStartASC = false;
+  searchByKeyWords = false;
+  searchByDaysASC = false;
+  searchByDaysDESC = true;
+  // 清空搜尋關鍵字
+  keywords_el.value = "";
+});
+
 // 依關鍵字(行程名稱)搜尋會員自己的行程清單(依照起始日期降冪排序)
 search_btn_el.addEventListener("click", async function (event) {
   event.preventDefault();
+  switchToPage1();
+  pagination_el.style.display = "none";
 
   const responseMem = await fetch(baseURL + `member/getMemId`);
   const member = await responseMem.json();
   const memId = member.memId;
-  
+
   let keywords = keywords_el.value;
-  let keywordsURL = `${mySchbaseURL}${keywords}/`;
-  fetchMyScheduleList(keywordsURL,memId, e);
+  let keywordsURL = `${mySchbaseURL}${keywords}/${memId}`;
+  fetchMyScheduleList(keywordsURL, page);
 
-  // console.log(keywordsURL+memId+e);
+  searchSortByStartDESC = false;
+  searchSortByStartASC = false;
+  searchByKeyWords = true;
+  searchByDaysASC = false;
+  searchByDaysDESC = false;
 });
 
-// == 待改，依行程天數排序行程清單 ==
-sortByDays_el.addEventListener("click", function (event) {
-  event.preventDefault();
-  fetchMyScheduleList(daysURL, e);
-});
+// 將所有分頁標籤監聽click事件
+for (let pageSelect of pageSelect_els) {
 
-//== 以下為控制分頁(目前寫死) ==
+  pageSelect.addEventListener('click', async function (event) {
+    console.log(event.target); // 被點擊到的事件物件<a>標籤
+    console.log(event.target.innerText); // 被點擊到的分頁頁數
 
-pageSelect1_el.addEventListener('click', async function (e) {
+    event.preventDefault();
 
-  //增加actice 使分頁亮起來
-  pageSelect1_el.classList.toggle("active");
-  //刪除actice 使分頁暗下去
-  pageSelect2_el.classList.remove("active");
-  pageSelect3_el.classList.remove("active");
+    // 將所有active移除(使分頁暗下去)
+    for (let pageSelect of pageSelect_els) {
+      if (pageSelect.classList.contains("active"))
+        pageSelect.classList.remove("active");
+    }
+    // 將被點擊到的選項加上active(使分頁亮起來)
+    event.target.parentNode.classList.add("active");
 
-  //控制fetch傳入網址
-  e = 0
-  const response = await fetch(baseURL + `member/getMemId`);
-  const member = await response.json();
-  const memId = member.memId;
-  //調用方法
-  fetchMyScheduleList(myURL, memId, e);
-});
+    // 控制fetch傳入網址
+    const response = await fetch(baseURL + `member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
 
-pageSelect2_el.addEventListener('click', async function (e) {
-  pageSelect1_el.classList.remove("active");
-  pageSelect2_el.classList.toggle("active");
-  pageSelect3_el.classList.remove("active");
+    // 依照搜尋條件更換查詢行程內容
+    let sendURL = `${myURL + memId}`; // 預設依照起始日期(新到舊)查詢會員所有行程
+    if (searchSortByStartDESC === true)
+      sendURL = `${myURL + memId}`; // myDESCURL 依起始日期新到舊
+    else if (searchSortByStartASC === true)
+      sendURL = `${mySchbaseURL}my`; // myASCURL 依起始日期舊到新
+    else if (searchByDaysASC === true)
+      sendURL = `${mySchbaseURL}days`; // daysASCURL 依行程天數小到大
+    else if (searchByDaysDESC === true)
+      sendURL = `${mySchbaseURL}daysDESC`; // daysDESCURL 依行程天數大到小
+    else if (searchByKeyWords === true)
+      sendURL = `${mySchbaseURL}${keywords}/${memId}`;
 
-  e = 1;
-  const response = await fetch(baseURL + `member/getMemId`);
-  const member = await response.json();
-  const memId = member.memId;
-  fetchMyScheduleList(myURL, memId, e);
-});
-
-document.getElementById('pageSelect3').addEventListener('click', async function (e) {
-  pageSelect1_el.classList.remove("active");
-  pageSelect2_el.classList.remove("active");
-  pageSelect3_el.classList.toggle("active");
-
-  e = 2;
-  const response = await fetch(baseURL + `member/getMemId`);
-  const member = await response.json();
-  const memId = member.memId;
-  fetchMyScheduleList(myURL, memId, e);
-});
-
-// == 控制分頁結束 ==
-// ============ 分頁查詢行程結束 =============
-
-
-
-
-
-
+    fetchMyScheduleList(sendURL, (event.target.innerText - 1));
+  });
+}
+// ============== 分頁查詢行程結束 ===============
 
 // =============== 新增一個行程大綱 ===============
 // 將新增行程資料傳輸進資料庫，並回到我的行程頁面
