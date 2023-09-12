@@ -13,9 +13,10 @@ const points = document.getElementById('points');
 const recipientName = document.getElementById('recipientName');
 const recipientPhone = document.getElementById('recipientPhone');
 const recipientAddr = document.getElementById('recipientAddr');
+const check_el = document.getElementById('check');
 
-
-
+let ordId_val;
+let ordSta;
 //<!--網頁載入後執行-->
 document.addEventListener("DOMContentLoaded", async function () {
     // myOrderList();
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     getOrderDetail(OrdId);
     showProducts(OrdId);
-
+    ordId_val = OrdId;
 });
 
 const productList = document.getElementById('productList');
@@ -76,6 +77,16 @@ async function getOrderDetail(OrdId) {
         const response1 = await fetch(baseUrl + `member/getMemberByMemId/${orderDetail.memId}`);
         const member = await response1.json();
 
+        switch(orderDetail.ordSta){
+            case 0:
+                check_el.innerText = '完成訂單';
+                check_el.disabled = false;
+                break;
+            case 1:
+                check_el.innerText = '已完成訂單';
+                check_el.disabled = true;
+                break;
+        }
         ordId.innerText = OrdId;
         memName.innerText = member.memName;
         ordTime.innerText = orderDetail.ordTime;
@@ -94,7 +105,7 @@ async function myOrderList() {
     try {
         const response = await fetch(baseUrl + `OrderDetail/{ordId}/{prodId}`);
         const orderList = await response.json();
-
+        
         const dataTableList = document.getElementById("dataTableList");
         dataTableList.innerHTML = "";
 
@@ -147,3 +158,37 @@ function redirectToDetailPage(ordId) {
     window.location.href = newPageUrl;
 }
 
+function checkOrder(){
+    const data = {
+        ordSta: 1
+    }
+
+    Swal.fire({
+        icon: 'warning',
+        title: '確認已收到物品了？',
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: '確認',
+        cancelButtonText: "取消"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(baseUrl + 'orders/updSta/' + ordId_val,{
+                headers: {
+                    "content-type": "application/json",
+                },
+                method: 'PUT',
+                body: JSON.stringify(data)
+            }).catch(function (e) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '完成訂單失敗',
+                    showCancelButton: true
+                });
+            });
+            check_el.innerText = '已完成訂單';
+            check_el.disabled = true;
+            Swal.fire("已完成訂單", "success");
+        }
+    });
+    
+}

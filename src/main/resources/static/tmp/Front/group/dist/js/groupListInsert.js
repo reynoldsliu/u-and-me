@@ -140,7 +140,7 @@ window.addEventListener("load", function (e) {
         // }
 
         //行程編號
-        if (schId_el.value === null || memId_el.value.trim() === "") {
+        if (schId_el.value === null || schId_el.value.trim() === "") {
             control = false;
             schIdStr.innerHTML = ' *必須選擇行程';
             inputSchId_el.appendChild(schIdStr);

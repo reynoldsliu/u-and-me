@@ -78,9 +78,15 @@ public class OrdersController {
      * @param ordId 訂單ID
      * @param orders 修改後的訂單資料
      */
-    @PutMapping("/orders")
+    @PutMapping("/orders/{ordId}")
     public void update(@PathVariable Integer ordId,
                                     @RequestBody Orders orders) {
         ordersService.update(ordId, orders);
+    }
+
+    @PutMapping("/orders/updSta/{ordId}")
+    public void updateOrdSta(@PathVariable Integer ordId,
+                             @RequestBody Orders orders){
+        ordersService.updateOrdSta(ordId, orders);
     }
 }

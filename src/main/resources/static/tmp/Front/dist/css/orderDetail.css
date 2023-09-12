@@ -296,14 +296,12 @@ align-items: center;
   background-color: rgb(235, 230, 226);
 }
 
-.backBtn{
+.btn-outline-dark{
   background-color: rgb(95, 92, 92);
-  width: 80px;
+  width: 120px;
   height:45px;
   border-radius: 10px;
   color: #fff;
-  margin-left: 1000px;
-  margin-top: 80px;
 }
 .backBtn:hover {
   background-color: rgb(57, 54, 54);

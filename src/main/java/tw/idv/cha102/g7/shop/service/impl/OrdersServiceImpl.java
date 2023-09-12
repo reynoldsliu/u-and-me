@@ -84,4 +84,15 @@ public class OrdersServiceImpl implements OrdersService {
             ordersRepository.save(orders);
         }
     }
+
+    @Override
+    public void updateOrdSta(Integer ordId, Orders orders) {
+        if(ordersRepository.findById(ordId).isPresent()) {
+            Orders updOrders = ordersRepository.findById(ordId).get();
+            updOrders.setOrdSta(orders.getOrdSta());
+            ordersRepository.save(updOrders);
+        }
+    }
+
+
 }
