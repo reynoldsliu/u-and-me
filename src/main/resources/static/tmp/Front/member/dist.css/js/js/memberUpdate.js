@@ -124,8 +124,8 @@ const submitBtn = document.querySelector('button[type="submit"]');
 var memEmail;
 
   const inputMemName_el = this.document.getElementById("inputMemName");
-    const inputMemPhone_el = this.document.getElementById("inputMemPhone");
-    const inputMyAddr_el = this.document.getElementById("inputMyAddr");
+  const inputMemPhone_el = this.document.getElementById("inputMemPhone");
+  const inputMyAddr_el = this.document.getElementById("inputMyAddr");
 
 
  //錯誤判斷新增的字串
@@ -189,20 +189,20 @@ submitBtn.addEventListener('click', async function (event) {
         if (memName.value === null || memName.value.trim() === "") {
             control = false;
             memNameStr.innerHTML = ' *會員姓名必須填入';
-            inputMemName_el.appendChild(memName);
+            inputMemName_el.appendChild(memNameStr);
         }
 
-            //會員電話
-                if (memPhone.value === null || memPhone.value.trim() === "") {
-                    control = false;
-                    memPhoneStr.innerHTML = ' *會員電話必須填入';
-                    inputMemPhone_el.appendChild(memPhone);
+        //會員電話
+        if (memPhone.value === null || memPhone.value.trim() === "") {
+            control = false;
+            memPhoneStr.innerHTML = ' *會員電話必須填入';
+            inputMemPhone_el.appendChild(memPhoneStr);
                 }
-                    //會員地址
-                        if (myAddrInput.value === null || myAddrInput.value.trim() === "") {
-                            control = false;
-                            myAddrInputStr.innerHTML = ' *會員地址必須填入';
-                            inputMyAddr_el.appendChild(myAddrInput);
+        //會員地址
+        if (myAddrInput.value === null || myAddrInput.value.trim() === "") {
+            control = false;
+            myAddrInputStr.innerHTML = ' *會員地址必須填入';
+            inputMyAddr_el.appendChild(myAddrInputStr);
                         }
 
 
@@ -218,9 +218,11 @@ submitBtn.addEventListener('click', async function (event) {
            "memCity": myMemCity.value,
            "memGender": memGender.value
     };
+    if(control){
 
 
     try {
+
         const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
         const response = await fetch(`${baseUrl}member/update`, {
             method:  'POST',
@@ -240,7 +242,7 @@ submitBtn.addEventListener('click', async function (event) {
                 confirmButtonText: '確定'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = 'memberUpdate.html';
+                    window.location.href = 'memberCenter.html';
                 }
             });
 
@@ -251,4 +253,5 @@ submitBtn.addEventListener('click', async function (event) {
     } catch (error) {
         console.error('Error to update Member.', error);
     }
+  }
 });

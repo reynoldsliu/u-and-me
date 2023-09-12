@@ -21,7 +21,7 @@ public class UandmeConfiguration {
 
         //設定此filter再filterChain的執行順序 數字越小 越早擷取請求 越晚擷取回應
         bean.setOrder(0);
-        System.out.println("FILTER");
+        System.out.println("會員FILTER開啟!!");
 
 
         return bean;
@@ -37,7 +37,7 @@ public class UandmeConfiguration {
 
         //設定此filter再filterChain的執行順序 數字越小 越早擷取請求 越晚擷取回應
         bean.setOrder(1);
-        System.out.println("FILTER!!");
+        System.out.println("管理員FILTER開啟!!");
 
 
         return bean;
@@ -53,7 +53,7 @@ public class UandmeConfiguration {
 
         //設定此filter再filterChain的執行順序 數字越小 越早擷取請求 越晚擷取回應
         bean.setOrder(2);
-        System.out.println("FILTER!!!!!");
+        System.out.println("團主FILTER開啟!!");
 
 
         return bean;

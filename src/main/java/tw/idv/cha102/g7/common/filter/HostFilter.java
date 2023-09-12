@@ -22,6 +22,7 @@ public class HostFilter extends OncePerRequestFilter {
         String requestUrl = request.getRequestURI();
         String hostLogin = "/u-and-me/host/hostLogin";
 
+
         //允許所有請求進入登入畫面
         if(hostLogin.equals(requestUrl)){
             chain.doFilter(request,response);
@@ -31,8 +32,10 @@ public class HostFilter extends OncePerRequestFilter {
         System.out.println(session.getAttribute("hostId"));
         //檢查是否已經登入 如果沒有登入就重導至登入頁面
         if (session.getAttribute("hostId") == null) {
+
 //            response.getWriter().write("");
-            response.sendRedirect("http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html");
+            response.setStatus(401);
+//            response.sendRedirect("http://localhost:8080/u-and-me/tmp/Front/member/memberLoginIn.html");
             return;
         }
 

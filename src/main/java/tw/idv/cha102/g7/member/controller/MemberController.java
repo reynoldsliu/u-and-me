@@ -45,10 +45,16 @@ public class MemberController {
      * @return
      */
     @PostMapping("/register")
-    public String register(@RequestBody Member member) {
-        return memberService.insert(member);
+    public ResponseEntity<?> register(@RequestBody Member member) {
+        try {
+            if("此Email已註冊過，請使用其他信箱!".equals(memberService.insert(member))){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("exist account");
+            }
+            return ResponseEntity.ok("success");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("fail");
+        }
     }
-
 
     /**
      * 會員登入
@@ -208,8 +214,10 @@ public class MemberController {
 
     }
 
-    @RequestMapping("/memberGroupRegister")
-    public ResponseEntity<Member> memberGroupRegister(HttpServletRequest request, @RequestBody PictureBase64DTO groupRegisterCard){
+    @RequestMapping("/memberGroupRegister/{memIdcardUpdate}")
+    public ResponseEntity<Member> memberGroupRegister(HttpServletRequest request,
+                                                      @PathVariable String memIdcardUpdate,
+                                                      @RequestBody PictureBase64DTO groupRegisterCard){
         HttpSession session = request.getSession();
         Integer memId = parseInt(session.getAttribute("memberId").toString());
         Member member = memberService.getMemByMemId(memId);
@@ -217,6 +225,7 @@ public class MemberController {
         System.out.println(groupRegisterCard.getPictureData().toString());
         member.setMemIdPic(groupRegisterCard.getPictureData());
         System.out.println("memBer"+member.toString());
+        member.setMemIdcard(memIdcardUpdate);
         memberService.update(member);
 
         return new ResponseEntity(member, HttpStatus.OK);

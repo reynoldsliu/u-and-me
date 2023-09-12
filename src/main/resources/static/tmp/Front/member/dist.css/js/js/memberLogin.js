@@ -46,12 +46,18 @@
                     },
                     body: JSON.stringify(member)
                 }); if (response.ok) {
-                             Swal.fire({
-                                            icon: 'success',
-                                            title: '登入成功',
-                                            text: '',
-                                            confirmButtonText: '確定'
-                         })}else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '登入成功',
+                        text: '',
+                        confirmButtonText: '確定'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.history.go(-1);
+                        }
+                    });
+        
+                        }else {
                              alert("登入失敗，請再次嘗試");
                          }
 

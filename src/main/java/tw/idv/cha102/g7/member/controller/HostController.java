@@ -143,6 +143,7 @@ public class HostController {
         return hostService.getAllPaged(page,7);
     }
 
+
     /**
      * 管理員查詢全部管理員
      * @return
@@ -153,4 +154,11 @@ public class HostController {
         return hostService.getAll();
     }
 
+    @RequestMapping("/match")
+    public void hostMatch(){
+
+    }
+
 }
+
+

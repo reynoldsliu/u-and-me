@@ -97,55 +97,138 @@ memDist.classList.remove("text-secondary");
         memDist.classList.remove("text-secondary");
       }
     }
+  });
+/////////////////////////////
+
+      const memEmail = document.getElementById("memEmail");
+      const memPassword = document.getElementById("memPassword");
+      const memName = document.getElementById("memName");
+      const memPhone = document.getElementById("memPhone");
+      const memAddr = document.getElementById("my-addr-input");
+      const memGender = document.getElementById("memGender");
+
+//錯誤處理
+
+  const inputMemName_el = this.document.getElementById("inputMemName");
+  const inputMemEmail_el = this.document.getElementById("inputMemEmail");
+  const inputMemPassword_el = this.document.getElementById("inputMemPassword");
+  const inputMemPhone_el = this.document.getElementById("inputMemPhone");
+  const inputMyAddr_el = this.document.getElementById("inputMyAddr");
+
+
+ //錯誤判斷新增的字串
+    let memNameStr = document.createElement("span");
+    memNameStr.style.color = 'red';
+
+    let memEmailStr = document.createElement("span");
+    memEmailStr.style.color = 'red';
+
+    let memPasswordStr = document.createElement("span");
+    memPasswordStr.style.color = 'red';
+
+    let memPhoneStr = document.createElement("span");
+    memPhoneStr.style.color = 'red';
+
+    let myAddrInputStr = document.createElement("span");
+    myAddrInputStr.style.color = 'red';
+
+   //////////
 
 
 
-  async function Register(member) {
+  function Register(member) {
+//      console.log(123);
       const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
-       const response = await fetch(baseUrl + "member/register", {
+       const response = fetch(baseUrl + "member/register", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
           },
           body: JSON.stringify(member)
-      });
-
-      if (response.ok) {
+      }).then(response => {
+        if (response.ok) {
           Swal.fire({
                          icon: 'success',
                          title: '註冊成功',
                          text: '',
                          confirmButtonText: '確定'
-      })}else {
-          alert("註冊失敗，請再次嘗試");
-      }
-  }
+      })}else if(response.status == 400){
+                            Swal.fire({
+                                icon: 'error',
+                                title: '此信箱已註冊過會員',
+                                text: '請再次確認帳號',
+                                showCancelButton: true
+                            }).then(() => {
+                                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+                            })
+                        }
+      })
+   }
 
+
+//按下註冊按鈕
   const regBtn_el = document.getElementById("regButton");
-  regBtn_el.addEventListener("click", function() {
+  regBtn_el.addEventListener("click", function(event) {
 
-      const memEmail = document.getElementById("memEmail").value;
-      const memPassword = document.getElementById("memPassword").value;
-      const memName = document.getElementById("memName").value;
-      const memPhone = document.getElementById("memPhone").value;
-      const memAddr = document.getElementById("my-addr-input").value;
-      const memDist = document.getElementById("my-mem-dist").value;
-      const memCity = document.getElementById("my-mem-city").value;
-      const memGender = document.getElementById("memGender").value;
+   event.preventDefault()
+      let control = true; //控制是否進入fetch
+      //==================錯誤驗證==================
+          //初始化Str
+          memNameStr.innerHTML = '';
+          memPhoneStr.innerHTML = '';
+          memPasswordStr.innerHTML = '';
+          memEmailStr.innerHTML = '';
+          myAddrInputStr.innerHTML = '';
 
+          //會員姓名
+          if (memName.value === null || memName.value.trim() === "") {
+              control = false;
+              memNameStr.innerHTML = ' *會員姓名必須填入';
+              inputMemName_el.appendChild(memNameStr);
+          }
+
+          //會員電話
+          if (memPhone.value === null || memPhone.value.trim() === "") {
+              control = false;
+              memPhoneStr.innerHTML = ' *會員電話必須填入';
+              inputMemPhone_el.appendChild(memPhoneStr);
+                  }
+          //會員地址
+          if (memAddr.value === null || memAddr.value.trim() === "") {
+              control = false;
+              myAddrInputStr.innerHTML = ' *會員地址必須填入';
+              inputMyAddr_el.appendChild(myAddrInputStr);
+                          }
+
+          //會員密碼
+          if (memPassword.value === null || memPassword.value.trim() === "") {
+              control = false;
+              memPasswordStr.innerHTML = ' *會員密碼必須填入';
+              inputMemPassword_el.appendChild(memPasswordStr);
+                          }
+
+          //會員信箱
+          if (memEmail.value === null || memEmail.value.trim() === "") {
+              control = false;
+              memEmailStr.innerHTML = ' *會員信箱必須填入';
+              inputMemEmail_el.appendChild(memEmailStr);
+                          }
 
       const member = {
-          "memEmail": memEmail,
-          "memPassword": memPassword,
-          "memName": memName,
-          "memPhone": memPhone,
-          "memCity":memCity,
-          "memDist":memDist,
-          "memAddr":memAddr,
-          "memGender": memGender
+          "memEmail": memEmail.value,
+          "memPassword": memPassword.value,
+          "memName": memName.value,
+          "memPhone": memPhone.value,
+          "memCity":memCity.value,
+          "memDist":memDist.value,
+          "memAddr":memAddr.value,
+          "memGender": memGender.value
 
       };
 
-      Register(member);
+      if(control){
+//          console.log(123);
+        Register(member);
+      }
   });
-});
+

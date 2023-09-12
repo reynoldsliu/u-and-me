@@ -71,15 +71,6 @@ async function fetchMemDetail() {
 }
 
 
-//
-//
-
-
-
-
-
-
-
     const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
     const preview = document.getElementById('preview');
@@ -114,18 +105,31 @@ async function fetchMemDetail() {
         const fileReader = await new FileReader();
         fileReader.onload = async event => {
             const base64Str = btoa(event.target.result);
-            console.log(base64Str);
+//            console.log(base64Str);
             let memId = await getMemId();
             console.log("memId: "+memId);
-            const response = await fetch(baseUrl+'member/memberGroupRegister/' + memId, {
+            const memIdcardUpdate = memIdcard.value;
+//            const updatedIdcard = memIdcardUpdate;
+             const data ={
+                 pictureData: base64Str
+             }
+            const response = await fetch(baseUrl+'member/memberGroupRegister/' + memIdcardUpdate, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    pictureData: base64Str
-                })
+                body: JSON.stringify(data),
             });
+             console.log(updatedIdcard);
+              if (response.ok) {
+                      Swal.fire({
+                                     icon: 'success',
+                                     title: '團主註冊成功',
+                                     text: '',
+                                     confirmButtonText: '確定'
+                  })}else {
+                      alert("註冊失敗，請再次嘗試");
+                  }
 
         };
         fileReader.readAsBinaryString(picFile);
