@@ -14,10 +14,14 @@ import tw.idv.cha102.g7.schedule.service.ScheduleDetailService;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.lang.Integer.parseInt;
 
 @Service
 public class ScheduleServiceImpl implements ScheduleService {
@@ -215,6 +219,17 @@ public class ScheduleServiceImpl implements ScheduleService {
             return repository.save(schedule.get());
         }
         return null;
+    }
+
+    //宇航 > 查詢會員公開行程
+    @Override
+    public Stream<Schedule> findPublicSchByMemIdPaged(HttpServletRequest request, Integer page) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "sch_start");
+        Pageable pageable = PageRequest.of(page, 6, sort);
+        return repository.findPublicSchByMemIdPaged(memId, pageable).get();
     }
 }
 

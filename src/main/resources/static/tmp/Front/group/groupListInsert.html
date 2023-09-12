@@ -145,13 +145,44 @@
 
                                 </h2>
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <label for="inputMemId" class="form-label" id="inputMemId">會員ID</label>
                                 <input type="text" class="form-control" id="memId">
-                            </div>
+                            </div> -->
                             <div class="col-md-6">
                                 <label for="inputSchId" class="form-label" id="inputSchId">行程ID</label>
-                                <input type="text" class="form-control" id="schId">
+                                <input type="text" class="form-control" id="schId" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" style="margin-top: 32px;" onclick="fetchSch()">
+                                    選擇行程
+                                </button>
+                            </div>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">選擇行程</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body py-10">
+                                            <div class="album py-10"></div>
+                                            <div class="container">
+                                                <div class="row" id="schListInner">
+                                                    <!-- 我的行程內容由此插入 -->
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">關閉</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <!-- <div class="col-md-6">
                 <label for="inputPassword4" class="form-label">性別</label>

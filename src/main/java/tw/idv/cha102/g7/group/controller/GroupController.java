@@ -28,8 +28,8 @@ public class GroupController {
      * @param group 欲新增的揪團資訊
      */
     @PostMapping("/member/grouper/group")
-    public void insert(@RequestBody Group group){
-        groupService.insert(group);
+    public void insert(@RequestBody Group group, HttpServletRequest request){
+        groupService.insert(group, request);
     }
 
     /**

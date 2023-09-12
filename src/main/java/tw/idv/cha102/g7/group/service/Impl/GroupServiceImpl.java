@@ -38,7 +38,10 @@ public class GroupServiceImpl implements GroupService {
     @Autowired
     private MemberDetailRepository memberDetailRepository;
 
-    public void insert(Group group) {
+    public void insert(Group group, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
+        group.setMemId(memId);
         groupRepository.save(group);
     }
 

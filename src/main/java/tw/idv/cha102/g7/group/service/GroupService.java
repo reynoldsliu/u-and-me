@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public interface GroupService {
-    void insert(Group group);
+    void insert(Group group, HttpServletRequest request);
 
     void update(Integer groupId, Group group);
 

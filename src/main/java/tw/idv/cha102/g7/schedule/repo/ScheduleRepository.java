@@ -79,5 +79,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
             "WHERE s.sch_id = ?1", nativeQuery = true)
     public List<Object[]> findTagsByOneSchedule(Integer schId);
 
-
+    //宇航 > 查詢會員公開行程
+    @Query(value = "SELECT * FROM schedules WHERE mem_id = ?1 And sch_pub = 2", nativeQuery = true)
+    Page<Schedule> findPublicSchByMemIdPaged(Integer memId, Pageable pageable);
 }

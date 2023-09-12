@@ -14,6 +14,9 @@ import javax.servlet.http.HttpSession;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.lang.Integer.parseInt;
 
 @RestController
 @RequestMapping("/mySch")
@@ -50,7 +53,7 @@ public class ScheduleManageController {
                                                           @PathVariable int page) {
         HttpSession session = request.getSession();
         String jsessionId = session.getAttribute("memberId").toString();
-        Integer memId = Integer.parseInt(jsessionId);
+        Integer memId = parseInt(jsessionId);
         List<Schedule> mySchedules = service.getAllByMemIdASC(memId, page)
                 .collect(Collectors.toList());
         return new ResponseEntity(mySchedules, HttpStatus.OK);
@@ -104,7 +107,7 @@ public class ScheduleManageController {
     public ResponseEntity<List<ScheduleDayDTO>> findOrderByDays(HttpServletRequest request, @PathVariable int page) {
         HttpSession session = request.getSession();
         String jsessionId = session.getAttribute("memberId").toString();
-        Integer memId = Integer.parseInt(jsessionId);
+        Integer memId = parseInt(jsessionId);
         List<ScheduleDayDTO> schedules = service.findByMemIdOrderByDays(memId, page)
                 .collect(Collectors.toList());
         return new ResponseEntity(schedules, HttpStatus.OK);
@@ -121,7 +124,7 @@ public class ScheduleManageController {
     public ResponseEntity<List<ScheduleDayDTO>> findOrderByDaysDESC(HttpServletRequest request, @PathVariable int page) {
         HttpSession session = request.getSession();
         String jsessionId = session.getAttribute("memberId").toString();
-        Integer memId = Integer.parseInt(jsessionId);
+        Integer memId = parseInt(jsessionId);
         List<ScheduleDayDTO> schedules = service.findByMemIdOrderByDaysDESC(memId, page)
                 .collect(Collectors.toList());
         return new ResponseEntity(schedules, HttpStatus.OK);
@@ -224,4 +227,9 @@ public class ScheduleManageController {
 
     }
 
+    @GetMapping("/member/publicSch/{page}")
+    public ResponseEntity<Stream<Schedule>> findPublicSchByMemId(HttpServletRequest request,
+                                                                       @PathVariable Integer page){
+        return ResponseEntity.ok(service.findPublicSchByMemIdPaged(request, page));
+    }
 }

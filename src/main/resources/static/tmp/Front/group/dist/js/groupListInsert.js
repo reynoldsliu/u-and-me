@@ -1,38 +1,38 @@
+//==========需要用的元素=========
 const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me";
+const memId_el = document.getElementById("memId");
+const schId_el = document.getElementById("schId");
+const minMember_el = document.getElementById("minMember");
+const maxMember_el = document.getElementById('maxMember');
+const theme_el = document.getElementById('theme');
+const amount_el = document.getElementById('amount');
+const depDate_el = document.getElementById('depDate');
+const deadline_el = document.getElementById("deadline");
+const groupDesc_el = document.getElementById("groupDesc");
+const notice_el = document.getElementById("notice");
+const btn_submit_el = document.getElementById("btn_submit");
 
+const inputSchId_el = this.document.getElementById("inputSchId");
+const inputMinMember_el = this.document.getElementById("inputMinMember");
+const inputMaxMember_el = this.document.getElementById("inputMaxMember");
+const inputTheme_el = this.document.getElementById("inputTheme");
+const inputAmount_el = this.document.getElementById("inputAmount");
+const inputDepDate_el = this.document.getElementById("inputDepDate");
+const inputDeadline_el = this.document.getElementById("inputDeadline");
+const inputGroupDesc_el = this.document.getElementById("inputGroupDesc");
+const inputNotice_el = this.document.getElementById("inputNotice");
+const inputFormFile_el = this.document.getElementById("inputFormFile");
+//==========需要用的元素結束=========
+let schId;
 //當頁面讀取後開始偵測function
 window.addEventListener("load", function (e) {
 
-    //==========需要用的元素=========
-    const memId_el = document.getElementById("memId");
-    const schId_el = document.getElementById("schId");
-    const minMember_el = document.getElementById("minMember");
-    const maxMember_el = document.getElementById('maxMember');
-    const theme_el = document.getElementById('theme');
-    const amount_el = document.getElementById('amount');
-    const depDate_el = document.getElementById('depDate');
-    const deadline_el = document.getElementById("deadline");
-    const groupDesc_el = document.getElementById("groupDesc");
-    const notice_el = document.getElementById("notice");
-    const btn_submit_el = document.getElementById("btn_submit");
 
-    const inputMemId_el = this.document.getElementById("inputMemId");
-    const inputSchId_el = this.document.getElementById("inputSchId");
-    const inputMinMember_el = this.document.getElementById("inputMinMember");
-    const inputMaxMember_el = this.document.getElementById("inputMaxMember");
-    const inputTheme_el = this.document.getElementById("inputTheme");
-    const inputAmount_el = this.document.getElementById("inputAmount");
-    const inputDepDate_el = this.document.getElementById("inputDepDate");
-    const inputDeadline_el = this.document.getElementById("inputDeadline");
-    const inputGroupDesc_el = this.document.getElementById("inputGroupDesc");
-    const inputNotice_el = this.document.getElementById("inputNotice");
-    const inputFormFile_el = this.document.getElementById("inputFormFile");
-    //==========需要用的元素結束=========
 
     this.fetch(baseUrl + '/member/grouper/match', {
         method: 'GET'
     }).then(response => {
-        if(response.status == 401){
+        if (response.status == 401) {
             Swal.fire({
                 icon: 'error',
                 title: '尚未登入',
@@ -40,7 +40,7 @@ window.addEventListener("load", function (e) {
             }).then(() => {
                 this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
             })
-        }else if(response.status == 403){
+        } else if (response.status == 403) {
             Swal.fire({
                 icon: 'error',
                 title: '尚未成為團主',
@@ -133,16 +133,16 @@ window.addEventListener("load", function (e) {
         coverStr.innerHTML = '';
 
         //會員編號
-        if (memId_el.value === null || memId_el.value.trim() === "") {
-            control = false;
-            memIdStr.innerHTML = ' *會員編號必須填入數值';
-            inputMemId_el.appendChild(memIdStr);
-        }
+        // if (memId_el.value === null || memId_el.value.trim() === "") {
+        //     control = false;
+        //     memIdStr.innerHTML = ' *會員編號必須填入數值';
+        //     inputMemId_el.appendChild(memIdStr);
+        // }
 
         //行程編號
         if (schId_el.value === null || memId_el.value.trim() === "") {
             control = false;
-            schIdStr.innerHTML = ' *行程編號必須填入數值';
+            schIdStr.innerHTML = ' *必須選擇行程';
             inputSchId_el.appendChild(schIdStr);
         }
 
@@ -267,7 +267,6 @@ window.addEventListener("load", function (e) {
 
                 //將資料包裝成一個物件
                 const send_data = {
-                    memId: memId_el.value.trim(),
                     schId: schId_el.value.trim(),
                     minMember: minMember_el.value.trim(),
                     maxMember: maxMember_el.value.trim(),
@@ -292,7 +291,7 @@ window.addEventListener("load", function (e) {
                         title: '新增失敗',
                         text: '請檢查填入資料',
                         showCancelButton: true
-                      })
+                    })
                     return;
                 });
                 Swal.fire({
@@ -300,7 +299,7 @@ window.addEventListener("load", function (e) {
                     title: '新增成功',
                     text: '已新增揪團',
                     showCancelButton: true
-                  })
+                })
             };
             try {
                 //5. 開始讀取檔案
@@ -311,7 +310,7 @@ window.addEventListener("load", function (e) {
                     title: '新增失敗',
                     text: '請檢查填入資料',
                     showCancelButton: true
-                  })
+                })
             }
         } else {
             Swal.fire({
@@ -319,10 +318,102 @@ window.addEventListener("load", function (e) {
                 title: '新增失敗',
                 text: '請檢查填入資料',
                 showCancelButton: true
-              })
+            })
         }
 
     });
 
 
 });
+
+
+async function fetchSch() {
+
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('zh-TW', options);
+    }
+
+    function convertNumberToText(number) {
+        switch (number) {
+            case 0:
+                return "私人檢視";
+            case 1:
+                return "連結分享";
+            case 2:
+                return "公開瀏覽";
+        }
+    }
+
+    function convertBooleanToText(boolValue) {
+        return boolValue ? "可供複製" : "不可複製";
+    }
+
+    function calDays(schStart, schEnd) {
+        // 創建兩個日期對象
+        var startDate = new Date(schStart);
+        var endDate = new Date(schEnd);
+        // 計算兩個日期之間的毫秒差距
+        var timeDifference = endDate - startDate;
+        // 將毫秒差距轉換為天數
+        var daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        return (daysDifference + 1);
+    }
+
+
+    // try {
+    let page = 0;
+    const response = await fetch(baseUrl + '/mySch/member/publicSch/' + page);
+    const schList = await response.json();
+
+    const schListInner = document.getElementById("schListInner");
+    schListInner.innerHTML = "";
+    let i = 1;
+    schList.forEach(schedule => {
+
+        let row = document.createElement("div");
+
+        // row.classList.add("col-lg-4");
+        // row.classList.add("mb-4");
+
+        row.innerHTML = `
+              <div class="card" style="display: block">
+              <img src="../dist/img/scheduleimg/trip${i}.jpeg"
+                  alt="" class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
+                  <div class="settingSch" id="settingSch${schedule.schId}" onclick="editMySchedule(${schedule.schId})">
+                    <div><i class="fa-solid fa-pen-to-square edit"></i></div>
+                    <div class="settingSelect -off" id="settingSelect${schedule.schId}" onmouseleave="removeEditBox(${schedule.schId})">
+                        <div class="privateSetting" id="privateSetting${schedule.schId}" onclick="selectPrivateSetting(${schedule.schId})">隱私設定與分享</div>
+                        <div class="copyrightSetting" onclick="selectCopyrightSetting(${schedule.schId})">複製權限設定</div>
+                       <div class="deleteMySch" id="deleteMySch${schedule.schId}" onclick="deleteOneSchedule(${schedule.schId})">刪除</div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title">${schedule.schName}</h5>
+                      <p class="sch-date" style="font-size: 13px">
+                      行程共${calDays(schedule.schStart, schedule.schEnd)}天
+                      <span><i class="fa-solid fa-eye"></i> ${convertNumberToText(schedule.schPub)}</span>
+                      <span><i class="fa-solid fa-copy"></i> ${convertBooleanToText(schedule.schCopy)}</span>
+                      </p>
+                      <button type="button" class="btn btn-outline-danger btn-sm viewDetails" onclick="getSchId(${schedule.schId})" data-bs-dismiss="modal">
+                      選擇
+                      </button>
+                      <a href="${baseUrl}/tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm viewDetails" target="_blank">查看詳情</a>
+                  </div>
+                </div>
+              `;
+        schListInner.appendChild(row);
+        i++;
+
+    });
+
+    // } catch (error) {
+    //   console.error("Error fetching MyScheduleList:", error);
+    // }
+}
+
+function getSchId(id) {
+    schId = id;
+    console.log(schId);
+    schId_el.value = schId;
+}

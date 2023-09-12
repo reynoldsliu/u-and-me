@@ -7,6 +7,7 @@ import tw.idv.cha102.g7.schedule.dto.ScheduleDaysDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.List;
 import java.util.stream.Stream;
@@ -81,4 +82,6 @@ public interface ScheduleService {
     // 行程複製權限設定
     public Schedule copyrightSelect(Integer schId, Boolean schCopy);
 
+    //宇航 > 查詢會員公開行程
+    Stream<Schedule> findPublicSchByMemIdPaged(HttpServletRequest request, Integer page);
 }

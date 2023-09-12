@@ -281,12 +281,12 @@ order_confirmed_el.addEventListener('click', function (e) {
                 })
             });
         }
-        Swal.fire({
-            icon: 'success',
-            title: '報名成功',
-            text: '已報名揪團',
-            showCancelButton: true
-        })
+        // Swal.fire({
+        //     icon: 'success',
+        //     title: '報名成功',
+        //     text: '已報名揪團',
+        //     showCancelButton: true
+        // })
 
     } else {
         Swal.fire({
