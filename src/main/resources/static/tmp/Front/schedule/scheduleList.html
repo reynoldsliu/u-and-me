@@ -127,7 +127,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item " style="display:inline-block"><a
                                         href="../activity/ActivityIndex.html">首頁</a></li>
-                                        <!-- <li class="breadcrumb-item" style="display:inline-block"><a href="#">行程規劃</a></li> -->
+                                <!-- <li class="breadcrumb-item" style="display:inline-block"><a href="#">行程規劃</a></li> -->
                                 <li class="breadcrumb-item active" aria-current="page" style="display:inline-block">旅遊行程
                                 </li>
                             </ol>
@@ -170,8 +170,6 @@
                         </ul>
                     </div>
                 </form>
-
-
             </div>
 
             <!--Card-->
@@ -179,25 +177,50 @@
             <div class="container">
                 <div class="row" id="schListInner">
                     <!-- 查詢行程內容由此插入 -->
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <img src="../dist/img/scheduleimg/trip1.jpeg" alt="等待圖片載入..." class="card-img-top"
+                                style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
+                            <!-- TODO...複製行程 -->
+                            <div class="card-body">
+                                <h5 class="card-title">schNameschNameschNameschNameschName</h5>
+                                <p class="sch-date" style="font-size: 15px">
+                                    YYYY年MM月DD日 ~ YYYY年MM月DD日
+                                </p>
+                                <p class="sch-date" style="font-size: 13px">
+                                    行程共???天
+                                    <span><i class="fa-solid fa-copy"></i> 可供複製</span>
+                                </p>
+                                <!-- <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" -->
+                                <a href="myScheduleEdit.html"
+                                    class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- -----分頁製作----- -->
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center">
-                    <!-- <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                                </li> -->
-                    <li class="page-item active" id="pageSelect1"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item" aria-current="page" id="pageSelect2">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item" id="pageSelect3"><a class="page-link" href="#">3</a></li>
-                    <!-- <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
-                                </li> -->
-                </ul>
-            </nav>
+        <!-- -----分頁製作----- -->
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+                <!-- <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li> -->
+                <li class="page-item active" id="pageSelect1">
+                    <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item" id="pageSelect2">
+                    <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item" id="pageSelect3">
+                    <a class="page-link" href="#">3</a>
+                </li>
+                <!-- <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li> -->
+            </ul>
+        </nav>
 
     </main>
 

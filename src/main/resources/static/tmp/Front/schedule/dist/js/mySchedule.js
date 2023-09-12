@@ -14,14 +14,13 @@ const pageSelect_els = document.querySelectorAll("li.page-item");
 const page_els = document.querySelectorAll("li.page-item>a");
 const pagination_el = document.querySelector("ul.pagination");
 
-// 新增行程標籤
-const btn_schDone = document.getElementById("schDone");
-
-// 行程卡片內容標籤
+// 新增行程內容標籤
 const startDate_el = document.getElementById("startDate");
 const endDate_el = document.getElementById("endDate");
 const destination_el = document.getElementById("destination");
 const schName_el = document.getElementById("schName");
+// 新增行程完成按鈕
+const btn_schDone = document.getElementById("schDone");
 
 // fetch對應到的路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
@@ -57,6 +56,11 @@ function getRandomInteger() {
   return Math.floor(Math.random() * (40 - 1 + 1)) + 1;
 }
 
+// 轉換行程複製權限設定顯示文字
+function convertBooleanToText(boolValue) {
+  return boolValue ? "可供複製" : "不可複製";
+}
+
 // 轉換行程公開權限設定顯示文字
 function convertNumberToText(number) {
   switch (number) {
@@ -69,10 +73,6 @@ function convertNumberToText(number) {
   }
 }
 
-// 轉換行程複製權限設定顯示文字
-function convertBooleanToText(boolValue) {
-  return boolValue ? "可供複製" : "不可複製";
-}
 // ---------- 行程顯示設定相關函式結束 ----------
 // ------------ 行程參數驗證相關函式 ------------
 // 日期格式驗證
@@ -95,11 +95,41 @@ function isDateValid(dateS, dateE) {
   }
 }
 // ---------- 行程參數驗證相關函式結束 -----------
-
-
+// -------------- 判斷會員是否登入 ---------------
+function memberLogin() {
+  $.ajax({
+    url: baseURL + "member/getMemId",
+    method: "POST",
+    dataType: "JSON",
+    success: function (data) {
+      memId = data.memId;
+    },
+    error: function (status, error) {
+      if (status.status === 401) {
+        Swal.fire({
+          title: '請先登入會員',
+          text: "將為您導向登入畫面....",
+          icon: 'error',
+          confirmButtonText: '返回登入畫面',
+          confirmButtonColor: '#d33'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+          }
+        });
+      }
+    },
+  });
+}
+// ---------- 判斷會員是否登入結束 -----------
 // ====== 載入我的行程頁面，將所有該會員的行程列表查出 ======
+
 let page = 0; // 從第一個分頁開始
 document.addEventListener("DOMContentLoaded", async function () {
+
+  // 待加入會員是否登入驗證，登入才可進入此頁面查看專屬行程
+  memberLogin();
+
   // 拿取會員id
   const response = await fetch(baseURL + `member/getMemId`);
   const member = await response.json();
@@ -182,7 +212,7 @@ let searchByKeyWords = false; // 依照關鍵字查詢行程，並依照起始�
 let searchByDaysASC = false;  // 依照行程天數查詢行程，並依照天數(小到大)升冪排序
 let searchByDaysDESC = false; // 依照行程天數查詢行程，並依照天數(大到小)降冪排序
 
-// 依照起始日期降冪排序
+// 依照起始日期降冪排序(預設)
 sortByStart_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
@@ -277,9 +307,8 @@ search_btn_el.addEventListener("click", async function (event) {
 for (let pageSelect of pageSelect_els) {
 
   pageSelect.addEventListener('click', async function (event) {
-    console.log(event.target); // 被點擊到的事件物件<a>標籤
-    console.log(event.target.innerText); // 被點擊到的分頁頁數
-
+    // console.log(event.target); // 被點擊到的事件物件<a>標籤
+    // console.log(event.target.innerText); // 被點擊到的分頁頁數
     event.preventDefault();
 
     // 將所有active移除(使分頁暗下去)
@@ -374,7 +403,6 @@ btn_schDone.onclick = async event => {
 }
 // =============== 新增一個行程大綱結束 ===============
 
-
 // ========= 編輯一個行程大綱(瀏覽、複製權限) ==========
 function editMySchedule(schId) {
   // 跳出選擇公開權限、複製權限及刪除選項框
@@ -458,7 +486,6 @@ async function selectCopyrightSetting(schId) {
   });
 }
 // =============== 編輯一個行程大綱結束 ===============
-
 
 // ================= 刪除一個行程大綱 =================
 async function deleteOneSchedule(schId) {
