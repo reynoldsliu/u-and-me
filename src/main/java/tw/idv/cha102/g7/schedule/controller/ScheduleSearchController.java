@@ -35,6 +35,19 @@ public class ScheduleSearchController {
     }
 
     /**
+     * 一般使用者
+     * 查詢所有最新公開行程並依分頁顯示
+     *
+     * @param page 當前分頁 (從0開始)(暫定顯示每頁6筆行程)
+     * @return 返回所有公開行程列表
+     */
+    @GetMapping("/allASC/{page}")
+    public List<Schedule> findAllPublicASC(@PathVariable int page) {
+        return service.findAllPublicPagedASC(page, 6);
+    }
+
+
+    /**
      * 隨機選取三個公開行程放置於首頁
      * @return 返回隨機的公開行程列表
      */
@@ -73,7 +86,7 @@ public class ScheduleSearchController {
      * @param schEnd   行程結束日期
      * @return 返回查詢結果
      */
-    @GetMapping(value = "/dateBetween/{schStart}/{schEnd}")
+    @GetMapping("/dateBetween/{schStart}/{schEnd}")
     public List<Schedule> findBetweenDate(@PathVariable Date schStart,
                                           @PathVariable Date schEnd) {
         List<Schedule> schedules = service.findBetweenDate(schStart, schEnd);
@@ -82,16 +95,27 @@ public class ScheduleSearchController {
 
     /**
      * 一般使用者
-     * 以行程天數由小到大排序，查詢行程(查詢結果，物件屬性沒有經過排序，待修正)
+     * 以行程天數由小到大排序，查詢行程
      *
      * @return 返回查詢結果
      */
-    @GetMapping(value = "/days/{page}")
+    @GetMapping("/days/{page}")
     public List<ScheduleDayDTO> findOrderByDays(@PathVariable int page) {
         List<ScheduleDayDTO> schedules = service.findOrderByDays(page).collect(Collectors.toList());
         return schedules;
     }
 
+    /**
+     * 一般使用者
+     * 以行程天數由大到小排序，查詢行程
+     *
+     * @return 返回查詢結果
+     */
+    @GetMapping("/daysDESC/{page}")
+    public List<ScheduleDayDTO> findOrderByDaysDESC(@PathVariable int page) {
+        List<ScheduleDayDTO> schedules = service.findOrderByDaysDESC(page).collect(Collectors.toList());
+        return schedules;
+    }
 
     /**
      * 一般使用者

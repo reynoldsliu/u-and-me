@@ -53,6 +53,16 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
+    public List<Schedule> findAllPublicPagedASC(int page, int size) {
+        List<Schedule> publicSche = repository.findAllPublicASC();
+        int startIndex = page * size;
+        int endIndex = Math.min(startIndex + size, publicSche.size());
+
+        List<Schedule> pagedPublicSchedules = publicSche.subList(startIndex, endIndex);
+        return pagedPublicSchedules;
+    }
+
+    @Override
     public List<Schedule> findAllPublic() {
         return repository.findAllPublic();
     }
@@ -72,6 +82,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     public Stream<ScheduleDayDTO> findOrderByDays(int page) {
         Pageable pageable = PageRequest.of(page, 6);
         return repository.findOrderByDays(pageable).get();
+    }
+
+    @Override
+    public Stream<ScheduleDayDTO> findOrderByDaysDESC(int page) {
+        Pageable pageable = PageRequest.of(page, 6);
+        return repository.findOrderByDaysDESC(pageable).get();
     }
 
     @Override

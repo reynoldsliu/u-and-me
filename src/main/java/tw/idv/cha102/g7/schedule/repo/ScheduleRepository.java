@@ -19,6 +19,10 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     @Query(value = "SELECT * FROM schedules WHERE sch_pub = 2 ORDER BY sch_start DESC", nativeQuery = true)
     public List<Schedule> findAllPublic();
 
+    // 查詢所有公開行程清單，並依照起始日期升冪排序
+    @Query(value = "SELECT * FROM schedules WHERE sch_pub = 2 ORDER BY sch_start ASC", nativeQuery = true)
+    public List<Schedule> findAllPublicASC();
+
     // 依照行程名稱，查詢所有公開行程清單，並依照起始日期降冪排序
     @Query(value = "SELECT * FROM schedules where sch_name like %?1% And sch_pub = 2 ORDER BY sch_start DESC", nativeQuery = true)
     public Page<Schedule> findBySchName(String schName, Pageable pageable);
@@ -31,6 +35,11 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     @Query(value = "SELECT sch_id as schId, sch_name as schName, mem_id as memId, sch_start as schStart, sch_end as schEnd, sch_pub as schPub, sch_copy as schCopy, sch_cost as schCost, DATEDIFF(sch_end, sch_start) as days FROM schedules WHERE sch_pub = 2 " +
             "ORDER BY days ASC, sch_start DESC", nativeQuery = true)
     public Page<ScheduleDayDTO> findOrderByDays(Pageable pageable);
+
+    // 依行程天數大到小，查詢所有公開行程清單，並依照起始日期降冪排序
+    @Query(value = "SELECT sch_id as schId, sch_name as schName, mem_id as memId, sch_start as schStart, sch_end as schEnd, sch_pub as schPub, sch_copy as schCopy, sch_cost as schCost, DATEDIFF(sch_end, sch_start) as days FROM schedules WHERE sch_pub = 2 " +
+            "ORDER BY days DESC, sch_start DESC", nativeQuery = true)
+    public Page<ScheduleDayDTO> findOrderByDaysDESC(Pageable pageable);
 
     // 依行程天數小到大，查詢所有會員行程清單，並依照起始日期降冪排序
     @Query(value = "SELECT sch_id as schId, sch_name as schName, mem_id as memId, sch_start as schStart, sch_end as schEnd, sch_pub as schPub, sch_copy as schCopy, sch_cost as schCost, DATEDIFF(sch_end, sch_start) as days FROM schedules WHERE mem_id = ?1 " +

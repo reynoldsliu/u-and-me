@@ -17,8 +17,6 @@ const pagination_el = document.querySelector("ul.pagination");
 // fetch對應到的路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 let schListbaseURL = baseURL + "schedules/";
-let allURL = schListbaseURL + "all/";
-let daysURL = schListbaseURL + "days/";
 
 // ------------ 行程顯示設定相關函式 ------------ 
 // 日期格式化(YYYY年MM月DD日)
@@ -58,7 +56,7 @@ let page = 0; // 從第一個分頁開始
 document.addEventListener("DOMContentLoaded", function () {
 
   // 查詢所有公開行程列表，並依照起始日期(新到舊)排序
-  fetchPublicScheduleList(allURL, page);
+  fetchPublicScheduleList(`${schListbaseURL}all/`, page);
 });
 
 // =============== 查詢所有公開的行程 ===============
@@ -79,15 +77,23 @@ async function fetchPublicScheduleList(URL, page) {
 
       row.innerHTML = `
             <div class="card">
-            <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg"
-                alt="" class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
+                <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg"
+                    alt="等待圖片載入..." class="card-img-top" 
+                    style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
+                <div class="copySch" id="copySch${schedule.schId}" onclick="copySchedule()">
+                    <div><i class="fa-solid fa-copy"></i></div>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">${schedule.schName}</h5>
                     <p class="sch-date" style="font-size: 15px">
-                    ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}</p>
-                    <p class="sch-date" style="font-size: 10px">
-                    行程共${calDays(schedule.schStart, schedule.schEnd)}天</p>
-                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
+                      ${formatDate(schedule.schStart)} ~ ${formatDate(schedule.schEnd)}
+                    </p>
+                    <p class="sch-date" style="font-size: 13px">
+                      行程共${calDays(schedule.schStart, schedule.schEnd)}天
+                      <span><i class="fa-solid fa-copy"></i> ${convertBooleanToText(schedule.schCopy)}</span>
+                    </p>
+                    <a href="${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}" 
+                      class="btn btn-outline-success btn-sm viewDetails">查看詳情</a>
                 </div>
               </div>
             </div>
@@ -123,8 +129,7 @@ sortByStart_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
 
-  // URL待改
-  fetchPublicScheduleList(allURL, page);
+  fetchPublicScheduleList(`${schListbaseURL}all/`, page);
   searchSortByStartDESC = true;
   searchSortByStartASC = false;
   searchByKeyWords = false;
@@ -139,9 +144,7 @@ sortByStartASC_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
 
-  // URL待改
-  let myURLASC = `${schListbaseURL}`;
-  fetchPublicScheduleList(myURLASC, page);
+  fetchPublicScheduleList(`${schListbaseURL}allASC/`, page);
 
   searchSortByStartDESC = false;
   searchSortByStartASC = true;
@@ -157,9 +160,7 @@ sortByDays_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
 
-  // URL待改
-  let daysURL = `${schListbaseURL}days`;
-  fetchPublicScheduleList(daysURL, page);
+  fetchPublicScheduleList(`${schListbaseURL}days/`, page);
 
   searchSortByStartDESC = false;
   searchSortByStartASC = false;
@@ -175,9 +176,7 @@ sortByDaysDESC_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
 
-  // URL待改
-  let daysDESCURL = `${schListbaseURL}daysDESC`;
-  fetchPublicScheduleList(daysDESCURL, page);
+  fetchPublicScheduleList(`${schListbaseURL}daysDESC/`, page);
 
   searchSortByStartDESC = false;
   searchSortByStartASC = false;
@@ -193,10 +192,10 @@ search_btn_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
   // 依需求決定是否分頁，若不需要分頁，則將此行註解解開
-  // pagination_el.style.display = "none";
+  pagination_el.style.display = "none";
 
   let keywords = keywords_el.value;
-  let keywordsURL = `${schListbaseURL}${keywords}`;
+  let keywordsURL = `${schListbaseURL}${keywords}/`;
   fetchPublicScheduleList(keywordsURL, page);
 
   searchSortByStartDESC = false;
@@ -221,17 +220,17 @@ for (let pageSelect of pageSelect_els) {
     event.target.parentNode.classList.add("active");
 
     // 依照搜尋條件更換查詢行程內容(URL待改)
-    let sendURL = `${myURL}`; // 預設依照起始日期(新到舊)查詢會員所有行程
+    let sendURL = `${schListbaseURL}all/`; // 預設依照起始日期(新到舊)查詢所有公開行程
     if (searchSortByStartDESC === true)
-      sendURL = `${myURL}`; // dateStartDESCURL 依起始日期新到舊
+      sendURL = `${schListbaseURL}all/`; // dateStartDESCURL 依起始日期新到舊
     else if (searchSortByStartASC === true)
-      sendURL = `${mySchbaseURL}`; // dateStartASCURL 依起始日期舊到新
+      sendURL = `${schListbaseURL}allASC/`; // dateStartASCURL 依起始日期舊到新
     else if (searchByDaysASC === true)
-      sendURL = `${mySchbaseURL}days`; // daysASCURL 依行程天數小到大
+      sendURL = `${schListbaseURL}days/`; // daysASCURL 依行程天數小到大
     else if (searchByDaysDESC === true)
-      sendURL = `${mySchbaseURL}daysDESC`; // daysDESCURL 依行程天數大到小
+      sendURL = `${schListbaseURL}daysDESC/`; // daysDESCURL 依行程天數大到小
     else if (searchByKeyWords === true)
-      sendURL = `${mySchbaseURL}${keywords}`;
+      sendURL = `${schListbaseURL}${keywords}/`;
 
     fetchPublicScheduleList(sendURL, (event.target.innerText - 1));
   });

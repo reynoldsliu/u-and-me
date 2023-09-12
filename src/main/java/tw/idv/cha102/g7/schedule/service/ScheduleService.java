@@ -13,19 +13,26 @@ import java.util.stream.Stream;
 
 public interface ScheduleService {
 
+    // 查詢所有公開行程清單，並依照起始日期降冪排序(分頁)
     List<Schedule> findAllPublicPaged(int page, int size);
 
-    // 查詢所有公開行程清單，並依照起始日期排序
+    // 查詢所有公開行程清單，並依照起始日期升冪排序(分頁)
+    List<Schedule> findAllPublicPagedASC(int page, int size);
+
+    // 查詢所有公開行程清單，並依照起始日期降冪排序
     public List<Schedule> findAllPublic();
 
-    // 依照行程名稱，查詢所有公開行程清單，並依照起始日期排序
+    // 依照行程名稱，查詢所有公開行程清單，並依照起始日期降冪排序
     public Stream<Schedule> findBySchNamePaged(String schName, int page);
 
-    // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期排序
+    // 依照行程開始日期及結束日期，查詢所有期限內的公開行程清單，並依照起始日期降冪排序
     public List<Schedule> findBetweenDate(Date schStart, Date schEnd);
 
     // 依行程天數小到大，查詢公開行程及天數，並依照起始日期新到舊排序
     public Stream<ScheduleDayDTO> findOrderByDays(int page);
+
+    // 依行程天數大到小，查詢公開行程及天數，並依照起始日期新到舊排序
+    public Stream<ScheduleDayDTO> findOrderByDaysDESC(int page);
 
     // 依行程ID，查詢單一行程
     public Schedule getById(Integer schId);
