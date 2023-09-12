@@ -223,6 +223,8 @@ function formatDateToYYYYMMDD(date) {
 
     return `${year}-${month}-${day}`;
 }
+//---------------------------------------------------------------------------
+//Reynolds 
 
 let travelIconCount = 0;
 let countedScheDetailsBase = 0;
@@ -400,6 +402,7 @@ async function addDailySchedule(restScheDetails) {
 
     return countedScheDetails;
 }
+//---------------------------------------------------------------------------
 
 // 幾月幾日直接+1天
 function addOneDay(dateString) {
