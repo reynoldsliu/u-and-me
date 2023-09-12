@@ -9,6 +9,8 @@ const email_el = document.getElementById("email");
 const phone_el = document.getElementById("phone");
 const emailtext_el = document.getElementById("emailtext");
 const phonetext_el = document.getElementById("phonetext");
+const total_el = document.getElementById("total");
+const temp_el = document.getElementById("temp");
 
 //驗證錯誤
 let emailReg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
@@ -27,6 +29,8 @@ let maxMember;//紀錄能參與揪團的人數
 let member = 1;//紀錄參團人數
 let formId;
 let memId;
+let amount; //紀錄揪團金額
+let total;
 window.addEventListener("load", async function (e) {
 
     //===================取得網址頁上傳遞的參數===================
@@ -54,11 +58,10 @@ window.addEventListener("load", async function (e) {
     //===================取得網址頁上傳遞的參數結束===================
 
     // 取得插入的formId
-    // 後面/1為memId
     fetch(baseUrl + '/member/regForm/findFromId', {
         method: 'GET',
     }).then(response => {
-        if(response.status == 401){
+        if (response.status == 401) {
             Swal.fire({
                 icon: 'error',
                 title: '尚未登入',
@@ -77,7 +80,10 @@ window.addEventListener("load", async function (e) {
     }).then(response => {
         return response.json();
     }).then(group => {
-        maxMember = Number(group.member)
+        maxMember = Number(group.member);
+        amount = Number(group.amount);
+        total = amount;
+        total_el.innerText = total;
     });
 });
 
@@ -122,10 +128,10 @@ order_confirmed_el.addEventListener('click', function (e) {
             title: '報名失敗',
             text: '該揪團已達最大人數',
             showCancelButton: true
-        }).then(()=>{
+        }).then(() => {
             location.href = baseUrl + '/tmp/Front/group/groupMemo.html?groupId=' + groupId;
         })
-        
+
     }
 
     if (email_el.value === null || email_el.value.trim() === "") {
@@ -204,11 +210,27 @@ order_confirmed_el.addEventListener('click', function (e) {
         }
     }
 
+    //如果沒錯誤開始送出資料
     if (control) {
+        fetch(baseUrl + '/groupPay/' + groupId + '/' + total, {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+            },
+            method: 'POST'
+        }).then(res => {
+            return res.text();
+        }).then(sub => {
+            temp_el.innerHTML = sub;
+            // console.log(123123);
+            // console.log(sub);
+            // console.log('html' + temp_el.innerHTML)
+            document.getElementById('allPayAPIForm').submit();
+            temp_el.innerHTML = '';
+        });
+
         const form_data = {
             formId: formId,
             groupId: groupId,
-            memId: 1, //這個將判斷登入者id，尚未實作
             email: email_el.value,
             phone: phone_el.value,
             joinMember: selectMember_el.value
@@ -315,5 +337,7 @@ function addMemberDetail(member) {
         </div>`
 
         join_members_el.appendChild(regForms);
+        total = member * amount;
+        total_el.innerText = total;
     }
 }

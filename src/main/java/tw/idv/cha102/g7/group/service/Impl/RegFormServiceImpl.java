@@ -13,8 +13,12 @@ import tw.idv.cha102.g7.group.repo.GroupRepository;
 import tw.idv.cha102.g7.group.repo.RegFormRepository;
 import tw.idv.cha102.g7.group.service.RegFormService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Stream;
+
+import static java.lang.Integer.parseInt;
 
 @Component
 public class RegFormServiceImpl implements RegFormService {
@@ -24,7 +28,10 @@ public class RegFormServiceImpl implements RegFormService {
     @Autowired
     private GroupRepository groupRepository;
 
-    public void insert(RegForm regForm){
+    public void insert(RegForm regForm, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
+        regForm.setMemId(memId);
         Group group = groupRepository.findById(regForm.getGroupId()).get();
         //如果參加人數小於最大人數才新增
         if(group.getMembers() + regForm.getJoinMember() <= group.getMaxMember()){
@@ -34,8 +41,6 @@ public class RegFormServiceImpl implements RegFormService {
             group.setMembers(group.getMembers() + regForm.getJoinMember());
             groupRepository.save(group);
         }
-
-
 
     }
 

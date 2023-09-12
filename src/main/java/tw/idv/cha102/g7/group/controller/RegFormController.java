@@ -7,6 +7,7 @@ import tw.idv.cha102.g7.group.dto.RegformIdDto;
 import tw.idv.cha102.g7.group.entity.RegForm;
 import tw.idv.cha102.g7.group.service.RegFormService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -23,8 +24,8 @@ public class RegFormController {
      * @param regForm 欲新增的報名表
      */
     @PostMapping("/member/regForm")//新增報名表
-    public void insert(@RequestBody RegForm regForm){
-        regFormService.insert(regForm);
+    public void insert(@RequestBody RegForm regForm, HttpServletRequest request){
+        regFormService.insert(regForm, request);
     }
 
     /**

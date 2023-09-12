@@ -26,7 +26,7 @@ public class OrderService {
         obj.setItemName("Test"); //設定交易物品名稱
 
 
-//        obj.setReturnURL("http://localhost:8080/u-and-me/");//設定返回網址
+        obj.setReturnURL("http://localhost:8080/u-and-me/");//設定返回網址
         obj.setNeedExtraPaidInfo("N"); //是否需要額外付費資訊
         obj.setClientBackURL("http://localhost:8080/u-and-me/tmp/Front/group/myGroupList.html");//設定返回網址不行時的替代網址
 
