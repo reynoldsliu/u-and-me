@@ -27,10 +27,10 @@ public class ActivityController {
     }
 
 
-    // 依照活動名稱關鍵字，查詢所有在架上活動清單
+    // 依照活動名稱、內容關鍵字，查詢所有在架上活動清單
     @GetMapping("/name/{activName}")
-    public List<Activity> findByActivName(@PathVariable String activName) {
-        return activityService.findByActivName(activName);
+    public List<Activity> findByActivNameCon(@PathVariable String activName) {
+        return activityService.findByActivNameCon(activName);
     }
 
 
@@ -89,7 +89,7 @@ public class ActivityController {
     }
 
 
-    // 查全部活動
+    // 管理員 查全部活動
     @GetMapping("/activityall")
     public List<Activity> findAllActivity() {
         List<Activity> activityList = activityService.findAllActivity();

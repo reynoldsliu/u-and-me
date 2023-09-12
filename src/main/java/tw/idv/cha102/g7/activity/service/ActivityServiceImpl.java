@@ -21,8 +21,8 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<Activity> findByActivName(String activName) {
-        return repository.findByActivName(activName);
+    public List<Activity> findByActivNameCon(String activName) {
+        return repository.findByActivNameCon(activName);
     }
 
     @Override

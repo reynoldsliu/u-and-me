@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const searchText = searchInput.value.trim();
 
         if (searchText === '') {
+            alert('請輸入活動名稱或內容');
             return;
         }
 

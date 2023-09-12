@@ -166,12 +166,11 @@ input[type='radio']:checked:after {
     background-color: #f6f5e8f7;
     width: 70%;
     /* 調整外框寬度 */
-    height: 350px;
+    min-height: 350px;
+    height: auto;
     /* 調整外框高度 */
     margin: 0 auto;
     /* 水平置中 */
-
-
 }
 
 body {
@@ -185,7 +184,18 @@ body {
 }
 
 .personality-description {
-    margin-top: 10px;
+    margin-top: 0px;
     font-size: 20px;
     color: #000000;
+    border: 2px solid #e59560b9;
+    padding: 20px; /* 內邊距 */
+    border-radius: 10px;
+    text-align: left;
+    color: rgb(32, 54, 78);
+}
+
+h3 {
+    margin-top: -2px;
+    color: rgb(32, 54, 78);
+    text-align: center;
 }

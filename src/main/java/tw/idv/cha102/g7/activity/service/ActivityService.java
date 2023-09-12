@@ -10,8 +10,8 @@ public interface ActivityService {
     // 依活動Id,查詢單一活動內容
     public Activity getById(Integer activId);
 
-    // 依活動名稱關鍵字模糊比對查詢行程
-    List<Activity> findByActivName(String activName);
+    // 依活動名稱內容關鍵字模糊比對查詢行程
+    List<Activity> findByActivNameCon(String activName);
 
     // 依活動內容關鍵字模糊比對查詢行程
     List<Activity> findByActivCon(String activCon);
