@@ -111,9 +111,7 @@ function connect() {
     //歷史訊息
     if (data.type === 2) {
 
-      // if(isEmpOline){
         buildHisMessage(data.data);
-      // }
 
     }
 
