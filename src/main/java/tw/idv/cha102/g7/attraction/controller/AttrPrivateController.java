@@ -83,8 +83,8 @@ public class AttrPrivateController {
      * @param attrPrivateId
      * @return
      */
-    @RequestMapping("/daletePrivateAttractionDTO")
-    public ResponseEntity<String> daletePrivateAttraction(HttpServletRequest request,
+    @RequestMapping("/deletePrivateAttractionDTO")
+    public ResponseEntity<String> deletePrivateAttractionDTO(HttpServletRequest request,
                                                           HttpServletResponse response,
                                                           @RequestBody Integer attrId){
         return new ResponseEntity(attrPrivateService.

@@ -235,7 +235,7 @@ async function addDailySchedule(restScheDetails) {
     //              透過交通方式計算行程間的交通距離 交通時間
     //結束時間=開始時間+停留時間
     //開始時間=結束時間+交通時間
-
+    var todayWaypoint = [];
     const response = await fetch(baseURL + `schedules/schId/` + restScheDetails[0].schId);
     const schedule = await response.json();
     const startDay = schedule.schStart;
@@ -251,11 +251,10 @@ async function addDailySchedule(restScheDetails) {
     console.log("todayDate: " + todayDate);
     console.log("startDate: " + firstDay);
     let nthDays = (todayDate - firstDay + 24 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000);
-    let nthDay = today - startDay + 1;
     console.log("nthday: " + nthDays);
 
     let row = document.createElement("div");
-    row.classList.add("schDeStartTimeRows");
+    row.classList.add("schDeStartTimeRows"+nthDays);
     row.innerHTML = `
         <div>
             <span class="viewWhichDay">第${nthDays}天 :</span>
@@ -294,6 +293,9 @@ async function addDailySchedule(restScheDetails) {
         const attrPicList = await responseAttrPics.json();
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
+
+        todayWaypoint.push(attr.attrAddr);
+
         let row = document.createElement("div");
         row.innerHTML = `
                 <div class="schDetailCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrId});">
@@ -378,6 +380,8 @@ async function addDailySchedule(restScheDetails) {
             mapApiBetw2(travelIconCount);
         }
 
+        
+
         // 2023/09/11========================================================================================
 
         //將TimeStampString轉為Date 且可以直接比大小
@@ -386,18 +390,28 @@ async function addDailySchedule(restScheDetails) {
             < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)
         ) {
 
-            // <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
-            const addNewAttrbtn = document.createElement("div");
-            addNewAttrbtn.classList.add("addNewAttrbtn");
-            // addNewAttrbtn.onclick = "addNewAttrbtnOnclick()";
-            addNewAttrbtn.addEventListener("click", addNewAttrbtnOnclick);
-            addNewAttrbtn.innerText = "＋新增景點";
-            viewSchDetailsRows.appendChild(addNewAttrbtn);
-            console.log("DO NEW A BTN");
+            
 
             break;
         }
     }
+    const target = document.querySelector(`.schDeStartTimeRows${nthDays}`);
+        row.innerHTML = `
+        <div>
+            <button onclick="showDayRoute(${todayWaypoint},${"DRIVING"})">本日路線</button>
+        </div>
+        `;
+        target.appendChild(row);
+    console.log(todayWaypoint);
+    // <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
+    const addNewAttrbtn = document.createElement("div");
+    addNewAttrbtn.classList.add("addNewAttrbtn");
+    // addNewAttrbtn.onclick = "addNewAttrbtnOnclick()";
+    addNewAttrbtn.addEventListener("click", addNewAttrbtnOnclick);
+    addNewAttrbtn.innerText = "＋新增景點";
+    viewSchDetailsRows.appendChild(addNewAttrbtn);
+    console.log("DO NEW A BTN");
+
     countedScheDetailsBase = travelIconCount;
 
     return countedScheDetails;
@@ -1049,12 +1063,28 @@ myAttrDone_btn_el.onclick = async () => {
         },
         body: JSON.stringify(newAttr)
     });
+    
     const attrPrivDTO = await response.json();
     // console.log(attrPrivDTO);
     let attrBody = attrPrivDTO.body;
     let attrPrivateId = attrBody.attrPrivateId;
     let attrId = attrPrivateId.attrId;
+    let memId = attrPrivateId.memId;
     // console.log("ATTRID: " + attrId);
+    const attrCollectionDTO = {
+        collectionId:{
+            memId:memId,
+            attrId:attrId
+        }
+    }
+    const responseCol = await fetch(baseURL+`attrCol/addAttrToCollection`,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(attrCollectionDTO)
+    })
+
 
     // console.log("開始上傳圖片");
     for (const file of picFiles) {
@@ -1097,7 +1127,7 @@ myAttrDone_btn_el.onclick = async () => {
         }
     }
 
-    if (myAttrName === "" || myAttrAddr === "" || picFiles === null) {
+    if (myAttrName === "" || myAttrAddr === "" || picFiles === null || picFiles.length==0) {
         Swal.fire({
             icon: 'error',
             title: '新增失敗',

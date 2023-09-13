@@ -1332,9 +1332,10 @@
         // function showAllRoute(travelMode) {
         //     calculateMultipleTravelTimes(getAllWaypoints(),travelMode);
         // }
-        // function showRoute(wayoints,travelMode) {
-        //     calculateMultipleTravelTimes(wayoints,travelMode);
-        // }
+        function showDayRoute(wayoints,travelMode) {
+            console.log(wayoints);
+            calculateMultipleTravelTimes(wayoints,travelMode);
+        }
         function showRoute(travelIconCount) {
             initMap();
             const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);
