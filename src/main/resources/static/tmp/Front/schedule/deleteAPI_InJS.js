@@ -216,6 +216,7 @@ function extractMonthAndDate(timeString) {
     return `${month}月${dates}日`;
 }
 
+// 日期轉換成YYYY-MM-DD格式
 function formatDateToYYYYMMDD(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需要加1并补齐两位
@@ -223,11 +224,13 @@ function formatDateToYYYYMMDD(date) {
 
     return `${year}-${month}-${day}`;
 }
+
 //---------------------------------------------------------------------------
 //Reynolds 
 
 let travelIconCount = 0;
 let countedScheDetailsBase = 0;
+
 async function addDailySchedule(restScheDetails) {
     //拿第一個細節的起始時間當今天開始時間
     //迴圈塞入各個行程細節 直到下一個行程的日期不是本日
@@ -235,7 +238,8 @@ async function addDailySchedule(restScheDetails) {
     //              透過交通方式計算行程間的交通距離 交通時間
     //結束時間=開始時間+停留時間
     //開始時間=結束時間+交通時間
-    let todayWaypoint = [];
+    // ------------------------------- 2023/09/12
+    var todayWaypoint = [];
     const response = await fetch(baseURL + `schedules/schId/` + restScheDetails[0].schId);
     const schedule = await response.json();
     const startDay = schedule.schStart;
@@ -254,8 +258,7 @@ async function addDailySchedule(restScheDetails) {
     console.log("nthday: " + nthDays);
 
     let row = document.createElement("div");
-    row.classList.add("schDeStartTimeRows"+nthDays);
-    row.classList.add("schDeStartTimeRows");
+    row.classList.add("schDeStartTimeRows" + nthDays);
     row.innerHTML = `
         <div>
             <span class="viewWhichDay">第${nthDays}天 :</span>
@@ -264,12 +267,13 @@ async function addDailySchedule(restScheDetails) {
         </div>
     `;
     viewSchDetailsRows.appendChild(row);
+    // ------------------------------- 2023/09/12
 
 
     //一但有變動 重新呼叫本函式更新一天行程
     var schdeStarttime = restScheDetails[0].schdeStarttime;
     let countedScheDetails;
-
+    // let travelIconCount = 0;
     for (countedScheDetails = 0; ; countedScheDetails++) {
         //如果下一筆行程細節是明天的 結束今天的行程列印
 
@@ -295,7 +299,9 @@ async function addDailySchedule(restScheDetails) {
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
 
-        todayWaypoint.push(`${attr.attrAddr}`);
+        // ------------------------ 2023/09/12 
+        todayWaypoint.push(attr.attrAddr);
+        // ------------------------ 2023/09/12
 
         let row = document.createElement("div");
         row.innerHTML = `
@@ -320,8 +326,8 @@ async function addDailySchedule(restScheDetails) {
                                     </div>
                                 </h5>
                                 <p class="attrAddr">
-                                    <small class="text-body-secondary attrAddrWaypoints"
-                                        id="attrAddr${countedScheDetailsBase + countedScheDetails + 1}">${attr.attrAddr}</small>
+                                    <small class="text-body-secondary"
+                                        id="attrAddr${countedScheDetails + 1}">${attr.attrAddr}</small>
                                 </p>
                             </div>
                         </div>
@@ -380,31 +386,24 @@ async function addDailySchedule(restScheDetails) {
             // row.appendChild(row1);
             mapApiBetw2(travelIconCount);
         }
-
-        
-
         // 2023/09/11========================================================================================
 
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
-        if (restScheDetails[countedScheDetails+1]==undefined ||
-            parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
-            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)
-        ) {
-
-            
-
+        if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
+            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)) {
             break;
         }
     }
-    console.log(todayWaypoint);
-    const target = document.querySelector(`.schDeStartTimeRows${nthDays}`);
-    const div = document.createElement("div");
-    div.innerHTML = `
-            <button onclick="showDayRoute('` + todayWaypoint.join("-") + `')">本日路線</button>
-        `;
-    target.appendChild(div);
 
+    // ---------------------------- 2023/09/12
+    const target = document.querySelector(`.schDeStartTimeRows${nthDays}`);
+    row.innerHTML = `
+        <div>
+            <button onclick="showDayRoute(${todayWaypoint},${"DRIVING"})">本日路線</button>
+        </div>
+        `;
+    target.appendChild(row);
     console.log(todayWaypoint);
     // <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
     const addNewAttrbtn = document.createElement("div");
@@ -416,25 +415,10 @@ async function addDailySchedule(restScheDetails) {
     console.log("DO NEW A BTN");
 
     countedScheDetailsBase = travelIconCount;
+    // ---------------------------- 2023/09/12
 
     return countedScheDetails;
 }
-//////////////////////////////////////////////////////////////////////////
-//顯示所有路線 會爆掉
-// function showAllRoute() {
-//     calculateMultipleTravelTimes(getAllWaypoints(),"DRIVING");
-// }
-function showDayRoute(inputString) {
-    const waypointsParts = inputString.split('-');
-    let waypoints = [];
-    for(let waypointsPart of waypointsParts){
-        waypoints.push(waypointsPart);
-    }
-    console.log(waypoints);
-    calculateMultipleTravelTimes(waypoints, "DRIVING");
-}
-
-//---------------------------------------------------------------------------
 
 // 幾月幾日直接+1天
 function addOneDay(dateString) {
@@ -459,9 +443,6 @@ function addOneDay(dateString) {
 }
 
 // =============== 行程細節時間計算相關函式(BY Reynolds)結束 =============== 
-
-
-
 // 景點評價(3.5~5.0)
 function generateRandomNumber() {
     const min = 3.5; // 最小值
@@ -490,8 +471,6 @@ function codeToPriceRange(code) {
             return "尚無資料";
     }
 }
-
-
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", async function () {
     // 關閉景點搜尋內其他頁籤內容
@@ -538,6 +517,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     // schDetails.shift();
     // console.log(schDetails);
+
+    // ---------------------- 2023/09/12
     const result = await addDailySchedule(schDetails);
     for (let i = 0; i < result + 1; i++) {
         schDetails.shift();
@@ -551,6 +532,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log(schDetails);
     addDailySchedule(schDetails);
     console.log("!!!!!!!: " + schDetails);
+    // ---------------------- 2023/09/12
 
     // ====================== 生成行程細節天數tab內容 ======================
 
@@ -746,6 +728,7 @@ tab_search_el.addEventListener("click", function (e) {
     attrSearchPage.classList.remove(classSwitchOff);
 });
 
+// 2023/09/12 RN'S FUNCTION --------------------------
 function bussTimeString(inputString) {
     // 使用逗号分割字符串，并将结果存储在数组中
     const timeRanges = inputString.split('|');
@@ -757,29 +740,31 @@ function bussTimeString(inputString) {
     holidayTimeRange = timeRanges[0];
     holidayTimeRangeArr = [];
     holidayTimeRangeArr = holidayTimeRange.split('');
-    holidayTimeRange = holidayTimeRangeArr[0]+holidayTimeRange[1]+":"
-    +holidayTimeRange[2]+holidayTimeRange[3]+"~"
-    +holidayTimeRange[5]+holidayTimeRange[6]+":"
-    +holidayTimeRange[7]+holidayTimeRange[8];
+    holidayTimeRange = holidayTimeRangeArr[0] + holidayTimeRange[1] + ":"
+        + holidayTimeRange[2] + holidayTimeRange[3] + "~"
+        + holidayTimeRange[5] + holidayTimeRange[6] + ":"
+        + holidayTimeRange[7] + holidayTimeRange[8];
     weekdayTimeRange = timeRanges[1];
     weekdayTimeRangeArr = [];
     weekdayTimeRangeArr = weekdayTimeRange.split('');
-    weekdayTimeRange = weekdayTimeRangeArr[0]+weekdayTimeRange[1]+":"
-    +weekdayTimeRange[2]+weekdayTimeRange[3]+"~"
-    +weekdayTimeRange[5]+weekdayTimeRange[6]+":"
-    +weekdayTimeRange[7]+weekdayTimeRange[8];
+    weekdayTimeRange = weekdayTimeRangeArr[0] + weekdayTimeRange[1] + ":"
+        + weekdayTimeRange[2] + weekdayTimeRange[3] + "~"
+        + weekdayTimeRange[5] + weekdayTimeRange[6] + ":"
+        + weekdayTimeRange[7] + weekdayTimeRange[8];
     const resultString = `平日:${weekdayTimeRange} | 假日:${holidayTimeRange}`;
     return resultString;
 }
 
-function getAllWaypoints(){
+function getAllWaypoints() {
     const waypoints = document.querySelectorAll(".attrAddrWaypoints");
-    let waypointsContents=[];
-    for(let waypoint of waypoints){
+    let waypointsContents = [];
+    for (let waypoint of waypoints) {
         waypointsContents.push(waypoint.textContent);
     }
     return waypointsContents;
 }
+// 2023/09/12 RN'S FUNCTION --------------------------
+
 
 // 點擊到schDetailCell(單一行程細節Cell)、attrCell(景點搜尋、景點收藏Cell)時，出現景點詳細頁面
 async function viewSearchResultOfOneAttr(attrId) {
@@ -832,8 +817,8 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 假設你有一個經緯度
     var latitude = attr.attrLat; // 緯度
     var longitude = attr.attrLon; // 經度
-    console.log("經度: "+latitude);
-    console.log("緯度: "+longitude);
+    console.log("經度: " + latitude);
+    console.log("緯度: " + longitude);
 
     // 創建一個包含經緯度信息的 Place 物件
     var locationPlace = {
@@ -1081,7 +1066,7 @@ myAttrDone_btn_el.onclick = async () => {
         },
         body: JSON.stringify(newAttr)
     });
-    
+
     const attrPrivDTO = await response.json();
     // console.log(attrPrivDTO);
     let attrBody = attrPrivDTO.body;
@@ -1090,19 +1075,18 @@ myAttrDone_btn_el.onclick = async () => {
     let memId = attrPrivateId.memId;
     // console.log("ATTRID: " + attrId);
     const attrCollectionDTO = {
-        collectionId:{
-            memId:memId,
-            attrId:attrId
+        collectionId: {
+            memId: memId,
+            attrId: attrId
         }
     }
-    const responseCol = await fetch(baseURL+`attrCol/addAttrToCollection`,{
+    const responseCol = await fetch(baseURL + `attrCol/addAttrToCollection`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(attrCollectionDTO)
     })
-
 
     // console.log("開始上傳圖片");
     for (const file of picFiles) {
@@ -1145,7 +1129,7 @@ myAttrDone_btn_el.onclick = async () => {
         }
     }
 
-    if (myAttrName === "" || myAttrAddr === "" || picFiles === null || picFiles.length==0) {
+    if (myAttrName === "" || myAttrAddr === "" || picFiles === null || picFiles.length == 0) {
         Swal.fire({
             icon: 'error',
             title: '新增失敗',

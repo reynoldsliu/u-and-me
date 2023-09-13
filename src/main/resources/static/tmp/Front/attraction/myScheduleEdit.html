@@ -1284,7 +1284,6 @@
                     row.classList.add("transTotalTime");
                     row.innerHTML = `
                     <span class="totalTime">${duration}</span>
-                    <span style="z-inedx:1;" class="showRoute" onclick="showRoute('DRIVING')">顯示路線</span>
                     <button onclick="showRoute(${travelIconCount})">顯示路線</button>
                     <span class="totalDistance">${total} km</span>
                     `;
@@ -1332,10 +1331,10 @@
         // function showAllRoute(travelMode) {
         //     calculateMultipleTravelTimes(getAllWaypoints(),travelMode);
         // }
-        function showDayRoute(wayoints,travelMode) {
-            console.log(wayoints);
-            calculateMultipleTravelTimes(wayoints,travelMode);
-        }
+        // function showDayRoute(wayoints,travelMode) {
+        //     console.log(wayoints);
+        //     calculateMultipleTravelTimes(wayoints,travelMode);
+        // }
         function showRoute(travelIconCount) {
             initMap();
             const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);

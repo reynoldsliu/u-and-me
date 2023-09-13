@@ -10,7 +10,11 @@ import tw.idv.cha102.g7.article.entity.DTO.ArticleLike;
 import tw.idv.cha102.g7.article.service.ArticleLikeService;
 import tw.idv.cha102.g7.article.service.ArticleSingleArticleService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 @RestController
 @RequestMapping("/article_comment")
@@ -30,20 +34,24 @@ public class ArticleCommentController {
     //文章詳情頁面新增留言
     @RequestMapping("/post/{articleId}")
     public Integer insert(@RequestBody ArticleComment comment,
-                       @PathVariable Integer articleId) {
-        articleSingleArticleService.postComment(comment, articleId);
+                          @PathVariable Integer articleId,
+                          HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer memberId = parseInt(session.getAttribute("memberId").toString());
+        articleSingleArticleService.postComment(comment, articleId, memberId);
         return articleId;
     }
 
+
     //文章詳情呈現特定articleId 文章
     @GetMapping("/articleId/{articleId}")
-    public Article getByArticleId(@PathVariable Integer articleId){
+    public Article getByArticleId(@PathVariable Integer articleId) {
         return articleSingleArticleService.getByArticleId(articleId);
     }
 
     //文章詳情呈現特定articleId 圖片
     @GetMapping("/articleId/article_pic/{articleId}")
-    public List<ArticlePicture> postArticle(@PathVariable Integer articleId){
+    public List<ArticlePicture> postArticle(@PathVariable Integer articleId) {
         return articleSingleArticleService.findPicByArticleId(articleId);
     }
 

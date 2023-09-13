@@ -9,7 +9,6 @@ import tw.idv.cha102.g7.article.entity.Article;
 import tw.idv.cha102.g7.article.entity.ArticlePicture;
 import tw.idv.cha102.g7.article.service.ArticleSingleArticleService;
 import tw.idv.cha102.g7.article.service.ArticleUserEditService;
-import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,8 +45,9 @@ public class ArticleUserEditController {
     // 在修改頁面回傳修改後的文章
     @PutMapping("/upd/{articleId}")
     public ResponseEntity<?> edit(@PathVariable Integer articleId,
-                                  @RequestBody Article updArticle) {
-        // 在前端頁面就可以將memId, articleId傳到postdata中
+                                  @RequestBody Article updArticle
+    ) {
+        // 在前端頁面不需變更memId
         try {
             articleUserEditService.userEdit(updArticle);
             return ResponseEntity.ok().build();

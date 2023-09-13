@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.ecpay.payment.integration.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.ecpay.payment.integration.service.ShopOrderService;
@@ -23,5 +24,11 @@ public class ShopOrderController {
 
     @PostMapping("/getResponse")
     public void getResponse(){
+    }
+
+    @RequestMapping("/updateOrdPaySta/{ordId}")
+    public ResponseEntity<?> updateOrdPaySta(@PathVariable Integer ordId){
+        shopOrderService.updateOrdPaySta(ordId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

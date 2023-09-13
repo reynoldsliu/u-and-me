@@ -19,6 +19,9 @@ public interface ScheduleReportService {
     // 查詢所有被檢舉行程清單
     public List<ScheduleReport> findAll();
 
+    // 查詢單一個被檢舉行程內容
+    public  ScheduleReport findBySchRepId(Integer schRepId);
+
     // 屏蔽被檢舉的行程
     public void hideById(Integer schId);
 

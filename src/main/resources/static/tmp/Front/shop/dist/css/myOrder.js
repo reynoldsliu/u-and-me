@@ -30,7 +30,7 @@ selectById_submitBtn.addEventListener("click", async function () {
         let ordId = selectById_el.value;
 
         //透過輸入的ordId用API查出單一訂單資訊
-        const response = await fetch(`http://localhost:8081/u-and-me/Orders/ordId${ordId}`);
+        const response = await fetch(`${baseUrl}Orders/ordId${ordId}`);
         let orders = await response.json();
         if (orders.ordId === undefined) {
             alert("查無此訂單");
@@ -70,7 +70,16 @@ async function myOrderList(page) {
     const dataTableList = document.getElementById("dataTableList");
     dataTableList.innerHTML = "";
     try {
-        const response = await fetch(baseUrl+`myOrders/${page}`);
+        const response = await fetch(baseUrl+`member/myOrders/${page}`);
+        if(response.status == 401){
+            Swal.fire({
+                icon: 'error',
+                title: '尚未登入',
+                showCancelButton: true
+            }).then(() => {
+                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+            });
+        }
         const orderList = await response.json();
 
 

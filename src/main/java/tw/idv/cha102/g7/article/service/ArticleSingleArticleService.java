@@ -21,7 +21,7 @@ public interface ArticleSingleArticleService {
     List<ArticleComment> findAllByArticleId(Integer articleId);
 
     // 在特定文章id中新增留言(從URL中抓取articleId)
-    public String postComment(ArticleComment comment,Integer articleId ) ;
+    public String postComment(ArticleComment comment,Integer articleId,Integer memberId ) ;
 
 
 }

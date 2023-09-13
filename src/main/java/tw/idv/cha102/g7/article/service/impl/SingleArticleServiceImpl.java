@@ -30,7 +30,7 @@ public class SingleArticleServiceImpl implements ArticleSingleArticleService {
 
     // 在該文章底下新增留言
     @Override
-    public String postComment(ArticleComment comment, Integer articleId) {
+    public String postComment(ArticleComment comment, Integer articleId,Integer memberId) {
         Article oldArticle = articleBrowserRepository.findById(articleId).orElse(null);
         Integer commentNum = (oldArticle.getCommentNum());
         System.out.println("原留言數" + commentNum);
@@ -39,6 +39,7 @@ public class SingleArticleServiceImpl implements ArticleSingleArticleService {
             // 後端空值驗證
         } else {
             comment.setArticleId(articleId); // 將文章ID存到留言table
+            comment.setMemId(memberId); // 將memberId存到留言table
             commentNum++;
             oldArticle.setCommentNum(commentNum);
             articleBrowserRepository.save(oldArticle);
