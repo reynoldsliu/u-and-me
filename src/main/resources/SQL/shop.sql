@@ -57,9 +57,9 @@ values
 select * from product_category;
 
 select * from product;
-insert into product(prod_id,prodcat_id,prod_name,prod_con,prod_pri,prod_qty,prod_spec)
+insert into product(prod_id,prodcat_id,prod_name,prod_con,prod_pri,prod_qty,prod_sta,prod_spec)
 values
-(101,2,'日月潭紅茶 | ITI 國際風味絕佳獎章 | 50g','台茶18號，茶湯呈現典雅金紅色，茶香中帶有淡淡薄荷肉桂香氣，此香氣更被世界紅茶專家譽為日月潭紅茶特有之「台灣香」',699,0,1,'3入'),
+(101,2,'日月潭紅茶 | 國際風味獎章 | 50g','台茶18號，茶湯呈現典雅金紅色，茶香中帶有淡淡薄荷肉桂香氣，此香氣更被世界紅茶專家譽為日月潭紅茶特有之「台灣香」',699,0,1,'3入'),
 (102,3,'設計師聯名款太陽眼鏡','UandMe與設計師太陽眼鏡款，擷取時尚與文化融入設計，絕對是旅行中不可或缺的配件 ',2999,2,1,'1入'),
 (103,4,'大自然的氣息','工作繁忙沒辦法安排假期旅行嗎? 把大自然的氣息帶回去，讓你在家也能有沉浸式的旅行體驗',11111,10,1,'1入'),
 (104,2,'冠軍烘培咖啡豆','TCRC 烘焙冠軍特調精品配方豆｜醇厚度：輕盈｜酸度：低酸 風味描述： 焙茶、炒糖甜感、白花香、平衡乾淨',1080,10,1,'2入'),
