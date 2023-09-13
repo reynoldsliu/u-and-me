@@ -9,6 +9,7 @@ import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleReport;
 import tw.idv.cha102.g7.schedule.service.ScheduleReportService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @CrossOrigin
@@ -24,9 +25,9 @@ public class ScheduleReportController {
      * 檢舉行程
      * @param scheduleRep 欲檢舉行程的檢舉內容
      */
-    @PostMapping("/add")
-    public void insert(@RequestBody ScheduleReport scheduleRep) {
-        reportService.insert(scheduleRep);
+    @PostMapping("/member/add")
+    public void insert(@RequestBody ScheduleReport scheduleRep, HttpServletRequest request) {
+        reportService.insert(scheduleRep, request);
     }
 
     /**

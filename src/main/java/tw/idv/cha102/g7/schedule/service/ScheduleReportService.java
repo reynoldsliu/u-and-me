@@ -6,12 +6,13 @@ import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleReport;
 import tw.idv.cha102.g7.schedule.repo.ScheduleReportRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ScheduleReportService {
 
     // 新增一筆檢舉行程的資料
-    public void insert(ScheduleReport scheduleRep);
+    public void insert(ScheduleReport scheduleRep, HttpServletRequest request);
 
     // 修改檢舉內容
     public void update(Integer schRepId, ScheduleReport scheduleRep);

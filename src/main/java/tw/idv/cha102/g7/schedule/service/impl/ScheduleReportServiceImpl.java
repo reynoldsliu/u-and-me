@@ -8,7 +8,11 @@ import tw.idv.cha102.g7.schedule.repo.ScheduleReportRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleReportService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 @Service
 public class ScheduleReportServiceImpl implements ScheduleReportService {
@@ -19,7 +23,10 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
     private ScheduleRepository scheduleRepository;
 
     @Override
-    public void insert(ScheduleReport scheduleRep) {
+    public void insert(ScheduleReport scheduleRep, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
+        scheduleRep.setMemId(memId);
         ScheduleReport report = reportRepository.save(scheduleRep);
         hideById(report.getSchId());
     }
