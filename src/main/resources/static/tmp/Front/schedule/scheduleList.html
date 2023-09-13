@@ -34,8 +34,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="../activity/ActivityIndex.html" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">活動資訊</a>
+                        <a class="nav-link dropdown-toggle" href="../activity/ActivityIndex.html" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">活動資訊</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../activity/ActivityNewsList.html">News</a></li>
                             <li>
@@ -76,8 +76,8 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="../customer/CustomerContact.html" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">客服專區</a>
+                        <a class="nav-link dropdown-toggle" href="../customer/CustomerContact.html" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">客服專區</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../customer/CustomerQa.html">Q&A專欄</a></li>
                             <li>
@@ -105,8 +105,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="../shop/shoppingCart.html"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                    <a class="nav-link" href="../shop/shoppingCart.html"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
                             <path
                                 d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                         </svg>
@@ -125,8 +125,8 @@
 
 
     </nav>
-</div>
-</div>
+    </div>
+    </div>
 
 
     <!-- 主要內容 -->
@@ -212,6 +212,11 @@
                             <div class="copySch" id="copySch" onclick="copySchedule()">
                                 <div><i class="fa-solid fa-copy"></i></div>
                             </div>
+                            <div class="addReport" id="addReport" onclick="addReport()" onmouseover="hint()"
+                                onmouseout="hint()">
+                                <i class="fa-solid fa-triangle-exclamation report"></i>
+                                <div class="addReportHint -off">我要檢舉</div>
+                            </div>
                             <div class="card-body">
                                 <h5 class="card-title">schNameschNameschNameschNameschName</h5>
                                 <p class="sch-date" style="font-size: 15px">
@@ -273,31 +278,35 @@
 
 
 
-           
+
             <div class="col mb-3 mx-5" style="font-family: 'Times New Roman', Times, serif;">
                 <h5>U&Me</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="../activity/ActivityIndex.html" class="nav-link p-0 text-body-secondary">活動資訊</a></li>
-                    <li class="nav-item mb-2"><a href="../schedule/scheduleList.html" class="nav-link p-0 text-body-secondary">行程規劃</a></li>
-                    <li class="nav-item mb-2"><a href="../shop/shoppingMall.html" class="nav-link p-0 text-body-secondary">旅遊商城</a></li>
-                    <li class="nav-item mb-2"><a href="../article/articleindex/ArticleIndex.html" class="nav-link p-0 text-body-secondary">論壇專區</a></li>
-                    <li class="nav-item mb-2"><a href="../customer/CustomerContact.html" class="nav-link p-0 text-body-secondary">客服專區</a></li>
+                    <li class="nav-item mb-2"><a href="../activity/ActivityIndex.html"
+                            class="nav-link p-0 text-body-secondary">活動資訊</a></li>
+                    <li class="nav-item mb-2"><a href="../schedule/scheduleList.html"
+                            class="nav-link p-0 text-body-secondary">行程規劃</a></li>
+                    <li class="nav-item mb-2"><a href="../shop/shoppingMall.html"
+                            class="nav-link p-0 text-body-secondary">旅遊商城</a></li>
+                    <li class="nav-item mb-2"><a href="../article/articleindex/ArticleIndex.html"
+                            class="nav-link p-0 text-body-secondary">論壇專區</a></li>
+                    <li class="nav-item mb-2"><a href="../customer/CustomerContact.html"
+                            class="nav-link p-0 text-body-secondary">客服專區</a></li>
                 </ul>
             </div>
-    
+
             <div class="col mb-3 mx-5" style="font-family: 'Times New Roman', Times, serif;">
-                <h5 >Follow Us</h5>
+                <h5>Follow Us</h5>
                 <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a 
-                            class="nav-link p-0 text-body-secondary">E-mail:u-and-me@gmail.com</a></li>
-                    <li class="nav-item mb-2"><a
-                            class="nav-link p-0 text-body-secondary">Tel:02-22222222</a>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary">E-mail:u-and-me@gmail.com</a>
+                    </li>
+                    <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary">Tel:02-22222222</a>
                 </ul>
                 </li>
-    
-    
-                    </div>
-                </footer>
+
+
+            </div>
+        </footer>
     </div>
 
 

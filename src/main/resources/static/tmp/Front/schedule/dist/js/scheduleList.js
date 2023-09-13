@@ -82,6 +82,11 @@ async function fetchPublicScheduleList(URL, page) {
                 <div class="copySch" id="copySch${schedule.schId}" onclick="copySchedule(${schedule.schId})">
                     <div><i class="fa-solid fa-copy"></i></div>
                 </div>
+                <div class="addReport" id="addReport${schedule.schId}" onclick="addReport(${schedule.schId})" onmouseover="hint(${schedule.schId})"
+                onmouseout="hint(${schedule.schId})">
+                    <i class="fa-solid fa-triangle-exclamation report"></i>
+                    <div class="addReportHint -off">我要檢舉</div>
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">${schedule.schName}</h5>
                     <p class="sch-date" style="font-size: 15px">
@@ -299,3 +304,20 @@ function memberLogin() {
   });
 }
 // ---------- 判斷會員是否登入結束 -----------
+// =============== 檢舉行程 ===============
+// 我要檢舉提示字出現與否
+function hint(schId) {
+  const addReportHint_el = document.querySelector(`#addReport${schId}>div`);
+  if (addReportHint_el.classList.contains(classSwitchOff)) {
+    addReportHint_el.classList.remove(classSwitchOff);
+  } else if (!addReportHint_el.classList.contains(classSwitchOff)) {
+    addReportHint_el.classList.add(classSwitchOff);
+  }
+}
+
+// 檢舉行程
+function addReport(schId) {
+  // TODO....
+  // 一、檢查是否登入會員
+  // 二、登入會員可發起檢舉，要填寫檢舉燈箱(還沒做燈箱...QAQ)
+}

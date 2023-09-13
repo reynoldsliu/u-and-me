@@ -184,6 +184,57 @@ p.sch-date>span {
   padding-left: 50%;
 }
 
+/* 檢舉行程區塊 */
+div.addReport {
+  /* border: 1px solid red; */
+  width: 75px;
+  height: 75px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  z-index: 1;
+}
+
+/* 檢舉行程icon */
+i.report {
+  /* border: 1px solid blue; */
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-shadow: 2px 2px 2px black;
+  position: absolute;
+  right: 0;
+  padding: 20px 10px 10px 10px;
+}
+
+i.report:hover {
+  text-shadow: 2px 2px 2px gray;
+}
+
+/* 我要檢舉提示字 */
+div.addReportHint {
+  /* border: 1px solid white; */
+  position: absolute;
+  top: 50px;
+  width: 75px;
+  height: 25px;
+  font-size: 0.8rem;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 2px gray;
+  z-index: 0;
+}
+
+div.addReportHint.-off {
+  display: none;
+}
+
+
+
 /* 查看詳情 */
 a.viewDetails {
   width: 100%;
