@@ -273,7 +273,7 @@ async function addDailySchedule(restScheDetails) {
     var schdeStarttime = restScheDetails[0].schdeStarttime;
     let countedScheDetails;
 
-    for (countedScheDetails = 0; ; countedScheDetails++) {
+    for (countedScheDetails = 0; countedScheDetails < 8; countedScheDetails++) {
         //如果下一筆行程細節是明天的 結束今天的行程列印
 
 
@@ -958,7 +958,29 @@ function closeViewAttrDetailsCard() {
 }
 
 // 按下加入景點收藏按鈕時跳出提示視窗
-addAttrCollect_btn_el.onclick = () => {
+addAttrCollect_btn_el.onclick = async () => {
+
+    // 抓取會員id
+    const response = await fetch(baseURL + `member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
+
+    // 抓取景點id
+    let attrId = attrIdText_el.innerText;
+
+    const attrCollectionDTO = {
+        collectionId: {
+            memId: memId,
+            attrId: attrId
+        }
+    }
+    const responseCol = await fetch(baseURL + `attrCol/addAttrToCollection`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(attrCollectionDTO)
+    })
     Swal.fire(
         '儲存成功!',
         '已儲存至景點收藏!',
@@ -1163,7 +1185,8 @@ myAttrDone_btn_el.onclick = async () => {
         attrVeriSta: 1,
         attrSta: 1,
         attrCostRange: 2,
-        attrRep: 'no report record'
+        attrRep: 'no report record',
+        attrIlla: '暫無描述'
     };
     const response = await fetch(baseURL + `attrPriv/createPrivateAttr`, {
         method: 'POST',
@@ -1248,7 +1271,9 @@ myAttrDone_btn_el.onclick = async () => {
             '新增成功!',
             '您已新增一個自訂景點!',
             'success'
-        )
+        ).then(() => {
+            location.reload();
+        })
     }
 }
 
@@ -1262,10 +1287,11 @@ addToSchedule_btn_el.addEventListener('click', async function () {
     const schId = urlSearchParams.get('schId');
     let attrId = attrIdText_el.innerText;
 
+    // TODO...目前寫死，尚未轉換成動態寫法(行程細節起始時間、交通時間及停留時間)
     const send_data = {
         schId: schId,
         attrId: attrId,
-        schdeStarttime: '2023-08-15 11:15:00',
+        schdeStarttime: '2023-10-12 09:15:00',
         schdeStaytime: '01:00:00',
         schdeTranstime: '00:30:00',
         schdeTrans: 1,
@@ -1284,5 +1310,13 @@ addToSchedule_btn_el.addEventListener('click', async function () {
             alert('新增失敗' + error);
             return;
         });
+
+    Swal.fire(
+        '儲存成功!',
+        '已新增至行程中!',
+        'success'
+    ).then(() => {
+        location.reload();
+    });
 
 });

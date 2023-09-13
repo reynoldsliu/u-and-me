@@ -455,7 +455,7 @@ div.dateSelectCell>i.switch {
     left: 0;
     padding-top: 12.5%;
     text-align: center;
-    /* display: none; */
+    display: none;
     /* z-index: 2; */
 }
 
@@ -470,7 +470,7 @@ div.dateSelectCell>i.trash {
     right: 0;
     padding-top: 12.5%;
     text-align: center;
-    /* display: none; */
+    display: none;
     /* z-index: 2; */
 }
 
@@ -1251,6 +1251,30 @@ div.attrDetailsCardFooter {
     color: rgb(25, 135, 84);
     background-color: rgb(248, 248, 248);
     margin-right: 8%;
+}
+
+.addAttrCollect-btn.-off{
+    display: none;
+}
+
+.removeAttrCollect-btn{
+    width: 45%;
+    font-weight: bold;
+    color: rgb(25, 135, 84);
+    background-color: rgb(248, 248, 248);
+    margin-right: 8%;
+}
+
+.removeAttrCollect-btn:hover{
+    width: 45%;
+    font-weight: bold;
+    color: rgb(25, 135, 84);
+    background-color: rgb(248, 248, 248);
+    margin-right: 8%;
+}
+
+.removeAttrCollect-btn.-off{
+    display: none;
 }
 
 /* 加入行程按鈕(要跳到行程細節頁面) */
