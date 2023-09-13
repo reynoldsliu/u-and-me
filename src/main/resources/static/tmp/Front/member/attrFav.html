@@ -243,7 +243,7 @@
             const member = await res.json();
             const memId = member.memId;
             console.log("Member ID: " + memId);
-            const response = await fetch(baseUrl + `attrCol/getAttrsFromCollectionByMem`);
+            const response = await fetch(baseUrl + `attrCol/getAttrsFromCollectionByMemIdFilter/`+memId);
             const attrCols = await response.json();
             console.log(attrCols);
             const dataTableList = document.getElementById("dataTableList");

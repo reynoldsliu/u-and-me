@@ -259,7 +259,7 @@ attr_lon float,
 attr_lat float,
 attr_illa varchar(500),
 attr_type varchar(10),
-attr_buss_time varchar(100) default '09:00-18:00|09:00-21:00',
+attr_buss_time varchar(200) default '09:00-18:00|09:00-21:00',
 attr_cost_range tinyint,
 attr_rep varchar(500) -- deprecated
 );

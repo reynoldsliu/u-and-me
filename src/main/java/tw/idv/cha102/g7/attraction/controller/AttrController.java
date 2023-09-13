@@ -236,7 +236,7 @@ public class AttrController {
     }
 
     @GetMapping("/getCollectionAttrsByMemId/{memId}")
-    public List<AttrCollectionDTO> getCollectionAttrsByMemId(@PathVariable Integer memId) {
+    public List<Attraction> getCollectionAttrsByMemId(@PathVariable Integer memId) {
         return attrCollectionService.findAttrsByMemId(memId);
     }
 

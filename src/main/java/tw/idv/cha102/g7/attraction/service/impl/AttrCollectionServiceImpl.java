@@ -79,6 +79,9 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
         List<Attraction> returnList = new ArrayList<>();
         for(AttrCollectionDTO  attrCollectionDTO:attrCollectionDTOS){
             Attraction attraction = attrRepository.findById(attrCollectionDTO.getCollectionId().getAttrId()).orElse(null);
+            if(attraction==null){
+                return returnList;
+            }
             if(attrCollectionDTO.getCollectionId().getMemId()==memId &&
                     attraction.getAttrSta()!=0){
                 returnList.add(attraction);
@@ -112,13 +115,14 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
      * @return List<AttrCollectionDTO>
      */
     @Override
-    public List<AttrCollectionDTO> findAttrsByMemId(Integer memId) {
+    public List<Attraction> findAttrsByMemId(Integer memId) {
         List<AttrCollectionDTO> dtoList = attrCollectionRepository.findAll();
-        List<AttrCollectionDTO> returnList = new ArrayList<>();
+        List<Attraction> returnList = new ArrayList<>();
         System.out.println(memId);
         for(AttrCollectionDTO dto:dtoList){
             if(dto.getCollectionId().getMemId() == memId){
-                returnList.add(dto);
+                ;
+                returnList.add(attrRepository.findById(dto.getCollectionId().getAttrId()).orElse(null));
             }
         }
         return returnList;
@@ -158,11 +162,16 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
                                                    Integer memId){
         List<Attraction> returnList = new ArrayList<>();
         List<AttrCollectionDTO> attrCollectionDTOList = attrCollectionRepository.findAll();
+        System.out.println(attrCollectionDTOList);
         for(AttrCollectionDTO attrCollectionDTO:attrCollectionDTOList){
             Attraction attraction = attrRepository.findById(attrCollectionDTO.getCollectionId().getAttrId()).orElse(null);
+            if(attraction==null){
+                continue;
+            }
             if(attrCollectionDTO.getCollectionId().getMemId()==memId &&
                         attraction.getAttrSta()!=0){
                 returnList.add(attraction);
+                System.out.println(attraction);
             }
         }
         return returnList;

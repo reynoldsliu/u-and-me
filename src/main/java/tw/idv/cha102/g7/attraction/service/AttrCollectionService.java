@@ -18,7 +18,7 @@ public interface AttrCollectionService {
     public String removeAttrFromCollection(AttrCollectionId collectionId);
     public TreeSet<Member> returnMemsByAttrId(Integer attrId);
 
-    public List<AttrCollectionDTO> findAttrsByMemId(Integer memId);
+    public List<Attraction> findAttrsByMemId(Integer memId);
     public List<Attraction> findAttrsByMemIdFilter(HttpServletRequest request,
                                                    HttpServletResponse response,
                                                    Integer memId);

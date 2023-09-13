@@ -25,7 +25,7 @@ attr_type_id int,
 -- constraint attr_type_id
 -- foreign key(attr_type_id) references attraction_type(attr_type_id)
 
-attr_buss_time varchar(100),
+attr_buss_time varchar(200),
 attr_cost_range tinyint,
 attr_rep varchar(500)
 );

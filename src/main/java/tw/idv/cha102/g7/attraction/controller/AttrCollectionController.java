@@ -71,7 +71,7 @@ public class AttrCollectionController {
      * @return
      */
     @RequestMapping("/getAttrsFromCollectionByMemId/{memId}")
-    public ResponseEntity<List<AttrCollectionDTO>> getAttrsFromCollectionByMemId(@PathVariable Integer memId){
+    public ResponseEntity<List<Attraction>> getAttrsFromCollectionByMemId(@PathVariable Integer memId){
         return new ResponseEntity<>(attrCollectionService.findAttrsByMemId(memId), HttpStatus.OK);
     }
 
