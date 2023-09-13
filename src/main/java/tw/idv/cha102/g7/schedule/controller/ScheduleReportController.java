@@ -75,7 +75,7 @@ public class ScheduleReportController {
      * @return 返回查詢結果
      */
     @GetMapping("/getOne/{schRepId}")
-    public ScheduleReport findById(Integer schRepId){
+    public ScheduleReport findById(@PathVariable Integer schRepId){
         ScheduleReport report = reportService.findBySchRepId(schRepId);
         return report;
     }
@@ -105,18 +105,11 @@ public class ScheduleReportController {
      * 1: 已處理,
      * 2: 已撤銷
      */
-    @PutMapping("/modifySta")
-    public ResponseEntity<?> modifyStatus(@RequestBody ScheduleReport schReport) {
-        try {
-            reportService.modifyStatus(
-                    schReport.getSchRepId(),
-                    schReport.getSchRepSta(),
-                    schReport.getHostId());
+    @PutMapping("/modifySta/{schRepId}")
+    public ResponseEntity<?> modifyStatus(@PathVariable Integer schRepId,
+                                          @RequestBody ScheduleReport schReport) {
+            reportService.modifyStatus(schRepId, schReport);
             return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND).build();
-        }
     }
 
 

@@ -26,7 +26,7 @@ public interface ScheduleReportService {
     public void hideById(Integer schId);
 
     // 修改檢舉處理狀態(0:審核中 1:已處理 2:已撤銷)
-    public void modifyStatus(Integer schRepId, Short schRepSta,  Integer hostId);
+    public void modifyStatus(Integer schRepId, ScheduleReport schReport);
 
     // 刪除被檢舉的行程(待討論)
     public void deleteReportedSchedule(Integer schId);

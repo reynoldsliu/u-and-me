@@ -55,11 +55,11 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
     }
 
     @Override
-    public void modifyStatus(Integer schRepId, Short schRepSta, Integer hostId) {
+    public void modifyStatus(Integer schRepId, ScheduleReport schReport) {
         var existReport = reportRepository.findById(schRepId);
         if (existReport.isPresent()) {
-            existReport.get().setSchRepSta(schRepSta);
-            existReport.get().setHostId(hostId);
+            existReport.get().setSchRepSta(schReport.getSchRepSta());
+            existReport.get().setHostId(schReport.getHostId());
             reportRepository.save(existReport.get());
         }
     }
