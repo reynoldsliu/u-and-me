@@ -1,14 +1,14 @@
 package tw.idv.cha102.g7.schedule.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -49,6 +49,7 @@ public class ScheduleSearchController {
 
     /**
      * 隨機選取三個公開行程放置於首頁
+     *
      * @return 返回隨機的公開行程列表
      */
     @GetMapping("/all")
@@ -126,6 +127,20 @@ public class ScheduleSearchController {
     @GetMapping("/schId/{schId}")
     public Schedule getOne(@PathVariable Integer schId) {
         return service.getById(schId);
+    }
+
+    /**
+     * 會員
+     * 複製單一行程(包含行程大綱及行程細節)
+     *
+     * @return 返回複製的行程大綱
+     */
+    @RequestMapping("copySchedule/{schId}")
+    public Schedule copyOne(HttpServletRequest request, @PathVariable Integer schId) {
+        HttpSession session = request.getSession();
+        String jsessionId = session.getAttribute("memberId").toString();
+        Integer memId = Integer.parseInt(jsessionId);
+        return service.copyOneSchedule(schId, memId);
     }
 
 }

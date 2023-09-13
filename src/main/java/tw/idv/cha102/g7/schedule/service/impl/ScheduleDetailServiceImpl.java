@@ -11,6 +11,7 @@ import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleTagRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleDetailService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -35,10 +36,26 @@ public class ScheduleDetailServiceImpl implements ScheduleDetailService {
     }
 
     @Override
-    public void updateDetails(ScheduleDetail scheduleDetail) {
+    public ScheduleDetail updateDetails(ScheduleDetail scheduleDetail) {
         if (scheduleDetail != null) {
-            detailRepository.save(scheduleDetail);
+            return detailRepository.save(scheduleDetail);
         }
+        return null;
+    }
+
+    @Override
+    public ScheduleDetail addDetail(ScheduleDetail scheduleDetail) {
+        return detailRepository.save(scheduleDetail);
+    }
+
+    @Override
+    public List<ScheduleDetail> addDetailList(List<ScheduleDetail> scheduleDetailList) {
+        List<ScheduleDetail> returnDetailList = new ArrayList<>();
+        for (ScheduleDetail detail : scheduleDetailList) {
+            ScheduleDetail returnDetail = detailRepository.save(detail);
+            returnDetailList.add(returnDetail);
+        }
+        return returnDetailList;
     }
 
     @Override

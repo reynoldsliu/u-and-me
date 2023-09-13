@@ -108,9 +108,9 @@ function memberLogin() {
       if (status.status === 401) {
         Swal.fire({
           title: '請先登入會員',
-          text: "將為您導向登入畫面....",
+          text: "將為您導向登入頁面....",
           icon: 'error',
-          confirmButtonText: '返回登入畫面',
+          confirmButtonText: '返回登入頁面',
           confirmButtonColor: '#d33'
         }).then((result) => {
           if (result.isConfirmed) {

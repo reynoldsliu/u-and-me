@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
+import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.service.ScheduleDetailService;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
@@ -17,6 +18,7 @@ import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -105,7 +107,57 @@ public class ScheduleServiceImpl implements ScheduleService {
         return repository.findAll();
     }
 
-    // 有重複行程資料的問題
+
+    @Transactional
+    @Override
+    public Schedule copyOneSchedule(Integer schId, Integer memId) {
+        // 先複製行程大綱內容，創造新的行程大綱及細節資料容器
+        Schedule copySchedule = new Schedule();
+        List<ScheduleDetail> copyDetailsList = new ArrayList<>();
+
+        // 透過行程id找到對應行程大綱
+        Schedule existSch = repository.findById(schId).orElse(null);
+        // 透過行程id找到對應行程細節
+        List<ScheduleDetail> existSchDetails = detailService.findBySchId(schId);
+
+        if (existSch != null) {
+            // 行程大綱內容
+            copySchedule.setSchName(existSch.getSchName());
+            copySchedule.setMemId(memId);
+            copySchedule.setSchStart(existSch.getSchStart());
+            copySchedule.setSchEnd(existSch.getSchEnd());
+            copySchedule.setSchPub(existSch.getSchPub());
+            copySchedule.setSchCopy(existSch.getSchCopy());
+            copySchedule.setSchCost(existSch.getSchCost());
+            Schedule returnCopySch = repository.save(copySchedule);
+            // 拿取新建立的行程大綱內容id
+            Integer copySchId = returnCopySch.getSchId();
+
+            // 行程細節內容存入
+            if (existSchDetails != null) {
+                for (ScheduleDetail details : existSchDetails) {
+                    ScheduleDetail copySchDetail = new ScheduleDetail();
+
+                    copySchDetail.setSchId(copySchId);
+                    copySchDetail.setAttrId(details.getAttrId());
+                    copySchDetail.setSchdeStarttime(details.getSchdeStarttime());
+                    copySchDetail.setSchdeStaytime(details.getSchdeStaytime());
+                    copySchDetail.setSchdeTranstime(details.getSchdeTranstime());
+                    copySchDetail.setSchdeTrans(details.getSchdeTrans());
+                    copySchDetail.setSchdeCostname(details.getSchdeCostname());
+                    copySchDetail.setSchdeCost(details.getSchdeCost());
+                    copySchDetail.setSchdeRemark(details.getSchdeRemark());
+                    // 將每一個行程細節存入行程list中
+                    copyDetailsList.add(copySchDetail);
+                    // 存入整個行程細節list中
+                    detailService.addDetailList(copyDetailsList);
+                }
+            }
+            return returnCopySch;
+        }
+        return null;
+    }
+
     @Override
     public List<TagToSchedulesDTO> findTagsInOneSchdule(Integer schId) {
         List<Object[]> list = repository.findTagsByOneSchedule(schId);

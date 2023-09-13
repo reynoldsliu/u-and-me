@@ -18,9 +18,19 @@ public interface ScheduleDetailService {
     public List<ScheduleDetail> findBySchId(Integer schId);
 
     /**
-     * 行程細節內容進行修改(新增/更新)
+     * 行程細節內容進行修改(更新)
      */
-    public void updateDetails(ScheduleDetail scheduleDetail);
+    public ScheduleDetail updateDetails(ScheduleDetail scheduleDetail);
+
+    /**
+     * 新增行程細節(單個)
+     */
+    public ScheduleDetail addDetail(ScheduleDetail scheduleDetail);
+
+    /**
+     * 新增行程細節(多個)
+     */
+    public List<ScheduleDetail> addDetailList(List<ScheduleDetail> scheduleDetailList);
 
     /**
      * 依照行程細節id刪除行程細節(刪除一筆行程細節)

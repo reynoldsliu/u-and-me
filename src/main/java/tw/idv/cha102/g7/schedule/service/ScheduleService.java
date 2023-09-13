@@ -44,6 +44,9 @@ public interface ScheduleService {
     // 查詢所有行程清單
     public List<Schedule> getAll();
 
+    // 複製一個行程大綱及其細節
+    public Schedule copyOneSchedule(Integer schId, Integer memId);
+
     /***
      * 以上為搜瀏覽公開行程相關功能
      * 以下為管理行程功能

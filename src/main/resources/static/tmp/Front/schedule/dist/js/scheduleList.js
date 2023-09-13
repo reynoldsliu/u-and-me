@@ -47,8 +47,7 @@ function convertBooleanToText(boolValue) {
   return boolValue ? "可供複製" : "不可複製";
 }
 
-// ---------- 行程顯示設定相關函式結束 ----------
-
+// ----------- 行程顯示設定相關函式結束 -----------
 
 // ====== 載入旅遊行程頁面，將所有公開的行程列表查出 ======
 let page = 0; // 從第一個分頁開始
@@ -80,7 +79,7 @@ async function fetchPublicScheduleList(URL, page) {
                 <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg"
                     alt="等待圖片載入..." class="card-img-top" 
                     style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
-                <div class="copySch" id="copySch${schedule.schId}" onclick="copySchedule()">
+                <div class="copySch" id="copySch${schedule.schId}" onclick="copySchedule(${schedule.schId})">
                     <div><i class="fa-solid fa-copy"></i></div>
                 </div>
                 <div class="card-body">
@@ -219,7 +218,7 @@ for (let pageSelect of pageSelect_els) {
     // 將被點擊到的選項加上active(使分頁亮起來)
     event.target.parentNode.classList.add("active");
 
-    // 依照搜尋條件更換查詢行程內容(URL待改)
+    // 依照搜尋條件更換查詢行程內容
     let sendURL = `${schListbaseURL}all/`; // 預設依照起始日期(新到舊)查詢所有公開行程
     if (searchSortByStartDESC === true)
       sendURL = `${schListbaseURL}all/`; // dateStartDESCURL 依起始日期新到舊
@@ -238,10 +237,65 @@ for (let pageSelect of pageSelect_els) {
 // =============== 分頁查詢行程結束 ================
 
 // ================= 複製一個行程 =================
-// 一、判斷是否可以複製
-// 二、若可複製，需先判斷會員已登入
-// 按複製行程鈕，判斷會員登入狀態，若未登入則跳轉到登入頁面
-function redirectToLoginPage() {
-  var newPageUrl = `${baseURL}tmp/Front/member/memberLogin.html`;
-  window.location.href = newPageUrl;
+async function copySchedule(schId) {
+
+  // 一、判斷是否可以複製
+  const response = await fetch(`${schListbaseURL}schId/${schId}`);
+  const schedule = await response.json();
+
+  if (schedule.schCopy) {
+
+    // 二、若可複製，需先判斷會員已登入
+    memberLogin();
+
+    // 拿取會員id
+    const responseMem = await fetch(baseURL + `member/getMemId`);
+    const member = await responseMem.json();
+
+    // 三、開始複製行程
+    const response = await fetch(`${schListbaseURL}copySchedule/${schId}`);
+    const copySchedule = await response.json();
+
+    Swal.fire(
+      '複製成功！',
+      '您已成功複製此行程！',
+      'success'
+    )
+  } else {
+    Swal.fire({
+      // icon: 'error',
+      title: '您沒有複製權限！',
+      text: '此行程不開放複製!',
+      imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/498706731/android/sticker.png'
+    })
+  }
 }
+
+// -------------- 判斷會員是否登入 ---------------
+function memberLogin() {
+  $.ajax({
+    url: baseURL + "member/getMemId",
+    method: "POST",
+    dataType: "JSON",
+    success: function (data) {
+      memId = data.memId;
+    },
+    error: function (status, error) {
+      if (status.status === 401) {
+        Swal.fire({
+          title: '請先登入會員',
+          text: "將為您導向登入頁面....",
+          // icon: 'error',
+          confirmButtonText: '返回登入頁面',
+          confirmButtonColor: '#d33',
+          imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+          }
+        });
+      }
+    },
+  });
+}
+// ---------- 判斷會員是否登入結束 -----------
