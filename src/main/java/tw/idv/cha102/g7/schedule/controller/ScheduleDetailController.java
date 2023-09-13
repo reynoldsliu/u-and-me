@@ -35,7 +35,7 @@ public class ScheduleDetailController {
     }
 
 
-    @PostMapping("/update")
+    @RequestMapping("/update")
     public ResponseEntity<?> updateDetail(@RequestBody ScheduleDetail scheduleDetail) {
         try {
             detailService.updateDetails(scheduleDetail);
@@ -60,20 +60,20 @@ public class ScheduleDetailController {
     }
 
     @RequestMapping("/deleteDetailsInSch/{schId}")
-    public ResponseEntity<?> deleteDetailsInSch(@PathVariable Integer schId){
+    public ResponseEntity<?> deleteDetailsInSch(@PathVariable Integer schId) {
         try {
             int deleteData = detailService.deleteDetailsInSch(schId);
-            return new ResponseEntity("成功刪除"+deleteData+"筆行程細節", HttpStatus.OK);
+            return new ResponseEntity("成功刪除" + deleteData + "筆行程細節", HttpStatus.OK);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
         }
     }
 
 
-//    @GetMapping("/one/{schdeId}")
-//    public ResponseEntity<?> findOneDetail(@PathVariable Integer schdeId){
-//        detailService.
-//    }
+    @RequestMapping("/addOne")
+    public ResponseEntity<?> addOneDetail(@RequestBody ScheduleDetail scheduleDetail) {
+        return new ResponseEntity(detailService.addDetail(scheduleDetail), HttpStatus.OK);
+    }
 
     // 見ScheduleManageController.java
     // 查詢單一行程詳細資訊(包含行程、 行程標籤、行程細節)後，對行程內容進行修改(增、刪、改、查)
