@@ -17,6 +17,9 @@ public class ShopOrderService {
     @Autowired
     OrdersRepository ordersRepository;
 
+    @Autowired
+    CartListRepository cartListRepository;
+
     public String shopCheckout(Integer ordId){
         Orders orders = ordersRepository.findById(ordId).orElse(null);
         String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
@@ -44,5 +47,6 @@ public class ShopOrderService {
         Orders orders = ordersRepository.findById(ordId).orElse(null);
         orders.setOrdPaySta((byte) 1);
         ordersRepository.save(orders);
+        cartListRepository.deleteCartListByOrdId(ordId);
     }
 }

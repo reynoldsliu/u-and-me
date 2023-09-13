@@ -41,7 +41,7 @@ public class RegFormServiceImpl implements RegFormService {
             group.setMembers(group.getMembers() + regForm.getJoinMember());
             groupRepository.save(group);
         }
-
+        updGroupSta(regForm.getGroupId());
     }
 
     public void update(Integer formId, RegForm regForm){
@@ -92,4 +92,18 @@ public class RegFormServiceImpl implements RegFormService {
         return regFormRepository.findByGroupIdOrderByFormId(groupId);
     }
 
+    //以人數更新揪團狀態的方法
+    void updGroupSta(Integer groupId){
+        Group group = groupRepository.findById(groupId).orElse(null);
+        if(group != null){
+            if(group.getMembers() < group.getMinMember()){
+                group.setGroupSta(0);//設置未成團狀態
+            }else if(group.getMembers() == group.getMaxMember()){
+                group.setGroupSta(5);//設置額滿狀態
+            }else{
+                group.setGroupSta(1);//設置成團狀態
+            }
+        }
+        groupRepository.save(group);
+    }
 }

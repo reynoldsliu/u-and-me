@@ -25,19 +25,17 @@ public class MemberDetailServiceImpl implements MemberDetailService {
     RegFormRepository regFormRepository;
 
     @Autowired
+    RegFormServiceImpl regFormService;
+
+    @Autowired
     private GroupRepository groupRepository;
 
     public void insert(MemberDetail memberDetail) {
 
-//        RegForm regForm = regFormRepository.findById(memberDetail.getFormId()).get();
-//        Group group = groupRepository.findById(regForm.getGroupId()).get();
-
-        //如果參加人數沒超過最大人數才新增
-//        if(group.getMembers() + regForm.getJoinMember() <= group.getMaxMember()) {
         memberDetailRepository.save(memberDetail);
-//        }
     }
 
+    //退費
     public void update(Integer detailId, MemberDetail memberDetail) {
         if (getMemberDetailByDetailId(detailId) != null) {
             MemberDetail updMemberDetail = memberDetailRepository.findById(detailId).get();
@@ -63,6 +61,7 @@ public class MemberDetailServiceImpl implements MemberDetailService {
                 updMemberDetail.setRefundSta(4);
             }
 
+
             //將時間存入RefundDate
             Long datetime = System.currentTimeMillis();
             Timestamp timestamp = new Timestamp(datetime);
@@ -75,6 +74,7 @@ public class MemberDetailServiceImpl implements MemberDetailService {
 
             //參團人數-1
             groupRepository.save(group);
+            regFormService.updGroupSta(group.getGroupId());
         } else {
             throw new RuntimeException();
         }
