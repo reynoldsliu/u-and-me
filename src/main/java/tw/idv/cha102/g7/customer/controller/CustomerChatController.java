@@ -88,9 +88,12 @@ public class CustomerChatController {
 
             });
 
-            // 返回至前台(客服)
+            // 返回至後台(客服)
             sendUserListMsg(userSession, userList);
+
+
         } else if ("openChatRoom".equals(chatMessage.getType())) {
+
             // 訊息型態為開啟聊天室
             List<String> msgs = new ArrayList<>();
             if ("host".equals(chatMessage.getSender())) {
@@ -108,6 +111,18 @@ public class CustomerChatController {
                 // 沒有歷史訊息的話, 回傳空陣列
                 sendHistoryMsg(userSession, new ArrayList<>());
             }
+
+            if ("host".equals(chatMessage.getReceiver())) {
+                sendToAllForHostOnline();
+            } else {
+                if (!isHostOnline()) {
+                     //如果不再線上, 返回不再線上訊息
+                    chatMessage.setSender("host");
+                    chatMessage.setMessage("offline");
+                    sendMsg(userSession, message, 4);
+                }
+            }
+
         } else if ("message".equals(chatMessage.getType())) {
 
             if ("host".equals(chatMessage.getSender())) {

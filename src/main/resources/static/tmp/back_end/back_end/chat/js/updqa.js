@@ -13,7 +13,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const qaId = urlParams.get('qaId');
     findByQaId(qaId);
-    
+
 })()
 
 //綁定
@@ -28,7 +28,6 @@ let errorcon = document.getElementById("errorcon");
 let qaState = document.getElementById("qaState");
 let qaState_val = document.querySelector("#addqaState");
 let qabutton = document.getElementById("qabutton");
-
 
 function findByQaId(qaId) {
     var baseUrl = window.location.protocol + "//" + window.location.host;
@@ -49,6 +48,16 @@ function findByQaId(qaId) {
 
 
 qabutton.addEventListener("click", function () {
+
+    //錯誤驗證
+    if (qaTitle_val.value.trim() === "") {
+        errortitle.innerHTML = '文章標題不可空白!';
+        return;
+    }
+    if (qaCon_val.value.trim() === "") {
+        errorcon.innerHTML = '文章內容不可空白!';
+        return;
+    }
 
     const urlParams = new URLSearchParams(window.location.search);
     const qaId = urlParams.get('qaId');

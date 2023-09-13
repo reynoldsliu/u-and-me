@@ -119,10 +119,10 @@ public class JedisHandleMessage {
 	 */
 	public static ChatMessage getHostMemeberLastMsg(String member) {
 		String key = "host:" + member;
-		List<String> lastRow = jedis.lrange(key, 0, 0);
+		List<String> lastRow = jedis.lrange(key, 0, -1);
 		ChatMessage msg = null;
 		if(lastRow != null && lastRow.size()>0) {
-			msg = gson.fromJson(lastRow.get(0), ChatMessage.class);
+			msg = gson.fromJson(lastRow.get((lastRow.size()-1)), ChatMessage.class);
 		}
 		return msg;
 	}
