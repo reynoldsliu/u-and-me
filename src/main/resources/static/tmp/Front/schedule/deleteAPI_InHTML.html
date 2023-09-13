@@ -237,13 +237,13 @@
                                         </div>
                                         <div class="viewSchDetailsRows">
                                             <!-- 行程細節第幾天及出發時間 -->
-                                            <div class="schDeStartTimeRows">
-                                                <div>
+                                            <!-- <div class="schDeStartTimeRows"> -->
+                                                <!-- <div>
                                                     <span class="viewWhichDay">第1天 :</span>
                                                     <span class="viewWhichWeekDay">星期一</span>
                                                     <span class="schDeStartTime">出發時間：08:00</span>
-                                                </div>
-                                            </div>
+                                                </div> -->
+                                            <!-- </div> -->
                                             <!-- --------- 行程細節 cell --------- -->
                                             <div class="schDetailCellInsert">
                                                 <!-- 行程細節 cell 由此插入 -->
@@ -686,11 +686,11 @@
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
             crossorigin="anonymous"></script>
         <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmXZPx-vRB-PUgoaST5buz16HDtD6LqPk&callback=initMap&libraries=places"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBsJyhCWaDnJSry18hwn64RIp8vLX6XrI&callback=initMap&libraries=places"
             async defer></script>
     
         <!-- 加入切換版面操作的js -->
-        <script src="./deleteAPI_InJS.js"></script>
+        <script src="./dist/js/myScheduleEdit.js"></script>
     
         <script>
             var map;
@@ -985,7 +985,8 @@
                     // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
                 };
     
-                let siteInput1 = document.querySelector('#searchAttrByName');
+                let siteInput1 = document.querySelector('#start');
+                // let siteInput1 = document.querySelector('#searchAttrByName');
                 // let siteInput1 = myAttrAddr_el;
     
                 var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
@@ -1189,7 +1190,7 @@
             }
     
             // 2023/09/12
-              function reloadMapApiBetw2(travelIconCount) {
+            function reloadMapApiBetw2(travelIconCount) {
                 initMap();
                 const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);
                 const ancestor = travelIconCount_el.parentElement.parentElement.parentElement;
@@ -1282,7 +1283,6 @@
                         row.classList.add("transTotalTime");
                         row.innerHTML = `
                         <span class="totalTime">${duration}</span>
-                        <span style="z-inedx:1;" class="showRoute" onclick="showRoute('DRIVING')">顯示路線</span>
                         <button onclick="showRoute(${travelIconCount})">顯示路線</button>
                         <span class="totalDistance">${total} km</span>
                         `;
@@ -1295,7 +1295,7 @@
                 });
             }
     
-             function calculateMultipleTravelTimes(waypoints, travelMode) {
+            function calculateMultipleTravelTimes(waypoints, travelMode) {
                 // 设置起点、终点和途经点
                 var origin = waypoints[0];
                 console.log(waypoints[0]);
@@ -1318,20 +1318,24 @@
                         // 更新 Directions Renderer 显示路线
                         directionsRenderer.setDirections(response);
     
-                        
+    
                     } else {
                         console.log('Directions request failed:', status);
                     }
                 });
             }
     
+            // 此行程的所有景點路線(總共路線那顆按鈕)
             // function showAllRoute(travelMode) {
             //     calculateMultipleTravelTimes(getAllWaypoints(),travelMode);
             // }
-            function showDayRoute(wayoints,travelMode) {
-                console.log(wayoints);
-                calculateMultipleTravelTimes(wayoints,travelMode);
-            }
+    
+            // 此行程分天數路線(加在出發時間右邊)
+            // function showDayRoute(wayoints,travelMode) {
+            //     console.log(wayoints);
+            //     calculateMultipleTravelTimes(wayoints,travelMode);
+            // }
+    
             function showRoute(travelIconCount) {
                 initMap();
                 const travelIconCount_el = document.getElementById("travelIconCount" + travelIconCount);

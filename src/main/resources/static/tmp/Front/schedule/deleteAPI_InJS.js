@@ -299,9 +299,9 @@ async function addDailySchedule(restScheDetails) {
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
 
-        // ------------------------ 2023/09/12 
-        todayWaypoint.push(attr.attrAddr);
-        // ------------------------ 2023/09/12
+        // ------------------------ 2023/09/13 
+        todayWaypoint.push(`${attr.attrAddr}`);
+        // ------------------------ 2023/09/13
 
         let row = document.createElement("div");
         row.innerHTML = `
@@ -390,20 +390,22 @@ async function addDailySchedule(restScheDetails) {
 
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
-        if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
-            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)) {
+        if (restScheDetails[countedScheDetails + 1] == undefined ||
+            parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
+            < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)
+        ) {
             break;
         }
     }
-
+    console.log(todayWaypoint);
     // ---------------------------- 2023/09/12
     const target = document.querySelector(`.schDeStartTimeRows${nthDays}`);
-    row.innerHTML = `
-        <div>
-            <button onclick="showDayRoute(${todayWaypoint},${"DRIVING"})">本日路線</button>
-        </div>
-        `;
-    target.appendChild(row);
+    const div = document.createElement("div");
+    div.innerHTML = `
+                <button onclick="showDayRoute('` + todayWaypoint.join("-") + `')">本日路線</button>
+             `;
+    target.appendChild(div);
+
     console.log(todayWaypoint);
     // <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
     const addNewAttrbtn = document.createElement("div");
@@ -415,10 +417,26 @@ async function addDailySchedule(restScheDetails) {
     console.log("DO NEW A BTN");
 
     countedScheDetailsBase = travelIconCount;
-    // ---------------------------- 2023/09/12
 
     return countedScheDetails;
+    // ---------------------------- 2023/09/12
 }
+// ---------------------------- 2023/09/13
+//顯示所有路線 會爆掉
+// function showAllRoute() {
+//     calculateMultipleTravelTimes(getAllWaypoints(),"DRIVING");
+// }
+
+function showDayRoute(inputString) {
+    const waypointsParts = inputString.split('-');
+    let waypoints = [];
+    for (let waypointsPart of waypointsParts) {
+        waypoints.push(waypointsPart);
+    }
+    console.log(waypoints);
+    calculateMultipleTravelTimes(waypoints, "DRIVING");
+}
+// ---------------------------- 2023/09/13
 
 // 幾月幾日直接+1天
 function addOneDay(dateString) {
@@ -1003,7 +1021,7 @@ attrPicFilesInput.addEventListener('change', async (event) => {
     }
 });
 
-//包裝預覽圖容器及生成鴻叉叉可以取消上傳
+//包裝預覽圖容器及生成叉叉可以取消上傳
 function createImageContainer_preview(pic) {
     // console.log("Creating preview");
     const imageContainer = document.createElement("div");

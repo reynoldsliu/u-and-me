@@ -495,11 +495,25 @@ div.schDeStartTimeRows {
     font-size: 0;
     font-weight: bold;
     vertical-align: middle;
+    height: 35px;
 }
 
 div.schDeStartTimeRows:first-child {
     margin-top: 0px;
 }
+
+/* 顯示一日的路線 */
+span.showDayRoute>button{
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid gray;
+    height: 25px;
+    border-radius: 5px;
+    position: relative;
+    right: -75%;
+    top: -25px;
+}
+
 
 /* 第幾天 */
 span.viewWhichDay {
@@ -689,16 +703,30 @@ span.totalTime {
     top: 0;
 }
 
+/* 顯示兩個景點間的按鈕 */
+span.showRouteBetween{
+    /* border: 1px solid red; */
+    position: absolute;
+    right: 0;
+}
+
+span.showRouteBetween>button{
+    font-weight: bold;
+    border-radius: 10px;
+}
+
 span.totalDistance{
-    /* border: 1px solid green; */
+    border: 1px solid green;
     display: inline-block;
+    font-size: 0.8rem;
     width: 40%;
     height: 100%;
     position: absolute;
-    right: 0;
+    right: 20px;
     top: 0;
     padding-top: 5%;
     text-align: end;
+    display: none;
 }
 
 
