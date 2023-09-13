@@ -465,9 +465,15 @@
                 document.getElementById('allPayAPIForm').submit();
                 temp_el.innerHTML = '';
               });
+
+              fetch(`${baseUrl}shopOrder/updateOrdPaySta/${ordId}`,{
+              method: 'GET'
+              
+            })
+
             })
             // console.log(response);
-
+            
           } else {
             console.error('Failed to submit order.');
           }

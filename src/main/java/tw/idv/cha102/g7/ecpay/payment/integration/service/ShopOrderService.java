@@ -14,8 +14,6 @@ import java.util.UUID;
 @Service
 public class ShopOrderService {
 
-//    @Autowired
-//    CartListRepository cartListRepository;
     @Autowired
     OrdersRepository ordersRepository;
 
@@ -32,7 +30,7 @@ public class ShopOrderService {
         obj.setTotalAmount(orders.getChecktotal().toString()); //用於儲存訂單總金額以便在創建訂單時設定這個值
         obj.setTradeDesc(orders.getOrdId().toString());//設定交易描述
         obj.setItemName("UandMe Product"); //設定交易物品名稱
-        obj.setReturnURL("http://localhost:8080/u-and-me/getResponse");//設定返回的CONTROLLER
+        obj.setReturnURL("http://localhost:8080/u-and-me/shopOrder/updateOrdPaySta/" + ordId);//設定返回的CONTROLLER
         obj.setNeedExtraPaidInfo("N"); //是否需要額外付費資訊
         obj.setClientBackURL("http://localhost:8080/u-and-me/tmp/Front/shop/myOrderList.html?ordId=" + ordId);//設定返回網址不行時的替代網址
 
@@ -42,4 +40,9 @@ public class ShopOrderService {
     }
 
 
+    public void updateOrdPaySta(Integer ordId) {
+        Orders orders = ordersRepository.findById(ordId).orElse(null);
+        orders.setOrdPaySta((byte) 1);
+        ordersRepository.save(orders);
+    }
 }
