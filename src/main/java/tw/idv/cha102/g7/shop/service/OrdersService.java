@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.shop.service;
 
+import tw.idv.cha102.g7.shop.dto.MaxOrdIdDTO;
 import tw.idv.cha102.g7.shop.entity.Orders;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,11 +11,13 @@ public interface OrdersService {
 
     Orders findByOrdId(Integer ordId);
 
-    void insert(Orders orders, HttpServletRequest request);
+    Orders insert(Orders orders, HttpServletRequest request);
 
     void delete(Integer ordId);
 
     void update(Integer ordId, Orders orders);
 
     void updateOrdSta(Integer ordId, Orders orders);
+
+    MaxOrdIdDTO findMaxId();
 }

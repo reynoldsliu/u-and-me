@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tw.idv.cha102.g7.shop.dto.MaxOrdIdDTO;
 import tw.idv.cha102.g7.shop.entity.Orders;
 import tw.idv.cha102.g7.shop.service.OrdersService;
 
@@ -89,4 +90,11 @@ public class OrdersController {
                              @RequestBody Orders orders){
         ordersService.updateOrdSta(ordId, orders);
     }
+
+
+    @GetMapping("/findMaxId")
+    public ResponseEntity<MaxOrdIdDTO> findMaxId(){
+        return new ResponseEntity(ordersService.findMaxId(), HttpStatus.OK);
+    }
+
 }

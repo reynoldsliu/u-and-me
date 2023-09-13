@@ -1,0 +1,45 @@
+package tw.idv.cha102.g7.ecpay.payment.integration.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import tw.idv.cha102.g7.ecpay.payment.integration.AllInOne;
+import tw.idv.cha102.g7.ecpay.payment.integration.domain.AioCheckOutALL;
+import tw.idv.cha102.g7.shop.entity.CartListId;
+import tw.idv.cha102.g7.shop.entity.Orders;
+import tw.idv.cha102.g7.shop.repo.CartListRepository;
+import tw.idv.cha102.g7.shop.repo.OrdersRepository;
+
+import java.util.UUID;
+
+@Service
+public class ShopOrderService {
+
+//    @Autowired
+//    CartListRepository cartListRepository;
+    @Autowired
+    OrdersRepository ordersRepository;
+
+    public String shopCheckout(Integer ordId){
+        Orders orders = ordersRepository.findById(ordId).orElse(null);
+        String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
+
+        AllInOne all = new AllInOne("");
+        //String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        AioCheckOutALL obj = new AioCheckOutALL();
+        obj.setMerchantTradeNo(uuId); //設定訂單編號
+        obj.setMerchantTradeDate("2017/01/01 08:05:23"); //設定交易日期
+        obj.setTotalAmount(orders.getChecktotal().toString()); //用於儲存訂單總金額以便在創建訂單時設定這個值
+        obj.setTradeDesc(orders.getOrdId().toString());//設定交易描述
+        obj.setItemName("UandMe Product"); //設定交易物品名稱
+        obj.setReturnURL("http://localhost:8080/u-and-me/getResponse");//設定返回的CONTROLLER
+        obj.setNeedExtraPaidInfo("N"); //是否需要額外付費資訊
+        obj.setClientBackURL("http://localhost:8080/u-and-me/tmp/Front/shop/myOrderList.html?ordId=" + ordId);//設定返回網址不行時的替代網址
+
+        String form = all.aioCheckOut(obj, null);
+
+        return form;
+    }
+
+
+}

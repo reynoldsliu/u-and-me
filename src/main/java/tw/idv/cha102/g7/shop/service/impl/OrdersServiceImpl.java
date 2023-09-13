@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
+import tw.idv.cha102.g7.shop.dto.MaxOrdIdDTO;
 import tw.idv.cha102.g7.shop.entity.Orders;
 import tw.idv.cha102.g7.shop.repo.OrdersRepository;
 import tw.idv.cha102.g7.shop.service.OrdersService;
@@ -49,13 +50,13 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
-    public void insert(Orders orders, HttpServletRequest request) {
+    public Orders insert(Orders orders, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer memId = parseInt(session.getAttribute("memberId").toString());
         orders.setMemId(memId);
         Member member = memberRepository.findById(orders.getMemId()).orElse(null);
         String recieverEmail = member.getMemEmail();
-        ordersRepository.save(orders);
+        Orders orders1 = ordersRepository.save(orders);
 
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -71,6 +72,7 @@ public class OrdersServiceImpl implements OrdersService {
                 "＊－。－。－。－。－。－。－。－－。－。－。－。－＊");//信件內容 長String 可以加\n換行
 
         mailSender.send(message);
+        return orders1;
     }
 
     @Override
@@ -92,6 +94,11 @@ public class OrdersServiceImpl implements OrdersService {
             updOrders.setOrdSta(orders.getOrdSta());
             ordersRepository.save(updOrders);
         }
+    }
+
+    @Override
+    public MaxOrdIdDTO findMaxId() {
+        return ordersRepository.findMaxId();
     }
 
 

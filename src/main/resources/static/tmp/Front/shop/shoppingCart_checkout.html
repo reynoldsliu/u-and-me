@@ -158,7 +158,7 @@
 
             </div>
             <div class="col-md-6">
-              <label for="memEmail" class="col-form-label">E-mail</label>
+              <label for="memEmail" class="col-form-label" id="inputMemEmail">E-mail</label>
               <input type="text" id="memEmail" title="會員Email" class="form-control"
                 aria-describedby="passwordHelpInline">
             </div>
@@ -168,19 +168,19 @@
 
             <hr>
             <div class="col-md-6">
-              <label for="recipientName" class="col-form-label">姓名</label>
+              <label for="recipientName" class="col-form-label" id="inputRecipientName">姓名</label>
               <input type="text" id="recipientName" title="請輸入收件人姓名" placeholder="請輸入收件人姓名" class="form-control"
                 aria-describedby="passwordHelpInline">
 
             </div>
             <div class="col-md-6">
-              <label for="recipientPhone" class="col-form-label">電話</label>
-              <input type="text" id="recipientPhone" title="請輸入收件人電話" placeholder="請輸入收件人電話" class="form-control"
+              <label for="recipientPhone" class="col-form-label" id="inputRecipientPhone">電話</label>
+              <input type="text" id="recipientPhone" title="請輸入收件人手機號碼" placeholder="請輸入收件人手機號碼" class="form-control"
                 aria-describedby="passwordHelpInline">
 
             </div>
             <div class="col-md-12">
-              <label for="recipientAddr" class="col-form-label">地址</label>
+              <label for="recipientAddr" class="col-form-label" id="inputRecipientAddr" >地址</label>
               <input type="text" id="recipientAddr" title="請輸入收件人地址" placeholder="請輸入收件人地址" class="form-control"
                 aria-describedby="passwordHelpInline">
 
@@ -191,37 +191,6 @@
             </div>
 
             <hr>
-
-            <!-- ====== 付款方式 ====== -->
-            <!--                <div class="row mt-5">-->
-            <!--                    <h3>付款方式</h3>-->
-            <!--                </div>-->
-            <!--                <hr>-->
-
-            <!--                <div class="row">-->
-            <!--                    <div class="col-auto">-->
-
-            <!--                        <div class="form-check">-->
-            <!--                            <label for="payType" class="col-form-label">信用卡/簽帳金融卡</label>-->
-            <!--                            <input type="text" id="payType" class="form-control" aria-describedby="passwordHelpInline">-->
-            <!--                        </div>-->
-
-
-            <!--                    </div>-->
-            <!--                    <div class="col-auto">-->
-            <!--                        <label for="cardValid" class="col-form-label">有效日期</label>-->
-            <!--                        <input type="text" id="cardValid" class="form-control" aria-describedby="passwordHelpInline">-->
-
-            <!--                    </div>-->
-            <!--                    <div class="col-1">-->
-            <!--                        <label for="scv" class="col-form-label">末三碼</label>-->
-            <!--                        <input type="text" id="scv" class="form-control" aria-describedby="passwordHelpInline">-->
-            <!--                    </div>-->
-
-            <!--                    <br>-->
-            <!--                    <br>-->
-            <!--                    <h6> *卡號用於保留資格 </h6>-->
-            <!--                </div>-->
 
           </div>
 
@@ -237,6 +206,7 @@
 
   </div>
 
+  <div id="temp"></div>
 
 
   <!-- -----Footer----- -->
@@ -304,8 +274,35 @@
   const recipientName_el = document.getElementById('recipientName');
   const recipientAddr_el = document.getElementById('recipientAddr');
   const orderConfirmedBtn_el = document.getElementById('orderConfirmedBtn');
-  let totalPriceCount = 0;
-  let finalTotalPrice = 0;
+  const temp_el = document.getElementById("temp");
+
+  // 錯誤處理
+  const inputMemEmail_el = this.document.getElementById('inputMemEmail');
+  const inputRecipientName_el = this.document.getElementById('inputRecipientName');
+  const inputRecipientPhone_el = this.document.getElementById('inputRecipientPhone');
+  const inputRecipientAddr_el = this.document.getElementById('inputRecipientAddr');
+  
+  let emailReg =/^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+  let phoneReg = /^09[0-9]{8}$/;
+  
+  //-----判斷錯誤處理新增的文字-----
+  let emailStr = document.createElement("span");
+  emailStr.style.color = 'red';
+
+  let rNameStr = document.createElement("span");
+  rNameStr.style.color = 'red';
+
+  let rPhoneStr = document.createElement("span");
+  rPhoneStr.style.color = 'red';
+
+  let rAddrStr = document.createElement("span");
+  rAddrStr.style.color = 'red';
+  //----------
+
+  //變數
+  let totalPriceCount = 0; //紀錄總計
+  let finalTotalPrice = 0; //記錄總金額
+  let ordId;
 
   //-----載入後顯示總金額+會員名/email-----
   document.addEventListener("DOMContentLoaded", function () {
@@ -361,12 +358,8 @@
     // finalTotalPrice_el.innerText = "訂單總金額:" + finalTotalPrice + "元";
     
 
-
-
     // List 購物車清單 從資料庫拿到每一筆小計+運費就會是總金額顯示
-
     // 初始化總金額
-
     //cartLists 是包含所有購物車清單的陣列
     for (const cartList of cartLists) {
       // cartList 是購物車清單中的一項
@@ -380,16 +373,60 @@
       // console.log(finalTotalPrice);
       // totalPriceCount_el.innerText = "總計:" + totalPriceCount + "元";
       finalTotalPrice_el.innerText = "訂單總金額:" + finalTotalPrice + "元";
-      console.log(totalPriceCount);
+      // console.log(totalPriceCount);
     }
     
   
 
 
-  // 按下確認結帳按鈕，前往結帳&生成一筆新的訂單
-    orderConfirmedBtn.addEventListener('click', async function () {
-      try {
-          // const total = await getTotal();
+  // -----按下確認結帳按鈕，前往結帳&生成一筆新的訂單-----
+    orderConfirmedBtn.addEventListener('click', async function (e) {
+      e.preventDefault()
+      let control = true; //控制是否進入fetch
+  //==================錯誤驗證==================
+          //初始化Str
+          emailStr.innerHTML = '';
+          rNameStr.innerHTML = '';
+          rPhoneStr.innerHTML = '';
+          rAddrStr.innerHTML = '';
+
+          //會員郵件
+          if (memEmail_el.value === null || memEmail_el.value.trim() === "") {
+            control = false;
+            emailStr.innerHTML = '*請填寫E-mail';
+            inputMemEmail_el.appendChild(emailStr);
+          } else if (!(emailReg.test(memEmail_el.value))) {
+            control = false;
+            emailStr.innerHTML = '*E-mail格式不正確';
+            inputMemEmail_el.appendChild(emailStr);
+          }
+
+          //收件人姓名
+          if (recipientName.value === null || recipientName.value.trim() === ""){
+            control = false;
+            rNameStr.innerHTML = '*請填寫收件人姓名';
+            inputRecipientName_el.appendChild(rNameStr);
+          }
+          //收件人電話
+          if(recipientPhone.value === null || recipientPhone.value.trim() === ""){
+            control = false;
+            rPhoneStr.innerHTML = '*請填寫收件人手機號碼';
+            inputRecipientPhone_el.appendChild(rPhoneStr);
+          }else if (!(phoneReg.test(recipientPhone_el.value))) {
+            control = false;
+            rPhoneStr.innerHTML = '*手機號碼格式不正確';
+            inputRecipientPhone_el.appendChild(rPhoneStr);
+          }
+          //收件人地址
+          if(recipientAddr.value === null || recipientAddr.value.trim() === ""){
+            control = false;
+            rAddrStr.innerHTML = '*請填寫收件人地址';
+            inputRecipientAddr_el.appendChild(rAddrStr);
+          } 
+      
+          //如果沒錯誤，先建立一個訂單產生訂單編號
+        if (control) {
+
           // 將資料包裝成一個物件
           const send_data = {
             recipientPhone: recipientPhone_el.value,
@@ -400,23 +437,46 @@
           }
           // console.log(totalPriceCount);
           // console.log(finalTotalPrice);
-          const response = await fetch(`${baseUrl}member/orders`, {
-            method: 'POST',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(send_data)
-
-          });
+          const response = fetch(`${baseUrl}member/orders`, {
+          method: 'POST',
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(send_data)
+        }).then(response => {
           if (response.ok) {
-              console.log(`${baseUrl}member/orders`);
-            } else {
-              console.error('Failed to submit order.');
-            }
-          } catch (error) {
-            console.error('Error:', error);
+            fetch(`${baseUrl}findMaxId`, {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json' }
+            }).then(response => {
+              return response.json();
+            }).then(maxOrdDTO => {
+              // console.log(ordDTO);
+              ordId = maxOrdDTO.maxOrdId;
+              console.log(ordId);
+            // 利用訂單編號，前往結帳
+
+              fetch(`${baseUrl}shopOrder/shopCheckout/${ordId}`, {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" }
+              }).then(res => {
+                return res.text();
+              }).then(sub => {
+                temp_el.innerHTML = sub;
+                console.log("Trying to get element: allPayAPIForm");
+                document.getElementById('allPayAPIForm').submit();
+                temp_el.innerHTML = '';
+              });
+            })
+            // console.log(response);
+
+          } else {
+            console.error('Failed to submit order.');
           }
-            });
+        });
 
+      }
+    });
 
+          
       
   
 
