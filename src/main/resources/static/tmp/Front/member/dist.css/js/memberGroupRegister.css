@@ -318,11 +318,12 @@ position: absolute;
   height: 150px; /* 設置預覽圖高度 */
 
 }
+
 .logoutBtn{
   background-color:rgb(115, 176, 172); 
   padding: 5px 5px;
   color: white;
   border-radius: 10px; /* 設定圓角的像素值 */
-  margin-left: 1126px;
-  margin-right: 45px;
+  margin-left:25px;
+  margin-right: 1170px;
 }

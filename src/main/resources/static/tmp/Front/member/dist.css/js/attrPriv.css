@@ -213,7 +213,7 @@
   .sidebar {
   
     margin-top: 80px;
-    height: 350px;
+    height: 400px;
     width: 250px;
     position: absolute;
     top: 0;
@@ -284,4 +284,13 @@ border-radius: 5px;
 padding:2px 6px;
 border: none; /* 移除按钮边框 */
 margin-top: 5px;
+  }
+  
+  .logoutBtn{
+    background-color:rgb(115, 176, 172); 
+    padding: 5px 5px;
+    color: white;
+    border-radius: 10px; /* 設定圓角的像素值 */
+    margin-left:25px;
+    margin-right: 1170px;
   }
