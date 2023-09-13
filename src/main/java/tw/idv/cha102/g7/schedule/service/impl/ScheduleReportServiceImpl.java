@@ -20,7 +20,8 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
 
     @Override
     public void insert(ScheduleReport scheduleRep) {
-        reportRepository.save(scheduleRep);
+        ScheduleReport report = reportRepository.save(scheduleRep);
+        hideById(report.getSchId());
     }
 
     @Override
@@ -34,6 +35,12 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
     @Override
     public List<ScheduleReport> findAll() {
         return reportRepository.findAll();
+    }
+
+    @Override
+    public  ScheduleReport findBySchRepId(Integer schRepId){
+        ScheduleReport report = reportRepository.findById(schRepId).orElse(null);
+        return report;
     }
 
     @Override

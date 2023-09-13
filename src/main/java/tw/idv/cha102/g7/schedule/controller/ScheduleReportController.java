@@ -68,7 +68,17 @@ public class ScheduleReportController {
         return list;
     }
 
-
+    /**
+     * 管理員
+     * 查詢單一筆被檢舉的行程檢舉資料
+     * @param schRepId 檢舉id
+     * @return 返回查詢結果
+     */
+    @GetMapping("/getOne/{schRepId}")
+    public ScheduleReport findById(Integer schRepId){
+        ScheduleReport report = reportService.findBySchRepId(schRepId);
+        return report;
+    }
 
     /**
      * 管理員
