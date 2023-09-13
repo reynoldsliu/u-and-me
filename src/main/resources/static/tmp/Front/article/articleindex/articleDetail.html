@@ -1,19 +1,15 @@
 <!doctype html>
 <html lang="en">
-<!-- SweetAlert2 CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
-
-<!-- SweetAlert2 JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>我的文章</title>
+    <title>文章詳情</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/dist/css/memberLoginIn.css">
-    <link rel="stylesheet" href="userArticleFindById.css">
+    <link rel="stylesheet" href="assets/dist/css/articleDetail.css">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <style>
 
@@ -22,6 +18,9 @@
 </head>
 
 <body>
+    <!-- 最底下的深藍色 -->
+
+    <!-- <div class="container2"> -->
 
     <!-- -----Header----- -->
 
@@ -57,10 +56,17 @@
                         <li class="nav-item me-2">
                             <a class="nav-link" href="#">揪團</a>
                         </li>
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="#">論壇專區</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">論壇專區</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="articleIndex.html">論壇</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="posting.html">發表新文章</a></li>
+                            </ul>
                         </li>
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">客服專區</a>
@@ -79,7 +85,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-search" viewBox="0 0 16 16">
+                                class="bi bi-search" viewBox="-2 0 20 20">
                                 <path
                                     d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                             </svg>
@@ -122,14 +128,68 @@
 
 
     <div class="container">
-        <div style="border-bottom: 1px solid grey; margin-left: 130px;margin-right: 110px;">
-            <h3>
-                我的貼文
-            </h3>
-
+        <div class="target" style="z-index: 100;">
+            <!-- <p style="margin-left: 70px; display: inline-block;">留言</p> -->
+            <textarea rows="3" id="myTextarea" style="margin-bottom: -10px;" placeholder="留言..."></textarea>
+            <button type="button" id="btnSubmit" class="btn btn-secondary" style="margin-bottom: 40px;">新增留言</button>
         </div>
-        <div id="articles">
-            <!-- 動態生成文章 -->
+        <!-------來自article table的文章資訊----- -->
+        <div style="padding: 0px 50px 50px 50px ; margin-top:-30px">
+
+            <div>
+                <p class="memId" id="memId"></p>
+            </div>
+            <div>
+                <h2 id="articleTitle"></h2>
+            </div>
+            <div>
+                <p id="articleTime" class="articleTime"></p>
+            </div>
+            <div>
+                <p id="articleContent" class="articleContent">
+
+                </p>
+                <div id="singleArticlePic" class=" img-container" style="position: relative;">
+
+                </div>
+                <span style="position: relative; z-index: 3;">
+                    <button id="like" style="background-color: white;border:none;">
+
+                    </button>
+                </span>
+                <p id="articleLike" class="articleLike">
+
+                </p>
+                <span style="position: relative; z-index: 3;">
+                    <img src="assets/brand/comment.jpg" style="width: 25px;">
+                </span>
+                <p id="commentNum" class="commentNum">
+
+                </p>
+                <span style="position: relative; z-index: 3; ">
+                    <button id="collection" style="background-color: white;border:none;width: 50px;">
+                        <!-- <img src="assets/brand/like.jpg" style="width: 20px;"> -->
+                    </button>
+                </span>
+            </div>
+        </div>
+        <!-- 留言分隔線 -->
+        <div style="border:1px solid #CCC; width: 70vw;margin-left: 50px;"></div>
+        <!-------來自article comment table的文章資訊----- -->
+        <div id="article_comment_div" style="background-color:#fffdf9;padding-bottom: 245px;">
+            <!-- 一個留言卡 -->
+            <div id="article_comment_card" class="article_comment_card" style="margin-top: 0px;">
+                <div>
+                    <p id="article_comment_memId" style="font-size: 14px;"></p>
+                </div>
+                <div>
+                    <p>Astral
+                        Web是一群對網路充滿熱情的團隊，我們相信網路的力量無遠弗屆，人人都有機會開創網路事業。一邊享受網路事業帶來的樂趣，一邊秉持著工作即是玩樂的精神，不斷激發各種靈感為客戶提高收益，提供最完善的服務。
+                    </p>
+
+                </div>
+            </div>
+
 
         </div>
 
@@ -199,141 +259,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
-    <script>
-        <!--網頁載入後執行-->
-        document.addEventListener("DOMContentLoaded", function () {
-            fetchMemIdArticleList();
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-        });
-
-        // 解析當前網址的查詢參數（query parameters）。
-        const urlParams = new URLSearchParams(window.location.search);
-        // 使用get方法從查詢參數中獲取名為'memId'的值。
-        const memId = urlParams.get('memId');
-
-        async function fetchMemIdArticleList() {
-            try {
-                const response = await fetch(`http://localhost:8081/u-and-me/UserEdit/${memId}`);
-                const resMemIdArticleList = await response.json();
-                console.log(resMemIdArticleList);
-                const articles_el = document.getElementById("articles");
-                // 1. 取得要被動態插入內容的元素
-                articles_el.innerHTML = "";
-                // 2. 先清空容器，以便插入新的文章內容
-
-                resMemIdArticleList.forEach(MemIdArticle => {
-                    const articleDiv = document.createElement("div"); // 在每次迭代中創建新的 div 元素
-                    articleDiv.className = "articlecardframe"; // 添加 class
-                    articleDiv.innerHTML = `
-    <div class="articlecard">
-        <div style="display: flex;vertical-align: top; margin-right: 10px;">
-            <div>
-                <p style="color: grey;margin-bottom: 8px;width:50px;">${statusMapping.get(MemIdArticle.acTypeId)}</p>
-            </div>
-            <button style="display:inline-block; margin-left:600px;height:10px;">
-                <a
-                    href="http://localhost:8081/u-and-me/tmp/Front/article/userUpdAndDel/userArticleUpdate.html?memId=${memId}&articleId=${MemIdArticle.articleId}">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-pencil" viewBox="0 0 16 16">
-                        <path
-                            d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                    </svg>
-                </a>
-            </button>
-
-            <button style="display:inline-block; height:10px;margin-left:30px;"
-                onclick="deleteFunction(${MemIdArticle.articleId})">
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
-                    <path
-                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
-                </svg>
-            </button>
-
-        </div>
-        <div>
-            <div>
-                <h5>${MemIdArticle.articleTitle}</h5>
-            </div>
-
-            <div>
-                <p class="JQellipsis">
-                    ${MemIdArticle.articleContent}
-                </p>
-                <span style="position: relative; z-index: 3;">
-                    <img src="assets/brand/like.jpg" style="width: 20px;">
-                </span>
-                <span style="margin-left: 5px; margin-right: 20px;">
-                    ${MemIdArticle.articleLike}
-                </span>
-                <span style="position: relative; z-index: 3;">
-                    <img src="assets/brand/comment.jpg" style="width: 25px;">
-                </span>
-                <span style="margin-left: 5px; margin-right: 20px;">
-                    ${MemIdArticle.commentNum}
-                </span>
-
-            </div>
-        </div>
-
-        `;
-
-                    articles_el.appendChild(articleDiv); // 將文章 div 添加到容器中
-
-
-                    // 超過130個字以"..."取代
-                    $(function () {
-                        var len = 130;
-                        $(".JQellipsis").each(function (i) {
-                            if ($(this).text().length > len) {
-                                $(this).attr("title", $(this).text());
-                                var text = $(this).text().substring(0, len - 1) + "...";
-                                $(this).text(text);
-                            }
-                        });
-                    });
-
-                });
-
-            } catch (error) {
-                console.error("Error fetching article list:", error);
-            }
-        }
-        // Integer回傳為object，以下要改成字串形式
-        const statusMapping = new Map([
-            [1, '商城版'],
-            [2, '行程版'],
-            [3, '揪團版'],
-        ]);
-
-        function deleteFunction(articleId) {
-            Swal.fire({
-                title: '刪除後即無法回復文章，確定繼續刪除動作?',
-                icon: 'warning',
-                showCancelButton: true, // 显示取消按钮
-                confirmButtonText: '確定',
-                cancelButtonText: '取消' // 自定义取消按钮
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                    // 用户点击了确认按钮
-                    // 在这里执行删除操作，可以使用 articleId
-                    await fetch(`http://localhost:8081/u-and-me/UserEdit/deleteArticle/${articleId}`, {
-                        method: 'DELETE'
-                    });
-                    location.reload();
-                    console.log('用戶點擊確認按鈕，確定删除文章，articleId:', articleId);
-                } else {
-                    // 用户点击了取消按钮，不执行删除操作
-                    console.log('用戶點擊取消按鈕，不執行删除');
-                }
-            });
-        }
-    </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+    <script src="assets/dist/js/articleDetail.js"></script>
 </body>
 
 </html>

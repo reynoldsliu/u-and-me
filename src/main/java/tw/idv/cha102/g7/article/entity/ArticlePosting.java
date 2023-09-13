@@ -27,6 +27,9 @@ public class ArticlePosting implements Serializable {
     @Column(name="ac_type_id")
     private Integer acTypeId;
 
+    @Column(name="mem_id")
+    private Integer memId;
+
     @Column(name="article_title")
     private String articleTitle;
 

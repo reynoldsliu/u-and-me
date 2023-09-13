@@ -10,7 +10,7 @@
     <title>論壇後台</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
-
+    <link rel="shortcut icon" href="../../assets/dist/img/favicon.ico" type="image/x-icon">
 
     <!-- Bootstrap core CSS -->
     <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -263,6 +263,7 @@
                                 <th style="text-align: center;width: 100px;">文章標題</th>
                                 <th style="text-align: center;">內文</th>
                                 <th style="text-align: center;width: 85px;">文章狀態</th>
+                                <th style="text-align: center;width: 70px;">全文</th>
 
                             </tr>
                         </thead>
@@ -304,13 +305,15 @@
                     const uniqueId = `statusSwitch${article.articleId}`;
 
                     row.innerHTML = `
-    <td class="td_articleId" style="text-align: center; vertical-align: middle;">${article.articleId}</td>
+    <td class="td_articleId" style="text-align: center; vertical-align: middle;">
+            ${article.articleId}
+    </td>
     <td style="text-align: center;vertical-align: middle;">${article.memId}</td>
     <td class="truncate" style="vertical-align: middle;">${article.articleTitle}</td>
     <td class="truncate" style="vertical-align: middle;">${article.articleContent}</td>
 
 
-    <td>
+    <td style="text-align: center;vertical-align: middle;">
         <div class="form-check form-switch text-end">
             <input class="form-check-input status-toggle" type="checkbox" id="${uniqueId}"
                 data-article-id="${article.articleId}" onclick="testStatusBtn(this)">
@@ -318,6 +321,20 @@
 
         </div>
         </div>
+    </td>
+    <td class="truncate" style="vertical-align: middle;">
+        <a
+            href="http://localhost:8081/u-and-me/tmp/Front/article/readArticle/singleArticle.html?articleId=${article.articleId}">
+            <button style="background-color:white;border:none;" id="linkButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                    <path fill-rule="evenodd"
+                        d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
+            </button>
+        </a>
     </td>
 
     `;
@@ -356,6 +373,8 @@
                             }
                         });
                     });
+
+
 
                 });
 
@@ -427,7 +446,7 @@
                             console.log('狀態更新成功。');
                         } else {
                             console.error('無法更新狀態。');
-                        
+
                         }
                     })
 

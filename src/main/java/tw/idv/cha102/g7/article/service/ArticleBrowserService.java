@@ -13,7 +13,7 @@ public interface ArticleBrowserService {
     String updateByArticleId(Integer articleId, Article article);
 
     // 搜尋文章title，可依照熱門(讚數)或最新最舊排序
-    List<Article> findByArticleTitle(String keyword);
+    List<Article> findByArticleTitleOrderByLike(String keyword);
 
     // 論壇首頁呈現所有未下架文章
     public List<Article>findPublicArticle();
@@ -26,6 +26,9 @@ public interface ArticleBrowserService {
 
     // 論壇首頁呈現所有揪團文章(廢code)
     public List<Article>findGroupArticle();
+
+    // 文章標題查詢
+    public List<Article>findByTitleOrderByTime(String keyword);
 
 
 

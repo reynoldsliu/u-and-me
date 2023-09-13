@@ -172,3 +172,8 @@ border-bottom: #95ad9e solid 1px;
     color: black; /* 聚焦時，文字變為黑色 */
 }
 
+.col-7 {
+    vertical-align: middle;
+    margin-bottom: 10px;
+    max-height: 50vh;
+}

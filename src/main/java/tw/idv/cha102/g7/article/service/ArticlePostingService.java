@@ -10,10 +10,10 @@ import java.util.List;
 public interface ArticlePostingService {
 
     // 新增文章
-    public void postArticle(ArticlePosting article);
+    public int postArticle(ArticlePosting article, Integer memberId);
 
     // 上傳圖片與取得articleId
-    public void postPicsAndSaveArticleId(List<ArticlePicture> pics);
+    public int postPicsAndSaveArticleId(List<ArticlePicture> pics);
 
 }
 

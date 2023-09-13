@@ -25,9 +25,9 @@ public class ArticleBrowserServiceImpl implements ArticleBrowserService {
         // 新文章為輸入要更改的文章ID
         Article art = articleBrowserRepository.findById(articleId).orElse(null);
         //更改後的新文章
-        if (art != null) {  // schedule為欲修改的行程資料
+        if (art != null) {  // 為欲修改的行程資料
             art.setArticleTitle(article.getArticleTitle());
-            art.setArticleId(article.getAcTypeId());
+            art.setAcTypeId(article.getAcTypeId());
             art.setArticleContent(article.getArticleContent());
             articleBrowserRepository.save(art);
             return "更新成功！";
@@ -43,10 +43,14 @@ public class ArticleBrowserServiceImpl implements ArticleBrowserService {
 
     // 查詢所有公開文章的title
     @Override
-    public List<Article> findByArticleTitle(String keyword) {
+    public List<Article> findByArticleTitleOrderByLike(String keyword) {
         return articleBrowserRepository.findByTitleOrderByLike(keyword);
     }
 
+    @Override
+    public List<Article> findByTitleOrderByTime(String keyword) {
+        return articleBrowserRepository.findByTitleOrderByTime(keyword);
+    }
 
 
     // 首頁查詢未下架文章
@@ -72,6 +76,7 @@ public class ArticleBrowserServiceImpl implements ArticleBrowserService {
     public List<Article> findGroupArticle() {
         return articleBrowserRepository.findGroupArticle();
     }
+
 
 
 

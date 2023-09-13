@@ -47,11 +47,16 @@ public class ArticleBrowserController {
 
 
     // 透過文章標題搜尋相關文章
-    @GetMapping("/articles/{title}")
-    public List<Article> findByArticleTitle(@PathVariable String keyword) {
-        return articleBrowserService.findByArticleTitle(keyword);
+    @GetMapping("/OrderByLike/{keyword}")
+    public List<Article> findArticleTitleOrderByLike(@PathVariable String keyword) {
+        return articleBrowserService.findByArticleTitleOrderByLike(keyword);
     }
 
+    // 透過文章標題搜尋相關文章
+//    @GetMapping("/OrderByTime/{keyword}")
+//    public List<Article> findArticleTitleOrderByTime(@PathVariable String keyword) {
+//        return articleBrowserService.findByTitleOrderByTime(keyword);
+//    }
 
 
     // 刪除文章

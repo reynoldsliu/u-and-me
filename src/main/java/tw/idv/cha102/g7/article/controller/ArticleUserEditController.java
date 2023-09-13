@@ -9,11 +9,16 @@ import tw.idv.cha102.g7.article.entity.Article;
 import tw.idv.cha102.g7.article.entity.ArticlePicture;
 import tw.idv.cha102.g7.article.service.ArticleSingleArticleService;
 import tw.idv.cha102.g7.article.service.ArticleUserEditService;
+import tw.idv.cha102.g7.member.entity.Member;
 import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Integer.parseInt;
 
 @RestController
 @RequestMapping("/UserEdit")
@@ -25,21 +30,22 @@ public class ArticleUserEditController {
     ArticleSingleArticleService articleSingleArticleService;
 
     // 使用者的「我的文章」
-    @GetMapping("/{memId}")
-    public List<Article> findByMemId(@PathVariable Integer memId) {
-        return articleUserEditService.findByMemId(memId);
+    @GetMapping("/findByMemId")
+    public List<Article> findByMemId(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer memberId = parseInt(session.getAttribute("memberId").toString());
+        return articleUserEditService.findByMemId(memberId);
     }
 
-    @GetMapping("/{memId}/{articleid}")
-    public Article getByArticleId(@PathVariable Integer memId,
-                                  @PathVariable Integer articleid) {
+    // 在修改頁面載入文章
+    @GetMapping("/{articleid}")
+    public Article getByArticleId(@PathVariable Integer articleid) {
         return articleSingleArticleService.getByArticleId(articleid);
     }
 
     // 在修改頁面回傳修改後的文章
-    @PutMapping("/upd/{memId}/{articleId}")
-    public ResponseEntity<?> edit(@PathVariable Integer memId,
-                                  @PathVariable Integer articleId,
+    @PutMapping("/upd/{articleId}")
+    public ResponseEntity<?> edit(@PathVariable Integer articleId,
                                   @RequestBody Article updArticle) {
         // 在前端頁面就可以將memId, articleId傳到postdata中
         try {

@@ -6,6 +6,7 @@ body {
 html {
   height: -webkit-fill-available;
 }
+
 /* delete max-height: 100vh;*/
 main {
   display: flex;
@@ -19,20 +20,20 @@ main {
 
 
 
-       .bd-placeholder-img {
-           font-size: 1.125rem;
-           text-anchor: middle;
-           -webkit-user-select: none;
-           -moz-user-select: none;
-           user-select: none;
-       }
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
 
 
-       @media (min-width: 768px) {
-           .bd-placeholder-img-lg {
-               font-size: 3.5rem;
-           }
-       }
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
 
 
 
@@ -120,7 +121,7 @@ main {
 
 div a {
   display: block;
-  padding: 0.5rem 1rem; 
+  padding: 0.5rem 1rem;
   text-decoration: none;
   transition: color .15s;
   color: beige;
@@ -129,16 +130,26 @@ div a {
 ul li a {
   color: beige;
 }
+
 a:hover,
 a:focus,
 a:active {
   color: #ebd0be;
 }
 
-nav div{
+nav div {
   text-align: center;
- 
+
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
 
+#linkButton{
+  transition: transform 0.3s;
+}
+
+
+/* 悬停时的样式 */
+#linkButton:hover {
+  transform: scale(1.5); /* 当鼠标悬停时，按钮的尺寸增大1.5倍 */
+}

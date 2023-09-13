@@ -25,7 +25,7 @@ public class Article implements Serializable {
     private Integer memId;
 
     @Column(name="ac_type_id")
-    private Integer acTypeId;
+    private short acTypeId;
 
     @Column(name="article_title")
     private String articleTitle;

@@ -36,6 +36,7 @@ public class ArticleUserEditServiceImpl implements ArticleUserEditService {
         if (oldArticle != null) {
             oldArticle.setArticleTitle(updArticle.getArticleTitle());
             oldArticle.setArticleContent(updArticle.getArticleContent());
+            oldArticle.setAcTypeId(updArticle.getAcTypeId());
 
             articleUserEditRepository.save(oldArticle);
             return "更新成功！";
