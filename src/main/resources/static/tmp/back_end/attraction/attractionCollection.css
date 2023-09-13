@@ -119,7 +119,14 @@ body {
     text-align: center;
    
   }
+.goAttrBtn{
 
+    background-color: #1D3124;
+    color:beige;
+    border-radius: 5px;
+    padding:2px 6px;
+  border: none;
+}
   /* 按鈕樣式 */
   #loadAttractions{
 background-color: #1D3124;

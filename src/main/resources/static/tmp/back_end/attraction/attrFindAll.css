@@ -168,6 +168,14 @@ padding:2px 6px;
 margin-bottom: 7px;
 }
 
+.goAttrBtn{
 
+  background-color: #1D3124;
+  color:beige;
+  border-radius: 5px;
+  padding:2px 6px;
+border: none;
+    
+}
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
 
