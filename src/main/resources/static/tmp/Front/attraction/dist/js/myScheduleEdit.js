@@ -255,6 +255,7 @@ async function addDailySchedule(restScheDetails) {
 
     let row = document.createElement("div");
     row.classList.add("schDeStartTimeRows"+nthDays);
+    row.classList.add("schDeStartTimeRows");
     row.innerHTML = `
         <div>
             <span class="viewWhichDay">第${nthDays}天 :</span>
@@ -386,7 +387,8 @@ async function addDailySchedule(restScheDetails) {
 
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
-        if (parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
+        if (restScheDetails[countedScheDetails+1]==undefined ||
+            parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
             < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)
         ) {
 
@@ -397,13 +399,12 @@ async function addDailySchedule(restScheDetails) {
     }
     console.log(todayWaypoint);
     const target = document.querySelector(`.schDeStartTimeRows${nthDays}`);
-    
-        row.innerHTML = `
-        <div>
+    const div = document.createElement("div");
+    div.innerHTML = `
             <button onclick="showDayRoute('` + todayWaypoint.join("-") + `')">本日路線</button>
-        </div>
         `;
-        target.appendChild(row);
+    target.appendChild(div);
+
     console.log(todayWaypoint);
     // <div class="addNewAttrbtn" onclick="addNewAttrbtnOnclick();">＋新增景點</div>
     const addNewAttrbtn = document.createElement("div");
@@ -418,42 +419,21 @@ async function addDailySchedule(restScheDetails) {
 
     return countedScheDetails;
 }
+//////////////////////////////////////////////////////////////////////////
+//顯示所有路線 會爆掉
 // function showAllRoute() {
 //     calculateMultipleTravelTimes(getAllWaypoints(),"DRIVING");
 // }
-function showDayRoute(waypoints) {
+function showDayRoute(inputString) {
+    const waypointsParts = inputString.split('-');
+    let waypoints = [];
+    for(let waypointsPart of waypointsParts){
+        waypoints.push(waypointsPart);
+    }
     console.log(waypoints);
-    //calculateMultipleTravelTimes(waypoints, "DRIVING");
+    calculateMultipleTravelTimes(waypoints, "DRIVING");
 }
-function calculateMultipleTravelTimes(waypoints, travelMode) {
-    // 设置起点、终点和途经点
-    var origin = waypoints[0];
-    console.log(waypoints[0]);
-    var destination = waypoints[waypoints.length - 1];
-    var intermediateWaypoints = waypoints.slice(1, waypoints.length - 1);
 
-    // 构建请求对象
-    var request = {
-        origin: origin,
-        destination: destination,
-        waypoints: intermediateWaypoints.map(function (waypoint) {
-            return { location: waypoint, stopover: true };
-        }),
-        travelMode: travelMode // 可以是 'DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'
-    };
-
-    // 调用 Directions Service 来计算旅程时间
-    directionsService.route(request, function (response, status) {
-        if (status === 'OK') {
-            // 更新 Directions Renderer 显示路线
-            directionsRenderer.setDirections(response);
-
-            
-        } else {
-            console.log('Directions request failed:', status);
-        }
-    });
-}
 //---------------------------------------------------------------------------
 
 // 幾月幾日直接+1天
