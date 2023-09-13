@@ -97,3 +97,15 @@ bs-dark-rgb 背景色彩變數  */
   height: 100%;
   }
   }
+
+  #order_confirmed{
+      background-color:rgb(115, 176, 172); 
+      padding: 5px 5px;
+      color: white;
+      border: none;
+      border-radius: 10px; /* 設定圓角的像素值 */
+      font-size: 20px;
+      width: 100px;
+      height:58px;
+  
+  }
