@@ -235,7 +235,7 @@ async function addDailySchedule(restScheDetails) {
     //              透過交通方式計算行程間的交通距離 交通時間
     //結束時間=開始時間+停留時間
     //開始時間=結束時間+交通時間
-    var todayWaypoint = [];
+    let todayWaypoint = [];
     const response = await fetch(baseURL + `schedules/schId/` + restScheDetails[0].schId);
     const schedule = await response.json();
     const startDay = schedule.schStart;
@@ -294,7 +294,7 @@ async function addDailySchedule(restScheDetails) {
         //取得景點的第一張圖片
         const attrPicture = attrPicList.attrPic[0].attrPicData;
 
-        todayWaypoint.push(attr.attrAddr);
+        todayWaypoint.push(`${attr.attrAddr}`);
 
         let row = document.createElement("div");
         row.innerHTML = `
@@ -395,10 +395,12 @@ async function addDailySchedule(restScheDetails) {
             break;
         }
     }
+    console.log(todayWaypoint);
     const target = document.querySelector(`.schDeStartTimeRows${nthDays}`);
+    
         row.innerHTML = `
         <div>
-            <button onclick="showDayRoute(${todayWaypoint},${"DRIVING"})">本日路線</button>
+            <button onclick="showDayRoute('` + todayWaypoint.join("-") + `')">本日路線</button>
         </div>
         `;
         target.appendChild(row);
@@ -415,6 +417,42 @@ async function addDailySchedule(restScheDetails) {
     countedScheDetailsBase = travelIconCount;
 
     return countedScheDetails;
+}
+// function showAllRoute() {
+//     calculateMultipleTravelTimes(getAllWaypoints(),"DRIVING");
+// }
+function showDayRoute(waypoints) {
+    console.log(waypoints);
+    //calculateMultipleTravelTimes(waypoints, "DRIVING");
+}
+function calculateMultipleTravelTimes(waypoints, travelMode) {
+    // 设置起点、终点和途经点
+    var origin = waypoints[0];
+    console.log(waypoints[0]);
+    var destination = waypoints[waypoints.length - 1];
+    var intermediateWaypoints = waypoints.slice(1, waypoints.length - 1);
+
+    // 构建请求对象
+    var request = {
+        origin: origin,
+        destination: destination,
+        waypoints: intermediateWaypoints.map(function (waypoint) {
+            return { location: waypoint, stopover: true };
+        }),
+        travelMode: travelMode // 可以是 'DRIVING', 'WALKING', 'BICYCLING', 'TRANSIT'
+    };
+
+    // 调用 Directions Service 来计算旅程时间
+    directionsService.route(request, function (response, status) {
+        if (status === 'OK') {
+            // 更新 Directions Renderer 显示路线
+            directionsRenderer.setDirections(response);
+
+            
+        } else {
+            console.log('Directions request failed:', status);
+        }
+    });
 }
 //---------------------------------------------------------------------------
 

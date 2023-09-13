@@ -1,3 +1,5 @@
+-- last edit time: 2023-09-13/17:47
+
 create schema main;
 use main;
 -- drop schema main;
@@ -18,22 +20,22 @@ create table members (
     mem_idpic mediumblob,
 	mem_phone varchar(15),
 	mem_point int,
-	mem_sta tinyint default 0 not null, -- 0:註冊未驗證,1:正常使用,2:停止使用(停權)
+	mem_sta tinyint default 0 not null, -- 0:正常使用,1:停止使用,
 	mem_group tinyint default 0 not null  -- 0:非團主,1:團主
 );
 select * from members;
-INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_addr, mem_grade, mem_idcard,mem_phone, mem_point, mem_sta, mem_group)
+INSERT INTO members (mem_id, mem_email, mem_password, mem_name, mem_gender, mem_city,mem_dist,mem_addr, mem_grade, mem_idcard,mem_phone, mem_point, mem_sta, mem_group)
 VALUES
-  (1,'member1@example.com', 'password1', 'tong', 2, 'Address 1', 1,'A123456789','0911111111', 100, 1, 0),
-  (2,'member2@example.com', 'password2', 'lynn', 2, 'Address 2', 2,'B123456789', '0922222222', 400, 0, 0),
-  (3,'member3@example.com', 'password3', 'sian', 2, 'Address 3', 1,'C123456789','0933333333', 550, 1, 0),
-  (4,'member4@example.com', 'password4', 'reynolds', 1, 'Address 4',1,'D123456789', '0944444444', 300, 2, 1),
-  (5,'member5@example.com', 'password5', 'Katie', 2, 'Address 5', 2,'E123456789', '0955555555', 250, 1, 1),
-  (6,'member6@example.com', 'password6', 'jas', 2, 'Address 6', 1,'F123456789','0966666666', 50, 0, 0),
-  (7,'member7@example.com', 'password7', 'henry', 1, 'Address 7', 3,'G123456789', '0977777777', 50, 1, 0),
-  (8,'member8@example.com', 'password8', 'David', 0, 'Address 8', 2,'H123456789', '0988888888', 180, 1, 0),
-  (9,'member9@example.com', 'password9', 'hazel', 2, 'Address 9', 1,'I123456789', '0999999999', 120, 1, 1),
-  (10,'member10@example.com', 'password10', 'tou', 1, 'Address 10', 1,'J123456789', '0900000000', 80, 2, 1);
+  (1,'member1@example.com', 'password1', '許彤彤', 2, '台北市','大安區','復興南路一段123號', 1,'A123456789','0911111111', 100, 1, 0),
+  (2,'lynnchiang1220@gmail.com', 'password2', '姜小琳', 2, '新北市','板橋區','文化路二段456號', 2,'B123456789', '0922222222', 400, 0, 0),
+  (3,'member3@example.com', 'password3', '陳安安', 2, '高雄市','鳳山區','中山西路789號', 1,'C123456789','0933333333', 550, 1, 0),
+  (4,'member4@example.com', 'password4', '劉覽力辰', 1, '台中市','西屯區','文華路三段234號',1,'D123456789','0944444444', 300, 0, 1),
+  (5,'member5@example.com', 'password5', '吳蓁蓁', 2, '桃園市','中壢區','永安南路五段567號', 2,'E123456789', '0955555555', 250, 1, 1),
+  (6,'member6@example.com', 'password6', '朱小妹', 2, '新竹市','東區','光復路一段890號', 1,'F123456789','0966666666', 50, 0, 0),
+  (7,'member7@example.com', 'password7', '斯斯', 1, '彰化縣','彰化市','中山路六段1234號', 3,'G123456789', '0977777777', 50, 1, 0),
+  (8,'member8@example.com', 'password8', '阿黃', 0, '雲林縣','斗六市','明德路七段567號', 2,'H123456789', '0988888888', 180, 1, 0),
+  (9,'member9@example.com', 'password9', '潘信隆', 2, '嘉義縣','太保市','中正路八段789號', 1,'I123456789', '0999999999', 120, 1, 1),
+  (10,'member10@example.com', 'password10', '蕭阿彤', 1, '屏東縣','屏東市','建國路九段234號', 1,'J123456789', '0900000000', 80, 0, 1);
 select * from members;
 
 create table hosts (
@@ -48,16 +50,16 @@ create table hosts (
 select * from hosts;
 INSERT INTO hosts (host_id,host_phone, host_email, host_password, host_name, host_sta)
 VALUES
-  (1,'123456789', 'host1@example.com', 'password1', 'DavidWu', 0),
-  (2,'987654321', 'host2@example.com', 'password2', 'tongtong', 0),
-  (3,'111222333', 'host3@example.com', 'password3', 'lynnchiang', 0),
-  (4,'444555666', 'host4@example.com', 'password4', 'touchen', 0),
-  (5,'777888999', 'host5@example.com', 'password5', 'jasmine', 0),
-  (6,'555666777', 'host6@example.com', 'password6', 'KatieWu', 1),
-  (7,'999888777', 'host7@example.com', 'password7', 'sianchen', 1),
-  (8,'111333555', 'host8@example.com', 'password8', 'hazelchen', 0),
-  (9,'666777888', 'host9@example.com', 'password9', 'henry', 1),
-  (10,'222333444', 'host10@example.com', 'password10', 'Sara', 1);
+  (1,'123456789', 'host1@example.com', 'password1', '大衛師傅', 0),
+  (2,'987654321', 'host2@example.com', 'password2', '大吳', 0),
+  (3,'111222333', 'host3@example.com', 'password3', '朱佩佩', 0),
+  (4,'444555666', 'host4@example.com', 'password4', '劉辰', 0),
+  (5,'777888999', 'host5@example.com', 'password5', '吳小蓁', 0),
+  (6,'555666777', 'host6@example.com', 'password6', '蕭彤彤', 1),
+  (7,'999888777', 'host7@example.com', 'password7', '斯斯', 1),
+  (8,'111333555', 'host8@example.com', 'password8', '陳小安', 0),
+  (9,'666777888', 'host9@example.com', 'password9', '姜阿琳', 1),
+  (10,'222333444', 'host10@example.com', 'password10', '許阿彤', 1);
 select * from hosts;
 
 
@@ -72,9 +74,9 @@ create table group_register(
 
 -- create schema onlineshoppingmall;
 -- use onlineshoppingmall;
- 
+
  create table orders (
-    ord_id int primary key ,
+    ord_id int primary key auto_increment,
     mem_id int not null,
     points int,
     ord_fee int,
@@ -193,7 +195,7 @@ create table reg_form
     reg_time timestamp not null default current_timestamp
     -- constraint fk_mem_id
 --     foreign key (mem_id) references members(mem_id),
---     
+--
 --     constraint fk_group_id
 --     foreign key (group_id) references `group`(group_id)
 );
@@ -245,82 +247,26 @@ values
 (11, 10, 'Ava Wong', 'Hong Kong', 'J012345678', '1999-01-22');
 select * from member_detail;
 
-create table group_rep
-(
-	group_rep_id int primary key, -- auto_increment
-    mem_id int, --  not null
-    group_id int,-- not null
-    hosts_id int,
-    reason varchar(500) not null,
-    group_rep_sta TINYINT not null default 0
-    -- constraint fk_mem_id
---     foreign key (mem_id) references members(mem_id),
---     
---     constraint fk_group_id
---     foreign key (group_id) references `group`(group_id),
---     
---     constraint fk_host_id
---     foreign key (host_id) references hosts(host_id)
-);
-insert into group_rep values (
-1, 1, 1, 1, 'QQ', default
-);
-insert into group_rep (group_rep_id, mem_id, group_id, hosts_id, reason)
-values
-(2, 101, 201, 301, 'One of the group members is not cooperative.'),
-(3, 102, 202, 302, 'The host is not fulfilling their responsibilities.'),
-(4, 103, 203, 303, 'There is a conflict between two group members.'),
-(5, 104, 204, 304, 'The group schedule conflicts with my other commitments.'),
-(6, 105, 205, 305, 'The group activities do not match my interests.'),
-(7, 106, 206, 306, 'I am experiencing health issues and cannot participate.'),
-(8, 107, 207, 307, 'The group size is too large for me.'),
-(9, 108, 208, 308, 'I am unable to afford the group expenses.'),
-(10, 109, 209, 309, 'There is a lack of communication within the group.'),
-(11, 110, 210, 310, 'I have unexpected personal matters to attend to.');
-select * from group_rep;
-
-create table group_picture
-(
-	group_pic_id int primary key auto_increment,
-    group_id int not null,
-    group_pic mediumblob
---     constraint fk_group_id
---     foreign key (group_id) references `group`(group_id)
-);
-insert into group_picture values (
-1, 1, null
-);
-insert into group_picture values
-(101, 201, null),
-(102, 202, null),
-(103, 203, null),
-(104, 204, null),
-(105, 205, null),
-(106, 206, null),
-(107, 207, null),
-(108, 208, null),
-(109, 209, null),
-(110, 210, null);
-select * from group_picture;
 
 -- attractions景點相關表格建立 劉力辰
 create table attractions (
 attr_id int primary key auto_increment,
-attr_veri_sta tinyint,
-attr_sta int,
-attr_name varchar(20),
-attr_addr varchar(100),
+attr_veri_sta tinyint,-- deprecated
+attr_sta int default 1,-- 預設上架
+attr_name varchar(20) not null,
+attr_addr varchar(100) not null,
 attr_lon float,
 attr_lat float,
 attr_illa varchar(500),
 attr_type varchar(10),
-attr_buss_time varchar(100),
+attr_buss_time varchar(100) default '09:00-18:00|09:00-21:00',
 attr_cost_range tinyint,
-attr_rep varchar(500)
+attr_rep varchar(500) -- deprecated
 );
 
+-- 更換有效地址Reynolds
 INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type, attr_buss_time, attr_cost_range, attr_rep)
-VALUES 
+VALUES
   (1, 1, 3, 'Attraction 1', '123 Main St', 12.345, 67.890, 'Description for Attraction 1', '第一類', '9:00 AM - 5:00 PM', 2, 'Representative for Attraction 1'),
   (2, 0, 2, 'Attraction 2', '456 Park Ave', -45.678, 12.345, 'Description for Attraction 2', '第三類', '10:00 AM - 6:00 PM', 1, 'Representative for Attraction 2'),
   (3, 1, 1, 'Attraction 3', '789 Broad St', 98.765, -34.567, 'Description for Attraction 3', '第二類', '8:00 AM - 4:00 PM', 3, 'Representative for Attraction 3'),
@@ -331,39 +277,20 @@ VALUES
   (8, 0, 2, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', '第三類', '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
   (9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', '第二類', '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
   (10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', '第一類', '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
-  
+
 select * from attractions;
--- drop table attractions;
-
-
--- create table members(
--- mem_id int primary key,
--- mem_name varchar(20)
--- );
-
--- insert into members(mem_id, mem_name)
--- values
--- (1,"Andy");
-
--- drop table member;
--- select * from member;
 
 create table attraction_collections (
 attr_id int,
 mem_id int,
 
-attr_col_illa varchar(500)
-
--- primary key (attr_id, mem_id),
--- foreign key(mem_id) references members(mem_id),
--- foreign key(attr_id) references attractions(attr_id)
-
+primary key (attr_id, mem_id)
 );
 
-insert into attraction_collections(attr_id, mem_id, attr_col_illa)
+insert into attraction_collections(attr_id, mem_id)
 
 values
-(1,1,"第一個會員的第一筆收藏");
+(1,1);
 
 -- select * from attraction_collections;
 -- drop table attraction_collections;
@@ -376,28 +303,6 @@ attr_id int,
 -- foreign key(attr_id) references attractions(attr_id),
 attr_pic_data longtext
 );
-
-insert into attraction_pictures(attr_pic_id, attr_id, attr_pic_data)
-values
-(1,1,LOAD_FILE('/tomcat.jpg'));
--- select attr_pic_id from attraction_pictures where fk_attr_id = 1;
--- delete from attraction_pictures where attr_pic_id = 1;
--- alter table attraction_pictures drop foreign key fk_attr_id;
-
-create table attraction_comments(
-attr_id int,
-mem_id int,
-attr_com_score decimal(2,1),
-attr_com varchar(500)
--- foreign key(attr_id) references attractions(attr_id),
--- foreign key(mem_id) references members(mem_id)
-);
-
-insert into attraction_comments(attr_id, mem_id, attr_com_score, attr_com)
-values
-(1,1,0.1,"景點沒廁所");
-
--- select * from attraction_comments;
 
 
 -- products 慶琳
@@ -482,20 +387,6 @@ values
 (108,1,'手沖咖啡旅行組','COFFEEEEE',2980,10,'10入'),
 (109,1,'露營必備裝飾燈串','LIGHT',480,10,'1入');
 
-
-select * from product_collection;
-insert into product_collection(prod_id,mem_id)
-value
--- (1,1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6),
-(7, 7),
-(8, 8),
-(9, 9),
-(10, 10);
 
 select * from cart_list;
 insert into cart_list(cart_pri,cart_qty,mem_id,prod_id)
@@ -688,78 +579,6 @@ VALUES
   (109, 209, '2023-07-28 18:00:00'),
   (110, 210, '2023-07-28 19:20:00');
   -- select * from article_collection;
-
- 
--- 貼文內容檢舉
-create table article_rep (
-    atc_report_id int primary key, -- ai
-    mem_id int, -- fk
-    article_id int, -- fk
-    comm_id int, -- fk
-    ac_tag_id int, -- fk
-    host_id int, -- fk
-    report_time datetime, -- not null
-
-    report_reason varchar(800) ,-- not nulluser
-
-    report_state tinyint -- not null
-    -- constraint fk_mem_id
-    -- foreign key (mem_id) references mem (mem_id),
-    -- constraint fk_article_id
-    -- foreign key (article_id) references article (article_id),
-    -- constraint fk_comm_id
-    -- foreign key (comm_id) references article_comment (comm_id),
-    -- constraint fk_host_id
-    -- foreign key (host_id) references host (host_id),
-    -- constraint fk_ac_tag_id
-    -- foreign key (ac_tag_id) references article_tag (ac_tag_id)
-);
-
--- 生成假資料
-INSERT INTO article_rep (atc_report_id, mem_id, article_id, comm_id, ac_tag_id, host_id, report_time, report_reason, report_state)
-VALUES
-  (1, 201, 101, 1, 1, 301, '2023-07-28 10:00:00', '貼文內容涉及不當言詞', 1),
-  (2, 202, 102, 2, 2, 302, '2023-07-28 11:30:00', '留言內容含有廣告', 0),
-  (3, 203, 103, 3, 3, 303, '2023-07-28 12:45:00', '貼文含有不實資訊', 1),
-  (4, 204, 104, 4, 4, 304, '2023-07-28 13:20:00', '侵犯他人智慧財產權', 1),
-  (5, 205, 105, 5, 5, 305, '2023-07-28 14:10:00', '不當評論他人外貌', 0),
-  (6, 206, 106, 6, 1, 301, '2023-07-28 15:00:00', '帳號冒充他人身分', 1),
-  (7, 207, 107, 7, 2, 302, '2023-07-28 16:30:00', '騷擾他人用戶', 1),
-  (8, 208, 108, 8, 3, 303, '2023-07-28 17:15:00', '含有色情內容', 0),
-  (9, 209, 109, 9, 4, 304, '2023-07-28 18:00:00', '違反社群守則', 1),
-  (10, 210, 110, 10, 5, 305, '2023-07-28 19:20:00', '騷擾他人用戶', 0);
-  -- select * from article_rep;
-  
--- create schema customerservice 宇彤;
--- use customerservice;
-
-create table chat (
-	chat_id int primary key, -- auto_increment
-    mem_id int, -- not null
-    host_id int,
-    chat_time datetime not null,
-    chat_type tinyint default 6 not null comment '0:會員 1:商城 2:景點行程 3:活動 4:論壇 5:揪團 6:其他',
-    chat_point tinyint not null comment '0:會員 1:客服',
-    chat_con varchar(500)
-    -- constraint fk_chat_mem_id
-    -- foreign key (mem_id) references members (mem_id)
-    -- constraint fk_chat_host_id
-    -- foreign key (host_id) references hosts (host_id)
-    );
-
--- select * from chat;
-
-insert into chat(chat_id, mem_id, host_id, chat_time, chat_type, chat_point, chat_con) values
-(1,1,null,'2023-07-28 14:22:00',6,1,'歡迎來到我們的客服聊天室！請選擇您要詢問的類別，輸入相應的數字編號：0-會員 1-商城 2-景點行程 3-活動 4-論壇 5-揪團 6-其他，您可以直接回復數字，我們將竭誠為您提供所需的幫助與資訊。將立即為您轉接至客服人員，與您進行連線並提供支援。感謝您使用我們的服務！若不幸是在非客服時間內聯繫我們，請您不要擔心，我們將安排客服人員在營業時間內盡快回覆您的訊息。請您耐心等待，我們會儘快與您取得聯繫。'),
-(2,1,null,'2023-07-28 14:22:10',6,0,'2'),
-(3,1,1,'2023-07-28 14:22:15',2,1,'您好，這裡是客服人員Jane，很高興能夠為您提供幫助！請問有什麼問題或需要我們協助解決的事情嗎？請隨時告訴我們您的需求，我們會全力以赴為您提供最好的服務。'),
-(4,1,1,'2023-07-28 14:24:15',2,0,'你好，我是新會員，我想要在你們的旅遊行程平台上建立一個行程。能告訴我在哪建立行程的流程嗎？'),
-(5,1,1,'2023-07-28 14:25:20',2,1,'歡迎加入我們的旅遊行程平台！建立行程很簡單，首先，請在會員中心點選「建立旅遊行程」按鈕。然後，填寫行程的基本資訊，如目的地、日期等。接著，您可以在行程內容中添加景點、活動、餐廳等細節。最後，點選「儲存」即可完成行程建立。'),
-(6,1,1,'2023-07-28 14:28:10',2,0,'謝謝指引！在建立行程時，可以自訂行程的名稱嗎？'),
-(7,1,1,'2023-07-28 14:29:10',2,1,'當然可以！在填寫行程基本資訊時，有一個欄位是「行程名稱」，您可以在那裡輸入您想要的名稱，讓行程更具個人化。'),
-(8,1,1,'2023-07-28 14:30:00',2,0,'如果我想和朋友分享我建立的行程，該怎麼辦？'),
-(9,1,1,'2023-07-28 14:35:00',2,1,'您可以在行程詳細頁面上，找到分享按鈕，點選後可以選擇分享到社交媒體或通過郵件分享給朋友。這樣他們就可以看到您的行程安排了。'),
-(10,1,1,'2023-07-28 14:36:00',2,0,'好的，謝謝!');
 
 
 create table qa (
@@ -982,8 +801,8 @@ VALUES
 create table activity(
 activ_id int primary key auto_increment,
 activ_pic mediumblob not null,
-activ_name varchar(20) not null,
-activ_con varchar(500) not null,
+activ_name varchar(100) not null,
+activ_con varchar(1000) not null,
 activ_starttime datetime not null,
 activ_endtime datetime,
 activ_sta tinyint default 0 not null  -- 0:下架 1:上架
@@ -1021,8 +840,8 @@ VALUES
 -- 心理測驗結果
 create table psytest_result(
 psytresult_id int primary key, 
-psytresult_name varchar(20) not null,
-psytresult_con varchar(500) not null
+psytresult_name varchar(100) not null,
+psytresult_con varchar(1000) not null
 );
 -- describe  psytest_result;
 
