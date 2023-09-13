@@ -81,6 +81,8 @@ const attrCollectionListInsert_el = document.querySelector(".attrCollectionList"
 // 單一景點詳情圖片輪播
 const attrTotalImgsInsert_el = document.querySelector(".attrTotalImgsInsert");
 // 單一景點詳情內容
+// 景點id隱藏欄位
+const attrIdText_el = document.querySelector("#attrIdText");
 // 景點名稱(標題)
 const attrNameTitle = document.querySelector("#attrNameTitle");
 // 景點評價
@@ -254,7 +256,7 @@ async function addDailySchedule(restScheDetails) {
     console.log("nthday: " + nthDays);
 
     let row = document.createElement("div");
-    row.classList.add("schDeStartTimeRows"+nthDays);
+    row.classList.add("schDeStartTimeRows" + nthDays);
     row.classList.add("schDeStartTimeRows");
     row.addEventListener('click', showDayRoute(`${todayWaypoint.join("-")}`));
     row.innerHTML = `
@@ -382,18 +384,18 @@ async function addDailySchedule(restScheDetails) {
             mapApiBetw2(travelIconCount);
         }
 
-        
+
 
         // 2023/09/11========================================================================================
 
         //將TimeStampString轉為Date 且可以直接比大小
         //測試只比較日期的比大小 輸出應為相等
-        if (restScheDetails[countedScheDetails+1]==undefined ||
+        if (restScheDetails[countedScheDetails + 1] == undefined ||
             parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
             < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)
         ) {
 
-            
+
 
             break;
         }
@@ -429,7 +431,7 @@ async function addDailySchedule(restScheDetails) {
 function showDayRoute(inputString) {
     const waypointsParts = inputString.split('-');
     let waypoints = [];
-    for(let waypointsPart of waypointsParts){
+    for (let waypointsPart of waypointsParts) {
         waypoints.push(waypointsPart);
     }
     console.log(waypoints);
@@ -759,25 +761,25 @@ function bussTimeString(inputString) {
     holidayTimeRange = timeRanges[0];
     holidayTimeRangeArr = [];
     holidayTimeRangeArr = holidayTimeRange.split('');
-    holidayTimeRange = holidayTimeRangeArr[0]+holidayTimeRange[1]+":"
-    +holidayTimeRange[2]+holidayTimeRange[3]+"~"
-    +holidayTimeRange[5]+holidayTimeRange[6]+":"
-    +holidayTimeRange[7]+holidayTimeRange[8];
+    holidayTimeRange = holidayTimeRangeArr[0] + holidayTimeRange[1] + ":"
+        + holidayTimeRange[2] + holidayTimeRange[3] + "~"
+        + holidayTimeRange[5] + holidayTimeRange[6] + ":"
+        + holidayTimeRange[7] + holidayTimeRange[8];
     weekdayTimeRange = timeRanges[1];
     weekdayTimeRangeArr = [];
     weekdayTimeRangeArr = weekdayTimeRange.split('');
-    weekdayTimeRange = weekdayTimeRangeArr[0]+weekdayTimeRange[1]+":"
-    +weekdayTimeRange[2]+weekdayTimeRange[3]+"~"
-    +weekdayTimeRange[5]+weekdayTimeRange[6]+":"
-    +weekdayTimeRange[7]+weekdayTimeRange[8];
+    weekdayTimeRange = weekdayTimeRangeArr[0] + weekdayTimeRange[1] + ":"
+        + weekdayTimeRange[2] + weekdayTimeRange[3] + "~"
+        + weekdayTimeRange[5] + weekdayTimeRange[6] + ":"
+        + weekdayTimeRange[7] + weekdayTimeRange[8];
     const resultString = `平日:${weekdayTimeRange} | 假日:${holidayTimeRange}`;
     return resultString;
 }
 
-function getAllWaypoints(){
+function getAllWaypoints() {
     const waypoints = document.querySelectorAll(".attrAddrWaypoints");
-    let waypointsContents=[];
-    for(let waypoint of waypoints){
+    let waypointsContents = [];
+    for (let waypoint of waypoints) {
         waypointsContents.push(waypoint.textContent);
     }
     return waypointsContents;
@@ -821,6 +823,7 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 更改景點詳情內容
     const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrId);
     const attr = await responseOfOneAttr.json();
+    attrIdText_el.innerHTML = attrId;
     attrNameTitle.innerText = attr.attrName;
     attrComScore.innerText = generateRandomNumber();
     attrTypeName.innerText = attr.attrType;
@@ -834,8 +837,8 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 假設你有一個經緯度
     var latitude = attr.attrLat; // 緯度
     var longitude = attr.attrLon; // 經度
-    console.log("經度: "+latitude);
-    console.log("緯度: "+longitude);
+    console.log("經度: " + latitude);
+    console.log("緯度: " + longitude);
 
     // 創建一個包含經緯度信息的 Place 物件
     var locationPlace = {
@@ -859,7 +862,6 @@ async function viewSearchResultOfOneAttr(attrId) {
         map: map,
         title: '自定義位置' // 可以自定義標記的標題
     });
-
 }
 
 
@@ -1083,7 +1085,7 @@ myAttrDone_btn_el.onclick = async () => {
         },
         body: JSON.stringify(newAttr)
     });
-    
+
     const attrPrivDTO = await response.json();
     // console.log(attrPrivDTO);
     let attrBody = attrPrivDTO.body;
@@ -1092,12 +1094,12 @@ myAttrDone_btn_el.onclick = async () => {
     let memId = attrPrivateId.memId;
     // console.log("ATTRID: " + attrId);
     const attrCollectionDTO = {
-        collectionId:{
-            memId:memId,
-            attrId:attrId
+        collectionId: {
+            memId: memId,
+            attrId: attrId
         }
     }
-    const responseCol = await fetch(baseURL+`attrCol/addAttrToCollection`,{
+    const responseCol = await fetch(baseURL + `attrCol/addAttrToCollection`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -1147,7 +1149,7 @@ myAttrDone_btn_el.onclick = async () => {
         }
     }
 
-    if (myAttrName === "" || myAttrAddr === "" || picFiles === null || picFiles.length==0) {
+    if (myAttrName === "" || myAttrAddr === "" || picFiles === null || picFiles.length == 0) {
         Swal.fire({
             icon: 'error',
             title: '新增失敗',
@@ -1164,3 +1166,38 @@ myAttrDone_btn_el.onclick = async () => {
 }
 
 //  ================== 景點搜尋相關頁面結束 ================== //
+
+//  ================== 將景點加入行程 ================== //
+addToSchedule_btn_el.addEventListener('click', async function () {
+
+    const currentURL = window.location.href;
+    const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+    const schId = urlSearchParams.get('schId');
+    let attrId = attrIdText_el.innerText;
+
+    // const response = await fetch(baseURL + '/schDetails/addOne');
+
+    const send_data = {
+        schId: schId,
+        attrId: attrId,
+        schdeStarttime: null,
+        schdeStaytime: '01:00:00',
+        schdeTranstime: null,
+        schdeTrans: 1,
+        schdeCostname: null,
+        schdeCost: null,
+        schdeRemark: null
+      }
+      await fetch(baseURL + 'schDetails/addOne', {
+        headers: {
+          "content-type": "application/json",
+        },
+        method: 'POST',
+        body: JSON.stringify(send_data)
+      })
+        .catch(function (error) {
+          alert('新增失敗' + error);
+          return;
+        });
+
+});
