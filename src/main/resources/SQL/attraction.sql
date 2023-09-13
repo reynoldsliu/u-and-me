@@ -32,16 +32,16 @@ attr_rep varchar(500)
 
 INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep)
 VALUES
-  (1, 1, 3, 'Attraction 1', '123 Main St', 12.345, 67.890, 'Description for Attraction 1', 1, '9:00 AM - 5:00 PM', 2, 'Representative for Attraction 1'),
-  (2, 0, 2, 'Attraction 2', '456 Park Ave', -45.678, 12.345, 'Description for Attraction 2', 3, '10:00 AM - 6:00 PM', 1, 'Representative for Attraction 2'),
+  (1, 1, 1, 'Attraction 1', '123 Main St', 12.345, 67.890, 'Description for Attraction 1', 1, '9:00 AM - 5:00 PM', 2, 'Representative for Attraction 1'),
+  (2, 0, 1, 'Attraction 2', '456 Park Ave', -45.678, 12.345, 'Description for Attraction 2', 3, '10:00 AM - 6:00 PM', 1, 'Representative for Attraction 2'),
   (3, 1, 1, 'Attraction 3', '789 Broad St', 98.765, -34.567, 'Description for Attraction 3', 2, '8:00 AM - 4:00 PM', 3, 'Representative for Attraction 3'),
-  (4, 0, 3, 'Attraction 4', '567 Elm St', -12.345, -78.901, 'Description for Attraction 4', 1, '9:30 AM - 5:30 PM', 2, 'Representative for Attraction 4'),
-  (5, 1, 2, 'Attraction 5', '234 Oak Ave', 23.456, 45.678, 'Description for Attraction 5', 3, '10:30 AM - 6:30 PM', 1, 'Representative for Attraction 5'),
+  (4, 0, 1, 'Attraction 4', '567 Elm St', -12.345, -78.901, 'Description for Attraction 4', 1, '9:30 AM - 5:30 PM', 2, 'Representative for Attraction 4'),
+  (5, 1, 1, 'Attraction 5', '234 Oak Ave', 23.456, 45.678, 'Description for Attraction 5', 3, '10:30 AM - 6:30 PM', 1, 'Representative for Attraction 5'),
   (6, 0, 1, 'Attraction 6', '678 Pine St', -56.789, 78.901, 'Description for Attraction 6', 2, '8:30 AM - 4:30 PM', 3, 'Representative for Attraction 6'),
-  (7, 1, 3, 'Attraction 7', '890 Maple Ave', 34.567, -56.789, 'Description for Attraction 7', 1, '9:45 AM - 5:45 PM', 2, 'Representative for Attraction 7'),
-  (8, 0, 2, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', 3, '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
+  (7, 1, 1, 'Attraction 7', '890 Maple Ave', 34.567, -56.789, 'Description for Attraction 7', 1, '9:45 AM - 5:45 PM', 2, 'Representative for Attraction 7'),
+  (8, 0, 1, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', 3, '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
   (9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', 2, '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
-  (10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', 1, '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
+  (10, 0, 1, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', 1, '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
 
 select * from attractions;
 -- drop table attractions;
