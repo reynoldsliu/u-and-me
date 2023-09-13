@@ -382,6 +382,17 @@ async function addDailySchedule(restScheDetails) {
             row.insertAdjacentElement("beforebegin", row1);
             // row.appendChild(row1);
             mapApiBetw2(travelIconCount);
+            // setTimeout(()=>{
+            //     const row1_el = document.getElementById("transTotalTime"+travelIconCount);
+            // // 查找包含类名 "totalTime" 的子元素
+            // var totalTimeElement = document.querySelector(".totalTime");
+
+            // // 获取子元素的文本内容
+            // var timeValue = totalTimeElement.textContent;
+            // console.log("row1_el: "+parseTimeString(timeValue));
+            // },500);
+            // schdeStarttime = addTimeToStartTime(parseTimestamp2(schdeEndtime), parseTimeString(timeValue));
+            // console.log(schdeStarttime);
         }
 
 
@@ -414,7 +425,11 @@ async function addDailySchedule(restScheDetails) {
     const addNewAttrbtn = document.createElement("div");
     addNewAttrbtn.classList.add("addNewAttrbtn");
     // addNewAttrbtn.onclick = "addNewAttrbtnOnclick()";
-    addNewAttrbtn.addEventListener("click", addNewAttrbtnOnclick);
+    addNewAttrbtn.addEventListener("click", function () {
+        indexOfNewScheDetail = this.classList.toString().replace("addNewAttrbtn addNewAttrbtn", "");
+
+        addNewAttrbtnOnclick();
+    });
     addNewAttrbtn.innerText = "＋新增景點";
     viewSchDetailsRows.appendChild(addNewAttrbtn);
     console.log("DO NEW A BTN");
@@ -423,8 +438,76 @@ async function addDailySchedule(restScheDetails) {
 
     return countedScheDetails;
 }
-//////////////////////////////////////////////////////////////////////////
-//顯示所有路線 會爆掉
+//--------------------------------------------------------------
+//Reynolds
+// var indexOfNewScheDetail;
+// 
+// function parseTimeString(timeString) {
+//     // 解析时间字符串
+//     const timeParts = timeString.match(/(\d+) 小時 (\d+) 分鐘/);
+
+//     const hours = parseInt(timeParts[1]);
+//     const minutes = parseInt(timeParts[2]);
+
+//     // 使用 padStart 函数确保小时和分钟有两位数
+//     const formattedHours = hours.toString().padStart(2, '0');
+//     const formattedMinutes = minutes.toString().padStart(2, '0');
+
+//     // 创建时间格式字符串 "HH:mm"
+//     const timeFormat = `${formattedHours}:${formattedMinutes}`;
+
+//     return timeFormat;
+// }
+// //用來刷新一天行程的所有開始結束時間
+// //需要的參數或物件有 :  今天是第幾天 每一個行程細節的區塊物件(時間)
+// //                      第一個行程的開始時間 每個路線的旅行時間 每個行程細節的停留時間
+// function renewScheDeTimes(restScheDetails) {
+//     restScheDetails[0].schdeStarttime
+// }
+// const attrIdText_el = document.getElementById("attrIdText");
+// addToSchedule_btn_el.addEventListener("click", async function () {
+//     //day  = indexOfNewScheDetail
+//     // const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrId);
+//     // const attr = await responseOfOneAttr.json();
+//     // attrNameTitle.innerText = attr.attrName;
+//     // attrComScore.innerText = generateRandomNumber();
+//     // attrTypeName.innerText = attr.attrType;
+//     // attrAddress.innerText = attr.attrAddr;
+//     // attrBussTime.innerText = bussTimeString(attr.attrBussTime);
+//     // attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
+//     // attrIlla.innerText = attr.attrIlla;
+
+//     // // console.log("LatLng: " + attr.attrLat + "::" + attr.attrLon);
+//     // // 將 attr.attrLat 和 attr.attrLon 轉換為數字
+//     // // 假設你有一個經緯度
+//     // var latitude = attr.attrLat; // 緯度
+//     // var longitude = attr.attrLon; // 經度
+
+//     //用多種方法把scheduleDetail存入資料庫 用來後面重新刷新一天行程
+//     var url = window.location.href;
+//     var urlParams = new URLSearchParams(url.split('?')[1]);
+//     // urlParams = urlParams.split('#')[0];
+//     var schId = urlParams.get("schId");
+//     var attrId = attrIdText_el.innerText;
+//     const saveScheDetail = {
+//         schId: schId,
+//         attrId: attrId,
+//         schdeStaytime: '01:00:00',
+//         schdeStarttime: "2023-08-15 11:15:00",
+//         schdeTranstime: "01:00:00",
+//         schdeTrans: 1,
+//         schdeCostname: null,
+//         schdeCost: null,
+//         schdeRemark: null
+//     };
+//     console.log(saveScheDetail.attrId);
+//     console.log(saveScheDetail);
+//     const response = await fetch(baseURL + `schDetails/update   `, saveScheDetail);
+//     const scheDetail = await response.json();
+
+
+// })
+//----------------------------------------------------------
 // function showAllRoute() {
 //     calculateMultipleTravelTimes(getAllWaypoints(),"DRIVING");
 // }
@@ -1187,17 +1270,17 @@ addToSchedule_btn_el.addEventListener('click', async function () {
         schdeCostname: null,
         schdeCost: null,
         schdeRemark: null
-      }
-      await fetch(baseURL + 'schDetails/addOne', {
+    }
+    await fetch(baseURL + 'schDetails/addOne', {
         headers: {
-          "content-type": "application/json",
+            "content-type": "application/json",
         },
         method: 'POST',
         body: JSON.stringify(send_data)
-      })
+    })
         .catch(function (error) {
-          alert('新增失敗' + error);
-          return;
+            alert('新增失敗' + error);
+            return;
         });
 
 });
