@@ -5,11 +5,19 @@ import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.ecpay.payment.integration.AllInOne;
 import tw.idv.cha102.g7.ecpay.payment.integration.domain.AioCheckOutALL;
 import tw.idv.cha102.g7.shop.entity.CartListId;
+import tw.idv.cha102.g7.shop.entity.OrderDetail;
 import tw.idv.cha102.g7.shop.entity.Orders;
+import tw.idv.cha102.g7.shop.entity.Product;
 import tw.idv.cha102.g7.shop.repo.CartListRepository;
 import tw.idv.cha102.g7.shop.repo.OrdersRepository;
+import tw.idv.cha102.g7.shop.service.impl.CartServiceImpl;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.UUID;
+
+import static java.lang.Integer.parseInt;
 
 @Service
 public class ShopOrderService {
@@ -18,7 +26,7 @@ public class ShopOrderService {
     OrdersRepository ordersRepository;
 
     @Autowired
-    CartListRepository cartListRepository;
+    CartServiceImpl cartService;
 
     public String shopCheckout(Integer ordId){
         Orders orders = ordersRepository.findById(ordId).orElse(null);
@@ -43,10 +51,16 @@ public class ShopOrderService {
     }
 
 
-    public void updateOrdPaySta(Integer ordId) {
+    public void updateOrdPaySta(Integer ordId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
         Orders orders = ordersRepository.findById(ordId).orElse(null);
         orders.setOrdPaySta((byte) 1);
         ordersRepository.save(orders);
-        cartListRepository.deleteCartListByOrdId(ordId);
+
+        List<Product> productList = ordersRepository.findProdIdByOrdId(ordId);
+        for(Product product : productList){
+            cartService.deleteById(memId, product.getProdId());
+        }
     }
 }

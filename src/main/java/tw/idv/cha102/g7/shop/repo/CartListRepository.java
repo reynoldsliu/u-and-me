@@ -25,7 +25,4 @@ public interface CartListRepository extends JpaRepository<CartList, Integer> {
 //    所以CartserviceImpl裡的方法可以先拿到全部的cartList再取CartList裡的東西，就可取到memId
 
 
-    @Modifying
-    @Query(value = "DELETE FROM orders AS o LEFT JOIN order_detail AS od ON o.ord_id = od.ord_id LEFT JOIN product AS p ON od.prod_id = p.prod_id LEFT JOIN cart_list AS c ON c.prod_id = p.prod_id WHERE o.ordId = ?1", nativeQuery = true)
-    void deleteCartListByOrdId(Integer ordId);
 }

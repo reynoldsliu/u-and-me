@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.ecpay.payment.integration.service.ShopOrderService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/shopOrder")
 @CrossOrigin
@@ -27,8 +29,9 @@ public class ShopOrderController {
     }
 
     @RequestMapping("/updateOrdPaySta/{ordId}")
-    public ResponseEntity<?> updateOrdPaySta(@PathVariable Integer ordId){
-        shopOrderService.updateOrdPaySta(ordId);
+    public ResponseEntity<?> updateOrdPaySta(@PathVariable Integer ordId,
+                                             HttpServletRequest request){
+        shopOrderService.updateOrdPaySta(ordId, request);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
