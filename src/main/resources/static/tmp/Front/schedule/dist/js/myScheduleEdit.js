@@ -1159,7 +1159,11 @@ myAttrDone_btn_el.onclick = async () => {
         attrAddr: myAttrAddr,
         attrLat: attrLat,
         attrLon: attrLon,
-        attrBussTime: inputAttrBussTime
+        attrBussTime: inputAttrBussTime,
+        attrVeriSta: 1,
+        attrSta: 1,
+        attrCostRange: 2,
+        attrRep: 'no report record'
     };
     const response = await fetch(baseURL + `attrPriv/createPrivateAttr`, {
         method: 'POST',
@@ -1250,7 +1254,7 @@ myAttrDone_btn_el.onclick = async () => {
 
 //  ================== 景點搜尋相關頁面結束 ================== //
 
-//  ================== 將景點加入行程 ================== //
+//  ===================== 將景點加入行程 ===================== //
 addToSchedule_btn_el.addEventListener('click', async function () {
 
     const currentURL = window.location.href;
@@ -1258,14 +1262,12 @@ addToSchedule_btn_el.addEventListener('click', async function () {
     const schId = urlSearchParams.get('schId');
     let attrId = attrIdText_el.innerText;
 
-    // const response = await fetch(baseURL + '/schDetails/addOne');
-
     const send_data = {
         schId: schId,
         attrId: attrId,
-        schdeStarttime: null,
+        schdeStarttime: '2023-08-15 11:15:00',
         schdeStaytime: '01:00:00',
-        schdeTranstime: null,
+        schdeTranstime: '00:30:00',
         schdeTrans: 1,
         schdeCostname: null,
         schdeCost: null,
