@@ -54,5 +54,11 @@ public interface ProductService {
      * */
     public List<ProductDTO> findAllByProdCatId(Integer prodCatId);
 
+    /**
+     * 顯示所有上架商品
+     * @return 上架商品清單
+     */
+    public List<ProductDTO> listAllStaOn();
+
 }
 

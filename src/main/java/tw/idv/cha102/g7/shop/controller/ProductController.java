@@ -119,6 +119,12 @@ public class ProductController {
         List<ProductDTO> productDTOS = productService.findAllByProdCatId(prodCatId);
         return ResponseEntity.ok(productDTOS);
     }
+
+
+    @RequestMapping("/listAllStaOn")
+   public ResponseEntity<List<ProductDTO>> listAllStaOn(){
+        return ResponseEntity.ok(productService.listAllStaOn());
+    }
 }
 
 

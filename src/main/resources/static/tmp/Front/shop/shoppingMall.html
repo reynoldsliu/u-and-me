@@ -305,13 +305,14 @@
 
 
     <script>
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
         //頁面載入後
         document.addEventListener("DOMContentLoaded", function () {
             listAllProd();
         });
         // ---使用 fetch 獲取商城頁面數據---
         const listAllProd = async function () {
-            fetch('http://localhost:8080/u-and-me/product/listAllShop')
+            fetch(`${baseUrl}product/listAllStaOn`)
                 .then(response => response.json())
                 .then(data => {
                     const productUl = document.getElementById('product-list');

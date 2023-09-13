@@ -399,19 +399,17 @@
                                 </div>
                                 <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
                                     <div class="product-details-content quickview-content ml-25px">
-                                        <h2>${data.prodName}</h2>
-                                        <div class="pricing-meta">
-                                            <ul class="d-flex mt-3">
-                                                <li class="price">NT$ ${data.prodPri}</li>
-                                            </ul>
+                                        <h2 style="font-weight:bold">${data.prodName}</h2>
+                                        <div>
+                                        <p class="mt-30px" style="color:#4b4a49; text-overflow: ellipsis; max-width: 400px;word-wrap: break-word; ">${data.prodCon}</p>
                                         </div>
                                     </div>
-
-                                    <p class="mt-30px mb-0">${data.prodCon}</p>
+                                        <p class="price">NT$ ${data.prodPri}</p>
+                                    
 
 
                                     <!-- 數量加減按鈕 -->
-                                    <div class="product_variant_quantity" style="padding-bottom: 10px;">
+                                    <div class="product_variant_quantity" style="padding-bottom: 10px;padding-top: 20px;">
                                         <span class="product_quantity">
                                             <div class="btn-group" role="group" aria-label="First group">
                                                 <button id="reduce" class="btn add-down qk-bd--product_border" type="button" onclick="reduceQuantity()"
@@ -434,13 +432,13 @@
                                     <br>
 
                                     <!-- 收藏+分享按鈕 -->
-                                    <div class="btn-group pt-2">
+                                    <div class="btn-group pt-2" style="display:none">
                                         <div class="pro-details-compare-wishlist pro-details-wishlist">
                                             <button type="button" class="btn btn-outline-success"><i class="fa-regular fa-heart"></i>
                                                 加入收藏</button>
                                             <a href="wishlist.html"><i class="pe-7s-like"></i></a>
                                         </div>
-                                        <div class="pro-details-social-info pro-details-same-style d-flex pt-0">
+                                        <div class="pro-details-social-info pro-details-same-style d-flex pt-0" style="display:none">
                                             <button type="button" class="btn line" style="border: none;"><i
                                                     class="fa-brands fa-line fa-2xl" style="color: green;"></i></button>
                                         </div>
@@ -466,12 +464,10 @@
     }
   // <!--購物車icon會根據memId跳轉到購物車詳情頁面，並將資料映射到相關欄位上-->
         async function redirectToCartPage() {
-            const resp = await fetch(baseUrl+`member/getMemId`);
-            console.log(resp);
+            const resp = await fetch(`${baseUrl}member/getMemId`);
             let respJson = await resp.json();
-            console.log(respJson);
             let memId = respJson.memId;
-            if(memId === undefined || memId === null){
+            if(resp.status === 401){
                 window.location.href = `${baseUrl}tmp/Front/member/memberLogin.html`;
             }else{
                 const newPageUrl = `${baseUrl}tmp/Front/shop/shoppingCart.html?memId=${memId}`;

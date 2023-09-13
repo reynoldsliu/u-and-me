@@ -17,6 +17,7 @@ import tw.idv.cha102.g7.shop.service.ProductService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 //業務邏輯層，被呼叫，根據請求做資料處理&處理從DAO/Repo回來的資料
 @Service
@@ -265,7 +266,27 @@ public class ProductServiceImpl implements ProductService {
         }
         return productListWithCatId;
     }
+
+
+//    //////////////////////////////////////////////////////////////
+
+    @Override
+    public List<ProductDTO> listAllStaOn() {
+        //找出全部商品
+        List<ProductDTO> productDTOS = listAll().stream()
+                .filter(productDTO -> productDTO.getProdSta() == 1)
+                .collect(Collectors.toList());
+        return productDTOS;
+    }
+
+
+
+
+
 }
+
+
+
 
 
 
