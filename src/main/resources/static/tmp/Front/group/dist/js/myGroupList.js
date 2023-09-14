@@ -60,8 +60,8 @@ async function fetchMyGroupList() {
             row.innerHTML = `
                 <td scope="row" style="text-align: center;vertical-align: middle; width: 60px" id="id${count}">${group.group_Id}</td>
                 <td style="text-align: center;vertical-align: middle; width: 250px">${group.theme}</td>
-                <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">行程</a></td>
-                <td style="text-align: center;vertical-align: middle; width: 60px"><a href="#">資料</a></td>
+                <td style="text-align: center;vertical-align: middle; width: 60px"><a href="${baseUrl}/tmp/Front/schedule/myScheduleEdit.html?schId=${group.sch_Id}" rel="noreferrer noopenner">行程</a></td>
+                <td style="text-align: center;vertical-align: middle; width: 60px"><a href="${baseUrl}/tmp/Front/group/groupMemo.html?schId=${group.group_Id}" rel="noreferrer noopenner">資料</a></td>
                 <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm" id="regForm_btn${count}" onclick="fetchRegForm(${group.group_Id})">
                     點此</button></td>
                 <td style="text-align: center;vertical-align: middle; width: 90px">${group_Sta}</td>
@@ -131,7 +131,7 @@ async function deleteGroup(groupId) {
                     Swal.fire({
                         icon: 'error',
                         title: '刪除失敗',
-                        text: '需將揪團下架並等待團員退款完畢才可以刪除',
+                        text: '需等待團員退款完畢才可以刪除',
                         showCancelButton: true
                       })
                     throw new Error();

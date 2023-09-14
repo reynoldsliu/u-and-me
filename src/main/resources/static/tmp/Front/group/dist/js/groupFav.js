@@ -12,6 +12,8 @@ const prePage_el = document.getElementById('prePage');
 const select_el = document.getElementById('select');
 const sta0_el = document.getElementById('sta0');
 const sta1_el = document.getElementById('sta1');
+const sta2_el = document.getElementById('sta2');
+const sta3_el = document.getElementById('sta3');
 const name_btn_el = document.getElementById('name_btn');
 const inputName_el = document.getElementById('inputName');
 const detailContent_el = document.getElementById('detailContent');
@@ -49,11 +51,11 @@ async function fetchGroup(page, urlstr) {
             </div>
 
             <div class="favMenu_right">
-                <div class="favMenuTittle" style="font-weight:bold;display: inline;">揪團名稱:</div>
-                <div class="favMenuTittleInput" style="display: inline; margin-left: 18px;">${group.theme}</div>
+                <div class="favMenuTittle" style="font-weight:bold;display: inline;">報名表編號:</div>
+                <div class="favMenuTittleInput" style="display: inline; margin-left: 3px;">${group.form_Id}</div>
                 <div></div>
-                <div class="favMenuContent" style="font-weight:bold;display: inline;">團主編號: </div>
-                <div class="favMenuContentInput" style="display: inline; margin-left: 18px;">${group.mem_Id}</div>
+                <div class="favMenuContent" style="font-weight:bold;display: inline;">揪團名稱: </div>
+                <div class="favMenuContentInput" style="display: inline; margin-left: 18px;">${group.theme}</div>
                 <div></div>
                 <div class="favMenuTime" style="font-weight:bold;display: inline;">出發時間:</div>
                 <div class="favMenuTimeInput" style="display: inline; margin-left: 18px;">${group.dep_Date}</div>
@@ -63,7 +65,7 @@ async function fetchGroup(page, urlstr) {
                     </span>
 
                     <span class="showDetail111" style="margin-left: 190px;">
-                        <button type="button" class="btn btn-outline-success btn-sm" id="viewMenuDetails">前往頁面</button>
+                        <button type="button" class="btn btn-outline-success btn-sm" id="viewMenuDetails" onclick="jump(${group.group_Id})">前往頁面</button>
                     </span>
                 </div>
             </div>
@@ -89,6 +91,24 @@ sta1_el.addEventListener('click', function (e) {
     e.preventDefault();
     select_el.innerHTML = '揪團成功';
     urlstr = 'groupSta1/';
+    page = 0;
+    prePage_el.disabled = true;
+    fetchGroup(page, urlstr);
+});
+
+sta2_el.addEventListener('click', function (e) {
+    e.preventDefault();
+    select_el.innerHTML = '揪團額滿';
+    urlstr = 'groupSta5/';
+    page = 0;
+    prePage_el.disabled = true;
+    fetchGroup(page, urlstr);
+});
+
+sta3_el.addEventListener('click', function (e) {
+    e.preventDefault();
+    select_el.innerHTML = '已下架揪團';
+    urlstr = 'groupSta4/';
     page = 0;
     prePage_el.disabled = true;
     fetchGroup(page, urlstr);
@@ -172,3 +192,61 @@ async function fetchDetail(formId) {
         location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
     }
 }
+
+function jump(groupId){
+    window.open(`${baseUrl}/tmp/Front/group/groupMemo.html?gorupId=${groupId}`);
+}
+
+
+
+// pageSelect1_el.addEventListener('click', async function () {
+
+//     //控制fetch傳入網址
+//     page = 0
+//     pageSelectControl(page);
+//     fetchDetail(page, urlstr);
+// });
+
+// pageSelect2_el.addEventListener('click', async function () {
+//     //控制fetch傳入網址
+//     page = 1;
+//     pageSelectControl(page);
+//     fetchGroup(page, urlstr);
+// });
+
+// pageSelect3_el.addEventListener('click', async function () {
+//     //控制fetch傳入網址
+//     page = 2;
+//     pageSelectControl(page);
+//     fetchGroup(page, urlstr);
+// });
+
+// //控制分頁按鈕明暗的方法
+// function pageSelectControl(e){
+//     let n = page + 1;
+//     switch(n){
+//         case 1:
+//             // //增加actice 使分頁亮起來
+//             pageSelect1_el.classList.add("active");
+
+//             // //刪除actice 使分頁暗下去
+//             pageSelect2_el.classList.remove("active");
+
+//             pageSelect3_el.classList.remove("active");
+//             break;
+//         case 2:
+//             pageSelect1_el.classList.remove("active");
+
+//             pageSelect2_el.classList.add("active");
+
+//             pageSelect3_el.classList.remove("active");
+//             break;
+//         case 3:
+//             pageSelect1_el.classList.remove("active");
+
+//             pageSelect2_el.classList.remove("active");
+
+//             pageSelect3_el.classList.add("active");
+//             break;
+//     }
+// }

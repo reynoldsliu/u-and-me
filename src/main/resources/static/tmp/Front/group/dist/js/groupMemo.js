@@ -144,9 +144,9 @@ function changeTab2() {
     event.preventDefault();
     notice_el.innerHTML = "";
     notice_el.innerHTML =
-        `所選日期 8 天（含）之前取消，收取手續費 0%
-所選日期 4 ~ 7 天之間取消，收取手續費 50%
-所選日期 0 ~ 3 天之間取消，收取手續費 100%`;
+        `出發日期 8 天（含）之前取消，收取手續費 0%
+出發日期 4 ~ 7 天之間取消，收取手續費 50%
+出發日期 0 ~ 3 天之間取消，收取手續費 100%`;
     tab1_el.classList.remove("active");
     tab2_el.classList.add("active");
     tab3_el.classList.remove("active");

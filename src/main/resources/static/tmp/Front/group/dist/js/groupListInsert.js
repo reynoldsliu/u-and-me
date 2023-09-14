@@ -299,7 +299,9 @@ window.addEventListener("load", function (e) {
                     title: '新增成功',
                     text: '已新增揪團',
                     showCancelButton: true
-                })
+                }).then(()=>{
+                    location.href = baseUrl + '/tmp/Front/group/myGroupList.html';
+                });
             };
             try {
                 //5. 開始讀取檔案

@@ -58,22 +58,28 @@ window.addEventListener("load", async function (e) {
     //===================取得網址頁上傳遞的參數結束===================
 
     // 取得插入的formId
-    fetch(baseUrl + '/member/regForm/findFromId', {
-        method: 'GET',
-    }).then(response => {
-        if (response.status == 401) {
-            Swal.fire({
-                icon: 'error',
-                title: '尚未登入',
-                showCancelButton: true
-            }).then(() => {
-                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
-            });
-        }
-        return response.json();
-    }).then(regform => {
-        formId = Number(regform.formId) + 1;
-    });
+    try {
+        fetch(baseUrl + '/member/regForm/findFromId', {
+            method: 'GET',
+        }).then(response => {
+            if (response.status == 401) {
+                Swal.fire({
+                    icon: 'error',
+                    title: '尚未登入',
+                    showCancelButton: true
+                }).then(() => {
+                    this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+                });
+            }
+            return response.json();
+        }).then(regform => {
+            formId = Number(regform.formId) + 1;
+        }).catch(error => {
+            formId = 1;
+        })
+    }catch(error) {
+        formId = 1;
+    }
 
     fetch(baseUrl + '/group/findMember/' + groupId, {
         method: 'GET',
@@ -212,6 +218,8 @@ order_confirmed_el.addEventListener('click', function (e) {
 
     //如果沒錯誤開始送出資料
     if (control) {
+
+        //綠界使用
         fetch(baseUrl + '/groupPay/' + groupId + '/' + total, {
             headers: {
                 "content-type": "application/x-www-form-urlencoded",

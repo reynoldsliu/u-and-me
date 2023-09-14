@@ -23,7 +23,7 @@ public class GroupOrderService {
 
     public String groupCheckout(Integer groupId, Integer total) {
 
-//        String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
+        String uuId = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 20);
 
         Group group = groupRepository.findById(groupId).orElse(null);
 
@@ -31,7 +31,7 @@ public class GroupOrderService {
 //        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         AioCheckOutALL obj = new AioCheckOutALL();
-        obj.setMerchantTradeNo(groupId.toString()); //設定訂單編號
+        obj.setMerchantTradeNo(uuId); //設定訂單編號
         obj.setMerchantTradeDate("2017/01/01 08:05:23"); //設定交易日期
         obj.setTotalAmount(total.toString()); //設定金額
         obj.setTradeDesc(group.getGroupDesc()); //設定交易描述

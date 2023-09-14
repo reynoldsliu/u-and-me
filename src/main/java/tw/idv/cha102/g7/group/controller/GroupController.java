@@ -281,21 +281,33 @@ public class GroupController {
     }
 
     //會員以揪團狀態揪團紀錄
-    @GetMapping("/groups/joined/groupSta0/{page}")
+    @GetMapping("/member/groups/joined/groupSta0/{page}")
     public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(HttpServletRequest request,
                                                                           @PathVariable Integer page){
         return groupService.findGroupRegFormDtoByMemIdAndGroupSta0(request, page);
     }
 
     //會員以揪團狀態揪團紀錄
-    @GetMapping("/groups/joined/groupSta1/{page}")
+    @GetMapping("/member/groups/joined/groupSta1/{page}")
     public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(HttpServletRequest request,
                                                                           @PathVariable Integer page){
         return groupService.findGroupRegFormDtoByMemIdAndGroupSta1(request, page);
     }
 
+    @GetMapping("/member/groups/joined/groupSta4/{page}")
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta4(HttpServletRequest request,
+                                                                          @PathVariable Integer page){
+        return groupService.findGroupRegFormDtoByMemIdAndGroupSta4(request, page);
+    }
+
+    @GetMapping("/member/groups/joined/groupSta5/{page}")
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta5(HttpServletRequest request,
+                                                                          @PathVariable Integer page){
+        return groupService.findGroupRegFormDtoByMemIdAndGroupSta5(request, page);
+    }
+
     //會員以名稱搜尋揪團紀錄
-    @GetMapping("/groups/joined/searchTheme={str}/{page}")
+    @GetMapping("/member/groups/joined/searchTheme={str}/{page}")
     public  Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(HttpServletRequest request,
                                                                            @PathVariable String str,
                                                                            @PathVariable Integer page){

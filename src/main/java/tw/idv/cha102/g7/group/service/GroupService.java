@@ -60,6 +60,8 @@ public interface GroupService {
     Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(HttpServletRequest request, Integer page);
 
     Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(HttpServletRequest request, Integer page);
+    Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta4(HttpServletRequest request, Integer page);
+    Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta5(HttpServletRequest request, Integer page);
 
     Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(HttpServletRequest request, String str, Integer page);
 

@@ -53,7 +53,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = 0 OR group_sta = 1 ORDER BY amount DESC", nativeQuery = true)
     Page<GroupListDto> findGroupByGroupStaOrderByAmountDesc(Pageable pageable);
 
-    @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = 0 OR group_sta = 1 AND theme LIKE %?1%", nativeQuery = true)
+    @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE (group_sta = 0 OR group_sta = 1) AND theme LIKE %?1%", nativeQuery = true)
     Page<GroupListDto> findGroupByGroupStaThemeLike(String str, Pageable pageable);
 
     @Query(value = "SELECT g.sch_id, g.theme, g.members, g.dep_date, g.amount, DATEDIFF(g.deadline, current_date) as days, g.min_member, g.max_member, g.group_sta, g.group_desc, g.cover, g.notice, m.mem_name FROM `group` AS g LEFT JOIN members AS m ON g.mem_id = m.mem_id WHERE group_id = ?1", nativeQuery = true)
@@ -65,11 +65,17 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "SELECT g.group_id, g.mem_id, g.theme, g.dep_date, g.cover FROM `group` as g LEFT JOIN reg_form AS r ON g.group_id = r.group_id WHERE r.mem_id = ?1 AND g.group_sta = 0", nativeQuery = true)
     Page<GroupRegFormDto> findGroupRegFormDtoByMemIdGroupSta(Integer memId, Pageable pageable);
 
-    @Query(value = "SELECT g.group_id, g.mem_id, g.theme, g.dep_date, g.cover FROM `group` as g LEFT JOIN reg_form as r on g.group_id = r.group_id WHERE r.mem_id = ?1 AND g.group_sta = 0", nativeQuery = true)
+    @Query(value = "SELECT g.group_id, g.mem_id, g.theme, g.dep_date, g.cover, r.form_id FROM `group` as g LEFT JOIN reg_form as r on g.group_id = r.group_id WHERE r.mem_id = ?1 AND g.group_sta = 0", nativeQuery = true)
     Page<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta0(Integer memId, Pageable pageable);
 
     @Query(value = "SELECT g.group_id, g.mem_id, g.theme, g.dep_date, g.cover, r.form_id FROM `group` as g LEFT JOIN reg_form as r on g.group_id = r.group_id WHERE r.mem_id = ?1 AND g.group_sta = 1", nativeQuery = true)
     Page<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta1(Integer memId, Pageable pageable);
+
+    @Query(value = "SELECT g.group_id, g.mem_id, g.theme, g.dep_date, g.cover, r.form_id FROM `group` as g LEFT JOIN reg_form as r on g.group_id = r.group_id WHERE r.mem_id = ?1 AND g.group_sta = 4", nativeQuery = true)
+    Page<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta4(Integer memId, Pageable pageable);
+
+    @Query(value = "SELECT g.group_id, g.mem_id, g.theme, g.dep_date, g.cover, r.form_id FROM `group` as g LEFT JOIN reg_form as r on g.group_id = r.group_id WHERE r.mem_id = ?1 AND g.group_sta = 5", nativeQuery = true)
+    Page<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta5(Integer memId, Pageable pageable);
 
     @Query(value = "SELECT g.group_id, g.mem_id, g.theme, g.dep_date, g.cover, r.form_id FROM `group` as g LEFT JOIN reg_form as r on g.group_id = r.group_id WHERE r.mem_id = ?1 AND g.theme LIKE %?2%", nativeQuery = true)
     Page<GroupRegFormDto> findGroupRegFormDtoByMemIdAndThemeLike(Integer memId, String str ,Pageable pageable);

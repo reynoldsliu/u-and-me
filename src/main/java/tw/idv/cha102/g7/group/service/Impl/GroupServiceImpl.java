@@ -148,7 +148,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Stream<GroupListDto> findGroupListByGroupSta(Integer page) {
 
-        Sort sort = Sort.by(Sort.Direction.ASC, "start_Date");  //定義Sort ASC為升冪排序，通過揪團狀態排序 start_Date 是MySQL的欄位名
+        Sort sort = Sort.by(Sort.Direction.ASC, "group_Id");  //定義Sort ASC為升冪排序，通過揪團狀態排序 start_Date 是MySQL的欄位名
 
         //測試想法(service層寫一個set方法，然後在取得body的controller層調用set方法，再將需要運用到的service層調用set方法)
 //        if(sortType != null){
@@ -216,7 +216,7 @@ public class GroupServiceImpl implements GroupService {
         HttpSession session = request.getSession();
         Integer memId = parseInt(session.getAttribute("memberId").toString());
         Sort sort = Sort.by(Sort.Direction.ASC, "Group_Sta");
-        Pageable pageable = PageRequest.of(page, 6, sort);
+        Pageable pageable = PageRequest.of(page, 10, sort);
 
         List<Group> groupList = groupRepository.findByMemIdOrderByGroupStaDesc(memId);
         for (Group group : groupList) {
@@ -311,6 +311,24 @@ public class GroupServiceImpl implements GroupService {
         Sort sort = Sort.by(Sort.Direction.ASC, "Dep_Date");
         Pageable pageable = PageRequest.of(page, 3, sort);
         return groupRepository.findGroupRegFormDtoByMemIdAndGroupSta1(memId, pageable).get();
+    }
+
+    @Override
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta4(HttpServletRequest request, Integer page) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
+        Sort sort = Sort.by(Sort.Direction.ASC, "Dep_Date");
+        Pageable pageable = PageRequest.of(page, 3, sort);
+        return groupRepository.findGroupRegFormDtoByMemIdAndGroupSta4(memId, pageable).get();
+    }
+
+    @Override
+    public Stream<GroupRegFormDto> findGroupRegFormDtoByMemIdAndGroupSta5(HttpServletRequest request, Integer page) {
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
+        Sort sort = Sort.by(Sort.Direction.ASC, "Dep_Date");
+        Pageable pageable = PageRequest.of(page, 3, sort);
+        return groupRepository.findGroupRegFormDtoByMemIdAndGroupSta5(memId, pageable).get();
     }
 
     @Override
