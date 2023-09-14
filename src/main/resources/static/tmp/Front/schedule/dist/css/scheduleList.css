@@ -233,7 +233,11 @@ div.addReportHint.-off {
   display: none;
 }
 
-
+/* 檢舉燈箱內容文字 */
+textarea#repDesc {
+  resize: none;
+  height: 300px;
+}
 
 /* 查看詳情 */
 a.viewDetails {

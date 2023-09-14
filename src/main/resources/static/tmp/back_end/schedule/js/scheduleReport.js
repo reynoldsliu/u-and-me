@@ -88,7 +88,7 @@ async function fetchScheRepList() {
             <td style="width: 90px;">${schRep.schRepId}</td>
             <td style="width: 100px;">${schRep.memId}</td>
             <td style="width: 100px;">${sch.schName}</td>
-            <td style="text-align: left;">${schRep.schRepCon}</td>
+            <td style="width: 300px;text-align: left;text-overflow: ellipsis;">${schRep.schRepCon}</td>
             <td style="width: 100px;">${schRep.hostId}</td>
             <td style="width: 90px;">${statusMapping.get(schRep.schRepSta)}</td>
             <td>

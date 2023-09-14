@@ -14,6 +14,10 @@ const pageSelect_els = document.querySelectorAll("li.page-item");
 const page_els = document.querySelectorAll("li.page-item>a");
 const pagination_el = document.querySelector("ul.pagination");
 
+// 檢舉燈箱的檢舉提交鈕
+const repDesc_el = document.getElementById("repDesc");
+const repModal_el = document.getElementById("exampleModal");
+
 // fetch對應到的路徑
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 let schListbaseURL = baseURL + "schedules/";
@@ -315,23 +319,17 @@ function hint(schId) {
   }
 }
 
-const repDesc_el = document.getElementById("repDesc");
-
 
 // 檢舉行程
 let id;
 function addReport(schId) {
   id = schId;
-
-  // TODO....
-  // 一、檢查是否登入會員
-  // 二、登入會員可發起檢舉，要填寫檢舉燈箱(還沒做燈箱...QAQ)
+  // 一、檢查是否登入會員，登入會員才可發起檢舉
+  memberLogin();
 }
 
+// 二、按下檢舉燈箱確認按鈕，提交檢舉資料
 function sunmitRep() {
-  console.log(repDesc_el);
-  console.log(repDesc_el.value);
-  console.log(id);
 
   const data = {
     schId: id,
@@ -344,18 +342,32 @@ function sunmitRep() {
     },
     method: 'POST',
     body: JSON.stringify(data)
-  }).then(response => {
-
+  }).then(() => {
     repDesc_el.value = '';
-
-    if (response.status == 401) {
-      Swal.fire({
-        icon: 'error',
-        title: '尚未登入',
-        showCancelButton: true
-      }).then(() => {
-        this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
-      })
-    }
-  })
+    Swal.fire(
+      '提交檢舉成功!',
+      '您已提交一份檢舉!',
+      'success'
+    )
+  });
 }
+
+// =============== 限制輸入檢舉文字 ===============
+const maxReportConLength = 500;
+repDesc_el.addEventListener("input", function () {
+  // 检查文本内容的长度是否超过最大长度
+  if (repDesc_el.value.length > maxReportConLength) {
+    // 如果超过了最大长度，截断文本内容
+    repDesc_el.value = repDesc_el.value.substring(0, maxReportConLength);
+
+    Swal.fire({
+      icon: 'error',
+      title: '字數超過500！',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: '知道了',
+      cancelButtonText: '關閉'
+    })
+  }
+});
