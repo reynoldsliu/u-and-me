@@ -3,7 +3,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
-
+<link rel="shortcut icon" href="../assets/dist/img/favicon.ico" type="image/x-icon">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -121,34 +121,35 @@
 </svg>
 
 <nav class="navbar navbar-light  shadow-sm  " style="background-color: #ebd0be">
-
+    <!-- 這個是讓我對齊用的隱藏小方框 -->
     <div class="container-fluid" style="padding-left:0px;">
         <div style="width: 200px;height: 20px;">
         </div>
-        <a class="navbar-brand  " href="#" style="margin:auto;font-size: 30px;display: inline-block">後台管理系統</a>
+        <a class="navbar-brand  " href="#" style="margin:auto;font-size: 30px; font-weight:bolder; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;display: inline-block">後台管理系統</a>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                id="dropdownUser1"
                data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://www.holoface.photos/static/images/products/idphoto01.jpg" alt="" width="32"
-                     height="32" class="rounded-circle me-2">
-                <strong>Penny</strong>
+                <img src="../assets/dist/img/hostIcon.png" alt="" width="32"
+                     height="32"
+                     class="rounded-circle me-2">
             </a>
+            <!-- 管理員的下拉式選單 -->
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="../../Front/activity/ActivityIndex.html">返回首頁</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                <li><a class="dropdown-item" id="logOut" href="#">登出</a></li>
             </ul>
         </div>
     </div>
 
 </nav>
+
 <main>
-    <div class="d-flex flex-column flex-shrink-0 p-3  " style="width: 200px;background-color: #1D3124;height: 90vh;">
+    <div class="d-flex flex-column flex-shrink-0 p-3  "
+         style="width: 200px;background-color: #1D3124;min-height: 100vh;">
         <!-- 左側功能列表 -->
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
@@ -159,16 +160,25 @@
                     會員
                 </a>
             </li>
-            <li>
-                <a href="../../attraction/attraction.html">
+            <li class="nav-item">
+                <a href="../host/host.html">
                     <svg class="bi me-2" width="16" height="16">
-                        <use xlink:href="#speedometer2"/>
+                        <use xlink:href="#home"/>
                     </svg>
-                    景點
+                    管理員
                 </a>
             </li>
             <li>
-                <a href="ml">
+              <a href="../attraction/attrFindAll.html">
+                <svg class="bi me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"/>
+                </svg>
+                景點
+            </a>
+            </li>
+   
+            <li>
+                <a href="../schedule/schedule.html">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#table"/>
                     </svg>
@@ -176,7 +186,31 @@
                 </a>
             </li>
             <li>
-                <a href="../../activity/activity.html">
+                <a href="../group/hostGroup.html">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#table"/>
+                    </svg>
+                    揪團
+                </a>
+            </li>
+            <li>
+                <a href="../shop_modified/productList.html">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#grid"/>
+                    </svg>
+                    商城
+                </a>
+            </li>
+            <li>
+                <a href="../article/ArtFindAll.html">
+                    <svg class="bi me-2" width="16" height="16">
+                        <use xlink:href="#speedometer2"/>
+                    </svg>
+                    論壇
+                </a>
+            </li>
+            <li>
+                <a href="../activity/activityList.html">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#grid"/>
                     </svg>
@@ -184,30 +218,17 @@
                 </a>
             </li>
             <li>
-                <a href="../article/article.html">
-                    <svg class="bi me-2" width="16" height="16">
-                        <use xlink:href="#people-circle"/>
-                    </svg>
-                    論壇
-                </a>
-            </li>
-            <li>
-                <a href="../chat/chat.html">
+                <a href="../chat/backchat.html">
                     <svg class="bi me-2" width="16" height="16">
                         <use xlink:href="#people-circle"/>
                     </svg>
                     客服
                 </a>
             </li>
-            <li>
-                <a href="../group/group.html">
-                    <svg class="bi me-2" width="16" height="16">
-                        <use xlink:href="#people-circle"/>
-                    </svg>
-                    揪團
-                </a>
-            </li>
+            
         </ul>
+        <hr>
+
     </div>
 
 
@@ -239,6 +260,34 @@
 
 
 <script src="schedule.js"></script>
+<script>
+
+
+
+    // 登出按鈕
+    const logoutBtn_el = document.getElementById("logOut");
+   const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+   logoutBtn_el.addEventListener("click", async function () {
+     const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+   });if (response.ok) {
+                                 Swal.fire({
+                                                icon: 'success',
+                                                title: '管理員登出成功',
+                                                text: '',
+                                                confirmButtonText: '確定'
+                             }).then(()=>{
+                               location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                             })
+                           // location.reload();
+                       } 
+   });
+   
+   
+   </script>
 </body>
 
 </html>
