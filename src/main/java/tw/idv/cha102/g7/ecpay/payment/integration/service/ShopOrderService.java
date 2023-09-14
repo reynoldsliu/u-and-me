@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.idv.cha102.g7.ecpay.payment.integration.AllInOne;
 import tw.idv.cha102.g7.ecpay.payment.integration.domain.AioCheckOutALL;
-import tw.idv.cha102.g7.shop.entity.CartListId;
-import tw.idv.cha102.g7.shop.entity.OrderDetail;
-import tw.idv.cha102.g7.shop.entity.Orders;
-import tw.idv.cha102.g7.shop.entity.Product;
+import tw.idv.cha102.g7.shop.entity.*;
 import tw.idv.cha102.g7.shop.repo.CartListRepository;
+import tw.idv.cha102.g7.shop.repo.OrderDetailRepository;
 import tw.idv.cha102.g7.shop.repo.OrdersRepository;
 import tw.idv.cha102.g7.shop.repo.ProductRepository;
 import tw.idv.cha102.g7.shop.service.impl.CartServiceImpl;
@@ -27,7 +25,7 @@ public class ShopOrderService {
     OrdersRepository ordersRepository;
 
     @Autowired
-    ProductRepository productRepository;
+    OrderDetailRepository orderDetailRepository;
 
     @Autowired
     CartServiceImpl cartService;
@@ -62,9 +60,12 @@ public class ShopOrderService {
         orders.setOrdPaySta((byte) 1);
         ordersRepository.save(orders);
 
-        List<Product> productList = productRepository.findProdIdByOrdId(ordId);
-        for(Product product : productList){
-            cartService.deleteById(memId, product.getProdId());
+        List<OrderDetail> orderDetailList = orderDetailRepository.findByIdOrdId(ordId);
+        if(orderDetailList != null){
+            for(OrderDetail orderDetail : orderDetailList){
+                OrderDetailId orderDetailId = orderDetail.getId();
+                cartService.deleteById(memId, orderDetailId.getProdId());
+            }
         }
     }
 }
