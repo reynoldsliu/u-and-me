@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.activity.entity.DTO.ActivitySchRecommendId;
 import tw.idv.cha102.g7.activity.service.ActivityService;
+
 import java.util.List;
 
 
@@ -23,11 +24,12 @@ public class ActivitySchRecommenController {
     // 新增推薦行程
     @RequestMapping("/activityRecommendadd/{activId}/{schId}")
     public void insert(@PathVariable Integer activId ,
-                          @PathVariable Integer schId){
+                       @PathVariable Integer schId){
         activityService.SchRecommendadd(activId, schId);
 
     }
 
+    // 修改推薦行程
     @RequestMapping("/activityRecommendedit/{activId}/{schId}")
     public void edit(@PathVariable Integer activId ,
                      @PathVariable Integer schId,
@@ -35,6 +37,14 @@ public class ActivitySchRecommenController {
         activityService.SchRecommendedit(activId, schId, activitySchRecommendId);
 
     }
+
+//我1
+//    @RequestMapping("/activityRecommendedit/{activId}/{newSchId}") // 新的 schId 作為路徑文參數
+//    public void edit(@PathVariable Integer activId ,
+//                     @PathVariable Integer newSchId, // 新的 schId
+//                     @RequestBody ActivitySchRecommendId activitySchRecommendId ){
+//        activityService.SchRecommendedit(activId, newSchId, activitySchRecommendId);
+//    }
 
 
 //    @PostMapping("/add")
@@ -46,5 +56,8 @@ public class ActivitySchRecommenController {
 //        return ResponseEntity.ok(responseJson);
 ////        return new ResponseEntity<>(HttpStatus.OK);
 //    }
+
+
+
 
 }

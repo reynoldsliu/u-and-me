@@ -38,8 +38,6 @@ public class ActivityController {
     @GetMapping("/name2/{activCon}")
     public List<Activity> findByActivCon(@PathVariable String activCon) {
         return activityService.findByActivCon(activCon);
-
-        // 做查無資料會回傳查無此活動
     }
 
 

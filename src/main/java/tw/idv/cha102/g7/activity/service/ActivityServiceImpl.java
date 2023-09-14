@@ -97,22 +97,42 @@ public class ActivityServiceImpl implements ActivityService {
         RecommendRepository.save(activitySchRecommend);
     }
 
+
     @Override
     public void SchRecommendedit(Integer activId, Integer schId, ActivitySchRecommendId activitySchRecommendId) {
-//         找原本的ActivitySchRecommendId
+        //用schId和activId這兩個參數的值找原本的ActivitySchRecommendId
         ActivitySchRecommendId activitySchRecommendIdOrigin = new ActivitySchRecommendId(schId, activId);
         // 找出來的結果，需要修改的資料
         ActivitySchRecommend activitySchRecommend = RecommendRepository.findById(activitySchRecommendIdOrigin).orElse(null);
 
         // 開始修改
-
         activitySchRecommend.setActivrecommendId(activitySchRecommendId);
-
 
         RecommendRepository.save(activitySchRecommend);
         RecommendRepository.deleteById(activitySchRecommendIdOrigin);
 
     }
+
+
+//    我我我
+//    @Override
+//    public void SchRecommendedit(Integer activId, Integer newSchId, ActivitySchRecommendId activitySchRecommendId) {
+//        // 用新的 newSchId 和 activId 創建新的 ActivitySchRecommendId
+//        ActivitySchRecommendId newActivitySchRecommendId = new ActivitySchRecommendId(newSchId, activId);
+//
+//        // 找出來需要修改的資料
+//        ActivitySchRecommend activitySchRecommend = RecommendRepository.findById(newActivitySchRecommendId).orElse(null);
+//
+//        // 開始
+//        if (activitySchRecommend != null) {
+//            activitySchRecommend.setActivrecommendId(activitySchRecommendId);
+//            RecommendRepository.deleteById(newActivitySchRecommendId);
+//            RecommendRepository.save(activitySchRecommend);
+//
+//        }
+//    }
+
+
 
 
 }

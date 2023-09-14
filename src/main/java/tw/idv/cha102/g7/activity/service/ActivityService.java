@@ -40,4 +40,6 @@ public interface ActivityService {
     public void SchRecommendadd(Integer activId, Integer schId);
 
     void SchRecommendedit(Integer activId, Integer schId, ActivitySchRecommendId activitySchRecommendId);
+
+
 }

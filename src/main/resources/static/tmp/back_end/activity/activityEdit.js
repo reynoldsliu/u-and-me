@@ -13,8 +13,11 @@ const activStaSelect = document.querySelector('.form-control.select2');
 const submitBtn = document.querySelector('button[type="submit"]');
 const schRecommendInput1 = document.getElementById('schRecommend1');
 const schRecommendInput2 = document.getElementById('schRecommend2');
+let originalSchId;
 let schId;
 let cover;
+
+
 
 // 管理員filter
 
@@ -54,11 +57,11 @@ async function fetchActivityDetail() {
         activStarttimeInput.value = formatDate(activityDetail.activStarttime);
         activEndtimeInput.value = formatDate(activityDetail.activEndtime);
         activStaSelect.value = activityDetail.activSta;
-
+//        originalSchId = recommends[1];
 
         // 提取陣列中的兩個值
-        const value1 = recommends[0]; // 假設第一個值在陣列的索引 0
-        const value2 = recommends[1]; // 假設第二個值在陣列的索引 1
+        const value1 = recommends[0] || ''; // 假設第一個值在陣列的索引 0
+        const value2 = recommends[1] || ''; // 假設第二個值在陣列的索引 1
 
         // 設置結合後的字串為 schRecommendInput 的值
         schRecommendInput1.value = value1;
@@ -82,7 +85,7 @@ function formatDate(dateString) {
 }
 
 const formattedDate = formatDate('2023-09-01T14:30:00');
-console.log(formattedDate);
+//console.log(formattedDate);
 
 
 //在網頁載入完成後執行
@@ -122,26 +125,56 @@ submitBtn.addEventListener('click', async function (event) {
         activName: activNameInput.value,
         activCon: activConTextarea.value,
         activSta: activStaSelect.value,
-        schRecommend1: schRecommendInput1.value,
-        schRecommend2: schRecommendInput2.value
+        activId: activId,
+        schId: schId
     };
 
 
     //新增
-    //    for(let i=1; i<=2 ; i++){
-    //
-    //         switch(i){
-    //            case 1:
-    //                 schId = schRecommendInput1.value;
-    //                 break;
-    //            case 2:
-    //                 schId = schRecommendInput2.value;
-    //                 break;
-    //         }
-    //         fetch(baseUrl + `activityRecommendadd/${activId}/${schId}`, {
-    //            method: 'GET'
-    //         });
-    //    }
+        for(let i=1; i<=2 ; i++){
+
+             switch(i){
+                case 1:
+                     schId = schRecommendInput1.value;
+                     break;
+                case 2:
+                     schId = schRecommendInput2.value;
+                     break;
+             }
+             fetch(baseUrl + `activityRecommendadd/${activId}/${schId}`, {
+                method: 'GET'
+             });
+        }
+
+
+    //修改 施工
+//    for (let i = 1; i <= 2; i++) {
+//
+//        switch (i) {
+//            case 1:
+//                schId = schRecommendInput1.value;
+//                break;
+//            case 2:
+//                schId = schRecommendInput2.value;
+//                break;
+//        }
+//
+//        // 創建要發送的數據對象，包含activitySchRecommendId的值
+//        const requestData = {
+//            activId: activId,
+//            schId: schId
+//        };
+//
+//        // 使用fetch發送PUT或PATCH請求
+//        fetch(baseUrl + `activityRecommendedit/${activId}/${originalSchId}`, {
+//
+//            method: 'PUT',
+//            headers: {
+//                'Content-Type': 'application/json'
+//            },
+//            body: JSON.stringify(requestData)  // 將數據對象轉換為JSON字符串
+//        });
+//    }
 
 
     // if檢查cover是否有值，如果有選擇圖片，則更新activPic
