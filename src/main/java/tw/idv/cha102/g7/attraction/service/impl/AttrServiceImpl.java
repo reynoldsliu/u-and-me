@@ -137,4 +137,18 @@ public class AttrServiceImpl implements AttrService {
         attrRepository.deleteById(attrId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<List<Attraction>> getAttrsByType(String attrType){
+        List<Attraction> attractions = attrRepository.findAllByAttrType(attrType);
+        if(attractions==null){
+            return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
+        }
+        for(Attraction attraction:attractions){
+            if(attraction.getAttrSta()!=1){
+                attractions.remove(attraction);
+            }
+        }
+        return new ResponseEntity<>(attractions,HttpStatus.OK);
+    }
 }

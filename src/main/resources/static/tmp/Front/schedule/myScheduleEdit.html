@@ -459,6 +459,17 @@
                                             <div>
                                                 <input type="text" id="searchAttrByName" class="google_input_text3"
                                                     ref="site" v-model="site" placeholder="請輸入景點名稱">
+                                                <!-- ------------------------------------------------------- -->
+                                                <!-- Reynolds -->
+                                                <select name="attrType" id="attrType">
+                                                    <option selected value="default">--依照分類搜尋--</option>
+                                                    <option value="戶外景點">戶外景點</option>
+                                                    <option value="人文景點">人文景點</option>
+                                                    <option value="餐廳">餐廳</option>
+                                                    <option value="政府單位">政府單位</option>
+                                                    <option value="暫無分類">暫無分類</option>
+                                                </select>
+                                                <!-- ------------------------------------------------------- -->
                                             </div>
                                             <!-- 終點景點 -->
                                             <!-- <div>
@@ -682,7 +693,7 @@
                                                 class="btn btn-outline-success addAttrCollect-btn">儲存景點</button>
                                             <!-- 移除收藏按鈕 -->
                                             <button type="button"
-                                                class="btn btn-outline-success removeAttrCollect-btn">移除收藏</button>
+                                                class="btn btn-outline-success removeAttrCollect-btn -off">移除收藏</button>
                                             <!-- 加入行程按鈕(要跳到行程細節頁面) -->
                                             <button type="button"
                                                 class="btn btn-success addToSchedule-btn">加入行程</button>
@@ -1130,7 +1141,64 @@
                 attrSearchListInsert_el.appendChild(row);
             }
         })
+        //-----------------------------------------------------------------------------------
+        //Reynolds
+        const attrTypeSearch_el = document.getElementById("attrType");
+        attrTypeSearch_el.addEventListener("change",async function(){
+            const searchType = attrTypeSearch_el.value;
+            const response = await fetch(baseURL+`getAttrsByType/`+searchType);
+            const attrList = await response.json();
+            attrTypeSearch_el.options[0].disabled = true;
+            // 清空景點收藏清單插入處所有的資料
+            attrSearchListInsert_el.innerHTML = "";
 
+            // 加入async試試看(找出每一個景點收藏)
+            for (let attr of attrList) {
+                // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
+                // 找出每一個景點收藏中景點的資料：如景點名稱
+
+                // 景點的第一張圖片編號、景點的第一張圖片
+                const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attr.attrId);
+                const attrPicList = await responseOfAttrFirstPic.json();
+                console.log(attrPicList);
+                const pics = attrPicList.attrPic;
+                let picInput;
+
+                if (!pics[0]) {
+                    picInput = pic;// pic.js base64
+                    // 如果 pics[0] 是空值，使用 "replace"
+                } else {
+                    picInput = pics[0].attrPicData;
+                }
+
+                // 動態生成每一個景點資訊框
+                let row = document.createElement("div");
+                row.innerHTML = `
+                <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attr.attrId})" id="attrId${attr.attrId}">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <div class="attrCardBody">
+                            <h5 class="attrName">
+                                <div id="attrName">
+                                    ${attr.attrName}
+                                </div>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="attrPic col-md-4">
+                        <img src="data: image/jpeg;base64,${picInput}"
+                            class="img-fluid rounded-end" alt="..."
+                            style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                    </div>
+                </div>
+            </div>`;
+
+                attrSearchListInsert_el.appendChild(row);
+            }
+
+        })
+        
+        //-----------------------------------------------------------------------------------
         //********************************************更改結束***********************************************
 
 

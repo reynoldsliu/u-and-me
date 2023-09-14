@@ -38,4 +38,6 @@ public interface AttrService {
 
     public ResponseEntity<String> deleteAttrByAttrId(Integer attrId);
 
+    public ResponseEntity<List<Attraction>> getAttrsByType(String attrType);
+
 }

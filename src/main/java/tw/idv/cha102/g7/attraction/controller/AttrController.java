@@ -200,6 +200,11 @@ public class AttrController {
                                     HttpStatus.OK);
     }
 
+    @RequestMapping("/getAttrsByType/{attrType}")
+    public ResponseEntity<List<Attraction>> getAttrsByType(@PathVariable String attrType){
+        return attrService.getAttrsByType(attrType);
+    }
+
 
 
     //SERVLET 轉向寫法

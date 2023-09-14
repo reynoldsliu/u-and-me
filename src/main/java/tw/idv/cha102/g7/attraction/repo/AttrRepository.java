@@ -18,4 +18,6 @@ public interface AttrRepository extends JpaRepository<Attraction, Integer> {
 
     public Attraction findByAttrName(String attrName);
 
+    public List<Attraction> findAllByAttrType(String attrType);
+
 }
