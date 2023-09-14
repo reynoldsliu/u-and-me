@@ -210,7 +210,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO listDetail(Integer prodId) {
         System.out.println("prodId: "+prodId);
         Product product = productRepository.findById(prodId).orElse(null);
-        System.out.println(product.toString());
+//        System.out.println(product.toString());
         ProductDTO productDetail = new ProductDTO();
         List<ProductPicture> productPictures = productPictureRepository.findByProdId(prodId);
         Object[] objects = {
