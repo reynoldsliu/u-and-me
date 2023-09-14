@@ -281,7 +281,7 @@ public class GroupServiceImpl implements GroupService {
             groupRepository.save(group);
         }
 
-        //如果人數達標則自動設置成團狀態
+        //如果人數額滿則自動設置額滿狀態
         if (group.getMembers() == group.getMaxMember()) {
             group.setGroupSta(5);
             groupRepository.save(group);
@@ -348,9 +348,10 @@ public class GroupServiceImpl implements GroupService {
         }
 
         //如果管理員設置取消揪團或下架揪團時
-        if (group.getGroupSta() == 2 || group.getGroupSta() == 4) {
+        if (group.getGroupSta() == 4) {
             List<MemberDetail> memberDetailList = memberDetailRepository.findByGroupId(groupId);
             if (memberDetailList != null) {
+
                 //設置退費狀態
                 for (MemberDetail detail : memberDetailList) {
                     if (detail.getRefundSta() == 0) {
@@ -363,7 +364,7 @@ public class GroupServiceImpl implements GroupService {
         }
     }
 
-    //    為了多表查members只在service用
+    //為了多表查members只在service用
     @Override
     public Group findMemberDeadlineAmountByDetailId(Integer detailId) {
         return groupRepository.findMemberDeadlineAmountByDetailId(detailId);

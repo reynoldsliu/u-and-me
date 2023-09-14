@@ -10,6 +10,7 @@ import tw.idv.cha102.g7.shop.entity.Orders;
 import tw.idv.cha102.g7.shop.entity.Product;
 import tw.idv.cha102.g7.shop.repo.CartListRepository;
 import tw.idv.cha102.g7.shop.repo.OrdersRepository;
+import tw.idv.cha102.g7.shop.repo.ProductRepository;
 import tw.idv.cha102.g7.shop.service.impl.CartServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,9 @@ public class ShopOrderService {
 
     @Autowired
     OrdersRepository ordersRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Autowired
     CartServiceImpl cartService;
@@ -58,7 +62,7 @@ public class ShopOrderService {
         orders.setOrdPaySta((byte) 1);
         ordersRepository.save(orders);
 
-        List<Product> productList = ordersRepository.findProdIdByOrdId(ordId);
+        List<Product> productList = productRepository.findProdIdByOrdId(ordId);
         for(Product product : productList){
             cartService.deleteById(memId, product.getProdId());
         }

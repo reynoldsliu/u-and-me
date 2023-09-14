@@ -58,7 +58,7 @@ let cover;
 document.addEventListener("DOMContentLoaded", function () {
 
     //判斷團主身分
-    this.fetch(baseUrl + '/member/grouper/match', {
+    fetch(baseUrl + '/member/grouper/match', {
         method: 'GET'
     }).then(response => {
         if (response.status == 401) {
