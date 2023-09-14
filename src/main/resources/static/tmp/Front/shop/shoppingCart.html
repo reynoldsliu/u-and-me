@@ -253,7 +253,7 @@
                       </td> -->
                       <td class="align-middle border-bottom-0">
                         <span style="margin-left:935px;"> 運費:</span>
-                        <span class="mb-0" id="shippingFee" style="font-weight: 500; font-size: 18px; margin-left:20px;width: 100px;"></span>
+                        <span class="mb-0" id="shippingFee" style="font-weight: 500; font-size: 18px; margin-left:20px;width: 100px;">80</span>
                         <span style="margin-left:20px">元</span>
       </td>
                     </tr>
@@ -368,7 +368,7 @@
     }
     //拿到全部的商品資訊
     function fetchProductDetails(cartLists){
-
+      shippingFee_el.innerText = 0;
 
       //總計
       let toTalCount = 0; 
@@ -376,10 +376,10 @@
         fetch(`${baseUrl}product/listProductDetail/${cartList.cartListId.prodId}`)
         .then(resp=> resp.json())
         .then(data=>{
-
-          if(data != null || data!= undefined){
-            shippingFee_el.innerText = 80;
-          }
+          shippingFee_el.innerText = 80;
+          // if(data != null || data!= undefined){
+          //   shippingFee_el.innerText = 80;
+          // }
 
         const prodRow = document.createElement("tr");
         prodRow.style.borderBottom = "1px solid rgb(196, 204, 203)";
@@ -548,7 +548,11 @@
           })
           .then(resp => resp.json())
           .then(data => {
+            if(data == 0){
               console.log('Total saved:', data);
+              shippingFee_el.innerText = 0;
+              finalTotalPrice.innerText = 0;
+            }
           })
           .catch(error => {
               console.error('Error saving total:', error);
@@ -567,7 +571,8 @@
               .then(body => {
                  //成功刪除，重整此畫面
                  location.reload();
-              });
+              
+              })
             }
    
 

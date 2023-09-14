@@ -100,14 +100,14 @@
 
                     </li>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    <li class="nav-item" id="shoppingCart">
+                        <!-- 動態生成購物車Icon -->
+                        <!-- <a class="nav-link" href="http://localhost:8080/u-and-me/tmp/Front/shop/shoppingCart.html?"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                 fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
                                 <path
                                     d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                             </svg>
-
-                        </a>
+                        </a> -->
                     </li>
 
                 </ul>
@@ -312,6 +312,8 @@
         });
         // ---使用 fetch 獲取商城頁面數據---
         const listAllProd = async function () {
+            const shoppingCartIcon = document.getElementById('shoppingCart');
+
             fetch(`${baseUrl}product/listAllStaOn`)
                 .then(response => response.json())
                 .then(data => {
@@ -366,10 +368,22 @@
 
                         productUl.appendChild(div);
                     });
-                })
+                }).then(icondata => {
+                    const cartIcondata =`<a class="nav-link" onclick="redirectToCartPage()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                                    </svg>
+                                </a>`
+                    shoppingCartIcon.innerHTML = cartIcondata;
+        })
                 .catch(error => console.error('獲取商品數據時錯誤：', error));
-        }
+        } 
 
+        // <!--購物車icon會根據memId跳轉到購物車詳情頁面，並將資料映射到相關欄位上-->
+        async function redirectToCartPage() {
+                const newPageUrl = `${baseUrl}tmp/Front/shop/shoppingCart.html`;
+                window.location.href = newPageUrl;
+         }
 
         //---搜尋欄用商品名稱搜尋商品---
         const searchInput = document.getElementById('searchInput');
@@ -379,7 +393,7 @@
         //trim()用於刪除字符兩端的空白字符
         searchButton.addEventListener('click', async function () {
             const searchText = searchInput.value.trim();
-            alert();
+            // alert();
             if (searchText === '') {
                 productResults.innerHTML = "請輸入欲搜尋的商品名稱";
                 return;
@@ -539,7 +553,11 @@
             });
         }
 
-        
+          // <!--購物車icon會根據memId跳轉到購物車詳情頁面，並將資料映射到相關欄位上-->
+          async function redirectToCartPage() {
+                const newPageUrl = `${baseUrl}tmp/Front/shop/shoppingCart.html`;
+                window.location.href = newPageUrl;
+         }
 
     </script>
 
