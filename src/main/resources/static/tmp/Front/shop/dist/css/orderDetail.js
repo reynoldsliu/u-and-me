@@ -47,7 +47,7 @@ async function showProducts(OrdId) {
         let productPage = baseUrl + `product/prodtDetail.html?prodId=${product.prodId}`
         const row = document.createElement("tr");
         row.innerHTML = `
-    <td style="width: 50px;text-align: center; vertical-align: middle;"><img src="data:image/jpeg;base64,${productPicture}" style=" width: 255px;height: 250px;object-fit: cover;"></td>
+    <td style="width: 50px;text-align: center; vertical-align: middle;"><img src="data:image/jpeg;base64,${productPicture}" style=" width: 200px;height: 190px;object-fit: cover;"></td>
     <td style="width: 100px;text-align: center;vertical-align: middle;">${product.prodName}</td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodQty}</td>
     <td style="width: 50px;text-align: center; vertical-align: middle;">${orderDetail.prodPrice}</td>

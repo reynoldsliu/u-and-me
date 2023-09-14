@@ -17,7 +17,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Integer> {
     @Query(value = "select Max(ord_id) as maxOrdId from orders", nativeQuery = true)
     MaxOrdIdDTO findMaxId();
 
-    @Query(value = "SELECT p.prod_id FROM orders AS o LEFT JOIN order_detail AS od ON o.ord_id = od.ord_id LEFT JOIN product AS p ON p.prod_id = od.prod_id WHERE o.ord_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT p.prod_id FROM orders AS o LEFT JOIN order_details AS od ON o.ord_id = od.ord_id LEFT JOIN product AS p ON p.prod_id = od.prod_id WHERE o.ord_id = ?1", nativeQuery = true)
     List<Product> findProdIdByOrdId(Integer ordId);
 
 }
