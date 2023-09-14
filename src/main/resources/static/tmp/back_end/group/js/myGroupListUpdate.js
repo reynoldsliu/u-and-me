@@ -56,30 +56,6 @@ let cover;
 
 //網頁載入後執行
 document.addEventListener("DOMContentLoaded", function () {
-
-    //判斷團主身分
-    this.fetch(baseUrl + '/member/grouper/match', {
-        method: 'GET'
-    }).then(response => {
-        if (response.status == 401) {
-            Swal.fire({
-                icon: 'error',
-                title: '尚未登入',
-                showCancelButton: true
-            }).then(() => {
-                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
-            })
-        } else if (response.status == 403) {
-            Swal.fire({
-                icon: 'error',
-                title: '尚未成為團主',
-                showCancelButton: true
-            }).then(() => {
-                this.location.href = baseUrl + '/tmp/Front/member/memberGroupRegister.html';
-            })
-        }
-    });
-
     let groupId;
     let today = new Date().getTime();//用於驗證、取得目前時間
 
@@ -210,11 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期必須填入數值';
             inputDepDate_el.appendChild(depDateStr);
-        } else if (today > depDate_el.valueAsNumber) {
-            control = false;
-            depDateStr.innerHTML = ' *行程出發日期不得小於當前日期';
-            inputDepDate_el.appendChild(depDateStr);
-        } else if (depDate_el.value < deadline_el.value) {
+        }else if (depDate_el.value < deadline_el.value) {
             control = false;
             depDateStr.innerHTML = ' *行程出發日期不得小於截止日期';
             inputDepDate_el.appendChild(depDateStr);
@@ -225,11 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期必須填入數值';
             inputDeadline_el.appendChild(deadlineStr);
-        } else if (today > deadline_el.valueAsNumber) {
-            control = false;
-            deadlineStr.innerHTML = ' *揪團截止日期不得小於當前日期';
-            inputDeadline_el.appendChild(deadlineStr);
-        } else if (deadline_el.value > depDate_el.value) {
+        }else if (deadline_el.value > depDate_el.value) {
             control = false;
             deadlineStr.innerHTML = ' *揪團截止日期不得大於出發日期';
             inputDeadline_el.appendChild(deadlineStr);
@@ -284,8 +252,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 title: '更新成功',
                 text: '資料已更新',
                 showCancelButton: true
-              }).then(()=>{
-                location.href = baseUrl + '/tmp/Front/group/myGroupList.html'
               })
             // location.reload();
         } else {

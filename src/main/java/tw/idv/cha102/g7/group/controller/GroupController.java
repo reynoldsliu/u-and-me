@@ -205,7 +205,7 @@ public class GroupController {
      * @param groupId 揪團ID
      * @return 查詢結果
      */
-    @GetMapping("/member/grouper/myGroup/update/{groupId}")
+    @GetMapping("/myGroup/update/{groupId}")
     public UpdateMyGroupDto findUpdateMyGroupByGroupId(@PathVariable Integer groupId){
         return groupService.findUpdateMyGroupByGroupId(groupId);
     }
@@ -216,7 +216,7 @@ public class GroupController {
      * @param groupId 揪團ID
      * @param group 前端傳送來須修改的值
      */
-    @PutMapping("/member/grouper/myGroup/update/{groupId}")
+    @PutMapping("/myGroup/update/{groupId}")
     public ResponseEntity<?> updateMyGroupByGroupId(@PathVariable Integer groupId,
                                                     @RequestBody Group group){
         try {

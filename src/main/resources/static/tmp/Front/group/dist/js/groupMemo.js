@@ -27,6 +27,7 @@ let days; //紀錄days
 let notice = ""; //紀錄notice
 let str = "";
 let groupId;
+let schId;
 //===================使用到的元素結束===================
 
 window.addEventListener("load", function () {
@@ -71,7 +72,7 @@ async function fetchMyGroup(groupId) {
     }).then(response => {
         return response.json();
     }).then(group => {
-
+        schId = group.sch_Id;
         //更改揪團狀態名稱
         switch (Number(group.group_Sta)) {
             case 0:
@@ -123,6 +124,9 @@ async function fetchMyGroup(groupId) {
 //===================參與揪團點擊事件===================
 function jump() {
     window.location.href = baseUrl + "/tmp/Front/group/regForm.html?gorupId=" + groupId;
+}
+function jumpSch() {
+    window.location.href = baseUrl + "/tmp/Front/schedule/myScheduleEdit.html?schId=" + schId;
 }
 //===================參與揪團點擊事件結束===================
 

@@ -189,12 +189,14 @@ function findqalist() {
             //在操作欄位回傳按鈕。
             targets: [9],
             render: function (row) {
-              return `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fetchSta(${row.groupId})">更改狀態</button>`
+              return `<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fetchSta(${row.groupId})">更改狀態</button>
+                      <br>
+                      <button type="button" class="btn btn-secondary" onclick="jump(${row.groupId})">更改揪團</button>`
             }
           }, {
             //將全部欄位的字置中。
             targets: '_all',
-            className: 'text-center'
+            className: 'text-center'  
           }
         ],
         //語言區塊:將預設英文配置改成中文顯示。
@@ -261,19 +263,23 @@ async function fetchSta(id) {
   })
 }
 
+function jump(groupId){
+  window.open(baseUrl + '/u-and-me/tmp/back_end/group/myGroupListUpdate.html?groupId=' + groupId);
+}
+
 let gSta = null;
-function getGSta(){
+function getGSta() {
   gSta = gStaVal_el.value;
 }
 
 let pSta = null;
-function getPSta(){
+function getPSta() {
   pSta = pStaVal_el.value;
 }
 
 confirm_el.addEventListener('click', async function (e) {
   if (gStaVal_el.value != null || pStaVal_el.value != null) {
-    const data ={
+    const data = {
       groupSta: gSta,
       paymentSta: pSta
     }
@@ -284,7 +290,7 @@ confirm_el.addEventListener('click', async function (e) {
       },
       method: 'PUT',
       body: JSON.stringify(data)
-    }).catch(function (e){
+    }).catch(function (e) {
       Swal.fire({
         icon: 'error',
         title: '更新失敗',
@@ -292,7 +298,7 @@ confirm_el.addEventListener('click', async function (e) {
         showCancelButton: true
       })
     })
-  }else{
+  } else {
     return;
   }
   Swal.fire({
@@ -302,6 +308,7 @@ confirm_el.addEventListener('click', async function (e) {
     showCancelButton: true
   })
 })
+
 // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
 const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
@@ -311,15 +318,15 @@ logoutBtn_el.addEventListener("click", async function () {
     headers: {
       "Content-Type": "application/json",
     },
-});if (response.ok) {
-                              Swal.fire({
-                                             icon: 'success',
-                                             title: '管理員登出成功',
-                                             text: '',
-                                             confirmButtonText: '確定'
-                          }).then(()=>{
-                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
-                          })
-                        // location.reload();
-                    } 
+  }); if (response.ok) {
+    Swal.fire({
+      icon: 'success',
+      title: '管理員登出成功',
+      text: '',
+      confirmButtonText: '確定'
+    }).then(() => {
+      location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+    })
+    // location.reload();
+  }
 });
