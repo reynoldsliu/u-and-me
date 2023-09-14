@@ -468,8 +468,10 @@
 
               fetch(`${baseUrl}shopOrder/updateOrdPaySta/${ordId}`,{
               method: 'GET'
-              
-            })
+            });
+            fetch(`${baseUrl}shopOrder/updateOrdSta/${ordId}`,{
+              methodL:'GET'
+            });
 
             })
             // console.log(response);
