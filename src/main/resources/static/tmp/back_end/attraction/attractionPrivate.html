@@ -338,7 +338,7 @@
       <td class="td_attrId" style="text-align: center; vertical-align: middle;">${attr.attrId}</td>
       <td style="text-align: center;vertical-align: middle;">${attr.attrName}</td>
       <td style="text-align: center;vertical-align: middle;">${attr.attrAddr}</td>
-      <td style="text-align: center;vertical-align: middle;">${attr.attrSta}</td>
+      <td style="text-align: center;vertical-align: middle;">${statusMapping.get(attraction.attrSta)}</td>
       <td style="padding:0px;vertical-align:middle;text-align: center;">    
         <button class="btn btn-outline-success" onclick="redirectToDetailPage(${attr.attrId})">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
@@ -403,6 +403,11 @@
         }
       });
     })
+
+    const statusMapping = new Map([
+      [0, '下架'],
+      [1, '上架'],
+    ]);
 
 
   </script>
