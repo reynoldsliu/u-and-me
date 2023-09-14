@@ -258,25 +258,25 @@ attr_addr varchar(100) not null,
 attr_lon float,
 attr_lat float,
 attr_illa varchar(500),
-attr_type varchar(10),
+attr_type varchar(100),
 attr_buss_time varchar(200) default '09:00-18:00|09:00-21:00',
 attr_cost_range tinyint,
 attr_rep varchar(500) -- deprecated
 );
 
 -- 更換有效地址Reynolds
-INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type, attr_buss_time, attr_cost_range, attr_rep)
+INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep)
 VALUES
-  (1, 1, 3, 'Attraction 1', '123 Main St', 12.345, 67.890, 'Description for Attraction 1', '第一類', '9:00 AM - 5:00 PM', 2, 'Representative for Attraction 1'),
-  (2, 0, 2, 'Attraction 2', '456 Park Ave', -45.678, 12.345, 'Description for Attraction 2', '第三類', '10:00 AM - 6:00 PM', 1, 'Representative for Attraction 2'),
-  (3, 1, 1, 'Attraction 3', '789 Broad St', 98.765, -34.567, 'Description for Attraction 3', '第二類', '8:00 AM - 4:00 PM', 3, 'Representative for Attraction 3'),
-  (4, 0, 3, 'Attraction 4', '567 Elm St', -12.345, -78.901, 'Description for Attraction 4', '第一類', '9:30 AM - 5:30 PM', 2, 'Representative for Attraction 4'),
-  (5, 1, 2, 'Attraction 5', '234 Oak Ave', 23.456, 45.678, 'Description for Attraction 5', '第三類', '10:30 AM - 6:30 PM', 1, 'Representative for Attraction 5'),
-  (6, 0, 1, 'Attraction 6', '678 Pine St', -56.789, 78.901, 'Description for Attraction 6', '第二類', '8:30 AM - 4:30 PM', 3, 'Representative for Attraction 6'),
-  (7, 1, 3, 'Attraction 7', '890 Maple Ave', 34.567, -56.789, 'Description for Attraction 7', '第一類', '9:45 AM - 5:45 PM', 2, 'Representative for Attraction 7'),
-  (8, 0, 2, 'Attraction 8', '123 Cherry St', -67.890, 98.765, 'Description for Attraction 8', '第三類', '10:45 AM - 6:45 PM', 1, 'Representative for Attraction 8'),
-  (9, 1, 1, 'Attraction 9', '456 Plum Ave', 12.345, -12.345, 'Description for Attraction 9', '第二類', '8:45 AM - 4:45 PM', 3, 'Representative for Attraction 9'),
-  (10, 0, 3, 'Attraction 10', '789 Orange St', -34.567, 23.456, 'Description for Attraction 10', '第一類', '9:15 AM - 5:15 PM', 2, 'Representative for Attraction 10');
+  (1, 1, 1, '中壢緯育', '台灣桃園市中壢區復興路緯育TibaMe附設中壢職訓中心', 121.225, 24.9576, '暫無描述', 1, '0830~1800|0830~2200', 2, 'no report record'),
+  (2, 1, 1, '台北101', '台灣台北市信義區市府路台北101購物中心', 121.564, 25.0341, '暫無描述', 2, '1100~2130|1100~2130', 2, 'no report record'),
+  (3, 1, 1, '基隆廟口夜市', '台灣基隆市玉田里仁三路基隆廟口夜市', 121.744, 25.1282, '暫無描述', 2, '0800~0000|1200~0000|1200~0000|1200~0000|1200~0000|1200~0000|1200~0000', 2, 'no report record'),
+  (4, 1, 1, '清華大學', '台灣新竹市光復路二段清華大學', 120.997, 24.7961, '暫無描述', 2, '暫無資料', 2, 'no report record'),
+  (5, 1, 1, '宮原眼科', '台灣台中市中區中山路宮原眼科', 120.684, 24.1378, '暫無描述', 2, '1000~2100|1000~2100|1000~2100|1000~2100|1000~2100|1000~2100|1000~2100', 2, 'no report record'),
+  (6, 1, 1, '鳳山高中', '台灣高雄市鳳山區光復路二段鳳山高中', 120.346, 22.6298, '暫無描述', 2, '暫無資料', 2, 'no report record'),
+  (7, 1, 1, '阿里山國家森林遊樂區', '台灣嘉義縣阿里山國家森林遊樂區', 120.803, 23.511, '暫無描述', 2, '暫無資料', 2, 'no report record'),
+  (8, 1, 1, '合歡山南峰', '台灣南投縣合歡山南峰', 121.269, 24.1243, '暫無描述', 2, '暫無資料', 2, 'no report record'),
+  (9, 1, 1, '中央大學', '台灣桃園市中壢區中大路中央大學', 121.195, 24.9682, '暫無描述', 2, '0800~1700|0800~1700|0800~1700|0800~1700|0800~1700', 2, 'no report record'),
+  (10, 1, 1, '中壢火車站', '台灣桃園市中壢區中正路中壢火車站', 121.226, 24.9537, '暫無描述', 2, '暫無資料', 2, 'no report record');
 
 select * from attractions;
 
@@ -288,9 +288,17 @@ primary key (attr_id, mem_id)
 );
 
 insert into attraction_collections(attr_id, mem_id)
-
 values
-(1,1);
+(1,1),(2,1),(3,1),
+(2,2),(3,2),(4,2),
+(3,3),(4,3),(5,3),
+(4,4),(5,4),(6,4),
+(5,5),(6,5),(7,5),
+(6,6),(7,6),(8,6),
+(7,7),(8,7),(9,7),
+(8,8),(9,8),(10,8),
+(9,9),(10,9),(1,9),
+(10,10),(1,10),(2,10);
 
 -- select * from attraction_collections;
 -- drop table attraction_collections;

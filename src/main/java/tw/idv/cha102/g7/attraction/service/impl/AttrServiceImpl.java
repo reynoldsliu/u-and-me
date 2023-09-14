@@ -124,6 +124,7 @@ public class AttrServiceImpl implements AttrService {
 //        originAttr.setAttrId(attrId);
         originAttr.setAttrName(attraction.getAttrName());
         originAttr.setAttrAddr(attraction.getAttrAddr());
+        originAttr.setAttrSta(attraction.getAttrSta());
         originAttr.setAttrType(attraction.getAttrType());
         originAttr.setAttrCostRange(attraction.getAttrCostRange());
         originAttr.setAttrBussTime(attraction.getAttrBussTime());

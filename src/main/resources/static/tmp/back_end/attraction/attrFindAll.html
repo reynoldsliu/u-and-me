@@ -400,7 +400,7 @@
 
         // <!--按修改鈕會根據attrId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
         function redirectToDetailPage(attrId) {
-            var newPageUrl = baseUrl + `tmp/back_end/back_end/attraction/attraction.html`;
+            var newPageUrl = baseUrl + `tmp/back_end/attraction/attraction.html`;
             window.location.href = newPageUrl;
         }
 
@@ -616,7 +616,7 @@
         }
 
         function redirectToDetailPage(attrId) {
-            var newPageUrl = baseUrl + `tmp/back_end/back_end/attraction/attractionDetail.html?attrId=${attrId}`;
+            var newPageUrl = baseUrl + `tmp/back_end/attraction/attractionDetail.html?attrId=${attrId}`;
             window.location.href = newPageUrl;
         }
 
@@ -656,7 +656,7 @@ logoutBtn_el.addEventListener("click", async function () {
                                              text: '',
                                              confirmButtonText: '確定'
                           }).then(()=>{
-                            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+                            location.href = baseUrl + '/tmp/host/hostLogin.html'
                           })
                         // location.reload();
                     } 
@@ -672,7 +672,7 @@ this.fetch(baseUrL + 'host/match', {
 }).then(response => {
     if(response.status == 401){
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+            this.location.href = baseUrL + 'tmp/host/hostLogin.html';
 
     }
 });
