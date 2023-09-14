@@ -149,11 +149,11 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th scope="col" class="ps-2 inf" style="padding-right: 100px">商品資訊</th>
-                      <th scope="col" class="ps-2 inf" style="padding-right: 50px"></th>
-                      <th scope="col" class="ps-2 pri" style="padding-right: 50px">單價</th>
-                      <th scope="col" class="ps-2 num" style="padding-right: 50px">數量</th>
-                      <th scope="col" class="ps-2 cou">小計</th>
+                      <th scope="col" class="ps-2 inf" style="width: 170px">商品資訊</th>
+                      <th scope="col" class="ps-2 inf" style="width: 300px"></th>
+                      <th scope="col" class="ps-2 pri" style="width: 170px">單價</th>
+                      <th scope="col" class="ps-2 num" style="width: 160px">數量</th>
+                      <th scope="col" class="ps-2 cou" style="width: 80px">小計</th>
                     </tr>
                   </thead>
                   </table>
@@ -368,29 +368,30 @@
           // 創建每個表格
           let prodInfo_el = document.createElement("td");
           prodInfo_el.innerHTML = `
-            <div class="d-flex align-items-center" style="width: 200px;height: 150px;">
+            <div class="d-flex align-items-center" style="width: 170px;height: 150px;margin-top:5px;margin-bottom:5px">
               <img src="data:Image/jpeg;base64,${data.prodPic}" class="img-fluid rounded-3 prodImg" alt="商品照片" style="width: 200px;height: 150px;">
             </div>
             `;
             let prodName_el = document.createElement("td");
             prodName_el.innerHTML =`
             <span class="align-middle" style="background-color: red;">
-                <p class="mb-2 pName" style="width: 150px; height: 30px; margin-left:40px;">${data.prodName}</p>
+                <p class="mb-2 pName" style="width: 375px; height: 30px;margin-left:20px">${data.prodName}</p>
             </span>
           </th>
           `;
           
           const prodPri_el = document.createElement("td");
           prodPri_el.classList.add("align-middle");
+          // prodPri_el.style.paddingLeft = "10px";
           prodPri_el.innerHTML = 
-          `<p class="mb-0 ps-3" id="prodPri${cartList.cartListId.prodId}" style="font-weight: 500; margin-left:145px;">${data.prodPri}</p>`;
+          `<p class="mb-0 ps-3" id="prodPri${cartList.cartListId.prodId}" style="font-weight: 500; width: 195px;">${data.prodPri}</p>`;
 
           const quantity_el = document.createElement("td");
           quantity_el.classList.add("align-middle");
           quantity_el.innerHTML = `
 
           <!-- 數量加減按鈕 -->
-          <div class="product_variant_quantity" style="padding-bottom: 10px; margin-left: 140px">
+          <div class="product_variant_quantity" style="padding-bottom: 10px; width: 200px;margin-left:-2px">
           <span class="product_quantity">
               <div class="btn-group" role="group" aria-label="First group">
                   <button class="btn add-down qk-bd--product_border" type="button" onclick="reduceCart(${cartList.cartListId.prodId})"
@@ -407,7 +408,7 @@
           const cartPri_el = document.createElement("td");
           cartPri_el.classList.add("align-middle");
           cartPri_el.innerHTML =
-           `<p class="mb-0 ps-2 cartPrice" id="cartPrice${cartList.cartListId.prodId}" style="font-weight: 500; width:80px;margin-left:125px;">NT ${cartList.cartPri}</p>`;
+           `<p class="mb-0 ps-2 cartPrice" id="cartPrice${cartList.cartListId.prodId}" style="font-weight: 500; width: 80px; margin-left:10px">NT ${cartList.cartPri}</p>`;
 
 
           // 將每一列加入
