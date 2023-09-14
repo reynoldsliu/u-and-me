@@ -836,6 +836,8 @@ tab_search_el.addEventListener("click", function (e) {
 
 function bussTimeString(inputString) {
     // 使用逗号分割字符串，并将结果存储在数组中
+    if(inputString==undefined||inputString==null||inputString.trim()=='')
+        return "尚無資料";
     const timeRanges = inputString.split('|');
 
     // 分别存储平日和假日的时间范围
@@ -912,10 +914,10 @@ async function viewSearchResultOfOneAttr(attrId) {
     attrNameTitle.innerText = attr.attrName;
     attrComScore.innerText = generateRandomNumber();
     attrTypeName.innerText = attr.attrType;
-    attrAddress.innerText = attr.attrAddr;
-    attrBussTime.innerText = bussTimeString(attr.attrBussTime)?bussTimeString(attr.attrBussTime):attr.attrBussTime;
+    attrAddress.innerHTML = attr.attrAddr;
+    attrBussTime.innerText = bussTimeString(attr.attrBussTime) ? bussTimeString(attr.attrBussTime) : attr.attrBussTime;
     attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
-    attrIlla.innerText = attr.attrIlla;
+    attrIlla.innerHTML = attr.attrIlla;
 
     // console.log("LatLng: " + attr.attrLat + "::" + attr.attrLon);
     // 將 attr.attrLat 和 attr.attrLon 轉換為數字
@@ -1017,6 +1019,8 @@ async function FindAllAttrCollectionList(memId) {
             // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
             // 找出每一個景點收藏中景點的資料：如景點名稱
             // const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.collectionId.attrId);
+            if (attrCollect == null)
+                return;
             const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.attrId);
             const attr = await responseOfOneAttr.json();
 
@@ -1143,25 +1147,26 @@ attrPicFilesInput.addEventListener('change', async (event) => {
     myAttrPicsPreview.innerHTML = '';
     const files = event.target.files;
 
+    let count = 0;
     for (const file of files) {
-        let count = 0;
         var fileReader = await new FileReader();
         fileReader.onload = async event => {
             const base64String = btoa(event.target.result);
             const imgdata = {
+                fileOrder: count,
                 attrPicData: base64String
             }
 
-            const imageContainer = createImageContainer_preview(imgdata);
+            const imageContainer = createImageContainer_preview(imgdata, count);
 
             attrPicsPreview.appendChild(imageContainer);
         };
-        // console.log(++count);
+        console.log(++count);
         await fileReader.readAsBinaryString(file);
     }
 });
 
-//包裝預覽圖容器及生成鴻叉叉可以取消上傳
+//包裝預覽圖容器及生成叉叉可以取消上傳
 function createImageContainer_preview(pic) {
     // console.log("Creating preview");
     const imageContainer = document.createElement("div");
@@ -1175,10 +1180,6 @@ function createImageContainer_preview(pic) {
     image.style.objectFit = "cover;"// 設定圖片裁切
     image.style.position = "relative";
     image.style.marginTop = "5px";
-    // const attrPicId = pic.attrPicId;
-    // imageContainer.setAttribute("attrPicId", attrPicId);
-    // const attrId = pic.attrId;
-    // imageContainer.setAttribute("attrId", attrId);
 
     const closeButton = document.createElement("span");
     closeButton.classList.add("close-button");
@@ -1189,11 +1190,8 @@ function createImageContainer_preview(pic) {
     closeButton.style.left = "90%";
 
     closeButton.addEventListener("click", async function () {
-        const attrPicId = imageContainer.getAttribute("attrPicId");
-        // console.log("deleting attrPicId:" + attrPicId);
-        // const delResponse = await fetch(baseURL + 'delAttrPic/' + attrPicId);
         imageContainer.remove();
-        attrPicFilesInput.value = '';
+        // attrPicFilesInput.value = '';
     });
     // console.log("attrId:" + attrId + ", attrPicId:" + attrPicId + ", attrPicData" + image.src);
     imageContainer.appendChild(closeButton);
@@ -1203,6 +1201,7 @@ function createImageContainer_preview(pic) {
 }
 
 
+
 // 自訂景點內容完成後，顯示新增完成警示框
 myAttrDone_btn_el.onclick = async () => {
     let inputAttrBussTime;
@@ -1210,7 +1209,7 @@ myAttrDone_btn_el.onclick = async () => {
     let options = {
         // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
     };
-    
+
     let siteInput1 = document.querySelector('#myAttrAddr');
     // let siteInput1 = myAttrAddr_el;
 
@@ -1267,12 +1266,12 @@ myAttrDone_btn_el.onclick = async () => {
         attrType: attrType,
         attrLat: attrLat,
         attrLon: attrLon,
-        attrBussTime: inputAttrBussTime?inputAttrBussTime:"尚無資料",
+        attrBussTime: inputAttrBussTime ? inputAttrBussTime : "尚無資料",
         attrVeriSta: 1,
         attrSta: 1,
         attrCostRange: 2,
         attrRep: 'no report record',
-        attrIlla: attrIlla?attrIlla:'尚無資料'
+        attrIlla: attrIlla ? attrIlla : '尚無資料'
     };
     const response = await fetch(baseURL + `attrPriv/createPrivateAttr`, {
         method: 'POST',

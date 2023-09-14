@@ -556,7 +556,7 @@
                                                     <i class="fa-solid fa-magnifying-glass"></i>
                                                 </a>
                                             </div>
-                                            <div>
+                                            <div style="margin-left: 20px;">選擇景點類型:
                                                 <select name="attrType" id="attrTypeInput">
                                                     <option selected value="default">--依照分類搜尋--</option>
                                                     <option value="觀光景點">觀光景點</option>
@@ -569,9 +569,11 @@
                                                     <option value="其他分類">其他分類</option>
                                                 </select>
                                             </div>
+                                            <br>
 
-                                            <div>
-                                                <input type="text" name="attrIllaInput" id="attrIllaInput">
+                                            <div style="margin-left: 20px;">景點描述:
+                                                <br>
+                                                    <textarea name="attrIllaInput" id="attrIllaInput" cols="30" rows="10" placeholder="請輸入描述內容"></textarea>
                                             </div>
                                             <!-- 景點電話 -->
                                             <!-- <div>
@@ -595,7 +597,7 @@
                                                 <!-- 景點圖片上傳插入處 -->
                                             </div>
                                             <!-- 是否加入景點收藏 -->
-                                            <div>
+                                            <div style="display: none;">
                                                 <input type="checkbox" id="saveMyAttrInCollection" checked
                                                     style="width: 20px; vertical-align: middle;">
                                                 <span
@@ -698,7 +700,7 @@
                                                     <span><i class="fa-solid fa-comments"></i>景點描述</span>
                                                     <br>
                                                     <span id="attrIlla">
-                                                        景點概略描述景點概略描述景點概略描述景點概略描述景點概略描述景點概略描述景點概略描述
+                                                        尚無資料
                                                     </span>
                                                 </li>
                                             </ul>
@@ -745,7 +747,7 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&libraries=places"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7Q81Fx7Kc8kxesdQDZmxqxKpOXF_z4bU&callback=initMap&libraries=places"
         async defer></script>
 
     <!-- 加入切換版面操作的js -->
