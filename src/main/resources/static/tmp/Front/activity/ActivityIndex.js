@@ -72,7 +72,7 @@ async function fetchRandomActivities() {
                         <img class="bd-placeholder-img card-img-top img-responsive" src="${dataurl2}" alt="Loading...">
                         <div class="overlay">
                             <h2>${item.activName}</h2>
-                            <p><a href="ActivityPeriodDetail.html?activId=${item.activId}">More Info</a></p>
+                            <p><a href="ActivityDetail.html?activId=${item.activId}">More Info</a></p>
                         </div>
                     </div>
                     <div class="card-body">

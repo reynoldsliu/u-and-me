@@ -11,6 +11,9 @@ const activStarttimeInput = document.getElementById('activStarttime');
 const activEndtimeInput = document.getElementById('activEndtime');
 const activStaSelect = document.querySelector('.form-control.select2');
 const submitBtn = document.querySelector('button[type="submit"]');
+const schRecommendInput1 = document.getElementById('schRecommend1');
+const schRecommendInput2 = document.getElementById('schRecommend2');
+let schId;
 let cover;
 
 // 管理員filter
@@ -18,23 +21,26 @@ let cover;
 const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
-    method: 'GET'
-}).then(response => {
-    if(response.status == 401){
+    this.fetch(baseUrL + 'host/match', {
+        method: 'GET'
+    }).then(response => {
+        if (response.status == 401) {
 
             this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
 
-    }
-});
+        }
+    });
 })
 
-    
+
 // 使用 fetch API 發送請求，獲取單筆活動詳細資料
 async function fetchActivityDetail() {
     try {
-        const response = await fetch(`http://localhost:8080/u-and-me/activity/${activId}`);
+        const response = await fetch(baseUrl + `activity/${activId}`);
         const activityDetail = await response.json();
+
+        const response2 = await fetch(baseUrl + `activityRecommend/${activId}`);
+        const recommends = await response2.json();
 
         // 沒有選擇新圖片，cover將保持舊的圖片數據
         const dataurl = `data:image/png;base64,${activityDetail.activPic}`;
@@ -48,6 +54,16 @@ async function fetchActivityDetail() {
         activStarttimeInput.value = formatDate(activityDetail.activStarttime);
         activEndtimeInput.value = formatDate(activityDetail.activEndtime);
         activStaSelect.value = activityDetail.activSta;
+
+
+        // 提取陣列中的兩個值
+        const value1 = recommends[0]; // 假設第一個值在陣列的索引 0
+        const value2 = recommends[1]; // 假設第二個值在陣列的索引 1
+
+        // 設置結合後的字串為 schRecommendInput 的值
+        schRecommendInput1.value = value1;
+        schRecommendInput2.value = value2;
+
 
     } catch (error) {
         console.error('Error fetching activity detail:', error);
@@ -105,8 +121,28 @@ submitBtn.addEventListener('click', async function (event) {
     const requestData = {
         activName: activNameInput.value,
         activCon: activConTextarea.value,
-        activSta: activStaSelect.value
+        activSta: activStaSelect.value,
+        schRecommend1: schRecommendInput1.value,
+        schRecommend2: schRecommendInput2.value
     };
+
+
+    //新增
+    //    for(let i=1; i<=2 ; i++){
+    //
+    //         switch(i){
+    //            case 1:
+    //                 schId = schRecommendInput1.value;
+    //                 break;
+    //            case 2:
+    //                 schId = schRecommendInput2.value;
+    //                 break;
+    //         }
+    //         fetch(baseUrl + `activityRecommendadd/${activId}/${schId}`, {
+    //            method: 'GET'
+    //         });
+    //    }
+
 
     // if檢查cover是否有值，如果有選擇圖片，則更新activPic
     if (cover) {
@@ -114,7 +150,7 @@ submitBtn.addEventListener('click', async function (event) {
     }
 
     try {
-        const response = await fetch(`http://localhost:8080/u-and-me/update/${activId}`, {
+        const response = await fetch(baseUrl + `update/${activId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -149,7 +185,7 @@ submitBtn.addEventListener('click', async function (event) {
 // 刪除 document獲取當前頁面各種元素
 document.getElementById("deleteButton").addEventListener("click", async function () {
     try {
-        const response = await fetch(`http://localhost:8080/u-and-me/delete/${activId}`, {
+        const response = await fetch(baseUrl + `delete/${activId}`, {
             method: 'DELETE',
         });
 
@@ -177,20 +213,20 @@ document.getElementById("deleteButton").addEventListener("click", async function
 const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 const logoutBtn_el = document.getElementById("logOut");
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-});if (response.ok) {
-                              Swal.fire({
-                                             icon: 'success',
-                                             title: '管理員登出成功',
-                                             text: '',
-                                             confirmButtonText: '確定'
-                          }).then(()=>{
-                            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
-                          })
-                        // location.reload();
-                    } 
+    const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }); if (response.ok) {
+        Swal.fire({
+            icon: 'success',
+            title: '管理員登出成功',
+            text: '',
+            confirmButtonText: '確定'
+        }).then(() => {
+            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+        })
+        // location.reload();
+    }
 });

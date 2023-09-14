@@ -3,8 +3,12 @@ package tw.idv.cha102.g7.activity.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tw.idv.cha102.g7.activity.entity.Activity;
+import tw.idv.cha102.g7.activity.entity.DTO.ActivitySchRecommend;
+import tw.idv.cha102.g7.activity.entity.DTO.ActivitySchRecommendId;
 import tw.idv.cha102.g7.activity.repository.ActivityRepository;
+import tw.idv.cha102.g7.activity.repository.ActivitySchRecommendRepository;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,9 +17,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     private ActivityRepository repository;
+    @Autowired
+    private ActivitySchRecommendRepository RecommendRepository;
 
 
-    public Activity getById(Integer activId){
+    public Activity getById(Integer activId) {
         Activity activity = repository.findById(activId).orElse(null);
         return activity;
     }
@@ -63,4 +69,52 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
 
+    @Override
+    public List<Integer> findSchRecommendId(Integer activId) {
+        List<ActivitySchRecommend> allId = RecommendRepository.findAll();
+        List<Integer> SchRecommendId = new ArrayList<>();
+        for (ActivitySchRecommend row : allId) {
+            if (row.getActivrecommendId().getActivId().equals(activId)) {
+                Integer recommendschId = row.getActivrecommendId().getSchId();
+                SchRecommendId.add(recommendschId);
+            }
+        }
+        return SchRecommendId;
+    }
+
+    @Override
+    public void add(ActivitySchRecommend activitySchRecommend) {
+
+    }
+
+    @Override
+    public void SchRecommendadd(Integer activId, Integer schId) {
+        ActivitySchRecommendId activitySchRecommendId = new ActivitySchRecommendId();
+        activitySchRecommendId.setActivId(activId);
+        activitySchRecommendId.setSchId(schId);
+        ActivitySchRecommend activitySchRecommend = new ActivitySchRecommend();
+        activitySchRecommend.setActivrecommendId(activitySchRecommendId);
+        RecommendRepository.save(activitySchRecommend);
+    }
+
+    @Override
+    public void SchRecommendedit(Integer activId, Integer schId, ActivitySchRecommendId activitySchRecommendId) {
+//         找原本的ActivitySchRecommendId
+        ActivitySchRecommendId activitySchRecommendIdOrigin = new ActivitySchRecommendId(schId, activId);
+        // 找出來的結果，需要修改的資料
+        ActivitySchRecommend activitySchRecommend = RecommendRepository.findById(activitySchRecommendIdOrigin).orElse(null);
+
+        // 開始修改
+
+        activitySchRecommend.setActivrecommendId(activitySchRecommendId);
+
+
+        RecommendRepository.save(activitySchRecommend);
+        RecommendRepository.deleteById(activitySchRecommendIdOrigin);
+
+    }
+
+
 }
+
+

@@ -21,6 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
             activityDesElement.textContent = activityDetail.activCon;
             activityPicElement.src = dataurl
 
+            const response2 = await fetch(`http://localhost:8080/u-and-me/activityRecommend/${activId}`);
+            const recommends = await response2.json();
+
+            const linkElement1 = document.getElementById("link1");
+            const linkElement2 = document.getElementById("link2");
+
+            if (recommends.length >= 2) {
+
+                linkElement1.href = `../schedule/myScheduleEdit.html?schId=${recommends[0]}`;
+                linkElement2.href = `../schedule/myScheduleEdit.html?schId=${recommends[1]}`;
+            }
 
         } catch (error) {
             console.error('Error fetching activity detail:', error);
@@ -31,29 +42,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-//讀不出來----------------------------------------------------------------
 
-document.addEventListener("DOMContentLoaded", function () {
-    fetchRandomNews();
-});
-
-async function fetchRandomNews() {
-    try {
-        const response = await fetch('http://localhost:8080/u-and-me/activityavailable');
-        const randomNews = await response.json();
-
-        const cardContainers = document.querySelectorAll('.media.post_item');
-
-        randomNews.forEach((item, index) => {
-            const cardContainer = cardContainers[index];
-            const cardImg = cardContainer.querySelector('img.postImage'); // 修正选择器
-            const cardTitle = cardContainer.querySelector('.postTitle');
-
-            const dataurl = `data:image/png;base64,${item.activPic}`;
-            cardImg.src = dataurl;
-            cardTitle.textContent = item.activName;
-        });
-    } catch (error) {
-        console.error('Error fetching random activity:', error);
-    }
-}

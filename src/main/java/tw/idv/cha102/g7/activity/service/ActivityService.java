@@ -1,6 +1,8 @@
 package tw.idv.cha102.g7.activity.service;
 
 import tw.idv.cha102.g7.activity.entity.Activity;
+import tw.idv.cha102.g7.activity.entity.DTO.ActivitySchRecommend;
+import tw.idv.cha102.g7.activity.entity.DTO.ActivitySchRecommendId;
 
 import java.util.List;
 
@@ -31,5 +33,11 @@ public interface ActivityService {
 
     public List<Activity> findAvailableActivity();
 
+    public List<Integer> findSchRecommendId(Integer activId);
 
+    void add(ActivitySchRecommend activitySchRecommend);
+
+    public void SchRecommendadd(Integer activId, Integer schId);
+
+    void SchRecommendedit(Integer activId, Integer schId, ActivitySchRecommendId activitySchRecommendId);
 }

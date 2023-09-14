@@ -73,3 +73,7 @@
      color: #aaa;
      font-style: italic;
 }
+
+.form-control{
+    background: #fff0;
+}
