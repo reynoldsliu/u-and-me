@@ -469,6 +469,10 @@
                                                     <option value="政府單位">政府單位</option>
                                                     <option value="其他分類">其他分類</option>
                                                 </select>
+                                                <div class="attrSearch-btn">
+                                                    <button type="button" class="btn btn-success"
+                                                        id="attrSearch-btn">搜尋</button>
+                                                </div>
                                                 <!-- ------------------------------------------------------- -->
                                             </div>
                                             <!-- 終點景點 -->
@@ -486,10 +490,7 @@
                                                     </select>
                                                 </div> -->
                                             <!-- 搜尋按鈕 -->
-                                            <!-- <div class="attrSearch-btn">
-                                                    <button type="button" class="btn btn-success"
-                                                        id="attrSearch-btn">搜尋</button>
-                                                </div> -->
+
                                         </div>
                                         <!-- 景點間總距離(隱藏不顯示) -->
                                         <div id="totalDistance"></div>
@@ -1144,9 +1145,9 @@
         //-----------------------------------------------------------------------------------
         //Reynolds
         const attrTypeSearch_el = document.getElementById("attrType");
-        attrTypeSearch_el.addEventListener("change",async function(){
+        attrTypeSearch_el.addEventListener("change", async function () {
             const searchType = attrTypeSearch_el.value;
-            const response = await fetch(baseURL+`getAttrsByType/`+searchType);
+            const response = await fetch(baseURL + `getAttrsByType/` + searchType);
             const attrList = await response.json();
             attrTypeSearch_el.options[0].disabled = true;
             // 清空景點收藏清單插入處所有的資料
@@ -1197,7 +1198,7 @@
             }
 
         })
-        
+
         //-----------------------------------------------------------------------------------
         //********************************************更改結束***********************************************
 
@@ -1458,7 +1459,61 @@
             });
         }
 
+        //--------------------------------------------------------------------
+        //Reynolds
+        const attrSearchbtn_el = document.getElementById("attrSearch-btn");
+        attrSearchbtn_el.addEventListener("click", async function () {
+            const response = await fetch(baseURL + `getAllAttr`);
+            const attrs = await response.json();
+            const attrList = attrs.body;
+            console.log(attrList);
+            attrSearchListInsert_el.innerHTML = "";
 
+            // 加入async試試看(找出每一個景點)
+            for (let attr of attrList) {
+
+                // 景點的第一張圖片編號、景點的第一張圖片
+                const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attr.attrId);
+                const attrPicList = await responseOfAttrFirstPic.json();
+                console.log(attrPicList);
+                const pics = attrPicList.attrPic;
+                let picInput;
+
+                if (!pics[0]) {
+                    picInput = pic;// pic.js base64
+                    // 如果 pics[0] 是空值，使用 "replace"
+                } else {
+                    picInput = pics[0].attrPicData;
+                }
+
+                // 動態生成每一個景點資訊框
+                let row = document.createElement("div");
+                row.innerHTML = `
+                <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attr.attrId})" id="attrId${attr.attrId}">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <div class="attrCardBody">
+                                <h5 class="attrName">
+                                    <div id="attrName">
+                                        ${attr.attrName}
+                                        </div>
+                                        </h5>
+                                        </div>
+                                        </div>
+                                        <div class="attrPic col-md-4">
+                                            <img src="data: image/jpeg;base64,${picInput}"
+                                            class="img-fluid rounded-end" alt="..."
+                                            style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                                            </div>
+                                            </div>
+                                            </div>`;
+
+                attrSearchListInsert_el.appendChild(row);
+            }
+
+        })
+
+        //--------------------------------------------------------------------
     </script>
 
 </body>

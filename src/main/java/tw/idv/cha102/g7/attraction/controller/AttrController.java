@@ -105,10 +105,8 @@ public class AttrController {
 
     //Spring MVC html轉向寫法
     @RequestMapping("/getAllAttr")
-    public List<Attraction> getAllAttr(/*Model model*/) {
-        List<Attraction> attraction = attrService.getAll();
-//        model.addAttribute("attractions", attraction);
-        return attraction;
+    public ResponseEntity<List<Attraction>> getAllAttr(/*Model model*/) {
+        return new ResponseEntity(attrService.getAll(),HttpStatus.OK);
     }
 
     @RequestMapping("/getAttrByName/{attrName}")

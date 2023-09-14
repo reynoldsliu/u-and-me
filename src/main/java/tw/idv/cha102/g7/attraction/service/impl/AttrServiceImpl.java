@@ -39,8 +39,16 @@ public class AttrServiceImpl implements AttrService {
 
 
     @Override
-    public List<Attraction> getAll() {
-        return attrRepository.findAll();
+    public ResponseEntity<List<Attraction>> getAll() {
+        List<Attraction> attractions = attrRepository.findAll();
+        if(attractions==null)
+            return new ResponseEntity(new ArrayList<>(),HttpStatus.OK);
+        for(Attraction attraction:attractions){
+            if(attraction.getAttrSta()==0){
+                attractions.remove(attraction);
+            }
+        }
+        return new ResponseEntity<>(attractions,HttpStatus.OK);
     }
 
     @Override

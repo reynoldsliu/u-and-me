@@ -17,7 +17,7 @@ public interface AttrService {
      *
      * @return List<Attraction>一組Attraction
      */
-    List<Attraction> getAll();
+    ResponseEntity<List<Attraction>> getAll();
 
     void setSta(Integer attrId, Short attrSta);
 
