@@ -171,12 +171,12 @@
                 </a>
             </li>
             <li>
-                <a href="../attraction/attractionCollection.html">
-                    <svg class="bi me-2" width="16" height="16">
-                        <use xlink:href="#speedometer2"/>
-                    </svg>
-                    景點
-                </a>
+              <a href="../attraction/attrFindAll.html">
+                <svg class="bi me-2" width="16" height="16">
+                    <use xlink:href="#speedometer2"/>
+                </svg>
+                景點
+            </a>
             </li>
    
             <li>
@@ -241,7 +241,7 @@
           <li class="breadcrumb-item active" aria-current="page">景點</li>
         </ol>
       </nav>
-      <div style="display: flex; margin-left: 250px;">
+      <div style="display: flex;">
         <a href="../attraction/attrFindAll.html">
           <button class="goAttrBtn">景點列表</button>
         </a>
@@ -748,6 +748,28 @@
       })
       
     }
+     // 登出按鈕
+const logoutBtn_el = document.getElementById("logOut");
+const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+logoutBtn_el.addEventListener("click", async function () {
+  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+});if (response.ok) {
+                              Swal.fire({
+                                             icon: 'success',
+                                             title: '管理員登出成功',
+                                             text: '',
+                                             confirmButtonText: '確定'
+                          }).then(()=>{
+                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                          })
+                        // location.reload();
+                    } 
+});
+
   </script>
 </body>
 

@@ -209,4 +209,23 @@ window.addEventListener("load", function (e) {
             }
             location.reload();
    })
-
+// 登出按鈕
+const logoutBtn_el = document.getElementById("logOut");
+logoutBtn_el.addEventListener("click", async function () {
+  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+});if (response.ok) {
+                              Swal.fire({
+                                             icon: 'success',
+                                             title: '管理員登出成功',
+                                             text: '',
+                                             confirmButtonText: '確定'
+                          }).then(()=>{
+                            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+                          })
+                        // location.reload();
+                    } 
+});
