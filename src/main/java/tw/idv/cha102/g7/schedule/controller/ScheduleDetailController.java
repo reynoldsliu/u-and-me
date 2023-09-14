@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
 import tw.idv.cha102.g7.schedule.entity.ScheduleDetail;
 import tw.idv.cha102.g7.schedule.service.ScheduleDetailService;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
@@ -12,7 +11,7 @@ import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 
 import java.util.List;
 
-// 查看行程詳情
+
 @CrossOrigin
 @RestController
 @RequestMapping("/schDetails")
@@ -69,17 +68,9 @@ public class ScheduleDetailController {
         }
     }
 
-
     @RequestMapping("/addOne")
     public ResponseEntity<?> addOneDetail(@RequestBody ScheduleDetail scheduleDetail) {
         return new ResponseEntity(detailService.addDetail(scheduleDetail), HttpStatus.OK);
     }
-
-    // 見ScheduleManageController.java
-    // 查詢單一行程詳細資訊(包含行程、 行程標籤、行程細節)後，對行程內容進行修改(增、刪、改、查)
-    // 新增行程天數或是移動行程天數時，要能夠調整對應行程日期
-    // 行程細節中起始時間、停留時間及交通方式變動時，時間要能夠重新調整、排序
-    // 複製行程細節時，向下插入複製的行程細節後，調整行程細節排序
-
 
 }

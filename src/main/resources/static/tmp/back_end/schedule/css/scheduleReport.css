@@ -100,7 +100,7 @@ main {
 
 div a {
   display: block;
-  padding: 0.5rem 1rem; 
+  padding: 0.5rem 1rem;
   text-decoration: none;
   transition: color .15s;
   color: beige;
@@ -109,15 +109,62 @@ div a {
 ul li a {
   color: beige;
 }
+
 a:hover,
 a:focus,
 a:active {
   color: #ebd0be;
 }
 
-nav div{
+nav div {
   text-align: center;
- 
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+div.Idrow {
+  margin-bottom: 10px;
+}
+
+div.Idrow>span {
+  width: 30px;
+  height: 35px;
+  margin-left: 20px;
+  font-size: 1.2rem;
+}
+
+div.Idrow>span:first-child {
+  margin-left: 0;
+}
+
+textarea#repDesc {
+  height: 250px;
+  resize: none;
+}
+
+select#schPub {
+  width: 200px;
+  float: left;
+  position: absolute;
+  top: 55px;
+  left: 150px;
+}
+
+td {
+  text-align: center;
+  vertical-align: middle;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');

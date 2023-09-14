@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tw.idv.cha102.g7.schedule.controller.exception.ScheduleNotFoundException;
-import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleReport;
 import tw.idv.cha102.g7.schedule.service.ScheduleReportService;
 
@@ -106,11 +104,13 @@ public class ScheduleReportController {
      * 1: 已處理,
      * 2: 已撤銷
      */
-    @PutMapping("/modifySta/{schRepId}")
-    public ResponseEntity<?> modifyStatus(@PathVariable Integer schRepId,
+    @PutMapping("/modifySta/{schRepId}/{schPub}")
+    public ResponseEntity<?> modifyStatus(HttpServletRequest request,
+                                          @PathVariable Integer schRepId,
+                                          @PathVariable Byte schPub,
                                           @RequestBody ScheduleReport schReport) {
-            reportService.modifyStatus(schRepId, schReport);
-            return ResponseEntity.ok().build();
+            reportService.modifyStatus(request,schRepId,schPub,schReport);
+            return ResponseEntity.ok("更改成功!");
     }
 
 

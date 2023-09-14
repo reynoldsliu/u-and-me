@@ -68,14 +68,4 @@ public class ScheduleDetailServiceImpl implements ScheduleDetailService {
     public int deleteDetailsInSch(Integer schId) {
         return detailRepository.deleteBySchId(schId);
     }
-
-//    @Override
-//    public ScheduleDetailsDTO findAllDetailsBySchId(Integer schId) {
-//        ScheduleDetailsDTO dto = new ScheduleDetailsDTO();
-//        Object[] objects = {};
-//        scheduleRepository.findById(schId);
-//        detailRepository.findBySchId(schId);
-//
-//        return null;
-//    }
 }

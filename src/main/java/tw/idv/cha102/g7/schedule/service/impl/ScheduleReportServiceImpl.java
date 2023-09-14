@@ -3,6 +3,7 @@ package tw.idv.cha102.g7.schedule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleReport;
 import tw.idv.cha102.g7.schedule.repo.ScheduleReportRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
@@ -27,8 +28,7 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
         HttpSession session = request.getSession();
         Integer memId = parseInt(session.getAttribute("memberId").toString());
         scheduleRep.setMemId(memId);
-        ScheduleReport report = reportRepository.save(scheduleRep);
-        hideById(report.getSchId());
+        reportRepository.save(scheduleRep);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
     }
 
     @Override
-    public  ScheduleReport findBySchRepId(Integer schRepId){
+    public ScheduleReport findBySchRepId(Integer schRepId) {
         ScheduleReport report = reportRepository.findById(schRepId).orElse(null);
         return report;
     }
@@ -62,30 +62,31 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
     }
 
     @Override
-    public void modifyStatus(Integer schRepId, ScheduleReport schReport) {
+    public void modifyStatus(HttpServletRequest request, Integer schRepId, Byte schPub, ScheduleReport schReport) {
+        HttpSession session = request.getSession();
+        Integer hostId = parseInt(session.getAttribute("hostId").toString());
         var existReport = reportRepository.findById(schRepId);
         if (existReport.isPresent()) {
+            // 存入更改的檢舉處理狀態
             existReport.get().setSchRepSta(schReport.getSchRepSta());
-            existReport.get().setHostId(schReport.getHostId());
+            // 存入修改檢舉處理狀態的管理員id
+            existReport.get().setHostId(hostId);
             reportRepository.save(existReport.get());
+        }
+
+        // 存入對被檢舉的行程公開權限處理
+        Schedule reportSch = scheduleRepository.findById(schReport.getSchId()).orElse(null);
+        if (reportSch != null) {
+            reportSch.setSchPub(schPub);
+            scheduleRepository.save(reportSch);
         }
     }
 
-    // 要刪除被參照到的行程前，其關聯FK的資料要先全數清空
-    // 被檢舉的行程不存在，要怎麼處理行程檢舉清單中，行程ID關聯的問題?
     @Override
     @Transactional
     public void deleteReportedSchedule(Integer schId) {
         var existSchedule = scheduleRepository.findById(schId);
         if (existSchedule.isPresent()) {
-            // TODO
-            // 刪除關聯到的行程標籤清單
-            // 刪除關聯到的行程細節
-            // 刪除關聯到的活動推薦行程
-            // 刪除關聯到的揪團
-            // 會員會查不到被刪除的行程
-            // 刪除了行程，要怎麼查詢行程檢舉的部分?
-            // 最後再刪除行程
             scheduleRepository.deleteById(schId);
         }
     }

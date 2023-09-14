@@ -269,12 +269,12 @@
                   <form>
                     <div class="mb-2">
                       <label for="message-text" class="col-form-label" style="float: left;">檢舉內容描述:</label>
-                      <textarea class="form-control" id="repDesc"></textarea>
+                      <textarea class="form-control" id="repDesc" style="height: 300px;"></textarea>
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" id="confirm" onclick="sunmitRep()">檢舉提交</button>
+                  <button type="button" class="btn btn-primary" id="confirm" onclick="sunmitRep()" data-bs-dismiss="modal">檢舉提交</button>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
                 </div>
               </div>

@@ -84,7 +84,7 @@ async function fetchPublicScheduleList(URL, page) {
                 </div>
                 <div class="addReport" id="addReport${schedule.schId}" onclick="addReport(${schedule.schId})" onmouseover="hint(${schedule.schId})"
                 onmouseout="hint(${schedule.schId})">
-                    <i class="fa-solid fa-triangle-exclamation report"></i>
+                    <i class="fa-solid fa-triangle-exclamation report" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                     <div class="addReportHint -off">我要檢舉</div>
                 </div>
                 <div class="card-body">
@@ -315,7 +315,7 @@ function hint(schId) {
   }
 }
 
-const repDesc_el = document.getElementById('repDesc');
+const repDesc_el = document.getElementById("repDesc");
 
 
 // 檢舉行程
@@ -328,10 +328,14 @@ function addReport(schId) {
   // 二、登入會員可發起檢舉，要填寫檢舉燈箱(還沒做燈箱...QAQ)
 }
 
-function sunmitRep(){
+function sunmitRep() {
+  console.log(repDesc_el);
+  console.log(repDesc_el.value);
+  console.log(id);
+
   const data = {
     schId: id,
-    schrep_con: repDesc_el.innerHTML
+    schRepCon: repDesc_el.value
   }
 
   fetch(baseURL + 'schRep/member/add', {
@@ -341,13 +345,16 @@ function sunmitRep(){
     method: 'POST',
     body: JSON.stringify(data)
   }).then(response => {
+
+    repDesc_el.value = '';
+
     if (response.status == 401) {
       Swal.fire({
-          icon: 'error',
-          title: '尚未登入',
-          showCancelButton: true
+        icon: 'error',
+        title: '尚未登入',
+        showCancelButton: true
       }).then(() => {
-          this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+        this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
       })
     }
   })
