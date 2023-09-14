@@ -514,16 +514,22 @@
                 body: JSON.stringify(cartList)
             }).then(resp => resp.json())
               .then(addcart =>{
-                    if(addcart.cartListId === null){
-                        //輸入資訊暫存頁面+數量(登入後導回才會導回該商品頁面，以及看到先前增減的商品數量)
-                        //這邊要再測試是否可正常跳轉
-                        window.location.href = `${baseUrl}tmp/Front/member/memberLogin.html`;
-                    }
-                    Swal.fire(
+                    if(addcart.cartListId === null || addcart.status == 401){
+                            Swal.fire({
+                                icon: 'error',
+                                title: '尚未登入',
+                                showCancelButton: true
+                            }).then(() => {
+                                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+                            })
+                    }else{
+                        Swal.fire(
                         '新增成功',
                         '商品已加入購物車!',
                         'success'
                         )
+                    }
+                
               })
         }
            
