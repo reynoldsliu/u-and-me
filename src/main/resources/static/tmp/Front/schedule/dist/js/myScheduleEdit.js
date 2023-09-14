@@ -1181,12 +1181,12 @@ myAttrDone_btn_el.onclick = async () => {
         attrAddr: myAttrAddr,
         attrLat: attrLat,
         attrLon: attrLon,
-        attrBussTime: inputAttrBussTime,
+        attrBussTime: '尚無資料',
         attrVeriSta: 1,
         attrSta: 1,
         attrCostRange: 2,
         attrRep: 'no report record',
-        attrIlla: '暫無描述'
+        attrIlla: '尚無資料'
     };
     const response = await fetch(baseURL + `attrPriv/createPrivateAttr`, {
         method: 'POST',
