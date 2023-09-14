@@ -54,6 +54,23 @@ let cover;
 
 //===================使用到的元素結束===================
 
+// 管理員filter
+const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+// <!--網頁載入後執行-->
+
+
+window.addEventListener("load", function (e) {
+this.fetch(baseUrL + 'host/match', {
+    method: 'GET'
+}).then(response => {
+    if(response.status == 401){
+
+            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+
+    }
+});
+})
+
 //網頁載入後執行
 document.addEventListener("DOMContentLoaded", function () {
     let groupId;
@@ -308,3 +325,24 @@ async function fetchMyGroup(groupId) {
     
 }
 //===================取得原揪團資料結束===================
+// 登出按鈕
+const logoutBtn_el = document.getElementById("logOut");
+// const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+logoutBtn_el.addEventListener("click", async function () {
+  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+});if (response.ok) {
+                              Swal.fire({
+                                             icon: 'success',
+                                             title: '管理員登出成功',
+                                             text: '',
+                                             confirmButtonText: '確定'
+                          }).then(()=>{
+                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                          })
+                        // location.reload();
+                    } 
+});

@@ -166,6 +166,15 @@ button.insert{
 .dataTables_info{
   margin: 15px 0px;
 }
+.goQABtn{
+
+  background-color: #1D3124;
+  color:beige;
+  border-radius: 5px;
+  padding:2px 6px;
+border: none;
+    
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap');
 

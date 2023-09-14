@@ -528,7 +528,15 @@ a.add img {
 .closess i {
     display: none;
 }
+.goQABtn{
 
+    background-color: #1D3124;
+    color:beige;
+    border-radius: 5px;
+    padding:2px 6px;
+  border: none;
+      
+  }
 
 
 /*以下應該用不到*/

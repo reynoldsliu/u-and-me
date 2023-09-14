@@ -9,6 +9,23 @@ const gStaVal_el = document.getElementById('gStaVal');
 const confirm_el = document.getElementById('confirm');
 
 
+// 管理員filter
+const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+// <!--網頁載入後執行-->
+
+
+window.addEventListener("load", function (e) {
+this.fetch(baseUrL + 'host/match', {
+    method: 'GET'
+}).then(response => {
+    if(response.status == 401){
+
+            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+
+    }
+});
+})
+
 /* global bootstrap: false */
 $(function () {
   'use strict'
@@ -311,22 +328,22 @@ confirm_el.addEventListener('click', async function (e) {
 
 // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+// const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 logoutBtn_el.addEventListener("click", async function () {
   const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-  }); if (response.ok) {
-    Swal.fire({
-      icon: 'success',
-      title: '管理員登出成功',
-      text: '',
-      confirmButtonText: '確定'
-    }).then(() => {
-      location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
-    })
-    // location.reload();
-  }
+});if (response.ok) {
+                              Swal.fire({
+                                             icon: 'success',
+                                             title: '管理員登出成功',
+                                             text: '',
+                                             confirmButtonText: '確定'
+                          }).then(()=>{
+                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                          })
+                        // location.reload();
+                    } 
 });
