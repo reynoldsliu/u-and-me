@@ -93,7 +93,7 @@ const attrTypeName = document.querySelector("#attrTypeName");
 // 景點地址
 const attrAddress = document.querySelector("#attrAddress");
 // 景點營業時間(只抓第一個標籤)
-const attrBussTime = document.querySelector(".attrBussTime");
+const attrBussTime = document.querySelector("#attrBussTimeMon");
 // 景點消費價位(低中高價位)
 const attrCostRange = document.querySelector("#attrCostRange");
 // 景點描述
@@ -907,12 +907,13 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 更改景點詳情內容
     const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrId);
     const attr = await responseOfOneAttr.json();
+    console.log(attr);
     attrIdText_el.innerHTML = attrId;
     attrNameTitle.innerText = attr.attrName;
     attrComScore.innerText = generateRandomNumber();
     attrTypeName.innerText = attr.attrType;
     attrAddress.innerText = attr.attrAddr;
-    attrBussTime.innerText = bussTimeString(attr.attrBussTime);
+    attrBussTime.innerText = bussTimeString(attr.attrBussTime)?bussTimeString(attr.attrBussTime):attr.attrBussTime;
     attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
     attrIlla.innerText = attr.attrIlla;
 
@@ -1204,22 +1205,74 @@ function createImageContainer_preview(pic) {
 
 // 自訂景點內容完成後，顯示新增完成警示框
 myAttrDone_btn_el.onclick = async () => {
+    let inputAttrBussTime;
+    /////////////////////////////////////////////////////////////////////////////////////
+    let options = {
+        // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
+    };
+    
+    let siteInput1 = document.querySelector('#myAttrAddr');
+    // let siteInput1 = myAttrAddr_el;
 
+    var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
+    // 地址的輸入框，值有變動時執行
+    autocomplete1.addListener('place_changed', async () => {
+        this.place = autocomplete1.getPlace(); // 地點資料存進place
+
+        // 確認回來的資料有經緯度
+        if (this.place.geometry) {
+
+            // 改變map的中心點
+            let searchCenter = this.place.geometry.location;
+
+            // panTo是平滑移動、setCenter是直接改變地圖中心
+            this.map.panTo(searchCenter);
+
+            attrLat = this.place.geometry.location.lat();
+            attrLon = this.place.geometry.location.lng();
+            inputAttrBussTime = await getBussTime(place.place_id);
+
+            console.log("LAT: " + attrLat);
+            console.log("LON: " + attrLon);
+
+            // 在搜尋結果的地點上放置標記
+            let marker = new google.maps.Marker({
+                // icon: {
+                //     path: google.maps.SymbolPath.CIRCLE,
+                //     scale: 10
+                // },
+                position: searchCenter,
+                map: this.map
+            });
+
+            // info window
+            let infowindow = new google.maps.InfoWindow({
+                content: this.place.formatted_address
+            });
+            infowindow.open(this.map, marker);
+        }
+    });
+    /////////////////////////////////////////////////////////////////////////////////////
     let myAttrName = myAttrName_el.value.trim();
     let myAttrAddr = myAttrAddr_el.value.trim();
+    const attrIllaInput = document.getElementById("attrIllaInput");
+    let attrIlla = attrIllaInput.value;
+    const attrTypeInput = document.getElementById("attrTypeInput");
+    let attrType = attrTypeInput.value;
     const picFiles = attrPicFilesInput.files;
 
     const newAttr = {
         attrName: myAttrName,
         attrAddr: myAttrAddr,
+        attrType: attrType,
         attrLat: attrLat,
         attrLon: attrLon,
-        attrBussTime: '尚無資料',
+        attrBussTime: inputAttrBussTime?inputAttrBussTime:"尚無資料",
         attrVeriSta: 1,
         attrSta: 1,
         attrCostRange: 2,
         attrRep: 'no report record',
-        attrIlla: '尚無資料'
+        attrIlla: attrIlla?attrIlla:'尚無資料'
     };
     const response = await fetch(baseURL + `attrPriv/createPrivateAttr`, {
         method: 'POST',
