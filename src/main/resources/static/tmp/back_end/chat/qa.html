@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>UandMe</title>
+  <link rel="shortcut icon" href="../assets/dist/img/favicon.ico" type="image/x-icon">
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sidebars/">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -121,104 +122,116 @@
 </svg>
 
 <nav class="navbar navbar-light  shadow-sm  " style="background-color: #ebd0be">
-
+  <!-- 這個是讓我對齊用的隱藏小方框 -->
   <div class="container-fluid" style="padding-left:0px;">
-    <div style="width: 200px;height: 20px;">
-    </div>
-    <a class="navbar-brand  " href="#" style="margin:auto;font-size: 30px;display: inline-block">後台管理系統</a>
-    <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
-         data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://www.holoface.photos/static/images/products/idphoto01.jpg" alt="" width="32" height="32"
-             class="rounded-circle me-2">
-        <strong>Penny</strong>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li>
-          <hr class="dropdown-divider">
-        </li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
-      </ul>
-    </div>
+      <div style="width: 200px;height: 20px;">
+      </div>
+      <a class="navbar-brand  " href="#" style="margin:auto;font-size: 30px; font-weight:bolder; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;display: inline-block">後台管理系統</a>
+      <div class="dropdown">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+             id="dropdownUser1"
+             data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="../assets/dist/img/hostIcon.png" alt="" width="32"
+                   height="32"
+                   class="rounded-circle me-2">
+          </a>
+          <!-- 管理員的下拉式選單 -->
+          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+              <li><a class="dropdown-item" href="../../Front/activity/ActivityIndex.html">返回首頁</a></li>
+              <li>
+                  <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" id="logOut" href="#">登出</a></li>
+          </ul>
+      </div>
   </div>
 
 </nav>
+
 <main>
   <div class="d-flex flex-column flex-shrink-0 p-3  "
        style="width: 200px;background-color: #1D3124;min-height: 100vh;">
-    <!-- 左側功能列表 -->
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="../member/member.html">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#home" />
-          </svg>
-          會員
-        </a>
-      </li>
-      <li>
-        <a href="../../attraction/attraction.html">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#speedometer2" />
-          </svg>
-          景點
-        </a>
-      </li>
-      <li>
-        <a href="../schedule/schedule.html">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#table" />
-          </svg>
-          行程規劃
-        </a>
-      </li>
-      <li>
-        <a href="../../activity/activity.html">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#grid" />
-          </svg>
-          活動
-        </a>
-      </li>
-      <li>
-        <a href="../article/article.html">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#speedometer2" />
-          </svg>
-          論壇
-        </a>
-      </li>
-      <li>
-        <a href="/chat.html">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#people-circle" />
-          </svg>
-          客服
-        </a>
-      </li>
-      <li>
-        <a href="../group/group.html">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#table" />
-          </svg>
-          揪團
-        </a>
-      </li>
-      <li>
-        <a href="../shop/shop.html">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#grid" />
-          </svg>
-          商城
-        </a>
-      </li>
-    </ul>
-    <hr>
+      <!-- 左側功能列表 -->
+      <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+              <a href="../member/member.html">
+                  <svg class="bi me-2" width="16" height="16">
+                      <use xlink:href="#home"/>
+                  </svg>
+                  會員
+              </a>
+          </li>
+          <li class="nav-item">
+              <a href="../host/host.html">
+                  <svg class="bi me-2" width="16" height="16">
+                      <use xlink:href="#home"/>
+                  </svg>
+                  管理員
+              </a>
+          </li>
+          <li>
+            <a href="../attraction/attrFindAll.html">
+              <svg class="bi me-2" width="16" height="16">
+                  <use xlink:href="#speedometer2"/>
+              </svg>
+              景點
+          </a>
+          </li>
+ 
+          <li>
+              <a href="../schedule/schedule.html">
+                  <svg class="bi me-2" width="16" height="16">
+                      <use xlink:href="#table"/>
+                  </svg>
+                  行程規劃
+              </a>
+          </li>
+          <li>
+              <a href="../group/hostGroup.html">
+                  <svg class="bi me-2" width="16" height="16">
+                      <use xlink:href="#table"/>
+                  </svg>
+                  揪團
+              </a>
+          </li>
+          <li>
+              <a href="../shop_modified/productList.html">
+                  <svg class="bi me-2" width="16" height="16">
+                      <use xlink:href="#grid"/>
+                  </svg>
+                  商城
+              </a>
+          </li>
+          <li>
+              <a href="../article/ArtFindAll.html">
+                  <svg class="bi me-2" width="16" height="16">
+                      <use xlink:href="#speedometer2"/>
+                  </svg>
+                  論壇
+              </a>
+          </li>
+          <li>
+              <a href="../activity/activityList.html">
+                  <svg class="bi me-2" width="16" height="16">
+                      <use xlink:href="#grid"/>
+                  </svg>
+                  活動
+              </a>
+          </li>
+          <li>
+              <a href="../chat/backchat.html">
+                  <svg class="bi me-2" width="16" height="16">
+                      <use xlink:href="#people-circle"/>
+                  </svg>
+                  客服
+              </a>
+          </li>
+          
+      </ul>
+      <hr>
 
   </div>
+
 
   <div class="d-flex flex-column flex-shrink-0 p-3  " style=" width: calc(100% - 200px);background-color: #F6F4E8;">
     <nav aria-label="breadcrumb">
