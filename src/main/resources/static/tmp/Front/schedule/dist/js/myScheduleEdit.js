@@ -1355,6 +1355,6 @@ addToSchedule_btn_el.addEventListener('click', async function () {
 });
 
 
-hideRemoveCoolectionBtn(memId, attrId){
+// hideRemoveCoolectionBtn(memId, attrId){
 
-}
+// }
