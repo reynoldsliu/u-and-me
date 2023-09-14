@@ -64,8 +64,9 @@ const viewGoogleMap = document.querySelector(".map");
 const myAttrName_el = document.querySelector("#myAttrName");
 const myAttrAddr_el = document.querySelector("#myAttrAddr");
 
-// 景點搜尋相關按鈕
+// 景點操作相關按鈕(將景點加入收藏、移除收藏、加入行程及完成自訂景點按鈕)
 const addAttrCollect_btn_el = document.querySelector(".addAttrCollect-btn");
+const removeAttrCollect_btn_el = document.querySelector(".removeAttrCollect-btn");
 const addToSchedule_btn_el = document.querySelector(".addToSchedule-btn");
 const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 
@@ -948,44 +949,12 @@ async function viewSearchResultOfOneAttr(attrId) {
 }
 
 
-
 // 關閉單一景點詳情頁面(按下叉叉時觸發)
 function closeViewAttrDetailsCard() {
     // 關閉單一景點詳情頁面
     viewAttrDetailsCard.classList.add(classSwitchOff);
     // 開啟 GOOGLE MAP(查看單一景點模式)
     viewGoogleMap.classList.remove(classMapOne);
-}
-
-// 按下加入景點收藏按鈕時跳出提示視窗
-addAttrCollect_btn_el.onclick = async () => {
-
-    // 抓取會員id
-    const response = await fetch(baseURL + `member/getMemId`);
-    const member = await response.json();
-    const memId = member.memId;
-
-    // 抓取景點id
-    let attrId = attrIdText_el.innerText;
-
-    const attrCollectionDTO = {
-        collectionId: {
-            memId: memId,
-            attrId: attrId
-        }
-    }
-    const responseCol = await fetch(baseURL + `attrCol/addAttrToCollection`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(attrCollectionDTO)
-    })
-    Swal.fire(
-        '儲存成功!',
-        '已儲存至景點收藏!',
-        'success'
-    )
 }
 
 // ================== 景點收藏 ================== //
@@ -1042,21 +1011,24 @@ async function FindAllAttrCollectionList(memId) {
 
         // 加入async試試看(找出每一個景點收藏)
         myAttrCollectList.forEach(async attrCollect => {
+            // console.log(attrCollect.attrId);
 
             // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
             // 找出每一個景點收藏中景點的資料：如景點名稱
-            const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.collectionId.attrId);
+            // const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.collectionId.attrId);
+            const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.attrId);
             const attr = await responseOfOneAttr.json();
 
             // 景點的第一張圖片編號、景點的第一張圖片
-            const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attrCollect.collectionId.attrId);
+            // const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attrCollect.collectionId.attrId);
+            const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attrCollect.attrId);
             const attrPicList = await responseOfAttrFirstPic.json();
             const pics = attrPicList.attrPic;
 
             // 動態生成每一個景點資訊框
             let row = document.createElement("div");
             row.innerHTML = `
-                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrCollect.collectionId.attrId})" id="attrId${attrCollect.collectionId.attrId}">
+                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attrCollect.attrId})" id="attrId${attrCollect.attrId}">
                     <div class="row g-0">
                         <div class="col-md-8">
                             <div class="attrCardBody">
@@ -1084,8 +1056,69 @@ async function FindAllAttrCollectionList(memId) {
 }
 
 
+// 新增景點收藏(在景點搜尋頁面)
+addAttrCollect_btn_el.onclick = async () => {
+
+    // 抓取會員id
+    const response = await fetch(baseURL + `member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
+
+    // 抓取景點id
+    let attrId = attrIdText_el.innerText;
+
+    const attrCollectionDTO = {
+        collectionId: {
+            memId: memId,
+            attrId: attrId
+        }
+    }
+    const responseCol = await fetch(baseURL + `attrCol/addAttrToCollection`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(attrCollectionDTO)
+    })
+    Swal.fire(
+        '儲存成功!',
+        '已儲存至景點收藏!',
+        'success'
+    )
+}
 
 
+// 移除景點收藏
+removeAttrCollect_btn_el.onclick = async () => {
+
+    // 抓取會員id
+    const response = await fetch(baseURL + `member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
+
+    // 抓取景點id
+    let attrId = attrIdText_el.innerText;
+
+    const collectionId = {
+        memId: memId,
+        attrId: attrId
+    }
+
+    const responseCol = await fetch(baseURL + `attrCol/removeAttrFromCollection`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(collectionId)
+    })
+    Swal.fire(
+        '移除成功!',
+        '已從景點收藏中移除此景點!',
+        'success'
+    ).then(() => {
+        FindAllAttrCollectionList(memId);
+    })
+}
 
 // ================== 自訂景點 ================== //
 // 按下自訂景點時換到自訂景點頁面
@@ -1320,3 +1353,8 @@ addToSchedule_btn_el.addEventListener('click', async function () {
     });
 
 });
+
+
+hideRemoveCoolectionBtn(memId, attrId){
+
+}
