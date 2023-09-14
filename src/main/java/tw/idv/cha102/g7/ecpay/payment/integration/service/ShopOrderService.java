@@ -68,4 +68,11 @@ public class ShopOrderService {
             }
         }
     }
+    public void updateOrdSta(Integer ordId, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Integer memId = parseInt(session.getAttribute("memberId").toString());
+        Orders orders = ordersRepository.findById(ordId).orElse(null);
+        orders.setOrdSta((byte)0);
+        ordersRepository.save(orders);
+    }
 }

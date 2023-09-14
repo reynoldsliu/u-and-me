@@ -46,4 +46,11 @@ public class ShopOrderController {
                                              HttpServletRequest request){
         return productRepository.findProdIdByOrdId(ordId);
     }
+
+    @RequestMapping("/updateOrdSta/{ordId}")
+    public ResponseEntity<?> updateOrdSta(@PathVariable Integer ordId,
+                                          HttpServletRequest request){
+        shopOrderService.updateOrdSta(ordId,request);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
