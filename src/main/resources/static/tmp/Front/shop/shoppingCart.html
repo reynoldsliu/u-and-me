@@ -253,7 +253,7 @@
                       </td> -->
                       <td class="align-middle border-bottom-0">
                         <span style="margin-left:935px;"> 運費:</span>
-                        <span class="mb-0" id="shippingFee" style="font-weight: 500; font-size: 18px; margin-left:20px;width: 100px;">80</span>
+                        <span class="mb-0" id="shippingFee" style="font-weight: 500; font-size: 18px; margin-left:20px;width: 100px;"></span>
                         <span style="margin-left:20px">元</span>
       </td>
                     </tr>
@@ -272,7 +272,7 @@
           <div class="cart-step1-footer" style="display: flex; justify-content: flex-end;">
             <div class="h4 align-self-center px-4">
               <span >總金額:</span>
-              <span class="my-text-lightblue" id="finalTotalPrice">1</span>
+              <span class="my-text-lightblue" id="finalTotalPrice">0</span>
               <span>元</span>
             </div>
             <div class="cart-continue-wrapper">
@@ -335,11 +335,26 @@
   
   <script>
     const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
-    //載入後顯示購物車清單
     const cartListContainer = document.getElementById('cartListContainer');
     const totalPriceCount = document.getElementById('totalPriceCount');
     const finalTotalPrice = document.getElementById('finalTotalPrice');
+    const shippingFee_el = document.getElementById('shippingFee');
+    //載入後顯示購物車清單
     document.addEventListener("DOMContentLoaded", function () {
+    fetch(`${baseUrl}member/match`,{
+      method:'GET'
+    }).then(response =>{
+      if (response.status == 401) {
+            Swal.fire({
+                icon: 'error',
+                title: '尚未登入',
+                showCancelButton: true
+            }).then(() => {
+                this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+            })
+        }
+    })
+
       fetchCartList();
 
     })
@@ -353,6 +368,8 @@
     }
     //拿到全部的商品資訊
     function fetchProductDetails(cartLists){
+
+
       //總計
       let toTalCount = 0; 
       for(let cartList of cartLists){
@@ -360,7 +377,10 @@
         .then(resp=> resp.json())
         .then(data=>{
 
-          
+          if(data != null || data!= undefined){
+            shippingFee_el.innerText = 80;
+          }
+
         const prodRow = document.createElement("tr");
         prodRow.style.borderBottom = "1px solid rgb(196, 204, 203)";
       
@@ -554,6 +574,7 @@
 
   </script>
   
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

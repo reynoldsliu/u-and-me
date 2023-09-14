@@ -464,15 +464,15 @@
     }
   // <!--購物車icon會根據memId跳轉到購物車詳情頁面，並將資料映射到相關欄位上-->
         async function redirectToCartPage() {
-            const resp = await fetch(`${baseUrl}member/getMemId`);
-            let respJson = await resp.json();
-            let memId = respJson.memId;
-            if(resp.status === 401){
-                window.location.href = `${baseUrl}tmp/Front/member/memberLogin.html`;
-            }else{
-                const newPageUrl = `${baseUrl}tmp/Front/shop/shoppingCart.html?memId=${memId}`;
+    //         const resp = await fetch(`${baseUrl}member/getMemId`);
+    //         let respJson = await resp.json();
+    //         let memId = respJson.memId;
+    //         if(resp.status === 401){
+    //             window.location.href = `${baseUrl}tmp/Front/member/memberLogin.html`;
+    //         }else{
+                const newPageUrl = `${baseUrl}tmp/Front/shop/shoppingCart.html`;
                 window.location.href = newPageUrl;
-            }
+    //         }
     }
 
         

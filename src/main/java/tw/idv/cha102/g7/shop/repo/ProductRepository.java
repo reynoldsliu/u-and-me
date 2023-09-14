@@ -27,6 +27,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     public Product findByProdId(Integer prodId);
 
-    @Query(value = "SELECT p.prod_id FROM orders AS o LEFT JOIN order_details AS od ON o.ord_id = od.ord_id LEFT JOIN product AS p ON p.prod_id = od.prod_id WHERE o.ord_id = ?1", nativeQuery = true)
+    @Query(value = "select p.prod_id from product AS p left join order_details AS od on p.prod_id = od.prod_id left join orders As o on o.ord_id = od.ord_id left join product_category AS pc on p.prodcat_id = pc.prodcat_id where o.ord_id = ?1 ", nativeQuery = true)
     List<Product> findProdIdByOrdId(Integer ordId);
 }

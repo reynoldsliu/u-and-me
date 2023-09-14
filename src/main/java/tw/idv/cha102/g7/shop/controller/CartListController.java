@@ -118,4 +118,9 @@ public class CartListController {
         Integer total = Integer.parseInt(obj.toString());
         return total;
     }
+
+    @GetMapping("/member/match")
+    public void memberMatch (){
+
+    }
 }

@@ -5,8 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.ecpay.payment.integration.service.ShopOrderService;
+import tw.idv.cha102.g7.shop.entity.Product;
+import tw.idv.cha102.g7.shop.repo.ProductRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/shopOrder")
@@ -16,6 +19,8 @@ public class ShopOrderController {
     @Autowired
     ShopOrderService shopOrderService;
 
+    @Autowired
+    ProductRepository productRepository;
     @PostMapping("/shopCheckout/{ordId}")
     public ResponseEntity<String> shopCheckout(@PathVariable Integer ordId){
 
@@ -33,5 +38,12 @@ public class ShopOrderController {
                                              HttpServletRequest request){
         shopOrderService.updateOrdPaySta(ordId, request);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @RequestMapping("/test/{ordId}")
+    public List<Product> test(@PathVariable Integer ordId,
+//                                             @PathVariable Integer memId,
+                                             HttpServletRequest request){
+        return productRepository.findProdIdByOrdId(ordId);
     }
 }
