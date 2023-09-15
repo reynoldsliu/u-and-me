@@ -143,9 +143,22 @@ const content_el = document.getElementById('content');
 const title_el = document.getElementById('title');
 
 content_el.addEventListener("input", function () {
-    // 检查文本内容的长度是否超过最大长度
     if (content_el.value.length > maxContentLength) {
-        // 如果超过了最大长度，截断文本内容
+        // 检查內文輸入的文字长度是否超过最大长度
+        content_el.value = content_el.value.substring(0, maxContentLength);
+        // 超過長度就砍斷
+        Swal.fire({
+            icon: 'error',
+            title: '字數超過1000！',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '知道了',
+            cancelButtonText: '關閉'
+        })
+    }
+    if (content_el.value.length < 0) {
+        // 內文不得為空值
         content_el.value = content_el.value.substring(0, maxContentLength);
 
         Swal.fire({
@@ -161,8 +174,8 @@ content_el.addEventListener("input", function () {
 });
 
 title_el.addEventListener("input", function () {
-    // 检查文本内容的长度是否超过最大长度
-    if (title_el.value.length > maxReportConLength) {
+    // 检查標題輸入的文字长度是否超过最大长度
+    if (title_el.value.length > maxTitleLength) {
         // 如果超过了最大长度，截断文本内容
         title_el.value = title_el.value.substring(0, maxTitleLength);
 
@@ -222,7 +235,7 @@ document.querySelector('#btnSubmit').addEventListener('click', () => {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // 重新导向到指定网址
-                    window.location.href = '../articleIndex/ArticleIndex.html';
+                    window.location.href = '../../article/articleindex/ArticleIndex.html';
                 }
             });
         })

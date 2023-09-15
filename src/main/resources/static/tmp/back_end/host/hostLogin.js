@@ -37,7 +37,7 @@ const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and
 
     Login = async function Login(host) {
 
-      const response = await fetch("http://localhost:8080/u-and-me/host/hostLogin", {
+      const response = await fetch(baseUrL+'host/hostLogin', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and
 const logoutBtn_el = document.getElementById("logOut");
 const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+  const response = await fetch(baseUrL+'host/hostLogout', {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
