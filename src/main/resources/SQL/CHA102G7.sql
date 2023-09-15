@@ -333,7 +333,7 @@ attr_rep varchar(500) -- deprecated
 );
 
 -- 更換有效地址Reynolds
-INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type_id, attr_buss_time, attr_cost_range, attr_rep)
+INSERT INTO attractions (attr_id, attr_veri_sta, attr_sta, attr_name, attr_addr, attr_lon, attr_lat, attr_illa, attr_type, attr_buss_time, attr_cost_range, attr_rep)
 VALUES
   (1, 1, 1, '中壢緯育', '台灣桃園市中壢區復興路緯育TibaMe附設中壢職訓中心', 121.225, 24.9576, '暫無描述', 1, '0830~1800|0830~2200', 2, 'no report record'),
   (2, 1, 1, '台北101', '台灣台北市信義區市府路台北101購物中心', 121.564, 25.0341, '暫無描述', 2, '1100~2130|1100~2130', 2, 'no report record'),
