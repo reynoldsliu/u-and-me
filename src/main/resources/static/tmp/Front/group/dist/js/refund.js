@@ -10,7 +10,7 @@ const account_el = document.getElementById('account');
 const btn_submit_el = document.getElementById('btn_submit');
 const inputReason_el = document.getElementById('inputReason');
 const inputAccount_el = document.getElementById('inputAccount');
-const inputs_el = document.querySelectorAll('.form-control');
+const inputs_el = document.querySelectorAll('.autoTab');
 
 //判斷錯誤要用的字串
 let inputReasonStr = document.createElement("span");
