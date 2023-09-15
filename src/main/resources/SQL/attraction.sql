@@ -91,9 +91,9 @@ attr_id int,
 attr_pic_data longtext
 );
 
-insert into attraction_pictures(attr_pic_id, attr_id, attr_pic_data)
-values
-(1,1,LOAD_FILE('/tomcat.jpg'));
+--insert into attraction_pictures(attr_pic_id, attr_id, attr_pic_data)
+--values
+--(1,1,LOAD_FILE('/tomcat.jpg'));
 -- select attr_pic_id from attraction_pictures where fk_attr_id = 1;
 -- delete from attraction_pictures where attr_pic_id = 1;
 -- alter table attraction_pictures drop foreign key fk_attr_id;
