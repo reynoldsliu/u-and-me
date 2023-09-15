@@ -51,9 +51,20 @@ public class ArticleCollectionController {
 //    }
 
     // 協助前端讀取收藏icon狀態
-    @RequestMapping("/CollectionExsitOrNot")
-    public short CollectionExsitOrNot(@RequestBody ArticleCollection articleCollection,HttpServletRequest request) {
+    @RequestMapping("/CollectionExsitOrNot/{articleId}")
+    public short CollectionExsitOrNot(@PathVariable Integer articleId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("memberId");
+        if (obj == null) {
+            return 0;
+        }
+        Integer memberId = parseInt(session.getAttribute("memberId").toString());
+        ArticleCollectionId articleCollectionId = new ArticleCollectionId();
+        ArticleCollection articleCollection = new ArticleCollection();
 
+        articleCollectionId.setMemId(memberId);
+        articleCollectionId.setArticleId(articleId);
+        articleCollection.setCollectionId(articleCollectionId);
         if (articleCollectionService.CollectionExsitOrNot(articleCollection) == 1) {
             return 1;
         } else {
@@ -74,7 +85,6 @@ public class ArticleCollectionController {
         Integer memberId = parseInt(session.getAttribute("memberId").toString());
         return articleCollectionService.findArticleByMemId(memberId);
     }
-
 
 
 }

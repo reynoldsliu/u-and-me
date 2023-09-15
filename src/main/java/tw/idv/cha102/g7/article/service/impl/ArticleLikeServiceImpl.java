@@ -64,6 +64,7 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
     public short LikeExsitOrNot(ArticleLike articleLike) {
         ArticleLike articleLikeId = articleLikeRepository.findById(articleLike.getLikeId()).orElse(null);
         if (articleLikeId != null) {
+            System.out.println(articleLikeId.getLikeId().getMemId());
             return 1;
         } else {
             return 0;

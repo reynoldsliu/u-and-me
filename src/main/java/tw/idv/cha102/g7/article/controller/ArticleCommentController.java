@@ -1,5 +1,6 @@
 package tw.idv.cha102.g7.article.controller;
 
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.article.entity.Article;
@@ -7,6 +8,7 @@ import tw.idv.cha102.g7.article.entity.ArticleComment;
 import tw.idv.cha102.g7.article.entity.ArticlePicture;
 import tw.idv.cha102.g7.article.entity.DTO.ArticleCollection;
 import tw.idv.cha102.g7.article.entity.DTO.ArticleLike;
+import tw.idv.cha102.g7.article.entity.DTO.ArticleLikeId;
 import tw.idv.cha102.g7.article.service.ArticleLikeService;
 import tw.idv.cha102.g7.article.service.ArticleSingleArticleService;
 
@@ -38,10 +40,9 @@ public class ArticleCommentController {
                           HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer memberId = parseInt(session.getAttribute("memberId").toString());
-        if(memberId==null)
-        {
+        if (memberId == null) {
             return 0;
-        }else{
+        } else {
             articleSingleArticleService.postComment(comment, articleId, memberId);
             return 1;
         }
@@ -86,8 +87,18 @@ public class ArticleCommentController {
 //    }
 
     // 協助前端讀取按讚狀態
-    @RequestMapping("/LikeExsitOrNot")
-    public short LikeExsitOrNot(@RequestBody ArticleLike articleLike) {
+    @RequestMapping("/LikeExsitOrNot/{articleId}")
+    public short LikeExsitOrNot(@PathVariable Integer articleId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Object object = session.getAttribute("memberId");
+        if (object == null)
+            return 0;
+        Integer memId = parseInt(object.toString());
+        ArticleLikeId articleLikeId = new ArticleLikeId();
+        ArticleLike articleLike = new ArticleLike();
+        articleLikeId.setArticleId(articleId);
+        articleLikeId.setMemId(memId);
+        articleLike.setLikeId(articleLikeId);
         if (articleLikeService.LikeExsitOrNot(articleLike) == 1) {
             return 1;
         } else {

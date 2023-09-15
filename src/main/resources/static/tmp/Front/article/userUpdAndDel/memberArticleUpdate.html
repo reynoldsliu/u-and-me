@@ -72,20 +72,22 @@
                             <div class="mb-3">
                                 <label for="acTypeId">發文看版</label>
                                 <select id="acTypeId" name="acTypeId" class="form-control">
-                                    <option value="1">全部</option>
-                                    <option value="2">商城</option>
-                                    <option value="3">行程</option>
-                                    <option value="4">揪團</option>
+                                    <option value="1">商城</option>
+                                    <option value="2">行程</option>
+                                    <option value="3">揪團</option>
                                 </select>
                             </div>
 
                             <div class="mb-3">
                                 <label for="articleTitle">文章標題</label>
+                                <span id="titleWarning" class="text-danger"></span>
                                 <input id="articleTitle" name="articleTitle" type="text" class="form-control">
                             </div>
                             <div class="mb-3 mt-4">
                                 <label for="articleContent" class="form-label">文章內容</label>
                                 <!-- 給要被傳送到後端的標籤id值 -->
+                                <span id="contentWarning" class="text-danger"></span>
+
                                 <textarea id="articleContent" name="articleContent" rows="10" type="text"
                                     class="form-control"></textarea>
                             </div>

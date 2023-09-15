@@ -6,6 +6,7 @@ const urlParams = new URLSearchParams(window.location.search);
 // 使用get方法從查詢參數中獲取名為'article_id'的值。
 const articleId = urlParams.get('articleId');
 const article_pic = urlParams.get('articleId');
+console.log(articleId);
 // const article_id = parseInt(urlParams.get('article_id'));
 let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
@@ -151,26 +152,19 @@ async function fetchArticleComment() {
 async function fetchCollectedOrNot() {
     try {
         // 控制fetch傳入網址
-        const response = await fetch(baseURL + `member/getMemId`);
-        const member = await response.json();
-        const memId = member.memId;
-        const postData = {
 
-            collectionId: {
-                memId: memId,
-                articleId: articleId
-            }
-        }
-        console.log(postData);
+        // const postData = {
+        //     articleId: articleId
+        // }
         // 使用反引号（‵‵)可以插入变量${}。若使用單引號 ('')則只能使用字符串连接，例:'Hello, ' + name + '!';
-        const url = `${baseURL}CollectionExsitOrNot`;
+        const url = `${baseURL}CollectionExsitOrNot/${articleId}`;
 
         fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(postData)
+            // body: JSON.stringify(postData)
         })
             .then(response => response.json())
             .then(data => {
@@ -215,26 +209,22 @@ async function fetchLikeOrNot() {
     try {
 
         // 控制fetch傳入網址
-        const response = await fetch(baseURL + `member/getMemId`);
-        const member = await response.json();
-        const memId = member.memId;
+        // const response = await fetch(baseURL + `member/getMemId`);
+        // const member = await response.json();
+        // const memId = member.memId;
 
-        const postData = {
-
-            likeId: {
-                memId: memId,
-                articleId: articleId
-            }
-        }
-        console.log(postData);
-        const url = `${baseURL}article_comment/LikeExsitOrNot`;
+        // const postData = {
+        //     articleId: articleId
+        // }
+        // console.log(postData);
+        const url = `${baseURL}article_comment/LikeExsitOrNot/${articleId}`;
 
         fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(postData)
+            // body: JSON.stringify(postData)
         })
             .then(response => response.json())
             .then(data => {
@@ -287,13 +277,13 @@ document.querySelector('#btnSubmit').addEventListener('click', async () => {
     const userInput = document.querySelector('#myTextarea').value;
     const sanitizedInput = userInput.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     // 把使用者輸入的留言洗一洗，讓html標籤go away
-   
+
 
     if (sanitizedInput.trim() === '') {
         // 输入为空，设置 placeholder 文本颜色为红色并显示警告
         const placeholder = document.querySelector('#myTextarea::placeholder');
         placeholder.style.setProperty('color', 'red', 'important'); // 设置 placeholder 文本颜色为红色
-                                // 屬性名    // value // priority
+        // 屬性名    // value // priority
         placeholder.placeholder = '留言不得空白';
         return; // 停止继续执行请求
     } else {
@@ -302,7 +292,7 @@ document.querySelector('#btnSubmit').addEventListener('click', async () => {
         textarea.style.setProperty('color', ''); // 清除 placeholder 文本颜色
         textarea.placeholder = '留言...'; // 恢复默认的 placeholder 文本
     }
-    
+
 
     const postData = {
         commentPost: sanitizedInput,
@@ -353,12 +343,44 @@ function memberLogin() {
                     confirmButtonColor: '#d33'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                       window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
                     }
                 });
                 throw new Error('Unauthorized');
             } else {
                 throw new Error('Fetch Error');
+            }
+        })
+        .then(data => {
+            memId = data.memId;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+}
+
+//========用來判斷未登入的收藏與按讚============
+function memberLoginOrNot() {
+    console.log("memberLoginOrNot");
+    fetch(baseURL + "member/getMemId", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (response.status === 200) {
+                // console.log(response.json());
+                return response.json();
+            } else if (response.status === 401) {
+                // console.log(response.json());
+
+                memId = data.memId;
+                throw new Error('Unauthorized');
+            } else {
+                throw new Error('Fetch Error');
+
             }
         })
         .then(data => {

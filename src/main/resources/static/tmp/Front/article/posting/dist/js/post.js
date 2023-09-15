@@ -99,7 +99,7 @@ addFileButton_el.addEventListener('click', function () {
 
 // =============== 判斷會員是否登入 ===============
 function memberLogin() {
-    console.log("heyyyy");
+    console.log("memberLogin");
     fetch(baseURL + "member/getMemId", {
         method: "POST",
         headers: {
@@ -157,21 +157,10 @@ content_el.addEventListener("input", function () {
             cancelButtonText: '關閉'
         })
     }
-    if (content_el.value.length < 0) {
-        // 內文不得為空值
-        content_el.value = content_el.value.substring(0, maxContentLength);
 
-        Swal.fire({
-            icon: 'error',
-            title: '字數超過1000！',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: '知道了',
-            cancelButtonText: '關閉'
-        })
-    }
 });
+
+
 
 title_el.addEventListener("input", function () {
     // 检查標題輸入的文字长度是否超过最大长度
@@ -191,15 +180,68 @@ title_el.addEventListener("input", function () {
     }
 });
 
+
+content_el.addEventListener("blur", function () {
+    if (content_el.value.length < 1) {
+        contentWarning.textContent = '   內文不得空白';
+
+    }
+    else {
+        // 如果输入有效，清除警告
+        titleWarning.textContent = '';
+    }
+});
+
+title_el.addEventListener("blur", function () {
+    if (title_el.value.length < 1) {
+        titleWarning.textContent = '   標題不得為空白';
+    }
+    else {
+        // 如果输入有效，清除警告
+        contentWarning.textContent = '';
+    }
+});
+
 // =============== 送出按鈕 ===============
 
-document.querySelector('#btnSubmit').addEventListener('click', () => {
+document.querySelector('#btnSubmit').addEventListener('click', async () => {
+    memberLogin();
+
+   console.log(memId);
     const userInput_content = document.querySelector('#content').value;
     const userInput_content_title = document.querySelector('#title').value;
     // 清洗輸入的文字，擋住html標籤，以及將斷行以<br>存到資料庫
     const articleContent_el = userInput_content.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
 
     const articleTitle_el = userInput_content_title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
+
+    if (artId === 0) {
+        artIdWarning.textContent = '請選擇發文看板';
+        return;
+    }
+    else {
+        // 如果输入有效，清除警告
+        titleWarning.textContent = '';
+    }
+    if (content_el.value.length < 1) {
+        contentWarning.textContent = '內文不得為空白';
+        return;
+
+    }
+    else {
+        // 如果输入有效，清除警告
+        titleWarning.textContent = '';
+
+    }
+    if (content_el.value.length < 1) {
+        titleWarning.textContent = '標題不得為空白';
+        return;
+
+    }
+    else {
+        // 如果输入有效，清除警告
+        titleWarning.textContent = '';
+    }
 
     const postData = {
         acTypeId: artId,

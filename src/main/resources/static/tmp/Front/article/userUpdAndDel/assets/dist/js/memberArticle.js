@@ -47,7 +47,7 @@ async function fetchMemIdArticleList() {
     <div>
         <p style="color: grey;margin-bottom: 8px;width:50px;">${statusMapping.get(MemIdArticle.acTypeId)}</p>
     </div>
-    <button style="display:inline-block; margin-left:600px;height:10px;">
+    <button style="display:inline-block; margin-left:700px;height:10px;">
         <a
             href="${baseURL}tmp/Front/article/userUpdAndDel/memberArticleUpdate.html?articleId=${MemIdArticle.articleId}">
 

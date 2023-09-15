@@ -45,9 +45,12 @@ public class ArticleUserEditController {
     // 在修改頁面回傳修改後的文章
     @PutMapping("/upd/{articleId}")
     public ResponseEntity<?> edit(@PathVariable Integer articleId,
-                                  @RequestBody Article updArticle
-    ) {
-        // 在前端頁面不需變更memId
+                                  @RequestBody Article updArticle,
+                                  HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer memberId = parseInt(session.getAttribute("memberId").toString());
+
+        System.out.println(updArticle);
         try {
             articleUserEditService.userEdit(updArticle);
             return ResponseEntity.ok().build();
