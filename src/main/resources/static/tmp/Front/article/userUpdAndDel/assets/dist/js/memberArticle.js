@@ -49,7 +49,7 @@ async function fetchMemIdArticleList() {
     </div>
     <button style="display:inline-block; margin-left:600px;height:10px;">
         <a
-            href="${baseURL}tmp/Front/article/userUpdAndDel/userArticleUpdate.html?articleId=${MemIdArticle.articleId}">
+            href="${baseURL}tmp/Front/article/userUpdAndDel/memberArticleUpdate.html?articleId=${MemIdArticle.articleId}">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil" viewBox="0 0 16 16">

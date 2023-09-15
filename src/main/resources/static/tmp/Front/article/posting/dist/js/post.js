@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+// ===============新增圖片及預覽圖 ===============
 
 // 上傳欄位
 const fileInputsContainer = document.getElementById('fileInputs');
@@ -96,7 +97,7 @@ addFileButton_el.addEventListener('click', function () {
     imagePreviewContainer.appendChild(imagePreview);
 });
 
-// -------------- 判斷會員是否登入 ---------------
+// =============== 判斷會員是否登入 ===============
 function memberLogin() {
     console.log("heyyyy");
     fetch(baseURL + "member/getMemId", {
@@ -135,47 +136,57 @@ function memberLogin() {
 }
 
 
+// =============== 限制輸入文字 ===============
+const maxContentLength = 1000;
+const maxTitleLength = 45;
+const content_el = document.getElementById('content');
+const title_el = document.getElementById('title');
+
+content_el.addEventListener("input", function () {
+    // 检查文本内容的长度是否超过最大长度
+    if (content_el.value.length > maxContentLength) {
+        // 如果超过了最大长度，截断文本内容
+        content_el.value = content_el.value.substring(0, maxContentLength);
+
+        Swal.fire({
+            icon: 'error',
+            title: '字數超過1000！',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '知道了',
+            cancelButtonText: '關閉'
+        })
+    }
+});
+
+title_el.addEventListener("input", function () {
+    // 检查文本内容的长度是否超过最大长度
+    if (title_el.value.length > maxReportConLength) {
+        // 如果超过了最大长度，截断文本内容
+        title_el.value = title_el.value.substring(0, maxTitleLength);
+
+        Swal.fire({
+            icon: 'error',
+            title: '字數超過45！',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '知道了',
+            cancelButtonText: '關閉'
+        })
+    }
+});
+
+// =============== 送出按鈕 ===============
+
 document.querySelector('#btnSubmit').addEventListener('click', () => {
     const userInput_content = document.querySelector('#content').value;
     const userInput_content_title = document.querySelector('#title').value;
+    // 清洗輸入的文字，擋住html標籤，以及將斷行以<br>存到資料庫
+    const articleContent_el = userInput_content.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
 
-    // 在某个事件（例如按钮点击）中检查输入并显示警告
-    // if (titleInput.value.trim() === '') {
-    //     titleWarning.textContent = '標題不得為空白';
-    //     return; // 停止继续执行请求
-    // } else {
-    //     // 如果输入有效，清除警告
-    //     titleWarning.textContent = '';
-    // }
-
-    if (userInput_content.trim() === '') {
-        contentWarning.textContent = '   內文不得空白';
-        return; // 停止继续执行请求
-    }
-    else {
-        // 如果输入有效，清除警告
-        titleWarning.textContent = '';
-    }
-    if (userInput_content_title.trim() === '') {
-        titleWarning.textContent = '   標題不得為空白';
-        return; // 停止继续执行请求
-    }
-    else {
-        // 如果输入有效，清除警告
-        contentWarning.textContent = '';
-    }
-    if (artId === 0) {
-        artIdWarning.textContent = '請選擇發文看板';
-        return; // 停止继续执行请求
-    }
-    else {
-        // 如果输入有效，清除警告
-        titleWarning.textContent = '';
-    }
-
-    const articleContent_el = userInput_content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-    const articleTitle_el = userInput_content_title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const articleTitle_el = userInput_content_title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
 
     const postData = {
         acTypeId: artId,

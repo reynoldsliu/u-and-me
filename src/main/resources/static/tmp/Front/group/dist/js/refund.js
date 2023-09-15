@@ -8,13 +8,23 @@ const bankContent_el = document.getElementById('bankContent');
 const reason_el = document.getElementById('reason');
 const account_el = document.getElementById('account');
 const btn_submit_el = document.getElementById('btn_submit');
+const inputReason_el = document.getElementById('inputReason');
+const inputAccount_el = document.getElementById('inputAccount');
+const inputs_el = document.querySelectorAll('.form-control');
 
-window.addEventListener('load', function(e){
+//判斷錯誤要用的字串
+let inputReasonStr = document.createElement("span");
+inputReasonStr.style.color = 'red';
+
+let inputAccountStr = document.createElement("span");
+inputAccountStr.style.color = 'red';
+
+window.addEventListener('load', function (e) {
 
     //取得網址列detailId
     let url = location.href;
 
-    if(url.indexOf('?') != -1){
+    if (url.indexOf('?') != -1) {
 
         let ary1 = url.split('?');
 
@@ -26,45 +36,76 @@ window.addEventListener('load', function(e){
     bankContent_el.value = bank_el.value;
 });
 
-bank_el.addEventListener('change', function(e){
+bank_el.addEventListener('change', function (e) {
     bankContent_el.value = bank_el.value;
     console.log(account_el.value);
 });
 
-btn_submit_el.addEventListener('click', async function(e){
+btn_submit_el.addEventListener('click', async function (e) {
     e.preventDefault();
 
-    const data = {
-        account: bankContent_el.value + '-' + account_el.value.trim(),
-        reason: reason_el.value,
+    let control = true;
+
+    //判斷每個輸入框字數
+    try {
+        inputs_el.forEach(input => {
+            if (input.value.length != 4) {
+                throw new Error();
+            }
+        });
+    }catch (e){
+        inputAccountStr.innerHTML = '<br> *帳戶格式不正確';
+        inputAccount_el.appendChild(inputAccountStr);
     }
 
-    await fetch(baseUrl + '/member/memberDetail/' + detailId, {
-        headers: {
-            "content-type": "application/json",
-        },
-        method: 'PUT',
-        body: JSON.stringify(data)
-    }).catch(function (e){
+
+    if (reason.value.trim() == null || reason.value.trim() == "") {
+        control = false;
+        inputReasonStr.innerHTML = ' *原因不可為空值';
+        inputReason_el.appendChild(inputReasonStr);
+    }
+
+    if (control) {
+        const data = {
+            account: bankContent_el.value + '-' + account_el.value.trim(),
+            reason: reason_el.value,
+        }
+
+        await fetch(baseUrl + '/member/memberDetail/' + detailId, {
+            headers: {
+                "content-type": "application/json",
+            },
+            method: 'PUT',
+            body: JSON.stringify(data)
+        }).catch(function (e) {
+            Swal.fire({
+                icon: 'error',
+                title: '退款申請失敗',
+                showCancelButton: true
+            })
+        })
+
+        Swal.fire({
+            icon: 'success',
+            title: '退款申請成功',
+            text: '已提交退款申請',
+            showCancelButton: true
+        })
+    } else {
         Swal.fire({
             icon: 'error',
             title: '退款申請失敗',
+            text: '請檢察退款資料',
             showCancelButton: true
-          })
-    })
-
-    Swal.fire({
-        icon: 'success',
-        title: '退款申請成功',
-        text: '已提交退款申請',
-        showCancelButton: true
-      })
+        })
+    }
 
 });
 
-const inputs = document.querySelectorAll('.form-control');
 
-inputs.forEach((input, index) => {
+
+//自動跳input格子
+inputs_el.forEach((input, index) => {
     input.addEventListener('input', (event) => {
         if (event.target.value.length === 4) {
             if (index < inputs.length - 1) {

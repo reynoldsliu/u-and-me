@@ -287,6 +287,23 @@ document.querySelector('#btnSubmit').addEventListener('click', async () => {
     const userInput = document.querySelector('#myTextarea').value;
     const sanitizedInput = userInput.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     // 把使用者輸入的留言洗一洗，讓html標籤go away
+   
+
+    if (sanitizedInput.trim() === '') {
+        // 输入为空，设置 placeholder 文本颜色为红色并显示警告
+        const placeholder = document.querySelector('#myTextarea::placeholder');
+        placeholder.style.setProperty('color', 'red', 'important'); // 设置 placeholder 文本颜色为红色
+                                // 屬性名    // value // priority
+        placeholder.placeholder = '留言不得空白';
+        return; // 停止继续执行请求
+    } else {
+        // 如果输入有效，清除警告
+        const textarea = document.querySelector('#myTextarea');
+        textarea.style.setProperty('color', ''); // 清除 placeholder 文本颜色
+        textarea.placeholder = '留言...'; // 恢复默认的 placeholder 文本
+    }
+    
+
     const postData = {
         commentPost: sanitizedInput,
     };
@@ -317,7 +334,7 @@ document.querySelector('#btnSubmit').addEventListener('click', async () => {
 
 
 function memberLogin() {
-    console.log("heyyyy");
+    console.log("memberLogin");
     fetch(baseURL + "member/getMemId", {
         method: "POST",
         headers: {
@@ -332,11 +349,11 @@ function memberLogin() {
                     title: '請先登入會員',
                     text: "將為您導向登入頁面....",
                     icon: 'error',
-                    confirmButtonText: '返回登入頁面',
+                    confirmButtonText: '前往登入頁面',
                     confirmButtonColor: '#d33'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+                       window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
                     }
                 });
                 throw new Error('Unauthorized');

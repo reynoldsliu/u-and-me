@@ -97,6 +97,8 @@ async function fetchListProductDetail(){
     prodSta_el.value = productDetail.prodSta;
     // prodSta.value = productDetail.prodSta;
     preview_img_el.src = dataurl;
+    preview_img_el.style.width = '180px'; // 設定寬度為200像素
+    preview_img_el.style.height = '180px'; // 設定高度為150像素
 
 
   }catch(error){
