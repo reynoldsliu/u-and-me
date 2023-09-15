@@ -52,6 +52,13 @@ const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and
                                   }).then(()=>{
                                     location.href = baseUrl + '/tmp/back_end/member/member.html'
                                   })
+                                }else if(response.status == 402){
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: '您已停權',
+                                        text: '請聯繫客服信箱',
+                                        showCancelButton: true
+                                      })
                                 // location.reload();
                             } else {
                                    Swal.fire({

@@ -95,6 +95,7 @@ public class MemberController {
 
         return new ResponseEntity("登出成功", HttpStatus.OK);
     }
+    
 
     @RequestMapping("/testlogin")
     public ResponseEntity<String> testlogin(HttpServletRequest request,

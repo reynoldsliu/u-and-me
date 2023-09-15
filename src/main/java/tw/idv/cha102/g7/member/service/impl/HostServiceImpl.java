@@ -57,8 +57,11 @@ public class HostServiceImpl implements HostService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "無此管理員");
 //        String hashReqPwd = sha256Hash(loginDTO.getMemPassword());//傳入密碼加密
         //比較帳號密碼
-        if (!host.getHostEmail().equals(hostloginDTO.getHostEmail()) || !host.getHostPassword().equals(hostloginDTO.getHostPassword()))
+        if (!host.getHostEmail().equals(hostloginDTO.getHostEmail()) || !host.getHostPassword().equals(hostloginDTO.getHostPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "帳號密碼錯誤");
+        }else if(host.getHostSta() == 1){
+            throw new ResponseStatusException(HttpStatus.PAYMENT_REQUIRED, "您已被停權");
+        }
         HttpSession httpSession = request.getSession();
 //        httpSession.setAttribute("loggedInMember", member.getMemberId());
         // 添加 Cookie 到回應中

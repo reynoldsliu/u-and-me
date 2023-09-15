@@ -655,7 +655,7 @@
                     text: '',
                     confirmButtonText: '確定'
                 }).then(() => {
-                    location.href = baseUrl + '/tmp/host/hostLogin.html'
+                    location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
                 })
                 // location.reload();
             }
@@ -671,7 +671,7 @@
             }).then(response => {
                 if (response.status == 401) {
 
-                    this.location.href = baseUrL + 'tmp/host/hostLogin.html';
+                    this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
 
                 }
             });
