@@ -11,6 +11,9 @@ const recipientName_el = document.getElementById('recipientName');
 // const recipientAddr_el = document.getElementById('recipientAddr');
 const orderConfirmedBtn_el = document.getElementById('orderConfirmedBtn');
 const temp_el = document.getElementById("temp");
+const addrText_el =this.document.getElementById('addrText');
+// let recipientAddr;
+
 //-----地址元素-----
 const dists = {
     '臺北市': ['中正區', '大同區', '中山區', '萬華區', '信義區', '松山區', '大安區', '南港區', '北投區', '內湖區', '士林區', '文山區'],
@@ -43,7 +46,7 @@ const dists = {
     const selectCity_el = document.getElementById("selectCity");
     const selectDist_el = document.getElementById("selectDist");
 
-    selectCity.addEventListener("change", function(){
+    selectCity_el.addEventListener("change", function(){
 
         if(parseInt(selectCity_el.value) === 0){
             selectCity_el.classList.add("text-secondary");
@@ -66,7 +69,7 @@ const dists = {
         });
         
         
-        selectDist.addEventListener("change", function(){
+        selectDist_el.addEventListener("change", function(){
         
         if(parseInt(selectDist_el.value) === 0){
             selectDist_el.classList.add("text-secondary");
@@ -91,7 +94,6 @@ const dists = {
                 const distList2 = dists[selectCity.value];
                 //memDist.innerHTML= `<option value="0" class="text-secondary">選擇居住地區</option>`;
                 for(let dist of distList2){
-                console.log(":)))");
                 selectDist_el.insertAdjacentHTML("beforeend", `<option value=${dist} class="text-secondary">${dist}</option>`);
                 }
         
@@ -110,7 +112,7 @@ const dists = {
               }
             }
           });
-        
+       
 
           
             
@@ -119,7 +121,6 @@ const inputMemEmail_el = this.document.getElementById('inputMemEmail');
 const inputRecipientName_el = this.document.getElementById('inputRecipientName');
 const inputRecipientPhone_el = this.document.getElementById('inputRecipientPhone');
 const inputAddr_el = this.document.getElementById('inputAddr');
-const addrText_el =this.document.getElementById('addrText');
 
 
 let emailReg =/^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
@@ -264,14 +265,19 @@ async function fetchCartList() {
           inputAddr_el.appendChild(rAddrStr);
         } 
     
+         // 當選擇的城市或區域改變時，更新 recipientAddr
+         selectCity_el.addEventListener('change', updateRecipientAddr);
+         selectDist_el.addEventListener('change', updateRecipientAddr);
+         addrText_el.addEventListener('input', updateRecipientAddr);
+ 
         //如果沒錯誤，先建立一個訂單產生訂單編號
       if (control) {
-
+        
         // 將資料包裝成一個物件
         const send_data = {
           recipientPhone: recipientPhone_el.value,
           recipientName: recipientName_el.value,
-          recipientAddr: addrText_el.value,
+          recipientAddr: updateRecipientAddr(),
           total: totalPriceCount,
           checktotal: finalTotalPrice
         }
@@ -323,7 +329,15 @@ async function fetchCartList() {
 
     }
   });
-
+  function updateRecipientAddr() {
+    const selectedCity = selectCity_el.value;
+    const selectedDist = selectDist_el.value;
+    const enteredAddr = addrText_el.value;
+    
+    const recipientAddr = `${selectedCity}${selectedDist}${enteredAddr}`;
+    console.log('Recipient Address:', recipientAddr);
+    return recipientAddr;
+  }
 
 
 // 過了頁面就拿不到，就要放session 
