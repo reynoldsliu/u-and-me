@@ -123,25 +123,7 @@ async function fetchMyGroup(groupId) {
 
 //===================參與揪團點擊事件===================
 function jump() {
-    this.fetch(baseUrl + '/member/grouper/match', {
-        method: 'GET'
-    }).then(response => {
-        if (response.status == 401) {
-            Swal.fire({
-                title: '尚未登入',
-                text: "想返回登入畫面嗎?",
-                icon: 'error',
-                showCancelButton: true,
-                cancelButtonText: '取消',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '返回登入畫面'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = baseUrl + '/u-and-me/tmp/Front/member/memberLogin.html';
-                }
-            });
-        }
-    });
+    window.location.href = baseUrl + "/tmp/Front/group/regForm.html?gorupId=" + groupId;
 }
 function jumpSch() {
     window.location.href = baseUrl + "/tmp/Front/schedule/myScheduleEdit.html?schId=" + schId;
