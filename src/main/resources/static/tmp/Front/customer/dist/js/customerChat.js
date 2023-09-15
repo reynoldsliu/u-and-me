@@ -6,7 +6,7 @@ function memberLogin() {
   $.ajax({
     url: baseUrl + "/u-and-me/member/getMemId",   //-->判斷會員是否登入，有會員的資料
     method: "POST",
-    dataType:"JSON",
+    dataType: "JSON",
     success: function (data) {
       userName = data.memName
       userId = data.memId;
@@ -21,11 +21,11 @@ function memberLogin() {
           text: "想返回登入畫面嗎?",
           icon: 'error',
           showCancelButton: true,
-          cancelButtonText:'取消',
-          cancelButtonColor:'#d33',
-          confirmButtonText:'返回登入畫面'
+          cancelButtonText: '取消',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '返回登入畫面'
         }).then((result) => {
-          if(result.isConfirmed) {
+          if (result.isConfirmed) {
             window.location.href = baseUrl + '/u-and-me/tmp/Front/member/memberLogin.html';
           }
         });
@@ -38,7 +38,8 @@ function memberLogin() {
 
 
 //連接websocket
-let userName='';
+let userId = '';
+let userName = '';
 const ServerPoint = `/chat/${userName}`;
 const lohost = window.location.host;
 const path = window.location.pathname;
@@ -51,7 +52,7 @@ let webSocket;
 let con = false;
 let chatbox = document.querySelector("#chatBox"); // 點擊聊天圖示 (#chat-icon) 時才會開啟連線
 document.querySelector("#chat-icon").addEventListener("click", function () {
-  
+
   if (userName.trim() === '') {
     memberLogin();
   } else {
@@ -61,10 +62,10 @@ document.querySelector("#chat-icon").addEventListener("click", function () {
     if (!document.querySelector("#alert").classList.contains("hide")) {
       document.querySelector("#alert").classList += " hide";
     }
-    if(con === false){
+    if (con === false) {
       connect();
     }
-  
+
   }
 
 });
@@ -110,9 +111,7 @@ function connect() {
 
     //歷史訊息
     if (data.type === 2) {
-
-        buildHisMessage(data.data);
-
+      buildHisMessage(data.data);
     }
 
     // 客服上線
@@ -123,13 +122,18 @@ function connect() {
 
     // 客服不在線上
     if (data.type === 4) {
-      
       isEmpOline = false;
       buildOfflineMessage();
-
     }
   }
 }
+
+//-- input 欄位按Enter(keycode:13)傳送訊息出去 --//
+$("#btn-input").on("keydown", function (e) {
+  if (e.which === 13) {
+    $("#btn-chat").click();
+  }
+});
 
 function sendMessage() {
   let inputMessage = document.getElementById("btn-input");
@@ -172,26 +176,18 @@ function buildHisMessage(data) {
       content =
         '<div class="col-md-10 col-xs-10">' +
         '<div class="messages_self msg_receive_self">' +
-        "<p>" +
-        showMsg +
-        "</p>" +
-        "<time>" +
-        `${userName} - ` +
-        time +
-        "</time></div></div>" +
+        '<p>' + showMsg + '</p>' +
+        '<time>' + `${userName} - ` + time +
+        '</time></div></div>' +
         user;
     } else {
       content =
         hoster +
         '<div class="col-md-10 col-xs-10">' +
         '<div class="messages_user msg_receive_user">' +
-        "<p>" +
-        showMsg +
-        "</p>" +
-        "<time>" +
-        "客服 - " +
-        time +
-        "</time></div></div>";
+        '<p>' + showMsg + '</p>' +
+        '<time>客服 - ' + time +
+        '</time></div></div>';
     }
     div.innerHTML = content;
     msgContainer.appendChild(div);
@@ -211,26 +207,18 @@ function buildMessage(data) {
     content =
       '<div class="col-md-10 col-xs-10">' +
       '<div class="messages_self msg_receive_self">' +
-      "<p>" +
-      showMsg +
-      "</p>" +
-      "<time>" +
-      `${userName} - ` +
-      time +
-      "</time></div></div>" +
+      '<p>' + showMsg + '</p>' +
+      '<time>' + `${userName} - ` + time +
+      '</time></div></div>' +
       user;
   } else {
     content =
       hoster +
       '<div class="col-md-10 col-xs-10">' +
       '<div class="messages_user msg_receive_user">' +
-      "<p>" +
-      showMsg +
-      "</p>" +
-      "<time>" +
-      "客服 - " +
-      time +
-      "</time></div></div>";
+      '<p>' + showMsg + '</p>' +
+      '<time>客服 - ' + time +
+      '</time></div></div>';
   }
   div.innerHTML = content;
   msgContainer.appendChild(div);
@@ -244,13 +232,16 @@ function buildMessage(data) {
 function buildOfflineMessage() {
   let div = document.createElement("div");
   div.className = "row msg_container";
+  let now = new Date();
+  let time = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate() + " " + now.getHours() + ":" + now.getMinutes();
   let content =
     hoster +
-    '<div class="col-md-10 col-xs-10">' +
-    '<div class="messages_user msg_receive_user">' +
-    "<p>您好，目前客服人員未在線，請留下您要詢問的問題，客服將於上班時間回復您</p>" +
-    "<time>" +
-    "客服 - 現在</time></div></div>";
+    `<div class="col-md-10 col-xs-10">
+    <div class="messages_user msg_receive_user">
+    <p>您好，目前客服未在線～！請留下想詢問的問題，將於營業時間回覆您(❀╹◡╹)</p>
+    <time>客服 - ${time}</time>
+    </div>
+    </div>`;
   div.innerHTML = content;
   msgContainer.appendChild(div);
   msgContainer.scrollTop = msgContainer.scrollHeight;

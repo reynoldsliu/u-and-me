@@ -1,12 +1,9 @@
-//測試用的假資料
-// let host = "host1";
-
 // 抓取員工姓名以取得websocket連線
 
 // function findHostName() {
-    
+
 //     var baseUrl = window.location.protocol + "//" + window.location.host;
-    
+
 //     $.ajax({
 //         url: baseUrl + "/u-and-me/host/hostAll",  //--> 申請抓取員工姓名
 //         method: "GET",
@@ -19,15 +16,12 @@
 //             } 
 //         }
 //     });
-    
+
 // }
 
-// let host;
-// console.log(host);
-// findHostName();
 //設定websocket連線
 const ServerPoint = `/chat/host`;
-const lohost = window.location.host; //localhost:8080
+const lohost = window.location.host;
 const path = window.location.pathname;
 const webCtx = path.substring(0, path.indexOf("/", 1));
 const endPointURL = "ws://" + lohost + webCtx + ServerPoint;
@@ -43,15 +37,15 @@ const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and
 
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
-    method: 'GET'
-}).then(response => {
-    if(response.status == 401){
+    this.fetch(baseUrL + 'host/match', {
+        method: 'GET'
+    }).then(response => {
+        if (response.status == 401) {
 
             this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
 
-    }
-});
+        }
+    });
 })
 
 
@@ -165,6 +159,14 @@ function showUserChatBox(e) {
     webSocket.send(JSON.stringify(jsonObj));
 }
 
+//-- input 欄位按Enter(keycode:13)傳送訊息出去 --//
+$(document).on("keydown", function (e) {
+    if (e.which === 13) {
+        e.preventDefault();
+        $("#btn-chat").click();
+    }
+});
+
 function sendMessage() {
     let inputMessage = document.getElementById("btn-input");
     let message = inputMessage.value.trim();
@@ -212,20 +214,20 @@ function disconnect() {
 const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 const logoutBtn_el = document.getElementById("logOut");
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-});if (response.ok) {
-                              Swal.fire({
-                                             icon: 'success',
-                                             title: '管理員登出成功',
-                                             text: '',
-                                             confirmButtonText: '確定'
-                          }).then(()=>{
-                            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
-                          })
-                        location.reload();
-                    } 
+    const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }); if (response.ok) {
+        Swal.fire({
+            icon: 'success',
+            title: '管理員登出成功',
+            text: '',
+            confirmButtonText: '確定'
+        }).then(() => {
+            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+        })
+        location.reload();
+    }
 });
