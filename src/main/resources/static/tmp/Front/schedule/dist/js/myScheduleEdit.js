@@ -65,6 +65,8 @@ const viewGoogleMap = document.querySelector(".map");
 // 自訂景點內容標籤
 const myAttrName_el = document.querySelector("#myAttrName");
 const myAttrAddr_el = document.querySelector("#myAttrAddr");
+const attrTypeInput = document.getElementById("attrTypeInput");
+const attrIllaInput = document.getElementById("attrIllaInput");
 
 // 景點操作相關按鈕(將景點加入收藏、移除收藏、加入行程及完成自訂景點按鈕)
 const addAttrCollect_btn_el = document.querySelector(".addAttrCollect-btn");
@@ -1208,6 +1210,26 @@ function createImageContainer_preview(pic) {
     return imageContainer;
 }
 
+// =============== 限制輸入景點描述文字 ===============
+const maxAttrIllaLength = 500;
+attrIllaInput.addEventListener("input", function () {
+    // 检查文本内容的长度是否超过最大长度
+    if (attrIllaInput.value.length > maxAttrIllaLength) {
+        // 如果超过了最大长度，截断文本内容
+        attrIllaInput.value = attrIllaInput.value.substring(0, maxAttrIllaLength);
+
+        Swal.fire({
+            icon: 'error',
+            title: '字數超過500！',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '知道了',
+            cancelButtonText: '關閉'
+        })
+    }
+});
+
 
 
 // 自訂景點內容完成後，顯示新增完成警示框
@@ -1262,9 +1284,7 @@ myAttrDone_btn_el.onclick = async () => {
     /////////////////////////////////////////////////////////////////////////////////////
     let myAttrName = myAttrName_el.value.trim();
     let myAttrAddr = myAttrAddr_el.value.trim();
-    const attrIllaInput = document.getElementById("attrIllaInput");
     let attrIlla = attrIllaInput.value;
-    const attrTypeInput = document.getElementById("attrTypeInput");
     let attrType = attrTypeInput.value;
     const picFiles = attrPicFilesInput.files;
 

@@ -503,7 +503,7 @@ div.schDeStartTimeRows:first-child {
 }
 
 /* 顯示一日的路線 */
-span.showDayRoute>button{
+span.showDayRoute>button {
     font-size: 1rem;
     font-weight: bold;
     border: 1px solid gray;
@@ -705,18 +705,18 @@ span.totalTime {
 }
 
 /* 顯示兩個景點間的按鈕 */
-span.showRouteBetween{
+span.showRouteBetween {
     /* border: 1px solid red; */
     position: absolute;
     right: 0;
 }
 
-span.showRouteBetween>button{
+span.showRouteBetween>button {
     font-weight: bold;
     border-radius: 10px;
 }
 
-span.totalDistance{
+span.totalDistance {
     border: 1px solid green;
     display: inline-block;
     font-size: 0.8rem;
@@ -863,15 +863,19 @@ input {
     border-radius: 5px;
     width: 70%;
     height: 40px;
-    margin: 15px 0 10px 20px;
+    margin: 15px 0 10px 10px;
     padding-left: 10px;
+}
+
+input#start {
+    /* width: 70%; */
 }
 
 /* 下面的搜尋欄 */
 input#searchAttrByName {
     margin-top: 5px;
     margin-bottom: 5px;
-    width: 70%;
+    width: 65%;
 }
 
 /* 暫時隱藏起來(終點搜尋) */
@@ -883,8 +887,7 @@ input.google_input_text2 {
 }
 
 /* 選擇交通方式區塊 */
-div.trans-mode {
-    /* border: 1px solid red; */
+/* div.trans-mode {
     display: inline-block;
     height: 50px;
     width: 50px;
@@ -892,7 +895,7 @@ div.trans-mode {
     position: relative;
     left: 80.5%;
     bottom: 85%;
-}
+} */
 
 /* 交通方式選單 */
 select#mode {
@@ -903,14 +906,29 @@ select#mode {
 
 /* 搜尋按鈕位置 */
 div.attrSearch-btn {
-    width: 70px;
+    /* border: 1px solid red; */
+    width: 97px;
     position: relative;
-    left: 78%;
-    bottom: 75%;
+    left: 74.5%;
+    bottom: 143px;
 }
 
 button#attrSearch-btn {
-    width: 105%;
+    width: 100%;
+    height: 35px;
+    padding: 0;
+}
+
+select#attrType {
+    width: 118px;
+    height: 35px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-top: 10px;
+    position: relative;
+    left: 65%;
+    bottom: 53px;
 }
 
 /* 總距離(隱藏不顯示) */
@@ -1051,19 +1069,21 @@ div.myCustomizeAttr.-off {
 
 input.customizeInput {
     /* border: 1px solid red; */
+    margin: 10px 0 5px 20px;
     width: 90%;
 }
 
 input.customizeInput.-off {
     /* border: 1px solid blue; */
+    margin: 10px 0 5px 20px;
     width: 70%;
 }
 
-
+/* 地址搜尋放大鏡 */
 a.myAttrGlass {
     position: absolute;
     left: 88%;
-    top: 29.4%;
+    top: 26.6%;
     font-size: 20px;
     color: green;
     background-color: white;
@@ -1077,7 +1097,26 @@ a.myAttrGlass {
 }
 
 
-/* 待加入景點上傳照片的部分 */
+/* 選擇景點類型下拉式選單 */
+select#attrTypeInput {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    height: 35px;
+    margin-top: 10px;
+}
+
+/* 景點描述 */
+textarea#attrIllaInput {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    width: 95%;
+    resize: none;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+
+/* 景點上傳照片選擇檔案 */
 input#attrPicFilesInput {
     /* border: 1px solid green; */
     height: 37px;
@@ -1085,6 +1124,7 @@ input#attrPicFilesInput {
     bottom: 23px;
 }
 
+/* 景點照片預覽 */
 div#attrPicsPreview {
     /* border: 1px solid red; */
     width: 318.3px;
@@ -1092,7 +1132,6 @@ div#attrPicsPreview {
     object-fit: cover;
     position: relative;
     left: 12%;
-    margin-top: 5px;
 }
 
 /* =============== 自訂景點結束 ============== */
@@ -1254,11 +1293,11 @@ div.attrDetailsCardFooter {
     margin-right: 8%;
 }
 
-.addAttrCollect-btn.-off{
+.addAttrCollect-btn.-off {
     display: none;
 }
 
-.removeAttrCollect-btn{
+.removeAttrCollect-btn {
     width: 45%;
     font-weight: bold;
     color: rgb(25, 135, 84);
@@ -1266,7 +1305,7 @@ div.attrDetailsCardFooter {
     margin-right: 8%;
 }
 
-.removeAttrCollect-btn:hover{
+.removeAttrCollect-btn:hover {
     width: 45%;
     font-weight: bold;
     color: rgb(25, 135, 84);
@@ -1274,7 +1313,7 @@ div.attrDetailsCardFooter {
     margin-right: 8%;
 }
 
-.removeAttrCollect-btn.-off{
+.removeAttrCollect-btn.-off {
     display: none;
 }
 
