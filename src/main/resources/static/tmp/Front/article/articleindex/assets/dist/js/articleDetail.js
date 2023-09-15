@@ -150,11 +150,14 @@ async function fetchArticleComment() {
 // 使用 fetch API 請求article_collection資料，讀取是否已收藏過
 async function fetchCollectedOrNot() {
     try {
+        // 控制fetch傳入網址
+        const response = await fetch(baseURL + `member/getMemId`);
+        const member = await response.json();
+        const memId = member.memId;
         const postData = {
 
-            // memId先寫死，等到串filter再帶session
             collectionId: {
-                memId: 1,
+                memId: memId,
                 articleId: articleId
             }
         }
@@ -210,11 +213,16 @@ async function fetchCollectedOrNot() {
 // 使用 fetch API 請求article_like資料，讀取是否已按過讚
 async function fetchLikeOrNot() {
     try {
+
+        // 控制fetch傳入網址
+        const response = await fetch(baseURL + `member/getMemId`);
+        const member = await response.json();
+        const memId = member.memId;
+
         const postData = {
 
-            // memId先寫死，等到串filter再帶session
             likeId: {
-                memId: 1,
+                memId: memId,
                 articleId: articleId
             }
         }
@@ -274,7 +282,8 @@ async function fetchLikeOrNot() {
 
 // 使用 fetch API ，新增留言到URL指定的文章頁面
 
-document.querySelector('#btnSubmit').addEventListener('click', () => {
+document.querySelector('#btnSubmit').addEventListener('click', async () => {
+    await memberLogin();
     const userInput = document.querySelector('#myTextarea').value;
     const sanitizedInput = userInput.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     // 把使用者輸入的留言洗一洗，讓html標籤go away
@@ -306,18 +315,60 @@ document.querySelector('#btnSubmit').addEventListener('click', () => {
 
 });
 
+
+function memberLogin() {
+    console.log("heyyyy");
+    fetch(baseURL + "member/getMemId", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 401) {
+                Swal.fire({
+                    title: '請先登入會員',
+                    text: "將為您導向登入頁面....",
+                    icon: 'error',
+                    confirmButtonText: '返回登入頁面',
+                    confirmButtonColor: '#d33'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+                    }
+                });
+                throw new Error('Unauthorized');
+            } else {
+                throw new Error('Fetch Error');
+            }
+        })
+        .then(data => {
+            memId = data.memId;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+}
+
 function formatDate(dateString) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString('zh-TW', options);
 }
 // 使用 fetch API ，新增新增或刪除收藏
-collection_el.addEventListener("click", () => {
+collection_el.addEventListener("click", async () => {
+    memberLogin();
+
+    const response = await fetch(baseURL + `member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
 
     const postData = {
 
-        // memId先寫死，等到串filter再帶session
         collectionId: {
-            memId: 1,
+            memId: memId,
             articleId: articleId
         }
     };
@@ -373,13 +424,16 @@ collection_el.addEventListener("click", () => {
 })
 
 // 使用 fetch API ，新增按讚或收回讚
-like_el.addEventListener("click", () => {
+like_el.addEventListener("click", async () => {
+    memberLogin();
 
+    const response = await fetch(baseURL + `member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
     const postData = {
 
-        // memId先寫死，等到串filter再帶session
         likeId: {
-            memId: 1,
+            memId: memId,
             articleId: articleId
         }
     };

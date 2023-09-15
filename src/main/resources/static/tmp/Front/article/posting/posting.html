@@ -72,10 +72,10 @@
                             <a class="nav-link" href="../../shop/shoppingMall.html">旅遊商城</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="../articleindex/ArticleIndex.html" role="button" data-bs-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" href="../articleIndex/ArticleIndex.html" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">論壇專區</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../articleindex/ArticleIndex.html">論壇</a></li>
+                                <li><a class="dropdown-item" href="../articleIndex/ArticleIndex.html">論壇</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -145,7 +145,7 @@
                     <button class="btn btn-primary mx-1" type="submit" id="shopBtn">商城</button>
                     <button class="btn btn-primary mx-1" type="submit" id="schedBtn">行程</button>
                     <button class="btn btn-primary mx-1" type="submit" id="groupBtn">揪團</button>
-
+                    <span id="artIdWarning" class="text-danger"></span>
 
 
 
@@ -153,14 +153,18 @@
 
                 <div class="mb-3 mt-4">
                     <label for="title" class="form-label">標題</label>
+                    <span id="titleWarning" class="text-danger"></span>
 
-                    <!-- 給要被傳送到後端的標籤id值 -->
                     <input type="text" id="title" name="title" class="form-control" required>
+                    
+
                 </div>
                 <div class="mb-3 mt-4">
                     <label for="content" class="form-label">內容</label>
-                    <!-- 給要被傳送到後端的標籤id值 -->
+                    <span id="contentWarning" class="text-danger"></span>
                     <textarea id="content" name="content" rows="6" class="form-control" required></textarea>
+                    
+
                 </div>
 
 

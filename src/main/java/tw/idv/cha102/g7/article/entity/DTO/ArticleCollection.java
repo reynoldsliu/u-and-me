@@ -18,4 +18,8 @@ public class ArticleCollection {
     public ArticleCollection() {
 
     }
+
+    public ArticleCollection(ArticleCollectionId collectionId) {
+        this.collectionId = collectionId;
+    }
 }

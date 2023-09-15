@@ -52,8 +52,8 @@ public class ArticleCollectionController {
 
     // 協助前端讀取收藏icon狀態
     @RequestMapping("/CollectionExsitOrNot")
-    public short CollectionExsitOrNot(@RequestBody ArticleCollection articleCollection) {
-//        articleCollectionService.CollectionExsitOrNot(articleCollection);
+    public short CollectionExsitOrNot(@RequestBody ArticleCollection articleCollection,HttpServletRequest request) {
+
         if (articleCollectionService.CollectionExsitOrNot(articleCollection) == 1) {
             return 1;
         } else {

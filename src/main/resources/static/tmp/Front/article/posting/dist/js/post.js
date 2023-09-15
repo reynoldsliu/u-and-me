@@ -9,16 +9,16 @@ const articleContent = document.querySelector('#content');
 
 let artId = 0; // 初始化 artId
 
-
-// 貼文分類按鈕按下去的效果
 document.addEventListener('DOMContentLoaded', function () {
+    // 頁面載入時先判斷是否為會員
+    memberLogin();
     //避免在DOM尚未完全加載和解析之前執行代碼
 
     const shopBtn = document.getElementById('shopBtn');
     const schedBtn = document.getElementById('schedBtn');
     const groupBtn = document.getElementById('groupBtn');
 
-
+    // 貼文分類按鈕按下去的效果
     // 商城按鈕onclick事件
     shopBtn.addEventListener('click', function () {
         // 移除其他按钮的active
@@ -96,54 +96,87 @@ addFileButton_el.addEventListener('click', function () {
     imagePreviewContainer.appendChild(imagePreview);
 });
 
-// document.querySelector('#btnSubmit').addEventListener('click', () => {
+// -------------- 判斷會員是否登入 ---------------
+function memberLogin() {
+    console.log("heyyyy");
+    fetch(baseURL + "member/getMemId", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json();
+            } else if (response.status === 401) {
+                Swal.fire({
+                    title: '請先登入會員',
+                    text: "將為您導向登入頁面....",
+                    icon: 'error',
+                    confirmButtonText: '返回登入頁面',
+                    confirmButtonColor: '#d33'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+                    }
+                });
+                throw new Error('Unauthorized');
+            } else {
+                throw new Error('Fetch Error');
+            }
+        })
+        .then(data => {
+            memId = data.memId;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
+}
 
-//     const postData = {
-//         acTypeId: artId,
-//         articleTitle: articleTitle.value,
-//         articleContent: articleContent.value
-
-//     };
-
-//     fetch(url, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(postData)
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             // 后端返回的数据
-//             console.log(data);
-//         })
-//         .catch(error => {
-
-//             console.error('Error:', error);
-//         });
-
-//     // 使用FormData型態處理form(picForm)裡面的檔案
-//     const formData = new FormData(picForm);
-
-//     fetch(post_picURL, {
-//         method: "POST",
-//         body: formData
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             console.log(data);
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//         });
-// });
 
 document.querySelector('#btnSubmit').addEventListener('click', () => {
     const userInput_content = document.querySelector('#content').value;
-    const articleContent_el = userInput_content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const userInput_content_title = document.querySelector('#title').value;
+
+    // 在某个事件（例如按钮点击）中检查输入并显示警告
+    // if (titleInput.value.trim() === '') {
+    //     titleWarning.textContent = '標題不得為空白';
+    //     return; // 停止继续执行请求
+    // } else {
+    //     // 如果输入有效，清除警告
+    //     titleWarning.textContent = '';
+    // }
+
+    if (userInput_content.trim() === '') {
+        contentWarning.textContent = '   內文不得空白';
+        return; // 停止继续执行请求
+    }
+    else {
+        // 如果输入有效，清除警告
+        titleWarning.textContent = '';
+    }
+    if (userInput_content_title.trim() === '') {
+        titleWarning.textContent = '   標題不得為空白';
+        return; // 停止继续执行请求
+    }
+    else {
+        // 如果输入有效，清除警告
+        contentWarning.textContent = '';
+    }
+    if (artId === 0) {
+        artIdWarning.textContent = '請選擇發文看板';
+        return; // 停止继续执行请求
+    }
+    else {
+        // 如果输入有效，清除警告
+        titleWarning.textContent = '';
+    }
+
+    const articleContent_el = userInput_content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
     const articleTitle_el = userInput_content_title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
     const postData = {
         acTypeId: artId,
         articleTitle: articleTitle_el,
@@ -166,18 +199,27 @@ document.querySelector('#btnSubmit').addEventListener('click', () => {
             // 使用FormData型態處理form(picForm)裡面的檔案
             const formData = new FormData(picForm);
 
-             fetch(post_picURL, {
+            fetch(post_picURL, {
                 method: "POST",
                 body: formData
             });
+            Swal.fire({
+                title: '成功發布文章', // 弹框标题
+                // text: '您的操作已成功执行', // 弹框内容
+                icon: 'success', // 弹框图标
+                confirmButtonText: '确定', // 确认按钮的文本
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // 重新导向到指定网址
+                    window.location.href = '../articleIndex/ArticleIndex.html';
+                }
+            });
         })
-        .then(response => response.json())
-        .then(data => {
-            // 第二个请求成功后执行其他操作
-            console.log(data);
-        })
+
+
+
         .catch(error => {
-            // 处理错误
+
             console.error('Error:', error);
         });
 });
