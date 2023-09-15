@@ -182,7 +182,7 @@ async function fetchSta(id) {
             break;
     }
 
-    rId_el.innerHTML = 'DetailId= ' + detail.detailId + '<br>姓名= ' + detail.name;
+    rId_el.innerHTML = 'DetailId: ' + detail.detailId + '<br>姓名: ' + detail.name;
     rSta_el.innerHTML = refundSta;
   })
 }

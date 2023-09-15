@@ -408,9 +408,13 @@ public class GroupServiceImpl implements GroupService {
         if(groupList != null){
             System.out.println("group !=null");
             for(Group group : groupList){
-                group.setGroupSta(4);
-                groupRepository.save(group);
-                updMemberDetailRefund(group.getGroupId());
+                //如果正在揪團
+                if(group.getGroupSta() == 0 || group.getGroupSta() == 1 || group.getGroupSta() == 5) {
+                    group.setGroupSta(4);
+                    group.setPaymentSta(2);
+                    groupRepository.save(group);
+                    updMemberDetailRefund(group.getGroupId());
+                }
             }
         }
     }
