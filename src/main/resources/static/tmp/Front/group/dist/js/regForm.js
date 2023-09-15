@@ -73,7 +73,7 @@ window.addEventListener("load", async function (e) {
                   confirmButtonText:'返回登入畫面'
                 }).then((result) => {
                   if(result.isConfirmed) {
-                    window.location.href = baseUrl + '/u-and-me/tmp/Front/member/memberLogin.html';
+                    window.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
                   }else{
                     this.history.back();
                   }
