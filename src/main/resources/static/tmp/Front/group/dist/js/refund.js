@@ -108,8 +108,8 @@ btn_submit_el.addEventListener('click', async function (e) {
 inputs_el.forEach((input, index) => {
     input.addEventListener('input', (event) => {
         if (event.target.value.length === 4) {
-            if (index < inputs.length - 1) {
-                inputs[index + 1].focus();
+            if (index < inputs_el.length - 1) {
+                inputs_el[index + 1].focus();
             }
         }
     });
