@@ -149,7 +149,7 @@ window.addEventListener("load", function (e) {
         //最小人數
         if (minMember_el.value === null || minMember_el.value.trim() === "") {
             control = false;
-            minMemberStr.innerHTML = ' *最小人數必須填入數值';
+            minMemberStr.innerHTML = ' *請輸入最小人數';
             inputMinMember_el.appendChild(minMemberStr);
         } else if (!(Number.isInteger(Number(minMember_el.value))) || Number(minMember_el.value) < 0) {
             control = false;
@@ -167,7 +167,7 @@ window.addEventListener("load", function (e) {
         //最大人數
         if (maxMember_el.value === null || maxMember_el.value.trim() === "") {
             control = false;
-            maxMemberStr.innerHTML = ' *最大人數必須填入數值';
+            maxMemberStr.innerHTML = ' *請輸入最大人數';
             inputMaxMember_el.appendChild(maxMemberStr);
         } else if (!(Number.isInteger(Number(maxMember_el.value))) || Number(maxMember_el.value) < 0) {
             control = false;
@@ -185,14 +185,14 @@ window.addEventListener("load", function (e) {
         if (theme_el.value === null || theme_el.value.trim() === "") {
             // alert('標題不可為空值');
             control = false;
-            themeStr.innerHTML = ' *標題必須填入數值';
+            themeStr.innerHTML = ' *請輸入標題';
             inputTheme_el.appendChild(themeStr);
         }
 
         //價格
         if (amount_el.value === null || amount_el.value.trim() === "") {
             control = false;
-            amountStr.innerHTML = ' *價格必須填入數值';
+            amountStr.innerHTML = ' *請輸入價格';
             inputAmount_el.appendChild(amountStr);
         } else if (amount_el.value < 0 || !(Number.isInteger(Number(amount_el.value)))) {
             console.log(amount_el.value);
@@ -204,7 +204,7 @@ window.addEventListener("load", function (e) {
         //出發日期
         if (depDate_el.value === null || depDate_el.value.trim() === "") {
             control = false;
-            depDateStr.innerHTML = ' *行程出發日期必須填入數值';
+            depDateStr.innerHTML = ' *請輸入行程出發日期';
             inputDepDate_el.appendChild(depDateStr);
         } else if (today > depDate_el.valueAsNumber) {
             control = false;
@@ -219,7 +219,7 @@ window.addEventListener("load", function (e) {
         //截止日期
         if (deadline_el.value === null || deadline_el.value.trim() === "") {
             control = false;
-            deadlineStr.innerHTML = ' *揪團截止日期必須填入數值';
+            deadlineStr.innerHTML = ' *請輸入揪團截止日期';
             inputDeadline_el.appendChild(deadlineStr);
         } else if (today > deadline_el.valueAsNumber) {
             control = false;
@@ -234,14 +234,14 @@ window.addEventListener("load", function (e) {
         //揪團描述
         if (groupDesc_el.value === null || groupDesc_el.value.trim() === "") {
             control = false;
-            groupDescStr.innerHTML = ' *揪團描述必須填入數值';
+            groupDescStr.innerHTML = ' *請輸入揪團描述';
             inputGroupDesc_el.appendChild(groupDescStr);
         }
 
         //行前通知
         if (notice_el.value === null || notice_el.value.trim() === "") {
             control = false;
-            noticeStr.innerHTML = ' *行前通知必須填入數值';
+            noticeStr.innerHTML = ' *請輸入行前通知';
             inputNotice_el.appendChild(noticeStr);
         }
 
