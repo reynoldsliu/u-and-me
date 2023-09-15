@@ -111,41 +111,46 @@ async function deleteGroup(groupId) {
 
     //利用try catch 跳脫foreach循環
     try {
-        let r = confirm('確定刪除？');
-
-        if (r) {
-            await fetch(baseUrl + '/member/grouper/group/' + groupId, {
-                method: 'DELETE'
-            }).then(response => {
-                return response.text();
-            }).then(body => {
-                if(body == 'success'){
-                    Swal.fire({
-                        icon: 'success',
-                        title: '刪除成功',
-                        text: '已修改狀態',
-                        showCancelButton: true
-                      })
-                    throw new Error();
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: '刪除失敗',
-                        text: '需等待團員退款完畢才可以刪除',
-                        showCancelButton: true
-                      })
-                    throw new Error();
-                }
+        // let r = confirm('確定刪除？');
+            Swal.fire({
+              title: '確認刪除揪團?',
+              text: "刪除後無法回復",
+              icon: 'warning',
+              showCancelButton: true,
+              cancelButtonText:'取消',
+              cancelButtonColor:'#d33',
+              confirmButtonText:'刪除'
+            }).then((result) => {
+              if(result.isConfirmed) {
+                fetch(baseUrl + '/member/grouper/group/' + groupId, {
+                    method: 'DELETE'
+                }).then(response => {
+                    return response.text();
+                }).then(body => {
+                    if(body == 'success'){
+                        Swal.fire({
+                            icon: 'success',
+                            title: '刪除成功',
+                            text: '已修改狀態',
+                            showCancelButton: true
+                          })
+                        throw new Error();
+                    }else{
+                        Swal.fire({
+                            icon: 'error',
+                            title: '刪除失敗',
+                            text: '需等待團員退款完畢才可以刪除',
+                            showCancelButton: true
+                          })
+                        throw new Error();
+                    }
+                });
+              }
             });
-            
-        } else {
-            throw new Error();
-        }
-
-    } catch (e) {
+        }catch (e) {
         // window.location.reload();
+        }
     }
-}
 
 let j = 0;
 let formId = [];

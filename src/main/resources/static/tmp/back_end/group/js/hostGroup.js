@@ -274,7 +274,7 @@ async function fetchSta(id) {
         break;
     }
 
-    gId_el.innerHTML = 'GroupId= ' + group.groupId + '<br>揪團名稱= ' + group.theme;
+    gId_el.innerHTML = 'GroupId: ' + group.groupId + '<br>揪團名稱: ' + group.theme;
     gSta_el.innerHTML = groupSta;
     pSta_el.innerHTML = paymentSta;
   })
