@@ -38,8 +38,14 @@ public class ArticleCommentController {
                           HttpServletRequest request) {
         HttpSession session = request.getSession();
         Integer memberId = parseInt(session.getAttribute("memberId").toString());
-        articleSingleArticleService.postComment(comment, articleId, memberId);
-        return articleId;
+        if(memberId==null)
+        {
+            return 0;
+        }else{
+            articleSingleArticleService.postComment(comment, articleId, memberId);
+            return 1;
+        }
+
     }
 
 

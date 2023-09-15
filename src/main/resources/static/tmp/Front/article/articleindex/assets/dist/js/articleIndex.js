@@ -25,7 +25,7 @@ let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-m
              articleDiv.className = "articlecard"; // 添加 class
              articleDiv.innerHTML = `
 <a style="text-decoration: none;"
- href="${baseURL}tmp/Front/article/articleIndex/articleDetail.html?articleId=${GroupArticle.articleId}">
+ href="${baseURL}tmp/Front/article/articleindex/articleDetail.html?articleId=${GroupArticle.articleId}">
  <div>
      <p style="color: grey;margin-bottom: 8px;">${statusMapping.get(GroupArticle.acTypeId)}</p>
 
@@ -95,7 +95,7 @@ let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-m
              articleDiv.className = "articlecard"; // 添加 class
              articleDiv.innerHTML = `
 <a
- href="${baseURL}tmp/Front/article/articleIndex/articleDetail.html?articleId=${ScheduleArticle.articleId}">
+ href="${baseURL}tmp/Front/article/articleindex/articleDetail.html?articleId=${ScheduleArticle.articleId}">
 
  <div>
      <p style="color: grey;margin-bottom: 8px;">${statusMapping.get(ScheduleArticle.acTypeId)}</p>
@@ -166,7 +166,7 @@ let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-m
              articleDiv.className = "articlecard"; // 添加 class
              articleDiv.innerHTML = `
 <a
- href="${baseURL}tmp/Front/article/articleIndex/articleDetail.html?articleId=${ShopArticle.articleId}">
+ href="${baseURL}tmp/Front/article/articleindex/articleDetail.html?articleId=${ShopArticle.articleId}">
 
  <div>
      <p style="color: grey;margin-bottom: 8px;">${statusMapping.get(ShopArticle.acTypeId)}</p>
@@ -237,7 +237,7 @@ let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-m
              articleDiv.className = "articlecard"; // 添加 class
              articleDiv.innerHTML = `
 <a
- href="${baseURL}tmp/Front/article/articleIndex/articleDetail.html?articleId=${publicArticle.articleId}">
+ href="${baseURL}tmp/Front/article/articleindex/articleDetail.html?articleId=${publicArticle.articleId}">
 
  <div>
      <p style="color: grey;margin-bottom: 8px;">${statusMapping.get(publicArticle.acTypeId)}</p>
