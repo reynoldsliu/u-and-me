@@ -14,6 +14,7 @@
     integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous" />
     <!-- 客服聊天室 -->
     <link rel="stylesheet" href="../../customer/dist/css/customerChat.css">
+    <link rel="shortcut icon" href="../dist/img/favicon.ico" type="image/x-icon">
 
     <style>
 
@@ -23,12 +24,15 @@
 </head>
 
 <body>
+
+    <!-- -----Header----- -->
+
     <div class="Header">
-        <nav class="navbar navbar-expand-lg  bg-dark navbar-dark fixed-top">
+        <nav class="navbar navbar-expand-lg  bg-dark navbar-dark ">
 
             <div class="container-fluid">
                 <a class="navbar-brand" href="../../activity/ActivityIndex.html">
-                    <img src="../../dist/img/uandmelogo-removebg-preview.png">
+                    <img src="../../../../img/uandmelogo-removebg-preview.png">
 
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -40,27 +44,19 @@
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="../../activity/ActivityIndex.html" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">活動資訊</a>
+                                aria-expanded="false">活動資訊</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="../../activity/ActivityNewsList.html">News</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
                                 <li><a class="dropdown-item" href="../../activity/ActivityPeriodList.html">期間限定</a></li>
                             </ul>
                         </li>
                         </li>
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="../../attraction/myScheduleEdit.html">旅遊景點</a>
-                        </li>
                         <li class="nav-item dropdown me-2">
-                            <a class="nav-link dropdown-toggle" href="../../schedule/scheduleList.html" role="button"
+                            <a class="nav-link dropdown-toggle" href="../schedule/scheduleList.html" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">行程規劃</a>
                             <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../../schedule/myScheduleEdit.html">景點地圖</a></li>
                                 <li><a class="dropdown-item" href="../../schedule/scheduleList.html">旅遊行程</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
                                 <li><a class="dropdown-item" href="../../schedule/mySchedule.html">我的行程</a></li>
                             </ul>
                         </li>
@@ -72,35 +68,27 @@
                             <a class="nav-link" href="../../shop/shoppingMall.html">旅遊商城</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="../articleIndex/ArticleIndex.html" role="button" data-bs-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" href="../articleindex/ArticleIndex.html" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">論壇專區</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../articleIndex/ArticleIndex.html">論壇</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
+                                <li><a class="dropdown-item" href="../articleindex/ArticleIndex.html">論壇</a></li>
                                 <li><a class="dropdown-item" href="../posting/posting.html">發表新文章</a></li>
                             </ul>
                         </li>
                         </li>
-
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="../../customer/CustomerContact.html" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">客服專區</a>
+                            <a class="nav-link dropdown-toggle" href="../../customer/CustomerContact.html" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">客服專區</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="../../customer/CustomerQa.html">Q&A專欄</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
                                 <li><a class="dropdown-item" href="../../customer/CustomerContact.html">聯絡我們</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
+
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
-                    <li class="nav-item">
-                    </li>
-                    </li>
+                   
                     <li class="nav-item">
                         <a class="nav-link" href="../../member/memberCenter.html">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
