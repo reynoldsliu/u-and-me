@@ -42,6 +42,9 @@ bank_el.addEventListener('change', function (e) {
 });
 
 btn_submit_el.addEventListener('click', async function (e) {
+    inputAccountStr.innerHTML = '';
+    inputReasonStr.innerHTML = '';
+
     e.preventDefault();
 
     let control = true;
@@ -61,7 +64,7 @@ btn_submit_el.addEventListener('click', async function (e) {
 
     if (reason.value.trim() == null || reason.value.trim() == "") {
         control = false;
-        inputReasonStr.innerHTML = ' *原因不可為空值';
+        inputReasonStr.innerHTML = ' *請輸入原因';
         inputReason_el.appendChild(inputReasonStr);
     }
 

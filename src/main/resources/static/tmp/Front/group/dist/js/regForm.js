@@ -200,13 +200,13 @@ order_confirmed_el.addEventListener('click', function (e) {
         //錯誤判斷
         if (name_el.value === null || name_el.value.trim() === "") {
             control = false;
-            nameStr.innerHTML = ' *姓名不可為空值';
+            nameStr.innerHTML = ' *請輸入姓名';
             nametext_el.appendChild(nameStr);
         }
 
         if (idnumber_el.value === null || idnumber_el.value.trim() === "") {
             control = false;
-            idnumberStr.innerHTML = ' *身份證字號不可為空值';
+            idnumberStr.innerHTML = ' *請輸入身份證字號';
             idnumbertext_el.appendChild(idnumberStr);
         } else if (!(idnumberReg.test(idnumber_el.value))) {
             control = false;
@@ -216,7 +216,7 @@ order_confirmed_el.addEventListener('click', function (e) {
 
         if (birthday_el.value === null || birthday_el.value.trim() === "") {
             control = false;
-            birthdayStr.innerHTML = ' *出生日期不可為空值';
+            birthdayStr.innerHTML = ' *請輸入出生日期';
             birthdaytext_el.appendChild(birthdayStr);
         } else if (today < birthday_el.valueAsNumber) {
             control = false;
