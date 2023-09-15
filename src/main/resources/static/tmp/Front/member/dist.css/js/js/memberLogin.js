@@ -54,9 +54,17 @@
                         if (result.isConfirmed) {
                             window.history.go(-1);
                         }
-                    });
+                    })
         
-                        }else {
+                        }else if(response.status == 402){
+                            Swal.fire({
+                                icon: 'error',
+                                title: '您已被停權',
+                                text: '請聯繫客服信箱',
+                                showCancelButton: true
+                              })
+
+                        } else {
                              Swal.fire({
                                             icon: 'error',
                                             title: '登入失敗',

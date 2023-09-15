@@ -31,8 +31,11 @@ public class MemberServiceImpl implements MemberService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "無此使用者");
 //        String hashReqPwd = sha256Hash(loginDTO.getMemPassword());//傳入密碼加密
         //比較帳號密碼
-        if (!member.getMemEmail().equals(loginDTO.getMemEmail()) || !member.getMemPassword().equals(loginDTO.getMemPassword()))
+        if (!member.getMemEmail().equals(loginDTO.getMemEmail()) || !member.getMemPassword().equals(loginDTO.getMemPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "帳號密碼錯誤");
+        }else if(member.getMemSta() == 1){
+            throw new ResponseStatusException(HttpStatus.PAYMENT_REQUIRED, "您已被停權");
+        }
         HttpSession httpSession = request.getSession();
 //        httpSession.setAttribute("loggedInMember", member.getMemberId());
         // 添加 Cookie 到回應中

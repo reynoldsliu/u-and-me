@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static java.lang.Integer.parseInt;
+
 public class MemberFilter extends OncePerRequestFilter {
 
 
@@ -42,6 +44,8 @@ public class MemberFilter extends OncePerRequestFilter {
             response.setStatus(401);
 //            response.sendRedirect("http://localhost:8080/u-and-me/tmp/Front/member/memberLogin.html");
             return;
+        }else if (parseInt(session.getAttribute("memSta").toString()) == 1){
+            response.setStatus(402);
         }
 
         chain.doFilter(requestWrapper, responseWrapper);
