@@ -8,6 +8,8 @@ const classMapOne = "-one";
 
 // 抓取所有會切換頁面使用到的標籤
 const backToMySchedule_el = document.querySelector("#backToMySchedule");
+// 行程大綱標籤
+const mySchName_el = document.querySelector("div.mySchName");
 
 // =============== 行程細節相關標籤 =============== 
 // 選擇日期天數頁籤
@@ -598,6 +600,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     const response = await fetch(baseURL + `schedules/schId/${schId}`);
     const schedule = await response.json();
     // console.log("Schedule ID: " + schId);
+
+    // 顯示行程名稱
+    mySchName_el.innerText = schedule.schName;
+
     //行程開始日期 結束日期
     var schStartDate = new Date(schedule.schStart);
     var schEndDate = new Date(schedule.schEnd);
@@ -636,9 +642,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     //         schDetails.shift();
     //     }
     // });
-    console.log(schDetails);
+    // console.log(schDetails);
     addDailySchedule(schDetails);
-    console.log("!!!!!!!: " + schDetails);
+    // console.log("!!!!!!!: " + schDetails);
 
     // ====================== 生成行程細節天數tab內容 ======================
 
@@ -667,9 +673,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 //  ================== 行程細節頁面(待新增) ================== //
-backToMySchedule_el.addEventListener("click", function () {
+// backToMySchedule_el.addEventListener("click", function () {
 
-});
+// });
 
 
 // 按下選擇天數tab，移動左右天數欄
@@ -836,7 +842,7 @@ tab_search_el.addEventListener("click", function (e) {
 
 function bussTimeString(inputString) {
     // 使用逗号分割字符串，并将结果存储在数组中
-    if(inputString==undefined||inputString==null||inputString.trim()=='')
+    if (inputString == undefined || inputString == null || inputString.trim() == '')
         return "尚無資料";
     const timeRanges = inputString.split('|');
 

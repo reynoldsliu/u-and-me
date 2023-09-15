@@ -659,8 +659,9 @@ span.selectTransMode {
     width: 80px;
     height: 100%;
     position: relative;
-    top: -25px;
+    /* top: -25px; */
     left: 2%;
+    top: 0px;
     vertical-align: middle;
 }
 
