@@ -54,7 +54,7 @@ btn_submit_el.addEventListener('click', async function (e) {
             }
         });
     }catch (e){
-        inputAccountStr.innerHTML = '<br> *帳戶格式不正確';
+        inputAccountStr.innerHTML = ' *帳戶格式不正確';
         inputAccount_el.appendChild(inputAccountStr);
     }
 
@@ -95,7 +95,7 @@ btn_submit_el.addEventListener('click', async function (e) {
         Swal.fire({
             icon: 'error',
             title: '退款申請失敗',
-            text: '請檢察退款資料',
+            text: '請檢查退款資料',
             showCancelButton: true
         })
     }
