@@ -8,8 +8,9 @@ const classMapOne = "-one";
 
 // 抓取所有會切換頁面使用到的標籤
 const backToMySchedule_el = document.querySelector("#backToMySchedule");
-// 行程大綱標籤
+// 行程大綱名稱
 const mySchName_el = document.querySelector("div.mySchName");
+// 行程標籤
 
 // =============== 行程細節相關標籤 =============== 
 // 選擇日期天數頁籤
@@ -76,6 +77,7 @@ const myAttrDone_btn_el = document.querySelector(".myAttrDone-btn");
 
 // =============== 元素插入處相關標籤 =============== 
 // --------- 行程相關 ------------
+const mySchTagsInsert_el = document.querySelector("div.mySchTagsInsert");
 const dateSelectCellInsert_el = document.querySelector("div.dateSelect");
 
 // --------- 景點相關 ------------
@@ -791,6 +793,8 @@ tab_back_el.addEventListener("click", function () {
     switchAttrDetailsAndMapOff();
     // 顯示查看行程細節頁面
     viewSchDetailsPage.classList.remove(classSwitchOff);
+    // 顯示加入收藏按鈕
+    showAddAttrToCollectionBtn();
 });
 
 // ---- 換頁籤處理 ----//
@@ -840,6 +844,8 @@ tab_search_el.addEventListener("click", function (e) {
     switchAttrDetailsAndMapOff();
     // 顯示搜尋欄及搜尋結果
     attrSearchPage.classList.remove(classSwitchOff);
+    // 顯示加入收藏按鈕
+    showAddAttrToCollectionBtn();
 });
 
 function bussTimeString(inputString) {
@@ -919,7 +925,7 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 更改景點詳情內容
     const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrId);
     const attr = await responseOfOneAttr.json();
-    console.log(attr);
+    // console.log(attr);
     attrIdText_el.innerHTML = attrId;
     attrNameTitle.innerText = attr.attrName;
     attrComScore.innerText = generateRandomNumber();
@@ -959,6 +965,7 @@ async function viewSearchResultOfOneAttr(attrId) {
         map: map,
         title: '自定義位置' // 可以自定義標記的標題
     });
+
 }
 
 
@@ -995,6 +1002,8 @@ tab_attrCollect_el.addEventListener("click", async function (e) {
     if (myAttrCollectionList.classList.contains(classSwitchOff)) {
         myAttrCollectionList.classList.remove(classSwitchOff);
     }
+    // 顯示移除收藏按鈕
+    showRemoveAttrFromCollectionBtn();
 
     // 根據會員id動態生成景點收藏清單
     const response = await fetch(baseURL + `member/getMemId`);
@@ -1082,18 +1091,16 @@ addAttrCollect_btn_el.onclick = async () => {
     // 抓取景點id
     let attrId = attrIdText_el.innerText;
 
-    const attrCollectionDTO = {
-        collectionId: {
-            memId: memId,
-            attrId: attrId
-        }
+    const collectionId = {
+        memId: memId,
+        attrId: attrId
     }
     const responseCol = await fetch(baseURL + `attrCol/addAttrToCollection`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(attrCollectionDTO)
+        body: JSON.stringify(collectionId)
     })
     Swal.fire(
         '儲存成功!',
@@ -1133,6 +1140,32 @@ removeAttrCollect_btn_el.onclick = async () => {
     ).then(() => {
         FindAllAttrCollectionList(memId);
     })
+}
+
+// TODO...
+// 判斷景點是否有收藏，如果無收藏，則顯示儲存景點
+// 如果有收藏，則顯示移除收藏
+// 顯示加入收藏按鈕
+function showAddAttrToCollectionBtn() {
+    // 在搜尋及行程細節頁面時點開的話，顯示加入收藏鈕
+    if (!viewSearchPage.classList.contains(classSwitchOff) ||
+        !viewSchDetailsPage.classList.contains(classSwitchOff)) {
+        if (addAttrCollect_btn_el.classList.contains(classSwitchOff)) {
+            addAttrCollect_btn_el.classList.remove(classSwitchOff);
+            removeAttrCollect_btn_el.classList.add(classSwitchOff);
+        }
+    }
+}
+
+// 顯示移除收藏按鈕
+function showRemoveAttrFromCollectionBtn() {
+    // 在收藏頁面點開的話，會顯示移除收藏鈕
+    if (!myAttrsPage.classList.contains(classSwitchOff)) {
+        if (removeAttrCollect_btn_el.classList.contains(classSwitchOff)) {
+            removeAttrCollect_btn_el.classList.remove(classSwitchOff);
+            addAttrCollect_btn_el.classList.add(classSwitchOff);
+        }
+    }
 }
 
 // ================== 自訂景點 ================== //
@@ -1438,3 +1471,5 @@ addToSchedule_btn_el.addEventListener('click', async function () {
 // hideRemoveCoolectionBtn(memId, attrId){
 
 // }
+
+// 判斷是否為行程建立者，若不是，則不可編輯

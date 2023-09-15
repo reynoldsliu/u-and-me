@@ -374,7 +374,7 @@ addSch_btn.onclick = async () => {
   for (let i = 0; i < schTagList.length; i++) {
 
 
-    if (i < 19) {
+    if (i < 20) {
       // 選擇地區類型
       let destOption = document.createElement("option");
       destOption.value = schTagList[i].schTagId;
