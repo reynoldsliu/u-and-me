@@ -60,4 +60,16 @@ btn_submit_el.addEventListener('click', async function(e){
         showCancelButton: true
       })
 
-})
+});
+
+const inputs = document.querySelectorAll('.form-control');
+
+inputs.forEach((input, index) => {
+    input.addEventListener('input', (event) => {
+        if (event.target.value.length === 4) {
+            if (index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        }
+    });
+});

@@ -64,29 +64,29 @@ window.addEventListener("load", async function (e) {
         }).then(response => {
             if (response.status === 401) {
                 Swal.fire({
-                  title: '尚未登入',
-                  text: "想返回登入畫面嗎?",
-                  icon: 'error',
-                  showCancelButton: true,
-                  cancelButtonText:'取消',
-                  cancelButtonColor:'#d33',
-                  confirmButtonText:'返回登入畫面'
+                    title: '尚未登入',
+                    text: "想返回登入畫面嗎?",
+                    icon: 'error',
+                    showCancelButton: true,
+                    cancelButtonText: '取消',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '返回登入畫面'
                 }).then((result) => {
-                  if(result.isConfirmed) {
-                    window.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
-                  }else{
-                    this.history.back();
-                  }
+                    if (result.isConfirmed) {
+                        window.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+                    } else {
+                        this.history.back();
+                    }
                 });
-        
-              }
+
+            }
             return response.json();
         }).then(regform => {
             formId = Number(regform.formId) + 1;
         }).catch(error => {
             formId = 1;
         })
-    }catch(error) {
+    } catch (error) {
         formId = 1;
     }
 
@@ -358,3 +358,15 @@ function addMemberDetail(member) {
         total_el.innerText = total;
     }
 }
+
+const inputs = document.querySelectorAll('.auto-next-input');
+
+inputs.forEach((input, index) => {
+    input.addEventListener('input', (event) => {
+        if (event.target.value.length === 4) {
+            if (index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+        }
+    });
+});
