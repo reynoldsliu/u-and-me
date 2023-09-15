@@ -63,13 +63,14 @@ public class OrdersServiceImpl implements OrdersService {
         message.setFrom("xiaoina914@gmail.com");//寄出信件的信箱
         message.setTo(recieverEmail);//接收信件的信箱
         message.setSubject("U-and-Me 客服郵件");//信件主旨
-        message.setText("收件人姓名：" + member.getMemName()+"\n\n"+
-                "收件人信箱：" + member.getMemEmail()+"\n\n"+
-                "收件人地址：" + member.getMemCity()+member.getMemDist()+member.getMemAddr()+"\n\n"+
+        message.setText("訂購人姓名：" + member.getMemName()+"\n\n"+
+                "訂購人信箱：" + member.getMemEmail()+"\n\n"+
+                "訂單總金額：" + orders.getChecktotal()+"\n\n"+
+                "訂單編號：" + orders.getOrdId()+"\n\n"+
                 "＊－。－。－。－。－ 收件人留言 －。－。－。－。－＊\n\n"+
                 "您的訂單已確認，感謝您的購買!"+"\n\n\n\n\n\n"+
                 "From U-and-Me"+
-                "＊－。－。－。－。－。－。－。－－。－。－。－。－＊");//信件內容 長String 可以加\n換行
+                "＊－。－。－。－。－。－。－。－－。－。－＊");//信件內容 長String 可以加\n換行
 
         mailSender.send(message);
         return orders1;
