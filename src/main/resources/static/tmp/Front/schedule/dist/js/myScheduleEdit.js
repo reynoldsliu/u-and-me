@@ -844,6 +844,8 @@ function bussTimeString(inputString) {
     // 使用逗号分割字符串，并将结果存储在数组中
     if (inputString == undefined || inputString == null || inputString.trim() == '')
         return "尚無資料";
+    if (inputString == "尚無資料" || inputString == "暫無資料")
+        return "尚無資料";
     const timeRanges = inputString.split('|');
 
     // 分别存储平日和假日的时间范围
