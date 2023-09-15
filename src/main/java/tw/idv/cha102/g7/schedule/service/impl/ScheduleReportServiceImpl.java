@@ -3,6 +3,10 @@ package tw.idv.cha102.g7.schedule.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tw.idv.cha102.g7.group.entity.Group;
+import tw.idv.cha102.g7.group.repo.GroupRepository;
+import tw.idv.cha102.g7.group.service.GroupService;
+import tw.idv.cha102.g7.group.service.Impl.GroupServiceImpl;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleReport;
 import tw.idv.cha102.g7.schedule.repo.ScheduleReportRepository;
@@ -22,6 +26,9 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
     private ScheduleReportRepository reportRepository;
     @Autowired
     private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private GroupServiceImpl groupService;
 
     @Override
     public void insert(ScheduleReport scheduleRep, HttpServletRequest request) {
@@ -78,6 +85,9 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
         Schedule reportSch = scheduleRepository.findById(schReport.getSchId()).orElse(null);
         if (reportSch != null) {
             reportSch.setSchPub(schPub);
+            if(schPub == 0){
+                groupService.updGroupStaBySchRep(reportSch.getSchId());
+            }
             scheduleRepository.save(reportSch);
         }
     }

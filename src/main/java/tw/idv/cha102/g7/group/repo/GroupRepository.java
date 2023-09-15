@@ -85,4 +85,6 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
 
     @Query(value = "SELECT g.* FROM `group` AS g LEFT JOIN reg_form AS r ON g.group_id = r.group_id WHERE r.form_id = ?1", nativeQuery = true)
     List<Group> findByFormId(Integer formId);
+
+    List<Group> findBySchId(Integer schId);
 }

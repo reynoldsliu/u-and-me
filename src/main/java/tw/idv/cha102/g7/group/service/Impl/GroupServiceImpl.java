@@ -367,18 +367,7 @@ public class GroupServiceImpl implements GroupService {
 
         //如果管理員設置取消揪團或下架揪團時
         if (group.getGroupSta() == 4) {
-            List<MemberDetail> memberDetailList = memberDetailRepository.findByGroupId(groupId);
-            if (memberDetailList != null) {
-
-                //設置退費狀態
-                for (MemberDetail detail : memberDetailList) {
-                    if (detail.getRefundSta() == 0) {
-                        detail.setRefundSta(2);
-                        detail.setRefundDate(timestamp);
-                        detail.setRefund(group.getAmount());
-                    }
-                }
-            }
+            updMemberDetailRefund(groupId);
         }
     }
 
@@ -413,4 +402,36 @@ public class GroupServiceImpl implements GroupService {
         return groupList;
     }
 
+    //檢舉行程時更新揪團狀態方法
+    public void updGroupStaBySchRep(Integer schId){
+        List<Group> groupList = groupRepository.findBySchId(schId);
+        if(groupList != null){
+            for(Group group : groupList){
+                group.setGroupSta(4);
+                updMemberDetailRefund(group.getGroupId());
+            }
+        }
+    }
+
+    //更新團員退費方法
+    public void updMemberDetailRefund(Integer groupId){
+        Long datetime = System.currentTimeMillis();
+        Group group = groupRepository.findById(groupId).orElse(null);
+        Timestamp timestamp = new Timestamp(datetime);
+        List<MemberDetail> memberDetailList = memberDetailRepository.findByGroupId(groupId);
+        if (memberDetailList != null) {
+            //設置退費狀態
+            for (MemberDetail detail : memberDetailList) {
+                if (detail.getRefundSta() == 0) {
+                    detail.setRefundSta(2);
+                    detail.setRefundDate(timestamp);
+                    System.out.println(group.getAmount());
+                    detail.setRefund(group.getAmount());
+                    detail.setReason("管理員處理揪團下架");
+                    System.out.println(detail.getReason());
+                    memberDetailRepository.save(detail);
+                }
+            }
+        }
+    }
 }
