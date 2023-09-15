@@ -62,15 +62,24 @@ window.addEventListener("load", async function (e) {
         fetch(baseUrl + '/member/regForm/findFromId', {
             method: 'GET',
         }).then(response => {
-            if (response.status == 401) {
+            if (response.status === 401) {
                 Swal.fire({
-                    icon: 'error',
-                    title: '尚未登入',
-                    showCancelButton: true
-                }).then(() => {
-                    this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+                  title: '尚未登入',
+                  text: "想返回登入畫面嗎?",
+                  icon: 'error',
+                  showCancelButton: true,
+                  cancelButtonText:'取消',
+                  cancelButtonColor:'#d33',
+                  confirmButtonText:'返回登入畫面'
+                }).then((result) => {
+                  if(result.isConfirmed) {
+                    window.location.href = baseUrl + '/u-and-me/tmp/Front/member/memberLogin.html';
+                  }else{
+                    this.history.back();
+                  }
                 });
-            }
+        
+              }
             return response.json();
         }).then(regform => {
             formId = Number(regform.formId) + 1;
