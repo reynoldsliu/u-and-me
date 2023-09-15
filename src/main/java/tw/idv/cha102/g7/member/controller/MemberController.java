@@ -189,9 +189,10 @@ public class MemberController {
 
 
     /**
-     * 團主註冊
      *
-     * @param member
+     * @param request
+     * @param memIdcardUpdate
+     * @param groupRegisterCard
      * @return
      */
     @RequestMapping("/memberGroupRegister/{memIdcardUpdate}")

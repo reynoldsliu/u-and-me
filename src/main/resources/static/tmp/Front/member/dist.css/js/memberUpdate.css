@@ -179,9 +179,9 @@ align-items: center;
   letter-spacing:0.1rem;
 }
 .content-wrapper {
-  margin-top: 500px;
+  margin-top: 300px;
   background-color: white;
-  padding: 100px;
+  padding: 95px;
   padding-right: 80px;
   /* Add some padding to the content */
   margin: 50px auto;

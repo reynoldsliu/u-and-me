@@ -105,16 +105,6 @@ public class HostToMemberController {
 
     }
 
-//    @PutMapping("/memUpdate")
-//    public ResponseEntity<?> memUpdate(@RequestBody Member Member){
-//        try {
-//            memberService.updateMemBymemId(memId, Member);
-//            return ResponseEntity.ok("更新成功！");
-//        } catch (Exception e) {
-//            return ResponseEntity
-//                    .status(HttpStatus.NOT_FOUND).body("更新失敗！");
-//        }
-//    }
-//
+
 
 }

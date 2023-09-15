@@ -138,12 +138,15 @@ const myAddrInput = document.getElementById("myAddrInput");
 const myMemDist = document.getElementById("myMemDist");
 const myMemCity = document.getElementById("myMemCity");
 const memGender = document.getElementById("memGender");
+const memPassword = document.getElementById("memPassword");
+const newPassword = document.getElementById("newPassword");
 const submitBtn = document.querySelector('button[type="submit"]');
 var memEmail;
 
   const inputMemName_el = this.document.getElementById("inputMemName");
   const inputMemPhone_el = this.document.getElementById("inputMemPhone");
   const inputMyAddr_el = this.document.getElementById("inputMyAddr");
+  const inputNewPassword_el = this.document.getElementById("inputNewPassword");
 
 
  //錯誤判斷新增的字串
@@ -155,6 +158,10 @@ var memEmail;
 
     let myAddrInputStr = document.createElement("span");
     myAddrInputStr.style.color = 'red';
+
+    let newPasswordStr = document.createElement("span");
+    newPasswordStr.style.color = 'red';
+
 
    //////////
 
@@ -177,6 +184,8 @@ async function fetchMemDetail() {
         memName.value = MemDetail.memName;
         memIdcard.value = MemDetail.memIdcard;
         memPhone.value = MemDetail.memPhone;
+        memPassword.value = MemDetail.memPassword;
+        newPassword.value = MemDetail.memPassword;
         myMemCity.value = MemDetail.memCity;
         myMemDist.value = MemDetail.memDist;
         myAddrInput.value = MemDetail.memAddr;
@@ -213,6 +222,8 @@ submitBtn.addEventListener('click', async function (event) {
         memNameStr.innerHTML = "";
         memPhoneStr.innerHTML = '';
         myAddrInputStr.innerHTML = '';
+        newPasswordStr.innerHTML = '';
+
 
         //會員姓名
         if (memName.value === null || memName.value.trim() === "") {
@@ -234,11 +245,25 @@ submitBtn.addEventListener('click', async function (event) {
             inputMyAddr_el.appendChild(myAddrInputStr);
                         }
 
+        //會員密碼
+        const passwordCheck = /^[A-Za-z\d!@#$%^&*()]{8,12}$/;
+        if (newPassword.value === null || newPassword.value.trim() === "") {
+          control = false;
+          newPasswordStr.innerHTML = '會員密碼必須填入';
+          inputNewPassword_el.appendChild(newPasswordStr);
+                      }else if (!passwordCheck.test(newPassword.value)) {
+                        control = false;
+                        newPasswordStr.innerHTML = ' *密碼必須介於8至12字元';
+                        inputNewPassword_el.appendChild(newPasswordStr);
+                       }
 
+
+console.log(newPassword.value);
 
     // 構建要傳遞的資料
     const requestData = {
-            "memEmail":memEmail,
+           "memEmail":memEmail,
+           "memPassword": newPassword.value,
            "memName": memName.value,
            "memIdcard": memIdcard.value,
            "memPhone": memPhone.value,
@@ -246,6 +271,7 @@ submitBtn.addEventListener('click', async function (event) {
            "memDist": myMemDist.value,
            "memCity": myMemCity.value,
            "memGender": memGender.value
+
     };
     if(control){
 

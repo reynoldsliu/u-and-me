@@ -161,6 +161,8 @@ public class MemberServiceImpl implements MemberService {
                 existingMember.setMemGroup(member.getMemGroup());
             } if (member.getMemSta() != null) {
                 existingMember.setMemSta(member.getMemSta());
+            }if (member.getMemPassword() != null) {
+                existingMember.setMemPassword(member.getMemPassword());
             }
 
 
