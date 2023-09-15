@@ -54,7 +54,12 @@ const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and
                                   })
                                 // location.reload();
                             } else {
-                                      alert("登入失敗，請再次嘗試");
+                                   Swal.fire({
+                                                                              icon: 'error',
+                                                                              title: '管理員登入失敗',
+                                                                              text: '請檢查您的帳號密碼',
+                                                                              showCancelButton: true
+                                                                            })
                                   }
     }
  

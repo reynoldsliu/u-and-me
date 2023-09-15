@@ -47,7 +47,13 @@
                          title: '管理員新增成功',
                          text: '',
                          confirmButtonText: '確定'
-      })}else if(response.status == 400){
+      }).then((result) => {
+                              if (result.isConfirmed) {
+                                  window.history.go(-1);
+                              }
+                          });
+
+      }else if(response.status == 400){
                             Swal.fire({
                                 icon: 'error',
                                 title: '此信箱已註冊過管理員',
@@ -77,14 +83,14 @@
           //管理員姓名
           if (hostName.value === null || hostName.value.trim() === "") {
               control = false;
-              hostNameStr.innerHTML = ' *管理員姓名必須填入';
+              hostNameStr.innerHTML = ' *姓名必須填入';
               inputHostName_el.appendChild(hostNameStr);
           }
           //管理員電話
           const phoneCheck = /^09[0-9]{8}$/;
           if (hostPhone.value === null || hostPhone.value.trim() === "") {
               control = false;
-              hostPhoneStr.innerHTML = ' *管理員電話必須填入';
+              hostPhoneStr.innerHTML = ' *電話必須填入';
               inputHostPhone_el.appendChild(hostPhoneStr);
                   }else if (!phoneCheck.test(hostPhone.value)) {
                     control = false;
@@ -95,7 +101,7 @@
           const passwordCheck = /^[A-Za-z\d!@#$%^&*()]{8,12}$/;
           if (hostPassword.value === null || hostPassword.value.trim() === "") {
               control = false;
-              hostPasswordStr.innerHTML = ' *管理員密碼必須填入';
+              hostPasswordStr.innerHTML = ' *密碼必須填入';
               inputHostPassword_el.appendChild(hostPasswordStr);
               }else if (!passwordCheck.test(hostPassword.value)) {
               control = false;
@@ -107,7 +113,7 @@
           const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
           if (hostEmail.value === null || hostEmail.value.trim() === "") {
               control = false;
-              hostEmailStr.innerHTML = ' *會員信箱必須填入';
+              hostEmailStr.innerHTML = ' *信箱必須填入';
               inputHostEmail_el.appendChild(hostEmailStr);
               }else if (!emailRegex.test(hostEmail.value)) {
               control = false;
