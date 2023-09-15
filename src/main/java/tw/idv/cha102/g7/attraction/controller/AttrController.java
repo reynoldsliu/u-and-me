@@ -123,6 +123,11 @@ public class AttrController {
     public ResponseEntity<List<Attraction>> getAttrsByNameFilter(@PathVariable String attrName){
         return new ResponseEntity(attrService.getAttrByNameFilter(attrName),HttpStatus.OK);
     }
+    @RequestMapping("/getAttrsFilter/{attrId}")
+    public ResponseEntity<List<Attraction>> getAttrsFilter(@PathVariable Integer attrId){
+        return new ResponseEntity(attrService.getAttrsFilter(attrId),HttpStatus.OK);
+    }
+
 
     @GetMapping("/attr/all/{pageSize}/{page}")
     public List<Attraction> getAllPaged(@PathVariable Integer pageSize,@PathVariable Integer page){

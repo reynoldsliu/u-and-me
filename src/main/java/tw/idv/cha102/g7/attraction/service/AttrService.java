@@ -2,6 +2,7 @@ package tw.idv.cha102.g7.attraction.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 
 import java.util.List;
@@ -39,5 +40,7 @@ public interface AttrService {
     public ResponseEntity<String> deleteAttrByAttrId(Integer attrId);
 
     public ResponseEntity<List<Attraction>> getAttrsByType(String attrType);
+
+    public ResponseEntity<List<Attraction>> getAttrsFilter(Integer attrId);
 
 }

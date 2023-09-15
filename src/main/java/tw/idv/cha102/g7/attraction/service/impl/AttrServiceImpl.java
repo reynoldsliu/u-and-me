@@ -159,4 +159,18 @@ public class AttrServiceImpl implements AttrService {
         }
         return new ResponseEntity<>(attractions,HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<List<Attraction>> getAttrsFilter(Integer attrId){
+        List<Attraction> attractions = attrRepository.findAll();
+        if(attractions==null){
+            return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
+        }
+        for(Attraction attraction:attractions){
+            if(attraction.getAttrSta()!=1){
+                attractions.remove(attraction);
+            }
+        }
+        return new ResponseEntity<>(attractions,HttpStatus.OK);
+    }
 }

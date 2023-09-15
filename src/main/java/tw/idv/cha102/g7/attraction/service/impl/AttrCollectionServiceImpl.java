@@ -5,11 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionDTO;
 import tw.idv.cha102.g7.attraction.dto.AttrCollectionId;
-import tw.idv.cha102.g7.attraction.dto.AttrPrivateDTO;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.repo.AttrCollectionRepository;
 import tw.idv.cha102.g7.attraction.repo.AttrRepository;
@@ -53,17 +50,22 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
     /**
      * 先查詢有無此會員，以及有無此景點，
      * 若皆有則新增或更新已有的收藏
+     *
      * @param attrCollectionDTO
      * @return String
      */
     @Override
-    public String addAttrToCollection(AttrCollectionDTO attrCollectionDTO) {
-        if (attrRepository.findById(attrCollectionDTO.getCollectionId().getAttrId()) == null
-                || memberRepository.findById(attrCollectionDTO.getCollectionId().getMemId()) == null) {
-            return "failed";
+    public ResponseEntity<AttrCollectionDTO> addAttrToCollection(AttrCollectionId attrCollectionId) {
+        AttrCollectionDTO attrCollectionDTO = new AttrCollectionDTO();
+        if (attrRepository.findById(attrCollectionId.getAttrId()) == null
+                || memberRepository.findById(attrCollectionId.getMemId()) == null) {
+            return new ResponseEntity<>(new AttrCollectionDTO(),HttpStatus.OK);
         }
-        attrCollectionRepository.save(attrCollectionDTO);
-        return "success";
+        System.out.println("good");
+        attrCollectionDTO.setCollectionId(attrCollectionId);
+        System.out.println(attrCollectionDTO);
+//        attrCollectionRepository.save(attrCollectionDTO);
+        return new ResponseEntity<>(attrCollectionRepository.save(attrCollectionDTO),HttpStatus.OK);
     }
 
     @Override
@@ -100,12 +102,12 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
      */
     @Override
     @Transactional
-    public String removeAttrFromCollection(AttrCollectionId attrCollectionId) {
+    public ResponseEntity<AttrCollectionId> removeAttrFromCollection(AttrCollectionId attrCollectionId) {
         if (attrCollectionRepository.findByCollectionId(attrCollectionId) == null) {
-            return "failed";
+            return new ResponseEntity<>(new AttrCollectionId(),HttpStatus.OK);
         }
         attrCollectionRepository.deleteByCollectionId(attrCollectionId);
-        return "success";
+        return new ResponseEntity<>(attrCollectionId,HttpStatus.OK);
 
     }
 
@@ -200,5 +202,27 @@ public class AttrCollectionServiceImpl implements AttrCollectionService {
         }
         return returnList;
 
+    }
+
+    @Override
+    public ResponseEntity<AttrCollectionDTO> ifMemGotTheAttr(HttpServletRequest request,
+                                   Integer attrId){
+        HttpSession session = request.getSession();
+        Object obj = session.getAttribute("memberId");
+        if(obj==null){
+            return new ResponseEntity<>(new AttrCollectionDTO(),HttpStatus.OK);
+        }
+        Integer memId = Integer.parseInt(obj.toString());
+        List<AttrCollectionDTO> attrCollectionDTOS = attrCollectionRepository.findAll();
+        for(AttrCollectionDTO  attrCollectionDTO:attrCollectionDTOS){
+            Attraction attraction = attrRepository.findById(attrCollectionDTO.getCollectionId().getAttrId()).orElse(null);
+            if(attrCollectionDTO.getCollectionId().getAttrId()==attrId &&
+                    attrCollectionDTO.getCollectionId().getMemId()==memId &&
+                    attraction.getAttrSta()!=0){
+                System.out.println("FOUND");
+                return new ResponseEntity<>(attrCollectionDTO,HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(new AttrCollectionDTO(),HttpStatus.OK);
     }
 }

@@ -15,7 +15,7 @@
     <title>U & ME | 行程規劃 | 我的行程 | 編輯行程</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="./dist/css/myScheduleEdit.css">
+    <link rel="stylesheet" href="./dist/css/myAttractionEdit.css">
     <script src="https://kit.fontawesome.com/6767d9ab33.js" crossorigin="anonymous"></script>
     <!-- 警示窗 -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
     <link rel="shortcut icon" href="../../Front/dist/img/favicon.ico" type="image/x-icon">
     <!-- 傳送圖片icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
-    integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous" />
+        integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous" />
     <!-- 客服聊天室 -->
     <link rel="stylesheet" href="../customer/dist/css/customerChat.css">
 </head>
@@ -49,52 +49,42 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">活動資訊</a>
+                            <a class="nav-link dropdown-toggle" href="../activity/ActivityIndex.html" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">活動資訊</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="ActivityNewsList.html">News</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="ActivityPeriodList.html">期間限定</a></li>
+                                <li><a class="dropdown-item" href="../activity/ActivityNewsList.html">News</a></li>
+                                <li><a class="dropdown-item" href="../activity/ActivityPeriodList.html">期間限定</a></li>
                             </ul>
                         </li>
                         </li>
                         <li class="nav-item me-2">
-                            <a class="nav-link" href="../../Front/attraction/myScheduleEdit.html">旅遊景點</a>
+                            <a class="nav-link" href="../../Front/attraction/attractionList.html">旅遊景點</a>
                         </li>
-                        <li class="nav-item dropdown me-2">
-                            <a class="nav-link dropdown-toggle" href="../schedule/scheduleList.html" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">行程規劃</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../schedule/scheduleList.html">旅遊行程</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="../schedule/mySchedule.html">我的行程</a></li>
-                            </ul>
-                        </li>
-                        </li>
+
+
                         <li class="nav-item me-2">
                             <a class="nav-link" href="../group/groupList.html">揪團專區</a>
                         </li>
                         <li class="nav-item me-2">
                             <a class="nav-link" href="../shop/shoppingMall.html">旅遊商城</a>
                         </li>
-                        <li class="nav-item me-2">
-                            <a class="nav-link" href="../article/articleindex/ArticleIndex.html">論壇專區</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">論壇專區</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../article/articleindex/ArticleIndex.html">論壇</a>
+                                </li>
+                                <li><a class="dropdown-item" href="../article/posting/posting.html">發表新文章</a></li>
+                            </ul>
                         </li>
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="../customer/CutomerContact.html" role="button"
+                            <a class="nav-link dropdown-toggle" href="../customer/CustomerContact.html" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">客服專區</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../customer/CutomerQa.html">Q&A專欄</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="../customer/CutomerContact.html">聯絡我們</a></li>
+                                <li><a class="dropdown-item" href="../customer/CustomerQa.html">Q&A專欄</a></li>
+                                <li><a class="dropdown-item" href="../customer/CustomerContact.html">聯絡我們</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -151,142 +141,182 @@
                                 <!-- --------------- 行程細節 --------------- -->
                                 <!-- 行程細節側邊欄 -->
                                 <div class="viewSchDetailsColumn">
+
                                     <!-- ------ 行程大綱內容(起訖日、共編輯邀請鈕、行程標籤、列印) ------ -->
                                     <!-- 背景圖 -->
                                     <div class="schOutline">
                                         <div class="schDetailbgPic">
-                                            <img src="../dist/img/scheduleimg/trip21.jpeg" alt="...">
+                                            <img src="../dist/img/scheduleimg/trip21.jpeg" id="attrPic" alt="..."
+                                                style="width: 100%; object-fit: cover;">
                                         </div>
                                         <!-- ------ 行程細節上方返回、編輯bar ------ -->
                                         <div class="schDetailsTopBar">
                                             <!-- 返回我的行程箭頭 -->
-                                            <a href="./mySchedule.html" id="backToMySchedule"><i
+                                            <a href="javascript:history.go(-1);" id="backToMySchedule"><i
                                                     class="fa-solid fa-arrow-left"></i></a>
                                             <!-- 行程名稱 -->
-                                            <div class="mySchName">行程名稱行程名稱行程名稱行程名稱行程名稱行程名稱</div>
+                                            <div id="mySchName" class="mySchName">行程名稱行程名稱行程名稱行程名稱行程名稱行程名稱</div>
+                                            <!-- 編輯行程細節按鈕 -->
                                         </div>
                                         <div>
-                                            <!-- 行程起訖日期 -->
-                                            <div class="schDateBetween">
-                                                <div class="schDateInOutline" id="mySchDateStart">2023/05/15</div> ～
-                                                <div class="schDateInOutline" id="mySchDateEnd">2023/09/28</div>
-                                                <!-- 邀請共編連結鈕 -->
-                                                <div class="inviteEditBtn">
-                                                    <i class="fa-solid fa-circle-plus"></i>
+
+                                        </div>
+
+                                    </div>
+                                    <!-- --------- 景點細節內容 --------- -->
+                                    <div class="card attrDetailsCard" style="">
+                                        <!-- 景點圖片 -->
+                                        <div>
+                                            <div class="attrTotalImgs">
+                                                <div id="carouselExample" class="carousel slide">
+                                                    <div class="carousel-inner attrTotalImgsInsert">
+                                                        <!-- 由此放入景點輪播的所有圖片 -->
+                                                    </div>
+                                                    <button class="carousel-control-prev" type="button"
+                                                        data-bs-target="#carouselExample" data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon"
+                                                            aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button"
+                                                        data-bs-target="#carouselExample" data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon"
+                                                            aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Next</span>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                    
-                                
+                                        <!-- 景點詳細資訊內容 -->
+                                        <div class="card-body attrDetails">
+                                            <!-- 景點名稱(標題) -->
+                                            <h5 class="card-title" id="attrNameTitle">
+                                                緯育TibaMe附設中壢職訓中心</h5>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <span id="attrIdText" style="display: none;">attrId</span>
+                                                    <!-- 景點評價分數 -->
+                                                    <span><i class="fa-solid fa-star"></i></span>
+                                                    <span id="attrComScore">5.0</span>
+                                                    <!-- 景點類型 -->
+                                                    <span　class="attrTypeIcon">　　　　　　　　
+                                                        <i class="fa-solid fa-tag"></i></span>
+                                                    <span id="attrTypeName">海鮮餐廳</span>
+                                                </li>
+                                                <!-- 景點地址 -->
+                                                <li class="list-group-item">
+                                                    <span><i class="fa-solid fa-location-dot"></i> 地址</span><br>
+                                                    <span id="attrAddress">320桃園市中壢區復興路46號9樓</span>
+                                                </li>
+                                                <!-- 營業時間 -->
+                                                <li class="list-group-item">
+                                                    <span><i class="fa-regular fa-clock"></i> 營業時間</span>
+                                                    <div class="attrBussTime" id="attrBussTimeMon">
+                                                        星期一　　　　　　　　09:00~11:00</div>
+                                                    <!-- <div class="attrBussTime" id="attrBussTimeTue">
+                                                                星期二　　　　　　　　09:00~11:00</div>
+                                                            <div class="attrBussTime" id="attrBussTimeWed">
+                                                                星期三　　　　　　　　09:00~11:00</div>
+                                                            <div class="attrBussTime" id="attrBussTimeThu">
+                                                                星期四　　　　　　　　09:00~11:00</div>
+                                                            <div class="attrBussTime" id="attrBussTimeFri">
+                                                                星期五　　　　　　　　09:00~11:00</div>
+                                                            <div class="attrBussTime" id="attrBussTimeSat">星期六　　　　　　　　休息</div>
+                                                            <div class="attrBussTime" id="attrBussTimeSun">星期日　　　　　　　　休息</div> -->
+                                                </li>
+                                                <!-- 電話 -->
+                                                <!-- <li class="list-group-item">
+                                                            <span><i class="fa-solid fa-phone"></i></span>
+                                                            <span id="attrTel">+886034251108</span>
+                                                        </li> -->
+                                                <!-- 網站 -->
+                                                <!-- <li class="list-group-item">
+                                                            <span><i class="fa-solid fa-earth-americas"></i></span>
+                                                            <span id="attrWeb">www.com</span>
+                                                        </li> -->
+                                                <!-- 景點消費範圍(未定義、低、中、高) -->
+                                                <li class="list-group-item">
+                                                    <span><i class="fa-solid fa-sack-dollar"></i>消費價位</span>
+                                                    <br>
+                                                    <span id="attrCostRange">尚無資料</span>
+                                                </li>
+                                                <!-- 景點概略描述 -->
+                                                <li class="list-group-item">
+                                                    <span><i class="fa-solid fa-comments"></i>景點描述</span>
+                                                    <br>
+                                                    <span id="attrIlla">
+                                                        尚無資料
+                                                    </span>
+                                                </li>
+                                            </ul>
+                                            <!-- 景點評論 -->
+                                            <!-- <p class="card-text" id="attrCom">景點評價
+                                                        CommentCommentCommentCommentCommentCommentCommentComment</p> -->
+
+                                        </div>
+
+                                        <div class="card-footer attrDetailsCardFooter">
+                                            <!-- 儲存景點按鈕 -->
+                                            <button type="button" style="margin: 0;" id="colBtn"
+                                                class="btn btn-outline-success addAttrCollect-btn"
+                                                onclick="addOrRemoveCollection()">加入收藏</button>
+                                            <!-- 移除收藏按鈕 -->
+                                            <!-- <button type="button"
+                                                class="btn btn-outline-success removeAttrCollect-btn -off">移除收藏</button> -->
+                                            <!-- 加入行程按鈕(要跳到行程細節頁面) -->
+                                            <!-- <button type="button"
+                                                class="btn btn-success addToSchedule-btn">加入行程</button> -->
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- --------------- 景點搜尋相關 --------------- -->
+                                <div class="viewAttrSearchColumn">
+
+                                    <!-- 景點搜尋開始 -->
+                                    <div class="attrSearch-result -off">
+                                        <!-- 搜尋欄框框 -->
+                                        <div class="searchColumn">
+                                            <!-- 起點景點 -->
+                                            <div>
+                                                <input type="text" id="start" class="google_input_text1" ref="site"
+                                                    v-model="site" placeholder="請輸入地址">
+                                            </div>
+                                            <!-- 景點名稱模糊搜尋 -->
+                                            <div>
+                                                <input type="text" id="searchAttrByName" class="google_input_text3"
+                                                    ref="site" v-model="site" placeholder="請輸入景點名稱">
+                                                <!-- ------------------------------------------------------- -->
+                                                <!-- Reynolds -->
+                                                <select name="attrType" id="attrType">
+                                                    <option selected value="default">--依照分類搜尋--</option>
+                                                    <option value="觀光景點">觀光景點</option>
+                                                    <option value="戶外景點">戶外景點</option>
+                                                    <option value="人文景點">人文景點</option>
+                                                    <option value="購物中心">購物中心</option>
+                                                    <option value="餐廳">餐廳</option>
+                                                    <option value="旅館">旅館</option>
+                                                    <option value="公家機關">公家機關</option>
+                                                    <option value="其他分類">其他分類</option>
+                                                </select>
+                                                <div class="attrSearch-btn">
+                                                    <button type="button" class="btn btn-success"
+                                                        id="attrSearch-btn">搜尋</button>
+                                                </div>
+                                                <!-- ------------------------------------------------------- -->
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
                                 <!-- --------------- 查看景點詳情相關 --------------- -->
                                 <!-- 查看單一景點的詳細資訊 -->
-                                <div class="card attrDetailsCard" style="width: 20rem;">
-                                    <div class="attrDetailsBar">
-                                        <button type="button" class="btn-close" aria-label="Close"
-                                            onclick="closeViewAttrDetailsCard()"></button>
-                                    </div>
-                                    <!-- 景點圖片 -->
-                                    <div>
-                                        <div class="attrTotalImgs">
-                                            <div id="carouselExample" class="carousel slide">
-                                                <div class="carousel-inner attrTotalImgsInsert">
-                                                    <!-- 由此放入景點輪播的所有圖片 -->
-                                                </div>
-                                                <button class="carousel-control-prev" type="button"
-                                                    data-bs-target="#carouselExample" data-bs-slide="prev">
-                                                    <span class="carousel-control-prev-icon"
-                                                        aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Previous</span>
-                                                </button>
-                                                <button class="carousel-control-next" type="button"
-                                                    data-bs-target="#carouselExample" data-bs-slide="next">
-                                                    <span class="carousel-control-next-icon"
-                                                        aria-hidden="true"></span>
-                                                    <span class="visually-hidden">Next</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- 景點詳細資訊內容 -->
-                                    <div class="card-body attrDetails">
-                                        <!-- 景點名稱(標題) -->
-                                        <h5 class="card-title" id="attrNameTitle">
-                                            緯育TibaMe附設中壢職訓中心</h5>
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <span id="attrIdText" style="display: none;">attrId</span>
-                                                <!-- 景點評價分數 -->
-                                                <span><i class="fa-solid fa-star"></i></span>
-                                                <span id="attrComScore">5.0</span>
-                                                <!-- 景點類型 -->
-                                                <span　class="attrTypeIcon">　　　　　　　　
-                                                    <i class="fa-solid fa-tag"></i></span>
-                                                <span id="attrTypeName">海鮮餐廳</span>
-                                            </li>
-                                            <!-- 景點地址 -->
-                                            <li class="list-group-item">
-                                                <span><i class="fa-solid fa-location-dot"></i> 地址</span><br>
-                                                <span id="attrAddress">320桃園市中壢區復興路46號9樓</span>
-                                            </li>
-                                            <!-- 營業時間 -->
-                                            <li class="list-group-item">
-                                                <span><i class="fa-regular fa-clock"></i> 營業時間</span>
-                                                <div class="attrBussTime" id="attrBussTimeMon">
-                                                    星期一　　　　　　　　09:00~11:00</div>
-                                                <!-- <div class="attrBussTime" id="attrBussTimeTue">
-                                                        星期二　　　　　　　　09:00~11:00</div>
-                                                    <div class="attrBussTime" id="attrBussTimeWed">
-                                                        星期三　　　　　　　　09:00~11:00</div>
-                                                    <div class="attrBussTime" id="attrBussTimeThu">
-                                                        星期四　　　　　　　　09:00~11:00</div>
-                                                    <div class="attrBussTime" id="attrBussTimeFri">
-                                                        星期五　　　　　　　　09:00~11:00</div>
-                                                    <div class="attrBussTime" id="attrBussTimeSat">星期六　　　　　　　　休息</div>
-                                                    <div class="attrBussTime" id="attrBussTimeSun">星期日　　　　　　　　休息</div> -->
-                                            </li>
-                                            <!-- 電話 -->
-                                            <!-- <li class="list-group-item">
-                                                    <span><i class="fa-solid fa-phone"></i></span>
-                                                    <span id="attrTel">+886034251108</span>
-                                                </li> -->
-                                            <!-- 網站 -->
-                                            <!-- <li class="list-group-item">
-                                                    <span><i class="fa-solid fa-earth-americas"></i></span>
-                                                    <span id="attrWeb">www.com</span>
-                                                </li> -->
-                                            <!-- 景點消費範圍(未定義、低、中、高) -->
-                                            <li class="list-group-item">
-                                                <span><i class="fa-solid fa-sack-dollar"></i>消費價位</span>
-                                                <br>
-                                                <span id="attrCostRange">尚無資料</span>
-                                            </li>
-                                            <!-- 景點概略描述 -->
-                                            <li class="list-group-item">
-                                                <span><i class="fa-solid fa-comments"></i>景點描述</span>
-                                                <br>
-                                                <span id="attrIlla">
-                                                    尚無資料
-                                                </span>
-                                            </li>
-                                        </ul>
-                                        <!-- 景點評論 -->
-                                        <!-- <p class="card-text" id="attrCom">景點評價
-                                                CommentCommentCommentCommentCommentCommentCommentComment</p> -->
+                                <div class="viewAttrDetailsColumn" style="display: none;">
+                                    <!-- 景點詳情資訊欄位 -->
 
-                                    </div>
-
-                                    <div class="card-footer attrDetailsCardFooter">
-                                        <!-- 儲存景點按鈕 -->
-                                        <button type="button"
-                                            class="btn btn-outline-success addAttrCollect-btn">儲存景點</button>
-                                        <!-- 移除收藏按鈕 -->
-                                        <button type="button"
-                                            class="btn btn-outline-success removeAttrCollect-btn -off">移除收藏</button>
-                                        <!-- 加入行程按鈕(要跳到行程細節頁面) -->
-                                        <button type="button"
-                                            class="btn btn-success addToSchedule-btn">加入行程</button>
-                                    </div>
                                 </div>
                                 <!-- 查看景點詳情結束 -->
                             </div>
@@ -295,9 +325,9 @@
 
                                 <!-- ================================GOOGLE API=================================== -->
                                 <div id="mapAndDirect">
-                                    <div class="map -one" id="map"></div>
+                                    <div class="map" id="map"></div>
                                     <!-- 詳細路線，不顯示 display: none-->
-                                    <div id="directionsPanel"></div>
+
                                 </div>
                             </div>
                         </div>
@@ -364,18 +394,27 @@
     <script src="../customer/dist/js/customerChat.js"></script>
 
     <!-- 加入切換版面操作的js -->
-    <script src="./dist/js/myAttractionEdit.js"></script>
+    <!-- <script src="./dist/js/myAttractionEdit.js"></script> -->
 
     <script>
+        let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+
         var map;
         var directionsRenderer;
         var directionsService;
         var stepDisplay;
         var markerArray = [];
 
+        // var travelMode_el = document.getElementById("mode");
+        // var travelMode = travelMode_el.value;
+
+        // travelMode_el.addEventListener('change', function () {
+        //     travelMode = travelMode_el.value;
+        // });
+
         async function initMap() {
-            // directionsService = new google.maps.DirectionsService();
-            // directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer();
             // directionsRenderer.setMap(map);
             // directionsRenderer.setPanel(document.getElementById('directionsPanel'));
 
@@ -510,7 +549,6 @@
         //         let inputValue = event.target.value;
         //         // 在這裡處理 inputValue
         //     });
-
         //     // this.autocomplete = new google.maps.places.Autocomplete(this.$refs.site, options);
 
         //     var autocomplete1 = new google.maps.places.Autocomplete(siteInput1, options);
@@ -584,7 +622,9 @@
         // var myAttrAddr_el = document.getElementById("myAttrAddr");
         // var myAttrAddr = myAttrAddr_el.value;
 
-        
+        //********************************************更改開始***********************************************
+        //2023/09/10 Reynolds
+
 
         function singleSiteAuto() {
             console.log("In sigleSiteAuto");
@@ -628,7 +668,7 @@
 
                     // info window
                     let infowindow = new google.maps.InfoWindow({
-                        content: this.place.formatted_address
+                        content: attr.attrAddr
                     });
                     infowindow.open(this.map, marker);
                 }
@@ -665,8 +705,116 @@
                 });
             });
         }
-        
-        
+        var searchAttrByName = document.getElementById('searchAttrByName');
+        searchAttrByName.addEventListener("change", async function () {
+            const response = await fetch(baseURL + `getAttrsByNameFilter/` + searchAttrByName.value);
+            const resJson = await response.json();
+            const attrList = resJson.body;
+
+            // 清空景點收藏清單插入處所有的資料
+            attrSearchListInsert_el.innerHTML = "";
+
+            // 加入async試試看(找出每一個景點收藏)
+            for (let attr of attrList) {
+                // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
+                // 找出每一個景點收藏中景點的資料：如景點名稱
+
+                // 景點的第一張圖片編號、景點的第一張圖片
+                const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attr.attrId);
+                const attrPicList = await responseOfAttrFirstPic.json();
+                console.log(attrPicList);
+                const pics = attrPicList.attrPic;
+                let picInput;
+
+                if (!pics[0]) {
+                    picInput = pic;// pic.js base64
+                    // 如果 pics[0] 是空值，使用 "replace"
+                } else {
+                    picInput = pics[0].attrPicData;
+                }
+
+                // 動態生成每一個景點資訊框
+                let row = document.createElement("div");
+                row.innerHTML = `
+                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attr.attrId})" id="attrId${attr.attrId}">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <div class="attrCardBody">
+                                <h5 class="attrName">
+                                    <div id="attrName">
+                                        ${attr.attrName}
+                                    </div>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="attrPic col-md-4">
+                            <img src="data: image/jpeg;base64,${picInput}"
+                                class="img-fluid rounded-end" alt="..."
+                                style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                        </div>
+                    </div>
+                </div>`;
+
+                attrSearchListInsert_el.appendChild(row);
+            }
+        })
+        //-----------------------------------------------------------------------------------
+        //Reynolds
+        const attrTypeSearch_el = document.getElementById("attrType");
+        attrTypeSearch_el.addEventListener("change", async function () {
+            const searchType = attrTypeSearch_el.value;
+            const response = await fetch(baseURL + `getAttrsByType/` + searchType);
+            const attrList = await response.json();
+            attrTypeSearch_el.options[0].disabled = true;
+            // 清空景點收藏清單插入處所有的資料
+            attrSearchListInsert_el.innerHTML = "";
+
+            // 加入async試試看(找出每一個景點收藏)
+            for (let attr of attrList) {
+                // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
+                // 找出每一個景點收藏中景點的資料：如景點名稱
+
+                // 景點的第一張圖片編號、景點的第一張圖片
+                const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attr.attrId);
+                const attrPicList = await responseOfAttrFirstPic.json();
+                console.log(attrPicList);
+                const pics = attrPicList.attrPic;
+                let picInput;
+
+                if (!pics[0]) {
+                    picInput = pic;// pic.js base64
+                    // 如果 pics[0] 是空值，使用 "replace"
+                } else {
+                    picInput = pics[0].attrPicData;
+                }
+
+                // 動態生成每一個景點資訊框
+                let row = document.createElement("div");
+                row.innerHTML = `
+                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attr.attrId})" id="attrId${attr.attrId}">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <div class="attrCardBody">
+                                <h5 class="attrName">
+                                    <div id="attrName">
+                                        ${attr.attrName}
+                                    </div>
+                                </h5>
+                            </div>
+                        </div>
+                        <div class="attrPic col-md-4">
+                            <img src="data: image/jpeg;base64,${picInput}"
+                                class="img-fluid rounded-end" alt="..."
+                                style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                        </div>
+                    </div>
+                </div>`;
+
+                attrSearchListInsert_el.appendChild(row);
+            }
+
+        })
+
         //-----------------------------------------------------------------------------------
         //********************************************更改結束***********************************************
 
@@ -694,10 +842,73 @@
         //     );
         // })
 
-
+        const attrName = document.getElementById("mySchName");
+        const attrAddr = document.getElementById("attrAddress");
+        const attrBussTime = document.getElementById("attrBussTimeMon");
+        const attrType = document.getElementById("attrTypeName");
+        const attrCostRange = document.getElementById("attrCostRange");
+        const attrIlla = document.getElementById("attrIlla");
+        const attrPic_img = document.getElementById("attrPic");
+        const attrName2 = document.getElementById("attrNameTitle");
         // 監聽網頁載入事件
-        window.addEventListener('load', () => {
-            reloadMap();
+        window.addEventListener('load', async () => {
+            initMap();
+            const currentURL = window.location.href;
+            const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+            const attrId = urlSearchParams.get('attrId');
+            const response = await fetch(baseURL + `getAttr?attrId=` + attrId);
+            const attr = await response.json();
+            attrName.innerText = attr.attrName;
+            attrName2.innerText = attr.attrName;
+            attrAddr.innerText = attr.attrAddr;
+            attrBussTime.innerText = bussTimeString(attr.attrBussTime);
+            attrType.innerText = attr.attrType;
+            attrCostRange.innerText = codeToPriceRange(attr.attrCostRange);
+            attrIlla.innerText = attr.attrIlla;
+
+            const responseOfAttrAllPic = await fetch(baseURL + `getAttrPics/` + attrId);
+            const attrPicList = await responseOfAttrAllPic.json();
+            const pics = attrPicList.attrPic;
+            console.log(pics);
+            attrPic_img.src = "data: image/jpeg;base64," + pics[0].attrPicData;
+
+            // reloadMap();
+            let location = {
+                lat: attr.attrLat, // 經度
+                lng: attr.attrLon // 緯度
+            };
+            this.map = new google.maps.Map(document.getElementById('map'), {
+                center: location,//location,
+                zoom: 16,
+                mapTypeId: 'terrain'
+            });
+            // 在搜尋結果的地點上放置標記
+            let marker = new google.maps.Marker({
+                // icon: {
+                //     path: google.maps.SymbolPath.CIRCLE,
+                //     scale: 10
+                // },
+                position: location,
+                map: this.map
+            });
+
+            // info window
+            // let infowindow = new google.maps.InfoWindow({
+            //     content: this.place.formatted_address
+            // });
+            // infowindow.open(this.map, marker);
+            // addOrRemoveCollection();
+            const response2 = await fetch(baseURL + `attrCol/ifMemContainAttrInCol/` + attrId);
+            const relationExist = await response2.json();
+            console.log(JSON.stringify(relationExist, null, 2));
+            // console.log(attrId + "::" + relationExist.body.collectionId.attrId);
+            if (relationExist.body.collectionId == undefined) {
+                colBtn.innerText = "加入收藏";
+            }
+            else{
+                colBtn.innerText = "移除收藏";
+            }
+            return relationExist;
         });
 
         function reloadMap() {
@@ -831,10 +1042,10 @@
                     let row = document.createElement("span");
                     row.classList.add("transTotalTime");
                     row.innerHTML = `
-                        <span class="totalTime">${duration}</span>
-                        <span class="showRouteBetween"><button onclick="showRoute(${travelIconCount})">顯示路線</button><span>
-                        <span class="totalDistance">${total} km</span>
-                        `;
+                            <span class="totalTime">${duration}</span>
+                            <span class="showRouteBetween"><button onclick="showRoute(${travelIconCount})">顯示路線</button><span>
+                            <span class="totalDistance">${total} km</span>
+                            `;
                     transTotalTime_el.appendChild(row);
 
                     return duration;
@@ -927,7 +1138,161 @@
             });
         }
 
-        
+        //--------------------------------------------------------------------
+        //Reynolds
+        const attrSearchbtn_el = document.getElementById("attrSearch-btn");
+        attrSearchbtn_el.addEventListener("click", async function () {
+            const response = await fetch(baseURL + `getAllAttr`);
+            const attrs = await response.json();
+            const attrList = attrs.body;
+            console.log(attrList);
+            attrSearchListInsert_el.innerHTML = "";
+
+            // 加入async試試看(找出每一個景點)
+            for (let attr of attrList) {
+
+                // 景點的第一張圖片編號、景點的第一張圖片
+                const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attr.attrId);
+                const attrPicList = await responseOfAttrFirstPic.json();
+                console.log(attrPicList);
+                const pics = attrPicList.attrPic;
+                let picInput;
+
+                if (!pics[0]) {
+                    picInput = pic;// pic.js base64
+                    // 如果 pics[0] 是空值，使用 "replace"
+                } else {
+                    picInput = pics[0].attrPicData;
+                }
+
+                // 動態生成每一個景點資訊框
+                let row = document.createElement("div");
+                row.innerHTML = `
+                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attr.attrId})" id="attrId${attr.attrId}">
+                        <div class="row g-0">
+                            <div class="col-md-8">
+                                <div class="attrCardBody">
+                                    <h5 class="attrName">
+                                        <div id="attrName">
+                                            ${attr.attrName}
+                                            </div>
+                                            </h5>
+                                            </div>
+                                            </div>
+                                            <div class="attrPic col-md-4">
+                                                <img src="data: image/jpeg;base64,${picInput}"
+                                                class="img-fluid rounded-end" alt="..."
+                                                style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                                                </div>
+                                                </div>
+                                                </div>`;
+
+                attrSearchListInsert_el.appendChild(row);
+            }
+
+        })
+
+        function bussTimeString(inputString) {
+            // 使用逗号分割字符串，并将结果存储在数组中
+            if (inputString == undefined || inputString == null || inputString.trim() == '')
+                return "尚無資料";
+            if (inputString == "尚無資料" || inputString == "暫無資料")
+                return "尚無資料";
+            const timeRanges = inputString.split('|');
+
+            // 分别存储平日和假日的时间范围
+            let weekdayTimeRange = "";
+            let holidayTimeRange = "";
+
+            holidayTimeRange = timeRanges[0];
+            holidayTimeRangeArr = [];
+            holidayTimeRangeArr = holidayTimeRange.split('');
+            holidayTimeRange = holidayTimeRangeArr[0] + holidayTimeRange[1] + ":"
+                + holidayTimeRange[2] + holidayTimeRange[3] + "~"
+                + holidayTimeRange[5] + holidayTimeRange[6] + ":"
+                + holidayTimeRange[7] + holidayTimeRange[8];
+            weekdayTimeRange = timeRanges[1];
+            weekdayTimeRangeArr = [];
+            weekdayTimeRangeArr = weekdayTimeRange.split('');
+            weekdayTimeRange = weekdayTimeRangeArr[0] + weekdayTimeRange[1] + ":"
+                + weekdayTimeRange[2] + weekdayTimeRange[3] + "~"
+                + weekdayTimeRange[5] + weekdayTimeRange[6] + ":"
+                + weekdayTimeRange[7] + weekdayTimeRange[8];
+            const resultString = `平日:${weekdayTimeRange} | 假日:${holidayTimeRange}`;
+            return resultString;
+        }
+
+        function codeToPriceRange(code) {
+            switch (code) {
+                case 1:
+                    return "低價位 (500元以下)";
+                case 2:
+                    return "中價位 (500~1000元)";
+                case 3:
+                    return "高價位 (1000元以上)";
+                // 添加更多的代号和对应的描述
+                default:
+                    return "尚無資料";
+            }
+        }
+        const colBtn = document.getElementById("colBtn");
+        async function addOrRemoveCollection() {
+
+            const currentURL = window.location.href;
+            const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+            const attrId = urlSearchParams.get('attrId');
+            const response = await fetch(baseURL + `attrCol/ifMemContainAttrInCol/` + attrId);
+            const relationExist = await response.json();
+            console.log(JSON.stringify(relationExist, null, 2));
+            console.log(attrId + "::" + relationExist.body.collectionId.attrId);
+            if (relationExist.body.collectionId != undefined) {
+                colBtn.innerText = "移除收藏";
+            }
+            return relationExist;
+        }
+        colBtn.addEventListener("click", async function () {
+            const currentURL = window.location.href;
+            const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+            const attrId = urlSearchParams.get('attrId');
+            const res = await fetch(baseURL + `member/getMemId`);
+            const mem = await res.json();
+            let collectionId = {
+                memId: mem.memId,
+                attrId: attrId
+            }
+
+            if (colBtn.innerText==="加入收藏") {
+                console.log(collectionId);
+
+                const response = await fetch(baseURL + `attrCol/addAttrToCollection`, {
+                    method: 'POST', // 或 'PUT'、'GET'、'DELETE'
+                    headers: {
+                        'Content-Type': 'application/json' // 指定请求主体的类型为JSON
+                    },
+                    body: JSON.stringify(collectionId)
+                });
+                const ans = await response.json();
+                colBtn.innerText==="移除收藏"
+                alert("add: " + ans.body+" success.");
+                location.reload();
+            }
+            else if(colBtn.innerText==="移除收藏")
+            {
+                const response = await fetch(baseURL + `attrCol/removeAttrFromCollection`, {
+                    method: 'POST', // 或 'PUT'、'GET'、'DELETE'
+                    headers: {
+                        'Content-Type': 'application/json' // 指定请求主体的类型为JSON
+                    },
+                    body: JSON.stringify(collectionId)
+                });
+                const ans = await response.json();
+                colBtn.innerText==="加入收藏"
+                alert("del: " + ans.body+" success.");
+                location.reload();
+            }
+            
+        })
+
 
         //--------------------------------------------------------------------
     </script>

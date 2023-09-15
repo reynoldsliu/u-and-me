@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.attraction.controller;
 
 
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,10 @@ public class AttrCollectionController {
      * @param attrCollectionDTO
      * @return String "success" or "failed"
      */
-    @PostMapping("/addAttrToCollection")
-    public ResponseEntity<String> addAttrToCollection(@RequestBody AttrCollectionDTO attrCollectionDTO) {
-        if(attrCollectionService.addAttrToCollection(attrCollectionDTO) == "success")
-            return new ResponseEntity<>("success",HttpStatus.OK);
-        else
-            return new ResponseEntity<>("failed",HttpStatus.OK);
-
+    @RequestMapping("/addAttrToCollection")
+    public ResponseEntity<String> addAttrToCollection(@RequestBody AttrCollectionId attrCollectionId) {
+        System.out.println("adddd");
+    return new ResponseEntity(attrCollectionService.addAttrToCollection(attrCollectionId),HttpStatus.OK);
     }
     /*{
         "collectionId": {
@@ -52,11 +50,9 @@ public class AttrCollectionController {
      * @return String "success" or "failed"
      */
     @RequestMapping("/removeAttrFromCollection")
-    public ResponseEntity<String> removeAttrFromCollection(@RequestBody AttrCollectionId collectionId){
-        if(attrCollectionService.removeAttrFromCollection(collectionId) == "success")
-            return new ResponseEntity<>("success",HttpStatus.OK);
-        else
-            return new ResponseEntity<>("failed",HttpStatus.OK);
+    public ResponseEntity<AttrCollectionId> removeAttrFromCollection(@RequestBody AttrCollectionId collectionId){
+
+            return new ResponseEntity(attrCollectionService.removeAttrFromCollection(collectionId),HttpStatus.OK);
     }
     /*
     * {
@@ -80,7 +76,7 @@ public class AttrCollectionController {
      * @param memId
      * @return
      */
-        @RequestMapping("/getAttrsFromCollectionByMemIdFilter/{memId}")
+    @RequestMapping("/getAttrsFromCollectionByMemIdFilter/{memId}")
     public ResponseEntity<List<Attraction>> getAttrsFromCollectionByMemIdFilter(HttpServletRequest request,
                                                                                 HttpServletResponse response,
                                                                                 @PathVariable Integer memId){
@@ -116,6 +112,13 @@ public class AttrCollectionController {
     @RequestMapping("/getMemsByAttrId/{attrId}")
     public TreeSet<Member> getMemsByAttrId(@PathVariable Integer attrId){
         return attrCollectionService.returnMemsByAttrId(attrId);
+    }
+
+    @RequestMapping("/ifMemContainAttrInCol/{attrId}")
+    public ResponseEntity<AttrCollectionDTO> ifMemContainAttrInCol(@PathVariable Integer attrId,
+                                         HttpServletRequest request){
+        return new ResponseEntity(attrCollectionService.ifMemGotTheAttr(request,attrId),HttpStatus.OK);
+
     }
 
 
