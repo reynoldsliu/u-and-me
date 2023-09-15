@@ -406,8 +406,10 @@ public class GroupServiceImpl implements GroupService {
     public void updGroupStaBySchRep(Integer schId){
         List<Group> groupList = groupRepository.findBySchId(schId);
         if(groupList != null){
+            System.out.println("group !=null");
             for(Group group : groupList){
                 group.setGroupSta(4);
+                groupRepository.save(group);
                 updMemberDetailRefund(group.getGroupId());
             }
         }

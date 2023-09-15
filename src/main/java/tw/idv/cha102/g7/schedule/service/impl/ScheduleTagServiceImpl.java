@@ -8,6 +8,7 @@ import tw.idv.cha102.g7.schedule.dto.TagsInScheduleDTO;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
+import tw.idv.cha102.g7.schedule.entity.ScheduleTagListId;
 import tw.idv.cha102.g7.schedule.repo.ScheduleRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleTagListRepository;
 import tw.idv.cha102.g7.schedule.repo.ScheduleTagRepository;
@@ -32,7 +33,9 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
 
     @Override
     public List<ScheduleTag> findAll() {
-        return tagRepository.findAll();
+        return tagRepository.findAll().stream()
+                .sorted(Comparator.comparing(ScheduleTag::getSchTagId))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -126,5 +129,27 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
     @Override
     public int deleteScheduleTagListBySchId(Integer schId) {
         return listRepository.deleteBySchId(schId);
+    }
+
+    @Transactional
+    @Override
+    public List<ScheduleTagList> addTagsInSchedule(List<ScheduleTagListId> scheduleTagListIds) {
+        if (scheduleTagListIds != null) {
+            List<ScheduleTagList> returnSchTagList = new ArrayList<>();
+            for (ScheduleTagListId id : scheduleTagListIds) {
+                ScheduleTagList list = new ScheduleTagList();
+                ScheduleTagListId listId = new ScheduleTagListId();
+                Integer schId = id.getSchId();
+                Integer schTagId = id.getSchTagId();
+                listId.setSchId(schId);
+                listId.setSchTagId(schTagId);
+                list.setScheduleTagListId(listId);
+
+                ScheduleTagList returnList =  listRepository.save(list);
+                returnSchTagList.add(returnList);
+            }
+            return returnSchTagList;
+        }
+        return null;
     }
 }

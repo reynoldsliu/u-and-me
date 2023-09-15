@@ -83,9 +83,12 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
 
         // 存入對被檢舉的行程公開權限處理
         Schedule reportSch = scheduleRepository.findById(schReport.getSchId()).orElse(null);
+
         if (reportSch != null) {
             reportSch.setSchPub(schPub);
+            System.out.println("!=null");
             if(schPub == 0){
+                System.out.println("" +reportSch.getSchId());
                 groupService.updGroupStaBySchRep(reportSch.getSchId());
             }
             scheduleRepository.save(reportSch);

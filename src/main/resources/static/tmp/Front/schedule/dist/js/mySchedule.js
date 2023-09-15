@@ -17,8 +17,11 @@ const pagination_el = document.querySelector("ul.pagination");
 // 新增行程內容標籤
 const startDate_el = document.getElementById("startDate");
 const endDate_el = document.getElementById("endDate");
-const destination_el = document.getElementById("destination");
+const selectDest_el = document.getElementById("selectDest");
+const selectTag_el = document.getElementById("selectTag");
 const schName_el = document.getElementById("schName");
+// 新增行程按鈕
+const addSch_btn = document.getElementById("addSch");
 // 新增行程完成按鈕
 const btn_schDone = document.getElementById("schDone");
 
@@ -343,7 +346,56 @@ for (let pageSelect of pageSelect_els) {
 // ============== 分頁查詢行程結束 ===============
 
 // =============== 新增一個行程大綱 ===============
+// 新增行程鈕按下時，調出select選項
+addSch_btn.onclick = async () => {
+
+  // 選擇目的地選項
+  const response = await fetch(baseURL + `schTag/`);
+  const schTagList = await response.json();
+
+  selectDest_el.innerHTML = "";
+  selectTag_el.innerHTML = "";
+
+  // 地區預設選項
+  let rowSelectDefault = document.createElement("option");
+  rowSelectDefault.selected = true;
+  // rowSelectDefault.disabled = true;
+  rowSelectDefault.innerText = "請選擇地區";
+  selectDest_el.appendChild(rowSelectDefault);
+
+  // 類型預設選項
+  let rowSelectDefault2 = document.createElement("option");
+  rowSelectDefault2.selected = true;
+  // rowSelectDefault2.disabled = true;
+  rowSelectDefault2.innerText = "請選擇類型";
+  selectTag_el.appendChild(rowSelectDefault2);
+
+  // 地區類標籤為 schTagId 1~20
+  for (let i = 0; i < schTagList.length; i++) {
+
+
+    if (i < 19) {
+      // 選擇地區類型
+      let destOption = document.createElement("option");
+      destOption.value = schTagList[i].schTagId;
+      destOption.innerText = schTagList[i].schTagName;
+      selectDest_el.appendChild(destOption);
+
+    } else {
+      // 選擇旅遊類型選項
+      // 剩餘的標籤
+      let typeOption = document.createElement("option");
+      typeOption.value = schTagList[i].schTagId;
+      typeOption.innerText = schTagList[i].schTagName;
+      selectTag_el.appendChild(typeOption);
+    }
+  }
+}
+
 // 將新增行程資料傳輸進資料庫，並回到我的行程頁面
+let schTagId1;
+let schTagId2;
+
 btn_schDone.onclick = async event => {
 
   event.preventDefault();
@@ -357,15 +409,15 @@ btn_schDone.onclick = async event => {
   const schNameInput = schName_el.value.trim();
 
   if (dateValidResult && schNameInput !== "") {
-    // 欲新增的行程資料
+
+    // 欲新增的行程大綱資料
     const send_data = {
       schName: schNameInput,
       memId: memId,
       schStart: startDate_el.value,
       schEnd: endDate_el.value,
       schCopy: true,
-      schPub: 0,
-      schTags: destination_el.value
+      schPub: 0
     }
     await fetch(addURL, {
       headers: {
@@ -373,11 +425,79 @@ btn_schDone.onclick = async event => {
       },
       method: 'POST',
       body: JSON.stringify(send_data)
-    })
-      .catch(function (error) {
-        alert('新增失敗' + error);
-        return;
-      });
+    }).then((response) => {
+      return response.json();
+    }).then(async schedule => {
+      // 拿取剛剛新增的行程id
+      let schId = schedule.schId;
+      // 一、地區標籤有選取值
+      if (schTagId1 !== undefined && schTagId2 === undefined) {
+
+        // 建立標籤與行程關聯清單
+        const send_data = [{
+          schId: schId,
+          schTagId: schTagId1
+        }]
+
+        await fetch(`${baseURL}schTag/addTagListInSch`, {
+          headers: {
+            "content-type": "application/json",
+          },
+          method: 'POST',
+          body: JSON.stringify(send_data)
+        }).catch(function (error) {
+          alert('新增失敗' + error);
+          return;
+        });
+      }
+      // 二、類型標籤有選取值
+      else if (schTagId1 === undefined && schTagId2 !== undefined) {
+
+        // 建立標籤與行程關聯清單
+        const send_data = [{
+          schId: schId,
+          schTagId: schTagId2
+        }]
+
+        await fetch(`${baseURL}schTag/addTagListInSch`, {
+          headers: {
+            "content-type": "application/json",
+          },
+          method: 'POST',
+          body: JSON.stringify(send_data)
+        }).catch(function (error) {
+          alert('新增失敗' + error);
+          return;
+        });
+      }
+      // 三、地區及類型標籤均有選取值
+      else if (schTagId1 !== undefined && schTagId2 !== undefined) {
+
+        // 建立標籤與行程關聯清單
+        const send_data = [{
+          schId: schId,
+          schTagId: schTagId1
+        }, {
+          schId: schId,
+          schTagId: schTagId2
+        }]
+
+        await fetch(`${baseURL}schTag/addTagListInSch`, {
+          headers: {
+            "content-type": "application/json",
+          },
+          method: 'POST',
+          body: JSON.stringify(send_data)
+        }).catch(function (error) {
+          alert('新增失敗' + error);
+          return;
+        });
+      }
+    }).catch(function (error) {
+      alert('新增失敗' + error);
+      return;
+    });
+
     Swal.fire({
       title: '新增成功！',
       // icon: 'success',
@@ -385,6 +505,7 @@ btn_schDone.onclick = async event => {
     }).then(() => {
       location.reload();
     });
+
   } else {
     if (schNameInput === "") {
       Swal.fire({
@@ -435,22 +556,40 @@ async function selectPrivateSetting(schId) {
     confirmButtonText: '確定',
     showLoaderOnConfirm: true,
     preConfirm: async (selectedOption) => {
-      // 如果設定為連結分享，要顯示分享的連結
-      // TODO...
 
       const response = await fetch(`${privateURL}${schId}/${selectedOption}`);
       return response;
     },
     allowOutsideClick: () => !Swal.isLoading()
-  }).then((result) => {
+  }).then(async (result) => {
     if (result.isConfirmed) {
-      Swal.fire({
-        title: `瀏覽權限設定成功！`,
-        imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/471356583/android/sticker.png'
-      }).then(() => {
-        // 在用戶按下"確定"後執行重新整理
-        location.reload();
-      });
+
+      // 如果設定為連結分享，要顯示分享的連結
+      await fetch(`${selectOneSchURL}${schId}`)
+        .then((response) => {
+          return response.json();
+        }).then((schedule) => {
+
+          if (schedule.schPub === 1) {
+            Swal.fire({
+              title: `瀏覽權限設定成功！`,
+              html: `<div style="font-size: 10px;">分享連結：<br>${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}</div>`,
+              imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/471356583/android/sticker.png'
+            }).then(() => {
+              // 在用戶按下"確定"後執行重新整理
+              location.reload();
+            });
+          }
+          else {
+            Swal.fire({
+              title: `瀏覽權限設定成功！`,
+              imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/471356583/android/sticker.png'
+            }).then(() => {
+              // 在用戶按下"確定"後執行重新整理
+              location.reload();
+            });
+          }
+        });
     }
   });
 }
@@ -571,3 +710,12 @@ async function launchMyGroup(schId) {
   }
 }
 // =============== 透過行程發起揪團結束 ===============
+
+// 將檢舉標籤文字轉換為數字
+selectDest_el.addEventListener('change', function () {
+  schTagId1 = Number(selectDest_el.value);
+})
+// 將行程公開權限狀態轉換為數字
+selectTag_el.addEventListener('change', function () {
+  schTagId2 = Number(selectTag_el.value);
+})
