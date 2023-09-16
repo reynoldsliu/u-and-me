@@ -120,6 +120,18 @@ document.addEventListener('DOMContentLoaded', function () {
 submitBtn.addEventListener('click', async function (event) {
     event.preventDefault()
 
+        // 驗證
+    if (!cover || !activNameInput.value || !activConTextarea.value || !activStarttimeInput.value || !activEndtimeInput.value || !activStaSelect.value) {
+        Swal.fire({
+            icon: 'warning',
+            title: '請填寫所有欄位',
+            text: '',
+            confirmButtonText: '確定'
+            });
+            return; // 阻止繼續進行更新操作
+        }
+
+
     // 構建要傳遞的資料
     const requestData = {
         activName: activNameInput.value,
@@ -218,23 +230,33 @@ submitBtn.addEventListener('click', async function (event) {
 // 刪除 document獲取當前頁面各種元素
 document.getElementById("deleteButton").addEventListener("click", async function () {
     try {
-        const response = await fetch(baseUrl + `delete/${activId}`, {
-            method: 'DELETE',
+        const result = await Swal.fire({
+            icon: 'warning',
+            title: '確認刪除活動嗎?',
+            text: '',
+            showCancelButton: true,
+            confirmButtonText: '確定',
+            cancelButtonText: '取消'
         });
 
-        if (response.ok) {
+        if (result.isConfirmed) {
+            const response = await fetch(baseUrl + `delete/${activId}`, {
+                method: 'DELETE',
+            });
+
             Swal.fire({
                 icon: 'success',
                 title: '刪除成功',
                 text: '',
                 confirmButtonText: '確定'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'activityList.html';
-                }
+            }).then(() => {
+
+                window.location.href = 'activityList.html';
             });
+
         } else {
-            console.error('Failed to delete activity.');
+            // 點取消
+            console.log('Failed to delete activity.');
         }
     } catch (error) {
         console.error('Error deleting activity.', error);

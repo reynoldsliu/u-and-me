@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 Swal.fire({
                     icon: 'success',
-                    title: '更新成功',
+                    title: '新增成功',
                     text: '',
                     confirmButtonText: '確定'
                 }).then((result) => {
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 Swal.fire({
                     icon: 'error',
-                    title: '更新失敗',
+                    title: '新增失敗',
                     text: '',
                     confirmButtonText: '確定'
                 }).then((result) => {

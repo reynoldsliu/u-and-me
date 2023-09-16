@@ -76,7 +76,7 @@ async function fetchRandomActivities() {
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">${formatDate(item.activStarttime)}</p>
+                        <p class="card-text">${formatDate(item.activStarttime)} - <br>${formatDate(item.activEndtime)}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <!-- 可以加更多的内容 -->
                         </div>
