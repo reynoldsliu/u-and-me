@@ -1,6 +1,8 @@
 package tw.idv.cha102.g7.schedule.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tw.idv.cha102.g7.schedule.dto.ScheduleDayDTO;
 import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.service.ScheduleService;
+import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +26,8 @@ public class ScheduleSearchController {
 
     @Autowired
     private ScheduleService service;
+    @Autowired
+    private ScheduleTagService tagService;
 
     /**
      * 一般使用者
@@ -118,6 +123,17 @@ public class ScheduleSearchController {
     public List<ScheduleDayDTO> findOrderByDaysDESC(@PathVariable int page) {
         List<ScheduleDayDTO> schedules = service.findOrderByDaysDESC(page).collect(Collectors.toList());
         return schedules;
+    }
+
+    /**
+     * 依照行程標籤id查詢所有關聯行程
+     *
+     * @param schTagId 行程標籤id
+     * @return 與行程標籤id相關的所有公開行程
+     */
+    @GetMapping("/findSchedulesPublicByTagId/{schTagId}")
+    public ResponseEntity<List<Schedule>> findSchedulesPublicByTagId(@PathVariable Integer schTagId) {
+        return new ResponseEntity(tagService.findSchedulesBySchTagId(schTagId), HttpStatus.OK);
     }
 
     /**

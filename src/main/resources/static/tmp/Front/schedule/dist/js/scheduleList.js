@@ -2,12 +2,14 @@
 const classSwitchOff = "-off";
 
 // 行程搜尋欄相關的標籤
+const listAllPub_el = document.getElementById("listAllPub");
 let search_btn_el = document.getElementById("search-btn");
 let keywords_el = document.getElementById("keywords");
 let sortByStart_el = document.getElementById("sortByStart");
 let sortByStartASC_el = document.getElementById("sortByStartASC");
 let sortByDays_el = document.getElementById("sortByDays");
 let sortByDaysDESC_el = document.getElementById("sortByDaysDESC");
+let tagInSchedule_el = document.getElementById("tagInSchedule");
 
 // 分頁元素
 const pageSelect_els = document.querySelectorAll("li.page-item");
@@ -56,16 +58,35 @@ function convertBooleanToText(boolValue) {
 // ====== 載入旅遊行程頁面，將所有公開的行程列表查出 ======
 let page = 0; // 從第一個分頁開始
 // 載入網頁就將所有公開行程列表查出
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
+
+  // 載入行程標籤下拉式選單
+  tagInSchedule_el.innerHTML = "";
+
+  const optionDefault = document.createElement("option");
+  optionDefault.selected = true;
+  optionDefault.innerText = "依行程標籤搜尋";
+  tagInSchedule_el.appendChild(optionDefault);
+
+  const response = await fetch(`${baseURL}schTag/`);
+  const schTags = await response.json();
+  for (let schTag of schTags) {
+    let option = document.createElement("option");
+    option.value = schTag.schTagId;
+    option.innerText = schTag.schTagName;
+    tagInSchedule_el.appendChild(option);
+  }
+
+
 
   // 查詢所有公開行程列表，並依照起始日期(新到舊)排序
-  fetchPublicScheduleList(`${schListbaseURL}all/`, page);
+  fetchPublicScheduleList(`${schListbaseURL}all/${page}`);
 });
 
 // =============== 查詢所有公開的行程 ===============
-async function fetchPublicScheduleList(URL, page) {
+async function fetchPublicScheduleList(URL) {
   try {
-    const response = await fetch(URL + page);
+    const response = await fetch(URL);
     const schList = await response.json();
 
     const schListInner = document.getElementById("schListInner");
@@ -126,6 +147,20 @@ function switchToPage1() {
   pageSelect_els[0].classList.add("active");
 }
 
+// 查看全部行程
+listAllPub_el.addEventListener("click", function () {
+  switchToPage1();
+  fetchPublicScheduleList(`${schListbaseURL}all/${page}`);
+
+  searchSortByStartDESC = true;
+  searchSortByStartASC = false;
+  searchByKeyWords = false;
+  searchByDaysASC = false;
+  searchByDaysDESC = false;
+  // 清空搜尋關鍵字
+  keywords_el.value = "";
+});
+
 let searchSortByStartDESC = true; // (預設)查詢行程，並依照起始日期降冪排序(新到舊)
 let searchSortByStartASC = false; // 查詢行程，並依照起始日期升冪排序(舊到新)
 let searchByKeyWords = false; // 依照關鍵字查詢行程，並依照起始日期降冪排序
@@ -137,7 +172,7 @@ sortByStart_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
 
-  fetchPublicScheduleList(`${schListbaseURL}all/`, page);
+  fetchPublicScheduleList(`${schListbaseURL}all/${page}`);
   searchSortByStartDESC = true;
   searchSortByStartASC = false;
   searchByKeyWords = false;
@@ -152,7 +187,7 @@ sortByStartASC_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
 
-  fetchPublicScheduleList(`${schListbaseURL}allASC/`, page);
+  fetchPublicScheduleList(`${schListbaseURL}allASC/${page}`);
 
   searchSortByStartDESC = false;
   searchSortByStartASC = true;
@@ -168,7 +203,7 @@ sortByDays_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
 
-  fetchPublicScheduleList(`${schListbaseURL}days/`, page);
+  fetchPublicScheduleList(`${schListbaseURL}days/${page}`);
 
   searchSortByStartDESC = false;
   searchSortByStartASC = false;
@@ -184,7 +219,7 @@ sortByDaysDESC_el.addEventListener("click", async function (event) {
   event.preventDefault();
   switchToPage1();
 
-  fetchPublicScheduleList(`${schListbaseURL}daysDESC/`, page);
+  fetchPublicScheduleList(`${schListbaseURL}daysDESC/${page}`);
 
   searchSortByStartDESC = false;
   searchSortByStartASC = false;
@@ -203,8 +238,8 @@ search_btn_el.addEventListener("click", async function (event) {
   pagination_el.style.display = "none";
 
   let keywords = keywords_el.value;
-  let keywordsURL = `${schListbaseURL}${keywords}/`;
-  fetchPublicScheduleList(keywordsURL, page);
+  let keywordsURL = `${schListbaseURL}${keywords}/${page}`;
+  fetchPublicScheduleList(keywordsURL);
 
   searchSortByStartDESC = false;
   searchSortByStartASC = false;
@@ -212,6 +247,19 @@ search_btn_el.addEventListener("click", async function (event) {
   searchByDaysASC = false;
   searchByDaysDESC = false;
 });
+
+// 依照標籤查詢對應行程清單
+tagInSchedule_el.onchange = async function () {
+  switchToPage1();
+  // 依需求決定是否分頁，若不需要分頁，則將此行註解解開
+  pagination_el.style.display = "none";
+
+  let schTagId = tagInSchedule_el.value;
+  let findByTagURL = `${schListbaseURL}findSchedulesPublicByTagId/${schTagId}`;
+  fetchPublicScheduleList(findByTagURL);
+}
+
+
 
 // 將所有分頁標籤監聽click事件
 for (let pageSelect of pageSelect_els) {
@@ -240,7 +288,7 @@ for (let pageSelect of pageSelect_els) {
     else if (searchByKeyWords === true)
       sendURL = `${schListbaseURL}${keywords}/`;
 
-    fetchPublicScheduleList(sendURL, (event.target.innerText - 1));
+    fetchPublicScheduleList(`${sendURL}${(event.target.innerText - 1)}`);
   });
 }
 // =============== 分頁查詢行程結束 ================
@@ -255,7 +303,7 @@ async function copySchedule(schId) {
   if (schedule.schCopy) {
 
     // 二、若可複製，需先判斷會員已登入
-    memberLogin();
+    memberLoginOrNot();
 
     // 拿取會員id
     const responseMem = await fetch(baseURL + `member/getMemId`);
@@ -281,7 +329,7 @@ async function copySchedule(schId) {
 }
 
 // -------------- 判斷會員是否登入 ---------------
-function memberLogin() {
+function memberLoginOrNot() {
   $.ajax({
     url: baseURL + "member/getMemId",
     method: "POST",
@@ -325,31 +373,55 @@ let id;
 function addReport(schId) {
   id = schId;
   // 一、檢查是否登入會員，登入會員才可發起檢舉
-  memberLogin();
+  memberLoginOrNot();
 }
 
 // 二、按下檢舉燈箱確認按鈕，提交檢舉資料
-function sunmitRep() {
+async function sunmitRep() {
+  memberLoginOrNot();
 
-  const data = {
-    schId: id,
-    schRepCon: repDesc_el.value
-  }
+  const responseMem = await fetch(baseURL + `member/getMemId`);
 
-  fetch(baseURL + 'schRep/member/add', {
-    headers: {
-      "content-type": "application/json",
-    },
-    method: 'POST',
-    body: JSON.stringify(data)
-  }).then(() => {
-    repDesc_el.value = '';
+  if (repDesc_el.value.trim() !== '' && responseMem.status !== 401) {
+    const data = {
+      schId: id,
+      schRepCon: repDesc_el.value
+    }
+
+    fetch(baseURL + 'schRep/member/add', {
+      headers: {
+        "content-type": "application/json",
+      },
+      method: 'POST',
+      body: JSON.stringify(data)
+    }).then(() => {
+      repDesc_el.value = '';
+      Swal.fire(
+        '提交檢舉成功!',
+        '您已提交一份檢舉!',
+        'success'
+      )
+    });
+  } else if (responseMem.status === 401) {
+    Swal.fire({
+      title: '請先登入會員',
+      text: "將為您導向登入頁面....",
+      // icon: 'error',
+      confirmButtonText: '返回登入頁面',
+      confirmButtonColor: '#d33',
+      imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+      }
+    });
+  } else {
     Swal.fire(
-      '提交檢舉成功!',
-      '您已提交一份檢舉!',
-      'success'
+      '提交檢舉失敗!',
+      '檢舉內容不可空白!',
+      'error'
     )
-  });
+  }
 }
 
 // =============== 限制輸入檢舉文字 ===============

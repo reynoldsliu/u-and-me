@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tw.idv.cha102.g7.schedule.dto.TagToSchedulesDTO;
+import tw.idv.cha102.g7.schedule.entity.Schedule;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTag;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTagList;
 import tw.idv.cha102.g7.schedule.entity.ScheduleTagListId;
 import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -49,17 +51,6 @@ public class ScheduleTagController {
     @GetMapping("/name/{schTagName}")
     public List<ScheduleTag> findByName(@PathVariable String schTagName) {
         return service.findByName(schTagName);
-    }
-
-    /**
-     * 依照行程標籤id查詢所有關聯行程DTO
-     *
-     * @param schTagId 行程標籤id
-     * @return 與行程標籤id相關的所有行程
-     */
-    @GetMapping("/DTOid/{schTagId}")
-    public TagToSchedulesDTO findSchedules(@PathVariable Integer schTagId) {
-        return service.findSchedulesBySchTagId(schTagId);
     }
 
     /**

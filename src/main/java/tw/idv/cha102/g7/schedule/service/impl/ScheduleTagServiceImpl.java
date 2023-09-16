@@ -16,6 +16,7 @@ import tw.idv.cha102.g7.schedule.service.ScheduleTagService;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,42 +52,40 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
 
 
     @Override
-    public TagToSchedulesDTO findSchedulesBySchTagId(Integer schTagId) {
-        ScheduleTag tag = tagRepository.findById(schTagId).orElse(null);
-        List<ScheduleTagList> dtoList = listRepository.findAll();
-        List<ScheduleTagList> schIdList = new ArrayList<>();
-        List<Schedule> schList = new ArrayList<>();
-        Schedule schedule = null;
-        for (ScheduleTagList dto : dtoList) {
-            if (dto.getScheduleTagListId().getSchTagId() == schTagId) {
-                schIdList.add(dto);
-                for (ScheduleTagList dto2 : schIdList) {
-                    schedule = scheduleRepository.findById(dto2.getScheduleTagListId().getSchId()).orElse(null);
-                    if (!schList.contains(schedule) && schedule != null) {
-                        if (schedule.getSchPub() == 2)
-                            schList.add(schedule);
-                    }
+    public List<Schedule> findSchedulesBySchTagId(Integer schTagId) {
+        List<ScheduleTagList> schTagList = listRepository.findAll();
+        List<Schedule> filtSchedulesPub = new ArrayList<>();
+        List<ScheduleTagList> filtTagId = schTagList
+                .stream()
+                .filter(listId -> listId.getScheduleTagListId().getSchTagId() == schTagId)
+                .collect(Collectors.toList());
+        System.out.println(filtTagId);
+        if (filtTagId != null) {
+            for (ScheduleTagList tagList : filtTagId) {
+                Schedule schContainsTag = new Schedule();
+                Integer schId = tagList.getScheduleTagListId().getSchId();
+                schContainsTag = scheduleRepository.findById(schId).orElse(null);
+                if (schContainsTag != null && !filtSchedulesPub.contains(schContainsTag)) {
+                    filtSchedulesPub.add(schContainsTag);
                 }
             }
+            if (filtSchedulesPub != null) {
+                List<Schedule> returnSchedules = filtSchedulesPub
+                        .stream()
+                        .filter(sch -> sch.getSchPub() == 2)
+                        .sorted(Comparator.comparing(Schedule::getSchStart).reversed())
+                        .collect(Collectors.toList());
+                return returnSchedules;
+            }
         }
-        schList = schList.stream().sorted(Comparator.comparing(Schedule::getSchStart)).collect(Collectors.toList());
-        Object[] object = {tag, schList};
-        TagToSchedulesDTO schedulesDTO = new TagToSchedulesDTO(object);
-        return schedulesDTO;
-
-        // 原先使用TagToSchedulesDTO時，其實體變數一一列出，不用List及物件包住
-//        List<Object[]> list = tagRepository.findSchedulesBySchTagId(schTagId);
-//        List<TagToSchedulesDTO> collect = list.stream().map(TagToSchedulesDTO::new).collect(Collectors.toList());
-//        return collect;
+        return null;
     }
 
-    // 待改寫
+
     @Override
     public List<TagToSchedulesDTO> findSchedulesBySchTagName(String schTagName) {
         List<ScheduleTag> tags = tagRepository.findBySchTagNameContaining(schTagName);
 
-//        List<ScheduleTagListId>
-        // 原先使用TagToSchedulesDTO時，其實體變數一一列出，不用List及物件包住
         List<Object[]> list = tagRepository.findSchedulesBySchTagName(schTagName);
         List<TagToSchedulesDTO> collect = list.stream().map(TagToSchedulesDTO::new).collect(Collectors.toList());
         return collect;
@@ -145,7 +144,7 @@ public class ScheduleTagServiceImpl implements ScheduleTagService {
                 listId.setSchTagId(schTagId);
                 list.setScheduleTagListId(listId);
 
-                ScheduleTagList returnList =  listRepository.save(list);
+                ScheduleTagList returnList = listRepository.save(list);
                 returnSchTagList.add(returnList);
             }
             return returnSchTagList;
