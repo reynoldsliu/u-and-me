@@ -167,8 +167,8 @@ const statusMapping = new Map([
 ]);
 
 // <!--按修改鈕會根據ordId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
-function redirectToDetailPage(ordId) {
-    var newPageUrl = `myOrder.html?ordId=${ordId}`;
+function redirectToListPage(ordId) {
+    var newPageUrl = `myOrderList.html`;
     window.location.href = newPageUrl;
 }
 

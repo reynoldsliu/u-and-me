@@ -198,10 +198,9 @@ try{
       showCancelButton: true,
       cancelButtonText: '取消'
   })
-  .then((result) => {
-    // if (result.isConfirmed) {
-    //     // window.location.href = 'productList.html';
-    // }
+  .then(() => {
+    
+    location.href = baseUrl +'tmp/back_end/shop_modified/productList.html';
 });
 } else {
   console.error('Failed to update product.');
