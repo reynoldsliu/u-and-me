@@ -92,8 +92,9 @@ btn_submit_el.addEventListener('click', async function (e) {
             icon: 'success',
             title: '退款申請成功',
             text: '已提交退款申請',
-            showCancelButton: true
-        })
+        }).then(()=>{
+            location.href = baseUrl + '/tmp/Front/group/groupFav.html';
+        });
     } else {
         Swal.fire({
             icon: 'error',

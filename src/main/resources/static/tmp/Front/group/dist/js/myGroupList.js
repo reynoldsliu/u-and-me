@@ -47,7 +47,7 @@ async function fetchMyGroupList() {
                     group_Sta = "揪團取消";
                     break;
                 case 3:
-                    group_Sta = "揪團下架";
+                    group_Sta = "揪團下架"; 
                     break;
                 case 4:
                     group_Sta = "揪團被下架";
@@ -56,15 +56,33 @@ async function fetchMyGroupList() {
                     group_Sta = '揪團額滿';
                     break;
             }
+
+            let paySta = '';
+            switch (group.payment_Sta){
+                case 0:
+                    paySta = "未到請款時間";
+                    break;
+                case 1:
+                    paySta = "可撥款";
+                    break;
+                case 2:
+                    paySta = "團員退款中";
+                    break;
+                case 3:
+                    paySta = "撥款完成";
+                    break;
+            }
+
             const row = document.createElement("tr");
             row.innerHTML = `
                 <td scope="row" style="text-align: center;vertical-align: middle; width: 60px" id="id${count}">${group.group_Id}</td>
-                <td style="text-align: center;vertical-align: middle; width: 250px">${group.theme}</td>
+                <td style="text-align: center;vertical-align: middle; width: 125px">${group.theme}</td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="${baseUrl}/tmp/Front/schedule/myScheduleEdit.html?schId=${group.sch_Id}" rel="noreferrer noopenner">行程</a></td>
                 <td style="text-align: center;vertical-align: middle; width: 60px"><a href="${baseUrl}/tmp/Front/group/groupMemo.html?schId=${group.group_Id}" rel="noreferrer noopenner">資料</a></td>
                 <td style="text-align: center;vertical-align: middle; width: 75px""><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#regForm" id="regForm_btn${count}" onclick="fetchRegForm(${group.group_Id})">
                     點此</button></td>
                 <td style="text-align: center;vertical-align: middle; width: 90px">${group_Sta}</td>
+                <td style="text-align: center;vertical-align: middle; width: 125px">${paySta}</td>
                 <td>
                     <button class="btn btn-outline-success  width: 70px" onclick="window.location.href='http://localhost:8080/u-and-me/tmp/Front/group/myGroupListUpdate.html?gorupId=${group.group_Id}'" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
@@ -268,9 +286,10 @@ async function changeGroupSta(gorupId, count){
         Swal.fire({
             icon: 'error',
             title: '更新失敗',
+            text: '已有成員參加揪團 無法下架',
             showCancelButton: true
           }).then(()=>{
-            location.reload();
+            // location.reload();
           });
     });
     

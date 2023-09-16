@@ -280,7 +280,43 @@ async function fetchGroupList(e, time_btn_count, amount_btn_count, name_btn_coun
 
 //=============== fetch揪團列表結束 =================
 
-
+function fetchGrouper(){
+    this.fetch(baseUrl + '/member/grouper/match', {
+        method: 'GET'
+    }).then(response => {
+        if (response.status == 401) {
+            Swal.fire({
+                title: '尚未登入',
+                text: "想返回登入畫面嗎?",
+                icon: 'error',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '返回登入畫面'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+                }
+              });
+        } else if (response.status == 403) {
+            Swal.fire({
+                title: '尚未成為團主',
+                text: "想註冊畫面嗎?",
+                icon: 'error',
+                showCancelButton: true,
+                cancelButtonText: '取消',
+                cancelButtonColor: '#d33',
+                confirmButtonText: '前往註冊團主畫面'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = baseUrl + '/tmp/Front/member/memberGroupRegister.html';
+                }
+              });
+        }else{
+            window.location.href= baseUrl + "/tmp/Front/group/groupListInsert.html"
+        }
+    });
+}
 
 
 

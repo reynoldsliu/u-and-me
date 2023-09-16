@@ -15,4 +15,6 @@ public interface MyGroupListDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     Timestamp getDeadline();
+
+    Integer getPayment_Sta();
 }

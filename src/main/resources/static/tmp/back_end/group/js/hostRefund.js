@@ -211,7 +211,7 @@ confirm_el.addEventListener('click', async function (e) {
         title: '更新失敗',
         text: '未修改狀態',
         showCancelButton: true
-      })
+      });
     })
   }else{
     return;

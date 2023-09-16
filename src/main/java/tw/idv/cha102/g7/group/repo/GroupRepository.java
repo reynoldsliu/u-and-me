@@ -35,7 +35,7 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
     @Query(value = "SELECT group_id, cover, theme, amount, (min_member - members) AS m, DATEDIFF(deadline, current_date) as d FROM `group` WHERE group_sta = 0 OR group_sta = 1", nativeQuery = true)
     Page<GroupListDto> findGroupListByGroupSta(Pageable pageable);
 
-    @Query(value = "SELECT group_id, theme, sch_id, group_sta FROM `group` WHERE mem_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT group_id, theme, sch_id, group_sta, payment_sta FROM `group` WHERE mem_id = ?1", nativeQuery = true)
     Page<MyGroupListDto> findMyGroupListDtoByMemId(Integer memId, Pageable pageable);
 
     @Query(value = "SELECT min_member, max_member, theme, amount, dep_date, deadline, group_desc, notice, cover FROM `group` WHERE group_id = ?1", nativeQuery = true)

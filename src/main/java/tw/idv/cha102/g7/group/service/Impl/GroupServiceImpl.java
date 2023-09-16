@@ -194,7 +194,7 @@ public class GroupServiceImpl implements GroupService {
                         for (GroupRegFormMemberDetailDto detail : detailList) {
                             MemberDetail updDetail = memberDetailRepository.findById(detail.getDetailId()).get();
                             if (updDetail != null) {
-                                if (updDetail.getRefund() == 0 || updDetail.getRefund() == 4) {
+                                if (updDetail.getRefundSta() == 0 || updDetail.getRefundSta() == 4) {
                                     updDetail.setRefundSta(2);
                                     updDetail.setRefund(group.getAmount());
                                     updDetail.setRefundDate(timestamp);
@@ -215,7 +215,7 @@ public class GroupServiceImpl implements GroupService {
     public Stream<MyGroupListDto> findMyGroupListDtoByMemId(HttpServletRequest request, Integer page) {
         HttpSession session = request.getSession();
         Integer memId = parseInt(session.getAttribute("memberId").toString());
-        Sort sort = Sort.by(Sort.Direction.ASC, "Group_Sta");
+        Sort sort = Sort.by(Sort.Direction.ASC, "Group_Id");
         Pageable pageable = PageRequest.of(page, 10, sort);
 
         List<Group> groupList = groupRepository.findByMemIdOrderByGroupStaDesc(memId);
@@ -343,9 +343,12 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public void updateGroupSta(Integer groupId, Group group) {
         var updGroup = groupRepository.findById(groupId);
+        List<MemberDetail> memberDetailList = memberDetailRepository.findByGroupId(groupId);
         if (updGroup.isPresent()) {
-            updGroup.get().setGroupSta(group.getGroupSta());
-            groupRepository.save(updGroup.get());
+            if(updGroup.get().getGroupSta() != 4 && memberDetailList.size() < 1 ) {
+                updGroup.get().setGroupSta(group.getGroupSta());
+                groupRepository.save(updGroup.get());
+            }
         }
     }
 
@@ -365,7 +368,7 @@ public class GroupServiceImpl implements GroupService {
             groupRepository.save(updGroup.get());
         }
 
-        //如果管理員設置取消揪團或下架揪團時
+        //如果管理員設置下架揪團時
         if (group.getGroupSta() == 4) {
             updMemberDetailRefund(groupId);
         }

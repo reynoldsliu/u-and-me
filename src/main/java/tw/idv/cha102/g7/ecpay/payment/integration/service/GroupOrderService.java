@@ -38,7 +38,7 @@ public class GroupOrderService {
         obj.setItemName(group.getTheme()); //設定交易物品名稱
         obj.setReturnURL("http://localhost:8080/u-and-me/getResponse");//設定返回的CONTROLLER
         obj.setNeedExtraPaidInfo("N"); //是否需要額外付費資訊
-        obj.setClientBackURL("http://localhost:8080/u-and-me/tmp/Front/group/regForm.html?gorupId=" + groupId);//設定返回網址不行時的替代網址
+        obj.setClientBackURL("http://localhost:8080/u-and-me/tmp/Front/group/groupFav.html");//設定返回網址
 
         String form = all.aioCheckOut(obj, null);
 
