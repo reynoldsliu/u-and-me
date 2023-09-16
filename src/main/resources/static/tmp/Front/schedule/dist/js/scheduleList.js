@@ -381,8 +381,6 @@ async function sunmitRep() {
   memberLoginOrNot();
 
   const responseMem = await fetch(baseURL + `member/getMemId`);
-  console.log(responseMem);
-  // const member = await responseMem.json();
 
   if (repDesc_el.value.trim() !== '' && responseMem.status !== 401) {
     const data = {

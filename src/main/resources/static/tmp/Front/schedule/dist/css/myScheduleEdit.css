@@ -777,8 +777,10 @@ div.switchbox ul {
 /* 返回上一頁籤箭頭(行程細節) */
 a#tab-back {
     border-right: 1px solid lightgray;
-    /* 調整用 */
+    /* 調整用(chrome) */
     width: 66px;
+    /* 調整用(edge) */
+    /* width: 50px; */
     height: 100%;
     display: inline-block;
     font-size: 33px;

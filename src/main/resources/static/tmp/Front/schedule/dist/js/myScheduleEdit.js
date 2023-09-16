@@ -105,8 +105,6 @@ const attrCostRange = document.querySelector("#attrCostRange");
 // 景點描述
 const attrIlla = document.querySelector("#attrIlla");
 
-
-
 // ================== 會使用到的函式 ==================
 // =============== 行程細節時間計算相關函式(BY Reynolds) =============== 
 // 時間計算
@@ -160,10 +158,6 @@ function parseTimestamp(timestampString) {
 
     return new Date(year, month, day);//後面可加 ,hour , minute, second 調整精度
 }
-
-// function todayFirstSchDetailIndex(data){
-
-// }
 
 // 2023-09-08
 function addTimeToStartTime(startTime, stayTime) {
@@ -233,8 +227,6 @@ function formatDateToYYYYMMDD(date) {
     return `${year}-${month}-${day}`;
 }
 //---------------------------------------------------------------------------
-//Reynolds 
-
 let travelIconCount = 0;
 let countedScheDetailsBase = 0;
 async function addDailySchedule(restScheDetails) {
@@ -402,8 +394,6 @@ async function addDailySchedule(restScheDetails) {
             // console.log(schdeStarttime);
         }
 
-
-
         // 2023/09/11========================================================================================
 
         //將TimeStampString轉為Date 且可以直接比大小
@@ -412,9 +402,6 @@ async function addDailySchedule(restScheDetails) {
             parseTimestamp(restScheDetails[countedScheDetails].schdeStarttime)
             < parseTimestamp(restScheDetails[countedScheDetails + 1].schdeStarttime)
         ) {
-
-
-
             break;
         }
     }
@@ -446,7 +433,6 @@ async function addDailySchedule(restScheDetails) {
     return countedScheDetails;
 }
 //--------------------------------------------------------------
-//Reynolds
 // var indexOfNewScheDetail;
 // 
 // function parseTimeString(timeString) {
@@ -511,13 +497,13 @@ async function addDailySchedule(restScheDetails) {
 //     console.log(saveScheDetail);
 //     const response = await fetch(baseURL + `schDetails/update   `, saveScheDetail);
 //     const scheDetail = await response.json();
-
-
 // })
-//----------------------------------------------------------
+
+// --------------------- 顯示總天數行程所有路線 ---------------------
 // function showAllRoute() {
 //     calculateMultipleTravelTimes(getAllWaypoints(),"DRIVING");
 // }
+// ---------------------- 顯示一天行程所有路線 ----------------------
 function showDayRoute(inputString) {
     const waypointsParts = inputString.split('-');
     let waypoints = [];
@@ -528,7 +514,6 @@ function showDayRoute(inputString) {
     calculateMultipleTravelTimes(waypoints, "DRIVING");
 }
 
-//---------------------------------------------------------------------------
 
 // 幾月幾日直接+1天
 function addOneDay(dateString) {
@@ -553,9 +538,6 @@ function addOneDay(dateString) {
 }
 
 // =============== 行程細節時間計算相關函式(BY Reynolds)結束 =============== 
-
-
-
 // 景點評價(3.5~5.0)
 function generateRandomNumber() {
     const min = 3.5; // 最小值
@@ -677,11 +659,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 //  ================== 行程細節頁面(待新增) ================== //
-// backToMySchedule_el.addEventListener("click", function () {
-
-// });
-
-
 // 按下選擇天數tab，移動左右天數欄
 // 向左移
 let translateXValue = -60;
@@ -905,7 +882,6 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 取出每一張圖片，放入輪播img標籤中
     for (let pic of pics) {
 
-        // console.log(pic);
         let imgs = document.createElement("div");
         imgs.classList.add("carousel-item");
 
@@ -925,7 +901,6 @@ async function viewSearchResultOfOneAttr(attrId) {
     // 更改景點詳情內容
     const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrId);
     const attr = await responseOfOneAttr.json();
-    // console.log(attr);
     attrIdText_el.innerHTML = attrId;
     attrNameTitle.innerText = attr.attrName;
     attrComScore.innerText = generateRandomNumber();
@@ -1023,7 +998,6 @@ async function FindAllAttrCollectionList(memId) {
         const myAttrCollectList = await responseOfCollection.json();
 
         // 如果找不到收藏，則顯示您沒有收藏景點的頁面
-        // console.log(myAttrCollectList);
         if (myAttrCollectList.length === 0) {
             attrCollectNotFound.classList.remove(classSwitchOff);
         }
@@ -1031,20 +1005,16 @@ async function FindAllAttrCollectionList(memId) {
         // 清空景點收藏清單插入處所有的資料
         attrCollectionListInsert_el.innerHTML = "";
 
-        // 加入async試試看(找出每一個景點收藏)
         myAttrCollectList.forEach(async attrCollect => {
-            // console.log(attrCollect.attrId);
 
             // 依據每個景點收藏清單的景點id，查詢對應的景點詳細資訊
             // 找出每一個景點收藏中景點的資料：如景點名稱
-            // const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.collectionId.attrId);
             if (attrCollect == null)
                 return;
             const responseOfOneAttr = await fetch(getAttrByAttrIdURL + attrCollect.attrId);
             const attr = await responseOfOneAttr.json();
 
             // 景點的第一張圖片編號、景點的第一張圖片
-            // const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attrCollect.collectionId.attrId);
             const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attrCollect.attrId);
             const attrPicList = await responseOfAttrFirstPic.json();
             const pics = attrPicList.attrPic;
@@ -1236,7 +1206,6 @@ function createImageContainer_preview(pic) {
         imageContainer.remove();
         // attrPicFilesInput.value = '';
     });
-    // console.log("attrId:" + attrId + ", attrPicId:" + attrPicId + ", attrPicData" + image.src);
     imageContainer.appendChild(closeButton);
     imageContainer.appendChild(image);
 
@@ -1268,7 +1237,6 @@ attrIllaInput.addEventListener("input", function () {
 // 自訂景點內容完成後，顯示新增完成警示框
 myAttrDone_btn_el.onclick = async () => {
     let inputAttrBussTime;
-    /////////////////////////////////////////////////////////////////////////////////////
     let options = {
         // componentRestrictions: { country: 'tw' } // 限制在台灣範圍
     };
@@ -1314,7 +1282,8 @@ myAttrDone_btn_el.onclick = async () => {
             infowindow.open(this.map, marker);
         }
     });
-    /////////////////////////////////////////////////////////////////////////////////////
+
+
     let myAttrName = myAttrName_el.value.trim();
     let myAttrAddr = myAttrAddr_el.value.trim();
     let attrIlla = attrIllaInput.value;
@@ -1343,24 +1312,20 @@ myAttrDone_btn_el.onclick = async () => {
     });
 
     const attrPrivDTO = await response.json();
-    // console.log(attrPrivDTO);
     let attrBody = attrPrivDTO.body;
     let attrPrivateId = attrBody.attrPrivateId;
     let attrId = attrPrivateId.attrId;
     let memId = attrPrivateId.memId;
-    // console.log("ATTRID: " + attrId);
-    const attrCollectionDTO = {
-        collectionId: {
-            memId: memId,
-            attrId: attrId
-        }
+    const attrCollectionId = {
+        memId: memId,
+        attrId: attrId
     }
     const responseCol = await fetch(baseURL + `attrCol/addAttrToCollection`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(attrCollectionDTO)
+        body: JSON.stringify(attrCollectionId)
     })
 
 
@@ -1368,15 +1333,9 @@ myAttrDone_btn_el.onclick = async () => {
     for (const file of picFiles) {
         try {
             const fileReader = await new FileReader();
-            // 获取当前页面的 URL
-            const currentURL = window.location.href;
-            // // 创建一个 URLSearchParams 对象，传入查询参数部分
-            // const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
-            // // 使用 get() 方法来获取特定查询参数的值
-            // const attrId = urlSearchParams.get('attrId');
             fileReader.onload = async event => {
                 const base64Str = btoa(event.target.result);
-                const response = await fetch(baseURL + 'insertAttrPictures/' + attrId, {
+                await fetch(baseURL + 'insertAttrPictures/' + attrId, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -1386,20 +1345,10 @@ myAttrDone_btn_el.onclick = async () => {
                         attrPicData: base64Str
                     })
                 });
-
             };
-            // const base64String = "your-base64-string-here";
-            // const contentType = "image/jpeg"; // 替换为实际的内容类型
-            // const base64String = file.replace(/^data:image\/(png|jpg|jpeg);base64,/, '');
-            // const blob = dataURItoBlob(file);
-            // const blob = base64ToBlob(base64String, contentType);
+
             fileReader.readAsBinaryString(file);
 
-            // if (response.ok) {
-            //     console.log('Image uploaded successfully');
-            // } else {
-            //     console.error('Image upload failed');
-            // }
         } catch (error) {
             console.error('Error uploading image:', error);
         }
@@ -1410,7 +1359,6 @@ myAttrDone_btn_el.onclick = async () => {
             icon: 'error',
             title: '新增失敗',
             text: '請檢查資料是否填寫正確!',
-            // footer: '<a href="">Why do I have this issue?</a>'
         })
     } else {
         Swal.fire(
@@ -1467,9 +1415,5 @@ addToSchedule_btn_el.addEventListener('click', async function () {
 
 });
 
-
-// hideRemoveCoolectionBtn(memId, attrId){
-
-// }
 
 // 判斷是否為行程建立者，若不是，則不可編輯
