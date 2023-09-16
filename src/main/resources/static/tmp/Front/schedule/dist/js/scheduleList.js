@@ -303,7 +303,7 @@ async function copySchedule(schId) {
   if (schedule.schCopy) {
 
     // 二、若可複製，需先判斷會員已登入
-    memberLogin();
+    memberLoginOrNot();
 
     // 拿取會員id
     const responseMem = await fetch(baseURL + `member/getMemId`);
@@ -329,7 +329,7 @@ async function copySchedule(schId) {
 }
 
 // -------------- 判斷會員是否登入 ---------------
-function memberLogin() {
+function memberLoginOrNot() {
   $.ajax({
     url: baseURL + "member/getMemId",
     method: "POST",
@@ -373,31 +373,57 @@ let id;
 function addReport(schId) {
   id = schId;
   // 一、檢查是否登入會員，登入會員才可發起檢舉
-  memberLogin();
+  memberLoginOrNot();
 }
 
 // 二、按下檢舉燈箱確認按鈕，提交檢舉資料
-function sunmitRep() {
+async function sunmitRep() {
+  memberLoginOrNot();
 
-  const data = {
-    schId: id,
-    schRepCon: repDesc_el.value
-  }
+  const responseMem = await fetch(baseURL + `member/getMemId`);
+  console.log(responseMem);
+  // const member = await responseMem.json();
 
-  fetch(baseURL + 'schRep/member/add', {
-    headers: {
-      "content-type": "application/json",
-    },
-    method: 'POST',
-    body: JSON.stringify(data)
-  }).then(() => {
-    repDesc_el.value = '';
+  if (repDesc_el.value.trim() !== '' && responseMem.status !== 401) {
+    const data = {
+      schId: id,
+      schRepCon: repDesc_el.value
+    }
+
+    fetch(baseURL + 'schRep/member/add', {
+      headers: {
+        "content-type": "application/json",
+      },
+      method: 'POST',
+      body: JSON.stringify(data)
+    }).then(() => {
+      repDesc_el.value = '';
+      Swal.fire(
+        '提交檢舉成功!',
+        '您已提交一份檢舉!',
+        'success'
+      )
+    });
+  } else if (responseMem.status === 401) {
+    Swal.fire({
+      title: '請先登入會員',
+      text: "將為您導向登入頁面....",
+      // icon: 'error',
+      confirmButtonText: '返回登入頁面',
+      confirmButtonColor: '#d33',
+      imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+      }
+    });
+  } else {
     Swal.fire(
-      '提交檢舉成功!',
-      '您已提交一份檢舉!',
-      'success'
+      '提交檢舉失敗!',
+      '檢舉內容不可空白!',
+      'error'
     )
-  });
+  }
 }
 
 // =============== 限制輸入檢舉文字 ===============

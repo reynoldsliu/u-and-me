@@ -99,7 +99,7 @@ function isDateValid(dateS, dateE) {
 }
 // ---------- 行程參數驗證相關函式結束 -----------
 // -------------- 判斷會員是否登入 ---------------
-function memberLogin() {
+function memberLoginOrNot() {
   $.ajax({
     url: baseURL + "member/getMemId",
     method: "POST",
@@ -131,7 +131,7 @@ let page = 0; // 從第一個分頁開始
 document.addEventListener("DOMContentLoaded", async function () {
 
   // 待加入會員是否登入驗證，登入才可進入此頁面查看專屬行程
-  memberLogin();
+  memberLoginOrNot();
 
   // 拿取會員id
   const response = await fetch(baseURL + `member/getMemId`);
