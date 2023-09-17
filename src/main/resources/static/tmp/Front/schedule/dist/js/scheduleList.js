@@ -130,10 +130,14 @@ async function fetchPublicScheduleList(URL) {
       schListInner.appendChild(row);
       // i++;
       // 示範用
-      // if (schedule.schId === 1) {
-      //   let img_el = document.getElementById("myImg1");
-      //   img_el.src = "../../../img/attrPic/attr2.jpg";
-      // }
+      if (schedule.schId === 1) {
+        let img_el = document.getElementById("myImg1");
+        img_el.src = "../../../img/attrPic/attr2.jpg";
+      }
+      if(schedule.schId === 17){
+        let img_el = document.getElementById("myImg17");
+        img_el.src = "../dist/img/scheduleimg/trip41.jpeg";
+      }
     });
   } catch (error) {
     console.error("Error fetching schedulePublic list:", error);

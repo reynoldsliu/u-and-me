@@ -202,6 +202,11 @@ async function fetchMyScheduleList(URL, page) {
         let img_el18 = document.getElementById("myImg18");
         img_el18.src = "../dist/img/scheduleimg/trip8.jpeg";
       }
+      if (schedule.schId === 17) {
+        let img_el18 = document.getElementById("myImg17");
+        img_el18.src = "../dist/img/scheduleimg/trip41.jpeg";
+      }
+      
     });
   } catch (error) {
     console.error("Error fetching MyScheduleList:", error);

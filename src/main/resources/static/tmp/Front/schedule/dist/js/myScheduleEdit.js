@@ -1417,3 +1417,10 @@ addToSchedule_btn_el.addEventListener('click', async function () {
 
 
 // 判斷是否為行程建立者，若不是，則不可編輯
+
+
+
+// 行程內的標籤顯示
+mySchTagsInsert_el.innerHTML=
+`<div class="toggleTags" id="mySchTag${schTagId}">${schTagName}<i
+class="fa-solid fa-xmark -on"></i></div>`;
