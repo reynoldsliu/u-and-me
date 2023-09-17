@@ -308,7 +308,7 @@ async function addDailySchedule(restScheDetails) {
                         <div class="attrPic col-md-4">
                             <img src="data:image/jpeg;base64,${attrPicture}"
                                 class="img-fluid rounded-start"
-                                alt="..." style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                                alt="..." style="width:100%;height:100%;object-fit: cover;">
                             <div class="schDetailOrder"><span class="schDetailOrder">${countedScheDetails + 1}</span>
                             </div>
                         </div>
@@ -836,7 +836,7 @@ tab_search_el.addEventListener("click", function (e) {
 
 function bussTimeString(inputString) {
     // 使用逗号分割字符串，并将结果存储在数组中
-    if(inputString==undefined||inputString==null||inputString.trim()=='')
+    if (inputString == undefined || inputString == null || inputString.trim() == '')
         return "尚無資料";
     const timeRanges = inputString.split('|');
 
@@ -895,7 +895,7 @@ async function viewSearchResultOfOneAttr(attrId) {
 
         imgs.innerHTML = `
             <img class="attrImgs"
-            style="width: 318.3px;height: 208.3px;object-fit: cover;"
+            style="width:100%;height:100%;object-fit: cover;"
             src="data: image/jpeg;base64,${pic.attrPicData}"
             alt="...">`;
 
@@ -1047,7 +1047,7 @@ async function FindAllAttrCollectionList(memId) {
                         <div class="attrPic col-md-4">
                             <img src="data: image/jpeg;base64,${pics[0].attrPicData}"
                                 class="img-fluid rounded-end" alt="..."
-                                style="width: 140.219px;height: 92.208px;object-fit: cover;">
+                                style="width:100%;height:100%;object-fit: cover;">
                         </div>
                     </div>
                 </div>`;
