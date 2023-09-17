@@ -720,11 +720,15 @@
       });
 
       if (response.ok) {
-        // Handle successful response
-        console.log('Data added successfully');
-      } else {
-        // Handle error response
-        console.error('Error adding data');
+        Swal.fire({
+          icon: 'success',
+          title: '景點更新成功',
+          text: '',
+          confirmButtonText: '確定'
+        }).then(() => {
+          location.reload();
+        })
+        // location.reload();
       }
 
       //上傳所有在imageGallery的照片

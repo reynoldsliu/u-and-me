@@ -61,6 +61,9 @@ attrTypeInput.addEventListener("change", async function () {
                     <p class="sch-date" style="font-size: 15px">
                       ${attr.attrAddr}
                     </p>
+                    <p class="sch-date" style="font-size: 15px">
+                      ${attr.attrType}
+                    </p>
                     <p class="sch-date" style="font-size: 13px">
                       ${bussTimeString(attr.attrBussTime)}
                       <br>
@@ -129,6 +132,9 @@ async function fetchPublicAttractionList() {
                     <h5 class="card-title">${attr.attrName}</h5>
                     <p class="sch-date" style="font-size: 15px">
                       ${attr.attrAddr}
+                    </p>
+                    <p class="sch-date" style="font-size: 15px">
+                      ${attr.attrType}
                     </p>
                     <p class="sch-date" style="font-size: 13px">
                       ${bussTimeString(attr.attrBussTime)}
@@ -262,67 +268,67 @@ let searchByDaysASC = false;  // 依照行程天數查詢行程，並依照天�
 let searchByDaysDESC = false; // 依照行程天數查詢行程，並依照天數(大到小)降冪排序
 
 // 依照起始日期降冪排序(預設)
-sortByStart_el.addEventListener("click", async function (event) {
-  event.preventDefault();
-  switchToPage1();
+// sortByStart_el.addEventListener("click", async function (event) {
+//   event.preventDefault();
+//   switchToPage1();
 
-  fetchPublicScheduleList(`${schListbaseURL}all/`, page);
-  searchSortByStartDESC = true;
-  searchSortByStartASC = false;
-  searchByKeyWords = false;
-  searchByDaysASC = false;
-  searchByDaysDESC = false;
-  // 清空搜尋關鍵字
-  keywords_el.value = "";
-});
+//   fetchPublicScheduleList(`${schListbaseURL}all/`, page);
+//   searchSortByStartDESC = true;
+//   searchSortByStartASC = false;
+//   searchByKeyWords = false;
+//   searchByDaysASC = false;
+//   searchByDaysDESC = false;
+//   // 清空搜尋關鍵字
+//   keywords_el.value = "";
+// });
 
 // 依照起始日期升冪排序
-sortByStartASC_el.addEventListener("click", async function (event) {
-  event.preventDefault();
-  switchToPage1();
+// sortByStartASC_el.addEventListener("click", async function (event) {
+//   event.preventDefault();
+//   switchToPage1();
 
-  fetchPublicScheduleList(`${schListbaseURL}allASC/`, page);
+//   fetchPublicScheduleList(`${schListbaseURL}allASC/`, page);
 
-  searchSortByStartDESC = false;
-  searchSortByStartASC = true;
-  searchByKeyWords = false;
-  searchByDaysASC = false;
-  searchByDaysDESC = false;
-  // 清空搜尋關鍵字
-  keywords_el.value = "";
-});
+//   searchSortByStartDESC = false;
+//   searchSortByStartASC = true;
+//   searchByKeyWords = false;
+//   searchByDaysASC = false;
+//   searchByDaysDESC = false;
+//   // 清空搜尋關鍵字
+//   keywords_el.value = "";
+// });
 
-// 依行程天數排序行程清單(由小到大)，並依照起始日期降冪排序
-sortByDays_el.addEventListener("click", async function (event) {
-  event.preventDefault();
-  switchToPage1();
+// // 依行程天數排序行程清單(由小到大)，並依照起始日期降冪排序
+// sortByDays_el.addEventListener("click", async function (event) {
+//   event.preventDefault();
+//   switchToPage1();
 
-  fetchPublicScheduleList(`${schListbaseURL}days/`, page);
+//   fetchPublicScheduleList(`${schListbaseURL}days/`, page);
 
-  searchSortByStartDESC = false;
-  searchSortByStartASC = false;
-  searchByKeyWords = false;
-  searchByDaysASC = true;
-  searchByDaysDESC = false;
-  // 清空搜尋關鍵字
-  keywords_el.value = "";
-});
+//   searchSortByStartDESC = false;
+//   searchSortByStartASC = false;
+//   searchByKeyWords = false;
+//   searchByDaysASC = true;
+//   searchByDaysDESC = false;
+//   // 清空搜尋關鍵字
+//   keywords_el.value = "";
+// });
 
-// 依行程天數排序行程清單(由大到小)，並依照起始日期降冪排序
-sortByDaysDESC_el.addEventListener("click", async function (event) {
-  event.preventDefault();
-  switchToPage1();
+// // 依行程天數排序行程清單(由大到小)，並依照起始日期降冪排序
+// sortByDaysDESC_el.addEventListener("click", async function (event) {
+//   event.preventDefault();
+//   switchToPage1();
 
-  fetchPublicScheduleList(`${schListbaseURL}daysDESC/`, page);
+//   fetchPublicScheduleList(`${schListbaseURL}daysDESC/`, page);
 
-  searchSortByStartDESC = false;
-  searchSortByStartASC = false;
-  searchByKeyWords = false;
-  searchByDaysASC = false;
-  searchByDaysDESC = true;
-  // 清空搜尋關鍵字
-  keywords_el.value = "";
-});
+//   searchSortByStartDESC = false;
+//   searchSortByStartASC = false;
+//   searchByKeyWords = false;
+//   searchByDaysASC = false;
+//   searchByDaysDESC = true;
+//   // 清空搜尋關鍵字
+//   keywords_el.value = "";
+// });
 
 // 依關鍵字(行程名稱)搜尋會員自己的行程清單(依照起始日期降冪排序)
 search_btn_el.addEventListener("click", async function (event) {
@@ -360,6 +366,9 @@ search_btn_el.addEventListener("click", async function (event) {
                     <p class="sch-date" style="font-size: 15px">
                       ${attr.attrAddr}
                     </p>
+                    <p class="sch-date" style="font-size: 15px">
+                      ${attr.attrType}
+                    </p>
                     <p class="sch-date" style="font-size: 13px">
                       ${bussTimeString(attr.attrBussTime)}
                       <br>
@@ -389,35 +398,35 @@ search_btn_el.addEventListener("click", async function (event) {
 })
 
 // 將所有分頁標籤監聽click事件
-for (let pageSelect of pageSelect_els) {
+// for (let pageSelect of pageSelect_els) {
 
-  pageSelect.addEventListener('click', async function (event) {
-    event.preventDefault();
+//   pageSelect.addEventListener('click', async function (event) {
+//     event.preventDefault();
 
-    // 將所有active移除(使分頁暗下去)
-    for (let pageSelect of pageSelect_els) {
-      if (pageSelect.classList.contains("active"))
-        pageSelect.classList.remove("active");
-    }
-    // 將被點擊到的選項加上active(使分頁亮起來)
-    event.target.parentNode.classList.add("active");
+//     // 將所有active移除(使分頁暗下去)
+//     for (let pageSelect of pageSelect_els) {
+//       if (pageSelect.classList.contains("active"))
+//         pageSelect.classList.remove("active");
+//     }
+//     // 將被點擊到的選項加上active(使分頁亮起來)
+//     event.target.parentNode.classList.add("active");
 
-    // 依照搜尋條件更換查詢行程內容
-    let sendURL = `${schListbaseURL}all/`; // 預設依照起始日期(新到舊)查詢所有公開行程
-    if (searchSortByStartDESC === true)
-      sendURL = `${schListbaseURL}all/`; // dateStartDESCURL 依起始日期新到舊
-    else if (searchSortByStartASC === true)
-      sendURL = `${schListbaseURL}allASC/`; // dateStartASCURL 依起始日期舊到新
-    else if (searchByDaysASC === true)
-      sendURL = `${schListbaseURL}days/`; // daysASCURL 依行程天數小到大
-    else if (searchByDaysDESC === true)
-      sendURL = `${schListbaseURL}daysDESC/`; // daysDESCURL 依行程天數大到小
-    else if (searchByKeyWords === true)
-      sendURL = `${schListbaseURL}${keywords}/`;
+//     // 依照搜尋條件更換查詢行程內容
+//     let sendURL = `${schListbaseURL}all/`; // 預設依照起始日期(新到舊)查詢所有公開行程
+//     if (searchSortByStartDESC === true)
+//       sendURL = `${schListbaseURL}all/`; // dateStartDESCURL 依起始日期新到舊
+//     else if (searchSortByStartASC === true)
+//       sendURL = `${schListbaseURL}allASC/`; // dateStartASCURL 依起始日期舊到新
+//     else if (searchByDaysASC === true)
+//       sendURL = `${schListbaseURL}days/`; // daysASCURL 依行程天數小到大
+//     else if (searchByDaysDESC === true)
+//       sendURL = `${schListbaseURL}daysDESC/`; // daysDESCURL 依行程天數大到小
+//     else if (searchByKeyWords === true)
+//       sendURL = `${schListbaseURL}${keywords}/`;
 
-    fetchPublicScheduleList(sendURL, (event.target.innerText - 1));
-  });
-}
+//     fetchPublicScheduleList(sendURL, (event.target.innerText - 1));
+//   });
+// }
 // =============== 分頁查詢行程結束 ================
 
 // ================= 複製一個行程 =================

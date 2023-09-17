@@ -892,12 +892,14 @@
                 map: this.map
             });
 
-            // info window
-            // let infowindow = new google.maps.InfoWindow({
-            //     content: this.place.formatted_address
-            // });
-            // infowindow.open(this.map, marker);
-            // addOrRemoveCollection();
+            // const res = await fetch(baseURL + `member/getMemId`);
+            // const member = await res.json();
+            // console.log(member);
+            // // const member = resJson.body;
+            // if(member.memId==undefined){
+            //     console.log("尚未登入");
+            // }
+
             const response2 = await fetch(baseURL + `attrCol/ifMemContainAttrInCol/` + attrId);
             const relationExist = await response2.json();
             console.log(JSON.stringify(relationExist, null, 2));
@@ -905,7 +907,7 @@
             if (relationExist.body.collectionId == undefined) {
                 colBtn.innerText = "加入收藏";
             }
-            else{
+            else {
                 colBtn.innerText = "移除收藏";
             }
             return relationExist;
@@ -1138,60 +1140,6 @@
             });
         }
 
-        //--------------------------------------------------------------------
-        //Reynolds
-        const attrSearchbtn_el = document.getElementById("attrSearch-btn");
-        attrSearchbtn_el.addEventListener("click", async function () {
-            const response = await fetch(baseURL + `getAllAttr`);
-            const attrs = await response.json();
-            const attrList = attrs.body;
-            console.log(attrList);
-            attrSearchListInsert_el.innerHTML = "";
-
-            // 加入async試試看(找出每一個景點)
-            for (let attr of attrList) {
-
-                // 景點的第一張圖片編號、景點的第一張圖片
-                const responseOfAttrFirstPic = await fetch(getAttrPicsByAttrIdURL + attr.attrId);
-                const attrPicList = await responseOfAttrFirstPic.json();
-                console.log(attrPicList);
-                const pics = attrPicList.attrPic;
-                let picInput;
-
-                if (!pics[0]) {
-                    picInput = pic;// pic.js base64
-                    // 如果 pics[0] 是空值，使用 "replace"
-                } else {
-                    picInput = pics[0].attrPicData;
-                }
-
-                // 動態生成每一個景點資訊框
-                let row = document.createElement("div");
-                row.innerHTML = `
-                    <div class="attrCell card mb-3" onclick="viewSearchResultOfOneAttr(${attr.attrId})" id="attrId${attr.attrId}">
-                        <div class="row g-0">
-                            <div class="col-md-8">
-                                <div class="attrCardBody">
-                                    <h5 class="attrName">
-                                        <div id="attrName">
-                                            ${attr.attrName}
-                                            </div>
-                                            </h5>
-                                            </div>
-                                            </div>
-                                            <div class="attrPic col-md-4">
-                                                <img src="data: image/jpeg;base64,${picInput}"
-                                                class="img-fluid rounded-end" alt="..."
-                                                style="width: 140.219px;height: 92.208px;object-fit: cover;">
-                                                </div>
-                                                </div>
-                                                </div>`;
-
-                attrSearchListInsert_el.appendChild(row);
-            }
-
-        })
-
         function bussTimeString(inputString) {
             // 使用逗号分割字符串，并将结果存储在数组中
             if (inputString == undefined || inputString == null || inputString.trim() == '')
@@ -1236,21 +1184,34 @@
             }
         }
         const colBtn = document.getElementById("colBtn");
-        async function addOrRemoveCollection() {
+        // async function addOrRemoveCollection() {
 
-            const currentURL = window.location.href;
-            const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
-            const attrId = urlSearchParams.get('attrId');
-            const response = await fetch(baseURL + `attrCol/ifMemContainAttrInCol/` + attrId);
-            const relationExist = await response.json();
-            console.log(JSON.stringify(relationExist, null, 2));
-            console.log(attrId + "::" + relationExist.body.collectionId.attrId);
-            if (relationExist.body.collectionId != undefined) {
-                colBtn.innerText = "移除收藏";
-            }
-            return relationExist;
-        }
+        //     const currentURL = window.location.href;
+        //     const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+        //     const attrId = urlSearchParams.get('attrId');
+        //     const response = await fetch(baseURL + `attrCol/ifMemContainAttrInCol/` + attrId);
+        //     const relationExist = await response.json();
+        //     console.log(JSON.stringify(relationExist, null, 2));
+        //     console.log(attrId + "::" + relationExist.body.collectionId.attrId);
+        //     if (relationExist.body.collectionId != undefined) {
+        //         colBtn.innerText = "移除收藏";
+        //     }
+        //     return relationExist;
+        // }
         colBtn.addEventListener("click", async function () {
+            fetch(`${baseURL}member/getMemId`, {
+                method: 'GET'
+            }).then(response => {
+                if (response.status == 401) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '尚未登入',
+                        showCancelButton: true
+                    }).then(() => {
+                        this.location.href = baseUrl + '/tmp/Front/member/memberLogin.html';
+                    })
+                }
+            })
             const currentURL = window.location.href;
             const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
             const attrId = urlSearchParams.get('attrId');
@@ -1261,7 +1222,7 @@
                 attrId: attrId
             }
 
-            if (colBtn.innerText==="加入收藏") {
+            if (colBtn.innerText === "加入收藏") {
                 console.log(collectionId);
 
                 const response = await fetch(baseURL + `attrCol/addAttrToCollection`, {
@@ -1270,27 +1231,46 @@
                         'Content-Type': 'application/json' // 指定请求主体的类型为JSON
                     },
                     body: JSON.stringify(collectionId)
-                });
+                }).then(response => {
+                if (response.status == 200) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '成功加入收藏',
+                        showCancelButton: true
+                    }).then(() => {
+                        location.reload();
+                    })
+                }
+            })
                 const ans = await response.json();
-                colBtn.innerText==="移除收藏"
-                alert("add: " + ans.body+" success.");
+                colBtn.innerText === "移除收藏"
+                alert("add: " + ans.body + " success.");
                 location.reload();
             }
-            else if(colBtn.innerText==="移除收藏")
-            {
+            else if (colBtn.innerText === "移除收藏") {
                 const response = await fetch(baseURL + `attrCol/removeAttrFromCollection`, {
                     method: 'POST', // 或 'PUT'、'GET'、'DELETE'
                     headers: {
                         'Content-Type': 'application/json' // 指定请求主体的类型为JSON
                     },
                     body: JSON.stringify(collectionId)
-                });
+                }).then(response => {
+                if (response.status == 200) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '成功移除收藏',
+                        showCancelButton: true
+                    }).then(() => {
+                        location.reload();
+                    })
+                }
+            })
                 const ans = await response.json();
-                colBtn.innerText==="加入收藏"
-                alert("del: " + ans.body+" success.");
+                colBtn.innerText === "加入收藏"
+                alert("del: " + ans.body + " success.");
                 location.reload();
             }
-            
+
         })
 
 
