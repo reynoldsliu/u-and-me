@@ -570,7 +570,7 @@ function codeToPriceRange(code) {
 
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", async function () {
-    
+
 
     // 關閉景點搜尋內其他頁籤內容
     switchSearchPagesAddOff();
@@ -578,7 +578,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // RN's LOADING function
     // 获取当前页面的 URL
-    const currentURL = window.location.href;
+    const currentURL = window.location.href.replace("#", "");
     // 创建一个 URLSearchParams 对象，传入查询参数部分
     const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
     // 使用 get() 方法来获取特定查询参数的值
@@ -873,6 +873,7 @@ async function viewSearchResultOfOneAttr(attrId) {
     //-----------------------------------------------------------------------------
     //Reynolds0918
     // 抓取會員id
+    memberLogin();
     const response2 = await fetch(baseURL + `member/getMemId`);
     const member = await response2.json();
     const memId = member.memId;
@@ -882,8 +883,8 @@ async function viewSearchResultOfOneAttr(attrId) {
         const response = await fetch(baseURL + `attrCol/ifMemContainAttrInCol/` + attrId);
         const attrCollectionDTO = await response.json();
         const collecttionId = attrCollectionDTO.body.collectionId;
-        console.log("ANS: "+collecttionId);
-        
+        console.log("ANS: " + collecttionId);
+
         const addBtn = document.querySelector(".addAttrCollect-btn");
         const removeBtn = document.querySelector(".removeAttrCollect-btn");
         if (collecttionId === undefined || collecttionId === null) {
@@ -893,7 +894,7 @@ async function viewSearchResultOfOneAttr(attrId) {
             removeBtn.classList.add("-off");
             // viewSearchResultOfOneAttr(attrId);
         }
-        else{
+        else {
             console.log("!!此會員有收藏該景點: ");
             // showRemoveAttrFromCollectionBtn();
             addBtn.classList.add("-off");
@@ -901,8 +902,11 @@ async function viewSearchResultOfOneAttr(attrId) {
             // viewSearchResultOfOneAttr(attrId);
         }
     }
+    else {
+
+    }
     //-----------------------------------------------------------------------------
-    
+
     // 顯示單一景點詳情頁面
     viewAttrDetailsCard.classList.remove(classSwitchOff);
     // 開啟 GOOGLE MAP(查看單一景點模式)
@@ -1113,10 +1117,12 @@ addAttrCollect_btn_el.onclick = async () => {
         '儲存成功!',
         '已儲存至景點收藏!',
         'success'
-    )
+    ).then(() => {
+        FindAllAttrCollectionList(memId);
+    })
     // showRemoveAttrFromCollectionBtn();
     viewSearchResultOfOneAttr(attrId);
-    
+
 
 }
 
@@ -1419,10 +1425,10 @@ myAttrDone_btn_el.onclick = async () => {
 //  ===================== 將景點加入行程 ===================== //
 addToSchedule_btn_el.addEventListener('click', async function () {
 
-    const currentURL = window.location.href.replace('#','');
+    const currentURL = window.location.href.replace('#', '');
     const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
 
-    console.log("addToSchedule_btn_el: "+urlSearchParams);
+    console.log("addToSchedule_btn_el: " + urlSearchParams);
 
     const schId = urlSearchParams.get('schId');
     let attrId = attrIdText_el.innerText;
@@ -1460,6 +1466,89 @@ addToSchedule_btn_el.addEventListener('click', async function () {
     });
 
 });
+
+const editPen_el = document.querySelector(".editPen");
+editPen_el.addEventListener("click", async function () {
+    const currentURL = window.location.href.replace('#', '');
+    const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+    const schId = urlSearchParams.get('schId');
+
+    $.ajax({
+        url: baseURL + "member/getMemId",
+        method: "POST",
+        dataType: "JSON",
+        success: async function (data) {
+            const res = await fetch(baseURL + `schedules/schId/` + schId);
+            const sche = await res.json();
+            memId = data.memId;
+            if(memId!==sche.memId){
+                Swal.fire({
+                    title: '非本行程擁有者',
+                    text: "是否導向登入頁面?",
+                    icon: 'error',
+                    confirmButtonText: '返回登入頁面',
+                    confirmButtonColor: '#d33',
+                    imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+                    }
+                });
+            }
+        },
+        error: async function (status, error) {
+            if (status.status === 401 ) {
+                Swal.fire({
+                    title: '請先登入會員',
+                    text: "將為您導向登入頁面....",
+                    // icon: 'error',
+                    confirmButtonText: '返回登入頁面',
+                    confirmButtonColor: '#d33',
+                    cancelButtonText: '取消',
+                    imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+                    }
+                    else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // 用户点击取消按钮或者点击模态框外部时执行的操作
+                        // 这里可以不执行任何操作，或者添加你需要的其他逻辑
+                      }
+                });
+            }
+        },
+    });
+
+})
+
+
+// -------------- 判斷會員是否登入 ---------------
+function memberLogin() {
+    $.ajax({
+        url: baseURL + "member/getMemId",
+        method: "POST",
+        dataType: "JSON",
+        success: function (data) {
+            memId = data.memId;
+        },
+        error: function (status, error) {
+            if (status.status === 401) {
+                Swal.fire({
+                    title: '請先登入會員',
+                    text: "將為您導向登入頁面....",
+                    // icon: 'error',
+                    confirmButtonText: '返回登入頁面',
+                    confirmButtonColor: '#d33',
+                    imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+                    }
+                });
+            }
+        },
+    });
+}
 
 
 // 判斷是否為行程建立者，若不是，則不可編輯
