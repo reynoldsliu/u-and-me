@@ -92,16 +92,16 @@ async function fetchPublicScheduleList(URL) {
     const schListInner = document.getElementById("schListInner");
     schListInner.innerHTML = "";
 
+    // let i = 1;
     schList.forEach(schedule => {
 
       let row = document.createElement("div");
 
       row.classList.add("col-lg-4");
       row.classList.add("mb-4");
-
       row.innerHTML = `
             <div class="card">
-                <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg"
+                <img src="../dist/img/scheduleimg/trip${getRandomInteger()}.jpeg" id="myImg${schedule.schId}"
                     alt="等待圖片載入..." class="card-img-top" 
                     style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
                 <div class="copySch" id="copySch${schedule.schId}" onclick="copySchedule(${schedule.schId})">
@@ -128,6 +128,12 @@ async function fetchPublicScheduleList(URL) {
             </div>
             `;
       schListInner.appendChild(row);
+      // i++;
+      // 示範用
+      // if (schedule.schId === 1) {
+      //   let img_el = document.getElementById("myImg1");
+      //   img_el.src = "../../../img/attrPic/attr2.jpg";
+      // }
     });
   } catch (error) {
     console.error("Error fetching schedulePublic list:", error);

@@ -52,6 +52,11 @@ public class ScheduleReportServiceImpl implements ScheduleReportService {
     }
 
     @Override
+    public List<ScheduleReport> findByStatus(Short schRepSta) {
+        return reportRepository.findByStatus(schRepSta);
+    }
+
+    @Override
     public ScheduleReport findBySchRepId(Integer schRepId) {
         ScheduleReport report = reportRepository.findById(schRepId).orElse(null);
         return report;

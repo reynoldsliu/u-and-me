@@ -20,6 +20,9 @@ public interface ScheduleReportService {
     // 查詢所有被檢舉行程清單
     public List<ScheduleReport> findAll();
 
+    // 依照檢舉處理情形查詢被檢舉的行程清單
+    public List<ScheduleReport> findByStatus(Short schRepSta);
+
     // 查詢單一個被檢舉行程內容
     public  ScheduleReport findBySchRepId(Integer schRepId);
 

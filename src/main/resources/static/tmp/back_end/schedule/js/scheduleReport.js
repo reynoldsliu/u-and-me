@@ -58,6 +58,8 @@ const schName_el = document.getElementById('schName');
 const detail_el = document.getElementById('detail');
 const repDesc_el = document.getElementById('repDesc');
 const confirm_el = document.getElementById('confirm');
+const selectSta_el = document.getElementById('selectSta');
+const listAllReport_btn_el = document.querySelector('.listAllReport-btn');
 let repIdStr = '';
 let repId;
 let schRepSta;
@@ -66,13 +68,24 @@ let schId;
 
 // 網頁載入後執行，查出所有檢舉清單
 document.addEventListener("DOMContentLoaded", function () {
-  fetchScheRepList();
+  fetchScheRepList(`${baseUrl}schRep`);
 });
 
+// 按下所有檢舉查詢所有檢舉清單
+listAllReport_btn_el.addEventListener('click', function () {
+  fetchScheRepList(`${baseUrl}schRep`);
+});
+
+// 依照檢舉處理狀態查詢檢舉清單
+selectSta_el.addEventListener('change', function () {
+  let selectedSta = Number(selectSta_el.value);
+  fetchScheRepList(`${baseUrl}schRep/status/${selectedSta}`);
+})
+
 // 查詢所有行程檢舉清單
-async function fetchScheRepList() {
+async function fetchScheRepList(Url) {
   try {
-    const response = await fetch(`${baseUrl}schRep`);
+    const response = await fetch(Url);
     const scheRepList = await response.json();
 
     const dataTableList = document.getElementById("dataTableList");
@@ -85,15 +98,16 @@ async function fetchScheRepList() {
 
       const row = document.createElement("tr");
       row.innerHTML = `
-            <td style="width: 90px;">${schRep.schRepId}</td>
-            <td style="width: 100px;">${schRep.memId}</td>
-            <td style="width: 100px;">${sch.schName}</td>
-            <td style="width: 300px;text-align: left;text-overflow: ellipsis;">${schRep.schRepCon}</td>
-            <td style="width: 100px;">${schRep.hostId}</td>
-            <td style="width: 90px;">${statusMapping.get(schRep.schRepSta)}</td>
-            <td>
+            <td >${schRep.schRepId}</td>
+            <td >${schRep.memId}</td>
+            <td >${sch.schName}</td>
+            <td text-align: left;>${schRep.schRepCon}</td>
+            <td >${formatHostId(schRep.hostId)}</td>
+            <td >${statusMapping.get(schRep.schRepSta)}</td>
+            <td >
             <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
               onclick="fetchSchRep(${schRep.schRepId})">
+              <i class="fa-solid fa-eye"></i>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
                 viewBox="0 0 16 16">
                 <path
@@ -198,6 +212,13 @@ function convertNumberToText(number) {
     case 2:
       return "公開瀏覽";
   }
+}
+
+// 管理員為空值
+function formatHostId(hostId) {
+  // 假設 data 是可能包含 null 的變數
+  let result = (hostId !== null) ? hostId : "尚無資料";
+  return result;
 }
 
 // ===================== 後台行程檢舉 =====================

@@ -62,8 +62,8 @@ public class ScheduleReportController {
      * @return 返回查詢結果
      */
     @GetMapping("/status/{schRepSta}")
-    public List<ScheduleReport> findByStatus(Short schRepSta){
-        List<ScheduleReport> list = reportService.findAll();
+    public List<ScheduleReport> findByStatus(@PathVariable Short schRepSta){
+        List<ScheduleReport> list = reportService.findByStatus(schRepSta);
         return list;
     }
 

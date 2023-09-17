@@ -112,9 +112,10 @@ function memberLoginOrNot() {
         Swal.fire({
           title: '請先登入會員',
           text: "將為您導向登入頁面....",
-          icon: 'error',
+          // icon: 'error',
           confirmButtonText: '返回登入頁面',
-          confirmButtonColor: '#d33'
+          confirmButtonColor: '#d33',
+          imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
         }).then((result) => {
           if (result.isConfirmed) {
             window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
@@ -161,7 +162,7 @@ async function fetchMyScheduleList(URL, page) {
 
       row.innerHTML = `
             <div class="card">
-            <img src="../dist/img/scheduleimg/trip${i}.jpeg"
+            <img src="../dist/img/scheduleimg/trip${i}.jpeg" id="myImg${schedule.schId}"
                 alt="" class="card-img-top" style="max-width: 354.656px; max-height: 236.604px; object-fit: cover;">
                 <div class="settingSch" id="settingSch${schedule.schId}" onclick="editMySchedule(${schedule.schId})">
                   <div><i class="fa-solid fa-pen-to-square edit"></i></div>
@@ -190,11 +191,24 @@ async function fetchMyScheduleList(URL, page) {
             `;
       schListInner.appendChild(row);
       i++;
+      // 範例用
+      // let img_el = document.getElementById(`myImg${schedule.schId}`);
+      // img_el.src = "../dist/img/scheduleimg/trip13.jpeg";
+      if (schedule.schId === 11) {
+        let img_el11 = document.getElementById("myImg11");
+        img_el11.src = "../dist/img/scheduleimg/trip25.jpeg";
+      }
+      if (schedule.schId === 18) {
+        let img_el18 = document.getElementById("myImg18");
+        img_el18.src = "../dist/img/scheduleimg/trip8.jpeg";
+      }
     });
   } catch (error) {
     console.error("Error fetching MyScheduleList:", error);
   }
 }
+
+
 // ============ 查詢會員專屬的行程結束 =============
 
 // ================= 分頁查詢行程 ==================
@@ -573,7 +587,7 @@ async function selectPrivateSetting(schId) {
           if (schedule.schPub === 1) {
             Swal.fire({
               title: `瀏覽權限設定成功！`,
-              html: `<div style="font-size: 10px;">分享連結：<br>${baseURL}tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}</div>`,
+              html: `<div style="font-size: 10px;">分享連結：<br>http://uandme.ddns.net/u-and-me/tmp/Front/schedule/myScheduleEdit.html?schId=${schedule.schId}</div>`,
               imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/471356583/android/sticker.png'
             }).then(() => {
               // 在用戶按下"確定"後執行重新整理

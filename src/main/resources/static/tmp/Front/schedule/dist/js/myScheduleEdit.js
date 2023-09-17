@@ -343,7 +343,7 @@ async function addDailySchedule(restScheDetails) {
         var index = children.indexOf(row);
         // console.log("這是父元素的第 " + (index + 1) + " 個子元素。");
 
-        if (index > 2 && !row.previousSibling.classList.contains("schDeStartTimeRows")) {
+        if (index > 1 && !row.previousSibling.classList.contains("schDeStartTimeRows")) {
             console.log("Not the first Row");
             // let row1 = document.createElement("div");
 
@@ -1385,7 +1385,7 @@ addToSchedule_btn_el.addEventListener('click', async function () {
     const send_data = {
         schId: schId,
         attrId: attrId,
-        schdeStarttime: '2023-10-12 09:15:00',
+        schdeStarttime: '2023-12-11 17:30:00',
         schdeStaytime: '01:00:00',
         schdeTranstime: '00:30:00',
         schdeTrans: 1,

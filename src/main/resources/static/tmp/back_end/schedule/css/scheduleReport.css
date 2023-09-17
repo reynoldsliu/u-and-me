@@ -162,6 +162,14 @@ select#schPub {
   left: 150px;
 }
 
+th {
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
 td {
   text-align: center;
   vertical-align: middle;
