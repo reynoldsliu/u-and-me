@@ -570,6 +570,8 @@ function codeToPriceRange(code) {
 
 // ================== 載入行程編輯頁面 ================== //
 document.addEventListener("DOMContentLoaded", async function () {
+    
+
     // 關閉景點搜尋內其他頁籤內容
     switchSearchPagesAddOff();
     switchAttrDetailsAndMapOff();
@@ -654,6 +656,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         // currentDate = addOneDay(currentDate);
         dateSelectCellInsert_el.appendChild(dateCell);
     }
+
+
 
 });
 
@@ -866,6 +870,39 @@ function getAllWaypoints() {
 
 // 點擊到schDetailCell(單一行程細節Cell)、attrCell(景點搜尋、景點收藏Cell)時，出現景點詳細頁面
 async function viewSearchResultOfOneAttr(attrId) {
+    //-----------------------------------------------------------------------------
+    //Reynolds0918
+    // 抓取會員id
+    const response2 = await fetch(baseURL + `member/getMemId`);
+    const member = await response2.json();
+    const memId = member.memId;
+    if (memId !== undefined) {
+        // 抓取景點id
+        // let attrId = attrIdText_el.innerText;
+        const response = await fetch(baseURL + `attrCol/ifMemContainAttrInCol/` + attrId);
+        const attrCollectionDTO = await response.json();
+        const collecttionId = attrCollectionDTO.body.collectionId;
+        console.log("ANS: "+collecttionId);
+        
+        const addBtn = document.querySelector(".addAttrCollect-btn");
+        const removeBtn = document.querySelector(".removeAttrCollect-btn");
+        if (collecttionId === undefined || collecttionId === null) {
+            console.log("此會員沒有收藏該景點: ");
+            // showAddAttrToCollectionBtn();
+            addBtn.classList.remove("-off");
+            removeBtn.classList.add("-off");
+            // viewSearchResultOfOneAttr(attrId);
+        }
+        else{
+            console.log("!!此會員有收藏該景點: ");
+            // showRemoveAttrFromCollectionBtn();
+            addBtn.classList.add("-off");
+            removeBtn.classList.remove("-off");
+            // viewSearchResultOfOneAttr(attrId);
+        }
+    }
+    //-----------------------------------------------------------------------------
+    
     // 顯示單一景點詳情頁面
     viewAttrDetailsCard.classList.remove(classSwitchOff);
     // 開啟 GOOGLE MAP(查看單一景點模式)
@@ -1077,6 +1114,10 @@ addAttrCollect_btn_el.onclick = async () => {
         '已儲存至景點收藏!',
         'success'
     )
+    // showRemoveAttrFromCollectionBtn();
+    viewSearchResultOfOneAttr(attrId);
+    
+
 }
 
 
@@ -1110,6 +1151,8 @@ removeAttrCollect_btn_el.onclick = async () => {
     ).then(() => {
         FindAllAttrCollectionList(memId);
     })
+    // showAddAttrToCollectionBtn();
+    viewSearchResultOfOneAttr(attrId);
 }
 
 // TODO...
@@ -1376,8 +1419,11 @@ myAttrDone_btn_el.onclick = async () => {
 //  ===================== 將景點加入行程 ===================== //
 addToSchedule_btn_el.addEventListener('click', async function () {
 
-    const currentURL = window.location.href;
+    const currentURL = window.location.href.replace('#','');
     const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+
+    console.log("addToSchedule_btn_el: "+urlSearchParams);
+
     const schId = urlSearchParams.get('schId');
     let attrId = attrIdText_el.innerText;
 
@@ -1421,6 +1467,6 @@ addToSchedule_btn_el.addEventListener('click', async function () {
 
 
 // 行程內的標籤顯示
-mySchTagsInsert_el.innerHTML=
-`<div class="toggleTags" id="mySchTag${schTagId}">${schTagName}<i
-class="fa-solid fa-xmark -on"></i></div>`;
+// mySchTagsInsert_el.innerHTML =
+//     `<div class="toggleTags" id="mySchTag${schTagId}">${schTagName}<i
+// class="fa-solid fa-xmark -on"></i></div>`;
