@@ -297,174 +297,175 @@
 
     <script src="article.js"></script>
     <script>
+        let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
-        <!--網頁載入後執行-->
-        document.addEventListener("DOMContentLoaded", function () {
-            fetchArticleList();
-        });
-
-        async function fetchArticleList() {
-            try {
-                const response = await fetch('http://localhost:8081/u-and-me/BackEnd/articles');
-                const articleList = await response.json();
-
-                const dataTableList = document.getElementById("dataTableList");
-                dataTableList.innerHTML = "";
-
-                articleList.forEach(article => {
-                    const row = document.createElement("tr");
-                    const uniqueId = `statusSwitch${article.articleId}`;
-
-                    row.innerHTML = `
-    <td class="td_articleId" style="text-align: center; vertical-align: middle;">
-        ${article.articleId}
-    </td>
-    <td style="text-align: center;vertical-align: middle;">${article.memId}</td>
-    <td class="truncate" style="vertical-align: middle;">${article.articleTitle}</td>
-    <td class="truncate" style="vertical-align: middle;">${article.articleContent}</td>
-
-
-    <td style="vertical-align: middle;">
-        <div class="form-check form-switch text-end">
-            <input class="form-check-input status-toggle" type="checkbox" id="${uniqueId}"
-                data-article-id="${article.articleId}" onclick="testStatusBtn(this)">
-            <label class="form-check-label" for="${uniqueId}">${statusMapping.get(article.articleSta)}</label>
-
-        </div>
-        </div>
-    </td>
-    <td class="truncate" style="vertical-align: middle;">
-        <a
-            href="http://localhost:8081/u-and-me/tmp/Front/article/readArticle/articleDetail.html?articleId=${article.articleId}">
-            <button style="background-color:white;border:none;" id="linkButton">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
-                    <path fill-rule="evenodd"
-                        d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
-                </svg>
-            </button>
-        </a>
-    </td>
-
-    `;
-                    // 上方插入${article.articleId}的欄位有設定onclick事件，指定了當input 元素被點擊時
-                    // 要執行的 JS 代碼，testStatusBtn(this)的this是回傳input標籤本身
-                    // 也就是將input標籤整個作為參數傳遞給testStatusBtn函數
-                    dataTableList.appendChild(row);
-                    const statusToggles = document.querySelectorAll('.form-check-input.status-toggle');
-                    const statusLabels = document.querySelectorAll('.form-check-label[for^="statusSwitch"]');
-
-                    // 上下架按鈕
-                    // 遍歷所有元素，設置按鈕初始狀態和事件監聽
-                    statusToggles.forEach((statusToggle, index) => {
-                        const statusLabel = statusLabels[index];
-
-                        // 判断statusLabel是上架還下架，作為statusToggle按鈕最一開始是開啟還關閉的顯示
-                        if (statusLabel.textContent === '上架') {
-                            statusToggle.checked = true;
-                            // 若讀取到的是上架，按鈕在瀏覽器上會顯示打開
-                        } else {
-                            statusToggle.checked = false;
-                            // 若讀取到的是下架，按鈕在瀏覽器上會顯示關閉
-
-                        }
-                        const articleId = article.articleId; // 獲取文章的 ID
-                        const newStatus = statusLabel.textContent === '上架' ? 1 : 0;
-
-                        // // 添加事件監聽器檢測狀態切換
-                        statusToggle.addEventListener('change', () => {
-                            if (statusToggle.checked) {
-                                statusLabel.textContent = '上架';
-
-                                // 檢查按鈕的狀態（是打開還是關閉），如果按鈕是打開的（this.checked 是 true），那麼文字會被設置為「上架」，如果按鈕是關閉的，文字會被設置為「下架」
-                            } else {
-                                statusLabel.textContent = '下架';
-                            }
-                        });
-                    });
-
-
-
+                <!--網頁載入後執行-->
+                document.addEventListener("DOMContentLoaded", function () {
+                    fetchArticleList();
                 });
 
-            } catch (error) {
-                console.error("Error fetching article list:", error);
-            }
-        }
+                async function fetchArticleList() {
+                    try {
+                        const response = await fetch('http://localhost:8081/u-and-me/BackEnd/articles');
+                        const articleList = await response.json();
+
+                        const dataTableList = document.getElementById("dataTableList");
+                        dataTableList.innerHTML = "";
+
+                        articleList.forEach(article => {
+                            const row = document.createElement("tr");
+                            const uniqueId = `statusSwitch${article.articleId}`;
+
+                            row.innerHTML = `
+            <td class="td_articleId" style="text-align: center; vertical-align: middle;">
+                ${article.articleId}
+            </td>
+            <td style="text-align: center;vertical-align: middle;">${article.memId}</td>
+            <td class="truncate" style="vertical-align: middle;">${article.articleTitle}</td>
+            <td class="truncate" style="vertical-align: middle;">${article.articleContent}</td>
 
 
-        function formatDate(dateString) {
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('zh-TW', options);
-        }
+            <td style="vertical-align: middle;">
+                <div class="form-check form-switch text-end">
+                    <input class="form-check-input status-toggle" type="checkbox" id="${uniqueId}"
+                        data-article-id="${article.articleId}" onclick="testStatusBtn(this)">
+                    <label class="form-check-label" for="${uniqueId}">${statusMapping.get(article.articleSta)}</label>
 
-        const statusMapping = new Map([
-            [0, '下架'],
-            [1, '上架'],
-        ]);
+                </div>
+                </div>
+            </td>
+            <td class="truncate" style="vertical-align: middle;">
+                <a
+                    href="http://localhost:8081/u-and-me/tmp/Front/article/articleindex/articleDetail.html?articleId=${article.articleId}">
+                    <button style="background-color:white;border:none;" id="linkButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                            <path fill-rule="evenodd"
+                                d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                        </svg>
+                    </button>
+                </a>
+            </td>
 
-        // 點擊按鈕會跳轉到單一文章頁面，在後台只能做上下架，要查看全部還得去頁面
-        // function redirectToDetailPage(articleId) {
-        // var newPageUrl = `activityEdit.html?activId=${activId}`;
-        // window.location.href = newPageUrl;
-        // }
+            `;
+                            // 上方插入${article.articleId}的欄位有設定onclick事件，指定了當input 元素被點擊時
+                            // 要執行的 JS 代碼，testStatusBtn(this)的this是回傳input標籤本身
+                            // 也就是將input標籤整個作為參數傳遞給testStatusBtn函數
+                            dataTableList.appendChild(row);
+                            const statusToggles = document.querySelectorAll('.form-check-input.status-toggle');
+                            const statusLabels = document.querySelectorAll('.form-check-label[for^="statusSwitch"]');
+
+                            // 上下架按鈕
+                            // 遍歷所有元素，設置按鈕初始狀態和事件監聽
+                            statusToggles.forEach((statusToggle, index) => {
+                                const statusLabel = statusLabels[index];
+
+                                // 判断statusLabel是上架還下架，作為statusToggle按鈕最一開始是開啟還關閉的顯示
+                                if (statusLabel.textContent === '上架') {
+                                    statusToggle.checked = true;
+                                    // 若讀取到的是上架，按鈕在瀏覽器上會顯示打開
+                                } else {
+                                    statusToggle.checked = false;
+                                    // 若讀取到的是下架，按鈕在瀏覽器上會顯示關閉
+
+                                }
+                                const articleId = article.articleId; // 獲取文章的 ID
+                                const newStatus = statusLabel.textContent === '上架' ? 1 : 0;
+
+                                // // 添加事件監聽器檢測狀態切換
+                                statusToggle.addEventListener('change', () => {
+                                    if (statusToggle.checked) {
+                                        statusLabel.textContent = '上架';
+
+                                        // 檢查按鈕的狀態（是打開還是關閉），如果按鈕是打開的（this.checked 是 true），那麼文字會被設置為「上架」，如果按鈕是關閉的，文字會被設置為「下架」
+                                    } else {
+                                        statusLabel.textContent = '下架';
+                                    }
+                                });
+                            });
 
 
-        function testStatusBtn(statusToggle) {
-            // console.log(statusToggle);
 
-            let statusLabel = statusToggle.closest("div").querySelector("label");
-            /** .closest("div")是抓最近的div
-            * .querySelector("label");是抓父元素(div)底下的label標籤
-            * 因為從DB抓資料以動態方式新增內容，標籤的id都是動態生成，而非寫死。搭配.closest()可以用最精簡的語句抓到
-            * 按鈕
-            **/
-            console.log(statusLabel);
-            // 在console確認抓到的值是否正確(可略)
+                        });
 
-            if (statusToggle.checked) {
-                statusLabel.textContent = '上架';
-                // 檢查上下架按鈕為開或關，若為開（this.checked 是 true），文字將被設置為「上架」
-                // ，若為關的，文字則被設置為「下架」
+                    } catch (error) {
+                        console.error("Error fetching article list:", error);
+                    }
+                }
 
-            } else {
-                statusLabel.textContent = '下架';
-            }
 
-            let td_articleId_el = statusToggle.closest("tr").querySelector(".td_articleId");
-            // 抓article.articleId element
-            const articleId = td_articleId_el.textContent;
-            // 獲取文章的 ID
-            const newStatus = statusLabel.textContent === '上架' ? 1 : 0;
-            console.log(newStatus);
+                function formatDate(dateString) {
+                    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                    return new Date(dateString).toLocaleDateString('zh-TW', options);
+                }
 
-            try {
-                const response = fetch('http://localhost:8081/u-and-me/BackEnd/Adminedit', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        articleId: articleId,
-                        articleSta: newStatus
-                    })
-                })
-                    .then(response => {
-                        console.log(response)
-                        if (response.ok) {
-                            console.log('狀態更新成功。');
-                        } else {
-                            console.error('無法更新狀態。');
+                const statusMapping = new Map([
+                    [0, '下架'],
+                    [1, '上架'],
+                ]);
 
-                        }
-                    })
+                // 點擊按鈕會跳轉到單一文章頁面，在後台只能做上下架，要查看全部還得去頁面
+                // function redirectToDetailPage(articleId) {
+                // var newPageUrl = `activityEdit.html?activId=${activId}`;
+                // window.location.href = newPageUrl;
+                // }
 
-            } catch (error) {
-                console.error('更新狀態時出錯：', error);
-            }
-        }
+
+                function testStatusBtn(statusToggle) {
+                    // console.log(statusToggle);
+
+                    let statusLabel = statusToggle.closest("div").querySelector("label");
+                    /** .closest("div")是抓最近的div
+                    * .querySelector("label");是抓父元素(div)底下的label標籤
+                    * 因為從DB抓資料以動態方式新增內容，標籤的id都是動態生成，而非寫死。搭配.closest()可以用最精簡的語句抓到
+                    * 按鈕
+                    **/
+                    console.log(statusLabel);
+                    // 在console確認抓到的值是否正確(可略)
+
+                    if (statusToggle.checked) {
+                        statusLabel.textContent = '上架';
+                        // 檢查上下架按鈕為開或關，若為開（this.checked 是 true），文字將被設置為「上架」
+                        // ，若為關的，文字則被設置為「下架」
+
+                    } else {
+                        statusLabel.textContent = '下架';
+                    }
+
+                    let td_articleId_el = statusToggle.closest("tr").querySelector(".td_articleId");
+                    // 抓article.articleId element
+                    const articleId = td_articleId_el.textContent;
+                    // 獲取文章的 ID
+                    const newStatus = statusLabel.textContent === '上架' ? 1 : 0;
+                    console.log(newStatus);
+
+                    try {
+                        const response = fetch('http://localhost:8081/u-and-me/BackEnd/Adminedit', {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                articleId: articleId,
+                                articleSta: newStatus
+                            })
+                        })
+                            .then(response => {
+                                console.log(response)
+                                if (response.ok) {
+                                    console.log('狀態更新成功。');
+                                } else {
+                                    console.error('無法更新狀態。');
+
+                                }
+                            })
+
+                    } catch (error) {
+                        console.error('更新狀態時出錯：', error);
+                    }
+                }
 
 
 

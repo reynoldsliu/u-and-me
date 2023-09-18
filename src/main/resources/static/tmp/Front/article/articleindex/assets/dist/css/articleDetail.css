@@ -50,8 +50,8 @@ body {
     position: sticky;
     top: 89vh;
     /* 初始位置距離上方200px */
-    width: 80vw;
-    height:80px;
+    width: 1025px;
+    height:100px;
     /* padding-bottom: 10px;
     padding-top: 10px; */
     vertical-align: bottom;

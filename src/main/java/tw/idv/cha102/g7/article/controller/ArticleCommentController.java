@@ -55,6 +55,18 @@ public class ArticleCommentController {
     public Article getByArticleId(@PathVariable Integer articleId) {
         return articleSingleArticleService.getByArticleId(articleId);
     }
+    //文章詳情呈現特定articleId 的發文者名
+    @GetMapping("/articleId/memName")
+    public String getMemNameByMemId() {
+        System.out.println(articleSingleArticleService.getMemNameByMemId());
+        return articleSingleArticleService.getMemNameByMemId();
+    }
+    //文章詳情呈現特定articleId 的留言者暱稱
+    @GetMapping("/articleId/CommentmemName")
+    public String getCommentMemNameByMemId() {
+        System.out.println(articleSingleArticleService.getCommentMemNameByMemId());
+        return articleSingleArticleService.getCommentMemNameByMemId();
+    }
 
     //文章詳情呈現特定articleId 圖片
     @GetMapping("/articleId/article_pic/{articleId}")

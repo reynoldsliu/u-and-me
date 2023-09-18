@@ -14,7 +14,12 @@ public interface ArticleSingleArticleService {
     // find by articleId
     public Article getByArticleId(Integer articleId);
 
-    // find pic by articleId
+    public String getMemNameByMemId();
+
+    public String getCommentMemNameByMemId();
+
+
+        // find pic by articleId
     public List<ArticlePicture> findPicByArticleId(Integer articleId);
 
     //依照文章id查詢

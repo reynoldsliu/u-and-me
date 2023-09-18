@@ -10,6 +10,8 @@ import tw.idv.cha102.g7.article.repo.ArticleBrowserRepository;
 import tw.idv.cha102.g7.article.repo.ArticleCommentRepository;
 import tw.idv.cha102.g7.article.repo.ArticlePictureRepository;
 import tw.idv.cha102.g7.article.service.ArticleSingleArticleService;
+import tw.idv.cha102.g7.member.entity.Member;
+import tw.idv.cha102.g7.member.repo.MemberRepository;
 
 import java.util.List;
 
@@ -21,7 +23,11 @@ public class SingleArticleServiceImpl implements ArticleSingleArticleService {
     ArticleCommentRepository articleCommentRepository;
     @Autowired
     ArticlePictureRepository articlePictureRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
+    private Integer memId;
+    private Integer commentMemId;
 
     // 依照文章id查詢該文所有留言
     @Override
@@ -32,7 +38,7 @@ public class SingleArticleServiceImpl implements ArticleSingleArticleService {
     // 在該文章底下新增留言
     @Transactional
     @Override
-    public short postComment(ArticleComment comment, Integer articleId,Integer memberId) {
+    public short postComment(ArticleComment comment, Integer articleId, Integer memberId) {
         Article oldArticle = articleBrowserRepository.findById(articleId).orElse(null);
         Integer commentNum = (oldArticle.getCommentNum());
         System.out.println("原留言數" + commentNum);
@@ -57,8 +63,21 @@ public class SingleArticleServiceImpl implements ArticleSingleArticleService {
 
     @Override
     public Article getByArticleId(Integer articleId) {
-        System.out.println(articleBrowserRepository.getByArticleId(articleId).getCommentNum());
+        Integer memId = articleBrowserRepository.getByArticleId(articleId).getMemId();
+        this.memId = memId;
         return articleBrowserRepository.getByArticleId(articleId);
+    }
+
+    public String getMemNameByMemId() {
+        Member member = memberRepository.findById(memId).orElse(null);
+        String memberName = member.getMemName();
+        return memberName;
+    }
+
+    public String getCommentMemNameByMemId() {
+        Member member = memberRepository.findById(commentMemId).orElse(null);
+        String memberName = member.getMemName();
+        return memberName;
     }
 
 

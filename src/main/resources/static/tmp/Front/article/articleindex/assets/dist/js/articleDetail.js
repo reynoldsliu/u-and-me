@@ -45,24 +45,24 @@ document.addEventListener("DOMContentLoaded", function () {
 async function fetchSingleArticle() {
     try {
 
-        const response = await fetch(`${baseURL}article_comment/articleId/${articleId}`);
+        const response1 = await fetch(`${baseURL}article_comment/articleId/${articleId}`);
 
         // 解析JSON数据
-        const articleDetail = await response.json();
+        const articleDetail = await response1.json();
         console.log(articleDetail);
 
-
-
-        // 填充数据到页面元素中
         // 將文章填充到內頁中
-        memId_el.innerHTML = `會員編號： ${articleDetail.memId}`;// 使用 innerText
-        // activPicImage.src = dataurl;
         articleTitle_el.innerText = articleDetail.articleTitle; // 使用 innerText
         // activConTextarea.value = articleDetail.activCon;
         articleTime_el.innerText = formatDate(articleDetail.articleTime); // 使用 innerText
         articleContent_el.innerText = articleDetail.articleContent; // 使用 innerText
         articleLike_el.innerText = articleDetail.articleLike; // 使用 innerText
         commentNum_el.innerText = articleDetail.commentNum; // 使用 innerText
+
+        const response2 = await fetch(`${baseURL}article_comment/articleId/memName`);
+        const memName = await response2.text();
+        console.log(memName);
+        memId_el.innerHTML =  memName;// 使用 innerText
 
 
 
@@ -127,19 +127,7 @@ async function fetchArticleComment() {
 `;
 
             articleCommentDiv_el.appendChild(articleDiv); // 將文章 div 添加到容器中
-
-
-            // 超過130個字以"..."取代
-            $(function () {
-                var len = 130;
-                $(".JQellipsis").each(function (i) {
-                    if ($(this).text().length > len) {
-                        $(this).attr("title", $(this).text());
-                        var text = $(this).text().substring(0, len - 1) + "...";
-                        $(this).text(text);
-                    }
-                });
-            });
+          
 
         });
 
@@ -513,6 +501,8 @@ like_el.addEventListener("click", async () => {
 </svg>
 `;
             }
+            location.reload();
+
         })
         .catch(error => {
             console.log(error);

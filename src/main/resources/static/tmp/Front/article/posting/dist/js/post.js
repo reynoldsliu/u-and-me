@@ -183,23 +183,38 @@ title_el.addEventListener("input", function () {
 
 content_el.addEventListener("blur", function () {
     if (content_el.value.length < 1) {
-        contentWarning.textContent = '   內文不得空白';
+        Swal.fire({
+            icon: 'error',
+            title: '內文不得空白！',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '知道了',
+            cancelButtonText: '關閉'
+        })
 
-    }
-    else {
+    }else {
         // 如果输入有效，清除警告
-        titleWarning.textContent = '';
+        contentWarning.textContent = '';
     }
+
 });
 
 title_el.addEventListener("blur", function () {
     if (title_el.value.length < 1) {
-        titleWarning.textContent = '   標題不得為空白';
-    }
-    else {
-        // 如果输入有效，清除警告
-        contentWarning.textContent = '';
-    }
+        Swal.fire({
+            icon: 'error',
+            title: '標題不得空白！',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '知道了',
+            cancelButtonText: '關閉'
+        })    }   else {
+            // 如果输入有效，清除警告
+            titleWarning.textContent = '';
+        }
+ 
 });
 
 // =============== 送出按鈕 ===============
@@ -207,7 +222,6 @@ title_el.addEventListener("blur", function () {
 document.querySelector('#btnSubmit').addEventListener('click', async () => {
     memberLogin();
 
-   console.log(memId);
     const userInput_content = document.querySelector('#content').value;
     const userInput_content_title = document.querySelector('#title').value;
     // 清洗輸入的文字，擋住html標籤，以及將斷行以<br>存到資料庫
@@ -215,13 +229,21 @@ document.querySelector('#btnSubmit').addEventListener('click', async () => {
 
     const articleTitle_el = userInput_content_title.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
 
+    if (artId === 0 && content_el.value.length < 1 && title_el.value.length < 1) {
+        artIdWarning.textContent = '請選擇發文看板';
+        contentWarning.textContent = '內文不得為空白';
+        titleWarning.textContent = '標題不得為空白';
+        return;
+
+    }
+
     if (artId === 0) {
         artIdWarning.textContent = '請選擇發文看板';
         return;
     }
     else {
         // 如果输入有效，清除警告
-        titleWarning.textContent = '';
+        artIdWarning.textContent = '';
     }
     if (content_el.value.length < 1) {
         contentWarning.textContent = '內文不得為空白';
@@ -230,10 +252,10 @@ document.querySelector('#btnSubmit').addEventListener('click', async () => {
     }
     else {
         // 如果输入有效，清除警告
-        titleWarning.textContent = '';
+        contentWarning.textContent = '';
 
     }
-    if (content_el.value.length < 1) {
+    if (title_el.value.length < 1) {
         titleWarning.textContent = '標題不得為空白';
         return;
 

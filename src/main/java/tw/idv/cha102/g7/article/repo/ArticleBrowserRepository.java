@@ -21,19 +21,20 @@ public interface ArticleBrowserRepository extends JpaRepository<Article, Integer
     List<Article> findByTitleOrderByTime(String keyword);
 
     //查詢未下架文章
-    @Query(value = "SELECT * FROM article WHERE article_state =1", nativeQuery = true)
+    @Query(value = "SELECT * FROM article WHERE article_state = 1 ORDER BY article_time DESC", nativeQuery = true)
+
     List <Article> findPublicArticle();
 
     //查詢商城文章(廢code)
-    @Query(value = "SELECT * FROM article WHERE article_state =1 and ac_type_id=1 ", nativeQuery = true)
+    @Query(value = "SELECT * FROM article WHERE article_state =1 and ac_type_id=1 ORDER BY article_time DESC", nativeQuery = true)
     List <Article> findShopArticle();
 
     //查詢行程文章(廢code)
-    @Query(value = "SELECT * FROM article WHERE article_state =1 and ac_type_id=2", nativeQuery = true)
+    @Query(value = "SELECT * FROM article WHERE article_state =1 and ac_type_id=2 ORDER BY article_time DESC", nativeQuery = true)
     List <Article> findScheduleArticle();
 
     //查詢揪團文章(廢code)
-    @Query(value = "SELECT * FROM article WHERE article_state =1 and ac_type_id=3", nativeQuery = true)
+    @Query(value = "SELECT * FROM article WHERE article_state =1 and ac_type_id=3 ORDER BY article_time DESC", nativeQuery = true)
     List <Article> findGroupArticle();
 
     //查詢特定article_id 的內文資訊(要改到single)，也可用在後台管理員搜尋上
