@@ -594,6 +594,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 顯示行程名稱
     mySchName_el.innerText = schedule.schName;
 
+    // 顯示行程標籤
+    findTagsInSchedule(schId);
+
     //行程開始日期 結束日期
     var schStartDate = new Date(schedule.schStart);
     var schEndDate = new Date(schedule.schEnd);
@@ -1649,6 +1652,18 @@ async function isLoginAndOwner() {
 
 
 // 行程內的標籤顯示
-// mySchTagsInsert_el.innerHTML =
-//     `<div class="toggleTags" id="mySchTag${schTagId}">${schTagName}<i
-// class="fa-solid fa-xmark -on"></i></div>`;
+async function findTagsInSchedule(schId) {
+    console.log(schId);
+    const response = await fetch(`${baseURL}schTag/schId/${schId}`);
+    let schTags = await response.json();
+    console.log(schTags);
+    if (schTags !== null) {
+        for (let i = 0; i < schTags.length; i++) {
+            mySchTagsInsert_el.innerHTML =
+                `<div class="toggleTags" id="mySchTag${schTags[i].schTagId}">${schTags[i].schTagName}<i
+    class="fa-solid fa-xmark"></i></div>`;
+        }
+    }
+
+    console.log('TAGSTAGS');
+}
