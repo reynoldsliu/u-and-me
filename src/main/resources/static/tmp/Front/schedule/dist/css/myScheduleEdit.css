@@ -306,10 +306,10 @@ div.toggleTags {
 
 div.toggleTags>i {
     margin-left: 2px;
+    display: none;
 }
 
 div.toggleTags>i.-on {
-    /* display: none; */
 }
 
 /* 列印、下載PDF鈕 */

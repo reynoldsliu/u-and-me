@@ -13,6 +13,8 @@ const mySchName_el = document.querySelector("div.mySchName");
 // 行程標籤
 
 // =============== 行程細節相關標籤 =============== 
+// 編輯按鈕
+const editPen_el = document.querySelector(".editPen");
 // 選擇日期天數頁籤
 const tab_dateBarLeft_el = document.querySelector(".dateBarTab.-left");
 const tab_dateBarRight_el = document.querySelector(".dateBarTab.-right");
@@ -742,7 +744,35 @@ function calculateDistance(element1, element2) {
 
 
 // 在行程細節中按下新增景點按鈕
-function addNewAttrbtnOnclick() {
+async function addNewAttrbtnOnclick() {
+    memberLoginOrNot();
+    const currentURL = window.location.href.replace('#', '');
+    const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+    const schId = urlSearchParams.get('schId');
+
+    const response = await fetch(baseURL + `member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
+
+
+
+
+    const res = await fetch(baseURL + `schedules/schId/` + schId);
+    const sche = await res.json();
+    if (memId !== sche.memId) {
+        Swal.fire({
+            title: '您沒有編輯權限！',
+            // icon: 'error',
+            confirmButtonText: '知道了',
+            confirmButtonColor: '#d33',
+            cancelButtonText: '取消',
+            imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/498706731/android/sticker.png'
+        }).then(() => {
+            return;
+        });
+        return;
+    }
+
     // 關閉行程細節Page
     if (!viewSchDetailsPage.classList.contains(classSwitchOff)) {
         viewSchDetailsPage.classList.add(classSwitchOff);
@@ -873,7 +903,7 @@ async function viewSearchResultOfOneAttr(attrId) {
     //-----------------------------------------------------------------------------
     //Reynolds0918
     // 抓取會員id
-    memberLogin();
+    memberLoginOrNot();
     const response2 = await fetch(baseURL + `member/getMemId`);
     const member = await response2.json();
     const memId = member.memId;
@@ -1427,10 +1457,27 @@ addToSchedule_btn_el.addEventListener('click', async function () {
 
     const currentURL = window.location.href.replace('#', '');
     const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
-
-    console.log("addToSchedule_btn_el: " + urlSearchParams);
-
     const schId = urlSearchParams.get('schId');
+
+    const response = await fetch(baseURL + `member/getMemId`);
+    const member = await response.json();
+    const memId = member.memId;
+    const res = await fetch(baseURL + `schedules/schId/` + schId);
+    const sche = await res.json();
+    if (memId !== sche.memId) {
+        Swal.fire({
+            title: '您沒有編輯權限！',
+            // icon: 'error',
+            confirmButtonText: '知道了',
+            confirmButtonColor: '#d33',
+            cancelButtonText: '取消',
+            imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/498706731/android/sticker.png'
+        }).then(() => {
+            return;
+        });
+        return;
+    }
+
     let attrId = attrIdText_el.innerText;
 
     // TODO...目前寫死，尚未轉換成動態寫法(行程細節起始時間、交通時間及停留時間)
@@ -1467,7 +1514,7 @@ addToSchedule_btn_el.addEventListener('click', async function () {
 
 });
 
-const editPen_el = document.querySelector(".editPen");
+
 editPen_el.addEventListener("click", async function () {
     const currentURL = window.location.href.replace('#', '');
     const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
@@ -1481,23 +1528,20 @@ editPen_el.addEventListener("click", async function () {
             const res = await fetch(baseURL + `schedules/schId/` + schId);
             const sche = await res.json();
             memId = data.memId;
-            if(memId!==sche.memId){
+            if (memId !== sche.memId) {
                 Swal.fire({
-                    title: '非本行程擁有者',
-                    text: "是否導向登入頁面?",
-                    icon: 'error',
-                    confirmButtonText: '返回登入頁面',
+                    title: '您沒有編輯權限！',
+                    // icon: 'error',
+                    confirmButtonText: '知道了',
                     confirmButtonColor: '#d33',
-                    imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
-                    }
+                    cancelButtonText: '取消',
+                    imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/498706731/android/sticker.png'
                 });
+                return;
             }
         },
         error: async function (status, error) {
-            if (status.status === 401 ) {
+            if (status.status === 401) {
                 Swal.fire({
                     title: '請先登入會員',
                     text: "將為您導向登入頁面....",
@@ -1513,17 +1557,17 @@ editPen_el.addEventListener("click", async function () {
                     else if (result.dismiss === Swal.DismissReason.cancel) {
                         // 用户点击取消按钮或者点击模态框外部时执行的操作
                         // 这里可以不执行任何操作，或者添加你需要的其他逻辑
-                      }
+                    }
                 });
             }
         },
     });
 
-})
+});
 
 
 // -------------- 判斷會員是否登入 ---------------
-function memberLogin() {
+function memberLoginOrNot() {
     $.ajax({
         url: baseURL + "member/getMemId",
         method: "POST",
@@ -1552,7 +1596,56 @@ function memberLogin() {
 
 
 // 判斷是否為行程建立者，若不是，則不可編輯
+async function isLoginAndOwner() {
+    // 驗證是否登入會員，及是否為行程建立者
+    const currentURL = window.location.href.replace('#', '');
+    const urlSearchParams = new URLSearchParams(currentURL.split('?')[1]);
+    const schId = urlSearchParams.get('schId');
 
+    $.ajax({
+        url: baseURL + "member/getMemId",
+        method: "POST",
+        dataType: "JSON",
+        success: async function (data) {
+            const res = await fetch(baseURL + `schedules/schId/` + schId);
+            const sche = await res.json();
+            memId = data.memId;
+            if (memId !== sche.memId) {
+                Swal.fire({
+                    title: '您沒有編輯權限！',
+                    // icon: 'error',
+                    confirmButtonText: '知道了',
+                    confirmButtonColor: '#d33',
+                    cancelButtonText: '取消',
+                    imageUrl: 'https://stickershop.line-scdn.net/stickershop/v1/sticker/498706731/android/sticker.png'
+                });
+                return;
+            }
+        },
+        error: async function (status, error) {
+            if (status.status === 401) {
+                Swal.fire({
+                    title: '請先登入會員',
+                    text: "將為您導向登入頁面....",
+                    // icon: 'error',
+                    confirmButtonText: '返回登入頁面',
+                    confirmButtonColor: '#d33',
+                    cancelButtonText: '取消',
+                    imageUrl: 'https://storage.googleapis.com/sticker-prod/RWsnOMnSplAHd5vb10YN/20-1.png'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = baseURL + 'tmp/Front/member/memberLogin.html';
+                    }
+                    else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // 用户点击取消按钮或者点击模态框外部时执行的操作
+                        // 这里可以不执行任何操作，或者添加你需要的其他逻辑
+                    }
+                });
+            }
+        },
+    });
+
+}
 
 
 // 行程內的標籤顯示
