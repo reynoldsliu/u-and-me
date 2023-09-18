@@ -56,7 +56,11 @@
 <script src="js/fetchForward.js"></script>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
+      window.location.href = baseURL+"tmp/Front/activity/ActivityIndex.html";
+    });
 
 </script>
 </body>
