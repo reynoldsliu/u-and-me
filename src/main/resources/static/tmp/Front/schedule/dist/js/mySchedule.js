@@ -194,19 +194,30 @@ async function fetchMyScheduleList(URL, page) {
       // 範例用
       // let img_el = document.getElementById(`myImg${schedule.schId}`);
       // img_el.src = "../dist/img/scheduleimg/trip13.jpeg";
+      if (schedule.schId === 1) {
+        let img_el = document.getElementById("myImg1");
+        img_el.src = "../../../img/attrPic/attr2.jpg";
+      }
       if (schedule.schId === 11) {
         let img_el11 = document.getElementById("myImg11");
         img_el11.src = "../dist/img/scheduleimg/trip25.jpeg";
-      }
-      if (schedule.schId === 18) {
-        let img_el18 = document.getElementById("myImg18");
-        img_el18.src = "../dist/img/scheduleimg/trip8.jpeg";
       }
       if (schedule.schId === 17) {
         let img_el18 = document.getElementById("myImg17");
         img_el18.src = "../dist/img/scheduleimg/trip41.jpeg";
       }
-      
+      if (schedule.schId === 18) {
+        let img_el18 = document.getElementById("myImg18");
+        img_el18.src = "../dist/img/scheduleimg/trip8.jpeg";
+      }
+      if (schedule.schId === 6) {
+        let img_el18 = document.getElementById("myImg6");
+        img_el18.src = "../dist/img/scheduleimg/trip42.jpeg";
+      }
+      if (schedule.schId === 5) {
+        let img_el18 = document.getElementById("myImg5");
+        img_el18.src = "../dist/img/scheduleimg/trip11.jpeg";
+      }
     });
   } catch (error) {
     console.error("Error fetching MyScheduleList:", error);
