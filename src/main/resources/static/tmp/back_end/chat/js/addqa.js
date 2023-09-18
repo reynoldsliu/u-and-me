@@ -4,19 +4,19 @@ const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and
 
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
+  this.fetch(baseUrL + 'host/match', {
     method: 'GET'
-}).then(response => {
-    if(response.status == 401){
+  }).then(response => {
+    if (response.status == 401) {
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+      this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
 
     }
-});
+  });
 })
 
 
-(function () {
+$(function () {
   'use strict'
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
   tooltipTriggerList.forEach(function (tooltipTriggerEl) {
@@ -27,7 +27,7 @@ this.fetch(baseUrL + 'host/match', {
       return new bootstrap.Dropdown(dropdownToggle)
     });
   })
-})()
+});
 
 //綁定
 let qaTitle_val = document.querySelector("#addqaTitle");
@@ -38,11 +38,11 @@ let errorcon = document.getElementById("errorcon");
 
 let qaState_val = document.querySelector("#addqaState");
 let qabutton = document.getElementById("qabutton");
-var baseUrl = window.location.protocol + "//" + window.location.host;
 
 //點擊新增按鈕
 qabutton.addEventListener("click", function () {
 
+  var baseUrl = window.location.protocol + "//" + window.location.host;
   //錯誤驗證
   if (qaTitle_val.value.trim() === "") {
     errortitle.innerHTML = '文章標題不可空白!';
@@ -73,7 +73,7 @@ qabutton.addEventListener("click", function () {
     title: '新增成功',
     icon: 'success'
   }).then(function () {
-    window.location.href = baseUrl + "/u-and-me/tmp/back_end/back_end/chat/qa.html";
+    window.location.href = baseUrl + "/u-and-me/tmp/back_end/chat/qa.html";
   })
 
 })
@@ -89,16 +89,16 @@ logoutBtn_el.addEventListener("click", async function () {
     headers: {
       "Content-Type": "application/json",
     },
-});if (response.ok) {
-                              Swal.fire({
-                                             icon: 'success',
-                                             title: '管理員登出成功',
-                                             text: '',
-                                             confirmButtonText: '確定'
-                          }).then(()=>{
-                            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
-                          })
-                        // location.reload();
-                    } 
+  }); if (response.ok) {
+    Swal.fire({
+      icon: 'success',
+      title: '管理員登出成功',
+      text: '',
+      confirmButtonText: '確定'
+    }).then(() => {
+      location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+    })
+    // location.reload();
+  }
 });
 

@@ -24,6 +24,7 @@ sendbtn.addEventListener("click", function () {
     return;
   }
   if (mesg_val.value.trim() === "") {
+    mesg_val.classList.toggle("is-invalid");
     errormesg.innerHTML = 'Message不可空白!';
     return;
   }

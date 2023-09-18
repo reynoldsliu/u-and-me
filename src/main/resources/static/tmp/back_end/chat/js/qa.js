@@ -5,15 +5,15 @@ const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and
 
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
+  this.fetch(baseUrL + 'host/match', {
     method: 'GET'
-}).then(response => {
-    if(response.status == 401){
+  }).then(response => {
+    if (response.status == 401) {
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+      this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
 
     }
-});
+  });
 })
 
 
@@ -67,7 +67,7 @@ function findqalist() {
             //調整th:qaId欄位的寬度
             targets: [0],
             width: "50px"
-          },{
+          }, {
             targets: [1],
             render: function (data, type, row) {
               //點擊qaTitle跳出檢視單筆資料視窗。
@@ -82,7 +82,7 @@ function findqalist() {
 
                 //彈跳視窗抓取單筆值。
                 Swal.fire({
-                  title: '<span> 檢視QA資料 </span><hr>',
+                  title: '<span> 檢視QA資訊 </span><hr>',
                   html: `
                   <div class="oneqa">
                     <div class="oneqa">QA編號 :  <span>${row.qaId}</span></div>
@@ -99,7 +99,7 @@ function findqalist() {
               });
               return `<a class="link-primary qalink${row.qaId}" >` + data + '</a>'
             }
-          },{
+          }, {
             //將qaState值改成中文顯示，狀態 = 0:下架、1:上架。
             targets: [2],
             render: function (data) {
@@ -109,19 +109,19 @@ function findqalist() {
                 return '上架'
               }
             }
-          },{
+          }, {
             //在操作欄位回傳按鈕。
             targets: [5],
             render: function (data, type, row) {
-              
+
               $(document).on("click", `button.upd${row.qaId}`, function () {
-               
-                return window.location.href = baseUrl + `/u-and-me/tmp/back_end/back_end/chat/updqa.html?qaId=${row.qaId}`;
-              
+
+                return window.location.href = baseUrl + `/u-and-me/tmp/back_end/chat/updqa.html?qaId=${row.qaId}`;
+
               })
 
               $(document).on("click", `button.del${row.qaId}`, function () {
-               
+
                 Swal.fire({
                   title: '刪除資料',
                   text: "確定刪除此筆資料嗎?",
@@ -134,10 +134,10 @@ function findqalist() {
                 }).then((result) => {
 
                   if (result.isConfirmed) {
-                    fetch(`/u-and-me/delqa/${row.qaId}`,{
-                      method:'Delete',
+                    fetch(`/u-and-me/delqa/${row.qaId}`, {
+                      method: 'Delete',
                       headers: { 'Content-Type': 'application/json' }
-                    }).catch(function(){
+                    }).catch(function () {
                       Swal.fire({
                         title: '刪除失敗',
                         icon: 'error'
@@ -145,8 +145,8 @@ function findqalist() {
                     })
                     Swal.fire({
                       title: '刪除成功',
-                      icon:'success'
-                    }).then(function(){
+                      icon: 'success'
+                    }).then(function () {
                       location.reload();
                     })
                   }
@@ -158,7 +158,7 @@ function findqalist() {
               return `<button type="button" class="btn btn-primary btn-sm upd${row.qaId}">編輯</button> ` +
                 `<button type="button" class="btn btn-danger btn-sm del${row.qaId}">刪除</button>`
             }
-          },{
+          }, {
             //將全部欄位的字置中。
             targets: '_all',
             className: 'text-center'
@@ -185,16 +185,16 @@ logoutBtn_el.addEventListener("click", async function () {
     headers: {
       "Content-Type": "application/json",
     },
-});if (response.ok) {
-                              Swal.fire({
-                                             icon: 'success',
-                                             title: '管理員登出成功',
-                                             text: '',
-                                             confirmButtonText: '確定'
-                          }).then(()=>{
-                            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
-                          })
-                        // location.reload();
-                    } 
+  }); if (response.ok) {
+    Swal.fire({
+      icon: 'success',
+      title: '管理員登出成功',
+      text: '',
+      confirmButtonText: '確定'
+    }).then(() => {
+      location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+    })
+    // location.reload();
+  }
 });
 

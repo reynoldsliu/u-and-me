@@ -14,7 +14,8 @@ this.fetch(baseUrL + 'host/match', {
     }
 });
 })
-(function () {
+
+$(function () {
     'use strict'
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     tooltipTriggerList.forEach(function (tooltipTriggerEl) {
@@ -30,7 +31,7 @@ this.fetch(baseUrL + 'host/match', {
     const qaId = urlParams.get('qaId');
     findByQaId(qaId);
 
-})()
+});
 
 //綁定
 let qaTitle = document.getElementById("qaTitle");
@@ -98,7 +99,7 @@ qabutton.addEventListener("click", function () {
         title: '更新成功',
         icon: 'success'
     }).then(function () {
-        window.location.href = baseUrl + "/u-and-me/tmp/back_end/back_end/chat/qa.html";
+        window.location.href = baseUrl + "/u-and-me/tmp/back_end/chat/qa.html";
     })
 
 
