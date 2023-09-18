@@ -242,19 +242,21 @@ async function addDailySchedule(restScheDetails) {
     const response = await fetch(baseURL + `schedules/schId/` + restScheDetails[0].schId);
     const schedule = await response.json();
     const startDay = schedule.schStart;
-    console.log(startDay);
+    // console.log(startDay);
     let firstDay = parseTimestamp(startDay + " 0");
     //印出 第幾天 星期幾 本日出發時間
     // viewSchDetailsRows
     let today = parseTimestamp(restScheDetails[0].schdeStarttime);
-    console.log("today: " + (today));
-    console.log("today: " + formatDateToYYYYMMDD(today));
+    // console.log(restScheDetails[0].schdeStarttime);
+    // 2023-12-11 10:00:00
+    // console.log("today: " + (today));
+    // console.log("today: " + formatDateToYYYYMMDD(today));
     let todayDate = new Date(today);
     let startDate = new Date(startDay);
-    console.log("todayDate: " + todayDate);
-    console.log("startDate: " + firstDay);
+    // console.log("todayDate: " + todayDate);
+    // console.log("startDate: " + firstDay);
     let nthDays = (todayDate - firstDay + 24 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000);
-    console.log("nthday: " + nthDays);
+    // console.log("nthday: " + nthDays);
 
     let row = document.createElement("div");
     row.classList.add("schDeStartTimeRows" + nthDays);
@@ -428,7 +430,7 @@ async function addDailySchedule(restScheDetails) {
     });
     addNewAttrbtn.innerText = "＋新增景點";
     viewSchDetailsRows.appendChild(addNewAttrbtn);
-    console.log("DO NEW A BTN");
+    // console.log("DO NEW A BTN");
 
     countedScheDetailsBase = travelIconCount;
 
@@ -615,28 +617,80 @@ document.addEventListener("DOMContentLoaded", async function () {
     //取出本行程所有的行程細節
     const response1 = await fetch(baseURL + `schDetails/${schId}`);
     const schDetails = await response1.json();
-    // console.log("STAY time: " + schDetails[0].schdeStaytime);
-    // console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
-    const stayTimes = document.querySelectorAll(".stayTimes");
-    let count = 0;
-    //將所有行程細節stayTime顯示
-    for (let stayTime of stayTimes) {
-        stayTime.innerText = formatStayTime(schDetails[count++].schdeStaytime);
+    console.log(schDetails);
+    if (schDetails.length === 0) {
+        console.log("schDetails is null");
+        let todayWaypoint = [];
+        const response = await fetch(baseURL + `schedules/schId/${schId}`);
+        const schedule = await response.json();
+        const startDay = schedule.schStart;
+        // console.log(startDay + " 0");
+        // 2023-09-19 0
+        let firstDay = parseTimestamp(startDay + " 0");
+        console.log(firstDay);
+        // Tue Sep 19 2023 00:00:00 GMT+0800 (台北標準時間)
+
+        //印出 第幾天 星期幾 本日出發時間
+        // viewSchDetailsRows
+        let today = parseTimestamp(startDay+" 08:00:00");
+        console.log("today: " + (today));
+        // Tue Sep 19 2023 00:00:00 GMT+0800 (台北標準時間)
+        // console.log("today: " + formatDateToYYYYMMDD(today));
+        let todayDate = new Date(today);
+        let startDate = new Date(startDay);
+        // console.log("todayDate: " + todayDate);
+        // console.log("startDate: " + firstDay);
+        let nthDays = (todayDate - firstDay + 24 * 60 * 60 * 1000) / (24 * 60 * 60 * 1000);
+        // console.log("nthday: " + nthDays);
+    
+        let row = document.createElement("div");
+        row.classList.add("schDeStartTimeRows" + nthDays);
+        row.classList.add("schDeStartTimeRows");
+        row.addEventListener('click', showDayRoute(`${todayWaypoint.join("-")}`));
+        row.innerHTML = `
+            <div>
+                <span class="viewWhichDay">第${nthDays}天 :</span>
+                <span class="viewWhichWeekDay">${getDayOfWeek((today + " 0"))}</span>
+                <span class="schDeStartTime">出發時間：${extractHourAndMinute(startDay+" 08:00:00")}</span>
+            </div>
+        `;
+        viewSchDetailsRows.appendChild(row);
+
+        const addNewAttrbtn = document.createElement("div");
+        addNewAttrbtn.classList.add("addNewAttrbtn");
+        // addNewAttrbtn.onclick = "addNewAttrbtnOnclick()";
+        addNewAttrbtn.addEventListener("click", function () {
+            indexOfNewScheDetail = this.classList.toString().replace("addNewAttrbtn addNewAttrbtn", "");
+    
+            addNewAttrbtnOnclick();
+        });
+        addNewAttrbtn.innerText = "＋新增景點";
+        viewSchDetailsRows.appendChild(addNewAttrbtn);
+
+    } else {
+        // console.log("STAY time: " + schDetails[0].schdeStaytime);
+        // console.log("STAY time: " + formatStayTime(schDetails[0].schdeStaytime));
+        const stayTimes = document.querySelectorAll(".stayTimes");
+        let count = 0;
+        //將所有行程細節stayTime顯示
+        for (let stayTime of stayTimes) {
+            stayTime.innerText = formatStayTime(schDetails[count++].schdeStaytime);
+        }
+        // schDetails.shift();
+        // console.log(schDetails);
+        const result = await addDailySchedule(schDetails);
+        for (let i = 0; i < result + 1; i++) {
+            schDetails.shift();
+        }
+        // result.then(data=>{
+        //     console.log(data);
+        //     for(let i = 0;i<data+1;i++){
+        //         schDetails.shift();
+        //     }
+        // });
+        // console.log(schDetails);
+        addDailySchedule(schDetails);
     }
-    // schDetails.shift();
-    // console.log(schDetails);
-    const result = await addDailySchedule(schDetails);
-    for (let i = 0; i < result + 1; i++) {
-        schDetails.shift();
-    }
-    // result.then(data=>{
-    //     console.log(data);
-    //     for(let i = 0;i<data+1;i++){
-    //         schDetails.shift();
-    //     }
-    // });
-    // console.log(schDetails);
-    addDailySchedule(schDetails);
     // console.log("!!!!!!!: " + schDetails);
 
     // ====================== 生成行程細節天數tab內容 ======================
@@ -1653,10 +1707,8 @@ async function isLoginAndOwner() {
 
 // 行程內的標籤顯示
 async function findTagsInSchedule(schId) {
-    console.log(schId);
     const response = await fetch(`${baseURL}schTag/schId/${schId}`);
     let schTags = await response.json();
-    console.log(schTags);
     if (schTags !== null) {
         for (let i = 0; i < schTags.length; i++) {
             mySchTagsInsert_el.innerHTML =
@@ -1664,6 +1716,4 @@ async function findTagsInSchedule(schId) {
     class="fa-solid fa-xmark"></i></div>`;
         }
     }
-
-    console.log('TAGSTAGS');
 }
