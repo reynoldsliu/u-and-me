@@ -356,13 +356,13 @@ select * from attractions;
 create table attraction_collections (
 attr_id int,
 mem_id int,
-
 primary key (attr_id, mem_id)
 );
 
 insert into attraction_collections(attr_id, mem_id)
 values
-(1,1),(2,1),(3,1),
+(1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),
+(10,1),(11,1),(12,1),(13,1),(14,1),(15,1),(16,1),
 (2,2),(3,2),(4,2),
 (3,3),(4,3),(5,3),
 (4,4),(5,4),(6,4),
@@ -384,7 +384,13 @@ attr_id int,
 -- foreign key(attr_id) references attractions(attr_id),
 attr_pic_data longtext
 );
+-- resources/static/img/attrPic 1-16
 
+create table private_attractions (
+memId int,
+attr_id int,
+PRIMARY KEY (memId, attr_id)
+);
 
 -- products 慶琳
 -- 商品分類 --
