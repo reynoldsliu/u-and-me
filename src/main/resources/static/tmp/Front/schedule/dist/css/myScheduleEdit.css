@@ -150,6 +150,7 @@ div.schDetailsTopBar {
 a#backToMySchedule {
     /* border: 1px solid green; */
     /* 調整用 */
+    /* chrome */
     width: 65px;
     height: 100%;
     display: inline-block;
@@ -777,9 +778,10 @@ div.switchbox ul {
 /* 返回上一頁籤箭頭(行程細節) */
 a#tab-back {
     border-right: 1px solid lightgray;
-    /* 調整用(chrome) */
+    /* 調整用 */
+    /* chrome */
     width: 66px;
-    /* 調整用(edge) */
+    /* edge */
     /* width: 50px; */
     height: 100%;
     display: inline-block;
@@ -912,7 +914,10 @@ div.attrSearch-btn {
     width: 97px;
     position: relative;
     left: 74.5%;
+    /* chrome */
     bottom: 143px;
+    /* edge */
+    /* bottom: 100px; */
 }
 
 button#attrSearch-btn {
@@ -930,7 +935,10 @@ select#attrType {
     margin-top: 10px;
     position: relative;
     left: 65%;
+    /* chrome */
     bottom: 53px;
+    /* edge */
+    /* bottom: 88px; */
 }
 
 /* 總距離(隱藏不顯示) */
