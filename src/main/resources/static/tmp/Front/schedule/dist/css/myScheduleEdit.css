@@ -299,7 +299,7 @@ div.toggleTags {
     font-size: 0.9rem;
     color: white;
     text-align: center;
-    /* margin: 2px 0px; */
+    margin: 1px 2px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

@@ -1711,9 +1711,12 @@ async function findTagsInSchedule(schId) {
     let schTags = await response.json();
     if (schTags !== null) {
         for (let i = 0; i < schTags.length; i++) {
-            mySchTagsInsert_el.innerHTML =
-                `<div class="toggleTags" id="mySchTag${schTags[i].schTagId}">${schTags[i].schTagName}<i
-    class="fa-solid fa-xmark"></i></div>`;
+            let tagRow = document.createElement("div");
+            tagRow.classList.add("toggleTags");
+            tagRow.id = `mySchTag${schTags[i].schTagId}`;
+            tagRow.innerHTML = `${schTags[i].schTagName}<i
+            class="fa-solid fa-xmark"></i>`;
+            mySchTagsInsert_el.appendChild(tagRow);
         }
     }
 }
