@@ -8,9 +8,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import tw.idv.cha102.g7.attraction.service.AttrService;
 import tw.idv.cha102.g7.attraction.entity.Attraction;
 import tw.idv.cha102.g7.attraction.repo.AttrRepository;
+import tw.idv.cha102.g7.attraction.service.AttrService;
 import tw.idv.cha102.g7.member.repo.MemberRepository;
 
 import javax.persistence.NonUniqueResultException;
@@ -41,14 +41,15 @@ public class AttrServiceImpl implements AttrService {
     @Override
     public ResponseEntity<List<Attraction>> getAll() {
         List<Attraction> attractions = attrRepository.findAll();
+        List<Attraction> returnList = new ArrayList<>();
         if(attractions==null)
             return new ResponseEntity(new ArrayList<>(),HttpStatus.OK);
         for(Attraction attraction:attractions){
-            if(attraction.getAttrSta()==0){
-                attractions.remove(attraction);
+            if(attraction.getAttrSta()!=0){
+                returnList.add(attraction);
             }
         }
-        return new ResponseEntity<>(attractions,HttpStatus.OK);
+        return new ResponseEntity<>(returnList,HttpStatus.OK);
     }
 
     @Override
@@ -66,14 +67,15 @@ public class AttrServiceImpl implements AttrService {
     @Override
     public ResponseEntity<Attraction> getAttrByNameFilter(String attrName){
         List<Attraction> attractions = attrRepository.findAllByAttrNameContaining(attrName);
+        List<Attraction> returnList = new ArrayList<>();
         if(attractions==null)
             return new ResponseEntity(new ArrayList<>(),HttpStatus.OK);
         for(Attraction attraction:attractions){
-            if(attraction.getAttrSta()==0){
-                attractions.remove(attraction);
+            if(attraction.getAttrSta()!=0){
+                returnList.add(attraction);
             }
         }
-        return new ResponseEntity(attractions,HttpStatus.OK);
+        return new ResponseEntity(returnList,HttpStatus.OK);
     }
 
     @Override
