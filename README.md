@@ -13,9 +13,9 @@
 
 # #開發技術：
 後端：Java
-後端框架：Spring Boot
-前端：JavaScript, HTML5, CSS, Bootstrap, jQuery, Ajax
-資料庫：MySQL、Redis
+後端框架：Spring Boot(2.7.14)
+前端：JavaScript(3.7.0), HTML5, CSS, Bootstrap, jQuery, Ajax
+資料庫：MySQL(8.0.22)、Redis
 資料庫連接技術：Spring Data JPA
 其他技術：WebSocket, Git, GitHub, SourceTree, Lombok, GoogleMap API, ECPay API, Fetch API
 
