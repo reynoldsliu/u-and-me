@@ -297,7 +297,7 @@
 
     <script src="article.js"></script>
     <script>
-        let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
                 <!--網頁載入後執行-->
                 document.addEventListener("DOMContentLoaded", function () {
@@ -306,7 +306,7 @@
 
                 async function fetchArticleList() {
                     try {
-                        const response = await fetch('http://localhost:8081/u-and-me/BackEnd/articles');
+                        const response = await fetch(`${baseUrl}BackEnd/articles`);
                         const articleList = await response.json();
 
                         const dataTableList = document.getElementById("dataTableList");
@@ -336,7 +336,7 @@
             </td>
             <td class="truncate" style="vertical-align: middle;">
                 <a
-                    href="http://localhost:8081/u-and-me/tmp/Front/article/articleindex/articleDetail.html?articleId=${article.articleId}">
+                    href="${baseUrl}tmp/Front/article/articleindex/articleDetail.html?articleId=${article.articleId}">
                     <button style="background-color:white;border:none;" id="linkButton">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
@@ -442,7 +442,7 @@
                     console.log(newStatus);
 
                     try {
-                        const response = fetch('http://localhost:8081/u-and-me/BackEnd/Adminedit', {
+                        const response = fetch(`${baseUrl}BackEnd/Adminedit`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json'

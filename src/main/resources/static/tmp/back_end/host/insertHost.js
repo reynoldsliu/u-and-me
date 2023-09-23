@@ -1,3 +1,4 @@
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 /////////////////////////////
 
@@ -33,7 +34,6 @@
 
   function Register(host) {
 //      console.log(123);
-      const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
        const response = fetch(baseUrl + "host/register", {
           method: "POST",
           headers: {
@@ -60,7 +60,7 @@
                                 text: '請再次確認帳號',
                                 showCancelButton: true
                             }).then(() => {
-                                this.location.href = baseUrl + '/tmp/back_end/back_end/hostLogin.html';
+                                this.location.href = baseUrl + 'tmp/back_end/back_end/hostLogin.html';
                             })
                         }
       })
@@ -136,9 +136,8 @@
   });
 // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+  const response = await fetch(`${baseUrl}host/hostLogout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -150,7 +149,7 @@ logoutBtn_el.addEventListener("click", async function () {
                                              text: '',
                                              confirmButtonText: '確定'
                           }).then(()=>{
-                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                            location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
                           })
                         // location.reload();
                     } 
@@ -162,7 +161,7 @@ logoutBtn_el.addEventListener("click", async function () {
 //
 //
 //async function Register(host) {
-//    const response = await fetch("http://localhost:8080/u-and-me/host/register", {
+//    const response = await fetch(`${baseUrl}host/register`, {
 //        method: "POST",
 //        headers: {
 //            "Content-Type": "application/json",

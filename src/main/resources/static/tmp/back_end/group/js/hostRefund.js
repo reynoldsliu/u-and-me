@@ -1,4 +1,4 @@
-let baseUrl = window.location.protocol + "//" + window.location.host;
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 /* global bootstrap: false */
 $(function () {
@@ -18,17 +18,16 @@ $(function () {
 });
 
 // 管理員filter
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 // <!--網頁載入後執行-->
 
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
+this.fetch(baseUrl + 'host/match', {
     method: 'GET'
 }).then(response => {
     if(response.status == 401){
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+            this.location.href = baseUrl + 'tmp/back_end/host/hostLogin.html';
 
     }
 });
@@ -37,7 +36,7 @@ this.fetch(baseUrL + 'host/match', {
 function findqalist() {
     //ajax區塊
     $.ajax({
-        url: baseUrl + "/u-and-me/memberDetailsAll", //請求動態網址
+        url: baseUrl + "memberDetailsAll", //請求動態網址
         contentType: 'application/json; charset=UTF-8',
         data: {}, //請求獲取全部無參數
         dataType: "json",
@@ -158,7 +157,7 @@ const confirm_el = document.getElementById('confirm');
 
 async function fetchSta(id) {
   detailId = id;
-  await fetch(baseUrl + '/u-and-me/memberDetail/' + id, {
+  await fetch(baseUrl + 'memberDetail/' + id, {
     method: 'GET',
   }).then(response => {
     return response.json();
@@ -199,7 +198,7 @@ confirm_el.addEventListener('click', async function (e) {
       refundSta: rSta,
     }
 
-    await fetch(baseUrl + '/u-and-me/updRefundSta/' + detailId, {
+    await fetch(baseUrl + 'updRefundSta/' + detailId, {
       headers: {
         "content-type": "application/json",
       },
@@ -226,9 +225,8 @@ confirm_el.addEventListener('click', async function (e) {
 
 // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
-// const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+  const response = await fetch(`${baseUrl}host/hostLogout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -240,7 +238,7 @@ logoutBtn_el.addEventListener("click", async function () {
                                              text: '',
                                              confirmButtonText: '確定'
                           }).then(()=>{
-                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                            location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
                           })
                         // location.reload();
                     } 

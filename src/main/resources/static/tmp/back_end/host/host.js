@@ -151,14 +151,14 @@ window.addEventListener("load", function (e) {
 
 
 
-     <!--按修改鈕會根據hostId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
+    //  按修改鈕會根據hostId跳轉到詳細內容頁面，並將資料映射到相關欄位上
     function redirectToDetailPage(hostId) {
       var newPageUrl = `hostEdit.html?hostId=${hostId}`;
       window.location.href = newPageUrl;
     }
 
 
-     <!--編輯按鈕按下會能夠更新會員資料-->
+    //  編輯按鈕按下會能夠更新會員資料
 
 
     //const editBtn_el = document.getElementsByClassName("editBtn");
@@ -185,7 +185,6 @@ window.addEventListener("load", function (e) {
         "hostSta": hostSta[hostId-1].value,}
 
     try {
-        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
         const response = await fetch(`${baseUrl}host/update`, {
             method: 'POST',
             headers: {
@@ -212,7 +211,7 @@ window.addEventListener("load", function (e) {
 // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+  const response = await fetch(`${baseUrl}host/hostLogout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -224,7 +223,7 @@ logoutBtn_el.addEventListener("click", async function () {
                                              text: '',
                                              confirmButtonText: '確定'
                           }).then(()=>{
-                            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+                            location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
                           })
                         // location.reload();
                     } 

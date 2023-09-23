@@ -2,7 +2,7 @@ let prodCatId;
 let prodSta;
 
 // fetch對應到的路徑
-let baseURL = window.location.protocol + "//" + window.location.host + "/u-and-me/product/";
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 // -----取得元素-----
 const prodName_el = document.querySelector('#prodName');
@@ -10,7 +10,7 @@ const prodPri_el = document.getElementById('prodPri');
 const prodCon_el = document.querySelector('#prodCon');
 const btnSubmit_el = document.querySelector('#btnSubmit')
 
-    // const inputProdPri_el = this.document.querySelector("#prodPri");
+// const inputProdPri_el = this.document.querySelector("#prodPri");
 
 // -----錯誤處理-----
 const inputProdName_el = document.getElementById('inputProdName');
@@ -54,7 +54,7 @@ window.addEventListener("load", function (e) {
         console.log(prodSta_el.value);
         prodSta = prodSta_el.value;
     }
-    
+
 
     // const errorContainer = document.getElementById("errorContainer"); // 創一個 <div> 元素來裝錯誤訊息
 
@@ -101,42 +101,42 @@ window.addEventListener("load", function (e) {
     btnSubmit_el.addEventListener("click", function (e) {
         e.preventDefault()
         let control = true; //控制是否進入fetch
-    //==================錯誤驗證==================
-    //初始化Str
-    // iNameStr.innerHTML = '';
-    // iPriStr.innerHTML = '';
-    // iConStr.innerHTML = '';
-    prodNameHint_el.innerHTML ='';
-    prodPriHint_el.innerHTML ='';
-    prodPicHint_el.innerHTML ='';
-    prodConHint_el.innerHTML ='';
-    
-    //商品名稱
-    if (prodName.value === null || prodName.value.trim() === ""){
-        control = false;
-        prodNameHint_el.innerHTML = '*請填寫商品名稱';
-      }
-    //商品售價
-    if (prodPri.value === null || prodPri.value.trim() === ""){
-        control = false;
-        prodPriHint_el.innerHTML = '*請填寫商品售價';
-      }else if (prodPri_el.value < 0 || !(Number.isInteger(Number(prodPri_el.value)))) {
-        console.log(prodPri_el.value);
-        control = false;
-        prodPriHint_el.innerHTML = '*價格必須為正整數';
-    }
+        //==================錯誤驗證==================
+        //初始化Str
+        // iNameStr.innerHTML = '';
+        // iPriStr.innerHTML = '';
+        // iConStr.innerHTML = '';
+        prodNameHint_el.innerHTML = '';
+        prodPriHint_el.innerHTML = '';
+        prodPicHint_el.innerHTML = '';
+        prodConHint_el.innerHTML = '';
 
-     //照片
-     if (prodPic_el.value == "") {
-        control = false;
-        prodPicHint_el.innerHTML = '*請選擇商品照片';
-    }
+        //商品名稱
+        if (prodName.value === null || prodName.value.trim() === "") {
+            control = false;
+            prodNameHint_el.innerHTML = '*請填寫商品名稱';
+        }
+        //商品售價
+        if (prodPri.value === null || prodPri.value.trim() === "") {
+            control = false;
+            prodPriHint_el.innerHTML = '*請填寫商品售價';
+        } else if (prodPri_el.value < 0 || !(Number.isInteger(Number(prodPri_el.value)))) {
+            console.log(prodPri_el.value);
+            control = false;
+            prodPriHint_el.innerHTML = '*價格必須為正整數';
+        }
 
-   //商品詳情
-   if (prodCon.value === null || prodCon.value.trim() === ""){
-        control = false;
-        prodConHint_el.innerHTML = '*請填寫商品詳情';
-  }
+        //照片
+        if (prodPic_el.value == "") {
+            control = false;
+            prodPicHint_el.innerHTML = '*請選擇商品照片';
+        }
+
+        //商品詳情
+        if (prodCon.value === null || prodCon.value.trim() === "") {
+            control = false;
+            prodConHint_el.innerHTML = '*請填寫商品詳情';
+        }
 
         const prodPic = prodPic_el.files[0];
 
@@ -144,54 +144,62 @@ window.addEventListener("load", function (e) {
         const fileReader = new FileReader();
 
         if (control) {
-        //3. 替FileReader物件 註冊 載入監聽器-->
-        fileReader.onload = async event => {
+            //3. 替FileReader物件 註冊 載入監聽器-->
+            fileReader.onload = async event => {
 
-        //4. 轉成Base64字串-->
-        const base64Str = btoa(event.target.result);
+                //4. 轉成Base64字串-->
+                const base64Str = btoa(event.target.result);
 
-        //將資料包裝成一個物件-->
-            const send_data = {
-                // prodId: prodId_el.value,
-                prodName: prodName_el.value.trim(),
-                prodSta: prodSta,
-                prodCatId: prodCatId_el.value.trim(),
-                prodPri: prodPri_el.value.trim(),
-                prodCon: prodCon_el.value.trim(),
-                prodPic: base64Str
-            }
-            // console.log(send_data);
-            await fetch(baseURL+"createProduct", {
-                headers: {"content-type": "application/json"},
-                method: 'POST',
-                body: JSON.stringify(send_data)
-            })
-            .catch(function (error) {
+                //將資料包裝成一個物件-->
+                const send_data = {
+                    // prodId: prodId_el.value,
+                    prodName: prodName_el.value.trim(),
+                    prodSta: prodSta,
+                    prodCatId: prodCatId_el.value.trim(),
+                    prodPri: prodPri_el.value.trim(),
+                    prodCon: prodCon_el.value.trim(),
+                    prodPic: base64Str
+                }
+                // console.log(send_data);
+                await fetch(baseUrl + "product/createProduct", {
+                    headers: { "content-type": "application/json" },
+                    method: 'POST',
+                    body: JSON.stringify(send_data)
+                })
+                    .catch(function (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '新增失敗',
+                            text: '請檢查填入資料',
+                            showCancelButton: true
+                        })
+                        return;
+                    });
+                Swal.fire({
+                    icon: 'success',
+                    title: '新增成功',
+                    text: '',
+                    confirmButtonText: '確定'
+                })
+                    .then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = 'productList.html';
+                        }
+                    });
+            };
+            try {
+
+                //5. 開始讀取檔案-->
+                fileReader.readAsBinaryString(prodPic)
+            } catch (e) {
                 Swal.fire({
                     icon: 'error',
                     title: '新增失敗',
                     text: '請檢查填入資料',
                     showCancelButton: true
                 })
-                return;
-            });
-            Swal.fire({
-            icon: 'success',
-            title: '新增成功',
-            text: '',
-            confirmButtonText: '確定'
-            })
-            .then((result) => {
-            if (result.isConfirmed) {
-            window.location.href = 'productList.html';
-             }
-             });
-        };
-        try {
-
-        //5. 開始讀取檔案-->
-        fileReader.readAsBinaryString(prodPic)
-        } catch (e) {
+            }
+        } else {
             Swal.fire({
                 icon: 'error',
                 title: '新增失敗',
@@ -199,51 +207,42 @@ window.addEventListener("load", function (e) {
                 showCancelButton: true
             })
         }
-    }else {
-        Swal.fire({
-            icon: 'error',
-            title: '新增失敗',
-            text: '請檢查填入資料',
-            showCancelButton: true
-        })
-    }
     });
 });
 
 // 管理員filter
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
-    method: 'GET'
-}).then(response => {
-    if(response.status == 401){
+    this.fetch(baseUrl + 'host/match', {
+        method: 'GET'
+    }).then(response => {
+        if (response.status == 401) {
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+            this.location.href = baseUrl + 'tmp/back_end/host/hostLogin.html';
 
-    }
-});
+        }
+    });
 })
 
 
 // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
 logoutBtn_el.addEventListener("click", async function () {
-    const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-    },
-});if (response.ok) {
-                                Swal.fire({
-                                                icon: 'success',
-                                                title: '管理員登出成功',
-                                                text: '',
-                                                confirmButtonText: '確定'
-                            }).then(()=>{
-                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
-                            })
-                        // location.reload();
-                    } 
+    const response = await fetch(baseUrl + 'host/hostLogout', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }); if (response.ok) {
+        Swal.fire({
+            icon: 'success',
+            title: '管理員登出成功',
+            text: '',
+            confirmButtonText: '確定'
+        }).then(() => {
+            location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
+        })
+        // location.reload();
+    }
 });
 
