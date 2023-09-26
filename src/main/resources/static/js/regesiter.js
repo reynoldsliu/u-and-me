@@ -59,4 +59,4 @@
 //			img.src = URL.createObjectURL(file);
 //		}
 //	});
-})();
+// })();

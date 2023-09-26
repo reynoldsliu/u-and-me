@@ -1,4 +1,4 @@
-let baseUrl = window.location.protocol + "//" + window.location.host;
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 let id;
 
 const gId_el = document.getElementById('gId');
@@ -10,17 +10,16 @@ const confirm_el = document.getElementById('confirm');
 
 
 // 管理員filter
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 // <!--網頁載入後執行-->
 
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
+this.fetch(baseUrl + 'host/match', {
     method: 'GET'
 }).then(response => {
     if(response.status == 401){
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+            this.location.href = baseUrl + 'tmp/back_end/host/hostLogin.html';
 
     }
 });
@@ -49,7 +48,7 @@ $(function () {
 function findqalist() {
   //ajax區塊
   $.ajax({
-    url: baseUrl + "/u-and-me/groups", //請求動態網址
+    url: baseUrl + "groups", //請求動態網址
     contentType: 'application/json; charset=UTF-8',
     data: {}, //請求獲取全部無參數
     dataType: "json",
@@ -231,7 +230,7 @@ function findqalist() {
 let groupId;
 async function fetchSta(id) {
   groupId = id;
-  await fetch(baseUrl + '/u-and-me/group/' + id, {
+  await fetch(baseUrl + 'group/' + id, {
     method: 'GET',
   }).then(response => {
     return response.json();
@@ -281,7 +280,7 @@ async function fetchSta(id) {
 }
 
 function jump(groupId){
-  window.open(baseUrl + '/u-and-me/tmp/back_end/group/myGroupListUpdate.html?groupId=' + groupId);
+  window.open(baseUrl + 'tmp/back_end/group/myGroupListUpdate.html?groupId=' + groupId);
 }
 
 let gSta = null;
@@ -301,7 +300,7 @@ confirm_el.addEventListener('click', async function (e) {
       paymentSta: pSta
     }
 
-    await fetch(baseUrl + '/u-and-me/group/updateGStaPSta/' + groupId, {
+    await fetch(baseUrl + 'group/updateGStaPSta/' + groupId, {
       headers: {
         "content-type": "application/json",
       },
@@ -328,9 +327,8 @@ confirm_el.addEventListener('click', async function (e) {
 
 // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
-// const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+  const response = await fetch(`${baseUrl}host/hostLogout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -342,7 +340,7 @@ logoutBtn_el.addEventListener("click", async function () {
                                              text: '',
                                              confirmButtonText: '確定'
                           }).then(()=>{
-                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                            location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
                           })
                         // location.reload();
                     } 

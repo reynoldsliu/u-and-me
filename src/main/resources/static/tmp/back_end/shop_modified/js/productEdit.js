@@ -9,7 +9,7 @@
     dropdownToggleList.map(function (dropdownToggle) {
       return new bootstrap.Dropdown(dropdownToggle)
     });
-    
+
 
 
 
@@ -37,17 +37,17 @@ let cover;
 let prodCatId;
 const prodCatId_el = document.getElementById('prodCatIdSelect');
 prodCatId_el.addEventListener('change', prodCatIdChange)
-function prodCatIdChange(){
-   console.log(prodCatId_el.value);
-   prodCatId = prodCatId_el.value;
+function prodCatIdChange() {
+  console.log(prodCatId_el.value);
+  prodCatId = prodCatId_el.value;
 }
 // 上下架下拉選單
 let prodSta;
 const prodSta_el = document.getElementById('prodStaSelect');
 prodSta_el.addEventListener('change', prodStaChange)
-function prodStaChange(){
-   console.log(prodSta_el.value);
-   prodSta = prodSta_el.value;
+function prodStaChange() {
+  console.log(prodSta_el.value);
+  prodSta = prodSta_el.value;
 }
 //上下架按鈕
 // const prodSta_el = document.getElementById('prodSta'); 
@@ -57,7 +57,7 @@ function prodStaChange(){
 // const buttons = prodStaButtons.querySelectorAll("button");
 // prodStaButtons_on_el.addEventListener('click',function(){
 //     prodSta = 1;
-    
+
 //     // 添加 active 類別到上架按鈕，移除 active 類別從下架按鈕
 //     prodStaButtons_on_el.classList.add('active');
 //     prodStaButtons_off_el.classList.remove('active');
@@ -77,12 +77,12 @@ function prodStaChange(){
 const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 //取得單筆商品資料
-async function fetchListProductDetail(){
-  try{
-      const resp = await fetch(`${baseUrl}product/listProductDetail/${prodId}`);
-      const productDetail = await resp.json();
-      console.log(productDetail);
-    
+async function fetchListProductDetail() {
+  try {
+    const resp = await fetch(`${baseUrl}product/listProductDetail/${prodId}`);
+    const productDetail = await resp.json();
+    console.log(productDetail);
+
     //無選擇新圖片，cover保持舊的圖片數據
     const dataurl = `data:image/jpeg;base64,${productDetail.prodPic}`;
     cover = productDetail.prodPic;
@@ -101,35 +101,35 @@ async function fetchListProductDetail(){
     preview_img_el.style.height = '180px'; // 設定高度為150像素
 
 
-  }catch(error){
+  } catch (error) {
     console.error('Error fetching product detail:', error);
   }
 }
 
 //網頁載入完成後執行
-document.addEventListener('DOMContentLoaded',function() {
+document.addEventListener('DOMContentLoaded', function () {
 
   console.log(prodId);
-  fetchListProductDetail(); 
+  fetchListProductDetail();
 
   //選擇圖片時觸發事件
-  prodPicUpload_el.addEventListener('change', function(){
+  prodPicUpload_el.addEventListener('change', function () {
     const id = this.id;
     const files = this.files;
-console.log(123);
-      cover = files[0];
-      //URL.createObjectURL(file)創建一個臨時的URL，指用戶選擇的文件，將圖片顯示在img元素中
-      preview_img_el.src = URL.createObjectURL(cover);
-      //創建一個FileReader對象，用於讀取文件的內容
-      const fileReader = new FileReader();
-      //當文件加載/讀取完成，將執行event以下的程式
-      // btoa 用於將二進制數據轉換為 Base64 編碼的字符串
-      fileReader.onload = async event => {
-        cover = btoa(event.target.result);
-        console.log(cover);
-      };
-      //將文件內容讀取為二進位字符串
-      fileReader.readAsBinaryString(cover);
+    console.log(123);
+    cover = files[0];
+    //URL.createObjectURL(file)創建一個臨時的URL，指用戶選擇的文件，將圖片顯示在img元素中
+    preview_img_el.src = URL.createObjectURL(cover);
+    //創建一個FileReader對象，用於讀取文件的內容
+    const fileReader = new FileReader();
+    //當文件加載/讀取完成，將執行event以下的程式
+    // btoa 用於將二進制數據轉換為 Base64 編碼的字符串
+    fileReader.onload = async event => {
+      cover = btoa(event.target.result);
+      console.log(cover);
+    };
+    //將文件內容讀取為二進位字符串
+    fileReader.readAsBinaryString(cover);
 
   });
 });
@@ -137,10 +137,10 @@ console.log(123);
 // console.log(file);
 //     //1. 取得File物件
 //     cover_img_el.src = URL.createObjectURL(file);
-    
+
 //     //2. 實例化FileReader物件
 //     const fileReader = new FileReader();
-    
+
 //     cover_img_el.src = fileReader.readAsBinaryString(file);
 //     //3. 替FileReader物件 註冊 載入監聽器
 //     fileReader.onload = async event => {
@@ -152,19 +152,19 @@ console.log(123);
 //   }
 
 
-    //透過this關鍵字來引用觸發事件的元素即上傳圖片的prodPic_el
-    //files 是文件上傳輸入框的屬性，取第一個文件
-    // const files = this.files;
-    // console.log(files);
+//透過this關鍵字來引用觸發事件的元素即上傳圖片的prodPic_el
+//files 是文件上傳輸入框的屬性，取第一個文件
+// const files = this.files;
+// console.log(files);
 
-    // cover = files[0];
-    // console.log(cover);
+// cover = files[0];
+// console.log(cover);
 
-    
+
 
 
 //按下確認修改按鈕時觸發
-btnSubmit_el.addEventListener('click', async function(event){
+btnSubmit_el.addEventListener('click', async function (event) {
   //將要傳遞的資料包裝成一個物件
   const send_data = {
     prodName: prodName_el.value,
@@ -173,78 +173,76 @@ btnSubmit_el.addEventListener('click', async function(event){
     prodPri: prodPri_el.value,
     prodCon: prodCon_el.value,
     prodPic: cover
-};
-// //檢查cover是否有值，如果有選擇圖片，則更新cover_img_el
-// if(cover){
-//   send_data.cover_img_el = cover;
-// }
+  };
+  // //檢查cover是否有值，如果有選擇圖片，則更新cover_img_el
+  // if(cover){
+  //   send_data.cover_img_el = cover;
+  // }
 
-try{
-  const resp = await fetch (`${baseUrl}product/updateProduct/${prodId}`,{
-    method: 'PUT',
-    headers: {'Content-Type': 'application/json'},
-    //將數據對象轉換為可在請求主體中傳輸的JSON字符串
-    body: JSON.stringify(send_data)
-  });
-  
-  if(resp.ok){
-    const updatedProductData = await resp.json();
+  try {
+    const resp = await fetch(`${baseUrl}product/updateProduct/${prodId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      //將數據對象轉換為可在請求主體中傳輸的JSON字符串
+      body: JSON.stringify(send_data)
+    });
 
-    Swal.fire({
-      icon: 'question',
-      title: '確認',
-      text: '確定更新此商品？',
-      confirmButtonText: '確定',
-      showCancelButton: true,
-      cancelButtonText: '取消'
-  })
-  .then(() => {
-    
-    location.href = baseUrl +'tmp/back_end/shop_modified/productList.html';
-});
-} else {
-  console.error('Failed to update product.');
-}
-} catch (error) {
-console.error('Error to update product.', error);
-}
+    if (resp.ok) {
+      const updatedProductData = await resp.json();
+
+      Swal.fire({
+        icon: 'question',
+        title: '確認',
+        text: '確定更新此商品？',
+        confirmButtonText: '確定',
+        showCancelButton: true,
+        cancelButtonText: '取消'
+      })
+        .then(() => {
+
+          location.href = baseUrl + 'tmp/back_end/shop_modified/productList.html';
+        });
+    } else {
+      console.error('Failed to update product.');
+    }
+  } catch (error) {
+    console.error('Error to update product.', error);
+  }
 
 });
 // 管理員filter
 
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
-
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
+  this.fetch(baseUrl + 'host/match', {
     method: 'GET'
-}).then(response => {
-    if(response.status == 401){
+  }).then(response => {
+    if (response.status == 401) {
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+      this.location.href = baseUrl + 'tmp/back_end/host/hostLogin.html';
 
     }
-});
+  });
 })
 
 
- // 登出按鈕
- const logoutBtn_el = document.getElementById("logOut");
-   logoutBtn_el.addEventListener("click", async function () {
-     const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-   });if (response.ok) {
-                                 Swal.fire({
-                                                icon: 'success',
-                                                title: '管理員登出成功',
-                                                text: '',
-                                                confirmButtonText: '確定'
-                             }).then(()=>{
-                               location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
-                             })
-                           // location.reload();
-                       } 
-   });
-   
+// 登出按鈕
+const logoutBtn_el = document.getElementById("logOut");
+logoutBtn_el.addEventListener("click", async function () {
+  const response = await fetch(baseUrl + 'host/hostLogout', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }); if (response.ok) {
+    Swal.fire({
+      icon: 'success',
+      title: '管理員登出成功',
+      text: '',
+      confirmButtonText: '確定'
+    }).then(() => {
+      location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
+    })
+    // location.reload();
+  }
+});
+

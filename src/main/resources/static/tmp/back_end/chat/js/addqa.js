@@ -1,15 +1,15 @@
 
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 // <!--網頁載入後執行-->
 
 
 window.addEventListener("load", function (e) {
-  this.fetch(baseUrL + 'host/match', {
+  this.fetch(baseUrl + 'host/match', {
     method: 'GET'
   }).then(response => {
     if (response.status == 401) {
 
-      this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+      this.location.href = baseUrl + 'tmp/back_end/host/hostLogin.html';
 
     }
   });
@@ -42,7 +42,6 @@ let qabutton = document.getElementById("qabutton");
 //點擊新增按鈕
 qabutton.addEventListener("click", function () {
 
-  var baseUrl = window.location.protocol + "//" + window.location.host;
   //錯誤驗證
   if (qaTitle_val.value.trim() === "") {
     errortitle.innerHTML = '文章標題不可空白!';
@@ -73,7 +72,7 @@ qabutton.addEventListener("click", function () {
     title: '新增成功',
     icon: 'success'
   }).then(function () {
-    window.location.href = baseUrl + "/u-and-me/tmp/back_end/chat/qa.html";
+    window.location.href = baseUrl + "tmp/back_end/chat/qa.html";
   })
 
 })
@@ -81,10 +80,9 @@ qabutton.addEventListener("click", function () {
 
 
 // 登出按鈕
-const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 const logoutBtn_el = document.getElementById("logOut");
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+  const response = await fetch(`${baseUrl}host/hostLogout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -96,7 +94,7 @@ logoutBtn_el.addEventListener("click", async function () {
       text: '',
       confirmButtonText: '確定'
     }).then(() => {
-      location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+      location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
     })
     // location.reload();
   }

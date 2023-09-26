@@ -1,15 +1,15 @@
 
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 // <!--網頁載入後執行-->
 
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
+this.fetch(baseUrl + 'host/match', {
     method: 'GET'
 }).then(response => {
     if(response.status == 401){
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+            this.location.href = baseUrl + 'tmp/back_end/host/hostLogin.html';
 
     }
 });
@@ -47,8 +47,7 @@ let qaState_val = document.querySelector("#addqaState");
 let qabutton = document.getElementById("qabutton");
 
 function findByQaId(qaId) {
-    var baseUrl = window.location.protocol + "//" + window.location.host;
-    fetch(baseUrl + `/u-and-me/qas/${qaId}`)
+    fetch(baseUrl + `qas/${qaId}`)
         .then(function (resp) {
             return resp.json()
         })
@@ -78,9 +77,8 @@ qabutton.addEventListener("click", function () {
 
     const urlParams = new URLSearchParams(window.location.search);
     const qaId = urlParams.get('qaId');
-    var baseUrl = window.location.protocol + "//" + window.location.host;
 
-    fetch(baseUrl + `/u-and-me/updqa/${qaId}`, {
+    fetch(baseUrl + `updqa/${qaId}`, {
         method: 'Put',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -99,7 +97,7 @@ qabutton.addEventListener("click", function () {
         title: '更新成功',
         icon: 'success'
     }).then(function () {
-        window.location.href = baseUrl + "/u-and-me/tmp/back_end/chat/qa.html";
+        window.location.href = baseUrl + "tmp/back_end/chat/qa.html";
     })
 
 
@@ -111,9 +109,8 @@ qabutton.addEventListener("click", function () {
 
 // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
-// const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+  const response = await fetch(`${baseUrl}host/hostLogout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -125,7 +122,7 @@ logoutBtn_el.addEventListener("click", async function () {
                                              text: '',
                                              confirmButtonText: '確定'
                           }).then(()=>{
-                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                            location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
                           })
                         // location.reload();
                     } 

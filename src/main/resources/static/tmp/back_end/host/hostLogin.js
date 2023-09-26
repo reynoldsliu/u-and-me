@@ -1,3 +1,5 @@
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+
     const loginBtn_el = document.getElementById("loginBtn");
     loginBtn_el.addEventListener("click", function () {
       const hostEmail = document.getElementById("hostEmail").value;
@@ -13,7 +15,7 @@
 
 //    const testloginBtn_el = document.getElementById("testloginBtn");
 //    testloginBtn_el.addEventListener("click", async function () {
-//      const response = await fetch('http://localhost:8080/u-and-me/host/testlogin', {
+//      const response = await fetch(`${baseUrl}host/testlogin`, {
 //        method: "POST",
 //        headers: {
 //          "Content-Type": "application/json",
@@ -23,7 +25,7 @@
 //    })
 //    const logoutBtn_el = document.getElementById("logoutBtn");
 //    logoutBtn_el.addEventListener("click", async function () {
-//      const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+//      const response = await fetch(`${baseUrl}host/hostLogout`, {
 //        method: "POST",
 //        headers: {
 //          "Content-Type": "application/json",
@@ -33,11 +35,10 @@
 //    })
 
 
-const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me";
 
     Login = async function Login(host) {
 
-      const response = await fetch(baseUrL+'host/hostLogin', {
+      const response = await fetch(baseUrl+'host/hostLogin', {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +51,7 @@ const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and
                                                      text: '',
                                                      confirmButtonText: '確定'
                                   }).then(()=>{
-                                    location.href = baseUrl + '/tmp/back_end/member/member.html'
+                                    location.href = baseUrl + 'tmp/back_end/member/member.html'
                                   })
                                 }else if(response.status == 402){
                                     Swal.fire({
@@ -73,9 +74,8 @@ const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and
 
   // 登出按鈕
 const logoutBtn_el = document.getElementById("logOut");
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch(baseUrL+'host/hostLogout', {
+  const response = await fetch(baseUrl+'host/hostLogout', {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -87,7 +87,7 @@ logoutBtn_el.addEventListener("click", async function () {
                                              text: '',
                                              confirmButtonText: '確定'
                           }).then(()=>{
-                            location.href = baseUrL + '/tmp/back_end/host/hostLogin.html'
+                            location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
                           })
                         // location.reload();
                     } 

@@ -312,7 +312,7 @@ window.addEventListener("load", function (e) {
   // 登出按鈕
   const logoutBtn_el = document.getElementById("logOut");
         logoutBtn_el.addEventListener("click", async function () {
-          const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+          const response = await fetch(baseUrl+'host/hostLogout', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -324,7 +324,7 @@ window.addEventListener("load", function (e) {
                                                      text: '',
                                                      confirmButtonText: '確定'
                                   }).then(()=>{
-                                    location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+                                    location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
                                   })
                                 location.reload();
                             } 
@@ -490,14 +490,14 @@ window.addEventListener("load", function (e) {
       [1, '團主'],
     ]);
 
-     <!--按修改鈕會根據memId跳轉到詳細內容頁面，並將資料映射到相關欄位上-->
+    //  按修改鈕會根據memId跳轉到詳細內容頁面，並將資料映射到相關欄位上
     function redirectToDetailPage(memId) {
       var newPageUrl = `activityEdit.html?memId=${memId}`;
       window.location.href = newPageUrl;
     }
 
 
-     <!--編輯按鈕按下會能夠更新會員資料-->
+    // 編輯按鈕按下會能夠更新會員資料
 
 
     //const editBtn_el = document.getElementsByClassName("editBtn");
@@ -528,7 +528,6 @@ window.addEventListener("load", function (e) {
         "memGroup": memGroup[memId-1].value};
         console.log( memSta[memId-1].value);
     try {
-        const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
         const response = await fetch(`${baseUrl}hostToMember/update`, {
             method: 'POST',
             headers: {

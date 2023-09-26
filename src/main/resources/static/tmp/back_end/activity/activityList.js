@@ -17,6 +17,7 @@
 })()
 
 // ----------------------------------------------------------------------------------------------
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 // <!--網頁載入後執行-->
 document.addEventListener("DOMContentLoaded", function () {
@@ -25,15 +26,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 管理員filter
 
-const baseUrL = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 
 window.addEventListener("load", function (e) {
-this.fetch(baseUrL + 'host/match', {
+this.fetch(baseUrl + 'host/match', {
     method: 'GET'
 }).then(response => {
     if(response.status == 401){
 
-            this.location.href = baseUrL + 'tmp/back_end/host/hostLogin.html';
+            this.location.href = baseUrl + 'tmp/back_end/host/hostLogin.html';
 
     }
 });
@@ -42,7 +42,7 @@ this.fetch(baseUrL + 'host/match', {
 
 async function fetchActivityList() {
     try {
-        const response = await fetch('http://localhost:8080/u-and-me/activityall');
+        const response = await fetch(`${baseUrl}activityall`);
         const activityList = await response.json();
 
         const dataTableList = document.getElementById("dataTableList");
@@ -104,10 +104,9 @@ function redirectToDetailPage(activId) {
 }
 
 // 登出按鈕
-const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
 const logoutBtn_el = document.getElementById("logOut");
 logoutBtn_el.addEventListener("click", async function () {
-  const response = await fetch('http://localhost:8080/u-and-me/host/hostLogout', {
+  const response = await fetch(`${baseUrl}host/hostLogout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -119,7 +118,7 @@ logoutBtn_el.addEventListener("click", async function () {
                                              text: '',
                                              confirmButtonText: '確定'
                           }).then(()=>{
-                            location.href = baseUrl + '/tmp/back_end/host/hostLogin.html'
+                            location.href = baseUrl + 'tmp/back_end/host/hostLogin.html'
                           })
                         // location.reload();
                     } 

@@ -1,11 +1,13 @@
- <!--網頁載入後執行-->
+//  網頁載入後執行
+const baseUrl = window.location.protocol + "//" + window.location.host + "/u-and-me/";
+
         document.addEventListener("DOMContentLoaded", function () {
             fetchMemberList();
         });
 
         async function fetchMemberList() {
             try {
-                const response = await fetch('http://localhost:8081/u-and-me/hostToMember/all');
+                const response = await fetch(baseUrl+'hostToMember/all');
                 const memberList = await response.json();
 
                 const dataTableList = document.getElementById("dataTableList");
