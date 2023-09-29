@@ -72,70 +72,6 @@ create table group_register(
 );
 
 
--- create schema onlineshoppingmall;
--- use onlineshoppingmall;
-
- create table orders (
-    ord_id int primary key auto_increment,
-    mem_id int not null,
-    points int,
-    ord_fee int,
-    recipient_phone varchar(15) not null,
-    ord_pay_sta tinyint default 0 not null, -- 0:未付款,1:已付款
-    recipient_name varchar(10),
-    recipient_addr varchar(30),
-    ord_sta tinyint default 0 not null, -- 0:未出貨,1:已出貨,2:已到貨,3:訂單完成,4:訂單取消
-    total int,
-    checktotal int,
-    ord_time timestamp not null default current_timestamp
---  constraint fk_mem_id
---  foreign key(mem_id) references table_name(mem_id)
-);
-select * from orders;
-INSERT INTO orders (ord_id, mem_id, points, ord_fee, recipient_phone, ord_pay_sta, recipient_name, recipient_addr, ord_sta, total, checktotal, ord_time)
-VALUES
-  (1, 1, 100, 50, '09111111111', 1, 'John', 'Address 1', 0, 150, 150, '2023-07-29 10:00:00'),
-  (2, 2, 200, 80, '0922222222', 1, 'Jane', 'Address 2', 1, 280, 280, '2023-07-29 11:30:00'),
-  (3, 3, 150, 40, '0933333333', 1, 'Bob', 'Address 3', 3, 190, 190, '2023-07-29 12:45:00'),
-  (4, 4, 300, 120, '0944444444', 0, 'Alice', 'Address 4', 4, 420, 420, '2023-07-29 14:20:00'),
-  (5, 5, 250, 90, '0955555555', 1, 'Michael', 'Address 5', 1, 340, 340, '2023-07-29 15:10:00'),
-  (6, 6, 50, 20, '0966666666', 1, 'Emily', 'Address 6', 3, 70, 70, '2023-07-29 16:30:00'),
-  (7, 7, 400, 150, '0977777777', 0, 'David', 'Address 7', 0, 550, 550, '2023-07-29 17:40:00'),
-  (8, 8, 180, 60, '0988888888', 1, 'Karen', 'Address 8', 2, 240, 240, '2023-07-29 18:20:00'),
-  (9, 9, 120, 40, '0999999999', 1, 'Tom', 'Address 9', 1, 160, 160, '2023-07-29 19:15:00'),
-  (10, 10, 80, 30, '0900000000', 0, 'Sara', 'Address 10', 0, 110, 110, '2023-07-29 20:00:00');
-select * from orders;
-
-
-create table order_details(
-	ord_id int,
-    prod_id int,
-    prod_qty int not null,
-	prod_review varchar(50),
-    prod_price int not null,
-    prod_com_score decimal(2,1),
-    primary key(ord_id, prod_id)
---  constraint fk_ord_id
---  foreign key(ord_id) references orders(ord_id),
---  constraint fk_prod_id
---  foreign key(prod_id) references product(prod_id)
-    );
-select * from order_details;
-INSERT INTO order_details (ord_id, prod_id, prod_qty, prod_review, prod_price, prod_com_score)
-VALUES
-  (1, 101, 2, '溫暖又時尚，冬日必備!', 50, 4.5),
-  (1, 102, 1, '高品質，百搭款式。', 30, 4.0),
-  (2, 103, 3, '音質一流，舒適好聽。', 20, 4.2),
-  (2, 104, 2, '容納一切，時尚又實用。', 25, 4.8),
-  (3, 105, 1, '鋒利耐用，廚房必備！', 15, 3.5),
-  (3, 106, 4, '超棒的商品品質', 40, 4.7),
-  (4, 107, 2, '好實用!', 60, 4.9),
-  (4, 108, 1, '購物愉快，回頭客。', 10, 3.9),
-  (5, 109, 3, '超滿意，五顆星推薦！', 35, 3.0),
-  (5, 110, 2, '熱銷商品，值得信賴。', 45, 4.4);
-select * from order_details;
-
-
 
 -- 揪團表格建立 宇航
 -- create database uandme;
@@ -510,7 +446,7 @@ INSERT INTO orders (ord_id, mem_id, points, ord_fee, recipient_phone, ord_pay_st
 VALUES
   (101, 1, 100, 50, '09111111111', 1, '許彤彤', '台北市大安區復興南路一段123號', 0, 110, 1150, '2023-07-29 10:00:00'),
   (102, 2, 200, 80, '0922222222', 1, '陳安安', '新北市板橋區文化路二段456號', 1, 7378, 7458, '2023-07-29 11:30:00'),
-  (103, 3, 150, 40, '0933333333', 1, '吳蓁蓁', '高雄市鳳山區中山西路789號', 0, 1190, 1230, '2023-07-29 12:45:00');
+  (103, 3, 150, 40, '0933333333', 1, '吳蓁蓁', '高雄市鳳山區中山西路789號', 0, 1190, 1230, '2023-07-29 12:45:00'),
 
 
 select * from orders;
