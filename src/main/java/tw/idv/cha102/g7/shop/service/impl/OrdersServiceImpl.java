@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.shop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,6 +29,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String mailFrom;
 
     @Autowired
     private MemberRepository memberRepository;
@@ -60,7 +64,7 @@ public class OrdersServiceImpl implements OrdersService {
 
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setFrom("xiaoina914@gmail.com");//寄出信件的信箱
+        message.setFrom(mailFrom);//寄出信件的信箱
         message.setTo(recieverEmail);//接收信件的信箱
         message.setSubject("U-and-Me 客服郵件");//信件主旨
         message.setText("訂購人姓名：" + member.getMemName()+"\n\n"+

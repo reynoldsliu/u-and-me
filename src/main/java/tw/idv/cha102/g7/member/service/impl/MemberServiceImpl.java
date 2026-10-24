@@ -1,6 +1,7 @@
 package tw.idv.cha102.g7.member.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -52,6 +53,9 @@ public class MemberServiceImpl implements MemberService {
     private MemberRepository memberRepository;
     @Autowired
     private JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String mailFrom;
     /**
      * 新增
      *
@@ -66,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
 
 //寄註冊成功
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom("xiaoina914@gmail.com");
+            message.setFrom(mailFrom);
             message.setTo(member.getMemEmail());
             message.setSubject("U-and-Me 註冊成功通知");
             message.setText(
